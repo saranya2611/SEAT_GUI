@@ -1,0 +1,51 @@
+
+
+
+nextButtonWizard2.addActionListener (new ActionListener () {
+			@Override
+			public void actionPerformed (ActionEvent e) {
+				comboCheckFlag = coursePrefListGenerationComboBoxWizard2.getSelectedIndex ();
+				System.out.println ("Selected Index: " + comboCheckFlag);
+				
+				if ((slotConfigFileCheckButtonWizard2.getIcon () == redCrossIcon)) {
+					String waringMessage = "Check slot config file in 2-nd row";
+					nextWizardNavigation (waringMessage);
+				}
+				if ((courseDetailsListCheckButtonWizrd2.getIcon () == redCrossIcon)) {
+					String warningMessage = "Check courseList file in 3-rd row";
+					nextWizardNavigation (warningMessage);
+				}
+				if ((comboCheckFlag == 0)) {
+					String warningMessage = "Please choose one option for generating the course preference list in 4-th row";
+					nextWizardNavigation (warningMessage);
+					comboCheckFlag = coursePrefListGenerationComboBoxWizard2.getSelectedIndex ();
+				}
+				if ((coursePrefListGenerationComboBoxWizard2.getSelectedIndex () == 2) && (selectAnExistingCoursePrefListCheckButtonWizard2.getIcon () == redCrossIcon)) {
+					String waringMessage = "Check existing course preference list in 5-th row";
+					nextWizardNavigation (waringMessage);
+				}
+				if ((studentCgpaListCheckButtonWizard2.getIcon () == redCrossIcon)) {
+					String warningMessage = "Check student's CGPA list file in 6-th row";
+					nextWizardNavigation (warningMessage);
+				}
+				if ((studentPrefListCheckButtonWizard2.getIcon () == redCrossIcon)) {
+					String warningMessage = "Check student's preference list file in 7-th row";
+					nextWizardNavigation (warningMessage);
+				}
+				if ((selectHighPriorityStudentsListCheckButtonWizard2.getIcon () == redCrossIcon)) {
+					String warningMessage = "Check the high priority course list file in 8-th row";
+					nextWizardNavigation (warningMessage);
+				}
+				if ((slotConfigFileCheckButtonWizard2.getIcon () == getGreenTickIcon) && (courseDetailsListCheckButtonWizrd2.getIcon () == getGreenTickIcon) && ((coursePrefListGenerationComboBoxWizard2.getSelectedIndex () == 1) || (coursePrefListGenerationComboBoxWizard2.getSelectedIndex () == 2)) && (studentCgpaListCheckButtonWizard2.getIcon () == getGreenTickIcon) && (studentPrefListCheckButtonWizard2.getIcon () == getGreenTickIcon) && (studentPrefListCheckButtonWizard2.getIcon () == getGreenTickIcon) && (selectHighPriorityStudentsListCheckButtonWizard2.getIcon () == getGreenTickIcon)) {
+					nextButtonWizard2.setEnabled (true);
+					nextButtonWizard2.addActionListener (new ActionListener () {
+						@Override
+						public void actionPerformed (ActionEvent e) {
+							defaultSetOfFilesWizard3 wizard3 = new defaultSetOfFilesWizard3 ();
+							wizard3.setVisible (true);
+							dispose ();
+						}
+					});
+				}
+			}
+		});

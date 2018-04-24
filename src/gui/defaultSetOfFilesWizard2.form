@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="gui.defaultSetOfFilesWizard2">
+  <grid id="27dc6" binding="jPanelWizard2" layout-manager="FormLayout">
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:d:noGrow"/>
+    <rowspec value="top:17dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:15dlu:noGrow"/>
+    <rowspec value="center:34px:noGrow"/>
+    <rowspec value="top:12dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:10dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:11dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:11dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:13dlu:noGrow"/>
+    <rowspec value="top:21dlu:noGrow"/>
+    <rowspec value="center:14px:noGrow"/>
+    <rowspec value="center:38px:noGrow"/>
+    <rowspec value="top:17dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:14dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:13dlu:noGrow"/>
+    <rowspec value="center:34px:noGrow"/>
+    <colspec value="fill:473px:grow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:292px:noGrow"/>
+    <colspec value="left:60dlu:noGrow"/>
+    <colspec value="fill:230px:noGrow"/>
+    <colspec value="left:9dlu:noGrow"/>
+    <colspec value="fill:45px:noGrow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:134px:noGrow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:14px:noGrow"/>
+    <constraints>
+      <xy x="52" y="10" width="1431" height="734"/>
+    </constraints>
+    <properties>
+      <background color="-14793908"/>
+      <font size="16"/>
+      <foreground color="-131585"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="8e07b" class="javax.swing.JLabel" binding="jLabelToSelectOptionsWizard2">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="11" vsize-policy="0" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <font name="Century Schoolbook L" size="28" style="1"/>
+          <foreground color="-1774964"/>
+          <text value="Generate student elective allotments...."/>
+        </properties>
+      </component>
+      <component id="81343" class="javax.swing.JLabel" binding="selectedDefaultDirectoryLabelWizard2">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <font name="Century Schoolbook L" size="16"/>
+          <foreground color="-131585"/>
+          <text value="Selected Default Directory : "/>
+        </properties>
+      </component>
+      <component id="25df6" class="javax.swing.JTextField" binding="selectedDefaultDirTextFieldWizard2">
+        <constraints>
+          <grid row="4" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <font name="Century Schoolbook L" size="18"/>
+        </properties>
+      </component>
+      <component id="f6743" class="javax.swing.JLabel" binding="courseDetailsSegmentLabelWizard2">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <font name="Century Schoolbook L" size="18" style="1"/>
+          <foreground color="-301758"/>
+          <text value="       Lists Related to Course Details         "/>
+        </properties>
+      </component>
+      <component id="cc7db" class="javax.swing.JLabel" binding="slotConfigFileLabelWizard2">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <enabled value="true"/>
+          <focusable value="true"/>
+          <font name="Century Schoolbook L" size="16"/>
+          <foreground color="-131585"/>
+          <horizontalAlignment value="2"/>
+          <horizontalTextPosition value="2"/>
+          <iconTextGap value="2"/>
+          <inheritsPopupMenu value="true"/>
+          <labelFor value="71591"/>
+          <text value="Select file with time-table slots and timings : "/>
+        </properties>
+        <clientProperties>
+          <html.disable class="java.lang.Boolean" value="false"/>
+        </clientProperties>
+      </component>
+      <component id="ed583" class="javax.swing.JTextField" binding="slotConfigFileTextFieldWizard2">
+        <constraints>
+          <grid row="8" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <font name="Century Schoolbook L" size="18"/>
+        </properties>
+      </component>
+      <component id="7e2f6" class="javax.swing.JButton" binding="slotConfigFileCheckButtonWizard2">
+        <constraints>
+          <grid row="8" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="false"/>
+          <font size="16"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="7a505" class="javax.swing.JButton" binding="slotConfigFileButtonWizard2">
+        <constraints>
+          <grid row="8" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <actionCommand value="Button"/>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="true"/>
+          <font name="Century Schoolbook L" size="16"/>
+          <icon value="gui/csv-outline-small.png"/>
+          <iconTextGap value="2"/>
+          <label value="Browse"/>
+          <text value="Browse"/>
+        </properties>
+        <clientProperties>
+          <html.disable class="java.lang.Boolean" value="false"/>
+        </clientProperties>
+      </component>
+      <component id="f6075" class="javax.swing.JLabel" binding="courseDetailsListLabelWizard2">
+        <constraints>
+          <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <doubleBuffered value="true"/>
+          <focusCycleRoot value="true"/>
+          <focusTraversalPolicyProvider value="true"/>
+          <font name="Century Schoolbook L" size="16"/>
+          <foreground color="-131585"/>
+          <labelFor value="22051"/>
+          <text value="Select course details list ( Courseno, credits, slots, etc ) : "/>
+        </properties>
+      </component>
+      <component id="c891" class="javax.swing.JTextField" binding="courseDetailsListTextFieldWizard2">
+        <constraints>
+          <grid row="10" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <font name="Century Schoolbook L" size="18"/>
+        </properties>
+      </component>
+      <component id="f2cdf" class="javax.swing.JButton" binding="courseDetailsListButtonWizard2">
+        <constraints>
+          <grid row="10" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="true"/>
+          <doubleBuffered value="true"/>
+          <focusCycleRoot value="true"/>
+          <focusTraversalPolicyProvider value="true"/>
+          <font name="Century Schoolbook L" size="16"/>
+          <horizontalAlignment value="11"/>
+          <horizontalTextPosition value="11"/>
+          <icon value="gui/csv-outline-small.png"/>
+          <iconTextGap value="2"/>
+          <selected value="false"/>
+          <selectedIcon value="gui/csv-outline-small.png"/>
+          <text value="Browse"/>
+        </properties>
+        <clientProperties>
+          <hideActionText class="java.lang.Boolean" value="false"/>
+          <html.disable class="java.lang.Boolean" value="false"/>
+        </clientProperties>
+      </component>
+      <component id="40dd9" class="javax.swing.JButton" binding="courseDetailsListCheckButtonWizrd2">
+        <constraints>
+          <grid row="10" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="false"/>
+          <font size="16"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="ae62a" class="javax.swing.JLabel" binding="coursePrefListGenerationLabelWizard2">
+        <constraints>
+          <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <font name="Century Schoolbook L" size="16"/>
+          <foreground color="-131585"/>
+          <labelFor value="8716a"/>
+          <text value="Course preference list generation : "/>
+        </properties>
+      </component>
+      <component id="1ebcd" class="javax.swing.JComboBox" binding="coursePrefListGenerationComboBoxWizard2">
+        <constraints>
+          <grid row="12" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <doubleBuffered value="true"/>
+          <editable value="true"/>
+          <focusCycleRoot value="true"/>
+          <focusTraversalPolicyProvider value="true"/>
+          <font name="Century Schoolbook L" size="18"/>
+          <inheritsPopupMenu value="true"/>
+          <maximumRowCount value="5"/>
+          <model>
+            <item value="Choose one from following:"/>
+            <item value="1 - Create new course preference list"/>
+            <item value="2 - Use  existing course preference list"/>
+          </model>
+          <popupVisible value="false"/>
+          <requestFocusEnabled value="true"/>
+        </properties>
+        <clientProperties>
+          <html.disable class="java.lang.Boolean" value="false"/>
+        </clientProperties>
+      </component>
+      <component id="305b" class="javax.swing.JLabel" binding="selectAnExistingCoursePrefListLabelWizard2">
+        <constraints>
+          <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <font name="Century Schoolbook L" size="16"/>
+          <foreground color="-131585"/>
+          <labelFor value=""/>
+          <text value="Select an existing course preference list : "/>
+        </properties>
+      </component>
+      <component id="5b9cb" class="javax.swing.JTextField" binding="selectAnExistingCoursePrefListTextFieldWizard2">
+        <constraints>
+          <grid row="14" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <enabled value="true"/>
+          <font name="Century Schoolbook L" size="18"/>
+        </properties>
+      </component>
+      <component id="2f3c9" class="javax.swing.JButton" binding="selectAnExistingCoursePrefListCheckButtonWizard2">
+        <constraints>
+          <grid row="14" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="false"/>
+          <font size="16"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="2c67b" class="javax.swing.JButton" binding="selectAnExistingCoursePrefListButtonWizard2">
+        <constraints>
+          <grid row="14" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="true"/>
+          <doubleBuffered value="true"/>
+          <enabled value="false"/>
+          <focusCycleRoot value="true"/>
+          <focusTraversalPolicyProvider value="true"/>
+          <font name="Century Schoolbook L" size="16"/>
+          <icon value="gui/csv-outline-small.png"/>
+          <iconTextGap value="2"/>
+          <text value="Browse"/>
+        </properties>
+      </component>
+      <component id="68186" class="javax.swing.JLabel" binding="studentCgpaListLabelWizard2">
+        <constraints>
+          <grid row="18" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="2" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <background color="-8203"/>
+          <enabled value="true"/>
+          <font name="Century Schoolbook L" size="16"/>
+          <foreground color="-131585"/>
+          <labelFor value="5b92f"/>
+          <text value="&lt;html&gt;&lt;center&gt;Select students list including regular and &lt;br&gt; honours students ( RollNo, CGPA, MaxCredits ) : &lt;/center&gt;&lt;/html&gt;"/>
+        </properties>
+      </component>
+      <component id="d0748" class="javax.swing.JTextField" binding="studentCgpaListTextFieldWizard2">
+        <constraints>
+          <grid row="18" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <font name="Century Schoolbook L" size="18"/>
+        </properties>
+      </component>
+      <component id="51bc1" class="javax.swing.JButton" binding="studentCgpaListCheckButtonWizard2">
+        <constraints>
+          <grid row="18" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="false"/>
+          <font size="16"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="52b27" class="javax.swing.JButton" binding="studentCgpaListButtonWizard2">
+        <constraints>
+          <grid row="18" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <actionCommand value="Button"/>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="true"/>
+          <font name="Century Schoolbook L" size="16"/>
+          <icon value="gui/csv-outline-small.png"/>
+          <iconTextGap value="2"/>
+          <label value="Browse"/>
+          <text value="Browse"/>
+        </properties>
+      </component>
+      <component id="be5ed" class="javax.swing.JLabel" binding="studentPreferenceListLabelWizard2">
+        <constraints>
+          <grid row="20" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <autoscrolls value="true"/>
+          <doubleBuffered value="true"/>
+          <focusCycleRoot value="true"/>
+          <focusTraversalPolicyProvider value="true"/>
+          <font name="Century Schoolbook L" size="16"/>
+          <foreground color="-131585"/>
+          <iconTextGap value="0"/>
+          <inheritsPopupMenu value="true"/>
+          <labelFor value="e3f9"/>
+          <text value="&lt;html&gt; &lt;center&gt; Select student's preferenceList &lt;br&gt; ( RollNo, Courseno, Color, Type, SortOrder ) : &lt;/center&gt;&lt;/html&gt; "/>
+          <verticalAlignment value="1"/>
+          <verticalTextPosition value="3"/>
+        </properties>
+      </component>
+      <component id="5d3ea" class="javax.swing.JTextField" binding="studentPreferenceListTextFieldWizard2">
+        <constraints>
+          <grid row="20" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <font name="Century Schoolbook L" size="18"/>
+        </properties>
+      </component>
+      <component id="1044e" class="javax.swing.JButton" binding="studentPrefListCheckButtonWizard2">
+        <constraints>
+          <grid row="20" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="false"/>
+          <font size="16"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="4c989" class="javax.swing.JButton" binding="studentPrefListButtonWizard2">
+        <constraints>
+          <grid row="20" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <autoscrolls value="true"/>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="true"/>
+          <focusCycleRoot value="true"/>
+          <focusTraversalPolicyProvider value="true"/>
+          <focusable value="true"/>
+          <font name="Century Schoolbook L" size="16"/>
+          <icon value="gui/csv-outline-small.png"/>
+          <iconTextGap value="2"/>
+          <selected value="false"/>
+          <text value="Browse"/>
+        </properties>
+      </component>
+      <component id="d75b3" class="javax.swing.JLabel" binding="selectHighPriorityStudentsListLabelWizard2">
+        <constraints>
+          <grid row="22" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <doubleBuffered value="true"/>
+          <focusCycleRoot value="true"/>
+          <focusTraversalPolicyProvider value="true"/>
+          <font name="Century Schoolbook L" size="16"/>
+          <foreground color="-131585"/>
+          <labelFor value="25af7"/>
+          <text value="&lt;html&gt; &lt;center&gt; Select file with list of high priority students &lt;br&gt; ( Course, Batch ) : &lt;/center&gt;&lt;/html&gt;"/>
+        </properties>
+      </component>
+      <component id="2eb11" class="javax.swing.JTextField" binding="selectHighPriorityStudentsListTextFieldWizard2">
+        <constraints>
+          <grid row="22" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <doubleBuffered value="true"/>
+          <dragEnabled value="true"/>
+          <focusCycleRoot value="true"/>
+          <focusTraversalPolicyProvider value="true"/>
+          <font name="Century Schoolbook L" size="18"/>
+          <inheritsPopupMenu value="true"/>
+        </properties>
+      </component>
+      <component id="8d046" class="javax.swing.JButton" binding="selectHighPriorityStudentsListCheckButtonWizard2">
+        <constraints>
+          <grid row="22" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="false"/>
+          <font size="16"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="abf0a" class="javax.swing.JButton" binding="selectHighPriorityStudentsListButtonWizard2">
+        <constraints>
+          <grid row="22" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="true"/>
+          <doubleBuffered value="true"/>
+          <focusCycleRoot value="true"/>
+          <focusTraversalPolicyProvider value="true"/>
+          <font name="Century Schoolbook L" size="16"/>
+          <icon value="gui/csv-outline-small.png"/>
+          <iconTextGap value="2"/>
+          <inheritsPopupMenu value="true"/>
+          <text value="Browse"/>
+        </properties>
+      </component>
+      <component id="1a7dd" class="javax.swing.JLabel" binding="studentDetailsSegmentLabelWizard2">
+        <constraints>
+          <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <font name="Century Schoolbook L" size="18" style="1"/>
+          <foreground color="-301758"/>
+          <text value="      Lists Related to Student Details         "/>
+        </properties>
+      </component>
+      <component id="5c4c2" class="javax.swing.JButton" binding="prevButtonWizard2">
+        <constraints>
+          <grid row="24" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="true"/>
+          <enabled value="false"/>
+          <font name="Century Schoolbook L" size="14"/>
+          <text value="&lt;&lt; Prev"/>
+        </properties>
+      </component>
+      <component id="bc3a2" class="javax.swing.JButton" binding="nextButtonWizard2">
+        <constraints>
+          <grid row="24" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <font name="Century Schoolbook L" size="14"/>
+          <text value="Next &gt;&gt;"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

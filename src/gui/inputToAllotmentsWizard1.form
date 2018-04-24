@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="gui.inputToAllotmentsWizard1">
+  <grid id="27dc6" binding="jPanelWizard1" layout-manager="FormLayout">
+    <rowspec value="center:113px:noGrow"/>
+    <rowspec value="top:15dlu:noGrow"/>
+    <rowspec value="top:28dlu:noGrow"/>
+    <rowspec value="center:22px:noGrow"/>
+    <rowspec value="center:45px:grow"/>
+    <rowspec value="top:18dlu:noGrow"/>
+    <rowspec value="top:11dlu:noGrow"/>
+    <rowspec value="center:31px:noGrow"/>
+    <rowspec value="center:78px:noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:47px:noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="top:14dlu:noGrow"/>
+    <rowspec value="top:16dlu:noGrow"/>
+    <rowspec value="center:75px:noGrow"/>
+    <colspec value="fill:318px:grow"/>
+    <colspec value="left:48dlu:noGrow"/>
+    <colspec value="left:8dlu:noGrow"/>
+    <colspec value="fill:39px:noGrow"/>
+    <colspec value="fill:233px:grow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:69px:noGrow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:max(d;4px):noGrow"/>
+    <colspec value="fill:49px:noGrow"/>
+    <constraints>
+      <xy x="-2" y="20" width="1035" height="677"/>
+    </constraints>
+    <properties>
+      <background color="-14793908"/>
+      <doubleBuffered value="false"/>
+      <foreground color="-131585"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="427d5" class="javax.swing.JLabel" binding="defaultDirectoryTexFieldLabelWizard1">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <font name="Century Schoolbook L" size="20"/>
+          <foreground color="-131585"/>
+          <text value="&lt;html&gt;&lt;center&gt;Select directory with default &lt;br&gt;set of files : &lt;center&gt;&lt;html&gt;"/>
+        </properties>
+      </component>
+      <component id="2914b" class="javax.swing.JTextField" binding="defaultDirectoryTextFieldWizard1">
+        <constraints>
+          <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="false"/>
+          <font name="Century Schoolbook L" size="20"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="1002c" class="javax.swing.JButton" binding="defaultDirectoryBrowseButtonWizard1">
+        <constraints>
+          <grid row="4" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <defaultCapable value="false"/>
+          <enabled value="false"/>
+          <font name="Century Schoolbook L" size="16"/>
+          <icon value="gui/dir1-small.png"/>
+          <text value="Browse"/>
+        </properties>
+      </component>
+      <component id="e97f" class="javax.swing.JLabel" binding="titleFieldWizard1">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="10" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <font name="Lobster Two" size="64" style="1"/>
+          <foreground color="-301758"/>
+          <text value="Welcome to SEAT"/>
+        </properties>
+      </component>
+      <component id="5e76f" class="javax.swing.JLabel" binding="jLabelToSelectOptionsWizard1">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="10" vsize-policy="0" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <font name="Gentium Book Basic" size="32"/>
+          <foreground color="-1774964"/>
+          <text value="To generate student elective allotments...."/>
+        </properties>
+      </component>
+      <component id="bf16d" class="javax.swing.JButton" binding="defaultDirCheckButtonWizard1">
+        <constraints>
+          <grid row="4" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="false"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="5cc19" class="javax.swing.JLabel" binding="jLabelToAnalyseTheAllotmentsWizard1">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="10" vsize-policy="0" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <font name="Gentium Book Basic" size="32"/>
+          <foreground color="-1774964"/>
+          <text value="To analyse already generated allotments ...."/>
+        </properties>
+      </component>
+      <component id="354a1" class="javax.swing.JLabel" binding="analyseDirectoryLabelWizard1">
+        <constraints>
+          <grid row="10" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <font name="Century Schoolbook L" size="20"/>
+          <foreground color="-131585"/>
+          <text value="&lt;html&gt;&lt;center&gt;Select directory with generated &lt;br&gt;allotment files : &lt;center&gt;&lt;html&gt;"/>
+        </properties>
+      </component>
+      <component id="ae93a" class="javax.swing.JTextField" binding="analyseDirectoryTextFieldWizard1">
+        <constraints>
+          <grid row="10" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="false"/>
+          <font name="Century Schoolbook L" size="20"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="26300" class="javax.swing.JButton" binding="analyseDirectoryCheckButtonWizard1">
+        <constraints>
+          <grid row="10" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="false"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="1ee17" class="javax.swing.JButton" binding="analyseDirectoryBrowseButtonWizard1">
+        <constraints>
+          <grid row="10" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="true"/>
+          <enabled value="false"/>
+          <font name="Century Schoolbook L" size="16"/>
+          <icon value="gui/dir1-small.png"/>
+          <text value="Browse"/>
+        </properties>
+      </component>
+      <component id="81a8f" class="javax.swing.JSeparator">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="a1268" class="javax.swing.JTextField" binding="ORTextField" default-binding="true">
+        <constraints>
+          <grid row="5" column="2" row-span="3" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <background color="-14793908"/>
+          <font name="Lobster Two" size="36" style="1"/>
+          <foreground color="-367294"/>
+          <text value="OR"/>
+        </properties>
+      </component>
+      <component id="edf2a" class="javax.swing.JSeparator">
+        <constraints>
+          <grid row="6" column="4" row-span="1" col-span="6" vsize-policy="6" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="903bf" class="javax.swing.JButton" binding="nextButtonWizard1">
+        <constraints>
+          <grid row="13" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <actionCommand value="Proceed &gt;&gt;"/>
+          <autoscrolls value="false"/>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="true"/>
+          <defaultCapable value="true"/>
+          <focusCycleRoot value="false"/>
+          <focusPainted value="true"/>
+          <focusTraversalPolicyProvider value="false"/>
+          <focusable value="true"/>
+          <font name="Century Schoolbook L" size="16"/>
+          <horizontalTextPosition value="0"/>
+          <label value="Proceed &gt;&gt;"/>
+          <requestFocusEnabled value="true"/>
+          <rolloverEnabled value="true"/>
+          <text value="Proceed &gt;&gt;"/>
+          <verifyInputWhenFocusTarget value="true"/>
+        </properties>
+        <clientProperties>
+          <html.disable class="java.lang.Boolean" value="false"/>
+        </clientProperties>
+      </component>
+    </children>
+  </grid>
+  <buttonGroups>
+    <group name="buttonGroup1">
+      <member id="f6508"/>
+      <member id="8cd60"/>
+    </group>
+  </buttonGroups>
+</form>

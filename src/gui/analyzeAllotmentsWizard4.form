@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="gui.analyzeAllotmentsWizard4">
+  <grid id="27dc6" binding="jPanelAnalyseWizard4" layout-manager="FormLayout">
+    <rowspec value="center:d:noGrow"/>
+    <rowspec value="top:16dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:17dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:21dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:23dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:22dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:16dlu:noGrow"/>
+    <rowspec value="center:37px:noGrow"/>
+    <colspec value="fill:d:grow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:422px:noGrow"/>
+    <colspec value="left:8dlu:noGrow"/>
+    <colspec value="fill:71px:noGrow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:165px:noGrow"/>
+    <colspec value="left:4dlu:noGrow"/>
+    <colspec value="fill:19px:noGrow"/>
+    <constraints>
+      <xy x="20" y="20" width="1017" height="583"/>
+    </constraints>
+    <properties>
+      <background color="-14793908"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="c0731" class="javax.swing.JLabel" binding="titleFieldAnalysisWizard4">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="8" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <font name="Lobster Two" size="60" style="1"/>
+          <foreground color="-301758"/>
+          <text value="Welcome to SEAT"/>
+        </properties>
+      </component>
+      <component id="275b4" class="javax.swing.JLabel" binding="jLabelAnalysisWizard4">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="8" vsize-policy="0" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <font name="Gentium Book Basic" size="32" style="1"/>
+          <foreground color="-1774964"/>
+          <text value="Allotment Analysis ...."/>
+        </properties>
+      </component>
+      <component id="3b379" class="javax.swing.JLabel" binding="outputDirectoryLabelWizard4">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <font name="Century Schoolbook L" size="18"/>
+          <foreground color="-131585"/>
+          <text value="&lt;html&gt;&lt;center&gt;Select directory with generated &lt;br&gt;allotment files : &lt;center&gt;&lt;html&gt;"/>
+        </properties>
+      </component>
+      <component id="a46fc" class="javax.swing.JTextField" binding="outputDirectoryTextFieldWizard1">
+        <constraints>
+          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="false"/>
+          <font name="Century Schoolbook L" size="20"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="d6858" class="javax.swing.JButton" binding="outputDirectoryBrowseButtonWizard1">
+        <constraints>
+          <grid row="4" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <enabled value="false"/>
+          <font name="Century Schoolbook L" size="20"/>
+          <icon value="gui/dir1-small.png"/>
+          <text value="Browse"/>
+        </properties>
+      </component>
+      <component id="de343" class="javax.swing.JButton" binding="outputDirectoryCheckButtonWizard1">
+        <constraints>
+          <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="false"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="d762e" class="javax.swing.JButton" binding="getAllotmentStatisticsButtonWizard4">
+        <constraints>
+          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <text value="Get Chosen Allotment's Statistics"/>
+        </properties>
+      </component>
+      <component id="7640" class="javax.swing.JButton" binding="getStudentStatisticsButtonWizard4">
+        <constraints>
+          <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <text value="Get Student Specific Statistics"/>
+        </properties>
+      </component>
+      <component id="f1222" class="javax.swing.JButton" binding="getCourseStatisticsButtonWizard4">
+        <constraints>
+          <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <text value="Get Course Specific Statistics"/>
+        </properties>
+      </component>
+      <component id="7c633" class="javax.swing.JButton" binding="prevButtonWizard4">
+        <constraints>
+          <grid row="12" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <borderPainted value="false"/>
+          <text value="Go Back"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
