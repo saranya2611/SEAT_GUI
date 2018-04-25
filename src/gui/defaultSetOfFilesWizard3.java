@@ -395,8 +395,7 @@ public class defaultSetOfFilesWizard3 extends JFrame {
                     }
                 } else {
                     generateAllotmentsButtonWizard3.setEnabled(false);
-                    JOptionPane.showMessageDialog(null, "\n Please choose one algorithm type from the drop box at 5-th row \n ", "Error", JOptionPane.ERROR_MESSAGE);
-                    //selectAlgorithmTypeComboBoxWizard3.addItemListener (listener);
+                    JOptionPane.showMessageDialog(null, "\n Please choose one algorithm type from the drop box at 5-th row \n ", "Error", JOptionPane.ERROR_MESSAGE);  //selectAlgorithmTypeComboBoxWizard3.addItemListener (listener);
                 }
             }
         });
