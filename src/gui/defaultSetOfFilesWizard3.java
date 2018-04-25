@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -401,8 +402,15 @@ public class defaultSetOfFilesWizard3 extends JFrame {
         });
 
         // Row 6: Component 3: Analyse Allotments Button clickActionListener
-
-
+        analyseAllotmentsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                formValues.getAnalyseAllotmentDirPath();
+                analyzeAllotmentsWizard4 wizard4 = new analyzeAllotmentsWizard4();
+                wizard4.setVisible(true);
+                dispose();
+            }
+        });
     }
 
 
