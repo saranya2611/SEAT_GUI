@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -64,8 +64,8 @@ public class DatasetChangeEvent extends java.util.EventObject {
      * {@link org.jfree.chart.plot.Plot} class).
      *
      * @param source  the source of the event.
-     * @param dataset  the dataset that generated the event (<code>null</code>
-     *                 permitted).
+     * @param dataset the dataset that generated the event (<code>null</code>
+     *                permitted).
      */
     public DatasetChangeEvent(Object source, Dataset dataset) {
         super(source);

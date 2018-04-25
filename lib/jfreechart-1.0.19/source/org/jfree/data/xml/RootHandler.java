@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -40,17 +40,19 @@
 
 package org.jfree.data.xml;
 
-import java.util.Stack;
-
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import java.util.Stack;
 
 /**
  * A SAX handler that delegates work to sub-handlers.
  */
 public class RootHandler extends DefaultHandler implements DatasetTags {
 
-    /** The sub-handlers. */
+    /**
+     * The sub-handlers.
+     */
     private Stack subHandlers;
 
     /**
@@ -72,15 +74,14 @@ public class RootHandler extends DefaultHandler implements DatasetTags {
     /**
      * Receives some (or all) of the text in the current element.
      *
-     * @param ch  character buffer.
+     * @param ch     character buffer.
      * @param start  the start index.
-     * @param length  the length of the valid character data.
-     *
+     * @param length the length of the valid character data.
      * @throws SAXException for errors.
      */
     @Override
     public void characters(char[] ch, int start, int length)
-        throws SAXException {
+            throws SAXException {
         DefaultHandler handler = getCurrentHandler();
         if (handler != this) {
             handler.characters(ch, start, length);
@@ -108,7 +109,7 @@ public class RootHandler extends DefaultHandler implements DatasetTags {
     /**
      * Pushes a sub-handler onto the stack.
      *
-     * @param subhandler  the sub-handler.
+     * @param subhandler the sub-handler.
      */
     public void pushSubHandler(DefaultHandler subhandler) {
         this.subHandlers.push(subhandler);

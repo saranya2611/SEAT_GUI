@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -48,18 +48,20 @@ import org.jfree.ui.TextAnchor;
  */
 public class NumberTick extends ValueTick {
 
-    /** The number. */
+    /**
+     * The number.
+     */
     private Number number;
 
     /**
      * Creates a new tick.
      *
-     * @param number  the number (<code>null</code> not permitted).
-     * @param label  the label.
-     * @param textAnchor  the part of the label that is aligned with the anchor
-     *                    point.
-     * @param rotationAnchor  defines the rotation point relative to the text.
-     * @param angle  the rotation angle (in radians).
+     * @param number         the number (<code>null</code> not permitted).
+     * @param label          the label.
+     * @param textAnchor     the part of the label that is aligned with the anchor
+     *                       point.
+     * @param rotationAnchor defines the rotation point relative to the text.
+     * @param angle          the rotation angle (in radians).
      */
     public NumberTick(Number number, String label,
                       TextAnchor textAnchor,
@@ -73,14 +75,13 @@ public class NumberTick extends ValueTick {
     /**
      * Creates a new tick.
      *
-     * @param tickType  the tick type.
-     * @param value  the value.
-     * @param label  the label.
-     * @param textAnchor  the part of the label that is aligned with the anchor
-     *                    point.
-     * @param rotationAnchor  defines the rotation point relative to the text.
-     * @param angle  the rotation angle (in radians).
-     *
+     * @param tickType       the tick type.
+     * @param value          the value.
+     * @param label          the label.
+     * @param textAnchor     the part of the label that is aligned with the anchor
+     *                       point.
+     * @param rotationAnchor defines the rotation point relative to the text.
+     * @param angle          the rotation angle (in radians).
      * @since 1.0.7
      */
     public NumberTick(TickType tickType, double value, String label,

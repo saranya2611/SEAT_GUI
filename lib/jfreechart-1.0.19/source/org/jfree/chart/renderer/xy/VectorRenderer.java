@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -47,12 +47,6 @@
 
 package org.jfree.chart.renderer.xy;
 
-import java.awt.Graphics2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.plot.CrosshairState;
@@ -64,6 +58,12 @@ import org.jfree.data.Range;
 import org.jfree.data.xy.VectorXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
 /**
  * A renderer that represents data from an {@link VectorXYDataset} by drawing a
@@ -79,10 +79,14 @@ import org.jfree.util.PublicCloneable;
 public class VectorRenderer extends AbstractXYItemRenderer
         implements XYItemRenderer, Cloneable, PublicCloneable, Serializable {
 
-    /** The length of the base. */
+    /**
+     * The length of the base.
+     */
     private double baseLength = 0.10;
 
-    /** The length of the head. */
+    /**
+     * The length of the head.
+     */
     private double headLength = 0.14;
 
     /**
@@ -96,10 +100,9 @@ public class VectorRenderer extends AbstractXYItemRenderer
      * Returns the lower and upper bounds (range) of the x-values in the
      * specified dataset.
      *
-     * @param dataset  the dataset (<code>null</code> permitted).
-     *
+     * @param dataset the dataset (<code>null</code> permitted).
      * @return The range (<code>null</code> if the dataset is <code>null</code>
-     *         or empty).
+     * or empty).
      */
     @Override
     public Range findDomainBounds(XYDataset dataset) {
@@ -118,8 +121,7 @@ public class VectorRenderer extends AbstractXYItemRenderer
                     if (delta < 0.0) {
                         uvalue = vdataset.getXValue(series, item);
                         lvalue = uvalue + delta;
-                    }
-                    else {
+                    } else {
                         lvalue = vdataset.getXValue(series, item);
                         uvalue = lvalue + delta;
                     }
@@ -127,8 +129,7 @@ public class VectorRenderer extends AbstractXYItemRenderer
                     maximum = Math.max(maximum, uvalue);
                 }
             }
-        }
-        else {
+        } else {
             for (int series = 0; series < seriesCount; series++) {
                 int itemCount = dataset.getItemCount(series);
                 for (int item = 0; item < itemCount; item++) {
@@ -141,8 +142,7 @@ public class VectorRenderer extends AbstractXYItemRenderer
         }
         if (minimum > maximum) {
             return null;
-        }
-        else {
+        } else {
             return new Range(minimum, maximum);
         }
     }
@@ -151,10 +151,9 @@ public class VectorRenderer extends AbstractXYItemRenderer
      * Returns the range of values the renderer requires to display all the
      * items from the specified dataset.
      *
-     * @param dataset  the dataset (<code>null</code> permitted).
-     *
+     * @param dataset the dataset (<code>null</code> permitted).
      * @return The range (<code>null</code> if the dataset is <code>null</code>
-     *         or empty).
+     * or empty).
      */
     @Override
     public Range findRangeBounds(XYDataset dataset) {
@@ -173,8 +172,7 @@ public class VectorRenderer extends AbstractXYItemRenderer
                     if (delta < 0.0) {
                         uvalue = vdataset.getYValue(series, item);
                         lvalue = uvalue + delta;
-                    }
-                    else {
+                    } else {
                         lvalue = vdataset.getYValue(series, item);
                         uvalue = lvalue + delta;
                     }
@@ -182,8 +180,7 @@ public class VectorRenderer extends AbstractXYItemRenderer
                     maximum = Math.max(maximum, uvalue);
                 }
             }
-        }
-        else {
+        } else {
             for (int series = 0; series < seriesCount; series++) {
                 int itemCount = dataset.getItemCount(series);
                 for (int item = 0; item < itemCount; item++) {
@@ -196,8 +193,7 @@ public class VectorRenderer extends AbstractXYItemRenderer
         }
         if (minimum > maximum) {
             return null;
-        }
-        else {
+        } else {
             return new Range(minimum, maximum);
         }
     }
@@ -205,24 +201,24 @@ public class VectorRenderer extends AbstractXYItemRenderer
     /**
      * Draws the block representing the specified item.
      *
-     * @param g2  the graphics device.
-     * @param state  the state.
-     * @param dataArea  the data area.
-     * @param info  the plot rendering info.
-     * @param plot  the plot.
-     * @param domainAxis  the x-axis.
-     * @param rangeAxis  the y-axis.
-     * @param dataset  the dataset.
-     * @param series  the series index.
-     * @param item  the item index.
-     * @param crosshairState  the crosshair state.
-     * @param pass  the pass index.
+     * @param g2             the graphics device.
+     * @param state          the state.
+     * @param dataArea       the data area.
+     * @param info           the plot rendering info.
+     * @param plot           the plot.
+     * @param domainAxis     the x-axis.
+     * @param rangeAxis      the y-axis.
+     * @param dataset        the dataset.
+     * @param series         the series index.
+     * @param item           the item index.
+     * @param crosshairState the crosshair state.
+     * @param pass           the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, XYItemRendererState state,
-            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-            int series, int item, CrosshairState crosshairState, int pass) {
+                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+                         int series, int item, CrosshairState crosshairState, int pass) {
 
         double x = dataset.getXValue(series, item);
         double y = dataset.getYValue(series, item);
@@ -244,8 +240,7 @@ public class VectorRenderer extends AbstractXYItemRenderer
         PlotOrientation orientation = plot.getOrientation();
         if (orientation.equals(PlotOrientation.HORIZONTAL)) {
             line = new Line2D.Double(yy0, xx0, yy1, xx1);
-        }
-        else {
+        } else {
             line = new Line2D.Double(xx0, yy0, xx1, yy1);
         }
         g2.setPaint(getItemPaint(series, item));
@@ -279,8 +274,7 @@ public class VectorRenderer extends AbstractXYItemRenderer
             p.lineTo((float) rightx, (float) righty);
             p.lineTo((float) bx, (float) by);
             p.lineTo((float) leftx, (float) lefty);
-        }
-        else {  // orientation is HORIZONTAL
+        } else {  // orientation is HORIZONTAL
             p.moveTo((float) yy1, (float) xx1);
             p.lineTo((float) righty, (float) rightx);
             p.lineTo((float) by, (float) bx);
@@ -306,13 +300,12 @@ public class VectorRenderer extends AbstractXYItemRenderer
      * object.  This method returns <code>true</code> if and only if:
      * <ul>
      * <li><code>obj</code> is an instance of <code>VectorRenderer</code> (not
-     *     <code>null</code>);</li>
+     * <code>null</code>);</li>
      * <li><code>obj</code> has the same field values as this
-     *     <code>VectorRenderer</code>;</li>
+     * <code>VectorRenderer</code>;</li>
      * </ul>
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -337,9 +330,8 @@ public class VectorRenderer extends AbstractXYItemRenderer
      * Returns a clone of this renderer.
      *
      * @return A clone of this renderer.
-     *
      * @throws CloneNotSupportedException if there is a problem creating the
-     *     clone.
+     *                                    clone.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

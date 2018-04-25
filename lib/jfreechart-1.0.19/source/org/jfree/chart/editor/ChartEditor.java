@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -40,9 +40,9 @@
 
 package org.jfree.chart.editor;
 
-import javax.swing.JComponent;
-
 import org.jfree.chart.JFreeChart;
+
+import javax.swing.*;
 
 /**
  * A chart editor is typically a {@link JComponent} containing a user interface
@@ -55,7 +55,7 @@ public interface ChartEditor {
     /**
      * Applies the changes to the specified chart.
      *
-     * @param chart  the chart.
+     * @param chart the chart.
      */
     public void updateChart(JFreeChart chart);
 

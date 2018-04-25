@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -44,27 +44,18 @@
 
 package org.jfree.chart.plot.dial;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.Arc2D;
-import java.awt.geom.Area;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.io.SerialUtilities;
 import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
+import java.awt.geom.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * A standard frame for the {@link DialPlot} class.
@@ -74,7 +65,9 @@ import org.jfree.util.PublicCloneable;
 public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
         Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = -4089176959553523499L;
 
     /**
@@ -105,10 +98,14 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      */
     private double extent;
 
-    /** The inner radius, relative to the framing rectangle. */
+    /**
+     * The inner radius, relative to the framing rectangle.
+     */
     private double innerRadius;
 
-    /** The outer radius, relative to the framing rectangle. */
+    /**
+     * The outer radius, relative to the framing rectangle.
+     */
     private double outerRadius;
 
     /**
@@ -123,8 +120,8 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Creates a new instance of <code>ArcDialFrame</code> that spans
      * the arc specified.
      *
-     * @param startAngle  the startAngle (in degrees).
-     * @param extent  the extent of the arc (in degrees, counter-clockwise).
+     * @param startAngle the startAngle (in degrees).
+     * @param extent     the extent of the arc (in degrees, counter-clockwise).
      */
     public ArcDialFrame(double startAngle, double extent) {
         this.backgroundPaint = Color.gray;
@@ -140,7 +137,6 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns the background paint (never <code>null</code>).
      *
      * @return The background paint.
-     *
      * @see #setBackgroundPaint(Paint)
      */
     public Paint getBackgroundPaint() {
@@ -151,8 +147,7 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Sets the background paint and sends a {@link DialLayerChangeEvent} to
      * all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getBackgroundPaint()
      */
     public void setBackgroundPaint(Paint paint) {
@@ -165,7 +160,6 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns the foreground paint.
      *
      * @return The foreground paint (never <code>null</code>).
-     *
      * @see #setForegroundPaint(Paint)
      */
     public Paint getForegroundPaint() {
@@ -176,8 +170,7 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Sets the foreground paint and sends a {@link DialLayerChangeEvent} to
      * all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getForegroundPaint()
      */
     public void setForegroundPaint(Paint paint) {
@@ -190,7 +183,6 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns the stroke.
      *
      * @return The stroke (never <code>null</code>).
-     *
      * @see #setStroke(Stroke)
      */
     public Stroke getStroke() {
@@ -201,8 +193,7 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Sets the stroke and sends a {@link DialLayerChangeEvent} to
      * all registered listeners.
      *
-     * @param stroke  the stroke (<code>null</code> not permitted).
-     *
+     * @param stroke the stroke (<code>null</code> not permitted).
      * @see #getStroke()
      */
     public void setStroke(Stroke stroke) {
@@ -215,7 +206,6 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns the inner radius, relative to the framing rectangle.
      *
      * @return The inner radius.
-     *
      * @see #setInnerRadius(double)
      */
     public double getInnerRadius() {
@@ -226,8 +216,7 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Sets the inner radius and sends a {@link DialLayerChangeEvent} to
      * all registered listeners.
      *
-     * @param radius  the inner radius.
-     *
+     * @param radius the inner radius.
      * @see #getInnerRadius()
      */
     public void setInnerRadius(double radius) {
@@ -242,7 +231,6 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns the outer radius, relative to the framing rectangle.
      *
      * @return The outer radius.
-     *
      * @see #setOuterRadius(double)
      */
     public double getOuterRadius() {
@@ -253,8 +241,7 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Sets the outer radius and sends a {@link DialLayerChangeEvent} to
      * all registered listeners.
      *
-     * @param radius  the outer radius.
-     *
+     * @param radius the outer radius.
      * @see #getOuterRadius()
      */
     public void setOuterRadius(double radius) {
@@ -269,7 +256,6 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns the start angle.
      *
      * @return The start angle.
-     *
      * @see #setStartAngle(double)
      */
     public double getStartAngle() {
@@ -280,8 +266,7 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Sets the start angle and sends a {@link DialLayerChangeEvent} to
      * all registered listeners.
      *
-     * @param angle  the angle.
-     *
+     * @param angle the angle.
      * @see #getStartAngle()
      */
     public void setStartAngle(double angle) {
@@ -293,7 +278,6 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns the extent.
      *
      * @return The extent.
-     *
      * @see #setExtent(double)
      */
     public double getExtent() {
@@ -304,8 +288,7 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Sets the extent and sends a {@link DialLayerChangeEvent} to
      * all registered listeners.
      *
-     * @param extent  the extent.
-     *
+     * @param extent the extent.
      * @see #getExtent()
      */
     public void setExtent(double extent) {
@@ -317,8 +300,7 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns the shape for the window for this dial.  Some dial layers will
      * request that their drawing be clipped within this window.
      *
-     * @param frame  the reference frame (<code>null</code> not permitted).
-     *
+     * @param frame the reference frame (<code>null</code> not permitted).
      * @return The shape of the dial's window.
      */
     @Override
@@ -345,8 +327,7 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
     /**
      * Returns the outer window.
      *
-     * @param frame  the frame.
-     *
+     * @param frame the frame.
      * @return The outer window.
      */
     protected Shape getOuterWindow(Rectangle2D frame) {
@@ -354,10 +335,10 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
         double angleMargin = 1.5;
         Rectangle2D innerFrame = DialPlot.rectangleByRadius(frame,
                 this.innerRadius - radiusMargin, this.innerRadius
-                - radiusMargin);
+                        - radiusMargin);
         Rectangle2D outerFrame = DialPlot.rectangleByRadius(frame,
                 this.outerRadius + radiusMargin, this.outerRadius
-                + radiusMargin);
+                        + radiusMargin);
         Arc2D inner = new Arc2D.Double(innerFrame, this.startAngle
                 - angleMargin, this.extent + 2 * angleMargin, Arc2D.OPEN);
         Arc2D outer = new Arc2D.Double(outerFrame, this.startAngle
@@ -375,14 +356,14 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
     /**
      * Draws the frame.
      *
-     * @param g2  the graphics target.
+     * @param g2    the graphics target.
      * @param plot  the plot.
-     * @param frame  the dial's reference frame.
+     * @param frame the dial's reference frame.
      * @param view  the dial's view rectangle.
      */
     @Override
     public void draw(Graphics2D g2, DialPlot plot, Rectangle2D frame,
-            Rectangle2D view) {
+                     Rectangle2D view) {
 
         Shape window = getWindow(frame);
         Shape outerWindow = getOuterWindow(frame);
@@ -414,8 +395,7 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -479,9 +459,8 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns a clone of this instance.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if any attribute of this instance
-     *     cannot be cloned.
+     *                                    cannot be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -491,9 +470,8 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -505,10 +483,9 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {

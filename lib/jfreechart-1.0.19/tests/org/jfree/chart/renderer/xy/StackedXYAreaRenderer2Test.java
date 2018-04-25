@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -43,15 +43,6 @@
 
 package org.jfree.chart.renderer.xy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.TestUtilities;
@@ -63,6 +54,12 @@ import org.jfree.data.xy.DefaultTableXYDataset;
 import org.jfree.data.xy.TableXYDataset;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link StackedXYAreaRenderer2} class.
@@ -82,14 +79,13 @@ public class StackedXYAreaRenderer2Test {
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRenderer(new StackedXYAreaRenderer2());
         try {
-            BufferedImage image = new BufferedImage(200 , 100,
+            BufferedImage image = new BufferedImage(200, 100,
                     BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = image.createGraphics();
             chart.draw(g2, new Rectangle2D.Double(0, 0, 200, 100), null, null);
             g2.dispose();
             success = true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             success = false;
         }
         assertTrue(success);
@@ -151,7 +147,7 @@ public class StackedXYAreaRenderer2Test {
     @Test
     public void testSerialization() {
         StackedXYAreaRenderer2 r1 = new StackedXYAreaRenderer2();
-        StackedXYAreaRenderer2 r2 = (StackedXYAreaRenderer2) 
+        StackedXYAreaRenderer2 r2 = (StackedXYAreaRenderer2)
                 TestUtilities.serialised(r1);
         assertEquals(r1, r2);
     }

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -45,13 +45,6 @@
 
 package org.jfree.chart.renderer.xy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
-
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.TestUtilities;
@@ -64,6 +57,10 @@ import org.jfree.ui.GradientPaintTransformType;
 import org.jfree.ui.StandardGradientPaintTransformer;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import java.awt.geom.Rectangle2D;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link XYAreaRenderer} class.
@@ -208,10 +205,10 @@ public class XYAreaRendererTest {
                     new NumberAxis("X"), new NumberAxis("Y"),
                     new XYAreaRenderer());
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             fail("No exception should be thrown.");
         }
     }
@@ -245,7 +242,8 @@ public class XYAreaRendererTest {
         XYPlot plot = new XYPlot(d1, new NumberAxis("x"),
                 new NumberAxis("y"), r);
         plot.setDataset(1, d2);
-        /*JFreeChart chart =*/ new JFreeChart(plot);
+        /*JFreeChart chart =*/
+        new JFreeChart(plot);
         LegendItem li = r.getLegendItem(1, 2);
         assertEquals("S5", li.getLabel());
         assertEquals(1, li.getDatasetIndex());

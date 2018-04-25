@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -68,13 +68,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
@@ -86,6 +79,11 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
 /**
  * A renderer that draws stacked area charts for a {@link CategoryPlot}.
@@ -99,10 +97,14 @@ import org.jfree.util.PublicCloneable;
 public class StackedAreaRenderer extends AreaRenderer
         implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -3595635038460823663L;
 
-    /** A flag that controls whether the areas display values or percentages. */
+    /**
+     * A flag that controls whether the areas display values or percentages.
+     */
     private boolean renderAsPercentages;
 
     /**
@@ -115,8 +117,8 @@ public class StackedAreaRenderer extends AreaRenderer
     /**
      * Creates a new renderer.
      *
-     * @param renderAsPercentages  a flag that controls whether the data values
-     *                             are rendered as percentages.
+     * @param renderAsPercentages a flag that controls whether the data values
+     *                            are rendered as percentages.
      */
     public StackedAreaRenderer(boolean renderAsPercentages) {
         super();
@@ -129,7 +131,6 @@ public class StackedAreaRenderer extends AreaRenderer
      * <code>false</code> otherwise.
      *
      * @return A boolean.
-     *
      * @since 1.0.3
      */
     public boolean getRenderAsPercentages() {
@@ -141,8 +142,7 @@ public class StackedAreaRenderer extends AreaRenderer
      * value as a percentage (so that the stacked areas add to 100%), and sends
      * a {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param asPercentages  the flag.
-     *
+     * @param asPercentages the flag.
      * @since 1.0.3
      */
     public void setRenderAsPercentages(boolean asPercentages) {
@@ -166,8 +166,7 @@ public class StackedAreaRenderer extends AreaRenderer
      * Returns the range of values the renderer requires to display all the
      * items from the specified dataset.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     *
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @return The range (or <code>null</code> if the dataset is empty).
      */
     @Override
@@ -177,8 +176,7 @@ public class StackedAreaRenderer extends AreaRenderer
         }
         if (this.renderAsPercentages) {
             return new Range(0.0, 1.0);
-        }
-        else {
+        } else {
             return DatasetUtilities.findStackedRangeBounds(dataset);
         }
     }
@@ -186,27 +184,27 @@ public class StackedAreaRenderer extends AreaRenderer
     /**
      * Draw a single data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the data plot area.
-     * @param plot  the plot.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the data plot area.
+     * @param plot       the plot.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
-     * @param dataset  the data.
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     * @param pass  the pass index.
+     * @param dataset    the data.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
+     * @param pass       the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, CategoryItemRendererState state,
-            Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
-            ValueAxis rangeAxis, CategoryDataset dataset, int row, int column,
-            int pass) {
+                         Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
+                         ValueAxis rangeAxis, CategoryDataset dataset, int row, int column,
+                         int pass) {
 
         if (!isSeriesVisible(row)) {
             return;
         }
-        
+
         // setup for collecting optional entity info...
         Shape entityArea;
         EntityCollection entities = state.getEntityCollection();
@@ -296,14 +294,13 @@ public class StackedAreaRenderer extends AreaRenderer
             if (y0 >= 0.0) {
                 double yleft = (y0 + y1) / 2.0 + stackLeft[1];
                 float transYLeft
-                    = (float) rangeAxis.valueToJava2D(yleft, dataArea, edge1);
+                        = (float) rangeAxis.valueToJava2D(yleft, dataArea, edge1);
                 left.moveTo((float) xx1, transY1);
                 left.lineTo((float) xx1, transStack1);
                 left.lineTo((float) xxLeft, transStackLeft);
                 left.lineTo((float) xxLeft, transYLeft);
                 left.closePath();
-            }
-            else {
+            } else {
                 left.moveTo((float) xx1, transStack1);
                 left.lineTo((float) xx1, transY1);
                 left.lineTo((float) xxLeft, transStackLeft);
@@ -316,21 +313,19 @@ public class StackedAreaRenderer extends AreaRenderer
             if (y2 >= 0.0) {
                 double yright = (y1 + y2) / 2.0 + stackRight[1];
                 float transYRight
-                    = (float) rangeAxis.valueToJava2D(yright, dataArea, edge1);
+                        = (float) rangeAxis.valueToJava2D(yright, dataArea, edge1);
                 right.moveTo((float) xx1, transStack1);
                 right.lineTo((float) xx1, transY1);
                 right.lineTo((float) xxRight, transYRight);
                 right.lineTo((float) xxRight, transStackRight);
                 right.closePath();
-            }
-            else {
+            } else {
                 right.moveTo((float) xx1, transStack1);
                 right.lineTo((float) xx1, transY1);
                 right.lineTo((float) xxRight, transStackRight);
                 right.closePath();
             }
-        }
-        else {  // handle negative value
+        } else {  // handle negative value
             transY1 = (float) rangeAxis.valueToJava2D(y1 + stack1[0], dataArea,
                     edge1);
             float transStack1 = (float) rangeAxis.valueToJava2D(stack1[0],
@@ -344,8 +339,7 @@ public class StackedAreaRenderer extends AreaRenderer
                 left.lineTo((float) xx1, transY1);
                 left.lineTo((float) xxLeft, transStackLeft);
                 left.clone();
-            }
-            else {
+            } else {
                 double yleft = (y0 + y1) / 2.0 + stackLeft[0];
                 float transYLeft = (float) rangeAxis.valueToJava2D(yleft,
                         dataArea, edge1);
@@ -364,8 +358,7 @@ public class StackedAreaRenderer extends AreaRenderer
                 right.lineTo((float) xx1, transY1);
                 right.lineTo((float) xxRight, transStackRight);
                 right.closePath();
-            }
-            else {
+            } else {
                 double yright = (y1 + y2) / 2.0 + stackRight[0];
                 float transYRight = (float) rangeAxis.valueToJava2D(yright,
                         dataArea, edge1);
@@ -390,8 +383,7 @@ public class StackedAreaRenderer extends AreaRenderer
                 entityArea = gp;
                 addItemEntity(entities, dataset, row, column, entityArea);
             }
-        }
-        else if (pass == 1) {
+        } else if (pass == 1) {
             drawItemLabel(g2, plot.getOrientation(), dataset, row, column,
                     xx1, transY1, y1 < 0.0);
         }
@@ -403,21 +395,20 @@ public class StackedAreaRenderer extends AreaRenderer
      * series up to, but not including, <code>series</code> for the specified
      * item. It returns [0.0, 0.0] if <code>series</code> is the first series.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param series  the series index.
-     * @param index  the item index.
-     * @param validRows  the valid rows.
-     *
+     * @param dataset   the dataset (<code>null</code> not permitted).
+     * @param series    the series index.
+     * @param index     the item index.
+     * @param validRows the valid rows.
      * @return An array containing the cumulative negative and positive values
-     *     for all series values up to but excluding <code>series</code>
-     *     for <code>index</code>.
+     * for all series values up to but excluding <code>series</code>
+     * for <code>index</code>.
      */
     protected double[] getStackValues(CategoryDataset dataset,
-            int series, int index, int[] validRows) {
+                                      int series, int index, int[] validRows) {
         double[] result = new double[2];
         double total = 0.0;
         if (this.renderAsPercentages) {
-            total = DataUtilities.calculateColumnTotal(dataset, index, 
+            total = DataUtilities.calculateColumnTotal(dataset, index,
                     validRows);
         }
         for (int i = 0; i < series; i++) {
@@ -433,8 +424,7 @@ public class StackedAreaRenderer extends AreaRenderer
                 if (!Double.isNaN(v)) {
                     if (v >= 0.0) {
                         result[1] += v;
-                    }
-                    else {
+                    } else {
                         result[0] += v;
                     }
                 }
@@ -447,9 +437,8 @@ public class StackedAreaRenderer extends AreaRenderer
      * Returns a pair of "stack" values calculated as the mean of the two
      * specified stack value pairs.
      *
-     * @param stack1  the first stack pair.
-     * @param stack2  the second stack pair.
-     *
+     * @param stack1 the first stack pair.
+     * @param stack2 the second stack pair.
      * @return A pair of average stack values.
      */
     private double[] averageStackValues(double[] stack1, double[] stack2) {
@@ -464,23 +453,20 @@ public class StackedAreaRenderer extends AreaRenderer
      * the mean of the supplied values, unless either of the supplied values
      * is zero, in which case the adjusted value is zero also.
      *
-     * @param stack1  the first stack pair.
-     * @param stack2  the second stack pair.
-     *
+     * @param stack1 the first stack pair.
+     * @param stack2 the second stack pair.
      * @return A pair of average stack values.
      */
     private double[] adjustedStackValues(double[] stack1, double[] stack2) {
         double[] result = new double[2];
         if (stack1[0] == 0.0 || stack2[0] == 0.0) {
             result[0] = 0.0;
-        }
-        else {
+        } else {
             result[0] = (stack1[0] + stack2[0]) / 2.0;
         }
         if (stack1[1] == 0.0 || stack2[1] == 0.0) {
             result[1] = 0.0;
-        }
-        else {
+        } else {
             result[1] = (stack1[1] + stack2[1]) / 2.0;
         }
         return result;
@@ -489,8 +475,7 @@ public class StackedAreaRenderer extends AreaRenderer
     /**
      * Checks this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> not permitted).
-     *
+     * @param obj the object (<code>null</code> not permitted).
      * @return A boolean.
      */
     @Override
@@ -514,17 +499,15 @@ public class StackedAreaRenderer extends AreaRenderer
      * It returns 0.0 if <code>series</code> is the first series, i.e. 0.
      *
      * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param series  the series.
-     * @param category  the category.
-     *
+     * @param series   the series.
+     * @param category the category.
      * @return double returns a cumulative value for all series' values up to
-     *         but excluding <code>series</code> for Object
-     *         <code>category</code>.
-     *
+     * but excluding <code>series</code> for Object
+     * <code>category</code>.
      * @deprecated As of 1.0.13, as the method is never used internally.
      */
     protected double getPreviousHeight(CategoryDataset dataset,
-            int series, int category) {
+                                       int series, int category) {
 
         double result = 0.0;
         Number n;

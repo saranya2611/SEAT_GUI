@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -42,11 +42,6 @@
 
 package org.jfree.chart.renderer.xy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
-
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.TestUtilities;
 import org.jfree.chart.axis.NumberAxis;
@@ -55,6 +50,8 @@ import org.jfree.data.xy.DefaultTableXYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link XYStepRenderer} class.
@@ -155,10 +152,10 @@ public class XYStepRendererTest {
                     new NumberAxis("X"), new NumberAxis("Y"),
                     new XYStepRenderer());
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             fail("No exception should be thrown.");
         }
     }
@@ -189,10 +186,10 @@ public class XYStepRendererTest {
                     new NumberAxis("X"), new NumberAxis("Y"),
                     new XYStepRenderer());
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             fail("No exception should be thrown.");
         }
     }

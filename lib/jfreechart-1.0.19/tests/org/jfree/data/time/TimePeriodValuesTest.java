@@ -6,22 +6,22 @@
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
- * This library is free software; you can redistribute it and/or modify it 
- * under the terms of the GNU Lesser General Public License as published by 
- * the Free Software Foundation; either version 2.1 of the License, or 
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public 
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, 
- * USA.  
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -42,34 +42,35 @@
 
 package org.jfree.data.time;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
-import java.util.Date;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.general.SeriesChangeEvent;
 import org.jfree.data.general.SeriesChangeListener;
 import org.jfree.date.MonthConstants;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Date;
+
+import static org.junit.Assert.*;
+
 /**
  * A collection of test cases for the {@link TimePeriodValues} class.
  */
 public class TimePeriodValuesTest {
 
-    /** Series A. */
+    static final double EPSILON = 0.0000000001;
+    /**
+     * Series A.
+     */
     private TimePeriodValues seriesA;
-
-    /** Series B. */
+    /**
+     * Series B.
+     */
     private TimePeriodValues seriesB;
-
-    /** Series C. */
+    /**
+     * Series C.
+     */
     private TimePeriodValues seriesC;
-
 
     /**
      * Common test setup.
@@ -96,7 +97,7 @@ public class TimePeriodValuesTest {
     }
 
     /**
-     * Set up a quarter equal to Q1 1900.  Request the previous quarter, it 
+     * Set up a quarter equal to Q1 1900.  Request the previous quarter, it
      * should be null.
      */
     @Test
@@ -162,19 +163,19 @@ public class TimePeriodValuesTest {
         assertFalse(s1.equals(s2));
         s2.setDomainDescription("XYZ");
         assertTrue(s1.equals(s2));
-        
+
         // domain description - null
         s1.setDomainDescription(null);
         assertFalse(s1.equals(s2));
         s2.setDomainDescription(null);
         assertTrue(s1.equals(s2));
-        
+
         // range description
         s1.setRangeDescription("XYZ");
         assertFalse(s1.equals(s2));
         s2.setRangeDescription("XYZ");
         assertTrue(s1.equals(s2));
-        
+
         // range description - null
         s1.setRangeDescription(null);
         assertFalse(s1.equals(s2));
@@ -194,7 +195,7 @@ public class TimePeriodValuesTest {
         assertTrue("b4", b4);
 
     }
-    
+
     /**
      * A test for bug report 1161329.
      */
@@ -210,9 +211,7 @@ public class TimePeriodValuesTest {
         tpv.add(t, 2.0);
         assertEquals(1, tpv.getItemCount());
     }
-    
-    static final double EPSILON = 0.0000000001;
-    
+
     /**
      * Some checks for the add() methods.
      */
@@ -221,22 +220,21 @@ public class TimePeriodValuesTest {
         TimePeriodValues tpv = new TimePeriodValues("Test");
         MySeriesChangeListener listener = new MySeriesChangeListener();
         tpv.addChangeListener(listener);
-        tpv.add(new TimePeriodValue(new SimpleTimePeriod(new Date(1L), 
+        tpv.add(new TimePeriodValue(new SimpleTimePeriod(new Date(1L),
                 new Date(3L)), 99.0));
         assertEquals(99.0, tpv.getValue(0).doubleValue(), EPSILON);
         assertEquals(tpv, listener.getLastEvent().getSource());
-        
+
         // a null item should throw an IllegalArgumentException
         boolean pass = false;
         try {
             tpv.add((TimePeriodValue) null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
     }
-    
+
     /**
      * Some tests for the getMinStartIndex() method.
      */
@@ -251,7 +249,7 @@ public class TimePeriodValuesTest {
         s.add(new SimpleTimePeriod(0L, 50L), 3.0);
         assertEquals(2, s.getMinStartIndex());
     }
-    
+
     /**
      * Some tests for the getMaxStartIndex() method.
      */
@@ -281,7 +279,7 @@ public class TimePeriodValuesTest {
         s.add(new SimpleTimePeriod(0L, 50L), 3.0);
         assertEquals(2, s.getMinMiddleIndex());
     }
-    
+
     /**
      * Some tests for the getMaxMiddleIndex() method.
      */
@@ -313,7 +311,7 @@ public class TimePeriodValuesTest {
         s.add(new SimpleTimePeriod(0L, 50L), 3.0);
         assertEquals(2, s.getMinEndIndex());
     }
-    
+
     /**
      * Some tests for the getMaxEndIndex() method.
      */
@@ -333,36 +331,36 @@ public class TimePeriodValuesTest {
      * A listener used for detecting series change events.
      */
     static class MySeriesChangeListener implements SeriesChangeListener {
-        
+
         SeriesChangeEvent lastEvent;
-        
+
         /**
          * Creates a new listener.
          */
         public MySeriesChangeListener() {
             this.lastEvent = null;
         }
-        
+
         /**
          * Returns the last event.
-         * 
+         *
          * @return The last event (possibly <code>null</code>).
          */
         public SeriesChangeEvent getLastEvent() {
             return this.lastEvent;
         }
-        
+
         /**
          * Clears the last event (sets it to <code>null</code>).
          */
         public void clearLastEvent() {
             this.lastEvent = null;
         }
-        
+
         /**
          * Callback method for series change events.
-         * 
-         * @param event  the event.
+         *
+         * @param event the event.
          */
         @Override
         public void seriesChanged(SeriesChangeEvent event) {

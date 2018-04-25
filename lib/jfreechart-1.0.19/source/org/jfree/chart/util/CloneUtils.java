@@ -21,9 +21,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
- * 
+ *
  * ---------------
  * CloneUtils.java
  * ---------------
@@ -40,31 +40,31 @@
 
 package org.jfree.chart.util;
 
+import org.jfree.util.ObjectUtilities;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.jfree.util.ObjectUtilities;
 
 /**
  * Utilities for cloning.
- * 
+ *
  * @since 1.0.18
  */
 public class CloneUtils {
-    
+
     /**
      * Returns a list containing cloned copies of the items in the source
      * list.
-     * 
-     * @param source  the source list (<code>null</code> not permitted).
-     * 
-     * @return A new list. 
+     *
+     * @param source the source list (<code>null</code> not permitted).
+     * @return A new list.
      */
     public static List<?> cloneList(List<?> source) {
         ParamChecks.nullNotPermitted(source, "source");
         List result = new ArrayList();
-        for (Object obj: source) {
+        for (Object obj : source) {
             if (obj != null) {
                 try {
                     result.add(ObjectUtilities.clone(obj));
@@ -77,15 +77,13 @@ public class CloneUtils {
         }
         return result;
     }
-    
+
     /**
      * Returns a new map that contains the same keys and cloned copied of the
      * values.
-     * 
-     * @param source  the source map (<code>null</code> not permitted).
-     * 
-     * @return A new map. 
-     * 
+     *
+     * @param source the source map (<code>null</code> not permitted).
+     * @return A new map.
      * @since 1.0.18
      */
     public static Map cloneMapValues(Map source) {
@@ -105,5 +103,5 @@ public class CloneUtils {
         }
         return result;
     }
-   
+
 }

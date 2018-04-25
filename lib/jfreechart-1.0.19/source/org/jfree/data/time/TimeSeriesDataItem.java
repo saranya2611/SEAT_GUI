@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -44,18 +44,19 @@
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 09-Jun-2009 : Tidied up equals() (DG);
  * 03-Jul-2013 : Use ParamChecks (DG);
- * 
+ *
  */
 
 package org.jfree.data.time;
 
-import java.io.Serializable;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.util.ObjectUtilities;
 
+import java.io.Serializable;
+
 /**
  * Represents one data item in a time series.
- * <P>
+ * <p>
  * The time period can be any of the following:
  * <ul>
  * <li>{@link Year}</li>
@@ -69,30 +70,35 @@ import org.jfree.util.ObjectUtilities;
  * <li>{@link Millisecond}</li>
  * <li>{@link FixedMillisecond}</li>
  * </ul>
- *
+ * <p>
  * The time period is an immutable property of the data item.  Data items will
  * often be sorted within a list, and allowing the time period to be changed
  * could destroy the sort order.
- * <P>
+ * <p>
  * Implements the <code>Comparable</code> interface so that standard Java
  * sorting can be used to keep the data items in order.
- *
  */
 public class TimeSeriesDataItem implements Cloneable, Comparable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -2235346966016401302L;
 
-    /** The time period. */
+    /**
+     * The time period.
+     */
     private RegularTimePeriod period;
 
-    /** The value associated with the time period. */
+    /**
+     * The value associated with the time period.
+     */
     private Number value;
 
     /**
      * Constructs a new data item that associates a value with a time period.
      *
-     * @param period  the time period (<code>null</code> not permitted).
+     * @param period the time period (<code>null</code> not permitted).
      * @param value  the value (<code>null</code> permitted).
      */
     public TimeSeriesDataItem(RegularTimePeriod period, Number value) {
@@ -104,7 +110,7 @@ public class TimeSeriesDataItem implements Cloneable, Comparable, Serializable {
     /**
      * Constructs a new data item that associates a value with a time period.
      *
-     * @param period  the time period (<code>null</code> not permitted).
+     * @param period the time period (<code>null</code> not permitted).
      * @param value  the value associated with the time period.
      */
     public TimeSeriesDataItem(RegularTimePeriod period, double value) {
@@ -124,7 +130,6 @@ public class TimeSeriesDataItem implements Cloneable, Comparable, Serializable {
      * Returns the value.
      *
      * @return The value (<code>null</code> possible).
-     *
      * @see #setValue(java.lang.Number)
      */
     public Number getValue() {
@@ -134,8 +139,7 @@ public class TimeSeriesDataItem implements Cloneable, Comparable, Serializable {
     /**
      * Sets the value for this data item.
      *
-     * @param value  the value (<code>null</code> permitted).
-     *
+     * @param value the value (<code>null</code> permitted).
      * @see #getValue()
      */
     public void setValue(Number value) {
@@ -145,8 +149,7 @@ public class TimeSeriesDataItem implements Cloneable, Comparable, Serializable {
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the other object (<code>null</code> permitted).
-     *
+     * @param obj the other object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -183,14 +186,13 @@ public class TimeSeriesDataItem implements Cloneable, Comparable, Serializable {
     /**
      * Returns an integer indicating the order of this data pair object
      * relative to another object.
-     * <P>
+     * <p>
      * For the order we consider only the timing:
      * negative == before, zero == same, positive == after.
      *
-     * @param o1  The object being compared to.
-     *
+     * @param o1 The object being compared to.
      * @return An integer indicating the order of the data item object
-     *         relative to another object.
+     * relative to another object.
      */
     @Override
     public int compareTo(Object o1) {
@@ -226,8 +228,7 @@ public class TimeSeriesDataItem implements Cloneable, Comparable, Serializable {
         Object clone = null;
         try {
             clone = super.clone();
-        }
-        catch (CloneNotSupportedException e) { // won't get here...
+        } catch (CloneNotSupportedException e) { // won't get here...
             e.printStackTrace();
         }
         return clone;

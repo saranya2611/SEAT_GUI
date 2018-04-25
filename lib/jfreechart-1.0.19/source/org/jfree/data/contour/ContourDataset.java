@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -54,8 +54,8 @@ import org.jfree.data.xy.XYZDataset;
  * items - used for XY and XYZ plots.
  *
  * @deprecated This interface is no longer supported (as of version 1.0.4).
- *     If you are creating contour plots, please try to use {@link XYPlot} and
- *     {@link XYBlockRenderer}.
+ * If you are creating contour plots, please try to use {@link XYPlot} and
+ * {@link XYBlockRenderer}.
  */
 public interface ContourDataset extends XYZDataset {
 
@@ -111,9 +111,8 @@ public interface ContourDataset extends XYZDataset {
     /**
      * Returns the maximum z-value within visible region of plot.
      *
-     * @param x  the x-value.
-     * @param y  the y-value.
-     *
+     * @param x the x-value.
+     * @param y the y-value.
      * @return The maximum z-value.
      */
     public Range getZValueRange(Range x, Range y);
@@ -121,8 +120,7 @@ public interface ContourDataset extends XYZDataset {
     /**
      * Returns true if axis are dates.
      *
-     * @param axisNumber  the axis where 0-x, 1-y, and 2-z.
-     *
+     * @param axisNumber the axis where 0-x, 1-y, and 2-z.
      * @return <code>true</code> or <code>false</code>.
      */
     public boolean isDateAxis(int axisNumber);

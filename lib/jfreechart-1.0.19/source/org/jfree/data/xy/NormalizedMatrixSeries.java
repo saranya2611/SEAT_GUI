@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -49,7 +49,9 @@ package org.jfree.data.xy;
  */
 public class NormalizedMatrixSeries extends MatrixSeries {
 
-    /** The default scale factor. */
+    /**
+     * The default scale factor.
+     */
     public static final double DEFAULT_SCALE_FACTOR = 1.0;
 
     /**
@@ -58,15 +60,17 @@ public class NormalizedMatrixSeries extends MatrixSeries {
      */
     private double m_scaleFactor = DEFAULT_SCALE_FACTOR;
 
-    /** The sum of all items in this matrix */
+    /**
+     * The sum of all items in this matrix
+     */
     private double m_totalSum;
 
     /**
      * Constructor for NormalizedMatrixSeries.
      *
-     * @param name  the series name.
-     * @param rows  the number of rows.
-     * @param columns  the number of columns.
+     * @param name    the series name.
+     * @param rows    the number of rows.
+     * @param columns the number of columns.
      */
     public NormalizedMatrixSeries(String name, int rows, int columns) {
         super(name, rows, columns);
@@ -83,10 +87,8 @@ public class NormalizedMatrixSeries extends MatrixSeries {
     /**
      * Returns an item.
      *
-     * @param itemIndex  the index.
-     *
+     * @param itemIndex the index.
      * @return The value.
-     *
      * @see org.jfree.data.xy.MatrixSeries#getItem(int)
      */
     @Override
@@ -101,20 +103,6 @@ public class NormalizedMatrixSeries extends MatrixSeries {
     }
 
     /**
-     * Sets the factor that multiplies each item in this series when observed
-     * using getItem mehtod.
-     *
-     * @param factor new factor to set.
-     *
-     * @see #DEFAULT_SCALE_FACTOR
-     */
-    public void setScaleFactor(double factor) {
-        this.m_scaleFactor = factor;
-        // FIXME: this should generate a series change event
-    }
-
-
-    /**
      * Returns the factor that multiplies each item in this series when
      * observed using getItem mehtod.
      *
@@ -124,14 +112,24 @@ public class NormalizedMatrixSeries extends MatrixSeries {
         return this.m_scaleFactor;
     }
 
+    /**
+     * Sets the factor that multiplies each item in this series when observed
+     * using getItem mehtod.
+     *
+     * @param factor new factor to set.
+     * @see #DEFAULT_SCALE_FACTOR
+     */
+    public void setScaleFactor(double factor) {
+        this.m_scaleFactor = factor;
+        // FIXME: this should generate a series change event
+    }
 
     /**
      * Updates the value of the specified item in this matrix series.
      *
-     * @param i the row of the item.
-     * @param j the column of the item.
+     * @param i   the row of the item.
+     * @param j   the column of the item.
      * @param mij the new value for the item.
-     *
      * @see #get(int, int)
      */
     @Override

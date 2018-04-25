@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -52,7 +52,7 @@ public class NotOutlierException extends Exception {
     /**
      * Creates a new exception.
      *
-     * @param message  the exception message.
+     * @param message the exception message.
      */
     public NotOutlierException(String message) {
         super(message);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -41,17 +41,14 @@
 
 package org.jfree.chart.axis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.text.TextBlock;
 import org.jfree.text.TextBlockAnchor;
 import org.jfree.text.TextLine;
 import org.jfree.ui.TextAnchor;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link CategoryTick} class.
@@ -130,7 +127,7 @@ public class CategoryTickTest {
      */
     @Test
     public void testCloning() throws CloneNotSupportedException {
-        CategoryTick t1 = new CategoryTick("C1", new TextBlock(), 
+        CategoryTick t1 = new CategoryTick("C1", new TextBlock(),
                 TextBlockAnchor.CENTER, TextAnchor.CENTER, 1.5f);
         CategoryTick t2 = (CategoryTick) t1.clone();
         assertTrue(t1 != t2);

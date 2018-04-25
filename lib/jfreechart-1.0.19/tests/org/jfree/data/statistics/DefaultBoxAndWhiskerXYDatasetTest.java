@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------------------
@@ -40,22 +40,21 @@
 
 package org.jfree.data.statistics;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import org.jfree.chart.TestUtilities;
+import org.jfree.data.Range;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.jfree.chart.TestUtilities;
-
-import org.jfree.data.Range;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link DefaultBoxAndWhiskerXYDataset} class.
  */
 public class DefaultBoxAndWhiskerXYDatasetTest {
+
+    private static final double EPSILON = 0.0000000001;
 
     /**
      * Confirm that the equals method can distinguish all the required fields.
@@ -85,7 +84,7 @@ public class DefaultBoxAndWhiskerXYDatasetTest {
                 "Series");
         d1.add(new Date(1L), new BoxAndWhiskerItem(1.0, 2.0, 3.0, 4.0, 5.0,
                 6.0, 7.0, 8.0, new ArrayList()));
-        DefaultBoxAndWhiskerXYDataset d2 = (DefaultBoxAndWhiskerXYDataset) 
+        DefaultBoxAndWhiskerXYDataset d2 = (DefaultBoxAndWhiskerXYDataset)
                 TestUtilities.serialised(d1);
         assertEquals(d1, d2);
 
@@ -104,7 +103,7 @@ public class DefaultBoxAndWhiskerXYDatasetTest {
                 "Series");
         d1.add(new Date(1L), new BoxAndWhiskerItem(1.0, 2.0, 3.0, 4.0, 5.0,
                 6.0, 7.0, 8.0, new ArrayList()));
-        DefaultBoxAndWhiskerXYDataset d2 = (DefaultBoxAndWhiskerXYDataset) 
+        DefaultBoxAndWhiskerXYDataset d2 = (DefaultBoxAndWhiskerXYDataset)
                 d1.clone();
         assertTrue(d1 != d2);
         assertTrue(d1.getClass() == d2.getClass());
@@ -115,8 +114,6 @@ public class DefaultBoxAndWhiskerXYDatasetTest {
                 6.0, 7.0, 8.0, new ArrayList()));
         assertFalse(d1.equals(d2));
     }
-
-    private static final double EPSILON = 0.0000000001;
 
     /**
      * Some checks for the add() method.

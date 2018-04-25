@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -69,9 +69,8 @@ public interface XYDataset extends SeriesDataset {
      * an <code>IllegalArgumentException</code> if the <code>series</code>
      * argument is outside the specified range.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
      * @return The item count.
      */
     public int getItemCount(int series);
@@ -81,11 +80,10 @@ public interface XYDataset extends SeriesDataset {
      * may not be returned in ascending order, that is up to the class
      * implementing the interface.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The x-value (never <code>null</code>).
      */
     public Number getX(int series, int item);
@@ -93,11 +91,10 @@ public interface XYDataset extends SeriesDataset {
     /**
      * Returns the x-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The x-value.
      */
     public double getXValue(int series, int item);
@@ -105,11 +102,10 @@ public interface XYDataset extends SeriesDataset {
     /**
      * Returns the y-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The y-value (possibly <code>null</code>).
      */
     public Number getY(int series, int item);
@@ -117,11 +113,10 @@ public interface XYDataset extends SeriesDataset {
     /**
      * Returns the y-value (as a double primitive) for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The y-value.
      */
     public double getYValue(int series, int item);

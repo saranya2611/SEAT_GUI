@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -52,7 +52,9 @@ import java.text.DecimalFormat;
  */
 public class StandardTickUnitSource implements TickUnitSource, Serializable {
 
-    /** Constant for log(10.0). */
+    /**
+     * Constant for log(10.0).
+     */
     private static final double LOG_10_VALUE = Math.log(10.0);
 
     /**
@@ -65,8 +67,7 @@ public class StandardTickUnitSource implements TickUnitSource, Serializable {
     /**
      * Returns a tick unit that is larger than the supplied unit.
      *
-     * @param unit  the unit (<code>null</code> not permitted).
-     *
+     * @param unit the unit (<code>null</code> not permitted).
      * @return A tick unit that is larger than the supplied unit.
      */
     @Override
@@ -82,8 +83,7 @@ public class StandardTickUnitSource implements TickUnitSource, Serializable {
      * Returns the tick unit in the collection that is greater than or equal
      * to (in size) the specified unit.
      *
-     * @param unit  the unit (<code>null</code> not permitted).
-     *
+     * @param unit the unit (<code>null</code> not permitted).
      * @return A unit from the collection.
      */
     @Override
@@ -95,8 +95,7 @@ public class StandardTickUnitSource implements TickUnitSource, Serializable {
      * Returns the tick unit in the collection that is greater than or equal
      * to the specified size.
      *
-     * @param size  the size.
-     *
+     * @param size the size.
      * @return A unit from the collection.
      */
     @Override
@@ -110,8 +109,7 @@ public class StandardTickUnitSource implements TickUnitSource, Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

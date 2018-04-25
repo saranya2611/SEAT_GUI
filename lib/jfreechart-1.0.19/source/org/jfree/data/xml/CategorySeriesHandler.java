@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -40,12 +40,12 @@
 
 package org.jfree.data.xml;
 
-import java.util.Iterator;
-
 import org.jfree.data.DefaultKeyedValues;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import java.util.Iterator;
 
 /**
  * A handler for reading a series for a category dataset.
@@ -53,19 +53,25 @@ import org.xml.sax.helpers.DefaultHandler;
 public class CategorySeriesHandler extends DefaultHandler
         implements DatasetTags {
 
-    /** The root handler. */
+    /**
+     * The root handler.
+     */
     private RootHandler root;
 
-    /** The series key. */
+    /**
+     * The series key.
+     */
     private Comparable seriesKey;
 
-    /** The values. */
+    /**
+     * The values.
+     */
     private DefaultKeyedValues values;
 
     /**
      * Creates a new item handler.
      *
-     * @param root  the root handler.
+     * @param root the root handler.
      */
     public CategorySeriesHandler(RootHandler root) {
         this.root = root;
@@ -75,7 +81,7 @@ public class CategorySeriesHandler extends DefaultHandler
     /**
      * Sets the series key.
      *
-     * @param key  the key.
+     * @param key the key.
      */
     public void setSeriesKey(Comparable key) {
         this.seriesKey = key;
@@ -84,8 +90,8 @@ public class CategorySeriesHandler extends DefaultHandler
     /**
      * Adds an item to the temporary storage for the series.
      *
-     * @param key  the key.
-     * @param value  the value.
+     * @param key   the key.
+     * @param value the value.
      */
     public void addItem(Comparable key, final Number value) {
         this.values.addValue(key, value);
@@ -94,11 +100,10 @@ public class CategorySeriesHandler extends DefaultHandler
     /**
      * The start of an element.
      *
-     * @param namespaceURI  the namespace.
-     * @param localName  the element name.
-     * @param qName  the element name.
-     * @param atts  the attributes.
-     *
+     * @param namespaceURI the namespace.
+     * @param localName    the element name.
+     * @param qName        the element name.
+     * @param atts         the attributes.
      * @throws SAXException for errors.
      */
     @Override
@@ -111,16 +116,13 @@ public class CategorySeriesHandler extends DefaultHandler
             setSeriesKey(atts.getValue("name"));
             ItemHandler subhandler = new ItemHandler(this.root, this);
             this.root.pushSubHandler(subhandler);
-        }
-        else if (qName.equals(ITEM_TAG)) {
+        } else if (qName.equals(ITEM_TAG)) {
             ItemHandler subhandler = new ItemHandler(this.root, this);
             this.root.pushSubHandler(subhandler);
             subhandler.startElement(namespaceURI, localName, qName, atts);
-        }
-
-        else {
+        } else {
             throw new SAXException(
-                "Expecting <Series> or <Item> tag...found " + qName
+                    "Expecting <Series> or <Item> tag...found " + qName
             );
         }
     }
@@ -128,9 +130,9 @@ public class CategorySeriesHandler extends DefaultHandler
     /**
      * The end of an element.
      *
-     * @param namespaceURI  the namespace.
-     * @param localName  the element name.
-     * @param qName  the element name.
+     * @param namespaceURI the namespace.
+     * @param localName    the element name.
+     * @param qName        the element name.
      */
     @Override
     public void endElement(String namespaceURI,

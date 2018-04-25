@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -55,10 +55,8 @@ public class PlotUtilities {
      * Returns <code>true</code> if all the datasets belonging to the specified
      * plot are empty or <code>null</code>, and <code>false</code> otherwise.
      *
-     * @param plot  the plot (<code>null</code> permitted).
-     *
+     * @param plot the plot (<code>null</code> permitted).
      * @return A boolean.
-     *
      * @since 1.0.7
      */
     public static boolean isEmptyOrNull(XYPlot plot) {

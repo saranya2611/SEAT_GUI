@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -67,12 +67,11 @@ public interface CategoryURLGenerator {
      * and could pose a security risk.
      *
      * @param dataset  the dataset.
-     * @param series  the series (zero-based index).
-     * @param category  the category.
-     *
+     * @param series   the series (zero-based index).
+     * @param category the category.
      * @return A string containing the URL.
      */
     public String generateURL(CategoryDataset dataset, int series,
-            int category);
+                              int category);
 
 }

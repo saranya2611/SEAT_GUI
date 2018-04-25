@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -40,19 +40,16 @@
 
 package org.jfree.chart.block;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.Range;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.Size2D;
 import org.junit.Test;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link BorderArrangement} class.
@@ -780,7 +777,7 @@ public class BorderArrangementTest {
      * blocks that is too wide, by default, for the available space, wasn't
      * shrinking the centre block as expected.
      */
-    @Test  
+    @Test
     public void testBugX() {
         RectangleConstraint constraint = new RectangleConstraint(
                 new Range(0.0, 200.0), new Range(0.0, 100.0));

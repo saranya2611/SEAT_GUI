@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -46,13 +46,6 @@
 
 package org.jfree.chart;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.RenderingHints;
-import java.util.List;
-
 import org.jfree.chart.event.ChartChangeEvent;
 import org.jfree.chart.event.ChartChangeListener;
 import org.jfree.chart.plot.PiePlot;
@@ -72,21 +65,24 @@ import org.jfree.ui.RectangleInsets;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
+import java.awt.*;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link JFreeChart} class.
  */
 public class JFreeChartTest implements ChartChangeListener {
 
-    /** A pie chart. */
+    /**
+     * A pie chart.
+     */
     private JFreeChart pieChart;
+    /**
+     * The last ChartChangeEvent received.
+     */
+    private ChartChangeEvent lastChartChangeEvent;
 
     /**
      * Common test setup.
@@ -232,24 +228,21 @@ public class JFreeChartTest implements ChartChangeListener {
         try {
             chart.getSubtitle(-1);
             fail("Should have thrown an IllegalArgumentException on negative number");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals("Index out of range.", e.getMessage());
         }
 
         try {
-           chart.getSubtitle(1);
+            chart.getSubtitle(1);
             fail("Should have thrown an IllegalArgumentException on excesive number");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals("Index out of range.", e.getMessage());
         }
 
         try {
             chart.getSubtitle(2);
             fail("Should have thrown an IllegalArgumentException on number being out of range");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals("Index out of range.", e.getMessage());
         }
 
@@ -383,25 +376,22 @@ public class JFreeChartTest implements ChartChangeListener {
         try {
             chart.addSubtitle(null);
             fail("Should have thrown an IllegalArgumentException on index out of range");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals("Null 'subtitle' argument.", e.getMessage());
         }
 
         try {
             chart.addSubtitle(-1, t0);
             fail("Should have thrown an IllegalArgumentException on index out of range");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals("The 'index' argument is out of range.", e.getMessage());
         }
 
         try {
             chart.addSubtitle(4, t0);
             fail("Should have thrown an IllegalArgumentException on index out of range");
-        }
-        catch (IllegalArgumentException e) {
-             assertEquals("The 'index' argument is out of range.", e.getMessage());
+        } catch (IllegalArgumentException e) {
+            assertEquals("The 'index' argument is out of range.", e.getMessage());
         }
 
     }
@@ -473,17 +463,14 @@ public class JFreeChartTest implements ChartChangeListener {
     @Test
     public void testBug942() throws Exception {
         final String title = "Pie Chart Demo 1\n\n\ntestnew line";
-        assertEquals(title, ChartFactory.createPieChart(title, 
+        assertEquals(title, ChartFactory.createPieChart(title,
                 new DefaultPieDataset()).getTitle().getText());
     }
-
-    /** The last ChartChangeEvent received. */
-    private ChartChangeEvent lastChartChangeEvent;
 
     /**
      * Records the last chart change event.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void chartChanged(ChartChangeEvent event) {

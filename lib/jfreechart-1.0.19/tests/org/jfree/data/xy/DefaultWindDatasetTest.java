@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -41,16 +41,13 @@
 
 package org.jfree.data.xy;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.time.Day;
 import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for {@link DefaultWindDataset}.
@@ -128,18 +125,18 @@ public class DefaultWindDatasetTest {
         // check for series key out of bounds
         boolean pass = false;
         try {
-            /*Comparable k =*/ d.getSeriesKey(-1);
-        }
-        catch (IllegalArgumentException e) {
+            /*Comparable k =*/
+            d.getSeriesKey(-1);
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
 
         pass = false;
         try {
-            /*Comparable k =*/ d.getSeriesKey(2);
-        }
-        catch (IllegalArgumentException e) {
+            /*Comparable k =*/
+            d.getSeriesKey(2);
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -167,26 +164,25 @@ public class DefaultWindDatasetTest {
         Object[] item1 = createItem(t, 3, 7);
         Object[] item2 = createItem(t.next(), 4, 8);
         Object[] item3 = createItem(t.next(), 5, 9);
-        Object[][] series1 = new Object[][] {item1, item2, item3};
+        Object[][] series1 = new Object[][]{item1, item2, item3};
         Object[] item1b = createItem(t, 6, 10);
         Object[] item2b = createItem(t.next(), 7, 11);
         Object[] item3b = createItem(t.next(), 8, 12);
-        Object[][] series2 = new Object[][] {item1b, item2b, item3b};
-        Object[][][] data = new Object[][][] {series1, series2};
+        Object[][] series2 = new Object[][]{item1b, item2b, item3b};
+        Object[][][] data = new Object[][][]{series1, series2};
         return new DefaultWindDataset(data);
     }
 
     /**
      * Creates an array representing one item in a series.
      *
-     * @param t  the time period.
-     * @param dir  the wind direction.
-     * @param force  the wind force.
-     *
+     * @param t     the time period.
+     * @param dir   the wind direction.
+     * @param force the wind force.
      * @return An array containing the specified items.
      */
     private Object[] createItem(RegularTimePeriod t, int dir, int force) {
-        return new Object[] {new Long(t.getMiddleMillisecond()),
+        return new Object[]{new Long(t.getMiddleMillisecond()),
                 new Integer(dir), new Integer(force)};
     }
 }

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -55,19 +55,6 @@
 
 package org.jfree.chart.annotations;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.event.AnnotationChangeEvent;
@@ -83,6 +70,13 @@ import org.jfree.ui.TextAnchor;
 import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * A text annotation that can be placed at a particular (x, y) location on an
  * {@link XYPlot}.
@@ -90,47 +84,69 @@ import org.jfree.util.PublicCloneable;
 public class XYTextAnnotation extends AbstractXYAnnotation
         implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -2946063342782506328L;
-
-    /** The default font. */
+    /**
+     * The default font.
+     */
     public static final Font DEFAULT_FONT = new Font("SansSerif", Font.PLAIN,
             10);
-
-    /** The default paint. */
+    /**
+     * The default paint.
+     */
     public static final Paint DEFAULT_PAINT = Color.black;
-
-    /** The default text anchor. */
+    /**
+     * The default text anchor.
+     */
     public static final TextAnchor DEFAULT_TEXT_ANCHOR = TextAnchor.CENTER;
-
-    /** The default rotation anchor. */
+    /**
+     * The default rotation anchor.
+     */
     public static final TextAnchor DEFAULT_ROTATION_ANCHOR = TextAnchor.CENTER;
-
-    /** The default rotation angle. */
+    /**
+     * The default rotation angle.
+     */
     public static final double DEFAULT_ROTATION_ANGLE = 0.0;
-
-    /** The text. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -2946063342782506328L;
+    /**
+     * The text.
+     */
     private String text;
 
-    /** The font. */
+    /**
+     * The font.
+     */
     private Font font;
 
-    /** The paint. */
+    /**
+     * The paint.
+     */
     private transient Paint paint;
 
-    /** The x-coordinate. */
+    /**
+     * The x-coordinate.
+     */
     private double x;
 
-    /** The y-coordinate. */
+    /**
+     * The y-coordinate.
+     */
     private double y;
 
-    /** The text anchor (to be aligned with (x, y)). */
+    /**
+     * The text anchor (to be aligned with (x, y)).
+     */
     private TextAnchor textAnchor;
 
-    /** The rotation anchor. */
+    /**
+     * The rotation anchor.
+     */
     private TextAnchor rotationAnchor;
 
-    /** The rotation angle. */
+    /**
+     * The rotation angle.
+     */
     private double rotationAngle;
 
     /**
@@ -166,9 +182,9 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * coordinates are specified in data space (they will be converted to
      * Java2D space for display).
      *
-     * @param text  the text (<code>null</code> not permitted).
-     * @param x  the x-coordinate (in data space).
-     * @param y  the y-coordinate (in data space).
+     * @param text the text (<code>null</code> not permitted).
+     * @param x    the x-coordinate (in data space).
+     * @param y    the y-coordinate (in data space).
      */
     public XYTextAnnotation(String text, double x, double y) {
         super();
@@ -193,7 +209,6 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Returns the text for the annotation.
      *
      * @return The text (never <code>null</code>).
-     *
      * @see #setText(String)
      */
     public String getText() {
@@ -203,8 +218,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
     /**
      * Sets the text for the annotation.
      *
-     * @param text  the text (<code>null</code> not permitted).
-     *
+     * @param text the text (<code>null</code> not permitted).
      * @see #getText()
      */
     public void setText(String text) {
@@ -217,7 +231,6 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Returns the font for the annotation.
      *
      * @return The font (never <code>null</code>).
-     *
      * @see #setFont(Font)
      */
     public Font getFont() {
@@ -228,8 +241,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Sets the font for the annotation and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param font  the font (<code>null</code> not permitted).
-     *
+     * @param font the font (<code>null</code> not permitted).
      * @see #getFont()
      */
     public void setFont(Font font) {
@@ -242,7 +254,6 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Returns the paint for the annotation.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @see #setPaint(Paint)
      */
     public Paint getPaint() {
@@ -253,8 +264,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Sets the paint for the annotation and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getPaint()
      */
     public void setPaint(Paint paint) {
@@ -267,7 +277,6 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Returns the text anchor.
      *
      * @return The text anchor (never <code>null</code>).
-     *
      * @see #setTextAnchor(TextAnchor)
      */
     public TextAnchor getTextAnchor() {
@@ -279,8 +288,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * aligned to the (x, y) coordinate of the annotation) and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param anchor  the anchor point (<code>null</code> not permitted).
-     *
+     * @param anchor the anchor point (<code>null</code> not permitted).
      * @see #getTextAnchor()
      */
     public void setTextAnchor(TextAnchor anchor) {
@@ -293,7 +301,6 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Returns the rotation anchor.
      *
      * @return The rotation anchor point (never <code>null</code>).
-     *
      * @see #setRotationAnchor(TextAnchor)
      */
     public TextAnchor getRotationAnchor() {
@@ -304,8 +311,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Sets the rotation anchor point and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param anchor  the anchor (<code>null</code> not permitted).
-     *
+     * @param anchor the anchor (<code>null</code> not permitted).
      * @see #getRotationAnchor()
      */
     public void setRotationAnchor(TextAnchor anchor) {
@@ -318,7 +324,6 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Returns the rotation angle.
      *
      * @return The rotation angle.
-     *
      * @see #setRotationAngle(double)
      */
     public double getRotationAngle() {
@@ -329,8 +334,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Sets the rotation angle and sends an {@link AnnotationChangeEvent} to
      * all registered listeners.  The angle is measured clockwise in radians.
      *
-     * @param angle  the angle (in radians).
-     *
+     * @param angle the angle (in radians).
      * @see #getRotationAngle()
      */
     public void setRotationAngle(double angle) {
@@ -343,7 +347,6 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * domain axis).
      *
      * @return The x coordinate (in data space).
-     *
      * @see #setX(double)
      */
     public double getX() {
@@ -355,8 +358,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * domain axis) and sends an {@link AnnotationChangeEvent} to all
      * registered listeners.
      *
-     * @param x  the x coordinate (in data space).
-     *
+     * @param x the x coordinate (in data space).
      * @see #getX()
      */
     public void setX(double x) {
@@ -369,7 +371,6 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * range axis).
      *
      * @return The y coordinate (in data space).
-     *
      * @see #setY(double)
      */
     public double getY() {
@@ -381,8 +382,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * range axis) and sends an {@link AnnotationChangeEvent} to all registered
      * listeners.
      *
-     * @param y  the y coordinate.
-     *
+     * @param y the y coordinate.
      * @see #getY()
      */
     public void setY(double y) {
@@ -394,9 +394,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Returns the background paint for the annotation.
      *
      * @return The background paint (possibly <code>null</code>).
-     *
      * @see #setBackgroundPaint(Paint)
-     *
      * @since 1.0.13
      */
     public Paint getBackgroundPaint() {
@@ -407,10 +405,8 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Sets the background paint for the annotation and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> permitted).
-     *
+     * @param paint the paint (<code>null</code> permitted).
      * @see #getBackgroundPaint()
-     *
      * @since 1.0.13
      */
     public void setBackgroundPaint(Paint paint) {
@@ -422,9 +418,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Returns the outline paint for the annotation.
      *
      * @return The outline paint (never <code>null</code>).
-     *
      * @see #setOutlinePaint(Paint)
-     *
      * @since 1.0.13
      */
     public Paint getOutlinePaint() {
@@ -435,10 +429,8 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Sets the outline paint for the annotation and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getOutlinePaint()
-     *
      * @since 1.0.13
      */
     public void setOutlinePaint(Paint paint) {
@@ -451,9 +443,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Returns the outline stroke for the annotation.
      *
      * @return The outline stroke (never <code>null</code>).
-     *
      * @see #setOutlineStroke(Stroke)
-     *
      * @since 1.0.13
      */
     public Stroke getOutlineStroke() {
@@ -464,10 +454,8 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Sets the outline stroke for the annotation and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param stroke  the stroke (<code>null</code> not permitted).
-     *
+     * @param stroke the stroke (<code>null</code> not permitted).
      * @see #getOutlineStroke()
-     *
      * @since 1.0.13
      */
     public void setOutlineStroke(Stroke stroke) {
@@ -480,7 +468,6 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Returns the flag that controls whether or not the outline is drawn.
      *
      * @return A boolean.
-     *
      * @since 1.0.13
      */
     public boolean isOutlineVisible() {
@@ -491,8 +478,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Sets the flag that controls whether or not the outline is drawn and
      * sends an {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param visible  the new flag value.
-     *
+     * @param visible the new flag value.
      * @since 1.0.13
      */
     public void setOutlineVisible(boolean visible) {
@@ -503,14 +489,14 @@ public class XYTextAnnotation extends AbstractXYAnnotation
     /**
      * Draws the annotation.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the range axis.
-     * @param rendererIndex  the renderer index.
-     * @param info  an optional info object that will be populated with
-     *              entity information.
+     * @param g2            the graphics device.
+     * @param plot          the plot.
+     * @param dataArea      the data area.
+     * @param domainAxis    the domain axis.
+     * @param rangeAxis     the range axis.
+     * @param rendererIndex the renderer index.
+     * @param info          an optional info object that will be populated with
+     *                      entity information.
      */
     @Override
     public void draw(Graphics2D g2, XYPlot plot, Rectangle2D dataArea,
@@ -562,8 +548,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
     /**
      * Tests this annotation for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -640,8 +625,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * Returns a clone of the annotation.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the annotation can't be cloned.
+     * @throws CloneNotSupportedException if the annotation can't be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -651,9 +635,8 @@ public class XYTextAnnotation extends AbstractXYAnnotation
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -666,13 +649,12 @@ public class XYTextAnnotation extends AbstractXYAnnotation
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.paint = SerialUtilities.readPaint(stream);
         this.backgroundPaint = SerialUtilities.readPaint(stream);

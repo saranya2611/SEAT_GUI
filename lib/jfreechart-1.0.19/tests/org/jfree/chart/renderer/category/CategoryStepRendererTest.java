@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------
@@ -43,10 +43,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.TestUtilities;
@@ -56,6 +52,8 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link CategoryStepRenderer} class.
@@ -104,7 +102,7 @@ public class CategoryStepRendererTest {
     @Test
     public void testSerialization() {
         CategoryStepRenderer r1 = new CategoryStepRenderer();
-        CategoryStepRenderer r2 = (CategoryStepRenderer) 
+        CategoryStepRenderer r2 = (CategoryStepRenderer)
                 TestUtilities.serialised(r1);
         assertEquals(r1, r2);
     }
@@ -126,7 +124,8 @@ public class CategoryStepRendererTest {
         CategoryPlot plot = new CategoryPlot(dataset0, new CategoryAxis("x"),
                 new NumberAxis("y"), r);
         plot.setDataset(1, dataset1);
-        /*JFreeChart chart =*/ new JFreeChart(plot);
+        /*JFreeChart chart =*/
+        new JFreeChart(plot);
         LegendItem li = r.getLegendItem(1, 2);
         assertEquals("R5", li.getLabel());
         assertEquals(1, li.getDatasetIndex());

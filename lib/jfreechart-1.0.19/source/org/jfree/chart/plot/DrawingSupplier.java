@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -43,9 +43,7 @@
 
 package org.jfree.chart.plot;
 
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
+import java.awt.*;
 
 /**
  * A supplier of <code>Paint</code>, <code>Stroke</code> and <code>Shape</code>
@@ -75,7 +73,6 @@ public interface DrawingSupplier {
      * Returns the next fill paint in a sequence maintained by the supplier.
      *
      * @return The paint.
-     *
      * @since 1.0.6
      */
     public Paint getNextFillPaint();

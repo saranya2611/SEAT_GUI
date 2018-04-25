@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -46,36 +46,40 @@
 
 package org.jfree.chart.block;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.util.PaintUtilities;
+
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import org.jfree.chart.util.ParamChecks;
-
-import org.jfree.io.SerialUtilities;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.util.PaintUtilities;
 
 /**
  * A border for a block.  This class is immutable.
  */
 public class BlockBorder implements BlockFrame, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 4961579220410228283L;
-
-    /** An empty border. */
+    /**
+     * An empty border.
+     */
     public static final BlockBorder NONE = new BlockBorder(
             RectangleInsets.ZERO_INSETS, Color.white);
-
-    /** The space reserved for the border. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 4961579220410228283L;
+    /**
+     * The space reserved for the border.
+     */
     private RectangleInsets insets;
 
-    /** The border color. */
+    /**
+     * The border color.
+     */
     private transient Paint paint;
 
     /**
@@ -88,7 +92,7 @@ public class BlockBorder implements BlockFrame, Serializable {
     /**
      * Creates a new border with the specified color.
      *
-     * @param paint  the color (<code>null</code> not permitted).
+     * @param paint the color (<code>null</code> not permitted).
      */
     public BlockBorder(Paint paint) {
         this(new RectangleInsets(1, 1, 1, 1), paint);
@@ -97,9 +101,9 @@ public class BlockBorder implements BlockFrame, Serializable {
     /**
      * Creates a new border with the specified line widths (in black).
      *
-     * @param top  the width of the top border.
-     * @param left  the width of the left border.
-     * @param bottom  the width of the bottom border.
+     * @param top    the width of the top border.
+     * @param left   the width of the left border.
+     * @param bottom the width of the bottom border.
      * @param right  the width of the right border.
      */
     public BlockBorder(double top, double left, double bottom, double right) {
@@ -109,9 +113,9 @@ public class BlockBorder implements BlockFrame, Serializable {
     /**
      * Creates a new border with the specified line widths (in black).
      *
-     * @param top  the width of the top border.
-     * @param left  the width of the left border.
-     * @param bottom  the width of the bottom border.
+     * @param top    the width of the top border.
+     * @param left   the width of the left border.
+     * @param bottom the width of the bottom border.
      * @param right  the width of the right border.
      * @param paint  the border paint (<code>null</code> not permitted).
      */
@@ -123,7 +127,7 @@ public class BlockBorder implements BlockFrame, Serializable {
     /**
      * Creates a new border.
      *
-     * @param insets  the border insets (<code>null</code> not permitted).
+     * @param insets the border insets (<code>null</code> not permitted).
      * @param paint  the paint (<code>null</code> not permitted).
      */
     public BlockBorder(RectangleInsets insets, Paint paint) {
@@ -155,8 +159,8 @@ public class BlockBorder implements BlockFrame, Serializable {
     /**
      * Draws the border by filling in the reserved space.
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
+     * @param g2   the graphics device.
+     * @param area the area.
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D area) {
@@ -193,8 +197,7 @@ public class BlockBorder implements BlockFrame, Serializable {
     /**
      * Tests this border for equality with an arbitrary instance.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -218,9 +221,8 @@ public class BlockBorder implements BlockFrame, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -230,13 +232,12 @@ public class BlockBorder implements BlockFrame, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.paint = SerialUtilities.readPaint(stream);
     }

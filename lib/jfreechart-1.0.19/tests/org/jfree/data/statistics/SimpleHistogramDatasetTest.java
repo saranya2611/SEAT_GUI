@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -41,17 +41,17 @@
 
 package org.jfree.data.statistics;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link SimpleHistogramDataset} class.
  */
 public class SimpleHistogramDatasetTest {
+
+    private static final double EPSILON = 0.0000000001;
 
     /**
      * Ensure that the equals() method can distinguish all fields.
@@ -91,12 +91,10 @@ public class SimpleHistogramDatasetTest {
     @Test
     public void testSerialization() {
         SimpleHistogramDataset d1 = new SimpleHistogramDataset("D1");
-        SimpleHistogramDataset d2 = (SimpleHistogramDataset) 
+        SimpleHistogramDataset d2 = (SimpleHistogramDataset)
                 TestUtilities.serialised(d1);
         assertEquals(d1, d2);
     }
-
-    private static final double EPSILON = 0.0000000001;
 
     /**
      * Some checks for the clearObservations() method.

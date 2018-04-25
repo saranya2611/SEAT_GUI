@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------
@@ -61,15 +61,6 @@
 
 package org.jfree.chart.title;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
-import javax.swing.event.EventListenerList;
-
 import org.jfree.chart.block.AbstractBlock;
 import org.jfree.chart.block.Block;
 import org.jfree.chart.event.TitleChangeEvent;
@@ -81,34 +72,47 @@ import org.jfree.ui.RectangleInsets;
 import org.jfree.ui.VerticalAlignment;
 import org.jfree.util.ObjectUtilities;
 
+import javax.swing.event.EventListenerList;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * The base class for all chart titles.  A chart can have multiple titles,
  * appearing at the top, bottom, left or right of the chart.
- * <P>
+ * <p>
  * Concrete implementations of this class will render text and images, and
  * hence do the actual work of drawing titles.
  */
 public abstract class Title extends AbstractBlock
-            implements Block, Cloneable, Serializable {
+        implements Block, Cloneable, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -6675162505277817221L;
-
-    /** The default title position. */
+    /**
+     * The default title position.
+     */
     public static final RectangleEdge DEFAULT_POSITION = RectangleEdge.TOP;
-
-    /** The default horizontal alignment. */
+    /**
+     * The default horizontal alignment.
+     */
     public static final HorizontalAlignment
             DEFAULT_HORIZONTAL_ALIGNMENT = HorizontalAlignment.CENTER;
-
-    /** The default vertical alignment. */
+    /**
+     * The default vertical alignment.
+     */
     public static final VerticalAlignment
             DEFAULT_VERTICAL_ALIGNMENT = VerticalAlignment.CENTER;
-
-    /** Default title padding. */
+    /**
+     * Default title padding.
+     */
     public static final RectangleInsets DEFAULT_PADDING = new RectangleInsets(
             1, 1, 1, 1);
-
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -6675162505277817221L;
     /**
      * A flag that controls whether or not the title is visible.
      *
@@ -116,16 +120,24 @@ public abstract class Title extends AbstractBlock
      */
     public boolean visible;
 
-    /** The title position. */
+    /**
+     * The title position.
+     */
     private RectangleEdge position;
 
-    /** The horizontal alignment of the title content. */
+    /**
+     * The horizontal alignment of the title content.
+     */
     private HorizontalAlignment horizontalAlignment;
 
-    /** The vertical alignment of the title content. */
+    /**
+     * The vertical alignment of the title content.
+     */
     private VerticalAlignment verticalAlignment;
 
-    /** Storage for registered change listeners. */
+    /**
+     * Storage for registered change listeners.
+     */
     private transient EventListenerList listenerList;
 
     /**
@@ -145,12 +157,12 @@ public abstract class Title extends AbstractBlock
     /**
      * Creates a new title, using default attributes where necessary.
      *
-     * @param position  the position of the title (<code>null</code> not
-     *                  permitted).
-     * @param horizontalAlignment  the horizontal alignment of the title
-     *                             (<code>null</code> not permitted).
-     * @param verticalAlignment  the vertical alignment of the title
-     *                           (<code>null</code> not permitted).
+     * @param position            the position of the title (<code>null</code> not
+     *                            permitted).
+     * @param horizontalAlignment the horizontal alignment of the title
+     *                            (<code>null</code> not permitted).
+     * @param verticalAlignment   the vertical alignment of the title
+     *                            (<code>null</code> not permitted).
      */
     protected Title(RectangleEdge position,
                     HorizontalAlignment horizontalAlignment,
@@ -164,20 +176,20 @@ public abstract class Title extends AbstractBlock
     /**
      * Creates a new title.
      *
-     * @param position  the position of the title (<code>null</code> not
-     *                  permitted).
-     * @param horizontalAlignment  the horizontal alignment of the title (LEFT,
-     *                             CENTER or RIGHT, <code>null</code> not
-     *                             permitted).
-     * @param verticalAlignment  the vertical alignment of the title (TOP,
-     *                           MIDDLE or BOTTOM, <code>null</code> not
-     *                           permitted).
-     * @param padding  the amount of space to leave around the outside of the
-     *                 title (<code>null</code> not permitted).
+     * @param position            the position of the title (<code>null</code> not
+     *                            permitted).
+     * @param horizontalAlignment the horizontal alignment of the title (LEFT,
+     *                            CENTER or RIGHT, <code>null</code> not
+     *                            permitted).
+     * @param verticalAlignment   the vertical alignment of the title (TOP,
+     *                            MIDDLE or BOTTOM, <code>null</code> not
+     *                            permitted).
+     * @param padding             the amount of space to leave around the outside of the
+     *                            title (<code>null</code> not permitted).
      */
-    protected Title(RectangleEdge position, 
-            HorizontalAlignment horizontalAlignment, 
-            VerticalAlignment verticalAlignment, RectangleInsets padding) {
+    protected Title(RectangleEdge position,
+                    HorizontalAlignment horizontalAlignment,
+                    VerticalAlignment verticalAlignment, RectangleInsets padding) {
 
         ParamChecks.nullNotPermitted(position, "position");
         ParamChecks.nullNotPermitted(horizontalAlignment, "horizontalAlignment");
@@ -198,9 +210,7 @@ public abstract class Title extends AbstractBlock
      * drawn.  The default value is <code>true</code>.
      *
      * @return A boolean.
-     *
      * @see #setVisible(boolean)
-     *
      * @since 1.0.11
      */
     public boolean isVisible() {
@@ -211,10 +221,8 @@ public abstract class Title extends AbstractBlock
      * Sets a flag that controls whether or not the title should be drawn, and
      * sends a {@link TitleChangeEvent} to all registered listeners.
      *
-     * @param visible  the new flag value.
-     *
+     * @param visible the new flag value.
      * @see #isVisible()
-     *
      * @since 1.0.11
      */
     public void setVisible(boolean visible) {
@@ -235,7 +243,7 @@ public abstract class Title extends AbstractBlock
      * Sets the position for the title and sends a {@link TitleChangeEvent} to
      * all registered listeners.
      *
-     * @param position  the position (<code>null</code> not permitted).
+     * @param position the position (<code>null</code> not permitted).
      */
     public void setPosition(RectangleEdge position) {
         ParamChecks.nullNotPermitted(position, "position");
@@ -258,8 +266,8 @@ public abstract class Title extends AbstractBlock
      * Sets the horizontal alignment for the title and sends a
      * {@link TitleChangeEvent} to all registered listeners.
      *
-     * @param alignment  the horizontal alignment (<code>null</code> not
-     *                   permitted).
+     * @param alignment the horizontal alignment (<code>null</code> not
+     *                  permitted).
      */
     public void setHorizontalAlignment(HorizontalAlignment alignment) {
         ParamChecks.nullNotPermitted(alignment, "alignment");
@@ -282,8 +290,8 @@ public abstract class Title extends AbstractBlock
      * Sets the vertical alignment for the title, and notifies any registered
      * listeners of the change.
      *
-     * @param alignment  the new vertical alignment (TOP, MIDDLE or BOTTOM,
-     *                   <code>null</code> not permitted).
+     * @param alignment the new vertical alignment (TOP, MIDDLE or BOTTOM,
+     *                  <code>null</code> not permitted).
      */
     public void setVerticalAlignment(VerticalAlignment alignment) {
         ParamChecks.nullNotPermitted(alignment, "alignment");
@@ -308,7 +316,7 @@ public abstract class Title extends AbstractBlock
      * is enabled.  There are certain situations (such as cloning) where you
      * want to turn notification off temporarily.
      *
-     * @param flag  the new value of the flag.
+     * @param flag the new value of the flag.
      */
     public void setNotify(boolean flag) {
         this.notify = flag;
@@ -321,24 +329,23 @@ public abstract class Title extends AbstractBlock
      * Draws the title on a Java 2D graphics device (such as the screen or a
      * printer).
      *
-     * @param g2  the graphics device.
-     * @param area  the area allocated for the title (subclasses should not
-     *              draw outside this area).
+     * @param g2   the graphics device.
+     * @param area the area allocated for the title (subclasses should not
+     *             draw outside this area).
      */
     @Override
     public abstract void draw(Graphics2D g2, Rectangle2D area);
 
     /**
      * Returns a clone of the title.
-     * <P>
+     * <p>
      * One situation when this is useful is when editing the title properties -
      * you can edit a clone, and then it is easier to cancel the changes if
      * necessary.
      *
      * @return A clone of the title.
-     *
      * @throws CloneNotSupportedException not thrown by this class, but it may
-     *         be thrown by subclasses.
+     *                                    be thrown by subclasses.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -351,7 +358,7 @@ public abstract class Title extends AbstractBlock
     /**
      * Registers an object for notification of changes to the title.
      *
-     * @param listener  the object that is being registered.
+     * @param listener the object that is being registered.
      */
     public void addChangeListener(TitleChangeListener listener) {
         this.listenerList.add(TitleChangeListener.class, listener);
@@ -360,7 +367,7 @@ public abstract class Title extends AbstractBlock
     /**
      * Unregisters an object for notification of changes to the chart title.
      *
-     * @param listener  the object that is being unregistered.
+     * @param listener the object that is being unregistered.
      */
     public void removeChangeListener(TitleChangeListener listener) {
         this.listenerList.remove(TitleChangeListener.class, listener);
@@ -370,8 +377,8 @@ public abstract class Title extends AbstractBlock
      * Notifies all registered listeners that the chart title has changed in
      * some way.
      *
-     * @param event  an object that contains information about the change to
-     *               the title.
+     * @param event an object that contains information about the change to
+     *              the title.
      */
     protected void notifyListeners(TitleChangeEvent event) {
         if (this.notify) {
@@ -388,8 +395,7 @@ public abstract class Title extends AbstractBlock
     /**
      * Tests an object for equality with this title.
      *
-     * @param obj  the object (<code>null</code> not permitted).
-     *
+     * @param obj the object (<code>null</code> not permitted).
      * @return <code>true</code> or <code>false</code>.
      */
     @Override
@@ -437,9 +443,8 @@ public abstract class Title extends AbstractBlock
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -448,13 +453,12 @@ public abstract class Title extends AbstractBlock
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.listenerList = new EventListenerList();
     }

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -41,17 +41,6 @@
 
 package org.jfree.chart.plot;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.labels.CrosshairLabelGenerator;
 import org.jfree.chart.labels.StandardCrosshairLabelGenerator;
@@ -61,6 +50,14 @@ import org.jfree.ui.RectangleAnchor;
 import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * A crosshair for display on a plot.
  *
@@ -68,16 +65,24 @@ import org.jfree.util.PublicCloneable;
  */
 public class Crosshair implements Cloneable, PublicCloneable, Serializable {
 
-    /** Flag controlling visibility. */
+    /**
+     * Flag controlling visibility.
+     */
     private boolean visible;
 
-    /** The crosshair value. */
+    /**
+     * The crosshair value.
+     */
     private double value;
 
-    /** The paint for the crosshair line. */
+    /**
+     * The paint for the crosshair line.
+     */
     private transient Paint paint;
 
-    /** The stroke for the crosshair line. */
+    /**
+     * The stroke for the crosshair line.
+     */
     private transient Stroke stroke;
 
     /**
@@ -91,7 +96,9 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      */
     private RectangleAnchor labelAnchor;
 
-    /** A label generator. */
+    /**
+     * A label generator.
+     */
     private CrosshairLabelGenerator labelGenerator;
 
     /**
@@ -119,16 +126,24 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      */
     private transient Paint labelBackgroundPaint;
 
-    /** A flag that controls the visibility of the label outline. */
+    /**
+     * A flag that controls the visibility of the label outline.
+     */
     private boolean labelOutlineVisible;
 
-    /** The label outline stroke. */
+    /**
+     * The label outline stroke.
+     */
     private transient Stroke labelOutlineStroke;
 
-    /** The label outline paint. */
+    /**
+     * The label outline paint.
+     */
     private transient Paint labelOutlinePaint;
 
-    /** Property change support. */
+    /**
+     * Property change support.
+     */
     private transient PropertyChangeSupport pcs;
 
     /**
@@ -141,10 +156,10 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
     /**
      * Creates a new crosshair with the specified value.
      *
-     * @param value  the value.
+     * @param value the value.
      */
     public Crosshair(double value) {
-       this(value, Color.black, new BasicStroke(1.0f));
+        this(value, Color.black, new BasicStroke(1.0f));
     }
 
     /**
@@ -152,7 +167,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      *
      * @param value  the value.
      * @param paint  the line paint (<code>null</code> not permitted).
-     * @param stroke  the line stroke (<code>null</code> not permitted).
+     * @param stroke the line stroke (<code>null</code> not permitted).
      */
     public Crosshair(double value, Paint paint, Stroke stroke) {
         ParamChecks.nullNotPermitted(paint, "paint");
@@ -180,7 +195,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * currently visible.
      *
      * @return A boolean.
-     *
      * @see #setVisible(boolean)
      */
     public boolean isVisible() {
@@ -192,8 +206,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * a proerty change event (with the name 'visible') to all registered
      * listeners.
      *
-     * @param visible  the new flag value.
-     *
+     * @param visible the new flag value.
      * @see #isVisible()
      */
     public void setVisible(boolean visible) {
@@ -206,7 +219,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Returns the crosshair value.
      *
      * @return The crosshair value.
-     *
      * @see #setValue(double)
      */
     public double getValue() {
@@ -217,8 +229,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Sets the crosshair value and sends a property change event with the name
      * 'value' to all registered listeners.
      *
-     * @param value  the value.
-     *
+     * @param value the value.
      * @see #getValue()
      */
     public void setValue(double value) {
@@ -231,7 +242,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Returns the paint for the crosshair line.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @see #setPaint(java.awt.Paint)
      */
     public Paint getPaint() {
@@ -242,8 +252,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Sets the paint for the crosshair line and sends a property change event
      * with the name "paint" to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getPaint()
      */
     public void setPaint(Paint paint) {
@@ -256,7 +265,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Returns the stroke for the crosshair line.
      *
      * @return The stroke (never <code>null</code>).
-     *
      * @see #setStroke(java.awt.Stroke)
      */
     public Stroke getStroke() {
@@ -267,8 +275,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Sets the stroke for the crosshair line and sends a property change event
      * with the name "stroke" to all registered listeners.
      *
-     * @param stroke  the stroke (<code>null</code> not permitted).
-     *
+     * @param stroke the stroke (<code>null</code> not permitted).
      * @see #getStroke()
      */
     public void setStroke(Stroke stroke) {
@@ -282,7 +289,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * this crosshair.
      *
      * @return A boolean.
-     *
      * @see #setLabelVisible(boolean)
      */
     public boolean isLabelVisible() {
@@ -294,8 +300,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * crosshair and sends a property change event (with the name
      * 'labelVisible') to all registered listeners.
      *
-     * @param visible  the new flag value.
-     *
+     * @param visible the new flag value.
      * @see #isLabelVisible()
      */
     public void setLabelVisible(boolean visible) {
@@ -308,7 +313,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Returns the crosshair label generator.
      *
      * @return The label crosshair generator (never <code>null</code>).
-     *
      * @see #setLabelGenerator(org.jfree.chart.labels.CrosshairLabelGenerator)
      */
     public CrosshairLabelGenerator getLabelGenerator() {
@@ -319,8 +323,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Sets the crosshair label generator and sends a property change event
      * (with the name 'labelGenerator') to all registered listeners.
      *
-     * @param generator  the new generator (<code>null</code> not permitted).
-     *
+     * @param generator the new generator (<code>null</code> not permitted).
      * @see #getLabelGenerator()
      */
     public void setLabelGenerator(CrosshairLabelGenerator generator) {
@@ -334,7 +337,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Returns the label anchor point.
      *
      * @return the label anchor point (never <code>null</code>.
-     *
      * @see #setLabelAnchor(org.jfree.ui.RectangleAnchor)
      */
     public RectangleAnchor getLabelAnchor() {
@@ -345,8 +347,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Sets the label anchor point and sends a property change event (with the
      * name 'labelAnchor') to all registered listeners.
      *
-     * @param anchor  the anchor (<code>null</code> not permitted).
-     *
+     * @param anchor the anchor (<code>null</code> not permitted).
      * @see #getLabelAnchor()
      */
     public void setLabelAnchor(RectangleAnchor anchor) {
@@ -359,7 +360,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Returns the x-offset for the label (in Java2D units).
      *
      * @return The x-offset.
-     *
      * @see #setLabelXOffset(double)
      */
     public double getLabelXOffset() {
@@ -370,8 +370,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Sets the x-offset and sends a property change event (with the name
      * 'labelXOffset') to all registered listeners.
      *
-     * @param offset  the new offset.
-     *
+     * @param offset the new offset.
      * @see #getLabelXOffset()
      */
     public void setLabelXOffset(double offset) {
@@ -384,7 +383,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Returns the y-offset for the label (in Java2D units).
      *
      * @return The y-offset.
-     *
      * @see #setLabelYOffset(double)
      */
     public double getLabelYOffset() {
@@ -395,8 +393,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Sets the y-offset and sends a property change event (with the name
      * 'labelYOffset') to all registered listeners.
      *
-     * @param offset  the new offset.
-     *
+     * @param offset the new offset.
      * @see #getLabelYOffset()
      */
     public void setLabelYOffset(double offset) {
@@ -409,7 +406,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Returns the label font.
      *
      * @return The label font (never <code>null</code>).
-     *
      * @see #setLabelFont(java.awt.Font)
      */
     public Font getLabelFont() {
@@ -420,8 +416,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Sets the label font and sends a property change event (with the name
      * 'labelFont') to all registered listeners.
      *
-     * @param font  the font (<code>null</code> not permitted).
-     *
+     * @param font the font (<code>null</code> not permitted).
      * @see #getLabelFont()
      */
     public void setLabelFont(Font font) {
@@ -435,7 +430,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Returns the label paint.
      *
      * @return The label paint (never <code>null</code>).
-     *
      * @see #setLabelPaint
      */
     public Paint getLabelPaint() {
@@ -446,8 +440,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Sets the label paint and sends a property change event (with the name
      * 'labelPaint') to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getLabelPaint()
      */
     public void setLabelPaint(Paint paint) {
@@ -461,7 +454,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Returns the label background paint.
      *
      * @return The label background paint (possibly <code>null</code>).
-     *
      * @see #setLabelBackgroundPaint(java.awt.Paint)
      */
     public Paint getLabelBackgroundPaint() {
@@ -472,8 +464,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Sets the label background paint and sends a property change event with
      * the name 'labelBackgroundPaint') to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> permitted).
-     *
+     * @param paint the paint (<code>null</code> permitted).
      * @see #getLabelBackgroundPaint()
      */
     public void setLabelBackgroundPaint(Paint paint) {
@@ -486,7 +477,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Returns the flag that controls the visibility of the label outline.
      *
      * @return A boolean.
-     *
      * @see #setLabelOutlineVisible(boolean)
      */
     public boolean isLabelOutlineVisible() {
@@ -498,8 +488,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * sends a property change event (with the name "labelOutlineVisible") to
      * all registered listeners.
      *
-     * @param visible  the new flag value.
-     *
+     * @param visible the new flag value.
      * @see #isLabelOutlineVisible()
      */
     public void setLabelOutlineVisible(boolean visible) {
@@ -512,7 +501,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Returns the label outline paint.
      *
      * @return The label outline paint (never <code>null</code>).
-     *
      * @see #setLabelOutlinePaint(java.awt.Paint)
      */
     public Paint getLabelOutlinePaint() {
@@ -523,8 +511,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Sets the label outline paint and sends a property change event (with the
      * name "labelOutlinePaint") to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getLabelOutlinePaint()
      */
     public void setLabelOutlinePaint(Paint paint) {
@@ -538,7 +525,6 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Returns the label outline stroke.
      *
      * @return The label outline stroke (never <code>null</code>).
-     *
      * @see #setLabelOutlineStroke(java.awt.Stroke)
      */
     public Stroke getLabelOutlineStroke() {
@@ -549,8 +535,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Sets the label outline stroke and sends a property change event (with
      * the name 'labelOutlineStroke') to all registered listeners.
      *
-     * @param stroke  the stroke (<code>null</code> not permitted).
-     *
+     * @param stroke the stroke (<code>null</code> not permitted).
      * @see #getLabelOutlineStroke()
      */
     public void setLabelOutlineStroke(Stroke stroke) {
@@ -563,8 +548,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
     /**
      * Tests this crosshair for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -656,9 +640,8 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
      * Returns an independent copy of this instance.
      *
      * @return An independent copy of this instance.
-     *
      * @throws java.lang.CloneNotSupportedException if there is a problem with
-     *         cloning.
+     *                                              cloning.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -669,8 +652,7 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
     /**
      * Adds a property change listener.
      *
-     * @param l  the listener.
-     *
+     * @param l the listener.
      * @see #removePropertyChangeListener(java.beans.PropertyChangeListener)
      */
     public void addPropertyChangeListener(PropertyChangeListener l) {
@@ -680,9 +662,8 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
     /**
      * Removes a property change listener.
      *
-     * @param l  the listener.
-     *
-     * @see #addPropertyChangeListener(java.beans.PropertyChangeListener) 
+     * @param l the listener.
+     * @see #addPropertyChangeListener(java.beans.PropertyChangeListener)
      */
     public void removePropertyChangeListener(PropertyChangeListener l) {
         this.pcs.removePropertyChangeListener(l);
@@ -691,9 +672,8 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -708,10 +688,9 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {

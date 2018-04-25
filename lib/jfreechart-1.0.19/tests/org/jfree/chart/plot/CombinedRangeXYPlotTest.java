@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------
@@ -41,15 +41,6 @@
 
 package org.jfree.chart.plot;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.List;
-
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.TestUtilities;
 import org.jfree.chart.annotations.XYTextAnnotation;
@@ -64,18 +55,28 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.junit.Test;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Tests for the {@link CombinedRangeXYPlot} class.
  */
 public class CombinedRangeXYPlotTest implements ChartChangeListener {
 
-    /** A list of the events received. */
+    /**
+     * A list of the events received.
+     */
     private List events = new java.util.ArrayList();
 
     /**
      * Receives a chart change event.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void chartChanged(ChartChangeEvent event) {
@@ -127,7 +128,7 @@ public class CombinedRangeXYPlotTest implements ChartChangeListener {
     @Test
     public void testSerialization() {
         CombinedRangeXYPlot plot1 = createPlot();
-        CombinedRangeXYPlot plot2 = (CombinedRangeXYPlot) 
+        CombinedRangeXYPlot plot2 = (CombinedRangeXYPlot)
                 TestUtilities.serialised(plot1);
         assertEquals(plot1, plot2);
     }

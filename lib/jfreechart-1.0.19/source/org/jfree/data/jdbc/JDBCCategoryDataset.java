@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -63,17 +63,10 @@
 
 package org.jfree.data.jdbc;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
-
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+
+import java.sql.*;
 
 /**
  * A {@link CategoryDataset} implementation over a database JDBC result set.
@@ -92,10 +85,14 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class JDBCCategoryDataset extends DefaultCategoryDataset {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = -3080395327918844965L;
 
-    /** The database connection. */
+    /**
+     * The database connection.
+     */
     private transient Connection connection;
 
     /**
@@ -109,20 +106,19 @@ public class JDBCCategoryDataset extends DefaultCategoryDataset {
     /**
      * Creates a new dataset with a database connection.
      *
-     * @param  url  the URL of the database connection.
-     * @param  driverName  the database driver class name.
-     * @param  user  the database user.
-     * @param  passwd  the database user's password.
-     *
+     * @param url        the URL of the database connection.
+     * @param driverName the database driver class name.
+     * @param user       the database user.
+     * @param passwd     the database user's password.
      * @throws ClassNotFoundException if the driver cannot be found.
-     * @throws SQLException if there is an error obtaining a connection to the
-     *                      database.
+     * @throws SQLException           if there is an error obtaining a connection to the
+     *                                database.
      */
     public JDBCCategoryDataset(String url,
                                String driverName,
                                String user,
                                String passwd)
-        throws ClassNotFoundException, SQLException {
+            throws ClassNotFoundException, SQLException {
 
         Class.forName(driverName);
         this.connection = DriverManager.getConnection(url, user, passwd);
@@ -131,7 +127,7 @@ public class JDBCCategoryDataset extends DefaultCategoryDataset {
     /**
      * Create a new dataset with the given database connection.
      *
-     * @param connection  the database connection.
+     * @param connection the database connection.
      */
     public JDBCCategoryDataset(Connection connection) {
         if (connection == null) {
@@ -144,13 +140,12 @@ public class JDBCCategoryDataset extends DefaultCategoryDataset {
      * Creates a new dataset with the given database connection, and executes
      * the supplied query to populate the dataset.
      *
-     * @param connection  the connection.
-     * @param query  the query.
-     *
+     * @param connection the connection.
+     * @param query      the query.
      * @throws SQLException if there is a problem executing the query.
      */
     public JDBCCategoryDataset(Connection connection, String query)
-        throws SQLException {
+            throws SQLException {
         this(connection);
         executeQuery(query);
     }
@@ -169,7 +164,7 @@ public class JDBCCategoryDataset extends DefaultCategoryDataset {
      * Sets a flag that controls whether or not the table values are transposed
      * when added to the dataset.
      *
-     * @param transpose  the flag.
+     * @param transpose the flag.
      */
     public void setTranspose(boolean transpose) {
         this.transpose = transpose;
@@ -183,8 +178,7 @@ public class JDBCCategoryDataset extends DefaultCategoryDataset {
      * The results from the query are extracted and cached locally, thus
      * applying an upper limit on how many rows can be retrieved successfully.
      *
-     * @param query  the query.
-     *
+     * @param query the query.
      * @throws SQLException if there is a problem executing the query.
      */
     public void executeQuery(String query) throws SQLException {
@@ -199,9 +193,8 @@ public class JDBCCategoryDataset extends DefaultCategoryDataset {
      * The results from the query are extracted and cached locally, thus
      * applying an upper limit on how many rows can be retrieved successfully.
      *
-     * @param con  the connection.
-     * @param query  the query.
-     *
+     * @param con   the connection.
+     * @param query the query.
      * @throws SQLException if there is a problem executing the query.
      */
     public void executeQuery(Connection con, String query) throws SQLException {
@@ -217,8 +210,8 @@ public class JDBCCategoryDataset extends DefaultCategoryDataset {
 
             if (columnCount < 2) {
                 throw new SQLException(
-                    "JDBCCategoryDataset.executeQuery() : insufficient columns "
-                    + "returned from the database.");
+                        "JDBCCategoryDataset.executeQuery() : insufficient columns "
+                                + "returned from the database.");
             }
 
             // Remove any previous old data
@@ -248,8 +241,7 @@ public class JDBCCategoryDataset extends DefaultCategoryDataset {
                             Number value = (Number) resultSet.getObject(column);
                             if (this.transpose) {
                                 setValue(value, columnKey, rowKey);
-                            }
-                            else {
+                            } else {
                                 setValue(value, rowKey, columnKey);
                             }
                             break;
@@ -261,8 +253,7 @@ public class JDBCCategoryDataset extends DefaultCategoryDataset {
                             Number value = new Long(date.getTime());
                             if (this.transpose) {
                                 setValue(value, columnKey, rowKey);
-                            }
-                            else {
+                            } else {
                                 setValue(value, rowKey, columnKey);
                             }
                             break;
@@ -271,17 +262,15 @@ public class JDBCCategoryDataset extends DefaultCategoryDataset {
                         case Types.VARCHAR:
                         case Types.LONGVARCHAR: {
                             String string
-                                = (String) resultSet.getObject(column);
+                                    = (String) resultSet.getObject(column);
                             try {
                                 Number value = Double.valueOf(string);
                                 if (this.transpose) {
                                     setValue(value, columnKey, rowKey);
-                                }
-                                else {
+                                } else {
                                     setValue(value, rowKey, columnKey);
                                 }
-                            }
-                            catch (NumberFormatException e) {
+                            } catch (NumberFormatException e) {
                                 // suppress (value defaults to null)
                             }
                             break;
@@ -294,21 +283,18 @@ public class JDBCCategoryDataset extends DefaultCategoryDataset {
             }
 
             fireDatasetChanged();
-        }
-        finally {
+        } finally {
             if (resultSet != null) {
                 try {
                     resultSet.close();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     // report this?
                 }
             }
             if (statement != null) {
                 try {
                     statement.close();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     // report this?
                 }
             }

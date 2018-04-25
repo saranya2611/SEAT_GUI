@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -40,8 +40,6 @@
 
 package org.jfree.chart.fx.interaction;
 
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import javafx.scene.input.MouseEvent;
 import org.jfree.chart.fx.ChartCanvas;
 import org.jfree.chart.fx.ChartViewer;
@@ -50,60 +48,67 @@ import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.Zoomable;
 import org.jfree.util.ShapeUtilities;
 
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+
 /**
- * Handles drag zooming of charts on a {@link ChartCanvas}.  This 
- * handler should be configured with the required modifier keys and installed 
+ * Handles drag zooming of charts on a {@link ChartCanvas}.  This
+ * handler should be configured with the required modifier keys and installed
  * as a live handler (not an auxiliary handler).  This handler only works for
- * a <b>ChartCanvas</b> that is embedded in a {@link ChartViewer}, since it 
+ * a <b>ChartCanvas</b> that is embedded in a {@link ChartViewer}, since it
  * relies on the <b>ChartViewer</b> for drawing the zoom rectangle.
- * 
+ * <p>
  * <p>THE API FOR THIS CLASS IS SUBJECT TO CHANGE IN FUTURE RELEASES.  This is
- * so that we can incorporate feedback on the (new) JavaFX support in 
+ * so that we can incorporate feedback on the (new) JavaFX support in
  * JFreeChart.</p>
- * 
+ *
  * @since 1.0.18
  */
 public class ZoomHandlerFX extends AbstractMouseHandlerFX {
 
-    /** The viewer is used to overlay the zoom rectangle. */
+    /**
+     * The viewer is used to overlay the zoom rectangle.
+     */
     private ChartViewer viewer;
-    
-    /** The starting point for the zoom. */
+
+    /**
+     * The starting point for the zoom.
+     */
     private Point2D startPoint;
-    
+
     /**
      * Creates a new instance with no modifier keys required.
-     * 
-     * @param id  the handler ID (<code>null</code> not permitted).
-     * @param parent  the chart viewer.
+     *
+     * @param id     the handler ID (<code>null</code> not permitted).
+     * @param parent the chart viewer.
      */
-    public ZoomHandlerFX(String id, ChartViewer parent) { 
+    public ZoomHandlerFX(String id, ChartViewer parent) {
         this(id, parent, false, false, false, false);
     }
-    
+
     /**
-     * Creates a new instance that will be activated using the specified 
+     * Creates a new instance that will be activated using the specified
      * combination of modifier keys.
-     * 
-     * @param id  the handler ID (<code>null</code> not permitted).
-     * @param parent  the chart viewer.
-     * @param altKey  require ALT key?
+     *
+     * @param id       the handler ID (<code>null</code> not permitted).
+     * @param parent   the chart viewer.
+     * @param altKey   require ALT key?
      * @param ctrlKey  require CTRL key?
      * @param metaKey  require META key?
-     * @param shiftKey   require SHIFT key?
+     * @param shiftKey require SHIFT key?
      */
-    public ZoomHandlerFX(String id, ChartViewer parent, boolean altKey, 
-            boolean ctrlKey, boolean metaKey, boolean shiftKey) {
+    public ZoomHandlerFX(String id, ChartViewer parent, boolean altKey,
+                         boolean ctrlKey, boolean metaKey, boolean shiftKey) {
         super(id, altKey, ctrlKey, metaKey, shiftKey);
         this.viewer = parent;
     }
-    
+
     /**
      * Handles a mouse pressed event by recording the initial mouse pointer
      * location.
-     * 
-     * @param canvas  the JavaFX canvas (<code>null</code> not permitted).
-     * @param e  the mouse event (<code>null</code> not permitted).
+     *
+     * @param canvas the JavaFX canvas (<code>null</code> not permitted).
+     * @param e      the mouse event (<code>null</code> not permitted).
      */
     @Override
     public void handleMousePressed(ChartCanvas canvas, MouseEvent e) {
@@ -117,13 +122,13 @@ public class ZoomHandlerFX extends AbstractMouseHandlerFX {
             canvas.clearLiveHandler();
         }
     }
-    
+
     /**
      * Handles a mouse dragged event by updating the zoom rectangle displayed
      * in the ChartViewer.
-     * 
-     * @param canvas  the JavaFX canvas (<code>null</code> not permitted).
-     * @param e  the mouse event (<code>null</code> not permitted).
+     *
+     * @param canvas the JavaFX canvas (<code>null</code> not permitted).
+     * @param e      the mouse event (<code>null</code> not permitted).
      */
     @Override
     public void handleMouseDragged(ChartCanvas canvas, MouseEvent e) {
@@ -148,7 +153,7 @@ public class ZoomHandlerFX extends AbstractMouseHandlerFX {
             vZoom = z.isRangeZoomable();
         }
         Rectangle2D dataArea = canvas.findDataArea(this.startPoint);
-        
+
         double x = this.startPoint.getX();
         double y = this.startPoint.getY();
         double w = 0;
@@ -159,14 +164,12 @@ public class ZoomHandlerFX extends AbstractMouseHandlerFX {
             double ymax = Math.min(e.getY(), dataArea.getMaxY());
             w = xmax - this.startPoint.getX();
             h = ymax - this.startPoint.getY();
-        }
-        else if (hZoom) {
+        } else if (hZoom) {
             double xmax = Math.min(e.getX(), dataArea.getMaxX());
             y = dataArea.getMinY();
             w = xmax - this.startPoint.getX();
             h = dataArea.getHeight();
-        }
-        else if (vZoom) {
+        } else if (vZoom) {
             double ymax = Math.min(e.getY(), dataArea.getMaxY());
             x = dataArea.getMinX();
             w = dataArea.getWidth();
@@ -176,7 +179,7 @@ public class ZoomHandlerFX extends AbstractMouseHandlerFX {
     }
 
     @Override
-    public void handleMouseReleased(ChartCanvas canvas, MouseEvent e) {  
+    public void handleMouseReleased(ChartCanvas canvas, MouseEvent e) {
         Plot p = canvas.getChart().getPlot();
         if (!(p instanceof Zoomable)) {
             return;
@@ -220,25 +223,23 @@ public class ZoomHandlerFX extends AbstractMouseHandlerFX {
                     y = dataArea.getMinY();
                     w = Math.min(w, maxX - this.startPoint.getX());
                     h = dataArea.getHeight();
-                }
-                else if (!hZoom) {
+                } else if (!hZoom) {
                     x = dataArea.getMinX();
                     w = dataArea.getWidth();
                     h = Math.min(h, maxY - this.startPoint.getY());
-                }
-                else {
+                } else {
                     w = Math.min(w, maxX - this.startPoint.getX());
                     h = Math.min(h, maxY - this.startPoint.getY());
                 }
                 Rectangle2D zoomArea = new Rectangle2D.Double(x, y, w, h);
-                
+
                 boolean saved = p.isNotify();
                 p.setNotify(false);
                 double pw0 = percentW(x, dataArea);
                 double pw1 = percentW(x + w, dataArea);
                 double ph0 = percentH(y, dataArea);
                 double ph1 = percentH(y + h, dataArea);
-                PlotRenderingInfo info 
+                PlotRenderingInfo info
                         = this.viewer.getRenderingInfo().getPlotInfo();
                 if (z.getOrientation().isVertical()) {
                     z.zoomDomainAxes(pw0, pw1, info, endPoint);
@@ -248,7 +249,7 @@ public class ZoomHandlerFX extends AbstractMouseHandlerFX {
                     z.zoomDomainAxes(1 - ph1, 1 - ph0, info, endPoint);
                 }
                 p.setNotify(saved);
-                
+
             }
         }
         viewer.hideZoomRectangle();
@@ -259,7 +260,7 @@ public class ZoomHandlerFX extends AbstractMouseHandlerFX {
     private double percentW(double x, Rectangle2D r) {
         return (x - r.getMinX()) / r.getWidth();
     }
-    
+
     private double percentH(double y, Rectangle2D r) {
         return (y - r.getMinY()) / r.getHeight();
     }

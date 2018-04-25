@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -44,16 +44,12 @@
 
 package org.jfree.data.statistics;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetChangeListener;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link HistogramDataset} class.
@@ -61,6 +57,10 @@ import org.junit.Test;
 public class HistogramDatasetTest implements DatasetChangeListener {
 
     private static final double EPSILON = 0.0000000001;
+    /**
+     * A reference to the last event received by the datasetChanged() method.
+     */
+    private DatasetChangeEvent lastEvent;
 
     /**
      * Some checks that the correct values are assigned to bins.
@@ -91,9 +91,9 @@ public class HistogramDatasetTest implements DatasetChangeListener {
         assertTrue(d1.equals(d2));
         assertTrue(d2.equals(d1));
 
-        d1.addSeries("Series 2", new double[] {1.0, 2.0, 3.0}, 2);
+        d1.addSeries("Series 2", new double[]{1.0, 2.0, 3.0}, 2);
         assertFalse(d1.equals(d2));
-        d2.addSeries("Series 2", new double[] {1.0, 2.0, 3.0}, 2);
+        d2.addSeries("Series 2", new double[]{1.0, 2.0, 3.0}, 2);
         assertTrue(d1.equals(d2));
     }
 
@@ -111,9 +111,9 @@ public class HistogramDatasetTest implements DatasetChangeListener {
         assertTrue(d1.equals(d2));
 
         // simple check for independence
-        d1.addSeries("Series 2", new double[] {1.0, 2.0, 3.0}, 2);
+        d1.addSeries("Series 2", new double[]{1.0, 2.0, 3.0}, 2);
         assertFalse(d1.equals(d2));
-        d2.addSeries("Series 2", new double[] {1.0, 2.0, 3.0}, 2);
+        d2.addSeries("Series 2", new double[]{1.0, 2.0, 3.0}, 2);
         assertTrue(d1.equals(d2));
     }
 
@@ -129,9 +129,9 @@ public class HistogramDatasetTest implements DatasetChangeListener {
         assertEquals(d1, d2);
 
         // simple check for independence
-        d1.addSeries("Series 2", new double[] {1.0, 2.0, 3.0}, 2);
+        d1.addSeries("Series 2", new double[]{1.0, 2.0, 3.0}, 2);
         assertFalse(d1.equals(d2));
-        d2.addSeries("Series 2", new double[] {1.0, 2.0, 3.0}, 2);
+        d2.addSeries("Series 2", new double[]{1.0, 2.0, 3.0}, 2);
         assertTrue(d1.equals(d2));
     }
 
@@ -239,14 +239,9 @@ public class HistogramDatasetTest implements DatasetChangeListener {
     }
 
     /**
-     * A reference to the last event received by the datasetChanged() method.
-     */
-    private DatasetChangeEvent lastEvent;
-
-    /**
      * Receives event notification.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void datasetChanged(DatasetChangeEvent event) {

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------------
@@ -40,16 +40,13 @@
 
 package org.jfree.chart.entity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.jfree.chart.TestUtilities;
+import org.jfree.data.general.DefaultPieDataset;
+import org.junit.Test;
 
 import java.awt.geom.Rectangle2D;
 
-import org.jfree.chart.TestUtilities;
-
-import org.jfree.data.general.DefaultPieDataset;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link StandardEntityCollection} class.
@@ -109,7 +106,7 @@ public class StandardEntityCollectionTest {
                 "ToolTip", "URL");
         StandardEntityCollection c1 = new StandardEntityCollection();
         c1.add(e1);
-        StandardEntityCollection c2 = (StandardEntityCollection) 
+        StandardEntityCollection c2 = (StandardEntityCollection)
                 TestUtilities.serialised(c1);
         assertEquals(c1, c2);
     }

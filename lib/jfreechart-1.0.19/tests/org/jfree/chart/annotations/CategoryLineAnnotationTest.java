@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -41,17 +41,13 @@
 
 package org.jfree.chart.annotations;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import java.awt.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link CategoryLineAnnotation} class.
@@ -114,9 +110,9 @@ public class CategoryLineAnnotationTest {
      */
     @Test
     public void testHashcode() {
-        CategoryLineAnnotation a1 = new CategoryLineAnnotation("Category 1", 
+        CategoryLineAnnotation a1 = new CategoryLineAnnotation("Category 1",
                 1.0, "Category 2", 2.0, Color.red, new BasicStroke(1.0f));
-        CategoryLineAnnotation a2 = new CategoryLineAnnotation("Category 1", 
+        CategoryLineAnnotation a2 = new CategoryLineAnnotation("Category 1",
                 1.0, "Category 2", 2.0, Color.red, new BasicStroke(1.0f));
         assertTrue(a1.equals(a2));
         int h1 = a1.hashCode();
@@ -129,7 +125,7 @@ public class CategoryLineAnnotationTest {
      */
     @Test
     public void testCloning() throws CloneNotSupportedException {
-        CategoryLineAnnotation a1 = new CategoryLineAnnotation("Category 1", 
+        CategoryLineAnnotation a1 = new CategoryLineAnnotation("Category 1",
                 1.0, "Category 2", 2.0, Color.red, new BasicStroke(1.0f));
         CategoryLineAnnotation a2 = (CategoryLineAnnotation) a1.clone();
         assertTrue(a1 != a2);
@@ -153,7 +149,7 @@ public class CategoryLineAnnotationTest {
      */
     @Test
     public void testSerialization() {
-        CategoryLineAnnotation a1 = new CategoryLineAnnotation("Category 1", 
+        CategoryLineAnnotation a1 = new CategoryLineAnnotation("Category 1",
                 1.0, "Category 2", 2.0, Color.red, new BasicStroke(1.0f));
         CategoryLineAnnotation a2 = (CategoryLineAnnotation) TestUtilities.serialised(a1);
         assertEquals(a1, a2);

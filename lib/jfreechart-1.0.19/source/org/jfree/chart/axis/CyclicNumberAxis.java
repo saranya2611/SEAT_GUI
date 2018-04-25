@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -50,21 +50,6 @@
 
 package org.jfree.chart.axis;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.text.NumberFormat;
-import java.util.List;
-
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.util.ParamChecks;
@@ -76,82 +61,105 @@ import org.jfree.ui.TextAnchor;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PaintUtilities;
 
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.NumberFormat;
+import java.util.List;
+
 /**
-This class extends NumberAxis and handles cycling.
-
-Traditional representation of data in the range x0..x1
-<pre>
-|-------------------------|
-x0                       x1
-</pre>
-
-Here, the range bounds are at the axis extremities.
-With cyclic axis, however, the time is split in
-"cycles", or "time frames", or the same duration : the period.
-
-A cycle axis cannot by definition handle a larger interval
-than the period : <pre>x1 - x0 &gt;= period</pre>. Thus, at most a full
-period can be represented with such an axis.
-
-The cycle bound is the number between x0 and x1 which marks
-the beginning of new time frame:
-<pre>
-|---------------------|----------------------------|
-x0                   cb                           x1
-&lt;---previous cycle---&gt;&lt;-------current cycle--------&gt;
-</pre>
-
-It is actually a multiple of the period, plus optionally
-a start offset: <pre>cb = n * period + offset</pre>
-
-Thus, by definition, two consecutive cycle bounds
-period apart, which is precisely why it is called a
-period.
-
-The visual representation of a cyclic axis is like that:
-<pre>
-|----------------------------|---------------------|
-cb                         x1|x0                  cb
-&lt;-------current cycle--------&gt;&lt;---previous cycle---&gt;
-</pre>
-
-The cycle bound is at the axis ends, then current
-cycle is shown, then the last cycle. When using
-dynamic data, the visual effect is the current cycle
-erases the last cycle as x grows. Then, the next cycle
-bound is reached, and the process starts over, erasing
-the previous cycle.
-
-A Cyclic item renderer is provided to do exactly this.
-
+ * This class extends NumberAxis and handles cycling.
+ * <p>
+ * Traditional representation of data in the range x0..x1
+ * <pre>
+ * |-------------------------|
+ * x0                       x1
+ * </pre>
+ * <p>
+ * Here, the range bounds are at the axis extremities.
+ * With cyclic axis, however, the time is split in
+ * "cycles", or "time frames", or the same duration : the period.
+ * <p>
+ * A cycle axis cannot by definition handle a larger interval
+ * than the period : <pre>x1 - x0 &gt;= period</pre>. Thus, at most a full
+ * period can be represented with such an axis.
+ * <p>
+ * The cycle bound is the number between x0 and x1 which marks
+ * the beginning of new time frame:
+ * <pre>
+ * |---------------------|----------------------------|
+ * x0                   cb                           x1
+ * &lt;---previous cycle---&gt;&lt;-------current cycle--------&gt;
+ * </pre>
+ * <p>
+ * It is actually a multiple of the period, plus optionally
+ * a start offset: <pre>cb = n * period + offset</pre>
+ * <p>
+ * Thus, by definition, two consecutive cycle bounds
+ * period apart, which is precisely why it is called a
+ * period.
+ * <p>
+ * The visual representation of a cyclic axis is like that:
+ * <pre>
+ * |----------------------------|---------------------|
+ * cb                         x1|x0                  cb
+ * &lt;-------current cycle--------&gt;&lt;---previous cycle---&gt;
+ * </pre>
+ * <p>
+ * The cycle bound is at the axis ends, then current
+ * cycle is shown, then the last cycle. When using
+ * dynamic data, the visual effect is the current cycle
+ * erases the last cycle as x grows. Then, the next cycle
+ * bound is reached, and the process starts over, erasing
+ * the previous cycle.
+ * <p>
+ * A Cyclic item renderer is provided to do exactly this.
  */
 public class CyclicNumberAxis extends NumberAxis {
 
-    /** For serialization. */
-    static final long serialVersionUID = -7514160997164582554L;
-
-    /** The default axis line stroke. */
-    public static Stroke DEFAULT_ADVANCE_LINE_STROKE = new BasicStroke(1.0f);
-
-    /** The default axis line paint. */
+    /**
+     * The default axis line paint.
+     */
     public static final Paint DEFAULT_ADVANCE_LINE_PAINT = Color.gray;
-
-    /** The offset. */
+    /**
+     * For serialization.
+     */
+    static final long serialVersionUID = -7514160997164582554L;
+    /**
+     * The default axis line stroke.
+     */
+    public static Stroke DEFAULT_ADVANCE_LINE_STROKE = new BasicStroke(1.0f);
+    /**
+     * The offset.
+     */
     protected double offset;
 
-    /** The period.*/
+    /**
+     * The period.
+     */
     protected double period;
 
-    /** ??. */
+    /**
+     * ??.
+     */
     protected boolean boundMappedToLastCycle;
 
-    /** A flag that controls whether or not the advance line is visible. */
+    /**
+     * A flag that controls whether or not the advance line is visible.
+     */
     protected boolean advanceLineVisible;
 
-    /** The advance line stroke. */
+    /**
+     * The advance line stroke.
+     */
     protected transient Stroke advanceLineStroke = DEFAULT_ADVANCE_LINE_STROKE;
 
-    /** The advance line paint. */
+    /**
+     * The advance line paint.
+     */
     protected transient Paint advanceLinePaint;
 
     private transient boolean internalMarkerWhenTicksOverlap;
@@ -160,7 +168,7 @@ public class CyclicNumberAxis extends NumberAxis {
     /**
      * Creates a CycleNumberAxis with the given period.
      *
-     * @param period  the period.
+     * @param period the period.
      */
     public CyclicNumberAxis(double period) {
         this(period, 0.0);
@@ -169,8 +177,8 @@ public class CyclicNumberAxis extends NumberAxis {
     /**
      * Creates a CycleNumberAxis with the given period and offset.
      *
-     * @param period  the period.
-     * @param offset  the offset.
+     * @param period the period.
+     * @param offset the offset.
      */
     public CyclicNumberAxis(double period, double offset) {
         this(period, offset, null);
@@ -179,7 +187,7 @@ public class CyclicNumberAxis extends NumberAxis {
     /**
      * Creates a named CycleNumberAxis with the given period.
      *
-     * @param period  the period.
+     * @param period the period.
      * @param label  the label.
      */
     public CyclicNumberAxis(double period, String label) {
@@ -189,8 +197,8 @@ public class CyclicNumberAxis extends NumberAxis {
     /**
      * Creates a named CycleNumberAxis with the given period and offset.
      *
-     * @param period  the period.
-     * @param offset  the offset.
+     * @param period the period.
+     * @param offset the offset.
      * @param label  the label.
      */
     public CyclicNumberAxis(double period, double offset, String label) {
@@ -216,7 +224,7 @@ public class CyclicNumberAxis extends NumberAxis {
      * The advance line is the line drawn at the limit of the current cycle,
      * when erasing the previous cycle.
      *
-     * @param visible  the flag.
+     * @param visible the flag.
      */
     public void setAdvanceLineVisible(boolean visible) {
         this.advanceLineVisible = visible;
@@ -236,7 +244,7 @@ public class CyclicNumberAxis extends NumberAxis {
      * The advance line is the line drawn at the limit of the current cycle,
      * when erasing the previous cycle.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
+     * @param paint the paint (<code>null</code> not permitted).
      */
     public void setAdvanceLinePaint(Paint paint) {
         ParamChecks.nullNotPermitted(paint, "paint");
@@ -252,11 +260,12 @@ public class CyclicNumberAxis extends NumberAxis {
     public Stroke getAdvanceLineStroke() {
         return this.advanceLineStroke;
     }
+
     /**
      * The advance line is the line drawn at the limit of the current cycle,
      * when erasing the previous cycle.
      *
-     * @param stroke  the stroke (<code>null</code> not permitted).
+     * @param stroke the stroke (<code>null</code> not permitted).
      */
     public void setAdvanceLineStroke(Stroke stroke) {
         ParamChecks.nullNotPermitted(stroke, "stroke");
@@ -274,8 +283,8 @@ public class CyclicNumberAxis extends NumberAxis {
      * results in translateValueToJava2D.
      *
      * @return <code>true</code> if the cycle bound is mapped to the last
-     *         cycle, <code>false</code> if it is bound to the current cycle
-     *         (default)
+     * cycle, <code>false</code> if it is bound to the current cycle
+     * (default)
      */
     public boolean isBoundMappedToLastCycle() {
         return this.boundMappedToLastCycle;
@@ -292,7 +301,7 @@ public class CyclicNumberAxis extends NumberAxis {
      * results in valueToJava2D.
      *
      * @param boundMappedToLastCycle Set it to true to map the cycle bound to
-     *        the last cycle.
+     *                               the last cycle.
      */
     public void setBoundMappedToLastCycle(boolean boundMappedToLastCycle) {
         this.boundMappedToLastCycle = boundMappedToLastCycle;
@@ -301,98 +310,68 @@ public class CyclicNumberAxis extends NumberAxis {
     /**
      * Selects a tick unit when the axis is displayed horizontally.
      *
-     * @param g2  the graphics device.
-     * @param drawArea  the drawing area.
-     * @param dataArea  the data area.
-     * @param edge  the side of the rectangle on which the axis is displayed.
+     * @param g2       the graphics device.
+     * @param drawArea the drawing area.
+     * @param dataArea the data area.
+     * @param edge     the side of the rectangle on which the axis is displayed.
      */
     protected void selectHorizontalAutoTickUnit(Graphics2D g2,
-            Rectangle2D drawArea, Rectangle2D dataArea, RectangleEdge edge) {
+                                                Rectangle2D drawArea, Rectangle2D dataArea, RectangleEdge edge) {
 
         double tickLabelWidth
-            = estimateMaximumTickLabelWidth(g2, getTickUnit());
+                = estimateMaximumTickLabelWidth(g2, getTickUnit());
 
         // Compute number of labels
         double n = getRange().getLength()
-                   * tickLabelWidth / dataArea.getWidth();
+                * tickLabelWidth / dataArea.getWidth();
 
         setTickUnit(
                 (NumberTickUnit) getStandardTickUnits().getCeilingTickUnit(n),
                 false, false);
 
-     }
+    }
 
     /**
      * Selects a tick unit when the axis is displayed vertically.
      *
-     * @param g2  the graphics device.
-     * @param drawArea  the drawing area.
-     * @param dataArea  the data area.
-     * @param edge  the side of the rectangle on which the axis is displayed.
+     * @param g2       the graphics device.
+     * @param drawArea the drawing area.
+     * @param dataArea the data area.
+     * @param edge     the side of the rectangle on which the axis is displayed.
      */
     protected void selectVerticalAutoTickUnit(Graphics2D g2,
-            Rectangle2D drawArea, Rectangle2D dataArea, RectangleEdge edge) {
+                                              Rectangle2D drawArea, Rectangle2D dataArea, RectangleEdge edge) {
 
         double tickLabelWidth
-            = estimateMaximumTickLabelWidth(g2, getTickUnit());
+                = estimateMaximumTickLabelWidth(g2, getTickUnit());
 
         // Compute number of labels
         double n = getRange().getLength()
-                   * tickLabelWidth / dataArea.getHeight();
+                * tickLabelWidth / dataArea.getHeight();
 
         setTickUnit(
-            (NumberTickUnit) getStandardTickUnits().getCeilingTickUnit(n),
-            false, false);
-     }
-
-    /**
-     * A special Number tick that also hold information about the cycle bound
-     * mapping for this tick.  This is especially useful for having a tick at
-     * each axis end with the cycle bound value.  See also
-     * isBoundMappedToLastCycle()
-     */
-    protected static class CycleBoundTick extends NumberTick {
-
-        /** Map to last cycle. */
-        public boolean mapToLastCycle;
-
-        /**
-         * Creates a new tick.
-         *
-         * @param mapToLastCycle  map to last cycle?
-         * @param number  the number.
-         * @param label  the label.
-         * @param textAnchor  the text anchor.
-         * @param rotationAnchor  the rotation anchor.
-         * @param angle  the rotation angle.
-         */
-        public CycleBoundTick(boolean mapToLastCycle, Number number,
-                              String label, TextAnchor textAnchor,
-                              TextAnchor rotationAnchor, double angle) {
-            super(number, label, textAnchor, rotationAnchor, angle);
-            this.mapToLastCycle = mapToLastCycle;
-        }
+                (NumberTickUnit) getStandardTickUnits().getCeilingTickUnit(n),
+                false, false);
     }
 
     /**
      * Calculates the anchor point for a tick.
      *
-     * @param tick  the tick.
-     * @param cursor  the cursor.
-     * @param dataArea  the data area.
-     * @param edge  the side on which the axis is displayed.
-     *
+     * @param tick     the tick.
+     * @param cursor   the cursor.
+     * @param dataArea the data area.
+     * @param edge     the side on which the axis is displayed.
      * @return The anchor point.
      */
     @Override
     protected float[] calculateAnchorPoint(ValueTick tick, double cursor,
-            Rectangle2D dataArea, RectangleEdge edge) {
+                                           Rectangle2D dataArea, RectangleEdge edge) {
         if (tick instanceof CycleBoundTick) {
             boolean mapsav = this.boundMappedToLastCycle;
             this.boundMappedToLastCycle
-                = ((CycleBoundTick) tick).mapToLastCycle;
+                    = ((CycleBoundTick) tick).mapToLastCycle;
             float[] ret = super.calculateAnchorPoint(
-                tick, cursor, dataArea, edge
+                    tick, cursor, dataArea, edge
             );
             this.boundMappedToLastCycle = mapsav;
             return ret;
@@ -400,21 +379,18 @@ public class CyclicNumberAxis extends NumberAxis {
         return super.calculateAnchorPoint(tick, cursor, dataArea, edge);
     }
 
-
-
     /**
      * Builds a list of ticks for the axis.  This method is called when the
      * axis is at the top or bottom of the chart (so the axis is "horizontal").
      *
-     * @param g2  the graphics device.
-     * @param dataArea  the data area.
-     * @param edge  the edge.
-     *
+     * @param g2       the graphics device.
+     * @param dataArea the data area.
+     * @param edge     the edge.
      * @return A list of ticks.
      */
     @Override
     protected List refreshTicksHorizontal(Graphics2D g2, Rectangle2D dataArea,
-            RectangleEdge edge) {
+                                          RectangleEdge edge) {
 
         List result = new java.util.ArrayList();
 
@@ -456,8 +432,7 @@ public class CyclicNumberAxis extends NumberAxis {
             NumberFormat formatter = getNumberFormatOverride();
             if (formatter != null) {
                 tickLabel = formatter.format(currentTickValue);
-            }
-            else {
+            } else {
                 tickLabel = getTickUnit().valueToString(currentTickValue);
             }
             float x = (float) xx;
@@ -467,8 +442,7 @@ public class CyclicNumberAxis extends NumberAxis {
             if (isVerticalTickLabels()) {
                 if (edge == RectangleEdge.TOP) {
                     angle = Math.PI / 2.0;
-                }
-                else {
+                } else {
                     angle = -Math.PI / 2.0;
                 }
                 anchor = TextAnchor.CENTER_RIGHT;
@@ -476,62 +450,60 @@ public class CyclicNumberAxis extends NumberAxis {
                 if ((lastTick != null) && (lastX == x)
                         && (currentTickValue != cycleBound)) {
                     anchor = isInverted()
-                        ? TextAnchor.TOP_RIGHT : TextAnchor.BOTTOM_RIGHT;
+                            ? TextAnchor.TOP_RIGHT : TextAnchor.BOTTOM_RIGHT;
                     result.remove(result.size() - 1);
                     result.add(new CycleBoundTick(
-                        this.boundMappedToLastCycle, lastTick.getNumber(),
-                        lastTick.getText(), anchor, anchor,
-                        lastTick.getAngle())
+                            this.boundMappedToLastCycle, lastTick.getNumber(),
+                            lastTick.getText(), anchor, anchor,
+                            lastTick.getAngle())
                     );
                     this.internalMarkerWhenTicksOverlap = true;
                     anchor = isInverted()
-                        ? TextAnchor.BOTTOM_RIGHT : TextAnchor.TOP_RIGHT;
+                            ? TextAnchor.BOTTOM_RIGHT : TextAnchor.TOP_RIGHT;
                 }
                 rotationAnchor = anchor;
-            }
-            else {
+            } else {
                 if (edge == RectangleEdge.TOP) {
                     anchor = TextAnchor.BOTTOM_CENTER;
                     if ((lastTick != null) && (lastX == x)
                             && (currentTickValue != cycleBound)) {
                         anchor = isInverted()
-                            ? TextAnchor.BOTTOM_LEFT : TextAnchor.BOTTOM_RIGHT;
+                                ? TextAnchor.BOTTOM_LEFT : TextAnchor.BOTTOM_RIGHT;
                         result.remove(result.size() - 1);
                         result.add(new CycleBoundTick(
-                            this.boundMappedToLastCycle, lastTick.getNumber(),
-                            lastTick.getText(), anchor, anchor,
-                            lastTick.getAngle())
+                                this.boundMappedToLastCycle, lastTick.getNumber(),
+                                lastTick.getText(), anchor, anchor,
+                                lastTick.getAngle())
                         );
                         this.internalMarkerWhenTicksOverlap = true;
                         anchor = isInverted()
-                            ? TextAnchor.BOTTOM_RIGHT : TextAnchor.BOTTOM_LEFT;
+                                ? TextAnchor.BOTTOM_RIGHT : TextAnchor.BOTTOM_LEFT;
                     }
                     rotationAnchor = anchor;
-                }
-                else {
+                } else {
                     anchor = TextAnchor.TOP_CENTER;
                     if ((lastTick != null) && (lastX == x)
                             && (currentTickValue != cycleBound)) {
                         anchor = isInverted()
-                            ? TextAnchor.TOP_LEFT : TextAnchor.TOP_RIGHT;
+                                ? TextAnchor.TOP_LEFT : TextAnchor.TOP_RIGHT;
                         result.remove(result.size() - 1);
                         result.add(new CycleBoundTick(
-                            this.boundMappedToLastCycle, lastTick.getNumber(),
-                            lastTick.getText(), anchor, anchor,
-                            lastTick.getAngle())
+                                this.boundMappedToLastCycle, lastTick.getNumber(),
+                                lastTick.getText(), anchor, anchor,
+                                lastTick.getAngle())
                         );
                         this.internalMarkerWhenTicksOverlap = true;
                         anchor = isInverted()
-                            ? TextAnchor.TOP_RIGHT : TextAnchor.TOP_LEFT;
+                                ? TextAnchor.TOP_RIGHT : TextAnchor.TOP_LEFT;
                     }
                     rotationAnchor = anchor;
                 }
             }
 
             CycleBoundTick tick = new CycleBoundTick(
-                this.boundMappedToLastCycle,
-                new Double(currentTickValue), tickLabel, anchor,
-                rotationAnchor, angle
+                    this.boundMappedToLastCycle,
+                    new Double(currentTickValue), tickLabel, anchor,
+                    rotationAnchor, angle
             );
             if (currentTickValue == cycleBound) {
                 this.internalMarkerCycleBoundTick = tick;
@@ -559,14 +531,13 @@ public class CyclicNumberAxis extends NumberAxis {
      * Builds a list of ticks for the axis.  This method is called when the
      * axis is at the left or right of the chart (so the axis is "vertical").
      *
-     * @param g2  the graphics device.
-     * @param dataArea  the data area.
-     * @param edge  the edge.
-     *
+     * @param g2       the graphics device.
+     * @param dataArea the data area.
+     * @param edge     the edge.
      * @return A list of ticks.
      */
     protected List refreshVerticalTicks(Graphics2D g2, Rectangle2D dataArea,
-            RectangleEdge edge) {
+                                        RectangleEdge edge) {
 
         List result = new java.util.ArrayList();
         result.clear();
@@ -608,8 +579,7 @@ public class CyclicNumberAxis extends NumberAxis {
             NumberFormat formatter = getNumberFormatOverride();
             if (formatter != null) {
                 tickLabel = formatter.format(currentTickValue);
-            }
-            else {
+            } else {
                 tickLabel = getTickUnit().valueToString(currentTickValue);
             }
 
@@ -624,82 +594,79 @@ public class CyclicNumberAxis extends NumberAxis {
                     if ((lastTick != null) && (lastY == y)
                             && (currentTickValue != cycleBound)) {
                         anchor = isInverted()
-                            ? TextAnchor.BOTTOM_LEFT : TextAnchor.BOTTOM_RIGHT;
+                                ? TextAnchor.BOTTOM_LEFT : TextAnchor.BOTTOM_RIGHT;
                         result.remove(result.size() - 1);
                         result.add(new CycleBoundTick(
-                            this.boundMappedToLastCycle, lastTick.getNumber(),
-                            lastTick.getText(), anchor, anchor,
-                            lastTick.getAngle())
+                                this.boundMappedToLastCycle, lastTick.getNumber(),
+                                lastTick.getText(), anchor, anchor,
+                                lastTick.getAngle())
                         );
                         this.internalMarkerWhenTicksOverlap = true;
                         anchor = isInverted()
-                            ? TextAnchor.BOTTOM_RIGHT : TextAnchor.BOTTOM_LEFT;
+                                ? TextAnchor.BOTTOM_RIGHT : TextAnchor.BOTTOM_LEFT;
                     }
                     rotationAnchor = anchor;
                     angle = -Math.PI / 2.0;
-                }
-                else {
+                } else {
                     anchor = TextAnchor.BOTTOM_CENTER;
                     if ((lastTick != null) && (lastY == y)
                             && (currentTickValue != cycleBound)) {
                         anchor = isInverted()
-                            ? TextAnchor.BOTTOM_RIGHT : TextAnchor.BOTTOM_LEFT;
+                                ? TextAnchor.BOTTOM_RIGHT : TextAnchor.BOTTOM_LEFT;
                         result.remove(result.size() - 1);
                         result.add(new CycleBoundTick(
-                            this.boundMappedToLastCycle, lastTick.getNumber(),
-                            lastTick.getText(), anchor, anchor,
-                            lastTick.getAngle())
+                                this.boundMappedToLastCycle, lastTick.getNumber(),
+                                lastTick.getText(), anchor, anchor,
+                                lastTick.getAngle())
                         );
                         this.internalMarkerWhenTicksOverlap = true;
                         anchor = isInverted()
-                            ? TextAnchor.BOTTOM_LEFT : TextAnchor.BOTTOM_RIGHT;
+                                ? TextAnchor.BOTTOM_LEFT : TextAnchor.BOTTOM_RIGHT;
                     }
                     rotationAnchor = anchor;
                     angle = Math.PI / 2.0;
                 }
-            }
-            else {
+            } else {
                 if (edge == RectangleEdge.LEFT) {
                     anchor = TextAnchor.CENTER_RIGHT;
                     if ((lastTick != null) && (lastY == y)
                             && (currentTickValue != cycleBound)) {
                         anchor = isInverted()
-                            ? TextAnchor.BOTTOM_RIGHT : TextAnchor.TOP_RIGHT;
+                                ? TextAnchor.BOTTOM_RIGHT : TextAnchor.TOP_RIGHT;
                         result.remove(result.size() - 1);
                         result.add(new CycleBoundTick(
-                            this.boundMappedToLastCycle, lastTick.getNumber(),
-                            lastTick.getText(), anchor, anchor,
-                            lastTick.getAngle())
+                                this.boundMappedToLastCycle, lastTick.getNumber(),
+                                lastTick.getText(), anchor, anchor,
+                                lastTick.getAngle())
                         );
                         this.internalMarkerWhenTicksOverlap = true;
                         anchor = isInverted()
-                            ? TextAnchor.TOP_RIGHT : TextAnchor.BOTTOM_RIGHT;
+                                ? TextAnchor.TOP_RIGHT : TextAnchor.BOTTOM_RIGHT;
                     }
                     rotationAnchor = anchor;
-                }
-                else {
+                } else {
                     anchor = TextAnchor.CENTER_LEFT;
                     if ((lastTick != null) && (lastY == y)
                             && (currentTickValue != cycleBound)) {
                         anchor = isInverted()
-                            ? TextAnchor.BOTTOM_LEFT : TextAnchor.TOP_LEFT;
+                                ? TextAnchor.BOTTOM_LEFT : TextAnchor.TOP_LEFT;
                         result.remove(result.size() - 1);
                         result.add(new CycleBoundTick(
-                            this.boundMappedToLastCycle, lastTick.getNumber(),
-                            lastTick.getText(), anchor, anchor,
-                            lastTick.getAngle())
+                                this.boundMappedToLastCycle, lastTick.getNumber(),
+                                lastTick.getText(), anchor, anchor,
+                                lastTick.getAngle())
                         );
                         this.internalMarkerWhenTicksOverlap = true;
                         anchor = isInverted()
-                            ? TextAnchor.TOP_LEFT : TextAnchor.BOTTOM_LEFT;
+                                ? TextAnchor.TOP_LEFT : TextAnchor.BOTTOM_LEFT;
                     }
                     rotationAnchor = anchor;
                 }
             }
 
             CycleBoundTick tick = new CycleBoundTick(
-                this.boundMappedToLastCycle, new Double(currentTickValue),
-                tickLabel, anchor, rotationAnchor, angle);
+                    this.boundMappedToLastCycle, new Double(currentTickValue),
+                    tickLabel, anchor, rotationAnchor, angle);
             if (currentTickValue == cycleBound) {
                 this.internalMarkerCycleBoundTick = tick;
             }
@@ -728,15 +695,14 @@ public class CyclicNumberAxis extends NumberAxis {
     /**
      * Converts a coordinate from Java 2D space to data space.
      *
-     * @param java2DValue  the coordinate in Java2D space.
-     * @param dataArea  the data area.
-     * @param edge  the edge.
-     *
+     * @param java2DValue the coordinate in Java2D space.
+     * @param dataArea    the data area.
+     * @param edge        the edge.
      * @return The data value.
      */
     @Override
     public double java2DToValue(double java2DValue, Rectangle2D dataArea,
-            RectangleEdge edge) {
+                                RectangleEdge edge) {
         Range range = getRange();
 
         double vmax = range.getUpperBound();
@@ -747,8 +713,7 @@ public class CyclicNumberAxis extends NumberAxis {
         if (RectangleEdge.isTopOrBottom(edge)) {
             jmin = dataArea.getMinX();
             jmax = dataArea.getMaxX();
-        }
-        else if (RectangleEdge.isLeftOrRight(edge)) {
+        } else if (RectangleEdge.isLeftOrRight(edge)) {
             jmin = dataArea.getMaxY();
             jmax = dataArea.getMinY();
         }
@@ -757,17 +722,14 @@ public class CyclicNumberAxis extends NumberAxis {
             double jbreak = jmax - (vmax - vp) * (jmax - jmin) / this.period;
             if (java2DValue >= jbreak) {
                 return vp + (jmax - java2DValue) * this.period / (jmax - jmin);
-            }
-            else {
+            } else {
                 return vp - (java2DValue - jmin) * this.period / (jmax - jmin);
             }
-        }
-        else {
+        } else {
             double jbreak = (vmax - vp) * (jmax - jmin) / this.period + jmin;
             if (java2DValue <= jbreak) {
                 return vp + (java2DValue - jmin) * this.period / (jmax - jmin);
-            }
-            else {
+            } else {
                 return vp - (jmax - java2DValue) * this.period / (jmax - jmin);
             }
         }
@@ -776,15 +738,14 @@ public class CyclicNumberAxis extends NumberAxis {
     /**
      * Translates a value from data space to Java 2D space.
      *
-     * @param value  the data value.
-     * @param dataArea  the data area.
-     * @param edge  the edge.
-     *
+     * @param value    the data value.
+     * @param dataArea the data area.
+     * @param edge     the edge.
      * @return The Java 2D value.
      */
     @Override
     public double valueToJava2D(double value, Rectangle2D dataArea,
-            RectangleEdge edge) {
+                                RectangleEdge edge) {
         Range range = getRange();
 
         double vmin = range.getLowerBound();
@@ -801,8 +762,7 @@ public class CyclicNumberAxis extends NumberAxis {
         if (RectangleEdge.isTopOrBottom(edge)) {
             jmin = dataArea.getMinX();
             jmax = dataArea.getMaxX();
-        }
-        else if (RectangleEdge.isLeftOrRight(edge)) {
+        } else if (RectangleEdge.isLeftOrRight(edge)) {
             jmax = dataArea.getMinY();
             jmin = dataArea.getMaxY();
         }
@@ -810,22 +770,17 @@ public class CyclicNumberAxis extends NumberAxis {
         if (isInverted()) {
             if (value == vp) {
                 return this.boundMappedToLastCycle ? jmin : jmax;
-            }
-            else if (value > vp) {
+            } else if (value > vp) {
                 return jmax - (value - vp) * (jmax - jmin) / this.period;
-            }
-            else {
+            } else {
                 return jmin + (vp - value) * (jmax - jmin) / this.period;
             }
-        }
-        else {
+        } else {
             if (value == vp) {
                 return this.boundMappedToLastCycle ? jmax : jmin;
-            }
-            else if (value >= vp) {
+            } else if (value >= vp) {
                 return jmin + (value - vp) * (jmax - jmin) / this.period;
-            }
-            else {
+            } else {
                 return jmax - (vp - value) * (jmax - jmin) / this.period;
             }
         }
@@ -834,7 +789,7 @@ public class CyclicNumberAxis extends NumberAxis {
     /**
      * Centers the range about the given value.
      *
-     * @param value  the data value.
+     * @param value the data value.
      */
     @Override
     public void centerRange(double value) {
@@ -846,11 +801,10 @@ public class CyclicNumberAxis extends NumberAxis {
      * class to the period.  The period is extended if necessary to fit the
      * minimum size.
      *
-     * @param size  the size.
-     * @param notify  notify?
-     *
+     * @param size   the size.
+     * @param notify notify?
      * @see org.jfree.chart.axis.ValueAxis#setAutoRangeMinimumSize(double,
-     *      boolean)
+     * boolean)
      */
     @Override
     public void setAutoRangeMinimumSize(double size, boolean notify) {
@@ -864,8 +818,7 @@ public class CyclicNumberAxis extends NumberAxis {
      * The auto range is fixed for this class to the period by default.
      * This function will thus set a new period.
      *
-     * @param length  the length.
-     *
+     * @param length the length.
      * @see org.jfree.chart.axis.ValueAxis#setFixedAutoRange(double)
      */
     @Override
@@ -878,15 +831,14 @@ public class CyclicNumberAxis extends NumberAxis {
      * Sets a new axis range. The period is extended to fit the range size, if
      * necessary.
      *
-     * @param range  the range.
-     * @param turnOffAutoRange  switch off the auto range.
-     * @param notify notify?
-     *
+     * @param range            the range.
+     * @param turnOffAutoRange switch off the auto range.
+     * @param notify           notify?
      * @see org.jfree.chart.axis.ValueAxis#setRange(Range, boolean, boolean)
      */
     @Override
     public void setRange(Range range, boolean turnOffAutoRange,
-            boolean notify) {
+                         boolean notify) {
         double size = range.getUpperBound() - range.getLowerBound();
         if (size > this.period) {
             this.period = size;
@@ -906,7 +858,7 @@ public class CyclicNumberAxis extends NumberAxis {
      */
     public double getCycleBound() {
         return Math.floor(
-            (getRange().getUpperBound() - this.offset) / this.period
+                (getRange().getUpperBound() - this.offset) / this.period
         ) * this.period + this.offset;
     }
 
@@ -916,7 +868,6 @@ public class CyclicNumberAxis extends NumberAxis {
      * <pre>cb = n * period + offset</pre>
      *
      * @return The current offset.
-     *
      * @see #getCycleBound()
      */
     public double getOffset() {
@@ -929,7 +880,6 @@ public class CyclicNumberAxis extends NumberAxis {
      * <pre>cb = n * period + offset</pre>
      *
      * @param offset The offset to set.
-     *
      * @see #getCycleBound()
      */
     public void setOffset(double offset) {
@@ -942,7 +892,6 @@ public class CyclicNumberAxis extends NumberAxis {
      * <pre>cb = n * period + offset</pre>
      *
      * @return The current period.
-     *
      * @see #getCycleBound()
      */
     public double getPeriod() {
@@ -955,7 +904,6 @@ public class CyclicNumberAxis extends NumberAxis {
      * <pre>cb = n * period + offset</pre>
      *
      * @param period The period to set.
-     *
      * @see #getCycleBound()
      */
     public void setPeriod(double period) {
@@ -965,17 +913,16 @@ public class CyclicNumberAxis extends NumberAxis {
     /**
      * Draws the tick marks and labels.
      *
-     * @param g2  the graphics device.
-     * @param cursor  the cursor.
-     * @param plotArea  the plot area.
-     * @param dataArea  the area inside the axes.
-     * @param edge  the side on which the axis is displayed.
-     *
+     * @param g2       the graphics device.
+     * @param cursor   the cursor.
+     * @param plotArea the plot area.
+     * @param dataArea the area inside the axes.
+     * @param edge     the side on which the axis is displayed.
      * @return The axis state.
      */
     @Override
     protected AxisState drawTickMarksAndLabels(Graphics2D g2, double cursor,
-            Rectangle2D plotArea, Rectangle2D dataArea, RectangleEdge edge) {
+                                               Rectangle2D plotArea, Rectangle2D dataArea, RectangleEdge edge) {
         this.internalMarkerWhenTicksOverlap = false;
         AxisState ret = super.drawTickMarksAndLabels(g2, cursor, plotArea,
                 dataArea, edge);
@@ -989,8 +936,7 @@ public class CyclicNumberAxis extends NumberAxis {
         FontMetrics fm = g2.getFontMetrics(getTickLabelFont());
         if (isVerticalTickLabels()) {
             ol = fm.getMaxAdvance();
-        }
-        else {
+        } else {
             ol = fm.getHeight();
         }
 
@@ -1003,14 +949,11 @@ public class CyclicNumberAxis extends NumberAxis {
             g2.setPaint(getTickMarkPaint());
             if (edge == RectangleEdge.LEFT) {
                 mark = new Line2D.Double(cursor - ol, xx, cursor + il, xx);
-            }
-            else if (edge == RectangleEdge.RIGHT) {
+            } else if (edge == RectangleEdge.RIGHT) {
                 mark = new Line2D.Double(cursor + ol, xx, cursor - il, xx);
-            }
-            else if (edge == RectangleEdge.TOP) {
+            } else if (edge == RectangleEdge.TOP) {
                 mark = new Line2D.Double(xx, cursor - ol, xx, cursor + il);
-            }
-            else if (edge == RectangleEdge.BOTTOM) {
+            } else if (edge == RectangleEdge.BOTTOM) {
                 mark = new Line2D.Double(xx, cursor + ol, xx, cursor - il);
             }
             g2.draw(mark);
@@ -1021,42 +964,38 @@ public class CyclicNumberAxis extends NumberAxis {
     /**
      * Draws the axis.
      *
-     * @param g2  the graphics device (<code>null</code> not permitted).
-     * @param cursor  the cursor position.
+     * @param g2        the graphics device (<code>null</code> not permitted).
+     * @param cursor    the cursor position.
      * @param plotArea  the plot area (<code>null</code> not permitted).
      * @param dataArea  the data area (<code>null</code> not permitted).
-     * @param edge  the edge (<code>null</code> not permitted).
-     * @param plotState  collects information about the plot
-     *                   (<code>null</code> permitted).
-     *
+     * @param edge      the edge (<code>null</code> not permitted).
+     * @param plotState collects information about the plot
+     *                  (<code>null</code> permitted).
      * @return The axis state (never <code>null</code>).
      */
     @Override
     public AxisState draw(Graphics2D g2, double cursor, Rectangle2D plotArea,
-            Rectangle2D dataArea, RectangleEdge edge, PlotRenderingInfo plotState) {
+                          Rectangle2D dataArea, RectangleEdge edge, PlotRenderingInfo plotState) {
 
-        AxisState ret = super.draw(g2, cursor, plotArea, dataArea, edge, 
+        AxisState ret = super.draw(g2, cursor, plotArea, dataArea, edge,
                 plotState);
         if (isAdvanceLineVisible()) {
-            double xx = valueToJava2D(getRange().getUpperBound(), dataArea, 
+            double xx = valueToJava2D(getRange().getUpperBound(), dataArea,
                     edge);
             Line2D mark = null;
             g2.setStroke(getAdvanceLineStroke());
             g2.setPaint(getAdvanceLinePaint());
             if (edge == RectangleEdge.LEFT) {
-                mark = new Line2D.Double(cursor, xx, cursor 
+                mark = new Line2D.Double(cursor, xx, cursor
                         + dataArea.getWidth(), xx);
-            }
-            else if (edge == RectangleEdge.RIGHT) {
-                mark = new Line2D.Double(cursor - dataArea.getWidth(), xx, 
+            } else if (edge == RectangleEdge.RIGHT) {
+                mark = new Line2D.Double(cursor - dataArea.getWidth(), xx,
                         cursor, xx);
-            }
-            else if (edge == RectangleEdge.TOP) {
-                mark = new Line2D.Double(xx, cursor + dataArea.getHeight(), xx, 
+            } else if (edge == RectangleEdge.TOP) {
+                mark = new Line2D.Double(xx, cursor + dataArea.getHeight(), xx,
                         cursor);
-            }
-            else if (edge == RectangleEdge.BOTTOM) {
-                mark = new Line2D.Double(xx, cursor, xx, 
+            } else if (edge == RectangleEdge.BOTTOM) {
+                mark = new Line2D.Double(xx, cursor, xx,
                         cursor - dataArea.getHeight());
             }
             g2.draw(mark);
@@ -1068,17 +1007,16 @@ public class CyclicNumberAxis extends NumberAxis {
      * Reserve some space on each axis side because we draw a centered label at
      * each extremity.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param plotArea  the plot area.
-     * @param edge  the edge.
-     * @param space  the space already reserved.
-     *
+     * @param g2       the graphics device.
+     * @param plot     the plot.
+     * @param plotArea the plot area.
+     * @param edge     the edge.
+     * @param space    the space already reserved.
      * @return The reserved space.
      */
     @Override
     public AxisSpace reserveSpace(Graphics2D g2, Plot plot,
-            Rectangle2D plotArea, RectangleEdge edge, AxisSpace space) {
+                                  Rectangle2D plotArea, RectangleEdge edge, AxisSpace space) {
 
         this.internalMarkerCycleBoundTick = null;
         AxisSpace ret = super.reserveSpace(g2, plot, plotArea, edge, space);
@@ -1088,22 +1026,19 @@ public class CyclicNumberAxis extends NumberAxis {
 
         FontMetrics fm = g2.getFontMetrics(getTickLabelFont());
         Rectangle2D r = TextUtilities.getTextBounds(
-            this.internalMarkerCycleBoundTick.getText(), g2, fm
+                this.internalMarkerCycleBoundTick.getText(), g2, fm
         );
 
         if (RectangleEdge.isTopOrBottom(edge)) {
             if (isVerticalTickLabels()) {
                 space.add(r.getHeight() / 2, RectangleEdge.RIGHT);
-            }
-            else {
+            } else {
                 space.add(r.getWidth() / 2, RectangleEdge.RIGHT);
             }
-        }
-        else if (RectangleEdge.isLeftOrRight(edge)) {
+        } else if (RectangleEdge.isLeftOrRight(edge)) {
             if (isVerticalTickLabels()) {
                 space.add(r.getWidth() / 2, RectangleEdge.TOP);
-            }
-            else {
+            } else {
                 space.add(r.getHeight() / 2, RectangleEdge.TOP);
             }
         }
@@ -1115,9 +1050,8 @@ public class CyclicNumberAxis extends NumberAxis {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -1128,10 +1062,9 @@ public class CyclicNumberAxis extends NumberAxis {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
@@ -1140,12 +1073,10 @@ public class CyclicNumberAxis extends NumberAxis {
         this.advanceLineStroke = SerialUtilities.readStroke(stream);
     }
 
-
     /**
      * Tests the axis for equality with another object.
      *
-     * @param obj  the object to test against.
-     *
+     * @param obj the object to test against.
      * @return A boolean.
      */
     @Override
@@ -1181,5 +1112,36 @@ public class CyclicNumberAxis extends NumberAxis {
             return false;
         }
         return true;
+    }
+
+    /**
+     * A special Number tick that also hold information about the cycle bound
+     * mapping for this tick.  This is especially useful for having a tick at
+     * each axis end with the cycle bound value.  See also
+     * isBoundMappedToLastCycle()
+     */
+    protected static class CycleBoundTick extends NumberTick {
+
+        /**
+         * Map to last cycle.
+         */
+        public boolean mapToLastCycle;
+
+        /**
+         * Creates a new tick.
+         *
+         * @param mapToLastCycle map to last cycle?
+         * @param number         the number.
+         * @param label          the label.
+         * @param textAnchor     the text anchor.
+         * @param rotationAnchor the rotation anchor.
+         * @param angle          the rotation angle.
+         */
+        public CycleBoundTick(boolean mapToLastCycle, Number number,
+                              String label, TextAnchor textAnchor,
+                              TextAnchor rotationAnchor, double angle) {
+            super(number, label, textAnchor, rotationAnchor, angle);
+            this.mapToLastCycle = mapToLastCycle;
+        }
     }
 }

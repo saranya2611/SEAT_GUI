@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -48,34 +48,34 @@ import java.io.Serializable;
  */
 public final class AreaRendererEndType implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -1774146392916359839L;
-
     /**
      * The area tapers from the first or last value down to zero.
      */
     public static final AreaRendererEndType TAPER = new AreaRendererEndType(
             "AreaRendererEndType.TAPER");
-
     /**
      * The area is truncated at the first or last value.
      */
     public static final AreaRendererEndType TRUNCATE = new AreaRendererEndType(
             "AreaRendererEndType.TRUNCATE");
-
     /**
      * The area is levelled at the first or last value.
      */
     public static final AreaRendererEndType LEVEL = new AreaRendererEndType(
             "AreaRendererEndType.LEVEL");
-
-    /** The name. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -1774146392916359839L;
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private AreaRendererEndType(String name) {
         this.name = name;
@@ -95,8 +95,7 @@ public final class AreaRendererEndType implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -118,18 +117,15 @@ public final class AreaRendererEndType implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         Object result = null;
         if (this.equals(AreaRendererEndType.LEVEL)) {
             result = AreaRendererEndType.LEVEL;
-        }
-        else if (this.equals(AreaRendererEndType.TAPER)) {
+        } else if (this.equals(AreaRendererEndType.TAPER)) {
             result = AreaRendererEndType.TAPER;
-        }
-        else if (this.equals(AreaRendererEndType.TRUNCATE)) {
+        } else if (this.equals(AreaRendererEndType.TRUNCATE)) {
             result = AreaRendererEndType.TRUNCATE;
         }
         return result;

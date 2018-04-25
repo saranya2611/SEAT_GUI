@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -48,15 +48,15 @@ import java.text.ParsePosition;
 /**
  * A custom number formatter that formats numbers (in seconds) as HH:MM:SS.
  * Created in response to:
- * 
+ * <p>
  * http://stackoverflow.com/questions/19028908/jfreechart-need-to-customize-y-axis-just-for-printing
- * 
+ *
  * @since 1.0.17
  */
 public class HMSNumberFormat extends NumberFormat {
 
     private NumberFormat formatter = new DecimalFormat("00");
-    
+
     /**
      * Creates a new instance.
      */
@@ -65,33 +65,31 @@ public class HMSNumberFormat extends NumberFormat {
     }
 
     /**
-     * Formats the specified number as a string of the form HH:MM:SS.  The 
+     * Formats the specified number as a string of the form HH:MM:SS.  The
      * decimal fraction is ignored.
      *
-     * @param number  the number to format.
-     * @param toAppendTo  the buffer to append to (ignored here).
-     * @param pos  the field position (ignored here).
-     *
+     * @param number     the number to format.
+     * @param toAppendTo the buffer to append to (ignored here).
+     * @param pos        the field position (ignored here).
      * @return The string buffer.
      */
     @Override
     public StringBuffer format(double number, StringBuffer toAppendTo,
-            FieldPosition pos) {
+                               FieldPosition pos) {
         return format((long) number, toAppendTo, pos);
     }
 
     /**
      * Formats the specified number as a string of the form HH:MM:SS.
      *
-     * @param number  the number to format.
-     * @param toAppendTo  the buffer to append to (ignored here).
-     * @param pos  the field position (ignored here).
-     *
+     * @param number     the number to format.
+     * @param toAppendTo the buffer to append to (ignored here).
+     * @param pos        the field position (ignored here).
      * @return The string buffer.
      */
     @Override
     public StringBuffer format(long number, StringBuffer toAppendTo,
-            FieldPosition pos) {
+                               FieldPosition pos) {
         StringBuffer sb = new StringBuffer();
         long hours = number / 3600;
         sb.append(this.formatter.format(hours)).append(":");
@@ -107,13 +105,12 @@ public class HMSNumberFormat extends NumberFormat {
      * Parsing is not implemented, so this method always returns
      * <code>null</code>.
      *
-     * @param source  ignored.
-     * @param parsePosition  ignored.
-     *
+     * @param source        ignored.
+     * @param parsePosition ignored.
      * @return Always <code>null</code>.
      */
     @Override
-    public Number parse (String source, ParsePosition parsePosition) {
+    public Number parse(String source, ParsePosition parsePosition) {
         return null; // don't bother with parsing
     }
 

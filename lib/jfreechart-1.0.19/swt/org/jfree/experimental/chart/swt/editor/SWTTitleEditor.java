@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -42,8 +42,6 @@
 
 package org.jfree.experimental.chart.swt.editor;
 
-import java.util.ResourceBundle;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -54,13 +52,7 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.ColorDialog;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.FontDialog;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.*;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.chart.title.Title;
@@ -68,51 +60,63 @@ import org.jfree.chart.util.ResourceBundleWrapper;
 import org.jfree.experimental.swt.SWTPaintCanvas;
 import org.jfree.experimental.swt.SWTUtils;
 
+import java.util.ResourceBundle;
+
 /**
  * An editor for chart title properties.
  */
 class SWTTitleEditor extends Composite {
 
-    /** Whether or not to display the title on the chart. */
-    private boolean showTitle;
-
-    /** The checkbox to indicate whether or not to display the title. */
-    private Button showTitleCheckBox;
-
-    /** A field for displaying/editing the title text. */
-    private Text titleField;
-
-    /** The font used to draw the title. */
-    private FontData titleFont;
-
-    /** A field for displaying a description of the title font. */
-    private Text fontField;
-
-    /** The button to use to select a new title font. */
-    private Button selectFontButton;
-
-    /** The paint (color) used to draw the title. */
-    private Color titleColor;
-
-    /** The button to use to select a new paint (color) to draw the title. */
-    private Button selectColorButton;
-
-    /** The resourceBundle for the localization. */
+    /**
+     * The resourceBundle for the localization.
+     */
     protected static ResourceBundle localizationResources
             = ResourceBundleWrapper.getBundle(
-                    "org.jfree.chart.editor.LocalizationBundle");
-
-    /** Font object used to handle a change of font. */
+            "org.jfree.chart.editor.LocalizationBundle");
+    /**
+     * Whether or not to display the title on the chart.
+     */
+    private boolean showTitle;
+    /**
+     * The checkbox to indicate whether or not to display the title.
+     */
+    private Button showTitleCheckBox;
+    /**
+     * A field for displaying/editing the title text.
+     */
+    private Text titleField;
+    /**
+     * The font used to draw the title.
+     */
+    private FontData titleFont;
+    /**
+     * A field for displaying a description of the title font.
+     */
+    private Text fontField;
+    /**
+     * The button to use to select a new title font.
+     */
+    private Button selectFontButton;
+    /**
+     * The paint (color) used to draw the title.
+     */
+    private Color titleColor;
+    /**
+     * The button to use to select a new paint (color) to draw the title.
+     */
+    private Button selectColorButton;
+    /**
+     * Font object used to handle a change of font.
+     */
     private Font font;
 
     /**
      * Standard constructor: builds a panel for displaying/editing the
      * properties of the specified title.
      *
-     * @param parent  the parent.
+     * @param parent the parent.
      * @param style  the style.
      * @param title  the title, which should be changed.
-     *
      */
     SWTTitleEditor(Composite parent, int style, Title title) {
         super(parent, style);
@@ -172,8 +176,8 @@ class SWTTitleEditor extends Composite {
                         FontDialog dlg = new FontDialog(getShell());
                         dlg.setText(localizationResources.getString(
                                 "Font_Selection"));
-                        dlg.setFontList(new FontData[] {
-                                SWTTitleEditor.this.titleFont });
+                        dlg.setFontList(new FontData[]{
+                                SWTTitleEditor.this.titleFont});
                         if (dlg.open() != null) {
                             // Dispose of any fonts we have created
                             if (SWTTitleEditor.this.font != null) {
@@ -186,7 +190,7 @@ class SWTTitleEditor extends Composite {
                             //titleField.setFont(font);
                             SWTTitleEditor.this.fontField.setText(
                                     SWTTitleEditor.this.font.getFontData()[0]
-                                    .toString());
+                                            .toString());
                             SWTTitleEditor.this.titleFont
                                     = SWTTitleEditor.this.font.getFontData()[0];
                         }
@@ -260,7 +264,7 @@ class SWTTitleEditor extends Composite {
      * Sets the properties of the specified title to match the properties
      * defined on this panel.
      *
-     * @param chart  the chart whose title is to be modified.
+     * @param chart the chart whose title is to be modified.
      */
     public void setTitleProperties(JFreeChart chart) {
         if (this.showTitle) {
@@ -273,8 +277,7 @@ class SWTTitleEditor extends Composite {
             title.setFont(SWTUtils.toAwtFont(getDisplay(), getTitleFont(),
                     true));
             title.setPaint(SWTUtils.toAwtColor(getTitleColor()));
-        }
-        else {
+        } else {
             chart.setTitle((TextTitle) null);
         }
     }

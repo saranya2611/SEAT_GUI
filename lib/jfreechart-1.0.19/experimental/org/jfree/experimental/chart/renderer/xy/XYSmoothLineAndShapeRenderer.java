@@ -40,10 +40,6 @@
 
 package org.jfree.experimental.chart.renderer.xy;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.plot.CrosshairState;
@@ -54,10 +50,14 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RectangleEdge;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+
 /**
  * A line and shape renderer that performs line smoothing.  See
  * http://www.jfree.org/phpBB2/viewtopic.php?t=20671
- *
+ * <p>
  * WARNING: THIS CLASS IS NOT PART OF THE STANDARD JFREECHART API AND IS
  * SUBJECT TO ALTERATION OR REMOVAL.  DO NOT RELY ON THIS CLASS FOR
  * PRODUCTION USE.  Please experiment with this code and provide feedback.
@@ -65,24 +65,120 @@ import org.jfree.ui.RectangleEdge;
 public class XYSmoothLineAndShapeRenderer extends XYLineAndShapeRenderer {
 
     /**
+     * Updates the control points.
+     *
+     * @param point0
+     * @param point1
+     * @param point2
+     * @param point3
+     * @param control1
+     * @param control2
+     * @param smooth
+     */
+    public static void getControlPoints(Point2D.Double point0,
+                                        Point2D.Double point1, Point2D.Double point2,
+                                        Point2D.Double point3, Point2D.Double control1,
+                                        Point2D.Double control2, double smooth) {
+
+        // Reference: http://www.antigrain.com/research/bezier_interpolation/
+
+        if (point0 == null) {
+            point0 = point1;
+        } //new Point2D.Double(0, 0);
+        if (point3 == null) {
+            point3 = point2;
+        } //new Point2D.Double(0, 0);
+
+        Point2D.Double c1 = new Point2D.Double(
+                (point0.x + point1.x) / 2.0, (point0.y + point1.y) / 2.0);
+        Point2D.Double c2 = new Point2D.Double(
+                (point1.x + point2.x) / 2.0, (point1.y + point2.y) / 2.0);
+        Point2D.Double c3 = new Point2D.Double(
+                (point2.x + point3.x) / 2.0, (point2.y + point3.y) / 2.0);
+
+        double len1 = point1.distance(point0);
+        double len2 = point2.distance(point1);
+        double len3 = point3.distance(point2);
+
+        double k1 = len1 / (len1 + len2);
+        double k2 = len2 / (len2 + len3);
+
+        Point2D.Double m1 = new Point2D.Double(
+                c1.x + (c2.x - c1.x) * k1, c1.y + (c2.y - c1.y) * k1);
+        Point2D.Double m2 = new Point2D.Double(
+                c2.x + (c3.x - c2.x) * k2, c2.y + (c3.y - c2.y) * k2);
+
+        control1.setLocation(new Point2D.Double(
+                m1.x + (c2.x - m1.x) * smooth + point1.x - m1.x,
+                m1.y + (c2.y - m1.y) * smooth + point1.y - m1.y));
+        control2.setLocation(new Point2D.Double(
+                m2.x + (c2.x - m2.x) * smooth + point2.x - m2.x,
+                m2.y + (c2.y - m2.y) * smooth + point2.y - m2.y));
+    }
+
+    /**
+     * Returns the points for a bezier curve.
+     *
+     * @param point0
+     * @param point1
+     * @param point2
+     * @param point3
+     * @param smooth
+     * @param steps
+     * @return The curve points.
+     */
+    public static Point2D.Double[] getBezierCurve(Point2D.Double point0,
+                                                  Point2D.Double point1, Point2D.Double point2,
+                                                  Point2D.Double point3, double smooth, int steps) {
+        Point2D.Double control1 = new Point2D.Double();
+        Point2D.Double control2 = new Point2D.Double();
+
+        getControlPoints(point0, point1, point2, point3, control1, control2,
+                smooth);
+
+        Point2D.Double C = new Point2D.Double(
+                3 * (control1.x - point1.x), 3 * (control1.y - point1.y));
+        Point2D.Double B = new Point2D.Double(3 * (control2.x - control1.x)
+                - C.x, 3 * (control2.y - control1.y) - C.y);
+        Point2D.Double A = new Point2D.Double(point2.x - point1.x - C.x - B.x,
+                point2.y - point1.y - C.y - B.y);
+
+        Point2D.Double[] res = new Point2D.Double[steps + 1];
+        double stepSize = 1.0 / steps;
+        double step = stepSize;
+
+        res[0] = point1;
+        for (int i = 1; i < steps; i++) {
+            res[i] = new Point2D.Double(A.x * Math.pow(step, 3) + B.x
+                    * Math.pow(step, 2) + C.x * step + point1.x, A.y
+                    * Math.pow(step, 3) + B.y * Math.pow(step, 2) + C.y * step
+                    + point1.y);
+            step += stepSize;
+        }
+        res[steps] = point2;
+
+        return res;
+    }
+
+    /**
      * Draws the item (first pass). This method draws the lines
      * connecting the items.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the area within which the data is being drawn.
-     * @param plot  the plot (can be used to obtain standard color
-     *              information etc).
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the area within which the data is being drawn.
+     * @param plot       the plot (can be used to obtain standard color
+     *                   information etc).
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param pass  the pass.
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
+     * @param dataset    the dataset.
+     * @param pass       the pass.
+     * @param series     the series index (zero-based).
+     * @param item       the item index (zero-based).
      */
     protected void drawPrimaryLine(XYItemRendererState state, Graphics2D g2,
-            XYPlot plot, XYDataset dataset, int pass, int series, int item,
-            ValueAxis domainAxis, ValueAxis rangeAxis, Rectangle2D dataArea) {
+                                   XYPlot plot, XYDataset dataset, int pass, int series, int item,
+                                   ValueAxis domainAxis, ValueAxis rangeAxis, Rectangle2D dataArea) {
 
         if (item == 0) {
             return;
@@ -123,8 +219,7 @@ public class XYSmoothLineAndShapeRenderer extends XYLineAndShapeRenderer {
 
         if (item == 1) {
             point0 = null;
-        }
-        else {
+        } else {
             point0.x = domainAxis.valueToJava2D(dataset.getXValue(series,
                     item - 2), dataArea, xAxisLocation);
             point0.y = rangeAxis.valueToJava2D(dataset.getYValue(series,
@@ -139,8 +234,7 @@ public class XYSmoothLineAndShapeRenderer extends XYLineAndShapeRenderer {
 
         if ((item + 1) == dataset.getItemCount(series)) {
             point3 = null;
-        }
-        else {
+        } else {
             point3.x = domainAxis.valueToJava2D(dataset.getXValue(series,
                     item + 1), dataArea, xAxisLocation);
             point3.y = rangeAxis.valueToJava2D(dataset.getYValue(series,
@@ -162,8 +256,7 @@ public class XYSmoothLineAndShapeRenderer extends XYLineAndShapeRenderer {
             PlotOrientation orientation = plot.getOrientation();
             if (orientation == PlotOrientation.HORIZONTAL) {
                 state.workingLine.setLine(transY0, transX0, transY1, transX1);
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
+            } else if (orientation == PlotOrientation.VERTICAL) {
                 state.workingLine.setLine(transX0, transY0, transX1, transY1);
             }
 
@@ -179,123 +272,26 @@ public class XYSmoothLineAndShapeRenderer extends XYLineAndShapeRenderer {
      * is not <code>null</code> it will be populated with entity information
      * for points that fall within the data area.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot (can be used to obtain standard color
-     *              information etc).
-     * @param domainAxis  the domain axis.
-     * @param dataArea  the area within which the data is being drawn.
-     * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param pass  the pass.
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     * @param crosshairState  the crosshair state.
-     * @param entities the entity collection.
+     * @param g2             the graphics device.
+     * @param plot           the plot (can be used to obtain standard color
+     *                       information etc).
+     * @param domainAxis     the domain axis.
+     * @param dataArea       the area within which the data is being drawn.
+     * @param rangeAxis      the range axis.
+     * @param dataset        the dataset.
+     * @param pass           the pass.
+     * @param series         the series index (zero-based).
+     * @param item           the item index (zero-based).
+     * @param crosshairState the crosshair state.
+     * @param entities       the entity collection.
      */
     protected void drawSecondaryPass(Graphics2D g2, XYPlot plot,
-            XYDataset dataset, int pass, int series, int item,
-            ValueAxis domainAxis, Rectangle2D dataArea,
-            ValueAxis rangeAxis, CrosshairState crosshairState,
-            EntityCollection entities) {
+                                     XYDataset dataset, int pass, int series, int item,
+                                     ValueAxis domainAxis, Rectangle2D dataArea,
+                                     ValueAxis rangeAxis, CrosshairState crosshairState,
+                                     EntityCollection entities) {
         // super.drawSecondaryPass(g2, plot, dataset, pass, series, item,
         // domainAxis, dataArea, rangeAxis, crosshairState, entities);
-    }
-
-    /**
-     * Updates the control points.
-     *
-     * @param point0
-     * @param point1
-     * @param point2
-     * @param point3
-     * @param control1
-     * @param control2
-     * @param smooth
-     */
-    public static void getControlPoints(Point2D.Double point0,
-            Point2D.Double point1, Point2D.Double point2,
-            Point2D.Double point3, Point2D.Double control1,
-            Point2D.Double control2, double smooth) {
-
-        // Reference: http://www.antigrain.com/research/bezier_interpolation/
-
-        if (point0 == null) {
-            point0 = point1;
-        } //new Point2D.Double(0, 0);
-        if (point3 == null) {
-            point3 = point2;
-        } //new Point2D.Double(0, 0);
-
-        Point2D.Double c1 = new Point2D.Double(
-               (point0.x + point1.x) / 2.0, (point0.y + point1.y) / 2.0);
-        Point2D.Double c2 = new Point2D.Double(
-               (point1.x + point2.x) / 2.0, (point1.y + point2.y) / 2.0);
-        Point2D.Double c3 = new Point2D.Double(
-               (point2.x + point3.x) / 2.0, (point2.y + point3.y) / 2.0);
-
-        double len1 = point1.distance(point0);
-        double len2 = point2.distance(point1);
-        double len3 = point3.distance(point2);
-
-        double k1 = len1 / (len1 + len2);
-        double k2 = len2 / (len2 + len3);
-
-        Point2D.Double m1 = new Point2D.Double(
-               c1.x + (c2.x - c1.x) * k1, c1.y + (c2.y - c1.y) * k1);
-        Point2D.Double m2 = new Point2D.Double(
-               c2.x + (c3.x - c2.x) * k2, c2.y + (c3.y - c2.y) * k2);
-
-        control1.setLocation(new Point2D.Double(
-               m1.x + (c2.x - m1.x) * smooth + point1.x - m1.x,
-               m1.y + (c2.y - m1.y) * smooth + point1.y - m1.y));
-        control2.setLocation(new Point2D.Double(
-               m2.x + (c2.x - m2.x) * smooth + point2.x - m2.x,
-               m2.y + (c2.y - m2.y) * smooth + point2.y - m2.y));
-    }
-
-    /**
-     * Returns the points for a bezier curve.
-     *
-     * @param point0
-     * @param point1
-     * @param point2
-     * @param point3
-     * @param smooth
-     * @param steps
-     *
-     * @return The curve points.
-     */
-    public static Point2D.Double[] getBezierCurve(Point2D.Double point0,
-            Point2D.Double point1, Point2D.Double point2,
-            Point2D.Double point3, double smooth, int steps) {
-        Point2D.Double control1 = new Point2D.Double();
-        Point2D.Double control2 = new Point2D.Double();
-
-        getControlPoints(point0, point1, point2, point3, control1, control2,
-                smooth);
-
-        Point2D.Double C = new Point2D.Double(
-               3 * (control1.x - point1.x), 3 * (control1.y - point1.y));
-        Point2D.Double B = new Point2D.Double(3 * (control2.x - control1.x)
-                - C.x, 3 * (control2.y - control1.y) - C.y);
-        Point2D.Double A = new Point2D.Double(point2.x - point1.x - C.x - B.x,
-                point2.y - point1.y - C.y - B.y);
-
-        Point2D.Double[] res = new Point2D.Double[steps + 1];
-        double stepSize = 1.0 / steps;
-        double step = stepSize;
-
-        res[0] = point1;
-        for (int i = 1; i < steps; i++) {
-            res[i] = new Point2D.Double(A.x * Math.pow(step, 3) + B.x
-                    * Math.pow(step, 2) + C.x * step + point1.x, A.y
-                    * Math.pow(step, 3) + B.y * Math.pow(step, 2) + C.y * step
-                    + point1.y);
-            step += stepSize;
-        }
-        res[steps] = point2;
-
-        return res;
     }
 
 }

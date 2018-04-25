@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -44,15 +44,12 @@
 
 package org.jfree.chart.plot;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.io.Serializable;
-
 import org.jfree.chart.event.MarkerChangeEvent;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.ui.LengthAdjustmentType;
+
+import java.awt.*;
+import java.io.Serializable;
 
 /**
  * A marker for a category.
@@ -64,7 +61,9 @@ import org.jfree.ui.LengthAdjustmentType;
  */
 public class CategoryMarker extends Marker implements Cloneable, Serializable {
 
-    /** The category key. */
+    /**
+     * The category key.
+     */
     private Comparable key;
 
     /**
@@ -75,7 +74,7 @@ public class CategoryMarker extends Marker implements Cloneable, Serializable {
     /**
      * Creates a new category marker for the specified category.
      *
-     * @param key  the category key.
+     * @param key the category key.
      */
     public CategoryMarker(Comparable key) {
         this(key, Color.gray, new BasicStroke(1.0f));
@@ -84,9 +83,9 @@ public class CategoryMarker extends Marker implements Cloneable, Serializable {
     /**
      * Creates a new category marker.
      *
-     * @param key  the key.
+     * @param key    the key.
      * @param paint  the paint (<code>null</code> not permitted).
-     * @param stroke  the stroke (<code>null</code> not permitted).
+     * @param stroke the stroke (<code>null</code> not permitted).
      */
     public CategoryMarker(Comparable key, Paint paint, Stroke stroke) {
         this(key, paint, stroke, paint, stroke, 1.0f);
@@ -95,12 +94,12 @@ public class CategoryMarker extends Marker implements Cloneable, Serializable {
     /**
      * Creates a new category marker.
      *
-     * @param key  the key.
-     * @param paint  the paint (<code>null</code> not permitted).
-     * @param stroke  the stroke (<code>null</code> not permitted).
+     * @param key           the key.
+     * @param paint         the paint (<code>null</code> not permitted).
+     * @param stroke        the stroke (<code>null</code> not permitted).
      * @param outlinePaint  the outline paint (<code>null</code> permitted).
-     * @param outlineStroke  the outline stroke (<code>null</code> permitted).
-     * @param alpha  the alpha transparency.
+     * @param outlineStroke the outline stroke (<code>null</code> permitted).
+     * @param alpha         the alpha transparency.
      */
     public CategoryMarker(Comparable key, Paint paint, Stroke stroke,
                           Paint outlinePaint, Stroke outlineStroke,
@@ -123,8 +122,7 @@ public class CategoryMarker extends Marker implements Cloneable, Serializable {
      * Sets the key and sends a {@link MarkerChangeEvent} to all registered
      * listeners.
      *
-     * @param key  the key (<code>null</code> not permitted).
-     *
+     * @param key the key (<code>null</code> not permitted).
      * @since 1.0.3
      */
     public void setKey(Comparable key) {
@@ -148,7 +146,7 @@ public class CategoryMarker extends Marker implements Cloneable, Serializable {
      * as a line, and sends a {@link MarkerChangeEvent} to all registered
      * listeners.
      *
-     * @param drawAsLine  the flag.
+     * @param drawAsLine the flag.
      */
     public void setDrawAsLine(boolean drawAsLine) {
         this.drawAsLine = drawAsLine;
@@ -158,8 +156,7 @@ public class CategoryMarker extends Marker implements Cloneable, Serializable {
     /**
      * Tests the marker for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

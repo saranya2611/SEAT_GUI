@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------
@@ -50,19 +50,25 @@ import java.io.Serializable;
  */
 public final class TickType implements Serializable {
 
-    /** Major tick. */
+    /**
+     * Major tick.
+     */
     public static final TickType MAJOR = new TickType("MAJOR");
 
-    /** Minor tick. */
+    /**
+     * Minor tick.
+     */
     public static final TickType MINOR = new TickType("MINOR");
 
-    /** The name. */
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private TickType(String name) {
         this.name = name;
@@ -82,8 +88,7 @@ public final class TickType implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return A boolean.
      */
     @Override
@@ -106,15 +111,13 @@ public final class TickType implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         Object result = null;
         if (this.equals(TickType.MAJOR)) {
             result = TickType.MAJOR;
-        }
-        else if (this.equals(TickType.MINOR)) {
+        } else if (this.equals(TickType.MINOR)) {
             result = TickType.MINOR;
         }
         return result;

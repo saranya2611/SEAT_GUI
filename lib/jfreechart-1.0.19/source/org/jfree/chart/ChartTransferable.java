@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -42,7 +42,7 @@
 
 package org.jfree.chart;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -58,17 +58,25 @@ import java.io.IOException;
  */
 public class ChartTransferable implements Transferable {
 
-    /** The data flavor. */
+    /**
+     * The data flavor.
+     */
     final DataFlavor imageFlavor = new DataFlavor(
-            "image/x-java-image; class=java.awt.Image", "Image");    
-    
-    /** The chart. */
+            "image/x-java-image; class=java.awt.Image", "Image");
+
+    /**
+     * The chart.
+     */
     private JFreeChart chart;
 
-    /** The width of the chart on the clipboard. */
+    /**
+     * The width of the chart on the clipboard.
+     */
     private int width;
 
-    /** The height of the chart on the clipboard. */
+    /**
+     * The height of the chart on the clipboard.
+     */
     private int height;
 
     /**
@@ -88,9 +96,9 @@ public class ChartTransferable implements Transferable {
     private int minDrawHeight;
 
     /**
-     * The largest width at which the chart will be drawn (if necessary, the 
-     * chart will then be scaled up to fit the requested width). 
-     * 
+     * The largest width at which the chart will be drawn (if necessary, the
+     * chart will then be scaled up to fit the requested width).
+     *
      * @since 1.0.14
      */
     private int maxDrawWidth;
@@ -108,7 +116,7 @@ public class ChartTransferable implements Transferable {
      *
      * @param chart  the chart.
      * @param width  the chart width.
-     * @param height  the chart height.
+     * @param height the chart height.
      */
     public ChartTransferable(JFreeChart chart, int width, int height) {
         this(chart, width, height, true);
@@ -117,13 +125,13 @@ public class ChartTransferable implements Transferable {
     /**
      * Creates a new chart selection.
      *
-     * @param chart  the chart.
-     * @param width  the chart width.
-     * @param height  the chart height.
-     * @param cloneData  clone the dataset(s)?
+     * @param chart     the chart.
+     * @param width     the chart width.
+     * @param height    the chart height.
+     * @param cloneData clone the dataset(s)?
      */
     public ChartTransferable(JFreeChart chart, int width, int height,
-            boolean cloneData) {
+                             boolean cloneData) {
         this(chart, width, height, 0, 0, Integer.MAX_VALUE, Integer.MAX_VALUE,
                 true);
     }
@@ -133,28 +141,26 @@ public class ChartTransferable implements Transferable {
      * dimensions are used to match the scaling behaviour in the
      * {@link ChartPanel} class.
      *
-     * @param chart  the chart.
-     * @param width  the chart width.
-     * @param height  the chart height.
+     * @param chart     the chart.
+     * @param width     the chart width.
+     * @param height    the chart height.
      * @param minDrawW  the minimum drawing width.
      * @param minDrawH  the minimum drawing height.
      * @param maxDrawW  the maximum drawing width.
      * @param maxDrawH  the maximum drawing height.
-     * @param cloneData  clone the dataset(s)?
-     *
+     * @param cloneData clone the dataset(s)?
      * @since 1.0.14
      */
     public ChartTransferable(JFreeChart chart, int width, int height,
-            int minDrawW, int minDrawH, int maxDrawW, int maxDrawH,
-            boolean cloneData) {
+                             int minDrawW, int minDrawH, int maxDrawW, int maxDrawH,
+                             boolean cloneData) {
 
         // we clone the chart because presumably there can be some delay
         // between putting this instance on the system clipboard and
         // actually having the getTransferData() method called...
         try {
             this.chart = (JFreeChart) chart.clone();
-        }
-        catch (CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException e) {
             this.chart = chart;
         }
         // FIXME: we've cloned the chart, but the dataset(s) aren't cloned
@@ -169,19 +175,18 @@ public class ChartTransferable implements Transferable {
 
     /**
      * Returns the data flavors supported.
-     * 
+     *
      * @return The data flavors supported.
      */
     @Override
     public DataFlavor[] getTransferDataFlavors() {
-        return new DataFlavor[] {this.imageFlavor};
+        return new DataFlavor[]{this.imageFlavor};
     }
 
     /**
      * Returns <code>true</code> if the specified flavor is supported.
      *
-     * @param flavor  the flavor.
-     *
+     * @param flavor the flavor.
      * @return A boolean.
      */
     @Override
@@ -192,13 +197,11 @@ public class ChartTransferable implements Transferable {
     /**
      * Returns the content for the requested flavor, if it is supported.
      *
-     * @param flavor  the requested flavor.
-     *
+     * @param flavor the requested flavor.
      * @return The content.
-     *
-     * @throws java.awt.datatransfer.UnsupportedFlavorException if the flavor 
-     *         is not supported.
-     * @throws java.io.IOException if there is an IO problem.
+     * @throws java.awt.datatransfer.UnsupportedFlavorException if the flavor
+     *                                                          is not supported.
+     * @throws java.io.IOException                              if there is an IO problem.
      */
     @Override
     public Object getTransferData(DataFlavor flavor)
@@ -215,20 +218,18 @@ public class ChartTransferable implements Transferable {
     /**
      * A utility method that creates an image of a chart, with scaling.
      *
-     * @param chart  the chart.
-     * @param w  the image width.
-     * @param h  the image height.
-     * @param minDrawW  the minimum width for chart drawing.
-     * @param minDrawH  the minimum height for chart drawing.
-     * @param maxDrawW  the maximum width for chart drawing.
-     * @param maxDrawH  the maximum height for chart drawing.
-     *
-     * @return  A chart image.
-     *
+     * @param chart    the chart.
+     * @param w        the image width.
+     * @param h        the image height.
+     * @param minDrawW the minimum width for chart drawing.
+     * @param minDrawH the minimum height for chart drawing.
+     * @param maxDrawW the maximum width for chart drawing.
+     * @param maxDrawH the maximum height for chart drawing.
+     * @return A chart image.
      * @since 1.0.14
      */
     private BufferedImage createBufferedImage(JFreeChart chart, int w, int h,
-            int minDrawW, int minDrawH, int maxDrawW, int maxDrawH) {
+                                              int minDrawW, int minDrawH, int maxDrawW, int maxDrawH) {
 
         BufferedImage image = new BufferedImage(w, h,
                 BufferedImage.TYPE_INT_ARGB);
@@ -244,8 +245,7 @@ public class ChartTransferable implements Transferable {
             scaleX = drawWidth / minDrawW;
             drawWidth = minDrawW;
             scale = true;
-        }
-        else if (drawWidth > maxDrawW) {
+        } else if (drawWidth > maxDrawW) {
             scaleX = drawWidth / maxDrawW;
             drawWidth = maxDrawW;
             scale = true;
@@ -254,8 +254,7 @@ public class ChartTransferable implements Transferable {
             scaleY = drawHeight / minDrawH;
             drawHeight = minDrawH;
             scale = true;
-        }
-        else if (drawHeight > maxDrawH) {
+        } else if (drawHeight > maxDrawH) {
             scaleY = drawHeight / maxDrawH;
             drawHeight = maxDrawH;
             scale = true;

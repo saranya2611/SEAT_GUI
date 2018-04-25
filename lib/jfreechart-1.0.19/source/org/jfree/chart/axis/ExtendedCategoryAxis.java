@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -45,16 +45,6 @@
 
 package org.jfree.chart.axis;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.jfree.chart.event.AxisChangeEvent;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.io.SerialUtilities;
@@ -64,28 +54,43 @@ import org.jfree.text.TextLine;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.PaintUtilities;
 
+import java.awt.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * An extended version of the {@link CategoryAxis} class that supports
  * sublabels on the axis.
  */
 public class ExtendedCategoryAxis extends CategoryAxis {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = -3004429093959826567L;
 
-    /** Storage for the sublabels. */
+    /**
+     * Storage for the sublabels.
+     */
     private Map sublabels;
 
-    /** The sublabel font. */
+    /**
+     * The sublabel font.
+     */
     private Font sublabelFont;
 
-    /** The sublabel paint. */
+    /**
+     * The sublabel paint.
+     */
     private transient Paint sublabelPaint;
 
     /**
      * Creates a new axis.
      *
-     * @param label  the axis label.
+     * @param label the axis label.
      */
     public ExtendedCategoryAxis(String label) {
         super(label);
@@ -98,7 +103,6 @@ public class ExtendedCategoryAxis extends CategoryAxis {
      * Returns the font for the sublabels.
      *
      * @return The font (never <code>null</code>).
-     *
      * @see #setSubLabelFont(Font)
      */
     public Font getSubLabelFont() {
@@ -109,8 +113,7 @@ public class ExtendedCategoryAxis extends CategoryAxis {
      * Sets the font for the sublabels and sends an {@link AxisChangeEvent} to
      * all registered listeners.
      *
-     * @param font  the font (<code>null</code> not permitted).
-     *
+     * @param font the font (<code>null</code> not permitted).
      * @see #getSubLabelFont()
      */
     public void setSubLabelFont(Font font) {
@@ -123,7 +126,6 @@ public class ExtendedCategoryAxis extends CategoryAxis {
      * Returns the paint for the sublabels.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @see #setSubLabelPaint(Paint)
      */
     public Paint getSubLabelPaint() {
@@ -134,8 +136,7 @@ public class ExtendedCategoryAxis extends CategoryAxis {
      * Sets the paint for the sublabels and sends an {@link AxisChangeEvent}
      * to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getSubLabelPaint()
      */
     public void setSubLabelPaint(Paint paint) {
@@ -147,8 +148,8 @@ public class ExtendedCategoryAxis extends CategoryAxis {
     /**
      * Adds a sublabel for a category.
      *
-     * @param category  the category.
-     * @param label  the label.
+     * @param category the category.
+     * @param label    the label.
      */
     public void addSubLabel(Comparable category, String label) {
         this.sublabels.put(category, label);
@@ -158,11 +159,10 @@ public class ExtendedCategoryAxis extends CategoryAxis {
      * Overrides the default behaviour by adding the sublabel to the text
      * block that is used for the category label.
      *
-     * @param category  the category.
-     * @param width  the width (not used yet).
-     * @param edge  the location of the axis.
-     * @param g2  the graphics device.
-     *
+     * @param category the category.
+     * @param width    the width (not used yet).
+     * @param edge     the location of the axis.
+     * @param g2       the graphics device.
      * @return A label.
      */
     @Override
@@ -175,8 +175,7 @@ public class ExtendedCategoryAxis extends CategoryAxis {
                 TextLine line = new TextLine(s, this.sublabelFont,
                         this.sublabelPaint);
                 label.addLine(line);
-            }
-            else if (edge == RectangleEdge.LEFT
+            } else if (edge == RectangleEdge.LEFT
                     || edge == RectangleEdge.RIGHT) {
                 TextLine line = label.getLastLine();
                 if (line != null) {
@@ -191,8 +190,7 @@ public class ExtendedCategoryAxis extends CategoryAxis {
     /**
      * Tests this axis for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -220,7 +218,6 @@ public class ExtendedCategoryAxis extends CategoryAxis {
      * Returns a clone of this axis.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem cloning.
      */
     @Override
@@ -233,9 +230,8 @@ public class ExtendedCategoryAxis extends CategoryAxis {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -245,13 +241,12 @@ public class ExtendedCategoryAxis extends CategoryAxis {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.sublabelPaint = SerialUtilities.readPaint(stream);
     }

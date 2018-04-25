@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -48,27 +48,33 @@ import java.io.Serializable;
  */
 public final class DomainOrder implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 4902774943512072627L;
-
-    /** No order. */
+    /**
+     * No order.
+     */
     public static final DomainOrder NONE = new DomainOrder("DomainOrder.NONE");
-
-    /** Ascending order. */
+    /**
+     * Ascending order.
+     */
     public static final DomainOrder ASCENDING
-        = new DomainOrder("DomainOrder.ASCENDING");
-
-    /** Descending order. */
+            = new DomainOrder("DomainOrder.ASCENDING");
+    /**
+     * Descending order.
+     */
     public static final DomainOrder DESCENDING
-        = new DomainOrder("DomainOrder.DESCENDING");
-
-    /** The name. */
+            = new DomainOrder("DomainOrder.DESCENDING");
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 4902774943512072627L;
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private DomainOrder(String name) {
         this.name = name;
@@ -88,8 +94,7 @@ public final class DomainOrder implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return A boolean.
      */
     @Override
@@ -121,17 +126,14 @@ public final class DomainOrder implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         if (this.equals(DomainOrder.ASCENDING)) {
             return DomainOrder.ASCENDING;
-        }
-        else if (this.equals(DomainOrder.DESCENDING)) {
+        } else if (this.equals(DomainOrder.DESCENDING)) {
             return DomainOrder.DESCENDING;
-        }
-        else if (this.equals(DomainOrder.NONE)) {
+        } else if (this.equals(DomainOrder.NONE)) {
             return DomainOrder.NONE;
         }
         return null;

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -49,9 +49,8 @@ import org.jfree.data.general.SeriesChangeEvent;
 /**
  * A list of (x, y, y-low, y-high) data items.
  *
- * @since 1.0.3
- *
  * @see YIntervalSeriesCollection
+ * @since 1.0.3
  */
 public class YIntervalSeries extends ComparableObjectSeries {
 
@@ -60,7 +59,7 @@ public class YIntervalSeries extends ComparableObjectSeries {
      * be sorted into ascending order by x-value, and duplicate x-values will
      * be allowed (these defaults can be modified with another constructor.
      *
-     * @param key  the series key (<code>null</code> not permitted).
+     * @param key the series key (<code>null</code> not permitted).
      */
     public YIntervalSeries(Comparable key) {
         this(key, true, true);
@@ -70,37 +69,36 @@ public class YIntervalSeries extends ComparableObjectSeries {
      * Constructs a new xy-series that contains no data.  You can specify
      * whether or not duplicate x-values are allowed for the series.
      *
-     * @param key  the series key (<code>null</code> not permitted).
-     * @param autoSort  a flag that controls whether or not the items in the
-     *                  series are sorted.
-     * @param allowDuplicateXValues  a flag that controls whether duplicate
-     *                               x-values are allowed.
+     * @param key                   the series key (<code>null</code> not permitted).
+     * @param autoSort              a flag that controls whether or not the items in the
+     *                              series are sorted.
+     * @param allowDuplicateXValues a flag that controls whether duplicate
+     *                              x-values are allowed.
      */
     public YIntervalSeries(Comparable key, boolean autoSort,
-            boolean allowDuplicateXValues) {
+                           boolean allowDuplicateXValues) {
         super(key, autoSort, allowDuplicateXValues);
     }
 
     /**
-     * Adds a data item to the series and sends a {@link SeriesChangeEvent} to 
+     * Adds a data item to the series and sends a {@link SeriesChangeEvent} to
      * all registered listeners.
      *
-     * @param x  the x-value.
-     * @param y  the y-value.
+     * @param x     the x-value.
+     * @param y     the y-value.
      * @param yLow  the lower bound of the y-interval.
-     * @param yHigh  the upper bound of the y-interval.
+     * @param yHigh the upper bound of the y-interval.
      */
     public void add(double x, double y, double yLow, double yHigh) {
         add(new YIntervalDataItem(x, y, yLow, yHigh), true);
     }
-    
+
     /**
-     * Adds a data item to the series and, if requested, sends a 
+     * Adds a data item to the series and, if requested, sends a
      * {@link SeriesChangeEvent} to all registered listeners.
-     * 
-     * @param item  the data item (<code>null</code> not permitted).
-     * @param notify  notify listeners?
-     * 
+     *
+     * @param item   the data item (<code>null</code> not permitted).
+     * @param notify notify listeners?
      * @since 1.0.18
      */
     public void add(YIntervalDataItem item, boolean notify) {
@@ -110,8 +108,7 @@ public class YIntervalSeries extends ComparableObjectSeries {
     /**
      * Returns the x-value for the specified item.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @return The x-value (never <code>null</code>).
      */
     public Number getX(int index) {
@@ -122,8 +119,7 @@ public class YIntervalSeries extends ComparableObjectSeries {
     /**
      * Returns the y-value for the specified item.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @return The y-value.
      */
     public double getYValue(int index) {
@@ -135,10 +131,8 @@ public class YIntervalSeries extends ComparableObjectSeries {
      * Returns the lower bound of the Y-interval for the specified item in the
      * series.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @return The lower bound of the Y-interval.
-     *
      * @since 1.0.5
      */
     public double getYLowValue(int index) {
@@ -150,10 +144,8 @@ public class YIntervalSeries extends ComparableObjectSeries {
      * Returns the upper bound of the y-interval for the specified item in the
      * series.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @return The upper bound of the y-interval.
-     *
      * @since 1.0.5
      */
     public double getYHighValue(int index) {
@@ -164,8 +156,7 @@ public class YIntervalSeries extends ComparableObjectSeries {
     /**
      * Returns the data item at the specified index.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @return The data item.
      */
     @Override

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------
@@ -42,15 +42,13 @@
 
 package org.jfree.data.gantt;
 
-import java.util.Date;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.time.SimpleTimePeriod;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+
+import java.util.Date;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link TaskSeriesCollection} class.
@@ -494,7 +492,7 @@ public class TaskSeriesCollectionTest {
         TaskSeriesCollection c1 = new TaskSeriesCollection();
         c1.add(s1);
         c1.add(s2);
-        TaskSeriesCollection c2 = (TaskSeriesCollection) 
+        TaskSeriesCollection c2 = (TaskSeriesCollection)
                 TestUtilities.serialised(c1);
         assertEquals(c1, c2);
     }
@@ -552,24 +550,24 @@ public class TaskSeriesCollectionTest {
         // these methods should throw an IndexOutOfBoundsException since the
         // column is too high...
         try {
-            /* Number start = */ tsc.getStartValue(0, 3);
+            /* Number start = */
+            tsc.getStartValue(0, 3);
             assertTrue(false);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
         try {
-            /* Number end = */ tsc.getEndValue(0, 3);
+            /* Number end = */
+            tsc.getEndValue(0, 3);
             assertTrue(false);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
         try {
-            /* int count = */ tsc.getSubIntervalCount(0, 3);
+            /* int count = */
+            tsc.getSubIntervalCount(0, 3);
             assertTrue(false);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
     }
@@ -611,8 +609,7 @@ public class TaskSeriesCollectionTest {
         boolean pass = false;
         try {
             c.getSeries(null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -634,8 +631,7 @@ public class TaskSeriesCollectionTest {
         boolean pass = false;
         try {
             c.remove(-1);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -643,8 +639,7 @@ public class TaskSeriesCollectionTest {
         pass = false;
         try {
             c.remove(1);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);

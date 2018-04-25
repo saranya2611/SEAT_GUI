@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -46,11 +46,11 @@
 
 package org.jfree.chart;
 
+import org.jfree.chart.entity.ChartEntity;
+
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.EventObject;
-
-import org.jfree.chart.entity.ChartEntity;
 
 /**
  * A mouse event for a chart that is displayed in a {@link ChartPanel}.
@@ -59,24 +59,32 @@ import org.jfree.chart.entity.ChartEntity;
  */
 public class ChartMouseEvent extends EventObject implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -682393837314562149L;
 
-    /** The chart that the mouse event relates to. */
+    /**
+     * The chart that the mouse event relates to.
+     */
     private JFreeChart chart;
 
-    /** The Java mouse event that triggered this event. */
+    /**
+     * The Java mouse event that triggered this event.
+     */
     private MouseEvent trigger;
 
-    /** The chart entity (if any). */
+    /**
+     * The chart entity (if any).
+     */
     private ChartEntity entity;
 
     /**
      * Constructs a new event.
      *
-     * @param chart  the source chart (<code>null</code> not permitted).
-     * @param trigger  the mouse event that triggered this event
-     *                 (<code>null</code> not permitted).
+     * @param chart   the source chart (<code>null</code> not permitted).
+     * @param trigger the mouse event that triggered this event
+     *                (<code>null</code> not permitted).
      * @param entity  the chart entity (if any) under the mouse point
      *                (<code>null</code> permitted).
      */

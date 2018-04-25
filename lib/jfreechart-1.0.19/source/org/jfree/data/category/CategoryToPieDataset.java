@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -49,15 +49,15 @@
 
 package org.jfree.data.category;
 
-import java.util.Collections;
-import java.util.List;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.data.general.AbstractDataset;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.TableOrder;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A {@link PieDataset} implementation that obtains its data from one row or
@@ -66,16 +66,24 @@ import org.jfree.util.TableOrder;
 public class CategoryToPieDataset extends AbstractDataset
         implements PieDataset, DatasetChangeListener {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = 5516396319762189617L;
 
-    /** The source. */
+    /**
+     * The source.
+     */
     private CategoryDataset source;
 
-    /** The extract type. */
+    /**
+     * The extract type.
+     */
     private TableOrder extract;
 
-    /** The row or column index. */
+    /**
+     * The row or column index.
+     */
     private int index;
 
     /**
@@ -86,12 +94,12 @@ public class CategoryToPieDataset extends AbstractDataset
      * be empty.
      *
      * @param source  the source dataset (<code>null</code> permitted).
-     * @param extract  extract data from rows or columns? (<code>null</code>
-     *                 not permitted).
-     * @param index  the row or column index.
+     * @param extract extract data from rows or columns? (<code>null</code>
+     *                not permitted).
+     * @param index   the row or column index.
      */
     public CategoryToPieDataset(CategoryDataset source, TableOrder extract,
-            int index) {
+                                int index) {
         ParamChecks.nullNotPermitted(extract, "extract");
         this.source = source;
         if (this.source != null) {
@@ -105,7 +113,6 @@ public class CategoryToPieDataset extends AbstractDataset
      * Returns the underlying dataset.
      *
      * @return The underlying dataset (possibly <code>null</code>).
-     *
      * @since 1.0.2
      */
     public CategoryDataset getUnderlyingDataset() {
@@ -117,7 +124,6 @@ public class CategoryToPieDataset extends AbstractDataset
      * one row or one column of the underlying dataset.
      *
      * @return The extract type.
-     *
      * @since 1.0.2
      */
     public TableOrder getExtractType() {
@@ -128,7 +134,6 @@ public class CategoryToPieDataset extends AbstractDataset
      * Returns the index of the row or column from which to extract the data.
      *
      * @return The extract index.
-     *
      * @since 1.0.2
      */
     public int getExtractIndex() {
@@ -147,8 +152,7 @@ public class CategoryToPieDataset extends AbstractDataset
         if (this.source != null) {
             if (this.extract == TableOrder.BY_ROW) {
                 result = this.source.getColumnCount();
-            }
-            else if (this.extract == TableOrder.BY_COLUMN) {
+            } else if (this.extract == TableOrder.BY_COLUMN) {
                 result = this.source.getRowCount();
             }
         }
@@ -158,12 +162,10 @@ public class CategoryToPieDataset extends AbstractDataset
     /**
      * Returns a value from the dataset.
      *
-     * @param item  the item index (zero-based).
-     *
+     * @param item the item index (zero-based).
      * @return The value (possibly <code>null</code>).
-     *
      * @throws IndexOutOfBoundsException if <code>item</code> is not in the
-     *     range <code>0</code> to <code>getItemCount() - 1</code>.
+     *                                   range <code>0</code> to <code>getItemCount() - 1</code>.
      */
     @Override
     public Number getValue(int item) {
@@ -175,8 +177,7 @@ public class CategoryToPieDataset extends AbstractDataset
         }
         if (this.extract == TableOrder.BY_ROW) {
             result = this.source.getValue(this.index, item);
-        }
-        else if (this.extract == TableOrder.BY_COLUMN) {
+        } else if (this.extract == TableOrder.BY_COLUMN) {
             result = this.source.getValue(item, this.index);
         }
         return result;
@@ -185,13 +186,11 @@ public class CategoryToPieDataset extends AbstractDataset
     /**
      * Returns the key at the specified index.
      *
-     * @param index  the item index (in the range <code>0</code> to
-     *     <code>getItemCount() - 1</code>).
-     *
+     * @param index the item index (in the range <code>0</code> to
+     *              <code>getItemCount() - 1</code>).
      * @return The key.
-     *
      * @throws IndexOutOfBoundsException if <code>index</code> is not in the
-     *     specified range.
+     *                                   specified range.
      */
     @Override
     public Comparable getKey(int index) {
@@ -202,8 +201,7 @@ public class CategoryToPieDataset extends AbstractDataset
         }
         if (this.extract == TableOrder.BY_ROW) {
             result = this.source.getColumnKey(index);
-        }
-        else if (this.extract == TableOrder.BY_COLUMN) {
+        } else if (this.extract == TableOrder.BY_COLUMN) {
             result = this.source.getRowKey(index);
         }
         return result;
@@ -213,8 +211,7 @@ public class CategoryToPieDataset extends AbstractDataset
      * Returns the index for a given key, or <code>-1</code> if there is no
      * such key.
      *
-     * @param key  the key.
-     *
+     * @param key the key.
      * @return The index for the key, or <code>-1</code>.
      */
     @Override
@@ -223,8 +220,7 @@ public class CategoryToPieDataset extends AbstractDataset
         if (this.source != null) {
             if (this.extract == TableOrder.BY_ROW) {
                 result = this.source.getColumnIndex(key);
-            }
-            else if (this.extract == TableOrder.BY_COLUMN) {
+            } else if (this.extract == TableOrder.BY_COLUMN) {
                 result = this.source.getRowIndex(key);
             }
         }
@@ -245,8 +241,7 @@ public class CategoryToPieDataset extends AbstractDataset
         if (this.source != null) {
             if (this.extract == TableOrder.BY_ROW) {
                 result = this.source.getColumnKeys();
-            }
-            else if (this.extract == TableOrder.BY_COLUMN) {
+            } else if (this.extract == TableOrder.BY_COLUMN) {
                 result = this.source.getRowKeys();
             }
         }
@@ -258,8 +253,7 @@ public class CategoryToPieDataset extends AbstractDataset
      * method should return <code>null</code> (but note that <code>null</code>
      * can be associated with a valid key also).
      *
-     * @param key  the key.
-     *
+     * @param key the key.
      * @return The value (possibly <code>null</code>).
      */
     @Override
@@ -269,8 +263,7 @@ public class CategoryToPieDataset extends AbstractDataset
         if (keyIndex != -1) {
             if (this.extract == TableOrder.BY_ROW) {
                 result = this.source.getValue(this.index, keyIndex);
-            }
-            else if (this.extract == TableOrder.BY_COLUMN) {
+            } else if (this.extract == TableOrder.BY_COLUMN) {
                 result = this.source.getValue(keyIndex, this.index);
             }
         }
@@ -281,8 +274,8 @@ public class CategoryToPieDataset extends AbstractDataset
      * Sends a {@link DatasetChangeEvent} to all registered listeners, with
      * this (not the underlying) dataset as the source.
      *
-     * @param event  the event (ignored, a new event with this dataset as the
-     *     source is sent to the listeners).
+     * @param event the event (ignored, a new event with this dataset as the
+     *              source is sent to the listeners).
      */
     @Override
     public void datasetChanged(DatasetChangeEvent event) {
@@ -294,8 +287,7 @@ public class CategoryToPieDataset extends AbstractDataset
      * <code>true</code> if <code>obj</code> is a dataset containing the same
      * keys and values in the same order as this dataset.
      *
-     * @param obj  the object to test (<code>null</code> permitted).
-     *
+     * @param obj the object to test (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -324,8 +316,7 @@ public class CategoryToPieDataset extends AbstractDataset
                 if (v2 != null) {
                     return false;
                 }
-            }
-            else {
+            } else {
                 if (!v1.equals(v2)) {
                     return false;
                 }

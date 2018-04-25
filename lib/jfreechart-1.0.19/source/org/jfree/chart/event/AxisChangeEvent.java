@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -48,13 +48,15 @@ import org.jfree.chart.axis.Axis;
  */
 public class AxisChangeEvent extends ChartChangeEvent {
 
-    /** The axis that generated the change event. */
+    /**
+     * The axis that generated the change event.
+     */
     private Axis axis;
 
     /**
      * Creates a new AxisChangeEvent.
      *
-     * @param axis  the axis that generated the event.
+     * @param axis the axis that generated the event.
      */
     public AxisChangeEvent(Axis axis) {
         super(axis);

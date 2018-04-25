@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -40,8 +40,9 @@
 
 package org.jfree.chart.event;
 
-import java.util.EventListener;
 import org.jfree.chart.panel.Overlay;
+
+import java.util.EventListener;
 
 /**
  * A listener for changes to an {@link Overlay}.
@@ -53,7 +54,7 @@ public interface OverlayChangeListener extends EventListener {
     /**
      * This method is called to notify a listener of a change event.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     public void overlayChanged(OverlayChangeEvent event);
 

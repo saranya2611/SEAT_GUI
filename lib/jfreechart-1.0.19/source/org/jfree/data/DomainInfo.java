@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -51,8 +51,8 @@ package org.jfree.data;
 
 /**
  * An interface (optional) that can be implemented by a dataset to assist in
- * determining the minimum and maximum values.  If not present, 
- * {@link org.jfree.data.general.DatasetUtilities} will iterate over all the 
+ * determining the minimum and maximum values.  If not present,
+ * {@link org.jfree.data.general.DatasetUtilities} will iterate over all the
  * values in the dataset to get the bounds.
  */
 public interface DomainInfo {
@@ -60,33 +60,30 @@ public interface DomainInfo {
     /**
      * Returns the minimum x-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
-     * @return The minimum value or <code>Double.NaN</code> if there are no 
-     *     values.
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
+     * @return The minimum value or <code>Double.NaN</code> if there are no
+     * values.
      */
     public double getDomainLowerBound(boolean includeInterval);
 
     /**
      * Returns the maximum x-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
-     * @return The maximum value or <code>Double.NaN</code> if there are no 
-     *     values.
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
+     * @return The maximum value or <code>Double.NaN</code> if there are no
+     * values.
      */
     public double getDomainUpperBound(boolean includeInterval);
 
     /**
      * Returns the range of the values in this dataset's domain.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The range (or <code>null</code> if the dataset contains no
-     *     values).
+     * values).
      */
     public Range getDomainBounds(boolean includeInterval);
 

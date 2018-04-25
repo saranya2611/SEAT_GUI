@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -69,18 +69,10 @@
  * 26-May-2009 : Support AreaRendererEndType.LEVEL (DG);
  * 27-May-2009 : Fixed item label anchor for horizontal orientation (DG);
  * 03-Jul-2013 : Use ParamChecks (DG);
- * 
+ *
  */
 
 package org.jfree.chart.renderer.category;
-
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
 
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.axis.CategoryAxis;
@@ -95,6 +87,11 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
+
 /**
  * A category item renderer that draws area charts.  You can use this renderer
  * with the {@link CategoryPlot} class.  The example shown here is generated
@@ -107,10 +104,14 @@ import org.jfree.util.PublicCloneable;
 public class AreaRenderer extends AbstractCategoryItemRenderer
         implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -4231878281385812757L;
 
-    /** A flag that controls how the ends of the areas are drawn. */
+    /**
+     * A flag that controls how the ends of the areas are drawn.
+     */
     private AreaRendererEndType endType;
 
     /**
@@ -127,7 +128,6 @@ public class AreaRenderer extends AbstractCategoryItemRenderer
      * The default value is {@link AreaRendererEndType#TAPER}.
      *
      * @return The end type (never <code>null</code>).
-     *
      * @see #setEndType
      */
     public AreaRendererEndType getEndType() {
@@ -138,8 +138,7 @@ public class AreaRenderer extends AbstractCategoryItemRenderer
      * Sets a token that controls how the renderer draws the end points, and
      * sends a {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param type  the end type (<code>null</code> not permitted).
-     *
+     * @param type the end type (<code>null</code> not permitted).
      * @see #getEndType()
      */
     public void setEndType(AreaRendererEndType type) {
@@ -151,9 +150,8 @@ public class AreaRenderer extends AbstractCategoryItemRenderer
     /**
      * Returns a legend item for a series.
      *
-     * @param datasetIndex  the dataset index (zero-based).
-     * @param series  the series index (zero-based).
-     *
+     * @param datasetIndex the dataset index (zero-based).
+     * @param series       the series index (zero-based).
      * @return The legend item.
      */
     @Override
@@ -207,22 +205,22 @@ public class AreaRenderer extends AbstractCategoryItemRenderer
     /**
      * Draw a single data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the data plot area.
-     * @param plot  the plot.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the data plot area.
+     * @param plot       the plot.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     * @param pass  the pass index.
+     * @param dataset    the dataset.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
+     * @param pass       the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, CategoryItemRendererState state,
-            Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
-            ValueAxis rangeAxis, CategoryDataset dataset, int row, int column,
-            int pass) {
+                         Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
+                         ValueAxis rangeAxis, CategoryDataset dataset, int row, int column,
+                         int pass) {
 
         // do nothing if item is not visible or null
         if (!getItemVisible(row, column)) {
@@ -249,8 +247,7 @@ public class AreaRenderer extends AbstractCategoryItemRenderer
         if (this.endType == AreaRendererEndType.TRUNCATE) {
             if (column == 0) {
                 x0 = x1;
-            }
-            else if (column == getColumnCount() - 1) {
+            } else if (column == getColumnCount() - 1) {
                 x2 = x1;
             }
         }
@@ -274,8 +271,7 @@ public class AreaRenderer extends AbstractCategoryItemRenderer
             if (n2 != null) {
                 yy2 = (n2.doubleValue() + yy1) / 2.0;
             }
-        }
-        else if (this.endType == AreaRendererEndType.LEVEL) {
+        } else if (this.endType == AreaRendererEndType.LEVEL) {
             yy2 = yy1;
         }
 
@@ -297,8 +293,7 @@ public class AreaRenderer extends AbstractCategoryItemRenderer
             area.lineTo(x1, y1);
             area.lineTo(x2, y2);
             area.lineTo(x2, yz);
-        }
-        else if (orientation == PlotOrientation.HORIZONTAL) {
+        } else if (orientation == PlotOrientation.HORIZONTAL) {
             area.moveTo(yz, x0);
             area.lineTo(y0, x0);
             area.lineTo(y1, x1);
@@ -321,7 +316,7 @@ public class AreaRenderer extends AbstractCategoryItemRenderer
 
         // submit the current data point as a crosshair candidate
         int datasetIndex = plot.indexOf(dataset);
-        updateCrosshairValues(state.getCrosshairState(), 
+        updateCrosshairValues(state.getCrosshairState(),
                 dataset.getRowKey(row), dataset.getColumnKey(column), yy1,
                 datasetIndex, x1, y1, orientation);
 
@@ -336,8 +331,7 @@ public class AreaRenderer extends AbstractCategoryItemRenderer
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object to test (<code>null</code> permitted).
-     *
+     * @param obj the object to test (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -359,8 +353,7 @@ public class AreaRenderer extends AbstractCategoryItemRenderer
      * Returns an independent copy of the renderer.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  should not happen.
+     * @throws CloneNotSupportedException should not happen.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

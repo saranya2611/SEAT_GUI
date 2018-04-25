@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------
@@ -42,24 +42,24 @@
 
 package org.jfree.data.time.ohlc;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.time.TimePeriodAnchor;
 import org.jfree.data.time.Year;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 /**
  * Tests for the {@link OHLCSeriesCollectionTests} class.
  */
 public class OHLCSeriesCollectionTest implements DatasetChangeListener {
+
+    /**
+     * The last received event.
+     */
+    private DatasetChangeEvent lastEvent;
 
     /**
      * Confirm that the equals method can distinguish all the required fields.
@@ -121,7 +121,7 @@ public class OHLCSeriesCollectionTest implements DatasetChangeListener {
         OHLCSeries s1 = new OHLCSeries("Series");
         s1.add(new Year(2006), 1.0, 1.1, 1.2, 1.3);
         c1.addSeries(s1);
-        OHLCSeriesCollection c2 = (OHLCSeriesCollection) 
+        OHLCSeriesCollection c2 = (OHLCSeriesCollection)
                 TestUtilities.serialised(c1);
         assertEquals(c1, c2);
     }
@@ -136,12 +136,11 @@ public class OHLCSeriesCollectionTest implements DatasetChangeListener {
         OHLCSeriesCollection dataset = new OHLCSeriesCollection();
         dataset.addSeries(s1);
         try {
-            /* XYSeries s = */ dataset.getSeries(1);
-        }
-        catch (IllegalArgumentException e) {
+            /* XYSeries s = */
+            dataset.getSeries(1);
+        } catch (IllegalArgumentException e) {
             // correct outcome
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             assertTrue(false);  // wrong outcome
         }
     }
@@ -232,13 +231,10 @@ public class OHLCSeriesCollectionTest implements DatasetChangeListener {
         this.lastEvent = null;  // clean up
     }
 
-    /** The last received event. */
-    private DatasetChangeEvent lastEvent;
-
     /**
      * Receives dataset change events.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void datasetChanged(DatasetChangeEvent event) {

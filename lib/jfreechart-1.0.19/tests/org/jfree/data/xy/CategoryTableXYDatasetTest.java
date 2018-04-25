@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -41,19 +41,18 @@
 
 package org.jfree.data.xy;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link CategoryTableXYDataset} class.
  */
 public class CategoryTableXYDatasetTest {
+
+    private static final double EPSILON = 0.0000000001;
 
     /**
      * Confirm that the equals method can distinguish all the required fields.
@@ -147,12 +146,10 @@ public class CategoryTableXYDatasetTest {
         CategoryTableXYDataset d1 = new CategoryTableXYDataset();
         d1.add(1.0, 1.1, "Series 1");
         d1.add(2.0, 2.2, "Series 1");
-        CategoryTableXYDataset d2 = (CategoryTableXYDataset) 
+        CategoryTableXYDataset d2 = (CategoryTableXYDataset)
                 TestUtilities.serialised(d1);
         assertEquals(d1, d2);
     }
-
-    private static final double EPSILON = 0.0000000001;
 
     /**
      * This is a test for bug 1312066 - adding a new series should trigger a

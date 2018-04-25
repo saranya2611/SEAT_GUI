@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------
@@ -46,40 +46,50 @@
 
 package org.jfree.chart.axis;
 
-import java.io.Serializable;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.ui.TextAnchor;
 import org.jfree.util.ObjectUtilities;
+
+import java.io.Serializable;
 
 /**
  * The base class used to represent labeled ticks along an axis.
  */
 public abstract class Tick implements Serializable, Cloneable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 6668230383875149773L;
 
-    /** A text version of the tick value. */
+    /**
+     * A text version of the tick value.
+     */
     private String text;
 
-    /** The text anchor for the tick label. */
+    /**
+     * The text anchor for the tick label.
+     */
     private TextAnchor textAnchor;
 
-    /** The rotation anchor for the tick label. */
+    /**
+     * The rotation anchor for the tick label.
+     */
     private TextAnchor rotationAnchor;
 
-    /** The rotation angle. */
+    /**
+     * The rotation angle.
+     */
     private double angle;
 
     /**
      * Creates a new tick.
      *
-     * @param text  the formatted version of the tick value.
-     * @param textAnchor  the text anchor (<code>null</code> not permitted).
-     * @param rotationAnchor  the rotation anchor (<code>null</code> not
-     *                        permitted).
-     * @param angle  the angle.
+     * @param text           the formatted version of the tick value.
+     * @param textAnchor     the text anchor (<code>null</code> not permitted).
+     * @param rotationAnchor the rotation anchor (<code>null</code> not
+     *                       permitted).
+     * @param angle          the angle.
      */
     public Tick(String text, TextAnchor textAnchor, TextAnchor rotationAnchor,
                 double angle) {
@@ -131,8 +141,7 @@ public abstract class Tick implements Serializable, Cloneable {
     /**
      * Tests this tick for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -163,7 +172,6 @@ public abstract class Tick implements Serializable, Cloneable {
      * Returns a clone of the tick.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem cloning.
      */
     @Override

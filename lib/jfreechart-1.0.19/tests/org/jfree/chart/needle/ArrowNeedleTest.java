@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -40,11 +40,11 @@
 
 package org.jfree.chart.needle;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the {@link ArrowNeedle} class.
@@ -56,15 +56,15 @@ public class ArrowNeedleTest {
      */
     @Test
     public void testEquals() {
-       ArrowNeedle n1 = new ArrowNeedle(false);
-       ArrowNeedle n2 = new ArrowNeedle(false);
-       assertTrue(n1.equals(n2));
-       assertTrue(n2.equals(n1));
+        ArrowNeedle n1 = new ArrowNeedle(false);
+        ArrowNeedle n2 = new ArrowNeedle(false);
+        assertTrue(n1.equals(n2));
+        assertTrue(n2.equals(n1));
 
-       n1 = new ArrowNeedle(true);
-       assertFalse(n1.equals(n2));
-       n2 = new ArrowNeedle(true);
-       assertTrue(n1.equals(n2));
+        n1 = new ArrowNeedle(true);
+        assertFalse(n1.equals(n2));
+        n2 = new ArrowNeedle(true);
+        assertTrue(n1.equals(n2));
     }
 
     /**

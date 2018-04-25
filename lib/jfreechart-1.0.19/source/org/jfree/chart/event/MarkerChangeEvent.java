@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -50,15 +50,16 @@ import org.jfree.chart.plot.Marker;
  */
 public class MarkerChangeEvent extends ChartChangeEvent {
 
-    /** The plot that generated the event. */
+    /**
+     * The plot that generated the event.
+     */
     private Marker marker;
 
     /**
      * Creates a new <code>MarkerChangeEvent</code> instance.
      *
-     * @param marker  the marker that triggered the event (<code>null</code>
-     *     not permitted).
-     *
+     * @param marker the marker that triggered the event (<code>null</code>
+     *               not permitted).
      * @since 1.0.3
      */
     public MarkerChangeEvent(Marker marker) {
@@ -70,7 +71,6 @@ public class MarkerChangeEvent extends ChartChangeEvent {
      * Returns the marker that triggered the event.
      *
      * @return The marker that triggered the event (never <code>null</code>).
-     *
      * @since 1.0.3
      */
     public Marker getMarker() {

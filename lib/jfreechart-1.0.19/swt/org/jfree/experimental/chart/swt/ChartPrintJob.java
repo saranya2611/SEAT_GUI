@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -63,18 +63,18 @@ public class ChartPrintJob {
 
     /**
      * Creates a new job.
-     * 
-     * @param jobName  this will be the name of the print job or the default 
-     *     name of the file (if printed to a file).
+     *
+     * @param jobName this will be the name of the print job or the default
+     *                name of the file (if printed to a file).
      */
     public ChartPrintJob(String jobName) {
         this.jobName = jobName;
     }
 
-    /** 
+    /**
      * Prints the specified element.
-     * 
-     * @param elementToPrint  the {@link Composite} to be printed.
+     *
+     * @param elementToPrint the {@link Composite} to be printed.
      */
     public void print(Composite elementToPrint) {
         PrintDialog dialog = new PrintDialog(elementToPrint.getShell());
@@ -85,8 +85,8 @@ public class ChartPrintJob {
         startPrintJob(elementToPrint, printerData);
     }
 
-    protected void startPrintJob(Composite elementToPrint, 
-            PrinterData printerData) {
+    protected void startPrintJob(Composite elementToPrint,
+                                 PrinterData printerData) {
         Printer printer = new Printer(printerData);
         try {
             printer.startJob(jobName);
@@ -135,18 +135,18 @@ public class ChartPrintJob {
         return new Rectangle(marginLeft, marginTop, availWidth, availHeight);
     }
 
-    private void printComposite(Composite elementToPrint, GC gc, 
-            Rectangle printArea) {
+    private void printComposite(Composite elementToPrint, GC gc,
+                                Rectangle printArea) {
         Image image = new Image(elementToPrint.getDisplay(),
                 elementToPrint.getSize().x, elementToPrint.getSize().y);
         try {
             GC imageGC = new GC(image);
             try {
                 elementToPrint.print(imageGC);
-                Point fittedSize = calcFittedSize(printArea, 
+                Point fittedSize = calcFittedSize(printArea,
                         elementToPrint.getSize());
                 gc.drawImage(image, 0, 0, elementToPrint.getSize().x,
-                        elementToPrint.getSize().y, printArea.x, printArea.y, 
+                        elementToPrint.getSize().y, printArea.x, printArea.y,
                         fittedSize.x, fittedSize.y);
 
             } finally {
@@ -160,10 +160,9 @@ public class ChartPrintJob {
     /**
      * The object to print should be scaled up or down to fit horizontally and
      * vertically the available space.
-     *     
+     *
      * @param printArea
      * @param originalSize
-     * 
      * @return the fitted size of the object to print
      */
     Point calcFittedSize(Rectangle printArea, Point originalSize) {

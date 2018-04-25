@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -40,13 +40,6 @@
 
 package org.jfree.chart;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-
 import org.jfree.chart.labels.CategoryToolTipGenerator;
 import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
@@ -59,13 +52,47 @@ import org.jfree.data.general.DatasetUtilities;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 /**
  * Some tests for a waterfall chart.
  */
 public class WaterfallChartTest {
 
-    /** A chart. */
+    /**
+     * A chart.
+     */
     private JFreeChart chart;
+
+    /**
+     * Create a bar chart with sample data in the range -3 to +3.
+     *
+     * @return The chart.
+     */
+    private static JFreeChart createWaterfallChart() {
+        Number[][] data = new Integer[][]
+                {{new Integer(-3), new Integer(-2)},
+                        {new Integer(-1), new Integer(1)},
+                        {new Integer(2), new Integer(3)}};
+
+        CategoryDataset dataset = DatasetUtilities.createCategoryDataset("S",
+                "C", data);
+        return ChartFactory.createWaterfallChart(
+                "Waterfall Chart",
+                "Domain", "Range",
+                dataset,
+                PlotOrientation.HORIZONTAL,
+                true,     // include legend
+                true,
+                true
+        );
+
+    }
 
     /**
      * Common test setup.
@@ -82,14 +109,13 @@ public class WaterfallChartTest {
     @Test
     public void testDrawWithNullInfo() {
         try {
-            BufferedImage image = new BufferedImage(200 , 100,
+            BufferedImage image = new BufferedImage(200, 100,
                     BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = image.createGraphics();
             this.chart.draw(g2, new Rectangle2D.Double(0, 0, 200, 100), null,
                     null);
             g2.dispose();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("There should be no exception.");
         }
     }
@@ -122,31 +148,6 @@ public class WaterfallChartTest {
         renderer.setSeriesItemURLGenerator(0, url1);
         CategoryURLGenerator url2 = renderer.getItemURLGenerator(0, 0);
         assertTrue(url2 == url1);
-    }
-
-    /**
-     * Create a bar chart with sample data in the range -3 to +3.
-     *
-     * @return The chart.
-     */
-    private static JFreeChart createWaterfallChart() {
-        Number[][] data = new Integer[][]
-            {{new Integer(-3), new Integer(-2)},
-             {new Integer(-1), new Integer(1)},
-             {new Integer(2), new Integer(3)}};
-
-        CategoryDataset dataset = DatasetUtilities.createCategoryDataset("S",
-                "C", data);
-        return ChartFactory.createWaterfallChart(
-            "Waterfall Chart",
-            "Domain", "Range",
-            dataset,
-            PlotOrientation.HORIZONTAL,
-            true,     // include legend
-            true,
-            true
-        );
-
     }
 
 }

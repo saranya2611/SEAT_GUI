@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -44,10 +44,8 @@ package org.jfree.data;
 
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link KeyedObjects2D} class.
@@ -121,8 +119,7 @@ public class KeyedObjects2DTest {
         boolean pass = false;
         try {
             data.getObject(-1, 0);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -130,8 +127,7 @@ public class KeyedObjects2DTest {
         pass = false;
         try {
             data.getObject(0, -1);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -139,8 +135,7 @@ public class KeyedObjects2DTest {
         pass = false;
         try {
             data.getObject(2, 0);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -148,8 +143,7 @@ public class KeyedObjects2DTest {
         pass = false;
         try {
             data.getObject(0, 2);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -172,8 +166,7 @@ public class KeyedObjects2DTest {
         boolean pass = false;
         try {
             data.getObject("XX", "C1");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -181,8 +174,7 @@ public class KeyedObjects2DTest {
         pass = false;
         try {
             data.getObject("R1", "XX");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -190,8 +182,7 @@ public class KeyedObjects2DTest {
         pass = false;
         try {
             data.getObject("XX", "C1");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -199,8 +190,7 @@ public class KeyedObjects2DTest {
         pass = false;
         try {
             data.getObject("R1", "XX");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -227,8 +217,7 @@ public class KeyedObjects2DTest {
         boolean pass = false;
         try {
             data.setObject("X", null, "C1");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -236,8 +225,7 @@ public class KeyedObjects2DTest {
         pass = false;
         try {
             data.setObject("X", "R1", null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -259,8 +247,7 @@ public class KeyedObjects2DTest {
         boolean pass = false;
         try {
             data.removeRow(-1);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -269,8 +256,7 @@ public class KeyedObjects2DTest {
         pass = false;
         try {
             data.removeRow(data.getRowCount());
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -292,8 +278,7 @@ public class KeyedObjects2DTest {
         boolean pass = false;
         try {
             data.removeColumn(-1);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -302,8 +287,7 @@ public class KeyedObjects2DTest {
         pass = false;
         try {
             data.removeColumn(data.getColumnCount());
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -325,8 +309,7 @@ public class KeyedObjects2DTest {
         boolean pass = false;
         try {
             data.removeRow("XXX");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -335,8 +318,7 @@ public class KeyedObjects2DTest {
         pass = false;
         try {
             data.removeRow(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -358,8 +340,7 @@ public class KeyedObjects2DTest {
         boolean pass = false;
         try {
             data.removeColumn("XXX");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -368,8 +349,7 @@ public class KeyedObjects2DTest {
         pass = false;
         try {
             data.removeColumn(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);

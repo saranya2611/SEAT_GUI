@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -70,13 +70,6 @@
 
 package org.jfree.chart.renderer.xy;
 
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
@@ -91,6 +84,11 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
+
 /**
  * Line/Step item renderer for an {@link XYPlot}.  This class draws lines
  * between data points, only allowing horizontal or vertical lines (steps).
@@ -104,7 +102,9 @@ import org.jfree.util.PublicCloneable;
 public class XYStepRenderer extends XYLineAndShapeRenderer
         implements XYItemRenderer, Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -8918141928884796108L;
 
     /**
@@ -126,9 +126,9 @@ public class XYStepRenderer extends XYLineAndShapeRenderer
      * Constructs a new renderer with the specified tool tip and URL
      * generators.
      *
-     * @param toolTipGenerator  the item label generator (<code>null</code>
-     *     permitted).
-     * @param urlGenerator  the URL generator (<code>null</code> permitted).
+     * @param toolTipGenerator the item label generator (<code>null</code>
+     *                         permitted).
+     * @param urlGenerator     the URL generator (<code>null</code> permitted).
      */
     public XYStepRenderer(XYToolTipGenerator toolTipGenerator,
                           XYURLGenerator urlGenerator) {
@@ -145,10 +145,8 @@ public class XYStepRenderer extends XYLineAndShapeRenderer
      * step is drawn at half between the two points.
      *
      * @return The fraction of the domain position between two points where the
-     *         step is drawn.
-     *
+     * step is drawn.
      * @see #setStepPoint(double)
-     *
      * @since 1.0.10
      */
     public double getStepPoint() {
@@ -159,10 +157,8 @@ public class XYStepRenderer extends XYLineAndShapeRenderer
      * Sets the step point and sends a {@link RendererChangeEvent} to all
      * registered listeners.
      *
-     * @param stepPoint  the step point (in the range 0.0 to 1.0)
-     *
+     * @param stepPoint the step point (in the range 0.0 to 1.0)
      * @see #getStepPoint()
-     *
      * @since 1.0.10
      */
     public void setStepPoint(double stepPoint) {
@@ -177,26 +173,26 @@ public class XYStepRenderer extends XYLineAndShapeRenderer
     /**
      * Draws the visual representation of a single data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the area within which the data is being drawn.
-     * @param info  collects information about the drawing.
-     * @param plot  the plot (can be used to obtain standard color
-     *              information etc).
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the vertical axis.
-     * @param dataset  the dataset.
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     * @param crosshairState  crosshair information for the plot
-     *                        (<code>null</code> permitted).
-     * @param pass  the pass index.
+     * @param g2             the graphics device.
+     * @param state          the renderer state.
+     * @param dataArea       the area within which the data is being drawn.
+     * @param info           collects information about the drawing.
+     * @param plot           the plot (can be used to obtain standard color
+     *                       information etc).
+     * @param domainAxis     the domain axis.
+     * @param rangeAxis      the vertical axis.
+     * @param dataset        the dataset.
+     * @param series         the series index (zero-based).
+     * @param item           the item index (zero-based).
+     * @param crosshairState crosshair information for the plot
+     *                       (<code>null</code> permitted).
+     * @param pass           the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, XYItemRendererState state,
-            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-            int series, int item, CrosshairState crosshairState, int pass) {
+                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+                         int series, int item, CrosshairState crosshairState, int pass) {
 
         // do nothing if item is not visible
         if (!getItemVisible(series, item)) {
@@ -235,8 +231,7 @@ public class XYStepRenderer extends XYLineAndShapeRenderer
                     // for drawing a horizontal bar.
                     drawLine(g2, state.workingLine, transY0, transX0, transY1,
                             transX1);
-                }
-                else {  //this handles the need to perform a 'step'.
+                } else {  //this handles the need to perform a 'step'.
 
                     // calculate the step point
                     double transXs = transX0 + (getStepPoint()
@@ -248,14 +243,12 @@ public class XYStepRenderer extends XYLineAndShapeRenderer
                     drawLine(g2, state.workingLine, transY1, transXs, transY1,
                             transX1);
                 }
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
+            } else if (orientation == PlotOrientation.VERTICAL) {
                 if (transY0 == transY1) { // this represents the situation
-                                          // for drawing a horizontal bar.
+                    // for drawing a horizontal bar.
                     drawLine(g2, state.workingLine, transX0, transY0, transX1,
                             transY1);
-                }
-                else {  //this handles the need to perform a 'step'.
+                } else {  //this handles the need to perform a 'step'.
                     // calculate the step point
                     double transXs = transX0 + (getStepPoint()
                             * (transX1 - transX0));
@@ -302,15 +295,15 @@ public class XYStepRenderer extends XYLineAndShapeRenderer
      * A utility method that draws a line but only if none of the coordinates
      * are NaN values.
      *
-     * @param g2  the graphics target.
-     * @param line  the line object.
-     * @param x0  the x-coordinate for the starting point of the line.
-     * @param y0  the y-coordinate for the starting point of the line.
-     * @param x1  the x-coordinate for the ending point of the line.
-     * @param y1  the y-coordinate for the ending point of the line.
+     * @param g2   the graphics target.
+     * @param line the line object.
+     * @param x0   the x-coordinate for the starting point of the line.
+     * @param y0   the y-coordinate for the starting point of the line.
+     * @param x1   the x-coordinate for the ending point of the line.
+     * @param y1   the y-coordinate for the ending point of the line.
      */
     private void drawLine(Graphics2D g2, Line2D line, double x0, double y0,
-            double x1, double y1) {
+                          double x1, double y1) {
         if (Double.isNaN(x0) || Double.isNaN(x1) || Double.isNaN(y0)
                 || Double.isNaN(y1)) {
             return;
@@ -322,8 +315,7 @@ public class XYStepRenderer extends XYLineAndShapeRenderer
     /**
      * Tests this renderer for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -355,8 +347,7 @@ public class XYStepRenderer extends XYLineAndShapeRenderer
      * Returns a clone of the renderer.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the renderer cannot be cloned.
+     * @throws CloneNotSupportedException if the renderer cannot be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

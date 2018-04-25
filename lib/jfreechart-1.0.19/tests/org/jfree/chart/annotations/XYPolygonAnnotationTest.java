@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------
@@ -41,19 +41,13 @@
 
 package org.jfree.chart.annotations;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Stroke;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import java.awt.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link XYPolygonAnnotation} class.
@@ -67,24 +61,24 @@ public class XYPolygonAnnotationTest {
     public void testEquals() {
         Stroke stroke1 = new BasicStroke(2.0f);
         Stroke stroke2 = new BasicStroke(2.5f);
-        XYPolygonAnnotation a1 = new XYPolygonAnnotation(new double[] {1.0,
+        XYPolygonAnnotation a1 = new XYPolygonAnnotation(new double[]{1.0,
                 2.0, 3.0, 4.0, 5.0, 6.0}, stroke1, Color.red, Color.blue);
-        XYPolygonAnnotation a2 = new XYPolygonAnnotation(new double[] {1.0,
+        XYPolygonAnnotation a2 = new XYPolygonAnnotation(new double[]{1.0,
                 2.0, 3.0, 4.0, 5.0, 6.0}, stroke1, Color.red, Color.blue);
         assertTrue(a1.equals(a2));
         assertTrue(a2.equals(a1));
 
-        a1 = new XYPolygonAnnotation(new double[] {99.0, 2.0, 3.0, 4.0, 5.0,
+        a1 = new XYPolygonAnnotation(new double[]{99.0, 2.0, 3.0, 4.0, 5.0,
                 6.0}, stroke1, Color.red, Color.blue);
         assertFalse(a1.equals(a2));
-        a2 = new XYPolygonAnnotation(new double[] {99.0, 2.0, 3.0, 4.0, 5.0,
+        a2 = new XYPolygonAnnotation(new double[]{99.0, 2.0, 3.0, 4.0, 5.0,
                 6.0}, stroke1, Color.red, Color.blue);
         assertTrue(a1.equals(a2));
 
-        a1 = new XYPolygonAnnotation(new double[] {99.0, 2.0, 3.0, 4.0, 5.0,
+        a1 = new XYPolygonAnnotation(new double[]{99.0, 2.0, 3.0, 4.0, 5.0,
                 6.0}, stroke2, Color.red, Color.blue);
         assertFalse(a1.equals(a2));
-        a2 = new XYPolygonAnnotation(new double[] {99.0, 2.0, 3.0, 4.0, 5.0,
+        a2 = new XYPolygonAnnotation(new double[]{99.0, 2.0, 3.0, 4.0, 5.0,
                 6.0}, stroke2, Color.red, Color.blue);
         assertTrue(a1.equals(a2));
 
@@ -92,10 +86,10 @@ public class XYPolygonAnnotationTest {
                 4.0f, Color.white);
         GradientPaint gp2 = new GradientPaint(1.0f, 2.0f, Color.yellow, 3.0f,
                 4.0f, Color.white);
-        a1 = new XYPolygonAnnotation(new double[] {99.0, 2.0, 3.0, 4.0, 5.0,
+        a1 = new XYPolygonAnnotation(new double[]{99.0, 2.0, 3.0, 4.0, 5.0,
                 6.0}, stroke2, gp1, Color.blue);
         assertFalse(a1.equals(a2));
-        a2 = new XYPolygonAnnotation(new double[] {99.0, 2.0, 3.0, 4.0, 5.0,
+        a2 = new XYPolygonAnnotation(new double[]{99.0, 2.0, 3.0, 4.0, 5.0,
                 6.0}, stroke2, gp2, Color.blue);
         assertTrue(a1.equals(a2));
 
@@ -103,10 +97,10 @@ public class XYPolygonAnnotationTest {
                 4.0f, Color.white);
         GradientPaint gp4 = new GradientPaint(1.0f, 2.0f, Color.green, 3.0f,
                 4.0f, Color.white);
-        a1 = new XYPolygonAnnotation(new double[] {99.0, 2.0, 3.0, 4.0, 5.0,
+        a1 = new XYPolygonAnnotation(new double[]{99.0, 2.0, 3.0, 4.0, 5.0,
                 6.0}, stroke2, gp1, gp3);
         assertFalse(a1.equals(a2));
-        a2 = new XYPolygonAnnotation(new double[] {99.0, 2.0, 3.0, 4.0, 5.0,
+        a2 = new XYPolygonAnnotation(new double[]{99.0, 2.0, 3.0, 4.0, 5.0,
                 6.0}, stroke2, gp2, gp4);
         assertTrue(a1.equals(a2));
     }
@@ -117,9 +111,9 @@ public class XYPolygonAnnotationTest {
     @Test
     public void testHashCode() {
         Stroke stroke = new BasicStroke(2.0f);
-        XYPolygonAnnotation a1 = new XYPolygonAnnotation(new double[] {1.0,
+        XYPolygonAnnotation a1 = new XYPolygonAnnotation(new double[]{1.0,
                 2.0, 3.0, 4.0, 5.0, 6.0}, stroke, Color.red, Color.blue);
-        XYPolygonAnnotation a2 = new XYPolygonAnnotation(new double[] {1.0,
+        XYPolygonAnnotation a2 = new XYPolygonAnnotation(new double[]{1.0,
                 2.0, 3.0, 4.0, 5.0, 6.0}, stroke, Color.red, Color.blue);
         assertTrue(a1.equals(a2));
         int h1 = a1.hashCode();
@@ -133,7 +127,7 @@ public class XYPolygonAnnotationTest {
     @Test
     public void testCloning() throws CloneNotSupportedException {
         Stroke stroke1 = new BasicStroke(2.0f);
-        XYPolygonAnnotation a1 = new XYPolygonAnnotation(new double[] {1.0,
+        XYPolygonAnnotation a1 = new XYPolygonAnnotation(new double[]{1.0,
                 2.0, 3.0, 4.0, 5.0, 6.0}, stroke1, Color.red, Color.blue);
         XYPolygonAnnotation a2 = (XYPolygonAnnotation) a1.clone();
         assertTrue(a1 != a2);
@@ -147,7 +141,7 @@ public class XYPolygonAnnotationTest {
     @Test
     public void testPublicCloneable() {
         Stroke stroke1 = new BasicStroke(2.0f);
-        XYPolygonAnnotation a1 = new XYPolygonAnnotation(new double[] {1.0,
+        XYPolygonAnnotation a1 = new XYPolygonAnnotation(new double[]{1.0,
                 2.0, 3.0, 4.0, 5.0, 6.0}, stroke1, Color.red, Color.blue);
         assertTrue(a1 instanceof PublicCloneable);
     }
@@ -158,7 +152,7 @@ public class XYPolygonAnnotationTest {
     @Test
     public void testSerialization() {
         Stroke stroke1 = new BasicStroke(2.0f);
-        XYPolygonAnnotation a1 = new XYPolygonAnnotation(new double[] {1.0,
+        XYPolygonAnnotation a1 = new XYPolygonAnnotation(new double[]{1.0,
                 2.0, 3.0, 4.0, 5.0, 6.0}, stroke1, Color.red, Color.blue);
         XYPolygonAnnotation a2 = (XYPolygonAnnotation) TestUtilities.serialised(a1);
         assertEquals(a1, a2);

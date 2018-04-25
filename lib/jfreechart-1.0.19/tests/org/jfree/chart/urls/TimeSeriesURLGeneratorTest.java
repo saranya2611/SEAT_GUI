@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -41,17 +41,14 @@
 
 package org.jfree.chart.urls;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.text.SimpleDateFormat;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import java.text.SimpleDateFormat;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link TimeSeriesURLGenerator} class.
@@ -65,7 +62,7 @@ public class TimeSeriesURLGeneratorTest {
     public void testGenerateURL() {
         TimeSeriesURLGenerator g = new TimeSeriesURLGenerator();
         DefaultXYDataset dataset = new DefaultXYDataset();
-        dataset.addSeries("Series '1'", new double[][] {{1.0, 2.0},
+        dataset.addSeries("Series '1'", new double[][]{{1.0, 2.0},
                 {3.0, 4.0}});
         String s = g.generateURL(dataset, 0, 0);
         assertTrue(s.startsWith("index.html?series=Series+%271%27&amp;item="));
@@ -122,7 +119,7 @@ public class TimeSeriesURLGeneratorTest {
     @Test
     public void testSerialization() {
         TimeSeriesURLGenerator g1 = new TimeSeriesURLGenerator();
-        TimeSeriesURLGenerator g2 = (TimeSeriesURLGenerator) 
+        TimeSeriesURLGenerator g2 = (TimeSeriesURLGenerator)
                 TestUtilities.serialised(g1);
         assertEquals(g1, g2);
     }

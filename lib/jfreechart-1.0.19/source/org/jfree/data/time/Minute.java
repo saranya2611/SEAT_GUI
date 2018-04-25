@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------
@@ -67,12 +67,13 @@
 
 package org.jfree.data.time;
 
+import org.jfree.chart.util.ParamChecks;
+
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-import org.jfree.chart.util.ParamChecks;
 
 /**
  * Represents a minute.  This class is immutable, which is a requirement for
@@ -80,28 +81,41 @@ import org.jfree.chart.util.ParamChecks;
  */
 public class Minute extends RegularTimePeriod implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 2144572840034842871L;
-
-    /** Useful constant for the first minute in a day. */
+    /**
+     * Useful constant for the first minute in a day.
+     */
     public static final int FIRST_MINUTE_IN_HOUR = 0;
-
-    /** Useful constant for the last minute in a day. */
+    /**
+     * Useful constant for the last minute in a day.
+     */
     public static final int LAST_MINUTE_IN_HOUR = 59;
-
-    /** The day. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 2144572840034842871L;
+    /**
+     * The day.
+     */
     private Day day;
 
-    /** The hour in which the minute falls. */
+    /**
+     * The hour in which the minute falls.
+     */
     private byte hour;
 
-    /** The minute. */
+    /**
+     * The minute.
+     */
     private byte minute;
 
-    /** The first millisecond. */
+    /**
+     * The first millisecond.
+     */
     private long firstMillisecond;
 
-    /** The last millisecond. */
+    /**
+     * The last millisecond.
+     */
     private long lastMillisecond;
 
     /**
@@ -114,8 +128,8 @@ public class Minute extends RegularTimePeriod implements Serializable {
     /**
      * Constructs a new Minute.
      *
-     * @param minute  the minute (0 to 59).
-     * @param hour  the hour (<code>null</code> not permitted).
+     * @param minute the minute (0 to 59).
+     * @param hour   the hour (<code>null</code> not permitted).
      */
     public Minute(int minute, Hour hour) {
         ParamChecks.nullNotPermitted(hour, "hour");
@@ -129,8 +143,7 @@ public class Minute extends RegularTimePeriod implements Serializable {
      * Constructs a new instance, based on the supplied date/time and
      * the default time zone.
      *
-     * @param time  the time (<code>null</code> not permitted).
-     *
+     * @param time the time (<code>null</code> not permitted).
      * @see #Minute(Date, TimeZone)
      */
     public Minute(Date time) {
@@ -141,11 +154,10 @@ public class Minute extends RegularTimePeriod implements Serializable {
     /**
      * Constructs a new Minute, based on the supplied date/time and timezone.
      *
-     * @param time  the time (<code>null</code> not permitted).
-     * @param zone  the time zone (<code>null</code> not permitted).
-     *
+     * @param time the time (<code>null</code> not permitted).
+     * @param zone the time zone (<code>null</code> not permitted).
      * @deprecated As of 1.0.13, use the constructor that specifies the locale
-     *     also.
+     * also.
      */
     public Minute(Date time, TimeZone zone) {
         this(time, zone, Locale.getDefault());
@@ -154,10 +166,9 @@ public class Minute extends RegularTimePeriod implements Serializable {
     /**
      * Constructs a new Minute, based on the supplied date/time and timezone.
      *
-     * @param time  the time (<code>null</code> not permitted).
-     * @param zone  the time zone (<code>null</code> not permitted).
-     * @param locale  the locale (<code>null</code> not permitted).
-     *
+     * @param time   the time (<code>null</code> not permitted).
+     * @param zone   the time zone (<code>null</code> not permitted).
+     * @param locale the locale (<code>null</code> not permitted).
      * @since 1.0.13
      */
     public Minute(Date time, TimeZone zone, Locale locale) {
@@ -176,21 +187,58 @@ public class Minute extends RegularTimePeriod implements Serializable {
     /**
      * Creates a new minute.
      *
-     * @param minute  the minute (0-59).
-     * @param hour  the hour (0-23).
-     * @param day  the day (1-31).
+     * @param minute the minute (0-59).
+     * @param hour   the hour (0-23).
+     * @param day    the day (1-31).
      * @param month  the month (1-12).
-     * @param year  the year (1900-9999).
+     * @param year   the year (1900-9999).
      */
     public Minute(int minute, int hour, int day, int month, int year) {
         this(minute, new Hour(hour, new Day(day, month, year)));
     }
 
     /**
+     * Creates a Minute instance by parsing a string.  The string is assumed to
+     * be in the format "YYYY-MM-DD HH:MM", perhaps with leading or trailing
+     * whitespace.
+     *
+     * @param s the minute string to parse.
+     * @return <code>null</code>, if the string is not parseable, the minute
+     * otherwise.
+     */
+    public static Minute parseMinute(String s) {
+        Minute result = null;
+        s = s.trim();
+
+        String daystr = s.substring(0, Math.min(10, s.length()));
+        Day day = Day.parseDay(daystr);
+        if (day != null) {
+            String hmstr = s.substring(
+                    Math.min(daystr.length() + 1, s.length()), s.length()
+            );
+            hmstr = hmstr.trim();
+
+            String hourstr = hmstr.substring(0, Math.min(2, hmstr.length()));
+            int hour = Integer.parseInt(hourstr);
+
+            if ((hour >= 0) && (hour <= 23)) {
+                String minstr = hmstr.substring(
+                        Math.min(hourstr.length() + 1, hmstr.length()),
+                        hmstr.length()
+                );
+                int minute = Integer.parseInt(minstr);
+                if ((minute >= 0) && (minute <= 59)) {
+                    result = new Minute(minute, new Hour(hour, day));
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
      * Returns the day.
      *
      * @return The day.
-     *
      * @since 1.0.3
      */
     public Day getDay() {
@@ -210,7 +258,6 @@ public class Minute extends RegularTimePeriod implements Serializable {
      * Returns the hour.
      *
      * @return The hour.
-     *
      * @since 1.0.3
      */
     public int getHourValue() {
@@ -233,7 +280,6 @@ public class Minute extends RegularTimePeriod implements Serializable {
      * {@link #peg(Calendar)} method.
      *
      * @return The first millisecond of the minute.
-     *
      * @see #getLastMillisecond()
      */
     @Override
@@ -248,7 +294,6 @@ public class Minute extends RegularTimePeriod implements Serializable {
      * {@link #peg(Calendar)} method.
      *
      * @return The last millisecond of the minute.
-     *
      * @see #getFirstMillisecond()
      */
     @Override
@@ -260,8 +305,7 @@ public class Minute extends RegularTimePeriod implements Serializable {
      * Recalculates the start date/time and end date/time for this time period
      * relative to the supplied calendar (which incorporates a time zone).
      *
-     * @param calendar  the calendar (<code>null</code> not permitted).
-     *
+     * @param calendar the calendar (<code>null</code> not permitted).
      * @since 1.0.3
      */
     @Override
@@ -280,13 +324,11 @@ public class Minute extends RegularTimePeriod implements Serializable {
         Minute result;
         if (this.minute != FIRST_MINUTE_IN_HOUR) {
             result = new Minute(this.minute - 1, getHour());
-        }
-        else {
+        } else {
             Hour h = (Hour) getHour().previous();
             if (h != null) {
                 result = new Minute(LAST_MINUTE_IN_HOUR, h);
-            }
-            else {
+            } else {
                 result = null;
             }
         }
@@ -303,13 +345,11 @@ public class Minute extends RegularTimePeriod implements Serializable {
         Minute result;
         if (this.minute != LAST_MINUTE_IN_HOUR) {
             result = new Minute(this.minute + 1, getHour());
-        }
-        else { // we are at the last minute in the hour...
+        } else { // we are at the last minute in the hour...
             Hour nextHour = (Hour) getHour().next();
             if (nextHour != null) {
                 result = new Minute(FIRST_MINUTE_IN_HOUR, nextHour);
-            }
-            else {
+            } else {
                 result = null;
             }
         }
@@ -330,13 +370,11 @@ public class Minute extends RegularTimePeriod implements Serializable {
     /**
      * Returns the first millisecond of the minute.
      *
-     * @param calendar  the calendar which defines the timezone
-     *     (<code>null</code> not permitted).
-     *
+     * @param calendar the calendar which defines the timezone
+     *                 (<code>null</code> not permitted).
      * @return The first millisecond.
-     *
      * @throws NullPointerException if <code>calendar</code> is
-     *     <code>null</code>.
+     *                              <code>null</code>.
      */
     @Override
     public long getFirstMillisecond(Calendar calendar) {
@@ -354,13 +392,11 @@ public class Minute extends RegularTimePeriod implements Serializable {
     /**
      * Returns the last millisecond of the minute.
      *
-     * @param calendar  the calendar / timezone (<code>null</code> not
-     *     permitted).
-     *
+     * @param calendar the calendar / timezone (<code>null</code> not
+     *                 permitted).
      * @return The last millisecond.
-     *
      * @throws NullPointerException if <code>calendar</code> is
-     *     <code>null</code>.
+     *                              <code>null</code>.
      */
     @Override
     public long getLastMillisecond(Calendar calendar) {
@@ -377,14 +413,13 @@ public class Minute extends RegularTimePeriod implements Serializable {
 
     /**
      * Tests the equality of this object against an arbitrary Object.
-     * <P>
+     * <p>
      * This method will return true ONLY if the object is a Minute object
      * representing the same minute as this instance.
      *
-     * @param obj  the object to compare (<code>null</code> permitted).
-     *
+     * @param obj the object to compare (<code>null</code> permitted).
      * @return <code>true</code> if the minute and hour value of this and the
-     *      object are the same.
+     * object are the same.
      */
     @Override
     public boolean equals(Object obj) {
@@ -425,11 +460,10 @@ public class Minute extends RegularTimePeriod implements Serializable {
     /**
      * Returns an integer indicating the order of this Minute object relative
      * to the specified object:
-     *
+     * <p>
      * negative == before, zero == same, positive == after.
      *
-     * @param o1  object to compare.
-     *
+     * @param o1 object to compare.
      * @return negative == before, zero == same, positive == after.
      */
     @Override
@@ -460,45 +494,6 @@ public class Minute extends RegularTimePeriod implements Serializable {
             result = 1;
         }
 
-        return result;
-    }
-
-    /**
-     * Creates a Minute instance by parsing a string.  The string is assumed to
-     * be in the format "YYYY-MM-DD HH:MM", perhaps with leading or trailing
-     * whitespace.
-     *
-     * @param s  the minute string to parse.
-     *
-     * @return <code>null</code>, if the string is not parseable, the minute
-     *      otherwise.
-     */
-    public static Minute parseMinute(String s) {
-        Minute result = null;
-        s = s.trim();
-
-        String daystr = s.substring(0, Math.min(10, s.length()));
-        Day day = Day.parseDay(daystr);
-        if (day != null) {
-            String hmstr = s.substring(
-                Math.min(daystr.length() + 1, s.length()), s.length()
-            );
-            hmstr = hmstr.trim();
-
-            String hourstr = hmstr.substring(0, Math.min(2, hmstr.length()));
-            int hour = Integer.parseInt(hourstr);
-
-            if ((hour >= 0) && (hour <= 23)) {
-                String minstr = hmstr.substring(
-                    Math.min(hourstr.length() + 1, hmstr.length()),
-                    hmstr.length()
-                );
-                int minute = Integer.parseInt(minstr);
-                if ((minute >= 0) && (minute <= 59)) {
-                    result = new Minute(minute, new Hour(hour, day));
-                }
-            }
-        }
         return result;
     }
 

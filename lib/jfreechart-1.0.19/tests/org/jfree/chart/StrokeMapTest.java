@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -40,12 +40,11 @@
 
 package org.jfree.chart;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
-import java.awt.BasicStroke;
 import org.junit.Test;
+
+import java.awt.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Some tests for the {@link StrokeMap} class.
@@ -68,8 +67,7 @@ public class StrokeMapTest {
         boolean pass = false;
         try {
             m1.getStroke(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -88,8 +86,7 @@ public class StrokeMapTest {
         boolean pass = false;
         try {
             m1.put(null, new BasicStroke(1.1f));
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);

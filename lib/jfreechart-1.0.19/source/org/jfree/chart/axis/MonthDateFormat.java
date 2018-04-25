@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -41,21 +41,10 @@
 
 package org.jfree.chart.axis;
 
-import java.text.DateFormat;
-import java.text.DateFormatSymbols;
-import java.text.FieldPosition;
-import java.text.NumberFormat;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.TimeZone;
 import org.jfree.chart.util.ParamChecks;
 
-import org.jfree.data.time.Month;
+import java.text.*;
+import java.util.*;
 
 /**
  * A formatter that formats dates to show the initial letter(s) of the month
@@ -63,13 +52,19 @@ import org.jfree.data.time.Month;
  */
 public class MonthDateFormat extends DateFormat {
 
-    /** The symbols used for the months. */
+    /**
+     * The symbols used for the months.
+     */
     private String[] months;
 
-    /** Flags that control which months will have the year appended. */
+    /**
+     * Flags that control which months will have the year appended.
+     */
     private boolean[] showYear;
 
-    /** The year formatter. */
+    /**
+     * The year formatter.
+     */
     private DateFormat yearFormatter;
 
     /**
@@ -82,7 +77,7 @@ public class MonthDateFormat extends DateFormat {
     /**
      * Creates a new instance for the specified time zone.
      *
-     * @param zone  the time zone (<code>null</code> not permitted).
+     * @param zone the time zone (<code>null</code> not permitted).
      */
     public MonthDateFormat(TimeZone zone) {
         this(zone, Locale.getDefault(), 1, true, false);
@@ -91,8 +86,8 @@ public class MonthDateFormat extends DateFormat {
     /**
      * Creates a new instance for the specified time zone.
      *
-     * @param locale  the locale used to obtain the month
-     *                names (<code>null</code> not permitted).
+     * @param locale the locale used to obtain the month
+     *               names (<code>null</code> not permitted).
      */
     public MonthDateFormat(Locale locale) {
         this(TimeZone.getDefault(), locale, 1, true, false);
@@ -102,10 +97,10 @@ public class MonthDateFormat extends DateFormat {
      * Creates a new instance for the specified time zone.
      *
      * @param zone  the time zone (<code>null</code> not permitted).
-     * @param chars  the maximum number of characters to use from the month
-     *               names (that are obtained from the date symbols of the
-     *               default locale).  If this value is &lt;= 0, the entire
-     *               month name is used in each case.
+     * @param chars the maximum number of characters to use from the month
+     *              names (that are obtained from the date symbols of the
+     *              default locale).  If this value is &lt;= 0, the entire
+     *              month name is used in each case.
      */
     public MonthDateFormat(TimeZone zone, int chars) {
         this(zone, Locale.getDefault(), chars, true, false);
@@ -114,7 +109,7 @@ public class MonthDateFormat extends DateFormat {
     /**
      * Creates a new instance for the specified time zone.
      *
-     * @param locale  the locale (<code>null</code> not permitted).
+     * @param locale the locale (<code>null</code> not permitted).
      * @param chars  the maximum number of characters to use from the month
      *               names (that are obtained from the date symbols of the
      *               default locale).  If this value is &lt;= 0, the entire
@@ -127,40 +122,40 @@ public class MonthDateFormat extends DateFormat {
     /**
      * Creates a new formatter.
      *
-     * @param zone  the time zone used to extract the month and year from dates
-     *              passed to this formatter (<code>null</code> not permitted).
-     * @param locale  the locale used to determine the month names
-     *                (<code>null</code> not permitted).
-     * @param chars  the maximum number of characters to use from the month
-     *               names, or zero to indicate that the entire month name
-     *               should be used.
-     * @param showYearForJan  a flag that controls whether or not the year is
-     *                        appended to the symbol for the first month of
-     *                        each year.
-     * @param showYearForDec  a flag that controls whether or not the year is
-     *                        appended to the symbol for the last month of
-     *                        each year.
+     * @param zone           the time zone used to extract the month and year from dates
+     *                       passed to this formatter (<code>null</code> not permitted).
+     * @param locale         the locale used to determine the month names
+     *                       (<code>null</code> not permitted).
+     * @param chars          the maximum number of characters to use from the month
+     *                       names, or zero to indicate that the entire month name
+     *                       should be used.
+     * @param showYearForJan a flag that controls whether or not the year is
+     *                       appended to the symbol for the first month of
+     *                       each year.
+     * @param showYearForDec a flag that controls whether or not the year is
+     *                       appended to the symbol for the last month of
+     *                       each year.
      */
     public MonthDateFormat(TimeZone zone, Locale locale, int chars,
                            boolean showYearForJan, boolean showYearForDec) {
-        this(zone, locale, chars, new boolean[] {showYearForJan, false, false,
-            false, false, false, false, false, false, false, false, false,
-            showYearForDec}, new SimpleDateFormat("yy"));
+        this(zone, locale, chars, new boolean[]{showYearForJan, false, false,
+                false, false, false, false, false, false, false, false, false,
+                showYearForDec}, new SimpleDateFormat("yy"));
     }
 
     /**
      * Creates a new formatter.
      *
-     * @param zone  the time zone used to extract the month and year from dates
-     *              passed to this formatter (<code>null</code> not permitted).
-     * @param locale  the locale used to determine the month names
-     *                (<code>null</code> not permitted).
-     * @param chars  the maximum number of characters to use from the month
-     *               names, or zero to indicate that the entire month name
-     *               should be used.
-     * @param showYear  an array of flags that control whether or not the
-     *                  year is displayed for a particular month.
-     * @param yearFormatter  the year formatter.
+     * @param zone          the time zone used to extract the month and year from dates
+     *                      passed to this formatter (<code>null</code> not permitted).
+     * @param locale        the locale used to determine the month names
+     *                      (<code>null</code> not permitted).
+     * @param chars         the maximum number of characters to use from the month
+     *                      names, or zero to indicate that the entire month name
+     *                      should be used.
+     * @param showYear      an array of flags that control whether or not the
+     *                      year is displayed for a particular month.
+     * @param yearFormatter the year formatter.
      */
     public MonthDateFormat(TimeZone zone, Locale locale, int chars,
                            boolean[] showYear, DateFormat yearFormatter) {
@@ -172,8 +167,7 @@ public class MonthDateFormat extends DateFormat {
             if (chars > 0) {
                 this.months[i] = monthsFromLocale[i].substring(0,
                         Math.min(chars, monthsFromLocale[i].length()));
-            }
-            else {
+            } else {
                 this.months[i] = monthsFromLocale[i];
             }
         }
@@ -190,10 +184,9 @@ public class MonthDateFormat extends DateFormat {
     /**
      * Formats the given date.
      *
-     * @param date  the date.
-     * @param toAppendTo  the string buffer.
-     * @param fieldPosition  the field position.
-     *
+     * @param date          the date.
+     * @param toAppendTo    the string buffer.
+     * @param fieldPosition the field position.
      * @return The formatted date.
      */
     @Override
@@ -211,9 +204,8 @@ public class MonthDateFormat extends DateFormat {
     /**
      * Parses the given string (not implemented).
      *
-     * @param source  the date string.
-     * @param pos  the parse position.
-     *
+     * @param source the date string.
+     * @param pos    the parse position.
      * @return <code>null</code>, as this method has not been implemented.
      */
     @Override
@@ -224,8 +216,7 @@ public class MonthDateFormat extends DateFormat {
     /**
      * Tests this formatter for equality with an arbitrary object.
      *
-     * @param obj  the object.
-     *
+     * @param obj the object.
      * @return A boolean.
      */
     @Override

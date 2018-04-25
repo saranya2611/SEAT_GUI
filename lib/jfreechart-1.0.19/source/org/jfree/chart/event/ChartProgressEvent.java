@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -48,19 +48,29 @@ import org.jfree.chart.JFreeChart;
  */
 public class ChartProgressEvent extends java.util.EventObject {
 
-    /** Indicates drawing has started. */
+    /**
+     * Indicates drawing has started.
+     */
     public static final int DRAWING_STARTED = 1;
 
-    /** Indicates drawing has finished. */
+    /**
+     * Indicates drawing has finished.
+     */
     public static final int DRAWING_FINISHED = 2;
 
-    /** The type of event. */
+    /**
+     * The type of event.
+     */
     private int type;
 
-    /** The percentage of completion. */
+    /**
+     * The percentage of completion.
+     */
     private int percent;
 
-    /** The chart that generated the event. */
+    /**
+     * The chart that generated the event.
+     */
     private JFreeChart chart;
 
     /**
@@ -68,9 +78,9 @@ public class ChartProgressEvent extends java.util.EventObject {
      *
      * @param source  the source of the event (could be the chart, a title, an
      *                axis etc.)
-     * @param chart  the chart that generated the event.
-     * @param type  the type of event.
-     * @param percent  the percentage of completion.
+     * @param chart   the chart that generated the event.
+     * @param type    the type of event.
+     * @param percent the percentage of completion.
      */
     public ChartProgressEvent(Object source, JFreeChart chart, int type,
                               int percent) {
@@ -92,7 +102,7 @@ public class ChartProgressEvent extends java.util.EventObject {
     /**
      * Sets the chart that generated the change event.
      *
-     * @param chart  the chart that generated the event.
+     * @param chart the chart that generated the event.
      */
     public void setChart(JFreeChart chart) {
         this.chart = chart;
@@ -110,7 +120,7 @@ public class ChartProgressEvent extends java.util.EventObject {
     /**
      * Sets the event type.
      *
-     * @param type  the event type.
+     * @param type the event type.
      */
     public void setType(int type) {
         this.type = type;
@@ -128,7 +138,7 @@ public class ChartProgressEvent extends java.util.EventObject {
     /**
      * Sets the percentage complete.
      *
-     * @param percent  the percentage.
+     * @param percent the percentage.
      */
     public void setPercent(int percent) {
         this.percent = percent;

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------
@@ -62,13 +62,11 @@ public interface Values2D {
     /**
      * Returns a value from the table.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The value (possibly <code>null</code>).
-     *
      * @throws IndexOutOfBoundsException if the <code>row</code>
-     *         or <code>column</code> is out of bounds.
+     *                                   or <code>column</code> is out of bounds.
      */
     public Number getValue(int row, int column);
 

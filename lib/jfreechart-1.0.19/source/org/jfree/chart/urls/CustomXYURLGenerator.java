@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -47,12 +47,12 @@
 
 package org.jfree.chart.urls;
 
+import org.jfree.data.xy.XYDataset;
+import org.jfree.util.PublicCloneable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.jfree.data.xy.XYDataset;
-import org.jfree.util.PublicCloneable;
 
 /**
  * A custom URL generator.
@@ -60,10 +60,14 @@ import org.jfree.util.PublicCloneable;
 public class CustomXYURLGenerator implements XYURLGenerator, Cloneable,
         PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -8565933356596551832L;
 
-    /** Storage for the URLs. */
+    /**
+     * Storage for the URLs.
+     */
     private ArrayList urlSeries = new ArrayList();
 
     /**
@@ -85,8 +89,7 @@ public class CustomXYURLGenerator implements XYURLGenerator, Cloneable,
     /**
      * Returns the number of URLs in a given list.
      *
-     * @param list  the list index (zero based).
-     *
+     * @param list the list index (zero based).
      * @return The URL count.
      */
     public int getURLCount(int list) {
@@ -101,9 +104,8 @@ public class CustomXYURLGenerator implements XYURLGenerator, Cloneable,
     /**
      * Returns the URL for an item.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The URL (possibly <code>null</code>).
      */
     public String getURL(int series, int item) {
@@ -122,10 +124,9 @@ public class CustomXYURLGenerator implements XYURLGenerator, Cloneable,
     /**
      * Generates a URL.
      *
-     * @param dataset  the dataset.
+     * @param dataset the dataset.
      * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param item    the item (zero-based index).
      * @return A string containing the URL (possibly <code>null</code>).
      */
     @Override
@@ -136,8 +137,8 @@ public class CustomXYURLGenerator implements XYURLGenerator, Cloneable,
     /**
      * Adds a list of URLs.
      *
-     * @param urls  the list of URLs (<code>null</code> permitted, the list
-     *     is copied).
+     * @param urls the list of URLs (<code>null</code> permitted, the list
+     *             is copied).
      */
     public void addURLSeries(List urls) {
         List listToAdd = null;
@@ -150,8 +151,7 @@ public class CustomXYURLGenerator implements XYURLGenerator, Cloneable,
     /**
      * Tests this generator for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -181,8 +181,7 @@ public class CustomXYURLGenerator implements XYURLGenerator, Cloneable,
                     if (!u1.equals(u2)) {
                         return false;
                     }
-                }
-                else {
+                } else {
                     if (u2 != null) {
                         return false;
                     }
@@ -198,7 +197,6 @@ public class CustomXYURLGenerator implements XYURLGenerator, Cloneable,
      * generator.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem with cloning.
      */
     @Override

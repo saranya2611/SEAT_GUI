@@ -44,26 +44,20 @@
 
 package org.jfree.chart.axis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.font.TextAttribute;
-import java.text.AttributedString;
 import org.jfree.chart.TestUtilities;
 import org.jfree.ui.RectangleInsets;
-
 import org.junit.Test;
+
+import java.awt.*;
+import java.awt.font.TextAttribute;
+import java.text.AttributedString;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link Axis} class.
  */
-public class AxisTest  {
+public class AxisTest {
 
     /**
      * Confirm that cloning works.
@@ -112,24 +106,24 @@ public class AxisTest  {
         a2.setLabelPaint(new GradientPaint(1.0f, 2.0f, Color.white,
                 3.0f, 4.0f, Color.black));
         assertEquals(a1, a2);
-        
+
         // attributed label...
         a1.setAttributedLabel(new AttributedString("Hello World!"));
         assertNotEquals(a1, a2);
         a2.setAttributedLabel(new AttributedString("Hello World!"));
         assertEquals(a1, a2);
-        
+
         AttributedString l1 = a1.getAttributedLabel();
-        l1.addAttribute(TextAttribute.SUPERSCRIPT, 
+        l1.addAttribute(TextAttribute.SUPERSCRIPT,
                 TextAttribute.SUPERSCRIPT_SUB, 1, 2);
         a1.setAttributedLabel(l1);
         assertNotEquals(a1, a2);
         AttributedString l2 = a2.getAttributedLabel();
-        l2.addAttribute(TextAttribute.SUPERSCRIPT, 
+        l2.addAttribute(TextAttribute.SUPERSCRIPT,
                 TextAttribute.SUPERSCRIPT_SUB, 1, 2);
         a2.setAttributedLabel(l2);
         assertEquals(a1, a2);
-        
+
         // label insets...
         a1.setLabelInsets(new RectangleInsets(10.0, 10.0, 10.0, 10.0));
         assertNotEquals(a1, a2);
@@ -141,13 +135,13 @@ public class AxisTest  {
         assertNotEquals(a1, a2);
         a2.setLabelAngle(1.23);
         assertEquals(a1, a2);
-        
+
         // label location...
         a1.setLabelLocation(AxisLabelLocation.HIGH_END);
         assertNotEquals(a1, a2);
         a2.setLabelLocation(AxisLabelLocation.HIGH_END);
         assertEquals(a1, a2);
-        
+
         // axis line visible...
         a1.setAxisLineVisible(false);
         assertNotEquals(a1, a2);
@@ -261,7 +255,7 @@ public class AxisTest  {
         int h2 = a2.hashCode();
         assertEquals(h1, h2);
     }
-    
+
     /**
      * Checks that serialization works, particularly with the attributed label.
      */
@@ -269,7 +263,7 @@ public class AxisTest  {
     public void testSerialization() {
         Axis a1 = new CategoryAxis("Test");
         AttributedString label = new AttributedString("Axis Label");
-        label.addAttribute(TextAttribute.SUPERSCRIPT, 
+        label.addAttribute(TextAttribute.SUPERSCRIPT,
                 TextAttribute.SUPERSCRIPT_SUB, 1, 4);
         a1.setAttributedLabel(label);
         Axis a2 = (Axis) TestUtilities.serialised(a1);

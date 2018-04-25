@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -58,7 +58,7 @@ public interface ChartMouseListener extends EventListener {
     /**
      * Callback method for receiving notification of a mouse click on a chart.
      *
-     * @param event  information about the event.
+     * @param event information about the event.
      */
     void chartMouseClicked(ChartMouseEvent event);
 
@@ -66,7 +66,7 @@ public interface ChartMouseListener extends EventListener {
      * Callback method for receiving notification of a mouse movement on a
      * chart.
      *
-     * @param event  information about the event.
+     * @param event information about the event.
      */
     void chartMouseMoved(ChartMouseEvent event);
 

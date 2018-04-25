@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -42,15 +42,13 @@
 
 package org.jfree.data;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
-import java.util.ArrayList;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.general.DefaultPieDataset;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link KeyedObjects} class.
@@ -129,8 +127,7 @@ public class KeyedObjectsTest {
         boolean pass = false;
         try {
             data.getObject("Not a key");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -174,8 +171,7 @@ public class KeyedObjectsTest {
         boolean pass = false;
         try {
             ko1.getObject(-1);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -184,8 +180,7 @@ public class KeyedObjectsTest {
         pass = false;
         try {
             ko1.getObject(3);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -209,8 +204,7 @@ public class KeyedObjectsTest {
         boolean pass = false;
         try {
             ko1.getKey(-1);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -219,8 +213,7 @@ public class KeyedObjectsTest {
         pass = false;
         try {
             ko1.getKey(3);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -243,8 +236,7 @@ public class KeyedObjectsTest {
         boolean pass = false;
         try {
             ko1.getIndex(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -274,8 +266,7 @@ public class KeyedObjectsTest {
         boolean pass = false;
         try {
             ko1.setObject(null, "XX");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -303,8 +294,7 @@ public class KeyedObjectsTest {
         boolean pass = false;
         try {
             ko1.removeValue("UNKNOWN");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -313,8 +303,7 @@ public class KeyedObjectsTest {
         pass = false;
         try {
             ko1.removeValue(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -339,8 +328,7 @@ public class KeyedObjectsTest {
         boolean pass = false;
         try {
             ko1.removeValue(-1);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -349,8 +337,7 @@ public class KeyedObjectsTest {
         pass = false;
         try {
             ko1.removeValue(2);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);

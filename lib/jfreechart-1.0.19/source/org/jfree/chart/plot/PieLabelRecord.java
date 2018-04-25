@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -42,9 +42,9 @@
 
 package org.jfree.chart.plot;
 
-import java.io.Serializable;
-
 import org.jfree.text.TextBox;
+
+import java.io.Serializable;
 
 /**
  * A structure that retains information about the label for a section in a pie
@@ -52,40 +52,56 @@ import org.jfree.text.TextBox;
  */
 public class PieLabelRecord implements Comparable, Serializable {
 
-    /** The section key. */
+    /**
+     * The section key.
+     */
     private Comparable key;
 
-    /** The angle of the centre of the section (in radians). */
+    /**
+     * The angle of the centre of the section (in radians).
+     */
     private double angle;
 
-    /** The base y-coordinate. */
+    /**
+     * The base y-coordinate.
+     */
     private double baseY;
 
-    /** The allocated y-coordinate. */
+    /**
+     * The allocated y-coordinate.
+     */
     private double allocatedY;
 
-    /** The label. */
+    /**
+     * The label.
+     */
     private TextBox label;
 
-    /** The label height. */
+    /**
+     * The label height.
+     */
     private double labelHeight;
 
-    /** The gap. */
+    /**
+     * The gap.
+     */
     private double gap;
 
-    /** The link percent. */
+    /**
+     * The link percent.
+     */
     private double linkPercent;
 
     /**
      * Creates a new record.
      *
-     * @param key  the section key.
-     * @param angle  the angle to the middle of the section (in radians).
-     * @param baseY  the base y-coordinate.
-     * @param label  the section label.
-     * @param labelHeight  the label height (in Java2D units).
-     * @param gap  the offset to the left.
-     * @param linkPercent  the link percent.
+     * @param key         the section key.
+     * @param angle       the angle to the middle of the section (in radians).
+     * @param baseY       the base y-coordinate.
+     * @param label       the section label.
+     * @param labelHeight the label height (in Java2D units).
+     * @param gap         the offset to the left.
+     * @param linkPercent the link percent.
      */
     public PieLabelRecord(Comparable key, double angle, double baseY,
                           TextBox label, double labelHeight, double gap,
@@ -113,7 +129,7 @@ public class PieLabelRecord implements Comparable, Serializable {
     /**
      * Sets the base y-coordinate.
      *
-     * @param base  the base y-coordinate.
+     * @param base the base y-coordinate.
      */
     public void setBaseY(double base) {
         this.baseY = base;
@@ -186,7 +202,7 @@ public class PieLabelRecord implements Comparable, Serializable {
     /**
      * Sets the allocated y-coordinate.
      *
-     * @param y  the y-coordinate.
+     * @param y the y-coordinate.
      */
     public void setAllocatedY(double y) {
         this.allocatedY = y;
@@ -213,8 +229,7 @@ public class PieLabelRecord implements Comparable, Serializable {
     /**
      * Compares this object to an arbitrary object.
      *
-     * @param obj  the object to compare against.
-     *
+     * @param obj the object to compare against.
      * @return An integer that specifies the relative order of the two objects.
      */
     @Override
@@ -224,8 +239,7 @@ public class PieLabelRecord implements Comparable, Serializable {
             PieLabelRecord plr = (PieLabelRecord) obj;
             if (this.baseY < plr.baseY) {
                 result = -1;
-            }
-            else if (this.baseY > plr.baseY) {
+            } else if (this.baseY > plr.baseY) {
                 result = 1;
             }
         }
@@ -235,8 +249,7 @@ public class PieLabelRecord implements Comparable, Serializable {
     /**
      * Tests this record for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

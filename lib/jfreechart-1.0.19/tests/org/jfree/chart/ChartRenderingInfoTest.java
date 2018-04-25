@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -41,22 +41,19 @@
 
 package org.jfree.chart;
 
-import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-
 import org.jfree.chart.entity.ChartEntity;
 import org.jfree.chart.entity.StandardEntityCollection;
 import org.junit.Test;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
+import static org.junit.Assert.*;
+
 /**
  * Tests for the {@link ChartRenderingInfo} class.
  */
-public class ChartRenderingInfoTest  {
+public class ChartRenderingInfoTest {
 
     /**
      * Confirm that the equals method can distinguish all the required fields.

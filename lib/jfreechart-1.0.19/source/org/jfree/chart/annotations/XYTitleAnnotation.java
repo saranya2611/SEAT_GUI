@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -46,11 +46,6 @@
 
 package org.jfree.chart.annotations;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.axis.AxisLocation;
 import org.jfree.chart.axis.ValueAxis;
@@ -72,6 +67,11 @@ import org.jfree.ui.Size2D;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
+
 /**
  * An annotation that allows any {@link Title} to be placed at a location on
  * an {@link XYPlot}.
@@ -81,25 +81,39 @@ import org.jfree.util.PublicCloneable;
 public class XYTitleAnnotation extends AbstractXYAnnotation
         implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -4364694501921559958L;
 
-    /** The coordinate type. */
+    /**
+     * The coordinate type.
+     */
     private XYCoordinateType coordinateType;
 
-    /** The x-coordinate (in data space). */
+    /**
+     * The x-coordinate (in data space).
+     */
     private double x;
 
-    /** The y-coordinate (in data space). */
+    /**
+     * The y-coordinate (in data space).
+     */
     private double y;
 
-    /** The maximum width. */
+    /**
+     * The maximum width.
+     */
     private double maxWidth;
 
-    /** The maximum height. */
+    /**
+     * The maximum height.
+     */
     private double maxHeight;
 
-    /** The title. */
+    /**
+     * The title.
+     */
     private Title title;
 
     /**
@@ -111,9 +125,9 @@ public class XYTitleAnnotation extends AbstractXYAnnotation
      * Creates a new annotation to be displayed at the specified (x, y)
      * location.
      *
-     * @param x  the x-coordinate (in data space).
-     * @param y  the y-coordinate (in data space).
-     * @param title  the title (<code>null</code> not permitted).
+     * @param x     the x-coordinate (in data space).
+     * @param y     the y-coordinate (in data space).
+     * @param title the title (<code>null</code> not permitted).
      */
     public XYTitleAnnotation(double x, double y, Title title) {
         this(x, y, title, RectangleAnchor.CENTER);
@@ -123,13 +137,13 @@ public class XYTitleAnnotation extends AbstractXYAnnotation
      * Creates a new annotation to be displayed at the specified (x, y)
      * location.
      *
-     * @param x  the x-coordinate (in data space).
-     * @param y  the y-coordinate (in data space).
+     * @param x      the x-coordinate (in data space).
+     * @param y      the y-coordinate (in data space).
      * @param title  the title (<code>null</code> not permitted).
-     * @param anchor  the title anchor (<code>null</code> not permitted).
+     * @param anchor the title anchor (<code>null</code> not permitted).
      */
     public XYTitleAnnotation(double x, double y, Title title,
-            RectangleAnchor anchor) {
+                             RectangleAnchor anchor) {
         super();
         ParamChecks.nullNotPermitted(title, "title");
         ParamChecks.nullNotPermitted(anchor, "anchor");
@@ -200,7 +214,7 @@ public class XYTitleAnnotation extends AbstractXYAnnotation
      * Sets the maximum width and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param max  the maximum width (0.0 or less means no maximum).
+     * @param max the maximum width (0.0 or less means no maximum).
      */
     public void setMaxWidth(double max) {
         this.maxWidth = max;
@@ -220,7 +234,7 @@ public class XYTitleAnnotation extends AbstractXYAnnotation
      * Sets the maximum height and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param max  the maximum height.
+     * @param max the maximum height.
      */
     public void setMaxHeight(double max) {
         this.maxHeight = max;
@@ -232,14 +246,14 @@ public class XYTitleAnnotation extends AbstractXYAnnotation
      * {@link XYPlot} class, you don't normally need to call this method
      * directly.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the range axis.
-     * @param rendererIndex  the renderer index.
-     * @param info  if supplied, this info object will be populated with
-     *              entity information.
+     * @param g2            the graphics device.
+     * @param plot          the plot.
+     * @param dataArea      the data area.
+     * @param domainAxis    the domain axis.
+     * @param rangeAxis     the range axis.
+     * @param rendererIndex the renderer index.
+     * @param info          if supplied, this info object will be populated with
+     *                      entity information.
      */
     @Override
     public void draw(Graphics2D g2, XYPlot plot, Rectangle2D dataArea,
@@ -259,8 +273,7 @@ public class XYTitleAnnotation extends AbstractXYAnnotation
         if (this.coordinateType == XYCoordinateType.RELATIVE) {
             anchorX = xRange.getLowerBound() + (this.x * xRange.getLength());
             anchorY = yRange.getLowerBound() + (this.y * yRange.getLength());
-        }
-        else {
+        } else {
             anchorX = domainAxis.valueToJava2D(this.x, dataArea, domainEdge);
             anchorY = rangeAxis.valueToJava2D(this.y, dataArea, rangeEdge);
         }
@@ -274,8 +287,7 @@ public class XYTitleAnnotation extends AbstractXYAnnotation
         if (orientation == PlotOrientation.HORIZONTAL) {
             xx = j2DY;
             yy = j2DX;
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             xx = j2DX;
             yy = j2DY;
         }
@@ -322,7 +334,7 @@ public class XYTitleAnnotation extends AbstractXYAnnotation
             String url = getURL();
             if (toolTip != null || url != null) {
                 addEntity(info, new Rectangle2D.Float(xx, yy,
-                        (float) size.width, (float) size.height),
+                                (float) size.width, (float) size.height),
                         rendererIndex, toolTip, url);
             }
         }
@@ -331,8 +343,7 @@ public class XYTitleAnnotation extends AbstractXYAnnotation
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -390,8 +401,7 @@ public class XYTitleAnnotation extends AbstractXYAnnotation
      * Returns a clone of the annotation.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the annotation can't be cloned.
+     * @throws CloneNotSupportedException if the annotation can't be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -44,45 +44,37 @@
 
 package org.jfree.chart.axis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.jfree.chart.TestUtilities;
+import org.jfree.chart.event.AxisChangeEvent;
+import org.jfree.chart.event.AxisChangeListener;
+import org.jfree.data.Range;
+import org.jfree.data.time.*;
+import org.junit.Test;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Stroke;
+import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.SimpleTimeZone;
 import java.util.TimeZone;
 
-import org.jfree.chart.TestUtilities;
-
-import org.jfree.chart.event.AxisChangeEvent;
-import org.jfree.chart.event.AxisChangeListener;
-import org.jfree.data.Range;
-import org.jfree.data.time.DateRange;
-import org.jfree.data.time.Day;
-import org.jfree.data.time.Minute;
-import org.jfree.data.time.Month;
-import org.jfree.data.time.Quarter;
-import org.jfree.data.time.Second;
-import org.jfree.data.time.Year;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link PeriodAxis} class.
  */
 public class PeriodAxisTest implements AxisChangeListener {
 
-    /** The last event received. */
+    private static final double EPSILON = 0.0000000001;
+    /**
+     * The last event received.
+     */
     private AxisChangeEvent lastEvent;
 
     /**
      * Receives and records an {@link AxisChangeEvent}.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void axisChanged(AxisChangeEvent event) {
@@ -259,8 +251,6 @@ public class PeriodAxisTest implements AxisChangeListener {
         assertTrue(this.lastEvent != null);
     }
 
-    private static final double EPSILON = 0.0000000001;
-
     /**
      * A test for the setRange() method (because the axis shows whole time
      * periods, the range set for the axis will most likely be wider than the
@@ -289,8 +279,7 @@ public class PeriodAxisTest implements AxisChangeListener {
             assertEquals(d0.getFirstMillisecond(), r.getLowerBound(), EPSILON);
             assertEquals(d1.getLastMillisecond() + 1.0, r.getUpperBound(),
                     EPSILON);
-        }
-        finally {
+        } finally {
             TimeZone.setDefault(savedTimeZone);
             Locale.setDefault(savedLocale);
         }

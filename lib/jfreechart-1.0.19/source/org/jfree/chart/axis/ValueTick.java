@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -48,7 +48,9 @@ import org.jfree.ui.TextAnchor;
  */
 public abstract class ValueTick extends Tick {
 
-    /** The value. */
+    /**
+     * The value.
+     */
     private double value;
 
     /**
@@ -61,12 +63,12 @@ public abstract class ValueTick extends Tick {
     /**
      * Creates a new value tick.
      *
-     * @param value  the value.
-     * @param label  the label.
-     * @param textAnchor  the part of the label that is aligned to the anchor
-     *                    point.
-     * @param rotationAnchor  defines the rotation point relative to the label.
-     * @param angle  the rotation angle (in radians).
+     * @param value          the value.
+     * @param label          the label.
+     * @param textAnchor     the part of the label that is aligned to the anchor
+     *                       point.
+     * @param rotationAnchor defines the rotation point relative to the label.
+     * @param angle          the rotation angle (in radians).
      */
     public ValueTick(double value, String label,
                      TextAnchor textAnchor, TextAnchor rotationAnchor,
@@ -80,15 +82,14 @@ public abstract class ValueTick extends Tick {
     /**
      * Creates a new value tick.
      *
-     * @param tickType  the tick type (major or minor, <code>null</code> not 
-     *     permitted).
-     * @param value  the value.
-     * @param label  the label.
-     * @param textAnchor  the part of the label that is aligned to the anchor
-     *                    point.
-     * @param rotationAnchor  defines the rotation point relative to the label.
-     * @param angle  the rotation angle (in radians).
-     *
+     * @param tickType       the tick type (major or minor, <code>null</code> not
+     *                       permitted).
+     * @param value          the value.
+     * @param label          the label.
+     * @param textAnchor     the part of the label that is aligned to the anchor
+     *                       point.
+     * @param rotationAnchor defines the rotation point relative to the label.
+     * @param angle          the rotation angle (in radians).
      * @since 1.0.7
      */
     public ValueTick(TickType tickType, double value, String label,
@@ -113,7 +114,6 @@ public abstract class ValueTick extends Tick {
      * Returns the tick type (major or minor).
      *
      * @return The tick type.
-     *
      * @since 1.0.7
      */
     public TickType getTickType() {
@@ -123,8 +123,7 @@ public abstract class ValueTick extends Tick {
     /**
      * Tests this tick for equality with an arbitrary object.
      *
-     * @param obj  the object to test (<code>null</code> permitted).
-     *
+     * @param obj the object to test (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

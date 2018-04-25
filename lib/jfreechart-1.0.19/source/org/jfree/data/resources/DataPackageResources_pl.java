@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------
@@ -51,6 +51,16 @@ import java.util.ListResourceBundle;
 public class DataPackageResources_pl extends ListResourceBundle {
 
     /**
+     * The resources to be localised.
+     */
+    private static final Object[][] CONTENTS = {
+
+            {"series.default-prefix", "Serie"},
+            {"categories.default-prefix", "Kategorie"},
+
+    };
+
+    /**
      * Returns the array of strings in the resource bundle.
      *
      * @return The localised resources.
@@ -59,13 +69,5 @@ public class DataPackageResources_pl extends ListResourceBundle {
     public Object[][] getContents() {
         return CONTENTS;
     }
-
-    /** The resources to be localised. */
-    private static final Object[][] CONTENTS = {
-
-        {"series.default-prefix",     "Serie"},
-        {"categories.default-prefix", "Kategorie"},
-
-    };
 
 }

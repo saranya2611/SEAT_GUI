@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -42,16 +42,7 @@
 
 package org.jfree.chart.renderer.xy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-
-import java.awt.Color;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.chart.renderer.LookupPaintScale;
 import org.jfree.data.Range;
 import org.jfree.data.xy.DefaultXYZDataset;
@@ -59,10 +50,16 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.junit.Test;
 
+import java.awt.*;
+
+import static org.junit.Assert.*;
+
 /**
  * Tests for the {@link XYShapeRenderer} class.
  */
 public class XYShapeRendererTest {
+
+    private static final double EPSILON = 0.0000000001;
 
     /**
      * Some checks for the equals() method.
@@ -126,10 +123,8 @@ public class XYShapeRendererTest {
         assertEquals(r1, r2);
     }
 
-    private static final double EPSILON = 0.0000000001;
-
     /**
-     * Check if finding the bounds in z-dimension of an XYZDataset works. 
+     * Check if finding the bounds in z-dimension of an XYZDataset works.
      */
     public void testFindZBounds() {
         XYShapeRenderer r = new XYShapeRenderer();
@@ -138,14 +133,14 @@ public class XYShapeRendererTest {
         DefaultXYZDataset dataset = new DefaultXYZDataset();
         Range range;
 
-        double data1[][] = { {1,1,1}, {1,1,1}, {1,2,3} };
+        double data1[][] = {{1, 1, 1}, {1, 1, 1}, {1, 2, 3}};
         dataset.addSeries("series1", data1);
         range = r.findZBounds(dataset);
         assertNotNull(range);
         assertEquals(1d, range.getLowerBound(), EPSILON);
         assertEquals(3d, range.getUpperBound(), EPSILON);
 
-        double data2[][] = { {1,1,1}, {1,1,1}, {-1,-2,-3} };
+        double data2[][] = {{1, 1, 1}, {1, 1, 1}, {-1, -2, -3}};
         dataset.removeSeries("series1");
         dataset.addSeries("series2", data2);
         range = r.findZBounds(dataset);
@@ -153,7 +148,7 @@ public class XYShapeRendererTest {
         assertEquals(-3d, range.getLowerBound(), EPSILON);
         assertEquals(-1d, range.getUpperBound(), EPSILON);
 
-        double data3[][] = { {1,1,1}, {1,1,1}, {-1.2,2.9,3.8} };
+        double data3[][] = {{1, 1, 1}, {1, 1, 1}, {-1.2, 2.9, 3.8}};
         dataset.removeSeries("series2");
         dataset.addSeries("series3", data3);
         range = r.findZBounds(dataset);

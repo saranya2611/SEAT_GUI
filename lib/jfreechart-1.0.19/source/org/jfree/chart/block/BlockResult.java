@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -48,7 +48,9 @@ import org.jfree.chart.entity.EntityCollection;
  */
 public class BlockResult implements EntityBlockResult {
 
-    /** The entities from the block. */
+    /**
+     * The entities from the block.
+     */
     private EntityCollection entities;
 
     /**
@@ -71,7 +73,7 @@ public class BlockResult implements EntityBlockResult {
     /**
      * Sets the entities for the block.
      *
-     * @param entities  the entities.
+     * @param entities the entities.
      */
     public void setEntityCollection(EntityCollection entities) {
         this.entities = entities;

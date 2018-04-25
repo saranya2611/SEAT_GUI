@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -40,33 +40,32 @@
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 02-Feb-2007 : Removed author tags all over JFreeChart sources (DG);
  * 03-Dec-2011 : Fixed path disclosure vulnerability - see bug 2879650 (DG);
- * 
+ *
  */
 
 package org.jfree.chart.servlet;
-
-import java.io.File;
-import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Servlet used for streaming charts to the client browser from the temporary
  * directory.  You need to add this servlet and mapping to your deployment
  * descriptor (web.xml) in order to get it to work.  The syntax is as follows:
- * 
+ * <p>
  * &lt;xmp&gt;
  * &lt;servlet&gt;
- *    &lt;servlet-name&gt;DisplayChart&lt;/servlet-name&gt;
- *    &lt;servlet-class&gt;org.jfree.chart.servlet.DisplayChart&lt;/servlet-class&gt;
+ * &lt;servlet-name&gt;DisplayChart&lt;/servlet-name&gt;
+ * &lt;servlet-class&gt;org.jfree.chart.servlet.DisplayChart&lt;/servlet-class&gt;
  * &lt;/servlet&gt;
  * &lt;servlet-mapping&gt;
- *     &lt;servlet-name&gt;DisplayChart&lt;/servlet-name&gt;
- *     &lt;url-pattern&gt;/servlet/DisplayChart&lt;/url-pattern&gt;
+ * &lt;servlet-name&gt;DisplayChart&lt;/servlet-name&gt;
+ * &lt;url-pattern&gt;/servlet/DisplayChart&lt;/url-pattern&gt;
  * &lt;/servlet-mapping&gt;
  * &lt;/xmp&gt;
  */
@@ -93,10 +92,9 @@ public class DisplayChart extends HttpServlet {
      * Service method.
      *
      * @param request  the request.
-     * @param response  the response.
-     *
+     * @param response the response.
      * @throws ServletException ??.
-     * @throws IOException ??.
+     * @throws IOException      ??.
      */
     @Override
     public void service(HttpServletRequest request,
@@ -118,8 +116,8 @@ public class DisplayChart extends HttpServlet {
         File file = new File(System.getProperty("java.io.tmpdir"), filename);
         if (!file.exists()) {
             throw new ServletException(
-                    "Unable to display the chart with the filename '" 
-                    + filename + "'.");
+                    "Unable to display the chart with the filename '"
+                            + filename + "'.");
         }
 
         //  Check that the graph being served was created by the current user
@@ -149,8 +147,7 @@ public class DisplayChart extends HttpServlet {
             if (isOneTimeChart) {
                 file.delete();
             }
-        }
-        else {
+        } else {
             throw new ServletException("Chart image not found");
         }
     }

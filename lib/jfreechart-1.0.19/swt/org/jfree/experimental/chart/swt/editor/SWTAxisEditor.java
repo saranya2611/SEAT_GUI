@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -43,9 +43,6 @@
 
 package org.jfree.experimental.chart.swt.editor;
 
-import java.awt.Paint;
-import java.util.ResourceBundle;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -57,64 +54,76 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.ColorDialog;
+import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.FontDialog;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
-import org.eclipse.swt.widgets.Text;
 import org.jfree.chart.axis.Axis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.util.ResourceBundleWrapper;
 import org.jfree.experimental.swt.SWTPaintCanvas;
 import org.jfree.experimental.swt.SWTUtils;
 
+import java.awt.*;
+import java.util.ResourceBundle;
+
 /**
  * An editor for axis properties.
  */
 class SWTAxisEditor extends Composite {
 
-    /** The axis label. */
+    /**
+     * The resourceBundle for the localization.
+     */
+    protected static ResourceBundle localizationResources
+            = ResourceBundleWrapper.getBundle(
+            "org.jfree.chart.editor.LocalizationBundle");
+    /**
+     * The axis label.
+     */
     private Text label;
-
-    /** The font used to draw the axis labels. */
+    /**
+     * The font used to draw the axis labels.
+     */
     private FontData labelFont;
-
-    /** The paint (color) used to draw the axis labels. */
+    /**
+     * The paint (color) used to draw the axis labels.
+     */
     private Color labelPaintColor;
-
-    /** The font used to draw the axis tick labels. */
+    /**
+     * The font used to draw the axis tick labels.
+     */
     private FontData tickLabelFont;
-
-    /** The paint (color) used to draw the axis tick labels. */
+    /**
+     * The paint (color) used to draw the axis tick labels.
+     */
     private Color tickLabelPaintColor;
-
-    /** A field showing a description of the label font. */
+    /**
+     * A field showing a description of the label font.
+     */
     private Text labelFontField;
-
     /**
      * A field containing a description of the font
      * for displaying tick labels on the axis.
      */
     private Text tickLabelFontField;
-
-    /** The resourceBundle for the localization. */
-    protected static ResourceBundle localizationResources
-            =  ResourceBundleWrapper.getBundle(
-                    "org.jfree.chart.editor.LocalizationBundle");
-
-    /** Font object used to handle a change of font. */
+    /**
+     * Font object used to handle a change of font.
+     */
     private Font font;
 
-    /** A flag that indicates whether or not the tick labels are visible. */
+    /**
+     * A flag that indicates whether or not the tick labels are visible.
+     */
     private Button showTickLabelsCheckBox;
 
-    /** A flag that indicates whether or not the tick marks are visible. */
+    /**
+     * A flag that indicates whether or not the tick marks are visible.
+     */
     private Button showTickMarksCheckBox;
 
-    /** A tabbed pane for... */
+    /**
+     * A tabbed pane for...
+     */
     private TabFolder otherTabs;
 
     /**
@@ -122,9 +131,9 @@ class SWTAxisEditor extends Composite {
      * the properties of the specified axis.
      *
      * @param parent The parent composite.
-     * @param style The SWT style of the SwtAxisEditor.
-     * @param axis  the axis whose properties are to be displayed/edited
-     *              in the composite.
+     * @param style  The SWT style of the SwtAxisEditor.
+     * @param axis   the axis whose properties are to be displayed/edited
+     *               in the composite.
      */
     public SWTAxisEditor(Composite parent, int style, Axis axis) {
         super(parent, style);
@@ -169,8 +178,8 @@ class SWTAxisEditor extends Composite {
                         FontDialog dlg = new FontDialog(getShell());
                         dlg.setText(localizationResources.getString(
                                 "Font_Selection"));
-                        dlg.setFontList(new FontData[] {
-                                SWTAxisEditor.this.labelFont });
+                        dlg.setFontList(new FontData[]{
+                                SWTAxisEditor.this.labelFont});
                         if (dlg.open() != null) {
                             // Dispose of any fonts we have created
                             if (SWTAxisEditor.this.font != null) {
@@ -183,7 +192,7 @@ class SWTAxisEditor extends Composite {
                             //label.setFont(font);
                             SWTAxisEditor.this.labelFontField.setText(
                                     SWTAxisEditor.this.font.getFontData()[0]
-                                    .toString());
+                                            .toString());
                             SWTAxisEditor.this.labelFont
                                     = SWTAxisEditor.this.font.getFontData()[0];
                         }
@@ -212,8 +221,8 @@ class SWTAxisEditor extends Composite {
                         dlg.setRGB(SWTAxisEditor.this.labelPaintColor.getRGB());
                         RGB rgb = dlg.open();
                         if (rgb != null) {
-                          // create the new color and set it to the
-                          // SwtPaintCanvas
+                            // create the new color and set it to the
+                            // SwtPaintCanvas
                             SWTAxisEditor.this.labelPaintColor = new Color(
                                     getDisplay(), rgb);
                             colorCanvas.setColor(
@@ -257,7 +266,7 @@ class SWTAxisEditor extends Composite {
                         FontDialog dlg = new FontDialog(getShell());
                         dlg.setText(localizationResources.getString(
                                 "Font_Selection"));
-                        dlg.setFontList(new FontData[] {
+                        dlg.setFontList(new FontData[]{
                                 SWTAxisEditor.this.tickLabelFont});
                         if (dlg.open() != null) {
                             // Dispose of any fonts we have created
@@ -271,7 +280,7 @@ class SWTAxisEditor extends Composite {
                             //tickLabelFontField.setFont(font);
                             SWTAxisEditor.this.tickLabelFontField.setText(
                                     SWTAxisEditor.this.font.getFontData()[0]
-                                    .toString());
+                                            .toString());
                             SWTAxisEditor.this.tickLabelFont
                                     = SWTAxisEditor.this.font.getFontData()[0];
                         }
@@ -291,14 +300,14 @@ class SWTAxisEditor extends Composite {
      * A static method that returns a panel that is appropriate
      * for the axis type.
      *
-     * @param parent  the parent.
+     * @param parent the parent.
      * @param style  the style.
-     * @param axis  the axis whose properties are to be displayed/edited
-     *              in the composite.
+     * @param axis   the axis whose properties are to be displayed/edited
+     *               in the composite.
      * @return A composite or <code>null</code< if axis is <code>null</code>.
      */
     public static SWTAxisEditor getInstance(Composite parent, int style,
-            Axis axis) {
+                                            Axis axis) {
 
         if (axis != null) {
             // return the appropriate axis editor
@@ -306,8 +315,7 @@ class SWTAxisEditor extends Composite {
                 return new SWTNumberAxisEditor(parent, style,
                         (NumberAxis) axis);
             else return new SWTAxisEditor(parent, style, axis);
-        }
-        else return null;
+        } else return null;
     }
 
     /**
@@ -368,7 +376,7 @@ class SWTAxisEditor extends Composite {
      * Sets the properties of the specified axis to match
      * the properties defined on this panel.
      *
-     * @param axis  the axis.
+     * @param axis the axis.
      */
     public void setAxisProperties(Axis axis) {
         axis.setLabel(getLabel());

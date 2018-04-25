@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------------------
@@ -43,14 +43,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
-import java.awt.Color;
-
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.TestUtilities;
 import org.jfree.chart.axis.CategoryAxis;
@@ -60,6 +52,10 @@ import org.jfree.data.Range;
 import org.jfree.data.statistics.DefaultStatisticalCategoryDataset;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import java.awt.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link StatisticalLineAndShapeRenderer} class.
@@ -72,9 +68,9 @@ public class StatisticalLineAndShapeRendererTest {
     @Test
     public void testEquals() {
         StatisticalLineAndShapeRenderer r1
-            = new StatisticalLineAndShapeRenderer();
+                = new StatisticalLineAndShapeRenderer();
         StatisticalLineAndShapeRenderer r2
-            = new StatisticalLineAndShapeRenderer();
+                = new StatisticalLineAndShapeRenderer();
         assertTrue(r1.equals(r2));
         assertTrue(r2.equals(r1));
 
@@ -90,9 +86,9 @@ public class StatisticalLineAndShapeRendererTest {
     @Test
     public void testHashcode() {
         StatisticalLineAndShapeRenderer r1
-            = new StatisticalLineAndShapeRenderer();
+                = new StatisticalLineAndShapeRenderer();
         StatisticalLineAndShapeRenderer r2
-            = new StatisticalLineAndShapeRenderer();
+                = new StatisticalLineAndShapeRenderer();
         assertTrue(r1.equals(r2));
         int h1 = r1.hashCode();
         int h2 = r2.hashCode();
@@ -106,7 +102,7 @@ public class StatisticalLineAndShapeRendererTest {
     public void testCloning() throws CloneNotSupportedException {
         StatisticalLineAndShapeRenderer r1
                 = new StatisticalLineAndShapeRenderer();
-        StatisticalLineAndShapeRenderer r2 = (StatisticalLineAndShapeRenderer) 
+        StatisticalLineAndShapeRenderer r2 = (StatisticalLineAndShapeRenderer)
                 r1.clone();
         assertTrue(r1 != r2);
         assertTrue(r1.getClass() == r2.getClass());
@@ -130,7 +126,7 @@ public class StatisticalLineAndShapeRendererTest {
     public void testSerialization() {
         StatisticalLineAndShapeRenderer r1
                 = new StatisticalLineAndShapeRenderer();
-        StatisticalLineAndShapeRenderer r2 = (StatisticalLineAndShapeRenderer) 
+        StatisticalLineAndShapeRenderer r2 = (StatisticalLineAndShapeRenderer)
                 TestUtilities.serialised(r1);
         assertEquals(r1, r2);
     }
@@ -143,17 +139,17 @@ public class StatisticalLineAndShapeRendererTest {
     public void testDrawWithNullInfo() {
         try {
             DefaultStatisticalCategoryDataset dataset
-                = new DefaultStatisticalCategoryDataset();
+                    = new DefaultStatisticalCategoryDataset();
             dataset.add(1.0, 2.0, "S1", "C1");
             dataset.add(3.0, 4.0, "S1", "C2");
             CategoryPlot plot = new CategoryPlot(dataset,
                     new CategoryAxis("Category"), new NumberAxis("Value"),
                     new StatisticalLineAndShapeRenderer());
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             fail("No exception should be thrown.");
         }
     }
@@ -164,7 +160,7 @@ public class StatisticalLineAndShapeRendererTest {
     @Test
     public void test1562759() {
         StatisticalLineAndShapeRenderer r
-            = new StatisticalLineAndShapeRenderer(true, false);
+                = new StatisticalLineAndShapeRenderer(true, false);
         assertTrue(r.getBaseLinesVisible());
         assertFalse(r.getBaseShapesVisible());
 

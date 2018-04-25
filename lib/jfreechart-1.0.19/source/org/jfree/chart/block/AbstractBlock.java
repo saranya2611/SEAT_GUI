@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -49,14 +49,7 @@
 
 package org.jfree.chart.block;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.data.Range;
 import org.jfree.io.SerialUtilities;
 import org.jfree.ui.RectangleInsets;
@@ -65,25 +58,42 @@ import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
 import org.jfree.util.ShapeUtilities;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * A convenience class for creating new classes that implement
  * the {@link Block} interface.
  */
 public class AbstractBlock implements Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 7689852412141274563L;
 
-    /** The id for the block. */
+    /**
+     * The id for the block.
+     */
     private String id;
 
-    /** The margin around the outside of the block. */
+    /**
+     * The margin around the outside of the block.
+     */
     private RectangleInsets margin;
 
-    /** The frame (or border) for the block. */
+    /**
+     * The frame (or border) for the block.
+     */
     private BlockFrame frame;
 
-    /** The padding between the block content and the border. */
+    /**
+     * The padding between the block content and the border.
+     */
     private RectangleInsets padding;
 
     /**
@@ -120,7 +130,6 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Returns the id.
      *
      * @return The id (possibly <code>null</code>).
-     *
      * @see #setID(String)
      */
     public String getID() {
@@ -130,8 +139,7 @@ public class AbstractBlock implements Cloneable, Serializable {
     /**
      * Sets the id for the block.
      *
-     * @param id  the id (<code>null</code> permitted).
-     *
+     * @param id the id (<code>null</code> permitted).
      * @see #getID()
      */
     public void setID(String id) {
@@ -144,7 +152,6 @@ public class AbstractBlock implements Cloneable, Serializable {
      * make this necessary.
      *
      * @return The width.
-     *
      * @see #setWidth(double)
      */
     public double getWidth() {
@@ -154,8 +161,7 @@ public class AbstractBlock implements Cloneable, Serializable {
     /**
      * Sets the natural width of the block, if this is known in advance.
      *
-     * @param width  the width (in Java2D units)
-     *
+     * @param width the width (in Java2D units)
      * @see #getWidth()
      */
     public void setWidth(double width) {
@@ -168,7 +174,6 @@ public class AbstractBlock implements Cloneable, Serializable {
      * make this necessary.
      *
      * @return The height.
-     *
      * @see #setHeight(double)
      */
     public double getHeight() {
@@ -178,8 +183,7 @@ public class AbstractBlock implements Cloneable, Serializable {
     /**
      * Sets the natural width of the block, if this is known in advance.
      *
-     * @param height  the width (in Java2D units)
-     *
+     * @param height the width (in Java2D units)
      * @see #getHeight()
      */
     public void setHeight(double height) {
@@ -190,7 +194,6 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Returns the margin.
      *
      * @return The margin (never <code>null</code>).
-     *
      * @see #getMargin()
      */
     public RectangleInsets getMargin() {
@@ -201,8 +204,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Sets the margin (use {@link RectangleInsets#ZERO_INSETS} for no
      * padding).
      *
-     * @param margin  the margin (<code>null</code> not permitted).
-     *
+     * @param margin the margin (<code>null</code> not permitted).
      * @see #getMargin()
      */
     public void setMargin(RectangleInsets margin) {
@@ -213,15 +215,14 @@ public class AbstractBlock implements Cloneable, Serializable {
     /**
      * Sets the margin.
      *
-     * @param top  the top margin.
-     * @param left  the left margin.
-     * @param bottom  the bottom margin.
+     * @param top    the top margin.
+     * @param left   the left margin.
+     * @param bottom the bottom margin.
      * @param right  the right margin.
-     *
      * @see #getMargin()
      */
-    public void setMargin(double top, double left, double bottom, 
-            double right) {
+    public void setMargin(double top, double left, double bottom,
+                          double right) {
         setMargin(new RectangleInsets(top, left, bottom, right));
     }
 
@@ -229,14 +230,12 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Returns the border.
      *
      * @return The border (never <code>null</code>).
-     *
      * @deprecated Use {@link #getFrame()} instead.
      */
     public BlockBorder getBorder() {
         if (this.frame instanceof BlockBorder) {
             return (BlockBorder) this.frame;
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -245,10 +244,8 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Sets the border for the block (use {@link BlockBorder#NONE} for
      * no border).
      *
-     * @param border  the border (<code>null</code> not permitted).
-     *
+     * @param border the border (<code>null</code> not permitted).
      * @see #getBorder()
-     *
      * @deprecated Use {@link #setFrame(BlockFrame)} instead.
      */
     public void setBorder(BlockBorder border) {
@@ -258,9 +255,9 @@ public class AbstractBlock implements Cloneable, Serializable {
     /**
      * Sets a black border with the specified line widths.
      *
-     * @param top  the top border line width.
-     * @param left  the left border line width.
-     * @param bottom  the bottom border line width.
+     * @param top    the top border line width.
+     * @param left   the left border line width.
+     * @param bottom the bottom border line width.
      * @param right  the right border line width.
      */
     public void setBorder(double top, double left, double bottom,
@@ -272,9 +269,8 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Returns the current frame (border).
      *
      * @return The frame.
-     *
-     * @since 1.0.5
      * @see #setFrame(BlockFrame)
+     * @since 1.0.5
      */
     public BlockFrame getFrame() {
         return this.frame;
@@ -283,10 +279,9 @@ public class AbstractBlock implements Cloneable, Serializable {
     /**
      * Sets the frame (or border).
      *
-     * @param frame  the frame (<code>null</code> not permitted).
-     *
-     * @since 1.0.5
+     * @param frame the frame (<code>null</code> not permitted).
      * @see #getFrame()
+     * @since 1.0.5
      */
     public void setFrame(BlockFrame frame) {
         ParamChecks.nullNotPermitted(frame, "frame");
@@ -297,7 +292,6 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Returns the padding.
      *
      * @return The padding (never <code>null</code>).
-     *
      * @see #setPadding(RectangleInsets)
      */
     public RectangleInsets getPadding() {
@@ -308,8 +302,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Sets the padding (use {@link RectangleInsets#ZERO_INSETS} for no
      * padding).
      *
-     * @param padding  the padding (<code>null</code> not permitted).
-     *
+     * @param padding the padding (<code>null</code> not permitted).
      * @see #getPadding()
      */
     public void setPadding(RectangleInsets padding) {
@@ -320,9 +313,9 @@ public class AbstractBlock implements Cloneable, Serializable {
     /**
      * Sets the padding.
      *
-     * @param top  the top padding.
-     * @param left  the left padding.
-     * @param bottom  the bottom padding.
+     * @param top    the top padding.
+     * @param left   the left padding.
+     * @param bottom the bottom padding.
      * @param right  the right padding.
      */
     public void setPadding(double top, double left, double bottom,
@@ -334,32 +327,29 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Returns the x-offset for the content within the block.
      *
      * @return The x-offset.
-     *
      * @see #getContentYOffset()
      */
     public double getContentXOffset() {
         return this.margin.getLeft() + this.frame.getInsets().getLeft()
-            + this.padding.getLeft();
+                + this.padding.getLeft();
     }
 
     /**
      * Returns the y-offset for the content within the block.
      *
      * @return The y-offset.
-     *
      * @see #getContentXOffset()
      */
     public double getContentYOffset() {
         return this.margin.getTop() + this.frame.getInsets().getTop()
-            + this.padding.getTop();
+                + this.padding.getTop();
     }
 
     /**
      * Arranges the contents of the block, with no constraints, and returns
      * the block size.
      *
-     * @param g2  the graphics device.
-     *
+     * @param g2 the graphics device.
      * @return The block size (in Java2D units, never <code>null</code>).
      */
     public Size2D arrange(Graphics2D g2) {
@@ -370,9 +360,8 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Arranges the contents of the block, within the given constraints, and
      * returns the block size.
      *
-     * @param g2  the graphics device.
-     * @param constraint  the constraint (<code>null</code> not permitted).
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint (<code>null</code> not permitted).
      * @return The block size (in Java2D units, never <code>null</code>).
      */
     public Size2D arrange(Graphics2D g2, RectangleConstraint constraint) {
@@ -384,7 +373,6 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Returns the current bounds of the block.
      *
      * @return The bounds.
-     *
      * @see #setBounds(Rectangle2D)
      */
     public Rectangle2D getBounds() {
@@ -394,8 +382,7 @@ public class AbstractBlock implements Cloneable, Serializable {
     /**
      * Sets the bounds of the block.
      *
-     * @param bounds  the bounds (<code>null</code> not permitted).
-     *
+     * @param bounds the bounds (<code>null</code> not permitted).
      * @see #getBounds()
      */
     public void setBounds(Rectangle2D bounds) {
@@ -408,10 +395,8 @@ public class AbstractBlock implements Cloneable, Serializable {
      * the margin, border and padding space from the specified fixed
      * width.
      *
-     * @param fixedWidth  the fixed width.
-     *
+     * @param fixedWidth the fixed width.
      * @return The available space.
-     *
      * @see #trimToContentHeight(double)
      */
     protected double trimToContentWidth(double fixedWidth) {
@@ -426,10 +411,8 @@ public class AbstractBlock implements Cloneable, Serializable {
      * the margin, border and padding space from the specified fixed
      * height.
      *
-     * @param fixedHeight  the fixed height.
-     *
+     * @param fixedHeight the fixed height.
      * @return The available space.
-     *
      * @see #trimToContentWidth(double)
      */
     protected double trimToContentHeight(double fixedHeight) {
@@ -443,8 +426,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Returns a constraint for the content of this block that will result in
      * the bounds of the block matching the specified constraint.
      *
-     * @param c  the outer constraint (<code>null</code> not permitted).
-     *
+     * @param c the outer constraint (<code>null</code> not permitted).
      * @return The content constraint.
      */
     protected RectangleConstraint toContentConstraint(RectangleConstraint c) {
@@ -461,7 +443,7 @@ public class AbstractBlock implements Cloneable, Serializable {
         Range wwr = trimToContentWidth(wr);
         Range hhr = trimToContentHeight(hr);
         return new RectangleConstraint(ww, wwr, c.getWidthConstraintType(),
-            hh, hhr, c.getHeightConstraintType());
+                hh, hhr, c.getHeightConstraintType());
     }
 
     private Range trimToContentWidth(Range r) {
@@ -497,8 +479,7 @@ public class AbstractBlock implements Cloneable, Serializable {
     /**
      * Adds the margin, border and padding to the specified content width.
      *
-     * @param contentWidth  the content width.
-     *
+     * @param contentWidth the content width.
      * @return The adjusted width.
      */
     protected double calculateTotalWidth(double contentWidth) {
@@ -512,8 +493,7 @@ public class AbstractBlock implements Cloneable, Serializable {
     /**
      * Adds the margin, border and padding to the specified content height.
      *
-     * @param contentHeight  the content height.
-     *
+     * @param contentHeight the content height.
      * @return The adjusted height.
      */
     protected double calculateTotalHeight(double contentHeight) {
@@ -528,8 +508,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Reduces the specified area by the amount of space consumed
      * by the margin.
      *
-     * @param area  the area (<code>null</code> not permitted).
-     *
+     * @param area the area (<code>null</code> not permitted).
      * @return The trimmed area.
      */
     protected Rectangle2D trimMargin(Rectangle2D area) {
@@ -542,8 +521,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Reduces the specified area by the amount of space consumed
      * by the border.
      *
-     * @param area  the area (<code>null</code> not permitted).
-     *
+     * @param area the area (<code>null</code> not permitted).
      * @return The trimmed area.
      */
     protected Rectangle2D trimBorder(Rectangle2D area) {
@@ -556,8 +534,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Reduces the specified area by the amount of space consumed
      * by the padding.
      *
-     * @param area  the area (<code>null</code> not permitted).
-     *
+     * @param area the area (<code>null</code> not permitted).
      * @return The trimmed area.
      */
     protected Rectangle2D trimPadding(Rectangle2D area) {
@@ -569,8 +546,8 @@ public class AbstractBlock implements Cloneable, Serializable {
     /**
      * Draws the border around the perimeter of the specified area.
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
+     * @param g2   the graphics device.
+     * @param area the area.
      */
     protected void drawBorder(Graphics2D g2, Rectangle2D area) {
         this.frame.draw(g2, area);
@@ -579,8 +556,7 @@ public class AbstractBlock implements Cloneable, Serializable {
     /**
      * Tests this block for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -620,9 +596,8 @@ public class AbstractBlock implements Cloneable, Serializable {
      * Returns a clone of this block.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem creating the
-     *         clone.
+     *                                    clone.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -638,8 +613,7 @@ public class AbstractBlock implements Cloneable, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
+     * @param stream the output stream.
      * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
@@ -650,13 +624,12 @@ public class AbstractBlock implements Cloneable, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.bounds = (Rectangle2D) SerialUtilities.readShape(stream);
     }

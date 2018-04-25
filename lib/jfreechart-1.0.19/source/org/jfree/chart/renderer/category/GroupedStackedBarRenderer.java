@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------
@@ -49,10 +49,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
@@ -68,6 +64,10 @@ import org.jfree.data.general.DatasetUtilities;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
+
 /**
  * A renderer that draws stacked bars within groups.  This will probably be
  * merged with the {@link StackedBarRenderer} class at some point.  The example
@@ -80,10 +80,14 @@ import org.jfree.util.PublicCloneable;
 public class GroupedStackedBarRenderer extends StackedBarRenderer
         implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -2725921399005922939L;
 
-    /** A map used to assign each series to a group. */
+    /**
+     * A map used to assign each series to a group.
+     */
     private KeyToGroupMap seriesToGroupMap;
 
     /**
@@ -98,7 +102,7 @@ public class GroupedStackedBarRenderer extends StackedBarRenderer
      * Updates the map used to assign each series to a group, and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param map  the map (<code>null</code> not permitted).
+     * @param map the map (<code>null</code> not permitted).
      */
     public void setSeriesToGroupMap(KeyToGroupMap map) {
         ParamChecks.nullNotPermitted(map, "map");
@@ -110,10 +114,9 @@ public class GroupedStackedBarRenderer extends StackedBarRenderer
      * Returns the range of values the renderer requires to display all the
      * items from the specified dataset.
      *
-     * @param dataset  the dataset (<code>null</code> permitted).
-     *
+     * @param dataset the dataset (<code>null</code> permitted).
      * @return The range (or <code>null</code> if the dataset is
-     *         <code>null</code> or empty).
+     * <code>null</code> or empty).
      */
     @Override
     public Range findRangeBounds(CategoryDataset dataset) {
@@ -130,14 +133,14 @@ public class GroupedStackedBarRenderer extends StackedBarRenderer
      * override the method in the base class to take account of the
      * series-to-group mapping.
      *
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param rendererIndex  the renderer index.
-     * @param state  the renderer state.
+     * @param plot          the plot.
+     * @param dataArea      the data area.
+     * @param rendererIndex the renderer index.
+     * @param state         the renderer state.
      */
     @Override
     protected void calculateBarWidth(CategoryPlot plot, Rectangle2D dataArea,
-            int rendererIndex, CategoryItemRendererState state) {
+                                     int rendererIndex, CategoryItemRendererState state) {
 
         // calculate the bar width
         CategoryAxis xAxis = plot.getDomainAxisForDataset(rendererIndex);
@@ -147,8 +150,7 @@ public class GroupedStackedBarRenderer extends StackedBarRenderer
             double space = 0.0;
             if (orientation == PlotOrientation.HORIZONTAL) {
                 space = dataArea.getHeight();
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
+            } else if (orientation == PlotOrientation.VERTICAL) {
                 space = dataArea.getWidth();
             }
             double maxWidth = space * getMaximumBarWidth();
@@ -165,12 +167,11 @@ public class GroupedStackedBarRenderer extends StackedBarRenderer
             }
 
             double used = space * (1 - xAxis.getLowerMargin()
-                                     - xAxis.getUpperMargin()
-                                     - categoryMargin - itemMargin);
+                    - xAxis.getUpperMargin()
+                    - categoryMargin - itemMargin);
             if (columns > 0) {
                 state.setBarWidth(Math.min(used / columns, maxWidth));
-            }
-            else {
+            } else {
                 state.setBarWidth(Math.min(used, maxWidth));
             }
         }
@@ -182,27 +183,25 @@ public class GroupedStackedBarRenderer extends StackedBarRenderer
      * the minimum x-coordinate for a vertical bar, and the minimum
      * y-coordinate for a horizontal bar.
      *
-     * @param plot  the plot.
-     * @param orientation  the plot orientation.
-     * @param dataArea  the data area.
+     * @param plot        the plot.
+     * @param orientation the plot orientation.
+     * @param dataArea    the data area.
      * @param domainAxis  the domain axis.
-     * @param state  the renderer state (has the bar width precalculated).
-     * @param row  the row index.
-     * @param column  the column index.
-     *
+     * @param state       the renderer state (has the bar width precalculated).
+     * @param row         the row index.
+     * @param column      the column index.
      * @return The coordinate.
      */
     @Override
-    protected double calculateBarW0(CategoryPlot plot, 
-            PlotOrientation orientation, Rectangle2D dataArea,
-            CategoryAxis domainAxis, CategoryItemRendererState state,
-            int row, int column) {
+    protected double calculateBarW0(CategoryPlot plot,
+                                    PlotOrientation orientation, Rectangle2D dataArea,
+                                    CategoryAxis domainAxis, CategoryItemRendererState state,
+                                    int row, int column) {
         // calculate bar width...
         double space;
         if (orientation == PlotOrientation.HORIZONTAL) {
             space = dataArea.getHeight();
-        }
-        else {
+        } else {
             space = dataArea.getWidth();
         }
         double barW0 = domainAxis.getCategoryStart(column, getColumnCount(),
@@ -214,13 +213,12 @@ public class GroupedStackedBarRenderer extends StackedBarRenderer
         int categoryCount = getColumnCount();
         if (groupCount > 1) {
             double groupGap = space * getItemMargin()
-                              / (categoryCount * (groupCount - 1));
+                    / (categoryCount * (groupCount - 1));
             double groupW = calculateSeriesWidth(space, domainAxis,
                     categoryCount, groupCount);
             barW0 = barW0 + groupIndex * (groupW + groupGap)
-                          + (groupW / 2.0) - (state.getBarWidth() / 2.0);
-        }
-        else {
+                    + (groupW / 2.0) - (state.getBarWidth() / 2.0);
+        } else {
             barW0 = domainAxis.getCategoryMiddle(column, getColumnCount(),
                     dataArea, plot.getDomainAxisEdge())
                     - state.getBarWidth() / 2.0;
@@ -231,22 +229,22 @@ public class GroupedStackedBarRenderer extends StackedBarRenderer
     /**
      * Draws a stacked bar for a specific item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the plot area.
-     * @param plot  the plot.
-     * @param domainAxis  the domain (category) axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the plot area.
+     * @param plot       the plot.
+     * @param domainAxis the domain (category) axis.
      * @param rangeAxis  the range (value) axis.
-     * @param dataset  the data.
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     * @param pass  the pass index.
+     * @param dataset    the data.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
+     * @param pass       the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, CategoryItemRendererState state,
-            Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
-            ValueAxis rangeAxis, CategoryDataset dataset, int row,
-            int column, int pass) {
+                         Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
+                         ValueAxis rangeAxis, CategoryDataset dataset, int row,
+                         int column, int pass) {
 
         // nothing is drawn for null values...
         Number dataValue = dataset.getValue(row, column);
@@ -272,8 +270,7 @@ public class GroupedStackedBarRenderer extends StackedBarRenderer
                     double d = v.doubleValue();
                     if (d > 0) {
                         positiveBase = positiveBase + d;
-                    }
-                    else {
+                    } else {
                         negativeBase = negativeBase + d;
                     }
                 }
@@ -288,16 +285,13 @@ public class GroupedStackedBarRenderer extends StackedBarRenderer
         if (orientation == PlotOrientation.HORIZONTAL) {
             if (positive && inverted || !positive && !inverted) {
                 barBase = RectangleEdge.RIGHT;
-            }
-            else {
+            } else {
                 barBase = RectangleEdge.LEFT;
             }
-        }
-        else {
+        } else {
             if (positive && !inverted || !positive && inverted) {
                 barBase = RectangleEdge.BOTTOM;
-            }
-            else {
+            } else {
                 barBase = RectangleEdge.TOP;
             }
         }
@@ -307,8 +301,7 @@ public class GroupedStackedBarRenderer extends StackedBarRenderer
                     location);
             translatedValue = rangeAxis.valueToJava2D(positiveBase + value,
                     dataArea, location);
-        }
-        else {
+        } else {
             translatedBase = rangeAxis.valueToJava2D(negativeBase, dataArea,
                     location);
             translatedValue = rangeAxis.valueToJava2D(negativeBase + value,
@@ -322,8 +315,7 @@ public class GroupedStackedBarRenderer extends StackedBarRenderer
         if (orientation == PlotOrientation.HORIZONTAL) {
             bar = new Rectangle2D.Double(barL0, barW0, barLength,
                     state.getBarWidth());
-        }
-        else {
+        } else {
             bar = new Rectangle2D.Double(barW0, barL0, state.getBarWidth(),
                     barLength);
         }
@@ -349,8 +341,7 @@ public class GroupedStackedBarRenderer extends StackedBarRenderer
     /**
      * Tests this renderer for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

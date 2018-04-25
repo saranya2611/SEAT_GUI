@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------------------
@@ -41,16 +41,13 @@
 
 package org.jfree.chart.labels;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.jfree.chart.TestUtilities;
+import org.jfree.util.PublicCloneable;
+import org.junit.Test;
 
 import java.text.DecimalFormat;
 
-import org.jfree.chart.TestUtilities;
-
-import org.jfree.util.PublicCloneable;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link BoxAndWhiskerToolTipGenerator} class.
@@ -125,7 +122,7 @@ public class BoxAndWhiskerToolTipGeneratorTest {
     @Test
     public void testSerialization() {
         BoxAndWhiskerToolTipGenerator g1 = new BoxAndWhiskerToolTipGenerator();
-        BoxAndWhiskerToolTipGenerator g2 = (BoxAndWhiskerToolTipGenerator) 
+        BoxAndWhiskerToolTipGenerator g2 = (BoxAndWhiskerToolTipGenerator)
                 TestUtilities.serialised(g1);
         assertEquals(g1, g2);
     }

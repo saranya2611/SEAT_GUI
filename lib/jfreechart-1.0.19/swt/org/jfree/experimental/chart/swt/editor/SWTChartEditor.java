@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -42,54 +42,56 @@
 
 package org.jfree.experimental.chart.swt.editor;
 
-import java.util.ResourceBundle;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.*;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.editor.ChartEditor;
 import org.jfree.chart.util.ResourceBundleWrapper;
+
+import java.util.ResourceBundle;
 
 /**
  * An editor for chart properties.
  */
 public class SWTChartEditor implements ChartEditor {
 
-    /** The shell */
-    private Shell shell;
-
-    /** The chart which the properties have to be edited */
-    private JFreeChart chart;
-
-    /** A composite for displaying/editing the properties of the title. */
-    private SWTTitleEditor titleEditor;
-
-    /** A composite for displaying/editing the properties of the plot. */
-    private SWTPlotEditor plotEditor;
-
-    /** A composite for displaying/editing the other properties of the chart. */
-    private SWTOtherEditor otherEditor;
-
-    /** The resourceBundle for the localization. */
+    /**
+     * The resourceBundle for the localization.
+     */
     protected static ResourceBundle localizationResources
             = ResourceBundleWrapper.getBundle(
-                    "org.jfree.chart.editor.LocalizationBundle");
+            "org.jfree.chart.editor.LocalizationBundle");
+    /**
+     * The shell
+     */
+    private Shell shell;
+    /**
+     * The chart which the properties have to be edited
+     */
+    private JFreeChart chart;
+    /**
+     * A composite for displaying/editing the properties of the title.
+     */
+    private SWTTitleEditor titleEditor;
+    /**
+     * A composite for displaying/editing the properties of the plot.
+     */
+    private SWTPlotEditor plotEditor;
+    /**
+     * A composite for displaying/editing the other properties of the chart.
+     */
+    private SWTOtherEditor otherEditor;
 
     /**
      * Creates a new editor.
      *
-     * @param display  the display.
-     * @param chart2edit  the chart to edit.
+     * @param display    the display.
+     * @param chart2edit the chart to edit.
      */
     public SWTChartEditor(Display display, JFreeChart chart2edit) {
         this.shell = new Shell(display, SWT.DIALOG_TRIM);
@@ -97,7 +99,7 @@ public class SWTChartEditor implements ChartEditor {
         this.chart = chart2edit;
         this.shell.setText(ResourceBundleWrapper.getBundle(
                 "org.jfree.chart.LocalizationBundle").getString(
-                        "Chart_Properties"));
+                "Chart_Properties"));
         GridLayout layout = new GridLayout(2, true);
         layout.marginLeft = layout.marginTop = layout.marginRight
                 = layout.marginBottom = 5;
@@ -161,10 +163,9 @@ public class SWTChartEditor implements ChartEditor {
     /**
      * Updates the chart properties.
      *
-     * @param chart  the chart.
+     * @param chart the chart.
      */
-    public void updateChart(JFreeChart chart)
-    {
+    public void updateChart(JFreeChart chart) {
         this.titleEditor.setTitleProperties(chart);
         this.plotEditor.updatePlotProperties(chart.getPlot());
         this.otherEditor.updateChartProperties(chart);

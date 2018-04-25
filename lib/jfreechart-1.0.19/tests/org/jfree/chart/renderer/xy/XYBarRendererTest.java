@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -45,12 +45,6 @@
 
 package org.jfree.chart.renderer.xy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.LegendItem;
@@ -60,21 +54,22 @@ import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.Range;
-import org.jfree.data.xy.DefaultIntervalXYDataset;
-import org.jfree.data.xy.XYBarDataset;
-import org.jfree.data.xy.XYIntervalSeries;
-import org.jfree.data.xy.XYIntervalSeriesCollection;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.data.xy.*;
 import org.jfree.ui.GradientPaintTransformType;
 import org.jfree.ui.StandardGradientPaintTransformer;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
 
+import java.awt.geom.Rectangle2D;
+
+import static org.junit.Assert.*;
+
 /**
  * Tests for the {@link XYBarRenderer} class.
  */
 public class XYBarRendererTest {
+
+    private static final double EPSILON = 0.0000000001;
 
     /**
      * Test that the equals() method distinguishes all fields.
@@ -248,7 +243,7 @@ public class XYBarRendererTest {
     }
 
     /**
-     * A test for the findDomainBounds method to ensure it correctly accounts 
+     * A test for the findDomainBounds method to ensure it correctly accounts
      * for the series visibility.
      */
     @Test
@@ -262,19 +257,17 @@ public class XYBarRendererTest {
         XYIntervalSeriesCollection dataset = new XYIntervalSeriesCollection();
         dataset.addSeries(s1);
         dataset.addSeries(s2);
-        
+
         XYBarRenderer renderer = new XYBarRenderer();
         Range r = renderer.findDomainBounds(dataset);
         assertEquals(0.5, r.getLowerBound(), EPSILON);
         assertEquals(4.1, r.getUpperBound(), EPSILON);
-        
+
         renderer.setSeriesVisible(1, Boolean.FALSE);
         r = renderer.findDomainBounds(dataset);
         assertEquals(0.5, r.getLowerBound(), EPSILON);
         assertEquals(2.1, r.getUpperBound(), EPSILON);
     }
-
-    private static final double EPSILON = 0.0000000001;
 
     /**
      * A simple test for the findRangeBounds() method.
@@ -288,7 +281,7 @@ public class XYBarRendererTest {
         double[] y = {1.0, 2.0, 3.0, 4.0};
         double[] starty = {0.9, 1.8, 2.7, 3.6};
         double[] endy = {1.1, 2.2, 3.3, 4.4};
-        double[][] data = new double[][] {x, startx, endx, y, starty, endy};
+        double[][] data = new double[][]{x, startx, endx, y, starty, endy};
         dataset.addSeries("Series 1", data);
         XYBarRenderer renderer = new XYBarRenderer();
         renderer.setUseYInterval(true);
@@ -303,7 +296,7 @@ public class XYBarRendererTest {
     }
 
     /**
-     * A test for the findRangeBounds method to ensure it correctly accounts 
+     * A test for the findRangeBounds method to ensure it correctly accounts
      * for the series visibility.
      */
     @Test
@@ -317,13 +310,13 @@ public class XYBarRendererTest {
         XYIntervalSeriesCollection dataset = new XYIntervalSeriesCollection();
         dataset.addSeries(s1);
         dataset.addSeries(s2);
-        
+
         XYBarRenderer renderer = new XYBarRenderer();
         renderer.setUseYInterval(false);
         Range r = renderer.findRangeBounds(dataset);
         assertEquals(9.0, r.getLowerBound(), EPSILON);
         assertEquals(30.0, r.getUpperBound(), EPSILON);
-        
+
         renderer.setSeriesVisible(1, Boolean.FALSE);
         r = renderer.findRangeBounds(dataset);
         assertEquals(10.0, r.getLowerBound(), EPSILON);
@@ -359,7 +352,8 @@ public class XYBarRendererTest {
         XYPlot plot = new XYPlot(new XYBarDataset(d1, 1.0), new NumberAxis("x"),
                 new NumberAxis("y"), r);
         plot.setDataset(1, new XYBarDataset(d2, 2.0));
-        /*JFreeChart chart =*/ new JFreeChart(plot);
+        /*JFreeChart chart =*/
+        new JFreeChart(plot);
         LegendItem li = r.getLegendItem(1, 2);
         assertEquals("S5", li.getLabel());
         assertEquals(1, li.getDatasetIndex());

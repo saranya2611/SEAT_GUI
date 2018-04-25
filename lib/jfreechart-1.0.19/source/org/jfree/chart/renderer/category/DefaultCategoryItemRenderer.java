@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------------
@@ -40,18 +40,20 @@
 
 package org.jfree.chart.renderer.category;
 
-import java.io.Serializable;
-
 import org.jfree.chart.plot.CategoryPlot;
+
+import java.io.Serializable;
 
 /**
  * A default renderer for the {@link CategoryPlot} class.  This is simply an
  * alias for the {@link LineAndShapeRenderer} class.
  */
 public class DefaultCategoryItemRenderer extends LineAndShapeRenderer
-                                         implements Serializable {
+        implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -7793786349384231896L;
 
     // no new methods

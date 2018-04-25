@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -42,25 +42,30 @@
 
 package org.jfree.data.function;
 
-import java.io.Serializable;
 import org.jfree.chart.HashUtilities;
+
+import java.io.Serializable;
 
 /**
  * A function of the form y = a * x ^ b.
  */
 public class PowerFunction2D implements Function2D, Serializable {
 
-    /** The 'a' coefficient. */
+    /**
+     * The 'a' coefficient.
+     */
     private double a;
 
-    /** The 'b' coefficient. */
+    /**
+     * The 'b' coefficient.
+     */
     private double b;
 
     /**
      * Creates a new power function.
      *
-     * @param a  the 'a' coefficient.
-     * @param b  the 'b' coefficient.
+     * @param a the 'a' coefficient.
+     * @param b the 'b' coefficient.
      */
     public PowerFunction2D(double a, double b) {
         this.a = a;
@@ -71,7 +76,6 @@ public class PowerFunction2D implements Function2D, Serializable {
      * Returns the 'a' coefficient that was specified in the constructor.
      *
      * @return The 'a' coefficient.
-     *
      * @since 1.0.14
      */
     public double getA() {
@@ -82,7 +86,6 @@ public class PowerFunction2D implements Function2D, Serializable {
      * Returns the 'b' coefficient that was specified in the constructor.
      *
      * @return The 'b' coefficient.
-     *
      * @since 1.0.14
      */
     public double getB() {
@@ -92,8 +95,7 @@ public class PowerFunction2D implements Function2D, Serializable {
     /**
      * Returns the value of the function for a given input ('x').
      *
-     * @param x  the x-value.
-     *
+     * @param x the x-value.
      * @return The value.
      */
     @Override
@@ -104,8 +106,7 @@ public class PowerFunction2D implements Function2D, Serializable {
     /**
      * Tests this function for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

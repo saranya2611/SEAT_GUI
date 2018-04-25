@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------------
@@ -41,12 +41,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.TestUtilities;
 import org.jfree.chart.axis.CategoryAxis;
@@ -57,6 +51,8 @@ import org.jfree.data.Range;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link GroupedStackedBarRenderer} class.
@@ -111,7 +107,7 @@ public class GroupedStackedBarRendererTest {
     @Test
     public void testSerialization() {
         GroupedStackedBarRenderer r1 = new GroupedStackedBarRenderer();
-        GroupedStackedBarRenderer r2 = (GroupedStackedBarRenderer) 
+        GroupedStackedBarRenderer r2 = (GroupedStackedBarRenderer)
                 TestUtilities.serialised(r1);
         assertEquals(r1, r2);
     }
@@ -134,10 +130,10 @@ public class GroupedStackedBarRendererTest {
                     new CategoryAxis("Category"), new NumberAxis("Value"),
                     renderer);
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             fail("No exception should be thrown.");
         }
     }

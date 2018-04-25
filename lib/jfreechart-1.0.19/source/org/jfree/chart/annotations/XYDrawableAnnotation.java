@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -44,11 +44,6 @@
 
 package org.jfree.chart.annotations;
 
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -60,41 +55,60 @@ import org.jfree.ui.RectangleEdge;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
+
 /**
  * A general annotation that can be placed on an {@link XYPlot}.
  */
 public class XYDrawableAnnotation extends AbstractXYAnnotation
         implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -6540812859722691020L;
 
-    /** The scaling factor. */
+    /**
+     * The scaling factor.
+     */
     private double drawScaleFactor;
 
-    /** The x-coordinate. */
+    /**
+     * The x-coordinate.
+     */
     private double x;
 
-    /** The y-coordinate. */
+    /**
+     * The y-coordinate.
+     */
     private double y;
 
-    /** The width. */
+    /**
+     * The width.
+     */
     private double displayWidth;
 
-    /** The height. */
+    /**
+     * The height.
+     */
     private double displayHeight;
 
-    /** The drawable object. */
+    /**
+     * The drawable object.
+     */
     private Drawable drawable;
 
     /**
      * Creates a new annotation to be displayed within the given area.
      *
-     * @param x  the x-coordinate for the area.
-     * @param y  the y-coordinate for the area.
-     * @param width  the width of the area.
-     * @param height  the height of the area.
-     * @param drawable  the drawable object (<code>null</code> not permitted).
+     * @param x        the x-coordinate for the area.
+     * @param y        the y-coordinate for the area.
+     * @param width    the width of the area.
+     * @param height   the height of the area.
+     * @param drawable the drawable object (<code>null</code> not permitted).
      */
     public XYDrawableAnnotation(double x, double y, double width, double height,
                                 Drawable drawable) {
@@ -107,17 +121,16 @@ public class XYDrawableAnnotation extends AbstractXYAnnotation
      * will be drawn at twice the requested display size then scaled down to
      * fit the space.
      *
-     * @param x  the x-coordinate for the area.
-     * @param y  the y-coordinate for the area.
-     * @param displayWidth  the width of the area.
-     * @param displayHeight  the height of the area.
-     * @param drawScaleFactor  the scaling factor for drawing.
-     * @param drawable  the drawable object (<code>null</code> not permitted).
-     *
+     * @param x               the x-coordinate for the area.
+     * @param y               the y-coordinate for the area.
+     * @param displayWidth    the width of the area.
+     * @param displayHeight   the height of the area.
+     * @param drawScaleFactor the scaling factor for drawing.
+     * @param drawable        the drawable object (<code>null</code> not permitted).
      * @since 1.0.11
      */
     public XYDrawableAnnotation(double x, double y, double displayWidth,
-            double displayHeight, double drawScaleFactor, Drawable drawable) {
+                                double displayHeight, double drawScaleFactor, Drawable drawable) {
 
         super();
         ParamChecks.nullNotPermitted(drawable, "drawable");
@@ -133,14 +146,14 @@ public class XYDrawableAnnotation extends AbstractXYAnnotation
     /**
      * Draws the annotation.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the range axis.
-     * @param rendererIndex  the renderer index.
-     * @param info  if supplied, this info object will be populated with
-     *              entity information.
+     * @param g2            the graphics device.
+     * @param plot          the plot.
+     * @param dataArea      the data area.
+     * @param domainAxis    the domain axis.
+     * @param rangeAxis     the range axis.
+     * @param rendererIndex the renderer index.
+     * @param info          if supplied, this info object will be populated with
+     *                      entity information.
      */
     @Override
     public void draw(Graphics2D g2, XYPlot plot, Rectangle2D dataArea,
@@ -186,8 +199,7 @@ public class XYDrawableAnnotation extends AbstractXYAnnotation
     /**
      * Tests this annotation for equality with an arbitrary object.
      *
-     * @param obj  the object to test against.
-     *
+     * @param obj the object to test against.
      * @return <code>true</code> or <code>false</code>.
      */
     @Override
@@ -251,8 +263,7 @@ public class XYDrawableAnnotation extends AbstractXYAnnotation
      * Returns a clone of the annotation.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the annotation can't be cloned.
+     * @throws CloneNotSupportedException if the annotation can't be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

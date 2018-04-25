@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------
@@ -52,17 +52,21 @@ import java.io.Serializable;
  */
 public class Vector implements Serializable {
 
-    /** The vector x. */
+    /**
+     * The vector x.
+     */
     private double x;
 
-    /** The vector y. */
+    /**
+     * The vector y.
+     */
     private double y;
 
     /**
      * Creates a new instance of <code>Vector</code>.
      *
-     * @param x  the x-component.
-     * @param y  the y-component.
+     * @param x the x-component.
+     * @param y the y-component.
      */
     public Vector(double x, double y) {
         this.x = x;
@@ -108,8 +112,7 @@ public class Vector implements Serializable {
     /**
      * Tests this vector for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> not permitted).
-     *
+     * @param obj the object (<code>null</code> not permitted).
      * @return A boolean.
      */
     @Override

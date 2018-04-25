@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -50,20 +50,20 @@
 
 package org.jfree.data.time;
 
-import java.io.Serializable;
-import java.util.Iterator;
-import java.util.List;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.data.DomainInfo;
 import org.jfree.data.Range;
 import org.jfree.data.xy.AbstractIntervalXYDataset;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.util.ObjectUtilities;
 
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * A collection of {@link TimePeriodValues} objects.
- * <P>
+ * <p>
  * This class implements the {@link org.jfree.data.xy.XYDataset} interface, as
  * well as the extended {@link IntervalXYDataset} interface.  This makes it a
  * convenient dataset for use with the {@link org.jfree.chart.plot.XYPlot}
@@ -72,10 +72,14 @@ import org.jfree.util.ObjectUtilities;
 public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
         implements IntervalXYDataset, DomainInfo, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -3077934065236454199L;
 
-    /** Storage for the time series. */
+    /**
+     * Storage for the time series.
+     */
     private List data;
 
     /**
@@ -102,7 +106,7 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
      * Constructs a dataset containing a single series.  Additional series can
      * be added.
      *
-     * @param series  the series (<code>null</code> ignored).
+     * @param series the series (<code>null</code> ignored).
      */
     public TimePeriodValuesCollection(TimePeriodValues series) {
         this.data = new java.util.ArrayList();
@@ -118,7 +122,6 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
      * Returns the position of the X value within each time period.
      *
      * @return The position (never <code>null</code>).
-     *
      * @see #setXPosition(TimePeriodAnchor)
      */
     public TimePeriodAnchor getXPosition() {
@@ -128,8 +131,7 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Sets the position of the x axis within each time period.
      *
-     * @param position  the position (<code>null</code> not permitted).
-     *
+     * @param position the position (<code>null</code> not permitted).
      * @see #getXPosition()
      */
     public void setXPosition(TimePeriodAnchor position) {
@@ -150,8 +152,7 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Returns a series.
      *
-     * @param series  the index of the series (zero-based).
-     *
+     * @param series the index of the series (zero-based).
      * @return The series.
      */
     public TimePeriodValues getSeries(int series) {
@@ -164,8 +165,7 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the key for a series.
      *
-     * @param series  the index of the series (zero-based).
-     *
+     * @param series the index of the series (zero-based).
      * @return The key for a series.
      */
     @Override
@@ -179,7 +179,7 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
      * {@link org.jfree.data.general.DatasetChangeEvent} is sent to all
      * registered listeners.
      *
-     * @param series  the time series.
+     * @param series the time series.
      */
     public void addSeries(TimePeriodValues series) {
         ParamChecks.nullNotPermitted(series, "series");
@@ -191,7 +191,7 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Removes the specified series from the collection.
      *
-     * @param series  the series to remove (<code>null</code> not permitted).
+     * @param series the series to remove (<code>null</code> not permitted).
      */
     public void removeSeries(TimePeriodValues series) {
         ParamChecks.nullNotPermitted(series, "series");
@@ -204,7 +204,7 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Removes a series from the collection.
      *
-     * @param index  the series index (zero-based).
+     * @param index the series index (zero-based).
      */
     public void removeSeries(int index) {
         TimePeriodValues series = getSeries(index);
@@ -215,11 +215,10 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
 
     /**
      * Returns the number of items in the specified series.
-     * <P>
+     * <p>
      * This method is provided for convenience.
      *
-     * @param series  the index of the series of interest (zero-based).
-     *
+     * @param series the index of the series of interest (zero-based).
      * @return The number of items in the specified series.
      */
     @Override
@@ -230,9 +229,8 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the x-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The x-value for the specified series and item.
      */
     @Override
@@ -246,23 +244,19 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the x-value for a time period.
      *
-     * @param period  the time period.
-     *
+     * @param period the time period.
      * @return The x-value.
      */
     private long getX(TimePeriod period) {
 
         if (this.xPosition == TimePeriodAnchor.START) {
             return period.getStart().getTime();
-        }
-        else if (this.xPosition == TimePeriodAnchor.MIDDLE) {
+        } else if (this.xPosition == TimePeriodAnchor.MIDDLE) {
             return period.getStart().getTime()
-                / 2 + period.getEnd().getTime() / 2;
-        }
-        else if (this.xPosition == TimePeriodAnchor.END) {
+                    / 2 + period.getEnd().getTime() / 2;
+        } else if (this.xPosition == TimePeriodAnchor.END) {
             return period.getEnd().getTime();
-        }
-        else {
+        } else {
             throw new IllegalStateException("TimePeriodAnchor unknown.");
         }
 
@@ -271,9 +265,8 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the starting X value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The starting X value for the specified series and item.
      */
     @Override
@@ -286,9 +279,8 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the ending X value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The ending X value for the specified series and item.
      */
     @Override
@@ -301,9 +293,8 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the y-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The y-value for the specified series and item.
      */
     @Override
@@ -316,9 +307,8 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the starting Y value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The starting Y value for the specified series and item.
      */
     @Override
@@ -329,9 +319,8 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the ending Y value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The ending Y value for the specified series and item.
      */
     @Override
@@ -342,9 +331,8 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the minimum x-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The minimum value.
      */
     @Override
@@ -360,9 +348,8 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the maximum x-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The maximum value.
      */
     @Override
@@ -378,9 +365,8 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the range of the values in this dataset's domain.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The range.
      */
     @Override
@@ -402,8 +388,7 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
                                 series.getMaxStartIndex());
                         temp = new Range(start.getStart().getTime(),
                                 maxStart.getStart().getTime());
-                    }
-                    else if (this.xPosition == TimePeriodAnchor.MIDDLE) {
+                    } else if (this.xPosition == TimePeriodAnchor.MIDDLE) {
                         TimePeriod minMiddle = series.getTimePeriod(
                                 series.getMinMiddleIndex());
                         long s1 = minMiddle.getStart().getTime();
@@ -414,15 +399,13 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
                         long e2 = maxMiddle.getEnd().getTime();
                         temp = new Range(s1 + (e1 - s1) / 2,
                                 s2 + (e2 - s2) / 2);
-                    }
-                    else if (this.xPosition == TimePeriodAnchor.END) {
+                    } else if (this.xPosition == TimePeriodAnchor.END) {
                         TimePeriod minEnd = series.getTimePeriod(
                                 series.getMinEndIndex());
                         temp = new Range(minEnd.getEnd().getTime(),
                                 end.getEnd().getTime());
                     }
-                }
-                else {
+                } else {
                     temp = new Range(start.getStart().getTime(),
                             end.getEnd().getTime());
                 }
@@ -435,8 +418,7 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -470,9 +452,8 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
      * taken into consideration
      *
      * @return The flag.
-     *
      * @deprecated This flag is no longer used by JFreeChart (as of version
-     *     1.0.3).
+     * 1.0.3).
      */
     public boolean getDomainIsPointsInTime() {
         return this.domainIsPointsInTime;
@@ -482,10 +463,9 @@ public class TimePeriodValuesCollection extends AbstractIntervalXYDataset
      * Sets a flag that controls whether the domain is treated as 'points in
      * time', or time periods.
      *
-     * @param flag  the new value of the flag.
-     *
+     * @param flag the new value of the flag.
      * @deprecated This flag is no longer used by JFreeChart (as of version
-     *     1.0.3).
+     * 1.0.3).
      */
     public void setDomainIsPointsInTime(boolean flag) {
         this.domainIsPointsInTime = flag;

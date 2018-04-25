@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------
@@ -42,10 +42,6 @@
 
 package org.jfree.experimental.chart.swt.editor;
 
-import java.awt.BasicStroke;
-import java.awt.Stroke;
-import java.util.ResourceBundle;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -55,12 +51,9 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.ColorDialog;
-import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Spinner;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -69,36 +62,44 @@ import org.jfree.chart.util.ResourceBundleWrapper;
 import org.jfree.experimental.swt.SWTPaintCanvas;
 import org.jfree.experimental.swt.SWTUtils;
 
+import java.awt.*;
+import java.util.ResourceBundle;
+
 /**
  * An editor for plot properties.
  */
 class SWTPlotAppearanceEditor extends Composite {
 
-    private Spinner selectStroke;
-
-    /** The stroke (pen) used to draw the outline of the plot. */
-    private SWTStrokeCanvas strokeCanvas;
-
-    /** The paint (color) used to fill the background of the plot. */
-    private SWTPaintCanvas backgroundPaintCanvas;
-
-    /** The paint (color) used to draw the outline of the plot. */
-    private SWTPaintCanvas outlinePaintCanvas;
-
-    /** The orientation for the plot. */
-    private PlotOrientation plotOrientation;
-
-    private Combo orientation;
-
-    /** Orientation constants. */
+    /**
+     * Orientation constants.
+     */
     private final static String[] orientationNames = {"Vertical", "Horizontal"};
     private final static int ORIENTATION_VERTICAL = 0;
     private final static int ORIENTATION_HORIZONTAL = 1;
-
-    /** The resourceBundle for the localization. */
+    /**
+     * The resourceBundle for the localization.
+     */
     protected static ResourceBundle localizationResources
             = ResourceBundleWrapper.getBundle(
-                    "org.jfree.chart.editor.LocalizationBundle");
+            "org.jfree.chart.editor.LocalizationBundle");
+    private Spinner selectStroke;
+    /**
+     * The stroke (pen) used to draw the outline of the plot.
+     */
+    private SWTStrokeCanvas strokeCanvas;
+    /**
+     * The paint (color) used to fill the background of the plot.
+     */
+    private SWTPaintCanvas backgroundPaintCanvas;
+    /**
+     * The paint (color) used to draw the outline of the plot.
+     */
+    private SWTPaintCanvas outlinePaintCanvas;
+    /**
+     * The orientation for the plot.
+     */
+    private PlotOrientation plotOrientation;
+    private Combo orientation;
 
     SWTPlotAppearanceEditor(Composite parent, int style, Plot plot) {
         super(parent, style);
@@ -200,8 +201,7 @@ class SWTPlotAppearanceEditor extends Composite {
         // row 4: orientation
         if (plot instanceof CategoryPlot) {
             this.plotOrientation = ((CategoryPlot) plot).getOrientation();
-        }
-        else if (plot instanceof XYPlot) {
+        } else if (plot instanceof XYPlot) {
             this.plotOrientation = ((XYPlot) plot).getOrientation();
         }
         if (this.plotOrientation != null) {

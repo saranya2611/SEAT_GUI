@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -64,13 +64,12 @@ public class MovingAverage {
      * Creates a new {@link TimeSeriesCollection} containing a moving average
      * series for each series in the source collection.
      *
-     * @param source  the source collection.
-     * @param suffix  the suffix added to each source series name to create the
-     *                corresponding moving average series name.
-     * @param periodCount  the number of periods in the moving average
-     *                     calculation.
-     * @param skip  the number of initial periods to skip.
-     *
+     * @param source      the source collection.
+     * @param suffix      the suffix added to each source series name to create the
+     *                    corresponding moving average series name.
+     * @param periodCount the number of periods in the moving average
+     *                    calculation.
+     * @param skip        the number of initial periods to skip.
      * @return A collection of moving average time series.
      */
     public static TimeSeriesCollection createMovingAverage(
@@ -99,20 +98,19 @@ public class MovingAverage {
      * the given series.  If the series is empty (contains zero items), the
      * result is an empty series.
      *
-     * @param source  the source series.
-     * @param name  the name of the new series.
-     * @param periodCount  the number of periods used in the average
-     *                     calculation.
-     * @param skip  the number of initial periods to skip.
-     *
+     * @param source      the source series.
+     * @param name        the name of the new series.
+     * @param periodCount the number of periods used in the average
+     *                    calculation.
+     * @param skip        the number of initial periods to skip.
      * @return The moving average series.
      */
     public static TimeSeries createMovingAverage(TimeSeries source,
-            String name, int periodCount, int skip) {
+                                                 String name, int periodCount, int skip) {
 
         ParamChecks.nullNotPermitted(source, "source");
         if (periodCount < 1) {
-            throw new IllegalArgumentException("periodCount must be greater " 
+            throw new IllegalArgumentException("periodCount must be greater "
                     + "than or equal to 1.");
         }
 
@@ -151,8 +149,7 @@ public class MovingAverage {
                                     sum = sum + v.doubleValue();
                                     n = n + 1;
                                 }
-                            }
-                            else {
+                            } else {
                                 finished = true;
                             }
                         }
@@ -160,8 +157,7 @@ public class MovingAverage {
                     }
                     if (n > 0) {
                         result.add(period, sum / n);
-                    }
-                    else {
+                    } else {
                         result.add(period, null);
                     }
                 }
@@ -181,19 +177,18 @@ public class MovingAverage {
      * <p>
      * Developed by Benoit Xhenseval (www.ObjectLab.co.uk).
      *
-     * @param source  the source series.
-     * @param name  the name of the new series.
-     * @param pointCount  the number of POINTS used in the average calculation
-     *                    (not periods!)
-     *
+     * @param source     the source series.
+     * @param name       the name of the new series.
+     * @param pointCount the number of POINTS used in the average calculation
+     *                   (not periods!)
      * @return The moving average series.
      */
     public static TimeSeries createPointMovingAverage(TimeSeries source,
-            String name, int pointCount) {
+                                                      String name, int pointCount) {
 
         ParamChecks.nullNotPermitted(source, "source");
         if (pointCount < 2) {
-            throw new IllegalArgumentException("periodCount must be greater " 
+            throw new IllegalArgumentException("periodCount must be greater "
                     + "than or equal to 2.");
         }
 
@@ -213,8 +208,7 @@ public class MovingAverage {
                 rollingSumForPeriod -= startOfMovingAvg.getValue()
                         .doubleValue();
                 result.add(period, rollingSumForPeriod / pointCount);
-            }
-            else if (i == pointCount - 1) {
+            } else if (i == pointCount - 1) {
                 result.add(period, rollingSumForPeriod / pointCount);
             }
         }
@@ -225,16 +219,15 @@ public class MovingAverage {
      * Creates a new {@link XYDataset} containing the moving averages of each
      * series in the <code>source</code> dataset.
      *
-     * @param source  the source dataset.
-     * @param suffix  the string to append to source series names to create
-     *                target series names.
-     * @param period  the averaging period.
-     * @param skip  the length of the initial skip period.
-     *
+     * @param source the source dataset.
+     * @param suffix the string to append to source series names to create
+     *               target series names.
+     * @param period the averaging period.
+     * @param skip   the length of the initial skip period.
      * @return The dataset.
      */
     public static XYDataset createMovingAverage(XYDataset source, String suffix,
-            long period, long skip) {
+                                                long period, long skip) {
 
         return createMovingAverage(source, suffix, (double) period,
                 (double) skip);
@@ -246,16 +239,15 @@ public class MovingAverage {
      * Creates a new {@link XYDataset} containing the moving averages of each
      * series in the <code>source</code> dataset.
      *
-     * @param source  the source dataset.
-     * @param suffix  the string to append to source series names to create
-     *                target series names.
-     * @param period  the averaging period.
-     * @param skip  the length of the initial skip period.
-     *
+     * @param source the source dataset.
+     * @param suffix the string to append to source series names to create
+     *               target series names.
+     * @param period the averaging period.
+     * @param skip   the length of the initial skip period.
      * @return The dataset.
      */
     public static XYDataset createMovingAverage(XYDataset source,
-            String suffix, double period, double skip) {
+                                                String suffix, double period, double skip) {
 
         ParamChecks.nullNotPermitted(source, "source");
         XYSeriesCollection result = new XYSeriesCollection();
@@ -271,16 +263,15 @@ public class MovingAverage {
      * Creates a new {@link XYSeries} containing the moving averages of one
      * series in the <code>source</code> dataset.
      *
-     * @param source  the source dataset.
-     * @param series  the series index (zero based).
-     * @param name  the name for the new series.
-     * @param period  the averaging period.
-     * @param skip  the length of the initial skip period.
-     *
+     * @param source the source dataset.
+     * @param series the series index (zero based).
+     * @param name   the name for the new series.
+     * @param period the averaging period.
+     * @param skip   the length of the initial skip period.
      * @return The dataset.
      */
     public static XYSeries createMovingAverage(XYDataset source,
-            int series, String name, double period, double skip) {
+                                               int series, String name, double period, double skip) {
 
         ParamChecks.nullNotPermitted(source, "source");
         if (period < Double.MIN_VALUE) {
@@ -320,20 +311,17 @@ public class MovingAverage {
                                     sum = sum + yy.doubleValue();
                                     n = n + 1;
                                 }
-                            }
-                            else {
+                            } else {
                                 finished = true;
                             }
-                        }
-                        else {
+                        } else {
                             finished = true;
                         }
                         offset = offset + 1;
                     }
                     if (n > 0) {
                         result.add(x, sum / n);
-                    }
-                    else {
+                    } else {
                         result.add(x, null);
                     }
                 }

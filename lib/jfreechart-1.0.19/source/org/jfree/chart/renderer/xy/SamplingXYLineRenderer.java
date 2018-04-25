@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -45,17 +45,6 @@
 
 package org.jfree.chart.renderer.xy;
 
-import java.awt.Graphics2D;
-import java.awt.Shape;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-import java.awt.geom.PathIterator;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.plot.CrosshairState;
@@ -69,10 +58,20 @@ import org.jfree.ui.RectangleEdge;
 import org.jfree.util.PublicCloneable;
 import org.jfree.util.ShapeUtilities;
 
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.awt.geom.PathIterator;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * A renderer that draws line charts.  The renderer doesn't necessarily plot
  * every data item - instead, it tries to plot only those data items that
- * make a difference to the visual output (the other data items are skipped).  
+ * make a difference to the visual output (the other data items are skipped).
  * This renderer is designed for use with the {@link XYPlot} class.
  *
  * @since 1.0.13
@@ -80,7 +79,9 @@ import org.jfree.util.ShapeUtilities;
 public class SamplingXYLineRenderer extends AbstractXYItemRenderer
         implements XYItemRenderer, Cloneable, PublicCloneable, Serializable {
 
-    /** The shape that is used to represent a line in the legend. */
+    /**
+     * The shape that is used to represent a line in the legend.
+     */
     private transient Shape legendLine;
 
     /**
@@ -96,9 +97,7 @@ public class SamplingXYLineRenderer extends AbstractXYItemRenderer
      * Returns the shape used to represent a line in the legend.
      *
      * @return The legend line (never <code>null</code>).
-     *
      * @see #setLegendLine(Shape)
-     *
      * @deprecated As of version 1.0.14, this method is deprecated.  You
      * should use the {@link #getBaseLegendShape()} method instead.
      */
@@ -110,10 +109,8 @@ public class SamplingXYLineRenderer extends AbstractXYItemRenderer
      * Sets the shape used as a line in each legend item and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param line  the line (<code>null</code> not permitted).
-     *
+     * @param line the line (<code>null</code> not permitted).
      * @see #getLegendLine()
-     *
      * @deprecated As of version 1.0.14, this method is deprecated.  You should
      * use the {@link #setBaseLegendShape(java.awt.Shape)} method instead.
      */
@@ -136,106 +133,30 @@ public class SamplingXYLineRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Records the state for the renderer.  This is used to preserve state
-     * information between calls to the drawItem() method for a single chart
-     * drawing.
-     */
-    public static class State extends XYItemRendererState {
-
-        /** The path for the current series. */
-        GeneralPath seriesPath;
-
-        /**
-         * A second path that draws vertical intervals to cover any extreme
-         * values.
-         */
-        GeneralPath intervalPath;
-
-        /**
-         * The minimum change in the x-value needed to trigger an update to
-         * the seriesPath.
-         */
-        double dX = 1.0;
-
-        /** The last x-coordinate visited by the seriesPath. */
-        double lastX;
-
-        /** The initial y-coordinate for the current x-coordinate. */
-        double openY = 0.0;
-
-        /** The highest y-coordinate for the current x-coordinate. */
-        double highY = 0.0;
-
-        /** The lowest y-coordinate for the current x-coordinate. */
-        double lowY = 0.0;
-
-        /** The final y-coordinate for the current x-coordinate. */
-        double closeY = 0.0;
-
-        /**
-         * A flag that indicates if the last (x, y) point was 'good'
-         * (non-null).
-         */
-        boolean lastPointGood;
-
-        /**
-         * Creates a new state instance.
-         *
-         * @param info  the plot rendering info.
-         */
-        public State(PlotRenderingInfo info) {
-            super(info);
-        }
-
-        /**
-         * This method is called by the {@link XYPlot} at the start of each
-         * series pass.  We reset the state for the current series.
-         *
-         * @param dataset  the dataset.
-         * @param series  the series index.
-         * @param firstItem  the first item index for this pass.
-         * @param lastItem  the last item index for this pass.
-         * @param pass  the current pass index.
-         * @param passCount  the number of passes.
-         */
-        @Override
-        public void startSeriesPass(XYDataset dataset, int series,
-                int firstItem, int lastItem, int pass, int passCount) {
-            this.seriesPath.reset();
-            this.intervalPath.reset();
-            this.lastPointGood = false;
-            super.startSeriesPass(dataset, series, firstItem, lastItem, pass,
-                    passCount);
-        }
-
-    }
-
-    /**
      * Initialises the renderer.
-     * <P>
+     * <p>
      * This method will be called before the first item is rendered, giving the
      * renderer an opportunity to initialise any state information it wants to
      * maintain.  The renderer can do nothing if it chooses.
      *
-     * @param g2  the graphics device.
-     * @param dataArea  the area inside the axes.
-     * @param plot  the plot.
-     * @param data  the data.
-     * @param info  an optional info collection object to return data back to
-     *              the caller.
-     *
+     * @param g2       the graphics device.
+     * @param dataArea the area inside the axes.
+     * @param plot     the plot.
+     * @param data     the data.
+     * @param info     an optional info collection object to return data back to
+     *                 the caller.
      * @return The renderer state.
      */
     @Override
     public XYItemRendererState initialise(Graphics2D g2,
-            Rectangle2D dataArea, XYPlot plot, XYDataset data,
-            PlotRenderingInfo info) {
+                                          Rectangle2D dataArea, XYPlot plot, XYDataset data,
+                                          PlotRenderingInfo info) {
 
         double dpi = 72;
-    //        Integer dpiVal = (Integer) g2.getRenderingHint(HintKey.DPI);
-    //        if (dpiVal != null) {
-    //            dpi = dpiVal.intValue();
-    //        }
+        //        Integer dpiVal = (Integer) g2.getRenderingHint(HintKey.DPI);
+        //        if (dpiVal != null) {
+        //            dpi = dpiVal.intValue();
+        //        }
         State state = new State(info);
         state.seriesPath = new GeneralPath();
         state.intervalPath = new GeneralPath();
@@ -246,26 +167,26 @@ public class SamplingXYLineRenderer extends AbstractXYItemRenderer
     /**
      * Draws the visual representation of a single data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the area within which the data is being drawn.
-     * @param info  collects information about the drawing.
-     * @param plot  the plot (can be used to obtain standard color
-     *              information etc).
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     * @param crosshairState  crosshair information for the plot
-     *                        (<code>null</code> permitted).
-     * @param pass  the pass index.
+     * @param g2             the graphics device.
+     * @param state          the renderer state.
+     * @param dataArea       the area within which the data is being drawn.
+     * @param info           collects information about the drawing.
+     * @param plot           the plot (can be used to obtain standard color
+     *                       information etc).
+     * @param domainAxis     the domain axis.
+     * @param rangeAxis      the range axis.
+     * @param dataset        the dataset.
+     * @param series         the series index (zero-based).
+     * @param item           the item index (zero-based).
+     * @param crosshairState crosshair information for the plot
+     *                       (<code>null</code> permitted).
+     * @param pass           the pass index.
      */
     @Override
-    public void drawItem(Graphics2D g2, XYItemRendererState state, 
-            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-            int series, int item, CrosshairState crosshairState, int pass) {
+    public void drawItem(Graphics2D g2, XYItemRendererState state,
+                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+                         int series, int item, CrosshairState crosshairState, int pass) {
 
         // do nothing if item is not visible
         if (!getItemVisible(series, item)) {
@@ -302,14 +223,12 @@ public class SamplingXYLineRenderer extends AbstractXYItemRenderer
                     s.highY = y;
                     s.lowY = y;
                     s.closeY = y;
-                }
-                else {
+                } else {
                     s.highY = Math.max(s.highY, y);
                     s.lowY = Math.min(s.lowY, y);
                     s.closeY = y;
                 }
-            }
-            else {
+            } else {
                 s.seriesPath.moveTo(x, y);
                 s.lastX = x;
                 s.openY = y;
@@ -318,8 +237,7 @@ public class SamplingXYLineRenderer extends AbstractXYItemRenderer
                 s.closeY = y;
             }
             s.lastPointGood = true;
-        }
-        else {
+        } else {
             s.lastPointGood = false;
         }
         // if this is the last item, draw the path ...
@@ -342,7 +260,6 @@ public class SamplingXYLineRenderer extends AbstractXYItemRenderer
      * Returns a clone of the renderer.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if the clone cannot be created.
      */
     @Override
@@ -357,8 +274,7 @@ public class SamplingXYLineRenderer extends AbstractXYItemRenderer
     /**
      * Tests this renderer for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return <code>true</code> or <code>false</code>.
      */
     @Override
@@ -382,10 +298,9 @@ public class SamplingXYLineRenderer extends AbstractXYItemRenderer
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
@@ -396,13 +311,99 @@ public class SamplingXYLineRenderer extends AbstractXYItemRenderer
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
         SerialUtilities.writeShape(this.legendLine, stream);
+    }
+
+    /**
+     * Records the state for the renderer.  This is used to preserve state
+     * information between calls to the drawItem() method for a single chart
+     * drawing.
+     */
+    public static class State extends XYItemRendererState {
+
+        /**
+         * The path for the current series.
+         */
+        GeneralPath seriesPath;
+
+        /**
+         * A second path that draws vertical intervals to cover any extreme
+         * values.
+         */
+        GeneralPath intervalPath;
+
+        /**
+         * The minimum change in the x-value needed to trigger an update to
+         * the seriesPath.
+         */
+        double dX = 1.0;
+
+        /**
+         * The last x-coordinate visited by the seriesPath.
+         */
+        double lastX;
+
+        /**
+         * The initial y-coordinate for the current x-coordinate.
+         */
+        double openY = 0.0;
+
+        /**
+         * The highest y-coordinate for the current x-coordinate.
+         */
+        double highY = 0.0;
+
+        /**
+         * The lowest y-coordinate for the current x-coordinate.
+         */
+        double lowY = 0.0;
+
+        /**
+         * The final y-coordinate for the current x-coordinate.
+         */
+        double closeY = 0.0;
+
+        /**
+         * A flag that indicates if the last (x, y) point was 'good'
+         * (non-null).
+         */
+        boolean lastPointGood;
+
+        /**
+         * Creates a new state instance.
+         *
+         * @param info the plot rendering info.
+         */
+        public State(PlotRenderingInfo info) {
+            super(info);
+        }
+
+        /**
+         * This method is called by the {@link XYPlot} at the start of each
+         * series pass.  We reset the state for the current series.
+         *
+         * @param dataset   the dataset.
+         * @param series    the series index.
+         * @param firstItem the first item index for this pass.
+         * @param lastItem  the last item index for this pass.
+         * @param pass      the current pass index.
+         * @param passCount the number of passes.
+         */
+        @Override
+        public void startSeriesPass(XYDataset dataset, int series,
+                                    int firstItem, int lastItem, int pass, int passCount) {
+            this.seriesPath.reset();
+            this.intervalPath.reset();
+            this.lastPointGood = false;
+            super.startSeriesPass(dataset, series, firstItem, lastItem, pass,
+                    passCount);
+        }
+
     }
 
 }

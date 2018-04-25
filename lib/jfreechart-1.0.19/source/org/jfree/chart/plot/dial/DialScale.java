@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -53,10 +53,8 @@ public interface DialScale extends DialLayer {
      * Converts a data value to an angle (in degrees, using the same
      * specification as Java's Arc2D class).
      *
-     * @param value  the data value.
-     *
+     * @param value the data value.
      * @return The angle in degrees.
-     *
      * @see #angleToValue(double)
      */
     public double valueToAngle(double value);
@@ -64,10 +62,8 @@ public interface DialScale extends DialLayer {
     /**
      * Converts an angle (in degrees) to a data value.
      *
-     * @param angle  the angle (in degrees).
-     *
+     * @param angle the angle (in degrees).
      * @return The data value.
-     *
      * @see #valueToAngle(double)
      */
     public double angleToValue(double angle);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------------------------
@@ -44,22 +44,21 @@
 
 package org.jfree.data.statistics;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
-import java.util.ArrayList;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.Range;
 import org.jfree.data.UnknownKeyException;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link DefaultBoxAndWhiskerCategoryDataset} class.
  */
 public class DefaultBoxAndWhiskerCategoryDatasetTest {
+
+    private static final double EPSILON = 0.0000000001;
 
     /**
      * Confirm that the equals method can distinguish all the required fields.
@@ -93,7 +92,7 @@ public class DefaultBoxAndWhiskerCategoryDatasetTest {
                 new Double(3.0), new Double(4.0), new Double(5.0),
                 new Double(6.0), new Double(7.0), new Double(8.0),
                 new ArrayList()), "ROW1", "COLUMN1");
-        DefaultBoxAndWhiskerCategoryDataset d2 = 
+        DefaultBoxAndWhiskerCategoryDataset d2 =
                 (DefaultBoxAndWhiskerCategoryDataset) TestUtilities.serialised(d1);
         assertEquals(d1, d2);
     }
@@ -109,7 +108,7 @@ public class DefaultBoxAndWhiskerCategoryDatasetTest {
                 new Double(3.0), new Double(4.0), new Double(5.0),
                 new Double(6.0), new Double(7.0), new Double(8.0),
                 new ArrayList()), "ROW1", "COLUMN1");
-        DefaultBoxAndWhiskerCategoryDataset d2 
+        DefaultBoxAndWhiskerCategoryDataset d2
                 = (DefaultBoxAndWhiskerCategoryDataset) d1.clone();
         assertTrue(d1 != d2);
         assertTrue(d1.getClass() == d2.getClass());
@@ -139,14 +138,11 @@ public class DefaultBoxAndWhiskerCategoryDatasetTest {
                     new Double(3.0), new Double(4.0), new Double(5.0),
                     new Double(6.0), new Double(7.0), null,
                     new ArrayList()), "ROW1", "COLUMN2");
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             assertTrue(false);
         }
 
     }
-
-    private static final double EPSILON = 0.0000000001;
 
     /**
      * Some checks for the add() method.
@@ -269,8 +265,7 @@ public class DefaultBoxAndWhiskerCategoryDatasetTest {
         boolean pass = false;
         try {
             data.remove("R1", "R2");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);

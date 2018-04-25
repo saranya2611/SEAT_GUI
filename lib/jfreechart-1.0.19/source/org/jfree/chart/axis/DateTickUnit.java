@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -56,14 +56,14 @@
 
 package org.jfree.chart.axis;
 
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.util.ObjectUtilities;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-import org.jfree.chart.util.ParamChecks;
-
-import org.jfree.util.ObjectUtilities;
 
 /**
  * A tick unit for use by subclasses of {@link DateAxis}.  Instances of this
@@ -71,38 +71,94 @@ import org.jfree.util.ObjectUtilities;
  */
 public class DateTickUnit extends TickUnit implements Serializable {
 
-    /** For serialization. */
+    /**
+     * A constant for years.
+     *
+     * @deprecated As of version 1.0.13, use {@link DateTickUnitType} instead.
+     */
+    public static final int YEAR = 0;
+    /**
+     * A constant for months.
+     *
+     * @deprecated As of version 1.0.13, use {@link DateTickUnitType} instead.
+     */
+    public static final int MONTH = 1;
+    /**
+     * A constant for days.
+     *
+     * @deprecated As of version 1.0.13, use {@link DateTickUnitType} instead.
+     */
+    public static final int DAY = 2;
+    /**
+     * A constant for hours.
+     *
+     * @deprecated As of version 1.0.13, use {@link DateTickUnitType} instead.
+     */
+    public static final int HOUR = 3;
+    /**
+     * A constant for minutes.
+     *
+     * @deprecated As of version 1.0.13, use {@link DateTickUnitType} instead.
+     */
+    public static final int MINUTE = 4;
+    /**
+     * A constant for seconds.
+     *
+     * @deprecated As of version 1.0.13, use {@link DateTickUnitType} instead.
+     */
+    public static final int SECOND = 5;
+    /**
+     * A constant for milliseconds.
+     *
+     * @deprecated As of version 1.0.13, use {@link DateTickUnitType} instead.
+     */
+    public static final int MILLISECOND = 6;
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -7289292157229621901L;
-
     /**
      * The units.
      *
      * @since 1.0.13
      */
     private DateTickUnitType unitType;
-
-    /** The unit count. */
+    /**
+     * The unit count.
+     */
     private int count;
-
     /**
      * The roll unit type.
      *
      * @since 1.0.13
      */
     private DateTickUnitType rollUnitType;
-
-    /** The roll count. */
+    /**
+     * The roll count.
+     */
     private int rollCount;
-
-    /** The date formatter. */
+    /**
+     * The date formatter.
+     */
     private DateFormat formatter;
+    /**
+     * The unit.
+     *
+     * @deprecated As of version 1.0.13, use the unitType field.
+     */
+    private int unit;
+    /**
+     * The roll unit.
+     *
+     * @deprecated As of version 1.0.13, use the rollUnitType field.
+     */
+    private int rollUnit;
 
     /**
      * Creates a new date tick unit.
      *
-     * @param unitType  the unit type (<code>null</code> not permitted).
-     * @param multiple  the multiple (of the unit type, must be &gt; 0).
-     *
+     * @param unitType the unit type (<code>null</code> not permitted).
+     * @param multiple the multiple (of the unit type, must be &gt; 0).
      * @since 1.0.13
      */
     public DateTickUnit(DateTickUnitType unitType, int multiple) {
@@ -114,29 +170,27 @@ public class DateTickUnit extends TickUnit implements Serializable {
      *
      * @param unitType  the unit type (<code>null</code> not permitted).
      * @param multiple  the multiple (of the unit type, must be &gt; 0).
-     * @param formatter  the date formatter (<code>null</code> not permitted).
-     *
+     * @param formatter the date formatter (<code>null</code> not permitted).
      * @since 1.0.13
      */
     public DateTickUnit(DateTickUnitType unitType, int multiple,
-            DateFormat formatter) {
+                        DateFormat formatter) {
         this(unitType, multiple, unitType, multiple, formatter);
     }
 
     /**
      * Creates a new unit.
      *
-     * @param unitType  the unit.
-     * @param multiple  the multiple.
-     * @param rollUnitType  the roll unit.
-     * @param rollMultiple  the roll multiple.
-     * @param formatter  the date formatter (<code>null</code> not permitted).
-     *
+     * @param unitType     the unit.
+     * @param multiple     the multiple.
+     * @param rollUnitType the roll unit.
+     * @param rollMultiple the roll multiple.
+     * @param formatter    the date formatter (<code>null</code> not permitted).
      * @since 1.0.13
      */
     public DateTickUnit(DateTickUnitType unitType, int multiple,
-            DateTickUnitType rollUnitType, int rollMultiple,
-            DateFormat formatter) {
+                        DateTickUnitType rollUnitType, int rollMultiple,
+                        DateFormat formatter) {
         super(DateTickUnit.getMillisecondCount(unitType, multiple));
         ParamChecks.nullNotPermitted(formatter, "formatter");
         if (multiple <= 0) {
@@ -157,10 +211,163 @@ public class DateTickUnit extends TickUnit implements Serializable {
     }
 
     /**
+     * Creates a new date tick unit.  You can specify the units using one of
+     * the constants YEAR, MONTH, DAY, HOUR, MINUTE, SECOND or MILLISECOND.
+     * In addition, you can specify a unit count, and a date format.
+     *
+     * @param unit      the unit.
+     * @param count     the unit count.
+     * @param formatter the date formatter (defaults to DateFormat.SHORT).
+     * @deprecated As of version 1.0.13, use {@link #DateTickUnit(
+     *DateTickUnitType, int, DateFormat)}.
+     */
+    public DateTickUnit(int unit, int count, DateFormat formatter) {
+        this(unit, count, unit, count, formatter);
+    }
+
+    /**
+     * Creates a new date tick unit.  The dates will be formatted using a
+     * SHORT format for the default locale.
+     *
+     * @param unit  the unit.
+     * @param count the unit count.
+     * @deprecated As of version 1.0.13, use {@link #DateTickUnit(
+     *DateTickUnitType, int)}.
+     */
+    public DateTickUnit(int unit, int count) {
+        this(unit, count, null);
+    }
+
+    /**
+     * Creates a new unit.
+     *
+     * @param unit      the unit.
+     * @param count     the count.
+     * @param rollUnit  the roll unit.
+     * @param rollCount the roll count.
+     * @param formatter the date formatter (defaults to DateFormat.SHORT).
+     * @deprecated As of version 1.0.13, use {@link #DateTickUnit(
+     *DateTickUnitType, int, DateTickUnitType, int, DateFormat)}.
+     */
+    public DateTickUnit(int unit, int count, int rollUnit, int rollCount,
+                        DateFormat formatter) {
+        this(intToUnitType(unit), count, intToUnitType(rollUnit), rollCount,
+                notNull(formatter));
+    }
+
+    /**
+     * Returns the (approximate) number of milliseconds for the given unit and
+     * unit count.
+     * <p>
+     * This value is an approximation some of the time (e.g. months are
+     * assumed to have 31 days) but this shouldn't matter.
+     *
+     * @param unit  the unit.
+     * @param count the unit count.
+     * @return The number of milliseconds.
+     * @since 1.0.13
+     */
+    private static long getMillisecondCount(DateTickUnitType unit, int count) {
+
+        if (unit.equals(DateTickUnitType.YEAR)) {
+            return (365L * 24L * 60L * 60L * 1000L) * count;
+        } else if (unit.equals(DateTickUnitType.MONTH)) {
+            return (31L * 24L * 60L * 60L * 1000L) * count;
+        } else if (unit.equals(DateTickUnitType.DAY)) {
+            return (24L * 60L * 60L * 1000L) * count;
+        } else if (unit.equals(DateTickUnitType.HOUR)) {
+            return (60L * 60L * 1000L) * count;
+        } else if (unit.equals(DateTickUnitType.MINUTE)) {
+            return (60L * 1000L) * count;
+        } else if (unit.equals(DateTickUnitType.SECOND)) {
+            return 1000L * count;
+        } else if (unit.equals(DateTickUnitType.MILLISECOND)) {
+            return count;
+        } else {
+            throw new IllegalArgumentException("The 'unit' argument has a "
+                    + "value that is not recognised.");
+        }
+
+    }
+
+    /**
+     * A utility method that is used internally to convert the old unit
+     * constants into the corresponding enumerated value.
+     *
+     * @param unit the unit specified using the deprecated integer codes.
+     * @return The unit type.
+     * @since 1.0.13
+     */
+    private static DateTickUnitType intToUnitType(int unit) {
+        switch (unit) {
+            case YEAR:
+                return DateTickUnitType.YEAR;
+            case MONTH:
+                return DateTickUnitType.MONTH;
+            case DAY:
+                return DateTickUnitType.DAY;
+            case HOUR:
+                return DateTickUnitType.HOUR;
+            case MINUTE:
+                return DateTickUnitType.MINUTE;
+            case SECOND:
+                return DateTickUnitType.SECOND;
+            case MILLISECOND:
+                return DateTickUnitType.MILLISECOND;
+            default:
+                throw new IllegalArgumentException(
+                        "Unrecognised 'unit' value " + unit + ".");
+        }
+    }
+
+    /**
+     * Converts a unit type to the corresponding deprecated integer constant.
+     *
+     * @param unitType the unit type (<code>null</code> not permitted).
+     * @return The int code.
+     * @since 1.0.13
+     */
+    private static int unitTypeToInt(DateTickUnitType unitType) {
+        ParamChecks.nullNotPermitted(unitType, "unitType");
+        if (unitType.equals(DateTickUnitType.YEAR)) {
+            return YEAR;
+        } else if (unitType.equals(DateTickUnitType.MONTH)) {
+            return MONTH;
+        } else if (unitType.equals(DateTickUnitType.DAY)) {
+            return DAY;
+        } else if (unitType.equals(DateTickUnitType.HOUR)) {
+            return HOUR;
+        } else if (unitType.equals(DateTickUnitType.MINUTE)) {
+            return MINUTE;
+        } else if (unitType.equals(DateTickUnitType.SECOND)) {
+            return SECOND;
+        } else if (unitType.equals(DateTickUnitType.MILLISECOND)) {
+            return MILLISECOND;
+        } else {
+            throw new IllegalArgumentException(
+                    "The 'unitType' is not recognised");
+        }
+    }
+
+    /**
+     * A utility method to put a default in place if a null formatter is
+     * supplied.
+     *
+     * @param formatter the formatter (<code>null</code> permitted).
+     * @return The formatter if it is not null, otherwise a default.
+     */
+    private static DateFormat notNull(DateFormat formatter) {
+        if (formatter == null) {
+            return DateFormat.getDateInstance(DateFormat.SHORT);
+        } else {
+            return formatter;
+        }
+    }
+
+    /**
      * Returns the unit type.
      *
      * @return The unit type (never <code>null</code>).
-     *
      * @since 1.0.13
      */
     public DateTickUnitType getUnitType() {
@@ -180,7 +387,6 @@ public class DateTickUnit extends TickUnit implements Serializable {
      * Returns the roll unit type.
      *
      * @return The roll unit type (never <code>null</code>).
-     *
      * @since 1.0.13
      */
     public DateTickUnitType getRollUnitType() {
@@ -191,7 +397,6 @@ public class DateTickUnit extends TickUnit implements Serializable {
      * Returns the roll unit multiple.
      *
      * @return The roll unit multiple.
-     *
      * @since 1.0.13
      */
     public int getRollMultiple() {
@@ -201,8 +406,7 @@ public class DateTickUnit extends TickUnit implements Serializable {
     /**
      * Formats a value.
      *
-     * @param milliseconds  date in milliseconds since 01-01-1970.
-     *
+     * @param milliseconds date in milliseconds since 01-01-1970.
      * @return The formatted date.
      */
     @Override
@@ -213,8 +417,7 @@ public class DateTickUnit extends TickUnit implements Serializable {
     /**
      * Formats a date using the tick unit's formatter.
      *
-     * @param date  the date.
-     *
+     * @param date the date.
      * @return The formatted date.
      */
     public String dateToString(Date date) {
@@ -224,11 +427,9 @@ public class DateTickUnit extends TickUnit implements Serializable {
     /**
      * Calculates a new date by adding this unit to the base date.
      *
-     * @param base  the base date.
-     * @param zone  the time zone for the date calculation.
-     *
+     * @param base the base date.
+     * @param zone the time zone for the date calculation.
      * @return A new date one unit after the base date.
-     *
      * @since 1.0.6
      */
     public Date addToDate(Date base, TimeZone zone) {
@@ -246,10 +447,8 @@ public class DateTickUnit extends TickUnit implements Serializable {
      * Rolls the date forward by the amount specified by the roll unit and
      * count.
      *
-     * @param base  the base date.
-
+     * @param base the base date.
      * @return The rolled date.
-     *
      * @see #rollDate(Date, TimeZone)
      */
     public Date rollDate(Date base) {
@@ -260,11 +459,9 @@ public class DateTickUnit extends TickUnit implements Serializable {
      * Rolls the date forward by the amount specified by the roll unit and
      * count.
      *
-     * @param base  the base date.
-     * @param zone  the time zone.
-     *
+     * @param base the base date.
+     * @param zone the time zone.
      * @return The rolled date.
-     *
      * @since 1.0.6
      */
     public Date rollDate(Date base, TimeZone zone) {
@@ -289,133 +486,9 @@ public class DateTickUnit extends TickUnit implements Serializable {
     }
 
     /**
-     * Returns the (approximate) number of milliseconds for the given unit and
-     * unit count.
-     * <P>
-     * This value is an approximation some of the time (e.g. months are
-     * assumed to have 31 days) but this shouldn't matter.
-     *
-     * @param unit  the unit.
-     * @param count  the unit count.
-     *
-     * @return The number of milliseconds.
-     *
-     * @since 1.0.13
-     */
-    private static long getMillisecondCount(DateTickUnitType unit, int count) {
-
-        if (unit.equals(DateTickUnitType.YEAR)) {
-            return (365L * 24L * 60L * 60L * 1000L) * count;
-        }
-        else if (unit.equals(DateTickUnitType.MONTH)) {
-            return (31L * 24L * 60L * 60L * 1000L) * count;
-        }
-        else if (unit.equals(DateTickUnitType.DAY)) {
-            return (24L * 60L * 60L * 1000L) * count;
-        }
-        else if (unit.equals(DateTickUnitType.HOUR)) {
-            return (60L * 60L * 1000L) * count;
-        }
-        else if (unit.equals(DateTickUnitType.MINUTE)) {
-            return (60L * 1000L) * count;
-        }
-        else if (unit.equals(DateTickUnitType.SECOND)) {
-            return 1000L * count;
-        }
-        else if (unit.equals(DateTickUnitType.MILLISECOND)) {
-            return count;
-        }
-        else {
-            throw new IllegalArgumentException("The 'unit' argument has a " 
-                    + "value that is not recognised.");
-        }
-
-    }
-
-    /**
-     * A utility method that is used internally to convert the old unit
-     * constants into the corresponding enumerated value.
-     *
-     * @param unit  the unit specified using the deprecated integer codes.
-     *
-     * @return The unit type.
-     *
-     * @since 1.0.13
-     */
-    private static DateTickUnitType intToUnitType(int unit) {
-        switch (unit) {
-            case YEAR: return DateTickUnitType.YEAR;
-            case MONTH: return DateTickUnitType.MONTH;
-            case DAY: return DateTickUnitType.DAY;
-            case HOUR: return DateTickUnitType.HOUR;
-            case MINUTE: return DateTickUnitType.MINUTE;
-            case SECOND: return DateTickUnitType.SECOND;
-            case MILLISECOND: return DateTickUnitType.MILLISECOND;
-            default: throw new IllegalArgumentException(
-                    "Unrecognised 'unit' value " + unit + ".");
-        }
-    }
-
-    /**
-     * Converts a unit type to the corresponding deprecated integer constant.
-     *
-     * @param unitType  the unit type (<code>null</code> not permitted).
-     *
-     * @return The int code.
-     *
-     * @since 1.0.13
-     */
-    private static int unitTypeToInt(DateTickUnitType unitType) {
-        ParamChecks.nullNotPermitted(unitType, "unitType");
-        if (unitType.equals(DateTickUnitType.YEAR)) {
-            return YEAR;
-        }
-        else if (unitType.equals(DateTickUnitType.MONTH)) {
-            return MONTH;
-        }
-        else if (unitType.equals(DateTickUnitType.DAY)) {
-            return DAY;
-        }
-        else if (unitType.equals(DateTickUnitType.HOUR)) {
-            return HOUR;
-        }
-        else if (unitType.equals(DateTickUnitType.MINUTE)) {
-            return MINUTE;
-        }
-        else if (unitType.equals(DateTickUnitType.SECOND)) {
-            return SECOND;
-        }
-        else if (unitType.equals(DateTickUnitType.MILLISECOND)) {
-            return MILLISECOND;
-        }
-        else {
-            throw new IllegalArgumentException(
-                    "The 'unitType' is not recognised");
-        }
-    }
-
-    /**
-     * A utility method to put a default in place if a null formatter is
-     * supplied.
-     *
-     * @param formatter  the formatter (<code>null</code> permitted).
-     *
-     * @return The formatter if it is not null, otherwise a default.
-     */
-    private static DateFormat notNull(DateFormat formatter) {
-        if (formatter == null) {
-            return DateFormat.getDateInstance(DateFormat.SHORT);
-        }
-        else {
-            return formatter;
-        }
-    }
-
-    /**
      * Tests this unit for equality with another object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return <code>true</code> or <code>false</code>.
      */
     @Override
@@ -469,117 +542,6 @@ public class DateTickUnit extends TickUnit implements Serializable {
     }
 
     /**
-     * A constant for years.
-     *
-     * @deprecated As of version 1.0.13, use {@link DateTickUnitType} instead.
-     */
-    public static final int YEAR = 0;
-
-    /**
-     * A constant for months.
-     *
-     * @deprecated As of version 1.0.13, use {@link DateTickUnitType} instead.
-     */
-    public static final int MONTH = 1;
-
-    /**
-     * A constant for days.
-     *
-     * @deprecated As of version 1.0.13, use {@link DateTickUnitType} instead.
-     */
-    public static final int DAY = 2;
-
-    /**
-     * A constant for hours.
-     *
-     * @deprecated As of version 1.0.13, use {@link DateTickUnitType} instead.
-     */
-    public static final int HOUR = 3;
-
-    /**
-     * A constant for minutes.
-     *
-     * @deprecated As of version 1.0.13, use {@link DateTickUnitType} instead.
-     */
-    public static final int MINUTE = 4;
-
-    /**
-     * A constant for seconds.
-     *
-     * @deprecated As of version 1.0.13, use {@link DateTickUnitType} instead.
-     */
-    public static final int SECOND = 5;
-
-    /**
-     * A constant for milliseconds.
-     *
-     * @deprecated As of version 1.0.13, use {@link DateTickUnitType} instead.
-     */
-    public static final int MILLISECOND = 6;
-
-    /**
-     * The unit.
-     *
-     * @deprecated As of version 1.0.13, use the unitType field.
-     */
-    private int unit;
-
-    /**
-     * The roll unit.
-     *
-     * @deprecated As of version 1.0.13, use the rollUnitType field.
-     */
-    private int rollUnit;
-
-    /**
-     * Creates a new date tick unit.  You can specify the units using one of
-     * the constants YEAR, MONTH, DAY, HOUR, MINUTE, SECOND or MILLISECOND.
-     * In addition, you can specify a unit count, and a date format.
-     *
-     * @param unit  the unit.
-     * @param count  the unit count.
-     * @param formatter  the date formatter (defaults to DateFormat.SHORT).
-     *
-     * @deprecated As of version 1.0.13, use {@link #DateTickUnit(
-     *     DateTickUnitType, int, DateFormat)}.
-     */
-    public DateTickUnit(int unit, int count, DateFormat formatter) {
-        this(unit, count, unit, count, formatter);
-    }
-
-    /**
-     * Creates a new date tick unit.  The dates will be formatted using a
-     * SHORT format for the default locale.
-     *
-     * @param unit  the unit.
-     * @param count  the unit count.
-     *
-     * @deprecated As of version 1.0.13, use {@link #DateTickUnit(
-     *     DateTickUnitType, int)}.
-     */
-    public DateTickUnit(int unit, int count) {
-        this(unit, count, null);
-    }
-
-    /**
-     * Creates a new unit.
-     *
-     * @param unit  the unit.
-     * @param count  the count.
-     * @param rollUnit  the roll unit.
-     * @param rollCount  the roll count.
-     * @param formatter  the date formatter (defaults to DateFormat.SHORT).
-     *
-     * @deprecated As of version 1.0.13, use {@link #DateTickUnit(
-     *     DateTickUnitType, int, DateTickUnitType, int, DateFormat)}.
-     */
-    public DateTickUnit(int unit, int count, int rollUnit, int rollCount,
-                        DateFormat formatter) {
-        this(intToUnitType(unit), count, intToUnitType(rollUnit), rollCount,
-                notNull(formatter));
-    }
-
-    /**
      * Returns the date unit.  This will be one of the constants
      * <code>YEAR</code>, <code>MONTH</code>, <code>DAY</code>,
      * <code>HOUR</code>, <code>MINUTE</code>, <code>SECOND</code> or
@@ -588,7 +550,6 @@ public class DateTickUnit extends TickUnit implements Serializable {
      * <code>Calendar</code> class.
      *
      * @return The date unit.
-     *
      * @deprecated As of 1.0.13, use the getUnitType() method.
      */
     public int getUnit() {
@@ -599,7 +560,6 @@ public class DateTickUnit extends TickUnit implements Serializable {
      * Returns the unit count.
      *
      * @return The unit count.
-     *
      * @deprecated As of version 1.0.13, use {@link #getMultiple()}.
      */
     public int getCount() {
@@ -613,7 +573,6 @@ public class DateTickUnit extends TickUnit implements Serializable {
      * tick unit might use a 1 day roll).
      *
      * @return The roll unit.
-     *
      * @deprecated As of version 1.0.13, use {@link #getRollUnitType()}.
      */
     public int getRollUnit() {
@@ -624,9 +583,7 @@ public class DateTickUnit extends TickUnit implements Serializable {
      * Returns the roll count.
      *
      * @return The roll count.
-     *
      * @deprecated As of version 1.0.13, use the {@link #getRollMultiple()}
-     *
      */
     public int getRollCount() {
         return this.rollCount;
@@ -636,14 +593,11 @@ public class DateTickUnit extends TickUnit implements Serializable {
      * Calculates a new date by adding this unit to the base date, with
      * calculations performed in the default timezone and locale.
      *
-     * @param base  the base date.
-     *
+     * @param base the base date.
      * @return A new date one unit after the base date.
-     *
      * @see #addToDate(Date, TimeZone)
-     *
      * @deprecated As of JFreeChart 1.0.10, this method is deprecated - you
-     *     should use {@link #addToDate(Date, TimeZone)} instead.
+     * should use {@link #addToDate(Date, TimeZone)} instead.
      */
     public Date addToDate(Date base) {
         return addToDate(base, TimeZone.getDefault());

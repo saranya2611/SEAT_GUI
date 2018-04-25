@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------
@@ -42,12 +42,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.TestUtilities;
 import org.jfree.chart.axis.CategoryAxis;
@@ -57,6 +51,8 @@ import org.jfree.data.Range;
 import org.jfree.data.category.DefaultIntervalCategoryDataset;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link IntervalBarRenderer} class.
@@ -128,9 +124,9 @@ public class IntervalBarRendererTest {
     @Test
     public void testDrawWithNullInfo() {
         try {
-            double[][] starts = new double[][] {{0.1, 0.2, 0.3},
+            double[][] starts = new double[][]{{0.1, 0.2, 0.3},
                     {0.3, 0.4, 0.5}};
-            double[][] ends = new double[][] {{0.5, 0.6, 0.7}, {0.7, 0.8, 0.9}};
+            double[][] ends = new double[][]{{0.5, 0.6, 0.7}, {0.7, 0.8, 0.9}};
             DefaultIntervalCategoryDataset dataset
                     = new DefaultIntervalCategoryDataset(starts, ends);
             IntervalBarRenderer renderer = new IntervalBarRenderer();
@@ -138,10 +134,10 @@ public class IntervalBarRendererTest {
                     new CategoryAxis("Category"), new NumberAxis("Value"),
                     renderer);
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             fail("No exception should be thrown.");
         }
     }
@@ -160,8 +156,8 @@ public class IntervalBarRendererTest {
                 new double[0][0]);
         assertNull(r.findRangeBounds(dataset));
 
-        double[][] starts = new double[][] {{0.1, 0.2, 0.3}, {0.3, 0.4, 0.5}};
-        double[][] ends = new double[][] {{0.5, 0.6, 0.7}, {0.7, 0.8, 0.9}};
+        double[][] starts = new double[][]{{0.1, 0.2, 0.3}, {0.3, 0.4, 0.5}};
+        double[][] ends = new double[][]{{0.5, 0.6, 0.7}, {0.7, 0.8, 0.9}};
         dataset = new DefaultIntervalCategoryDataset(starts, ends);
         assertEquals(new Range(0.0, 0.9), r.findRangeBounds(dataset));
         r.setIncludeBaseInRange(false);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -45,19 +45,7 @@
 
 package org.jfree.chart.plot;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Stroke;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.chart.event.MarkerChangeEvent;
 import org.jfree.chart.event.MarkerChangeListener;
 import org.jfree.ui.LengthAdjustmentType;
@@ -66,11 +54,16 @@ import org.jfree.ui.RectangleInsets;
 import org.jfree.ui.TextAnchor;
 import org.junit.Test;
 
+import java.awt.*;
+
+import static org.junit.Assert.*;
+
 /**
  * Tests for the {@link ValueMarker} class.
  */
 public class ValueMarkerTest implements MarkerChangeListener {
 
+    private static final double EPSILON = 0.000000001;
     MarkerChangeEvent lastEvent;
 
     /**
@@ -171,7 +164,7 @@ public class ValueMarkerTest implements MarkerChangeListener {
         assertTrue(m1.equals(m2));
     }
 
-   /**
+    /**
      * Serialize an instance, restore it, and check for equality.
      */
     @Test
@@ -180,8 +173,6 @@ public class ValueMarkerTest implements MarkerChangeListener {
         ValueMarker m2 = (ValueMarker) TestUtilities.serialised(m1);
         assertEquals(m1, m2);
     }
-
-    private static final double EPSILON = 0.000000001;
 
     /**
      * Some checks for the getValue() and setValue() methods.
@@ -200,7 +191,7 @@ public class ValueMarkerTest implements MarkerChangeListener {
     /**
      * Records the last event.
      *
-     * @param event  the last event.
+     * @param event the last event.
      */
     @Override
     public void markerChanged(MarkerChangeEvent event) {
@@ -217,8 +208,7 @@ public class ValueMarkerTest implements MarkerChangeListener {
         assertEquals(m1, m2);
         try {
             m2.setValue(-10.0);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             fail("No exception should be thrown.");
         }
     }

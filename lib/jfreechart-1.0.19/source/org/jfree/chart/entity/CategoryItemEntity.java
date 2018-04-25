@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -53,12 +53,12 @@
 
 package org.jfree.chart.entity;
 
-import java.awt.Shape;
-import java.io.Serializable;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.util.ObjectUtilities;
+
+import java.awt.*;
+import java.io.Serializable;
 
 /**
  * A chart entity that represents one item within a category plot.
@@ -66,17 +66,21 @@ import org.jfree.util.ObjectUtilities;
 public class CategoryItemEntity extends ChartEntity
         implements Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -8657249457902337349L;
 
-    /** The dataset. */
+    /**
+     * The dataset.
+     */
     private CategoryDataset dataset;
 
     /**
      * The series (zero-based index).
      *
      * @deprecated As of 1.0.6, this field is redundant as you can derive the
-     *         index from the <code>rowKey</code> field.
+     * index from the <code>rowKey</code> field.
      */
     private int series;
 
@@ -84,7 +88,7 @@ public class CategoryItemEntity extends ChartEntity
      * The category.
      *
      * @deprecated As of 1.0.6, this field is deprecated in favour of the
-     *         <code>columnKey</code> field.
+     * <code>columnKey</code> field.
      */
     private Object category;
 
@@ -92,7 +96,7 @@ public class CategoryItemEntity extends ChartEntity
      * The category index.
      *
      * @deprecated As of 1.0.6, this field is redundant as you can derive the
-     *         index from the <code>columnKey</code> field.
+     * index from the <code>columnKey</code> field.
      */
     private int categoryIndex;
 
@@ -113,16 +117,15 @@ public class CategoryItemEntity extends ChartEntity
     /**
      * Creates a new category item entity.
      *
-     * @param area  the area (<code>null</code> not permitted).
-     * @param toolTipText  the tool tip text.
-     * @param urlText  the URL text for HTML image maps.
-     * @param dataset  the dataset.
-     * @param series  the series (zero-based index).
-     * @param category  the category.
-     * @param categoryIndex  the category index.
-     *
+     * @param area          the area (<code>null</code> not permitted).
+     * @param toolTipText   the tool tip text.
+     * @param urlText       the URL text for HTML image maps.
+     * @param dataset       the dataset.
+     * @param series        the series (zero-based index).
+     * @param category      the category.
+     * @param categoryIndex the category index.
      * @deprecated As of 1.0.6, use {@link #CategoryItemEntity(Shape, String,
-     *         String, CategoryDataset, Comparable, Comparable)}.
+     * String, CategoryDataset, Comparable, Comparable)}.
      */
     public CategoryItemEntity(Shape area, String toolTipText, String urlText,
                               CategoryDataset dataset,
@@ -141,17 +144,16 @@ public class CategoryItemEntity extends ChartEntity
     /**
      * Creates a new entity instance for an item in the specified dataset.
      *
-     * @param area  the 'hotspot' area (<code>null</code> not permitted).
-     * @param toolTipText  the tool tip text.
-     * @param urlText  the URL text.
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param area        the 'hotspot' area (<code>null</code> not permitted).
+     * @param toolTipText the tool tip text.
+     * @param urlText     the URL text.
+     * @param dataset     the dataset (<code>null</code> not permitted).
+     * @param rowKey      the row key (<code>null</code> not permitted).
+     * @param columnKey   the column key (<code>null</code> not permitted).
      * @since 1.0.6
      */
     public CategoryItemEntity(Shape area, String toolTipText, String urlText,
-            CategoryDataset dataset, Comparable rowKey, Comparable columnKey) {
+                              CategoryDataset dataset, Comparable rowKey, Comparable columnKey) {
         super(area, toolTipText, urlText);
         ParamChecks.nullNotPermitted(dataset, "dataset");
         this.dataset = dataset;
@@ -170,7 +172,6 @@ public class CategoryItemEntity extends ChartEntity
      * dataset.
      *
      * @return The dataset (never <code>null</code>).
-     *
      * @see #setDataset(CategoryDataset)
      */
     public CategoryDataset getDataset() {
@@ -180,8 +181,7 @@ public class CategoryItemEntity extends ChartEntity
     /**
      * Sets the dataset this entity refers to.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     *
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @see #getDataset()
      */
     public void setDataset(CategoryDataset dataset) {
@@ -193,10 +193,8 @@ public class CategoryItemEntity extends ChartEntity
      * Returns the row key.
      *
      * @return The row key (never <code>null</code>).
-     *
-     * @since 1.0.6
-     *
      * @see #setRowKey(Comparable)
+     * @since 1.0.6
      */
     public Comparable getRowKey() {
         return this.rowKey;
@@ -205,11 +203,9 @@ public class CategoryItemEntity extends ChartEntity
     /**
      * Sets the row key.
      *
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     *
-     * @since 1.0.6
-     *
+     * @param rowKey the row key (<code>null</code> not permitted).
      * @see #getRowKey()
+     * @since 1.0.6
      */
     public void setRowKey(Comparable rowKey) {
         this.rowKey = rowKey;
@@ -221,10 +217,8 @@ public class CategoryItemEntity extends ChartEntity
      * Returns the column key.
      *
      * @return The column key (never <code>null</code>).
-     *
-     * @since 1.0.6
-     *
      * @see #setColumnKey(Comparable)
+     * @since 1.0.6
      */
     public Comparable getColumnKey() {
         return this.columnKey;
@@ -233,11 +227,9 @@ public class CategoryItemEntity extends ChartEntity
     /**
      * Sets the column key.
      *
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
-     * @since 1.0.6
-     *
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @see #getColumnKey()
+     * @since 1.0.6
      */
     public void setColumnKey(Comparable columnKey) {
         this.columnKey = columnKey;
@@ -250,11 +242,9 @@ public class CategoryItemEntity extends ChartEntity
      * Returns the series index.
      *
      * @return The series index.
-     *
      * @see #setSeries(int)
-     *
      * @deprecated As of 1.0.6, you can derive this information from the
-     *         {@link #getRowKey()} method.
+     * {@link #getRowKey()} method.
      */
     public int getSeries() {
         return this.series;
@@ -263,12 +253,10 @@ public class CategoryItemEntity extends ChartEntity
     /**
      * Sets the series index.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @see #getSeries()
-     *
      * @deprecated As of 1.0.6, you should use {@link #setRowKey(Comparable)}
-     *         to designate the series.
+     * to designate the series.
      */
     public void setSeries(int series) {
         this.series = series;
@@ -278,12 +266,10 @@ public class CategoryItemEntity extends ChartEntity
      * Returns the category.
      *
      * @return The category (possibly <code>null</code>).
-     *
      * @see #setCategory(Object)
-     *
      * @deprecated The return type for this method should be
-     *         <code>Comparable</code>, so it has been deprecated as of
-     *         version 1.0.6 and replaced by {@link #getColumnKey()}.
+     * <code>Comparable</code>, so it has been deprecated as of
+     * version 1.0.6 and replaced by {@link #getColumnKey()}.
      */
     public Object getCategory() {
         return this.category;
@@ -292,10 +278,8 @@ public class CategoryItemEntity extends ChartEntity
     /**
      * Sets the category.
      *
-     * @param category  the category (<code>null</code> permitted).
-     *
+     * @param category the category (<code>null</code> permitted).
      * @see #getCategory()
-     *
      * @deprecated As of version 1.0.6, use {@link #setColumnKey(Comparable)}.
      */
     public void setCategory(Object category) {
@@ -306,11 +290,9 @@ public class CategoryItemEntity extends ChartEntity
      * Returns the category index.
      *
      * @return The index.
-     *
      * @see #setCategoryIndex(int)
-     *
      * @deprecated As of 1.0.6, you can derive this information from the
-     *         {@link #getColumnKey()} method.
+     * {@link #getColumnKey()} method.
      */
     public int getCategoryIndex() {
         return this.categoryIndex;
@@ -319,12 +301,10 @@ public class CategoryItemEntity extends ChartEntity
     /**
      * Sets the category index.
      *
-     * @param index  the category index.
-     *
+     * @param index the category index.
      * @see #getCategoryIndex()
-     *
      * @deprecated As of 1.0.6, use {@link #setColumnKey(Comparable)} to
-     *         designate the category.
+     * designate the category.
      */
     public void setCategoryIndex(int index) {
         this.categoryIndex = index;
@@ -339,14 +319,13 @@ public class CategoryItemEntity extends ChartEntity
     @Override
     public String toString() {
         return "CategoryItemEntity: rowKey=" + this.rowKey
-               + ", columnKey=" + this.columnKey + ", dataset=" + this.dataset;
+                + ", columnKey=" + this.columnKey + ", dataset=" + this.dataset;
     }
 
     /**
      * Tests the entity for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------------------
@@ -44,28 +44,32 @@
 
 package org.jfree.chart.labels;
 
-import java.io.Serializable;
-import java.text.MessageFormat;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.text.MessageFormat;
 
 /**
  * A standard series label generator for plots that use data from
  * a {@link org.jfree.data.category.CategoryDataset}.
  */
 public class StandardCategorySeriesLabelGenerator implements
-    CategorySeriesLabelGenerator, Cloneable, PublicCloneable, Serializable {
+        CategorySeriesLabelGenerator, Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 4630760091523940820L;
-
-    /** The default item label format. */
+    /**
+     * The default item label format.
+     */
     public static final String DEFAULT_LABEL_FORMAT = "{0}";
-
-    /** The format pattern. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 4630760091523940820L;
+    /**
+     * The format pattern.
+     */
     private String formatPattern;
 
     /**
@@ -79,7 +83,7 @@ public class StandardCategorySeriesLabelGenerator implements
     /**
      * Creates a new series label generator.
      *
-     * @param format  the format pattern (<code>null</code> not permitted).
+     * @param format the format pattern (<code>null</code> not permitted).
      */
     public StandardCategorySeriesLabelGenerator(String format) {
         ParamChecks.nullNotPermitted(format, "format");
@@ -89,9 +93,8 @@ public class StandardCategorySeriesLabelGenerator implements
     /**
      * Generates a label for the specified series.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series.
-     *
      * @return A series label.
      */
     @Override
@@ -106,9 +109,8 @@ public class StandardCategorySeriesLabelGenerator implements
      * Creates the array of items that can be passed to the
      * {@link MessageFormat} class for creating labels.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series (zero-based index).
-     *
      * @return The items (never <code>null</code>).
      */
     protected Object[] createItemArray(CategoryDataset dataset, int series) {
@@ -121,7 +123,6 @@ public class StandardCategorySeriesLabelGenerator implements
      * Returns an independent copy of the generator.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if cloning is not supported.
      */
     @Override
@@ -132,8 +133,7 @@ public class StandardCategorySeriesLabelGenerator implements
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the other object (<code>null</code> permitted).
-     *
+     * @param obj the other object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

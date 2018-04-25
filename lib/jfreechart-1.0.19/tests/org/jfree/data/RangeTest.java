@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -38,23 +38,22 @@
  * 18-Dec-2007 : Additional tests from Sergei Ivanov (DG);
  * 08-Jan-2012 : Added test for combine() method (DG);
  * 23-Feb-2014 : Added isNaNRange() test (DG);
- * 
+ *
  */
 
 package org.jfree.data;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link Range} class.
  */
 public class RangeTest {
+
+    private static final double EPSILON = 0.0000000001;
 
     /**
      * Confirm that the constructor initializes all the required fields.
@@ -66,10 +65,10 @@ public class RangeTest {
         assertEquals(r1.getUpperBound(), 1000.0, 0.0d);
 
         try {
-            /*Range r2 =*/ new Range(10.0, 0.0);
+            /*Range r2 =*/
+            new Range(10.0, 0.0);
             fail("Lower bound cannot be greater than the upper");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // expected
         }
     }
@@ -196,8 +195,7 @@ public class RangeTest {
         try {
             Range.expand(null, 0.1, 0.1);
             fail("Null value is accepted");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
 
         // Lower > upper: mid point is used
@@ -248,8 +246,7 @@ public class RangeTest {
         try {
             Range.shift(null, 0.1);
             fail("Null value is accepted");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -275,15 +272,13 @@ public class RangeTest {
         try {
             Range.scale(null, 0.1);
             fail("Null value is accepted");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
 
         try {
             Range.scale(r1, -0.5);
             fail("Negative factor accepted");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -296,8 +291,6 @@ public class RangeTest {
         Range r2 = (Range) TestUtilities.serialised(r1);
         assertEquals(r1, r2);
     }
-
-    private static final double EPSILON = 0.0000000001;
 
     /**
      * Some checks for the combine method.
@@ -346,7 +339,7 @@ public class RangeTest {
         assertEquals(1.0, rr.getLowerBound(), EPSILON);
         assertEquals(2.0, rr.getUpperBound(), EPSILON);
     }
-    
+
     @Test
     public void testIsNaNRange() {
         assertTrue(new Range(Double.NaN, Double.NaN).isNaNRange());

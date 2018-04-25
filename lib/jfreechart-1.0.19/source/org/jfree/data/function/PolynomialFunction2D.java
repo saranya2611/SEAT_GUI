@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -42,10 +42,11 @@
 
 package org.jfree.data.function;
 
-import java.io.Serializable;
-import java.util.Arrays;
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.util.ParamChecks;
+
+import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * A function in the form <code>y = a0 + a1 * x + a2 * x^2 + ... + an *
@@ -55,15 +56,17 @@ import org.jfree.chart.util.ParamChecks;
  */
 public class PolynomialFunction2D implements Function2D, Serializable {
 
-    /** The coefficients. */
+    /**
+     * The coefficients.
+     */
     private double[] coefficients;
 
     /**
      * Constructs a new polynomial function <code>y = a0 + a1 * x + a2 * x^2 +
      * ... + an * x^n</code>
      *
-     * @param coefficients  an array with the coefficients [a0, a1, ..., an]
-     *         (<code>null</code> not permitted).
+     * @param coefficients an array with the coefficients [a0, a1, ..., an]
+     *                     (<code>null</code> not permitted).
      */
     public PolynomialFunction2D(double[] coefficients) {
         ParamChecks.nullNotPermitted(coefficients, "coefficients");
@@ -92,14 +95,13 @@ public class PolynomialFunction2D implements Function2D, Serializable {
     /**
      * Returns the function value.
      *
-     * @param x  the x-value.
-     *
+     * @param x the x-value.
      * @return The value.
      */
     @Override
     public double getValue(double x) {
         double y = 0;
-        for(int i = 0; i < coefficients.length; i++){
+        for (int i = 0; i < coefficients.length; i++) {
             y += coefficients[i] * Math.pow(x, i);
         }
         return y;
@@ -108,8 +110,7 @@ public class PolynomialFunction2D implements Function2D, Serializable {
     /**
      * Tests this function for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

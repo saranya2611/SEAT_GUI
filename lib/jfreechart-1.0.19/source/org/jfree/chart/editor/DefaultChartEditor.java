@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -43,22 +43,6 @@
 
 package org.jfree.chart.editor;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Paint;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ResourceBundle;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PolarPlot;
@@ -67,37 +51,47 @@ import org.jfree.chart.util.ResourceBundleWrapper;
 import org.jfree.layout.LCBLayout;
 import org.jfree.ui.PaintSample;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
+
 /**
  * A panel for editing chart properties (includes subpanels for the title,
  * legend and plot).
  */
 class DefaultChartEditor extends JPanel implements ActionListener, ChartEditor {
 
-    /** A panel for displaying/editing the properties of the title. */
+    /**
+     * The resourceBundle for the localization.
+     */
+    protected static ResourceBundle localizationResources
+            = ResourceBundleWrapper.getBundle(
+            "org.jfree.chart.editor.LocalizationBundle");
+    /**
+     * A panel for displaying/editing the properties of the title.
+     */
     private DefaultTitleEditor titleEditor;
-
-    /** A panel for displaying/editing the properties of the plot. */
+    /**
+     * A panel for displaying/editing the properties of the plot.
+     */
     private DefaultPlotEditor plotEditor;
-
     /**
      * A checkbox indicating whether or not the chart is drawn with
      * anti-aliasing.
      */
     private JCheckBox antialias;
-
-    /** The chart background color. */
+    /**
+     * The chart background color.
+     */
     private PaintSample background;
-
-    /** The resourceBundle for the localization. */
-    protected static ResourceBundle localizationResources
-            = ResourceBundleWrapper.getBundle(
-                    "org.jfree.chart.editor.LocalizationBundle");
 
     /**
      * Standard constructor - the property panel is made up of a number of
      * sub-panels that are displayed in the tabbed pane.
      *
-     * @param chart  the chart, whichs properties should be changed.
+     * @param chart the chart, whichs properties should be changed.
      */
     public DefaultChartEditor(JFreeChart chart) {
         setLayout(new BorderLayout());
@@ -107,8 +101,8 @@ class DefaultChartEditor extends JPanel implements ActionListener, ChartEditor {
 
         JPanel general = new JPanel(new BorderLayout());
         general.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createEtchedBorder(),
-            localizationResources.getString("General")));
+                BorderFactory.createEtchedBorder(),
+                localizationResources.getString("General")));
 
         JPanel interior = new JPanel(new LCBLayout(6));
         interior.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
@@ -185,8 +179,7 @@ class DefaultChartEditor extends JPanel implements ActionListener, ChartEditor {
 
         if (plot instanceof PolarPlot) {
             this.plotEditor = new DefaultPolarPlotEditor((PolarPlot) plot);
-        }
-        else {
+        } else {
             this.plotEditor = new DefaultPlotEditor(plot);
         }
         this.plotEditor.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
@@ -203,7 +196,7 @@ class DefaultChartEditor extends JPanel implements ActionListener, ChartEditor {
      * @return A panel for editing the title.
      */
     public DefaultTitleEditor getTitleEditor() {
-      return this.titleEditor;
+        return this.titleEditor;
     }
 
     /**
@@ -236,7 +229,7 @@ class DefaultChartEditor extends JPanel implements ActionListener, ChartEditor {
     /**
      * Handles user interactions with the panel.
      *
-     * @param event  a BackgroundPaint action.
+     * @param event a BackgroundPaint action.
      */
     @Override
     public void actionPerformed(ActionEvent event) {
@@ -264,7 +257,7 @@ class DefaultChartEditor extends JPanel implements ActionListener, ChartEditor {
      * Updates the properties of a chart to match the properties defined on the
      * panel.
      *
-     * @param chart  the chart.
+     * @param chart the chart.
      */
     @Override
     public void updateChart(JFreeChart chart) {

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -70,9 +70,8 @@ public interface SeriesDataset extends Dataset {
     /**
      * Returns the key for a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
      * @return The key for the series.
      */
     public Comparable getSeriesKey(int series);
@@ -81,8 +80,7 @@ public interface SeriesDataset extends Dataset {
      * Returns the index of the series with the specified key, or -1 if there
      * is no such series in the dataset.
      *
-     * @param seriesKey  the series key (<code>null</code> permitted).
-     *
+     * @param seriesKey the series key (<code>null</code> permitted).
      * @return The index, or -1.
      */
     public int indexOf(Comparable seriesKey);

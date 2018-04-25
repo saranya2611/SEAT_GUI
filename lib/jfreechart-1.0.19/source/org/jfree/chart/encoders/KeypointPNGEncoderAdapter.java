@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------
@@ -42,12 +42,12 @@
 
 package org.jfree.chart.encoders;
 
+import com.keypoint.PngEncoder;
+import org.jfree.chart.util.ParamChecks;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
-
-import com.keypoint.PngEncoder;
-import org.jfree.chart.util.ParamChecks;
 
 /**
  * Adapter class for the Keypoint PNG Encoder.  The ImageEncoderFactory will
@@ -56,10 +56,14 @@ import org.jfree.chart.util.ParamChecks;
  */
 public class KeypointPNGEncoderAdapter implements ImageEncoder {
 
-    /** The quality setting. */
+    /**
+     * The quality setting.
+     */
     private int quality = 9;
 
-    /** Encode alpha? */
+    /**
+     * Encode alpha?
+     */
     private boolean encodingAlpha = false;
 
     /**
@@ -80,7 +84,7 @@ public class KeypointPNGEncoderAdapter implements ImageEncoder {
      * for various levels of compression (1 is best speed, 9 is best
      * compression).
      *
-     * @param quality  A float representing the quality.
+     * @param quality A float representing the quality.
      */
     @Override
     public void setQuality(float quality) {
@@ -100,8 +104,8 @@ public class KeypointPNGEncoderAdapter implements ImageEncoder {
     /**
      * Set whether the encoder should encode alpha transparency (supported).
      *
-     * @param encodingAlpha  Whether the encoder should encode alpha
-     *                       transparency.
+     * @param encodingAlpha Whether the encoder should encode alpha
+     *                      transparency.
      */
     @Override
     public void setEncodingAlpha(boolean encodingAlpha) {
@@ -111,7 +115,7 @@ public class KeypointPNGEncoderAdapter implements ImageEncoder {
     /**
      * Encodes an image in PNG format.
      *
-     * @param bufferedImage  The image to be encoded.
+     * @param bufferedImage The image to be encoded.
      * @return The byte[] that is the encoded image.
      * @throws IOException if there is an IO problem.
      */
@@ -127,13 +131,13 @@ public class KeypointPNGEncoderAdapter implements ImageEncoder {
      * Encodes an image in PNG format and writes it to an
      * <code>OutputStream</code>.
      *
-     * @param bufferedImage  The image to be encoded.
+     * @param bufferedImage The image to be encoded.
      * @param outputStream  The OutputStream to write the encoded image to.
      * @throws IOException if there is an IO problem.
      */
     @Override
     public void encode(BufferedImage bufferedImage, OutputStream outputStream)
-        throws IOException {
+            throws IOException {
         ParamChecks.nullNotPermitted(bufferedImage, "bufferedImage");
         ParamChecks.nullNotPermitted(outputStream, "outputStream");
         PngEncoder encoder = new PngEncoder(bufferedImage, this.encodingAlpha,

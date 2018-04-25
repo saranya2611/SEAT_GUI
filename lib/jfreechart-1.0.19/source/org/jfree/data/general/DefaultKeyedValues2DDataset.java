@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------------
@@ -42,18 +42,19 @@
 
 package org.jfree.data.general;
 
-import java.io.Serializable;
-
 import org.jfree.data.category.DefaultCategoryDataset;
+
+import java.io.Serializable;
 
 /**
  * A default implementation of the {@link KeyedValues2DDataset} interface.
- *
  */
 public class DefaultKeyedValues2DDataset extends DefaultCategoryDataset
         implements KeyedValues2DDataset, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 4288210771905990424L;
 
     // no new methods

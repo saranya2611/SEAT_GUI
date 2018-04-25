@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -46,26 +46,18 @@
 
 package org.jfree.chart.plot.dial;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.Arc2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.io.SerialUtilities;
 import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
+import java.awt.geom.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * A base class for the pointer in a {@link DialPlot}.
@@ -75,7 +67,9 @@ import org.jfree.util.PublicCloneable;
 public abstract class DialPointer extends AbstractDialLayer
         implements DialLayer, Cloneable, PublicCloneable, Serializable {
 
-    /** The needle radius. */
+    /**
+     * The needle radius.
+     */
     double radius;
 
     /**
@@ -93,7 +87,7 @@ public abstract class DialPointer extends AbstractDialLayer
     /**
      * Creates a new pointer for the specified dataset.
      *
-     * @param datasetIndex  the dataset index.
+     * @param datasetIndex the dataset index.
      */
     protected DialPointer(int datasetIndex) {
         this.radius = 0.9;
@@ -104,7 +98,6 @@ public abstract class DialPointer extends AbstractDialLayer
      * Returns the dataset index that the pointer maps to.
      *
      * @return The dataset index.
-     *
      * @see #getDatasetIndex()
      */
     public int getDatasetIndex() {
@@ -115,8 +108,7 @@ public abstract class DialPointer extends AbstractDialLayer
      * Sets the dataset index for the pointer and sends a
      * {@link DialLayerChangeEvent} to all registered listeners.
      *
-     * @param index  the index.
-     *
+     * @param index the index.
      * @see #getDatasetIndex()
      */
     public void setDatasetIndex(int index) {
@@ -129,7 +121,6 @@ public abstract class DialPointer extends AbstractDialLayer
      * framing rectangle.
      *
      * @return The radius.
-     *
      * @see #setRadius(double)
      */
     public double getRadius() {
@@ -140,8 +131,7 @@ public abstract class DialPointer extends AbstractDialLayer
      * Sets the radius of the pointer and sends a
      * {@link DialLayerChangeEvent} to all registered listeners.
      *
-     * @param radius  the radius.
-     *
+     * @param radius the radius.
      * @see #getRadius()
      */
     public void setRadius(double radius) {
@@ -163,8 +153,7 @@ public abstract class DialPointer extends AbstractDialLayer
     /**
      * Checks this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> not permitted).
-     *
+     * @param obj the object (<code>null</code> not permitted).
      * @return A boolean.
      */
     @Override
@@ -201,9 +190,8 @@ public abstract class DialPointer extends AbstractDialLayer
      * Returns a clone of the pointer.
      *
      * @return a clone.
-     *
      * @throws CloneNotSupportedException if one of the attributes cannot
-     *     be cloned.
+     *                                    be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -215,13 +203,19 @@ public abstract class DialPointer extends AbstractDialLayer
      */
     public static class Pin extends DialPointer {
 
-        /** For serialization. */
+        /**
+         * For serialization.
+         */
         static final long serialVersionUID = -8445860485367689750L;
 
-        /** The paint. */
+        /**
+         * The paint.
+         */
         private transient Paint paint;
 
-        /** The stroke. */
+        /**
+         * The stroke.
+         */
         private transient Stroke stroke;
 
         /**
@@ -234,7 +228,7 @@ public abstract class DialPointer extends AbstractDialLayer
         /**
          * Creates a new instance.
          *
-         * @param datasetIndex  the dataset index.
+         * @param datasetIndex the dataset index.
          */
         public Pin(int datasetIndex) {
             super(datasetIndex);
@@ -247,7 +241,6 @@ public abstract class DialPointer extends AbstractDialLayer
          * Returns the paint.
          *
          * @return The paint (never <code>null</code>).
-         *
          * @see #setPaint(Paint)
          */
         public Paint getPaint() {
@@ -258,8 +251,7 @@ public abstract class DialPointer extends AbstractDialLayer
          * Sets the paint and sends a {@link DialLayerChangeEvent} to all
          * registered listeners.
          *
-         * @param paint  the paint (<code>null</code> not permitted).
-         *
+         * @param paint the paint (<code>null</code> not permitted).
          * @see #getPaint()
          */
         public void setPaint(Paint paint) {
@@ -272,7 +264,6 @@ public abstract class DialPointer extends AbstractDialLayer
          * Returns the stroke.
          *
          * @return The stroke (never <code>null</code>).
-         *
          * @see #setStroke(Stroke)
          */
         public Stroke getStroke() {
@@ -283,8 +274,7 @@ public abstract class DialPointer extends AbstractDialLayer
          * Sets the stroke and sends a {@link DialLayerChangeEvent} to all
          * registered listeners.
          *
-         * @param stroke  the stroke (<code>null</code> not permitted).
-         *
+         * @param stroke the stroke (<code>null</code> not permitted).
          * @see #getStroke()
          */
         public void setStroke(Stroke stroke) {
@@ -296,14 +286,14 @@ public abstract class DialPointer extends AbstractDialLayer
         /**
          * Draws the pointer.
          *
-         * @param g2  the graphics target.
+         * @param g2    the graphics target.
          * @param plot  the plot.
-         * @param frame  the dial's reference frame.
+         * @param frame the dial's reference frame.
          * @param view  the dial's view.
          */
         @Override
         public void draw(Graphics2D g2, DialPlot plot, Rectangle2D frame,
-            Rectangle2D view) {
+                         Rectangle2D view) {
 
             g2.setPaint(this.paint);
             g2.setStroke(this.stroke);
@@ -325,8 +315,7 @@ public abstract class DialPointer extends AbstractDialLayer
         /**
          * Tests this pointer for equality with an arbitrary object.
          *
-         * @param obj  the object (<code>null</code> permitted).
-         *
+         * @param obj the object (<code>null</code> permitted).
          * @return A boolean.
          */
         @Override
@@ -363,9 +352,8 @@ public abstract class DialPointer extends AbstractDialLayer
         /**
          * Provides serialization support.
          *
-         * @param stream  the output stream.
-         *
-         * @throws IOException  if there is an I/O error.
+         * @param stream the output stream.
+         * @throws IOException if there is an I/O error.
          */
         private void writeObject(ObjectOutputStream stream) throws IOException {
             stream.defaultWriteObject();
@@ -376,10 +364,9 @@ public abstract class DialPointer extends AbstractDialLayer
         /**
          * Provides serialization support.
          *
-         * @param stream  the input stream.
-         *
-         * @throws IOException  if there is an I/O error.
-         * @throws ClassNotFoundException  if there is a classpath problem.
+         * @param stream the input stream.
+         * @throws IOException            if there is an I/O error.
+         * @throws ClassNotFoundException if there is a classpath problem.
          */
         private void readObject(ObjectInputStream stream)
                 throws IOException, ClassNotFoundException {
@@ -395,7 +382,9 @@ public abstract class DialPointer extends AbstractDialLayer
      */
     public static class Pointer extends DialPointer {
 
-        /** For serialization. */
+        /**
+         * For serialization.
+         */
         static final long serialVersionUID = -4180500011963176960L;
 
         /**
@@ -427,7 +416,7 @@ public abstract class DialPointer extends AbstractDialLayer
         /**
          * Creates a new instance.
          *
-         * @param datasetIndex  the dataset index.
+         * @param datasetIndex the dataset index.
          */
         public Pointer(int datasetIndex) {
             super(datasetIndex);
@@ -440,7 +429,6 @@ public abstract class DialPointer extends AbstractDialLayer
          * Returns the width radius.
          *
          * @return The width radius.
-         *
          * @see #setWidthRadius(double)
          */
         public double getWidthRadius() {
@@ -451,8 +439,7 @@ public abstract class DialPointer extends AbstractDialLayer
          * Sets the width radius and sends a {@link DialLayerChangeEvent} to
          * all registered listeners.
          *
-         * @param radius  the radius
-         *
+         * @param radius the radius
          * @see #getWidthRadius()
          */
         public void setWidthRadius(double radius) {
@@ -464,9 +451,7 @@ public abstract class DialPointer extends AbstractDialLayer
          * Returns the fill paint.
          *
          * @return The paint (never <code>null</code>).
-         *
          * @see #setFillPaint(Paint)
-         *
          * @since 1.0.8
          */
         public Paint getFillPaint() {
@@ -477,10 +462,8 @@ public abstract class DialPointer extends AbstractDialLayer
          * Sets the fill paint and sends a {@link DialLayerChangeEvent} to all
          * registered listeners.
          *
-         * @param paint  the paint (<code>null</code> not permitted).
-         *
+         * @param paint the paint (<code>null</code> not permitted).
          * @see #getFillPaint()
-         *
          * @since 1.0.8
          */
         public void setFillPaint(Paint paint) {
@@ -493,9 +476,7 @@ public abstract class DialPointer extends AbstractDialLayer
          * Returns the outline paint.
          *
          * @return The paint (never <code>null</code>).
-         *
          * @see #setOutlinePaint(Paint)
-         *
          * @since 1.0.8
          */
         public Paint getOutlinePaint() {
@@ -506,10 +487,8 @@ public abstract class DialPointer extends AbstractDialLayer
          * Sets the outline paint and sends a {@link DialLayerChangeEvent} to
          * all registered listeners.
          *
-         * @param paint  the paint (<code>null</code> not permitted).
-         *
+         * @param paint the paint (<code>null</code> not permitted).
          * @see #getOutlinePaint()
-         *
          * @since 1.0.8
          */
         public void setOutlinePaint(Paint paint) {
@@ -521,14 +500,14 @@ public abstract class DialPointer extends AbstractDialLayer
         /**
          * Draws the pointer.
          *
-         * @param g2  the graphics target.
+         * @param g2    the graphics target.
          * @param plot  the plot.
-         * @param frame  the dial's reference frame.
+         * @param frame the dial's reference frame.
          * @param view  the dial's view.
          */
         @Override
         public void draw(Graphics2D g2, DialPlot plot, Rectangle2D frame,
-                Rectangle2D view) {
+                         Rectangle2D view) {
 
             g2.setPaint(Color.blue);
             g2.setStroke(new BasicStroke(1.0f));
@@ -583,8 +562,7 @@ public abstract class DialPointer extends AbstractDialLayer
         /**
          * Tests this pointer for equality with an arbitrary object.
          *
-         * @param obj  the object (<code>null</code> permitted).
-         *
+         * @param obj the object (<code>null</code> permitted).
          * @return A boolean.
          */
         @Override
@@ -626,9 +604,8 @@ public abstract class DialPointer extends AbstractDialLayer
         /**
          * Provides serialization support.
          *
-         * @param stream  the output stream.
-         *
-         * @throws IOException  if there is an I/O error.
+         * @param stream the output stream.
+         * @throws IOException if there is an I/O error.
          */
         private void writeObject(ObjectOutputStream stream) throws IOException {
             stream.defaultWriteObject();
@@ -639,10 +616,9 @@ public abstract class DialPointer extends AbstractDialLayer
         /**
          * Provides serialization support.
          *
-         * @param stream  the input stream.
-         *
-         * @throws IOException  if there is an I/O error.
-         * @throws ClassNotFoundException  if there is a classpath problem.
+         * @param stream the input stream.
+         * @throws IOException            if there is an I/O error.
+         * @throws ClassNotFoundException if there is a classpath problem.
          */
         private void readObject(ObjectInputStream stream)
                 throws IOException, ClassNotFoundException {

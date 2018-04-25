@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -49,12 +49,9 @@
 
 package org.jfree.data.statistics;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 import org.jfree.chart.util.ParamChecks;
+
+import java.util.*;
 
 /**
  * A utility class that provides some common statistical functions.
@@ -65,8 +62,7 @@ public abstract class Statistics {
      * Returns the mean of an array of numbers.  This is equivalent to calling
      * {@code calculateMean(values, true)}.
      *
-     * @param values  the values ({@code null} not permitted).
-     *
+     * @param values the values ({@code null} not permitted).
      * @return The mean.
      */
     public static double calculateMean(Number[] values) {
@@ -76,18 +72,16 @@ public abstract class Statistics {
     /**
      * Returns the mean of an array of numbers.
      *
-     * @param values  the values ({@code null} not permitted).
-     * @param includeNullAndNaN  a flag that controls whether or not
-     *     {@code null} and {@code Double.NaN} values are included
-     *     in the calculation (if either is present in the array, the result is
-     *     {@link Double#NaN}).
-     *
+     * @param values            the values ({@code null} not permitted).
+     * @param includeNullAndNaN a flag that controls whether or not
+     *                          {@code null} and {@code Double.NaN} values are included
+     *                          in the calculation (if either is present in the array, the result is
+     *                          {@link Double#NaN}).
      * @return The mean.
-     *
      * @since 1.0.3
      */
     public static double calculateMean(Number[] values,
-            boolean includeNullAndNaN) {
+                                       boolean includeNullAndNaN) {
 
         ParamChecks.nullNotPermitted(values, "values");
         double sum = 0.0;
@@ -97,8 +91,7 @@ public abstract class Statistics {
             // treat nulls the same as NaNs
             if (values[i] != null) {
                 current = values[i].doubleValue();
-            }
-            else {
+            } else {
                 current = Double.NaN;
             }
             // calculate the sum and count
@@ -114,8 +107,7 @@ public abstract class Statistics {
     /**
      * Returns the mean of a collection of {@code Number} objects.
      *
-     * @param values  the values ({@code null} not permitted).
-     *
+     * @param values the values ({@code null} not permitted).
      * @return The mean.
      */
     public static double calculateMean(Collection values) {
@@ -125,18 +117,16 @@ public abstract class Statistics {
     /**
      * Returns the mean of a collection of {@code Number} objects.
      *
-     * @param values  the values ({@code null} not permitted).
-     * @param includeNullAndNaN  a flag that controls whether or not
-     *     {@code null} and {@code Double.NaN} values are included
-     *     in the calculation (if either is present in the array, the result is
-     *     {@link Double#NaN}).
-     *
+     * @param values            the values ({@code null} not permitted).
+     * @param includeNullAndNaN a flag that controls whether or not
+     *                          {@code null} and {@code Double.NaN} values are included
+     *                          in the calculation (if either is present in the array, the result is
+     *                          {@link Double#NaN}).
      * @return The mean.
-     *
      * @since 1.0.3
      */
     public static double calculateMean(Collection values,
-            boolean includeNullAndNaN) {
+                                       boolean includeNullAndNaN) {
 
         ParamChecks.nullNotPermitted(values, "values");
         int count = 0;
@@ -148,8 +138,7 @@ public abstract class Statistics {
                 if (includeNullAndNaN) {
                     return Double.NaN;
                 }
-            }
-            else {
+            } else {
                 if (object instanceof Number) {
                     Number number = (Number) object;
                     double value = number.doubleValue();
@@ -157,8 +146,7 @@ public abstract class Statistics {
                         if (includeNullAndNaN) {
                             return Double.NaN;
                         }
-                    }
-                    else {
+                    } else {
                         total = total + number.doubleValue();
                         count = count + 1;
                     }
@@ -175,8 +163,7 @@ public abstract class Statistics {
      * is already sorted), use the {@link #calculateMedian(List, boolean)}
      * method.
      *
-     * @param values  the values ({@code null} permitted).
-     *
+     * @param values the values ({@code null} permitted).
      * @return The median.
      */
     public static double calculateMedian(List values) {
@@ -188,10 +175,9 @@ public abstract class Statistics {
      * If {@code copyAndSort} is {@code false}, the list is assumed
      * to be presorted in ascending order by value.
      *
-     * @param values  the values ({@code null} permitted).
-     * @param copyAndSort  a flag that controls whether the list of values is
-     *                     copied and sorted.
-     *
+     * @param values      the values ({@code null} permitted).
+     * @param copyAndSort a flag that controls whether the list of values is
+     *                    copied and sorted.
      * @return The median.
      */
     public static double calculateMedian(List values, boolean copyAndSort) {
@@ -213,17 +199,15 @@ public abstract class Statistics {
                     if (count > 1) {
                         Number value = (Number) values.get((count - 1) / 2);
                         result = value.doubleValue();
-                    }
-                    else {
+                    } else {
                         Number value = (Number) values.get(0);
                         result = value.doubleValue();
                     }
-                }
-                else {
+                } else {
                     Number value1 = (Number) values.get(count / 2 - 1);
                     Number value2 = (Number) values.get(count / 2);
                     result = (value1.doubleValue() + value2.doubleValue())
-                             / 2.0;
+                            / 2.0;
                 }
             }
         }
@@ -234,10 +218,9 @@ public abstract class Statistics {
      * Calculates the median for a sublist within a list of values
      * ({@code Number} objects).
      *
-     * @param values  the values, in any order ({@code null} not permitted).
+     * @param values the values, in any order ({@code null} not permitted).
      * @param start  the start index.
-     * @param end  the end index.
-     *
+     * @param end    the end index.
      * @return The median.
      */
     public static double calculateMedian(List values, int start, int end) {
@@ -249,12 +232,11 @@ public abstract class Statistics {
      * ({@code Number} objects).  The entire list will be sorted if the
      * {@code ascending} argument is {@code false}.
      *
-     * @param values  the values ({@code null} not permitted).
-     * @param start  the start index.
-     * @param end  the end index.
-     * @param copyAndSort  a flag that that controls whether the list of values
-     *                     is copied and sorted.
-     *
+     * @param values      the values ({@code null} not permitted).
+     * @param start       the start index.
+     * @param end         the end index.
+     * @param copyAndSort a flag that that controls whether the list of values
+     *                    is copied and sorted.
      * @return The median.
      */
     public static double calculateMedian(List values, int start, int end,
@@ -268,26 +250,23 @@ public abstract class Statistics {
             }
             Collections.sort(working);
             result = calculateMedian(working, false);
-        }
-        else {
+        } else {
             int count = end - start + 1;
             if (count > 0) {
                 if (count % 2 == 1) {
                     if (count > 1) {
                         Number value
-                            = (Number) values.get(start + (count - 1) / 2);
+                                = (Number) values.get(start + (count - 1) / 2);
                         result = value.doubleValue();
-                    }
-                    else {
+                    } else {
                         Number value = (Number) values.get(start);
                         result = value.doubleValue();
                     }
-                }
-                else {
+                } else {
                     Number value1 = (Number) values.get(start + count / 2 - 1);
                     Number value2 = (Number) values.get(start + count / 2);
                     result
-                        = (value1.doubleValue() + value2.doubleValue()) / 2.0;
+                            = (value1.doubleValue() + value2.doubleValue()) / 2.0;
                 }
             }
         }
@@ -298,9 +277,8 @@ public abstract class Statistics {
     /**
      * Returns the standard deviation of a set of numbers.
      *
-     * @param data  the data ({@code null} or zero length array not
-     *     permitted).
-     *
+     * @param data the data ({@code null} or zero length array not
+     *             permitted).
      * @return The standard deviation of a set of numbers.
      */
     public static double getStdDev(Number[] data) {
@@ -322,9 +300,8 @@ public abstract class Statistics {
      * Fits a straight line to a set of (x, y) data, returning the slope and
      * intercept.
      *
-     * @param xData  the x-data ({@code null} not permitted).
-     * @param yData  the y-data ({@code null} not permitted).
-     *
+     * @param xData the x-data ({@code null} not permitted).
+     * @param yData the y-data ({@code null} not permitted).
      * @return A double array with the intercept in [0] and the slope in [1].
      */
     public static double[] getLinearFit(Number[] xData, Number[] yData) {
@@ -333,7 +310,7 @@ public abstract class Statistics {
         ParamChecks.nullNotPermitted(yData, "yData");
         if (xData.length != yData.length) {
             throw new IllegalArgumentException(
-                "Statistics.getLinearFit(): array lengths must be equal.");
+                    "Statistics.getLinearFit(): array lengths must be equal.");
         }
 
         double[] result = new double[2];
@@ -349,9 +326,8 @@ public abstract class Statistics {
     /**
      * Finds the slope of a regression line using least squares.
      *
-     * @param xData  the x-values ({@code null} not permitted).
-     * @param yData  the y-values ({@code null} not permitted).
-     *
+     * @param xData the x-values ({@code null} not permitted).
+     * @param yData the y-values ({@code null} not permitted).
      * @return The slope.
      */
     public static double getSlope(Number[] xData, Number[] yData) {
@@ -376,7 +352,7 @@ public abstract class Statistics {
             sx = sx + xData[counter].doubleValue();
             sxx = sxx + Math.pow(xData[counter].doubleValue(), 2);
             sxy = sxy + yData[counter].doubleValue()
-                      * xData[counter].doubleValue();
+                    * xData[counter].doubleValue();
             sy = sy + yData[counter].doubleValue();
         }
         return (sxy - (sx * sy) / counter) / (sxx - (sx * sx) / counter);
@@ -386,14 +362,13 @@ public abstract class Statistics {
     /**
      * Calculates the correlation between two datasets.  Both arrays should
      * contain the same number of items.  Null values are treated as zero.
-     * <P>
+     * <p>
      * Information about the correlation calculation was obtained from:
-     *
+     * <p>
      * http://trochim.human.cornell.edu/kb/statcorr.htm
      *
-     * @param data1  the first dataset.
-     * @param data2  the second dataset.
-     *
+     * @param data1 the first dataset.
+     * @param data2 the second dataset.
      * @return The correlation.
      */
     public static double getCorrelation(Number[] data1, Number[] data2) {
@@ -401,7 +376,7 @@ public abstract class Statistics {
         ParamChecks.nullNotPermitted(data2, "data2");
         if (data1.length != data2.length) {
             throw new IllegalArgumentException(
-                "'data1' and 'data2' arrays must have same length."
+                    "'data1' and 'data2' arrays must have same length."
             );
         }
         int n = data1.length;
@@ -434,13 +409,12 @@ public abstract class Statistics {
      *
      * @param xData  an array of the x data.
      * @param yData  an array of the y data.
-     * @param period  the number of data points to average
-     *
+     * @param period the number of data points to average
      * @return A double[][] the length of the data set in the first dimension,
-     *         with two doubles for x and y in the second dimension
+     * with two doubles for x and y in the second dimension
      */
     public static double[][] getMovingAverage(Number[] xData, Number[] yData,
-            int period) {
+                                              int period) {
 
         // check arguments...
         if (xData.length != yData.length) {
@@ -449,7 +423,7 @@ public abstract class Statistics {
 
         if (period > xData.length) {
             throw new IllegalArgumentException(
-                "Period can't be longer than dataset.");
+                    "Period can't be longer than dataset.");
         }
 
         double[][] result = new double[xData.length - period][2];

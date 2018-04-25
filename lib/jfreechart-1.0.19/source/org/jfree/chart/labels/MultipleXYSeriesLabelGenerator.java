@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------------
@@ -44,18 +44,14 @@
 
 package org.jfree.chart.labels;
 
-import java.io.Serializable;
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.text.MessageFormat;
+import java.util.*;
 
 /**
  * A series label generator for plots that use data from
@@ -64,19 +60,27 @@ import org.jfree.util.PublicCloneable;
 public class MultipleXYSeriesLabelGenerator implements XYSeriesLabelGenerator,
         Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 138976236941898560L;
-
-    /** The default item label format. */
+    /**
+     * The default item label format.
+     */
     public static final String DEFAULT_LABEL_FORMAT = "{0}";
-
-    /** The format pattern for the initial part of the label. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 138976236941898560L;
+    /**
+     * The format pattern for the initial part of the label.
+     */
     private String formatPattern;
 
-    /** The format pattern for additional labels. */
+    /**
+     * The format pattern for additional labels.
+     */
     private String additionalFormatPattern;
 
-    /** Storage for the additional series labels. */
+    /**
+     * Storage for the additional series labels.
+     */
     private Map seriesLabelLists;
 
     /**
@@ -89,7 +93,7 @@ public class MultipleXYSeriesLabelGenerator implements XYSeriesLabelGenerator,
     /**
      * Creates a new series label generator.
      *
-     * @param format  the format pattern (<code>null</code> not permitted).
+     * @param format the format pattern (<code>null</code> not permitted).
      */
     public MultipleXYSeriesLabelGenerator(String format) {
         ParamChecks.nullNotPermitted(format, "format");
@@ -101,7 +105,7 @@ public class MultipleXYSeriesLabelGenerator implements XYSeriesLabelGenerator,
     /**
      * Adds an extra label for the specified series.
      *
-     * @param series  the series index.
+     * @param series the series index.
      * @param label  the label.
      */
     public void addSeriesLabel(int series, String label) {
@@ -117,7 +121,7 @@ public class MultipleXYSeriesLabelGenerator implements XYSeriesLabelGenerator,
     /**
      * Clears the extra labels for the specified series.
      *
-     * @param series  the series index.
+     * @param series the series index.
      */
     public void clearSeriesLabels(int series) {
         Integer key = new Integer(series);
@@ -128,9 +132,8 @@ public class MultipleXYSeriesLabelGenerator implements XYSeriesLabelGenerator,
      * Generates a label for the specified series.  This label will be
      * used for the chart legend.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series.
-     *
      * @return A series label.
      */
     @Override
@@ -157,9 +160,8 @@ public class MultipleXYSeriesLabelGenerator implements XYSeriesLabelGenerator,
      * Creates the array of items that can be passed to the
      * {@link MessageFormat} class for creating labels.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series (zero-based index).
-     *
      * @return The items (never <code>null</code>).
      */
     protected Object[] createItemArray(XYDataset dataset, int series) {
@@ -172,7 +174,6 @@ public class MultipleXYSeriesLabelGenerator implements XYSeriesLabelGenerator,
      * Returns an independent copy of the generator.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if cloning is not supported.
      */
     @Override
@@ -198,8 +199,7 @@ public class MultipleXYSeriesLabelGenerator implements XYSeriesLabelGenerator,
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the other object (<code>null</code> permitted).
-     *
+     * @param obj the other object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

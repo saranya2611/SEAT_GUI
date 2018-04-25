@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------------------
@@ -46,17 +46,17 @@
 
 package org.jfree.chart.labels;
 
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.MessageFormat;
-import java.text.NumberFormat;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.data.DataUtilities;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.MessageFormat;
+import java.text.NumberFormat;
 
 /**
  * A base class that can be used to create a label or tooltip generator that
@@ -66,7 +66,9 @@ import org.jfree.util.PublicCloneable;
 public abstract class AbstractCategoryItemLabelGenerator
         implements PublicCloneable, Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -7108591260223293197L;
 
     /**
@@ -76,7 +78,9 @@ public abstract class AbstractCategoryItemLabelGenerator
      */
     private String labelFormat;
 
-    /** The string used to represent a null value. */
+    /**
+     * The string used to represent a null value.
+     */
     private String nullValueString;
 
     /**
@@ -100,9 +104,9 @@ public abstract class AbstractCategoryItemLabelGenerator
     /**
      * Creates a label generator with the specified number formatter.
      *
-     * @param labelFormat  the label format string (<code>null</code> not
-     *                     permitted).
-     * @param formatter  the number formatter (<code>null</code> not permitted).
+     * @param labelFormat the label format string (<code>null</code> not
+     *                    permitted).
+     * @param formatter   the number formatter (<code>null</code> not permitted).
      */
     protected AbstractCategoryItemLabelGenerator(String labelFormat,
                                                  NumberFormat formatter) {
@@ -112,16 +116,15 @@ public abstract class AbstractCategoryItemLabelGenerator
     /**
      * Creates a label generator with the specified number formatter.
      *
-     * @param labelFormat  the label format string (<code>null</code> not
-     *                     permitted).
-     * @param formatter  the number formatter (<code>null</code> not permitted).
-     * @param percentFormatter  the percent formatter (<code>null</code> not
-     *     permitted).
-     *
+     * @param labelFormat      the label format string (<code>null</code> not
+     *                         permitted).
+     * @param formatter        the number formatter (<code>null</code> not permitted).
+     * @param percentFormatter the percent formatter (<code>null</code> not
+     *                         permitted).
      * @since 1.0.2
      */
     protected AbstractCategoryItemLabelGenerator(String labelFormat,
-            NumberFormat formatter, NumberFormat percentFormatter) {
+                                                 NumberFormat formatter, NumberFormat percentFormatter) {
         ParamChecks.nullNotPermitted(labelFormat, "labelFormat");
         ParamChecks.nullNotPermitted(formatter, "formatter");
         ParamChecks.nullNotPermitted(percentFormatter, "percentFormatter");
@@ -135,12 +138,12 @@ public abstract class AbstractCategoryItemLabelGenerator
     /**
      * Creates a label generator with the specified date formatter.
      *
-     * @param labelFormat  the label format string (<code>null</code> not
-     *                     permitted).
-     * @param formatter  the date formatter (<code>null</code> not permitted).
+     * @param labelFormat the label format string (<code>null</code> not
+     *                    permitted).
+     * @param formatter   the date formatter (<code>null</code> not permitted).
      */
     protected AbstractCategoryItemLabelGenerator(String labelFormat,
-            DateFormat formatter) {
+                                                 DateFormat formatter) {
         ParamChecks.nullNotPermitted(labelFormat, "labelFormat");
         ParamChecks.nullNotPermitted(formatter, "formatter");
         this.labelFormat = labelFormat;
@@ -153,9 +156,8 @@ public abstract class AbstractCategoryItemLabelGenerator
     /**
      * Generates a label for the specified row.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param row  the row index (zero-based).
-     *
+     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param row     the row index (zero-based).
      * @return The label.
      */
     public String generateRowLabel(CategoryDataset dataset, int row) {
@@ -165,9 +167,8 @@ public abstract class AbstractCategoryItemLabelGenerator
     /**
      * Generates a label for the specified row.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param column  the column index (zero-based).
-     *
      * @return The label.
      */
     public String generateColumnLabel(CategoryDataset dataset, int column) {
@@ -204,10 +205,9 @@ public abstract class AbstractCategoryItemLabelGenerator
     /**
      * Generates a for the specified item.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param row  the row index (zero-based).
+     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param row     the row index (zero-based).
      * @param column  the column index (zero-based).
-     *
      * @return The label (possibly <code>null</code>).
      */
     protected String generateLabelString(CategoryDataset dataset,
@@ -224,10 +224,9 @@ public abstract class AbstractCategoryItemLabelGenerator
      * Creates the array of items that can be passed to the
      * {@link MessageFormat} class for creating labels.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param row  the row index (zero-based).
+     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param row     the row index (zero-based).
      * @param column  the column index (zero-based).
-     *
      * @return The items (never <code>null</code>).
      */
     protected Object[] createItemArray(CategoryDataset dataset,
@@ -239,12 +238,10 @@ public abstract class AbstractCategoryItemLabelGenerator
         if (value != null) {
             if (this.numberFormat != null) {
                 result[2] = this.numberFormat.format(value);
-            }
-            else if (this.dateFormat != null) {
+            } else if (this.dateFormat != null) {
                 result[2] = this.dateFormat.format(value);
             }
-        }
-        else {
+        } else {
             result[2] = this.nullValueString;
         }
         if (value != null) {
@@ -259,8 +256,7 @@ public abstract class AbstractCategoryItemLabelGenerator
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the other object (<code>null</code> permitted).
-     *
+     * @param obj the other object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -273,7 +269,7 @@ public abstract class AbstractCategoryItemLabelGenerator
         }
 
         AbstractCategoryItemLabelGenerator that
-            = (AbstractCategoryItemLabelGenerator) obj;
+                = (AbstractCategoryItemLabelGenerator) obj;
         if (!this.labelFormat.equals(that.labelFormat)) {
             return false;
         }
@@ -306,13 +302,12 @@ public abstract class AbstractCategoryItemLabelGenerator
      * Returns an independent copy of the generator.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  should not happen.
+     * @throws CloneNotSupportedException should not happen.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
         AbstractCategoryItemLabelGenerator clone
-            = (AbstractCategoryItemLabelGenerator) super.clone();
+                = (AbstractCategoryItemLabelGenerator) super.clone();
         if (this.numberFormat != null) {
             clone.numberFormat = (NumberFormat) this.numberFormat.clone();
         }

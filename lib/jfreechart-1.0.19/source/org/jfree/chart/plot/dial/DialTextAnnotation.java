@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -44,18 +44,6 @@
 
 package org.jfree.chart.plot.dial;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.geom.Arc2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.io.SerialUtilities;
@@ -63,6 +51,15 @@ import org.jfree.text.TextUtilities;
 import org.jfree.ui.TextAnchor;
 import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
+import java.awt.geom.Arc2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * A text annotation for a {@link DialPlot}.
@@ -72,13 +69,19 @@ import org.jfree.util.PublicCloneable;
 public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
         Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = 3065267524054428071L;
 
-    /** The label text. */
+    /**
+     * The label text.
+     */
     private String label;
 
-    /** The font. */
+    /**
+     * The font.
+     */
     private Font font;
 
     /**
@@ -87,19 +90,25 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      */
     private transient Paint paint;
 
-    /** The angle that defines the anchor point for the annotation. */
+    /**
+     * The angle that defines the anchor point for the annotation.
+     */
     private double angle;
 
-    /** The radius that defines the anchor point for the annotation. */
+    /**
+     * The radius that defines the anchor point for the annotation.
+     */
     private double radius;
 
-    /** The text anchor to be aligned to the annotation's anchor point. */
+    /**
+     * The text anchor to be aligned to the annotation's anchor point.
+     */
     private TextAnchor anchor;
 
     /**
      * Creates a new instance of <code>DialTextAnnotation</code>.
      *
-     * @param label  the label (<code>null</code> not permitted).
+     * @param label the label (<code>null</code> not permitted).
      */
     public DialTextAnnotation(String label) {
         ParamChecks.nullNotPermitted(label, "label");
@@ -115,7 +124,6 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      * Returns the label text.
      *
      * @return The label text (never {@code null}).
-     *
      * @see #setLabel(String)
      */
     public String getLabel() {
@@ -126,8 +134,7 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      * Sets the label and sends a {@link DialLayerChangeEvent} to all
      * registered listeners.
      *
-     * @param label  the label (<code>null</code> not permitted).
-     *
+     * @param label the label (<code>null</code> not permitted).
      * @see #getLabel()
      */
     public void setLabel(String label) {
@@ -140,7 +147,6 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      * Returns the font used to display the label.
      *
      * @return The font (never <code>null</code>).
-     *
      * @see #setFont(Font)
      */
     public Font getFont() {
@@ -151,8 +157,7 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      * Sets the font used to display the label and sends a
      * {@link DialLayerChangeEvent} to all registered listeners.
      *
-     * @param font  the font (<code>null</code> not permitted).
-     *
+     * @param font the font (<code>null</code> not permitted).
      * @see #getFont()
      */
     public void setFont(Font font) {
@@ -165,7 +170,6 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      * Returns the paint used to display the label.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @see #setPaint(Paint)
      */
     public Paint getPaint() {
@@ -176,8 +180,7 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      * Sets the paint used to display the label and sends a
      * {@link DialLayerChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getPaint()
      */
     public void setPaint(Paint paint) {
@@ -190,7 +193,6 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      * Returns the angle used to calculate the anchor point.
      *
      * @return The angle (in degrees).
-     *
      * @see #setAngle(double)
      * @see #getRadius()
      */
@@ -202,8 +204,7 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      * Sets the angle used to calculate the anchor point and sends a
      * {@link DialLayerChangeEvent} to all registered listeners.
      *
-     * @param angle  the angle (in degrees).
-     *
+     * @param angle the angle (in degrees).
      * @see #getAngle()
      * @see #setRadius(double)
      */
@@ -217,7 +218,6 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      * specified as a percentage relative to the dial's framing rectangle.
      *
      * @return The radius.
-     *
      * @see #setRadius(double)
      * @see #getAngle()
      */
@@ -229,9 +229,8 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      * Sets the radius used to calculate the anchor point and sends a
      * {@link DialLayerChangeEvent} to all registered listeners.
      *
-     * @param radius  the radius (as a percentage of the dial's framing
-     *                rectangle).
-     *
+     * @param radius the radius (as a percentage of the dial's framing
+     *               rectangle).
      * @see #getRadius()
      * @see #setAngle(double)
      */
@@ -249,7 +248,6 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      * specified by {@link #getAngle()} and {@link #getRadius()}.
      *
      * @return The anchor point.
-     *
      * @see #setAnchor(TextAnchor)
      */
     public TextAnchor getAnchor() {
@@ -260,8 +258,7 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      * Sets the text anchor point and sends a {@link DialLayerChangeEvent} to
      * all registered listeners.
      *
-     * @param anchor  the anchor point (<code>null</code> not permitted).
-     *
+     * @param anchor the anchor point (<code>null</code> not permitted).
      * @see #getAnchor()
      */
     public void setAnchor(TextAnchor anchor) {
@@ -286,14 +283,14 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      * frame specifies a window, the clipping region will already have been
      * set to this window before this method is called.
      *
-     * @param g2  the graphics device (<code>null</code> not permitted).
+     * @param g2    the graphics device (<code>null</code> not permitted).
      * @param plot  the plot (ignored here).
-     * @param frame  the dial frame (ignored here).
+     * @param frame the dial frame (ignored here).
      * @param view  the view rectangle (<code>null</code> not permitted).
      */
     @Override
     public void draw(Graphics2D g2, DialPlot plot, Rectangle2D frame,
-            Rectangle2D view) {
+                     Rectangle2D view) {
 
         // work out the anchor point
         Rectangle2D f = DialPlot.rectangleByRadius(frame, this.radius,
@@ -310,8 +307,7 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -367,9 +363,8 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
      * Returns a clone of this instance.
      *
      * @return The clone.
-     *
      * @throws CloneNotSupportedException if some attribute of this instance
-     *     cannot be cloned.
+     *                                    cannot be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -379,9 +374,8 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -391,10 +385,9 @@ public class DialTextAnnotation extends AbstractDialLayer implements DialLayer,
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {

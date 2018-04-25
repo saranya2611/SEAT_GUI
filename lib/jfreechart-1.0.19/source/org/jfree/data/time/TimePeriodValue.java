@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -43,31 +43,37 @@
 
 package org.jfree.data.time;
 
-import java.io.Serializable;
 import org.jfree.chart.util.ParamChecks;
+
+import java.io.Serializable;
 
 /**
  * Represents a time period and an associated value.
  */
 public class TimePeriodValue implements Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 3390443360845711275L;
 
-    /** The time period. */
+    /**
+     * The time period.
+     */
     private TimePeriod period;
 
-    /** The value associated with the time period. */
+    /**
+     * The value associated with the time period.
+     */
     private Number value;
 
     /**
      * Constructs a new data item.
      *
-     * @param period  the time period (<code>null</code> not permitted).
+     * @param period the time period (<code>null</code> not permitted).
      * @param value  the value associated with the time period.
-     *
      * @throws IllegalArgumentException if <code>period</code> is
-     *     <code>null</code>.
+     *                                  <code>null</code>.
      */
     public TimePeriodValue(TimePeriod period, Number value) {
         ParamChecks.nullNotPermitted(period, "period");
@@ -78,11 +84,10 @@ public class TimePeriodValue implements Cloneable, Serializable {
     /**
      * Constructs a new data item.
      *
-     * @param period  the time period (<code>null</code> not permitted).
+     * @param period the time period (<code>null</code> not permitted).
      * @param value  the value associated with the time period.
-     *
      * @throws IllegalArgumentException if <code>period</code> is
-     *     <code>null</code>.
+     *                                  <code>null</code>.
      */
     public TimePeriodValue(TimePeriod period, double value) {
         this(period, new Double(value));
@@ -101,7 +106,6 @@ public class TimePeriodValue implements Cloneable, Serializable {
      * Returns the value.
      *
      * @return The value (possibly <code>null</code>).
-     *
      * @see #setValue(Number)
      */
     public Number getValue() {
@@ -111,8 +115,7 @@ public class TimePeriodValue implements Cloneable, Serializable {
     /**
      * Sets the value for this data item.
      *
-     * @param value  the new value (<code>null</code> permitted).
-     *
+     * @param value the new value (<code>null</code> permitted).
      * @see #getValue()
      */
     public void setValue(Number value) {
@@ -122,8 +125,7 @@ public class TimePeriodValue implements Cloneable, Serializable {
     /**
      * Tests this object for equality with the target object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -164,7 +166,7 @@ public class TimePeriodValue implements Cloneable, Serializable {
 
     /**
      * Clones the object.
-     * <P>
+     * <p>
      * Note: no need to clone the period or value since they are immutable
      * classes.
      *
@@ -175,8 +177,7 @@ public class TimePeriodValue implements Cloneable, Serializable {
         Object clone = null;
         try {
             clone = super.clone();
-        }
-        catch (CloneNotSupportedException e) { // won't get here...
+        } catch (CloneNotSupportedException e) { // won't get here...
             throw new RuntimeException(e);
         }
         return clone;

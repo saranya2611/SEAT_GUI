@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -51,18 +51,6 @@
 
 package org.jfree.chart.annotations;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -77,31 +65,53 @@ import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
 import org.jfree.util.ShapeUtilities;
 
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * A simple line annotation that can be placed on an {@link XYPlot}.
  */
 public class XYLineAnnotation extends AbstractXYAnnotation
         implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -80535465244091334L;
 
-    /** The x-coordinate. */
+    /**
+     * The x-coordinate.
+     */
     private double x1;
 
-    /** The y-coordinate. */
+    /**
+     * The y-coordinate.
+     */
     private double y1;
 
-    /** The x-coordinate. */
+    /**
+     * The x-coordinate.
+     */
     private double x2;
 
-    /** The y-coordinate. */
+    /**
+     * The y-coordinate.
+     */
     private double y2;
 
-    /** The line stroke. */
+    /**
+     * The line stroke.
+     */
     private transient Stroke stroke;
 
-    /** The line color. */
+    /**
+     * The line color.
+     */
     private transient Paint paint;
 
     /**
@@ -109,10 +119,10 @@ public class XYLineAnnotation extends AbstractXYAnnotation
      * where the coordinates are measured in data space (that is, against the
      * plot's axes).
      *
-     * @param x1  the x-coordinate for the start of the line.
-     * @param y1  the y-coordinate for the start of the line.
-     * @param x2  the x-coordinate for the end of the line.
-     * @param y2  the y-coordinate for the end of the line.
+     * @param x1 the x-coordinate for the start of the line.
+     * @param y1 the y-coordinate for the start of the line.
+     * @param x2 the x-coordinate for the end of the line.
+     * @param y2 the y-coordinate for the end of the line.
      */
     public XYLineAnnotation(double x1, double y1, double x2, double y2) {
         this(x1, y1, x2, y2, new BasicStroke(1.0f), Color.black);
@@ -123,11 +133,11 @@ public class XYLineAnnotation extends AbstractXYAnnotation
      * where the coordinates are measured in data space (that is, against the
      * plot's axes).
      *
-     * @param x1  the x-coordinate for the start of the line.
-     * @param y1  the y-coordinate for the start of the line.
-     * @param x2  the x-coordinate for the end of the line.
-     * @param y2  the y-coordinate for the end of the line.
-     * @param stroke  the line stroke (<code>null</code> not permitted).
+     * @param x1     the x-coordinate for the start of the line.
+     * @param y1     the y-coordinate for the start of the line.
+     * @param x2     the x-coordinate for the end of the line.
+     * @param y2     the y-coordinate for the end of the line.
+     * @param stroke the line stroke (<code>null</code> not permitted).
      * @param paint  the line color (<code>null</code> not permitted).
      */
     public XYLineAnnotation(double x1, double y1, double x2, double y2,
@@ -149,14 +159,14 @@ public class XYLineAnnotation extends AbstractXYAnnotation
      * Draws the annotation.  This method is called by the {@link XYPlot}
      * class, you won't normally need to call it yourself.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the range axis.
-     * @param rendererIndex  the renderer index.
-     * @param info  if supplied, this info object will be populated with
-     *              entity information.
+     * @param g2            the graphics device.
+     * @param plot          the plot.
+     * @param dataArea      the data area.
+     * @param domainAxis    the domain axis.
+     * @param rangeAxis     the range axis.
+     * @param rendererIndex the renderer index.
+     * @param info          if supplied, this info object will be populated with
+     *                      entity information.
      */
     @Override
     public void draw(Graphics2D g2, XYPlot plot, Rectangle2D dataArea,
@@ -182,8 +192,7 @@ public class XYLineAnnotation extends AbstractXYAnnotation
                     domainEdge);
             j2DY2 = (float) rangeAxis.valueToJava2D(this.y2, dataArea,
                     rangeEdge);
-        }
-        else if (orientation == PlotOrientation.HORIZONTAL) {
+        } else if (orientation == PlotOrientation.HORIZONTAL) {
             j2DY1 = (float) domainAxis.valueToJava2D(this.x1, dataArea,
                     domainEdge);
             j2DX1 = (float) rangeAxis.valueToJava2D(this.y1, dataArea,
@@ -214,8 +223,7 @@ public class XYLineAnnotation extends AbstractXYAnnotation
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the object to test against (<code>null</code> permitted).
-     *
+     * @param obj the object to test against (<code>null</code> permitted).
      * @return <code>true</code> or <code>false</code>.
      */
     @Override
@@ -276,8 +284,7 @@ public class XYLineAnnotation extends AbstractXYAnnotation
      * Returns a clone of the annotation.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the annotation can't be cloned.
+     * @throws CloneNotSupportedException if the annotation can't be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -287,9 +294,8 @@ public class XYLineAnnotation extends AbstractXYAnnotation
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -300,13 +306,12 @@ public class XYLineAnnotation extends AbstractXYAnnotation
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.paint = SerialUtilities.readPaint(stream);
         this.stroke = SerialUtilities.readStroke(stream);

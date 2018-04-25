@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -49,9 +49,8 @@ public interface IntervalXYZDataset extends XYZDataset {
     /**
      * Returns the starting X value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return The starting X value for the specified series and item.
      */
     public Number getStartXValue(int series, int item);
@@ -59,9 +58,8 @@ public interface IntervalXYZDataset extends XYZDataset {
     /**
      * Returns the ending X value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return The ending X value for the specified series and item.
      */
     public Number getEndXValue(int series, int item);
@@ -69,9 +67,8 @@ public interface IntervalXYZDataset extends XYZDataset {
     /**
      * Returns the starting Y value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return The starting Y value for the specified series and item.
      */
     public Number getStartYValue(int series, int item);
@@ -79,9 +76,8 @@ public interface IntervalXYZDataset extends XYZDataset {
     /**
      * Returns the ending Y value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return The ending Y value for the specified series and item.
      */
     public Number getEndYValue(int series, int item);
@@ -89,9 +85,8 @@ public interface IntervalXYZDataset extends XYZDataset {
     /**
      * Returns the starting Z value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return The starting Z value for the specified series and item.
      */
     public Number getStartZValue(int series, int item);
@@ -99,9 +94,8 @@ public interface IntervalXYZDataset extends XYZDataset {
     /**
      * Returns the ending Z value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return The ending Z value for the specified series and item.
      */
     public Number getEndZValue(int series, int item);

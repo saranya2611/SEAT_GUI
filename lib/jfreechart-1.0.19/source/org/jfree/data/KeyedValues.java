@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -60,25 +60,21 @@ public interface KeyedValues extends Values {
      * that some implementations allow re-ordering of the data items, so the
      * result may be transient.
      *
-     * @param index  the item index (in the range <code>0</code> to
-     *     <code>getItemCount() - 1</code>).
-     *
+     * @param index the item index (in the range <code>0</code> to
+     *              <code>getItemCount() - 1</code>).
      * @return The key (never <code>null</code>).
-     *
      * @throws IndexOutOfBoundsException if <code>index</code> is not in the
-     *     specified range.
+     *                                   specified range.
      */
     public Comparable getKey(int index);
 
     /**
      * Returns the index for a given key.
      *
-     * @param key  the key (<code>null</code> not permitted).
-     *
+     * @param key the key (<code>null</code> not permitted).
      * @return The index, or <code>-1</code> if the key is unrecognised.
-     *
      * @throws IllegalArgumentException if <code>key</code> is
-     *     <code>null</code>.
+     *                                  <code>null</code>.
      */
     public int getIndex(Comparable key);
 
@@ -95,10 +91,8 @@ public interface KeyedValues extends Values {
     /**
      * Returns the value for a given key.
      *
-     * @param key  the key.
-     *
+     * @param key the key.
      * @return The value (possibly <code>null</code>).
-     *
      * @throws UnknownKeyException if the key is not recognised.
      */
     public Number getValue(Comparable key);

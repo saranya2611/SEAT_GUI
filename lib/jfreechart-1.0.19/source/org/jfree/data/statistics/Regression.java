@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -59,8 +59,7 @@ public abstract class Regression {
      * the data using ordinary least squares regression.  The result is
      * returned as a double[], where result[0] --&gt; a, and result[1] --&gt; b.
      *
-     * @param data  the data.
-     *
+     * @param data the data.
      * @return The parameters.
      */
     public static double[] getOLSRegression(double[][] data) {
@@ -102,9 +101,8 @@ public abstract class Regression {
      * the data using ordinary least squares regression. The result is returned
      * as a double[], where result[0] --&gt; a, and result[1] --&gt; b.
      *
-     * @param data  the data.
-     * @param series  the series (zero-based index).
-     *
+     * @param data   the data.
+     * @param series the series (zero-based index).
      * @return The parameters.
      */
     public static double[] getOLSRegression(XYDataset data, int series) {
@@ -146,8 +144,7 @@ public abstract class Regression {
      * the data using a power regression equation.  The result is returned as
      * an array, where double[0] --&gt; a, and double[1] --&gt; b.
      *
-     * @param data  the data.
-     *
+     * @param data the data.
      * @return The parameters.
      */
     public static double[] getPowerRegression(double[][] data) {
@@ -189,9 +186,8 @@ public abstract class Regression {
      * the data using a power regression equation.  The result is returned as
      * an array, where double[0] --&gt; a, and double[1] --&gt; b.
      *
-     * @param data  the data.
-     * @param series  the series to fit the regression line against.
-     *
+     * @param data   the data.
+     * @param series the series to fit the regression line against.
      * @return The parameters.
      */
     public static double[] getPowerRegression(XYDataset data, int series) {
@@ -229,7 +225,7 @@ public abstract class Regression {
     }
 
     /**
-     * Returns the parameters 'a0', 'a1', 'a2', ..., 'an' for a polynomial 
+     * Returns the parameters 'a0', 'a1', 'a2', ..., 'an' for a polynomial
      * function of order n, y = a0 + a1 * x + a2 * x^2 + ... + an * x^n,
      * fitted to the data using a polynomial regression equation.
      * The result is returned as an array with a length of n + 2,
@@ -238,17 +234,15 @@ public abstract class Regression {
      * Reference: J. D. Faires, R. L. Burden, Numerische Methoden (german
      * edition), pp. 243ff and 327ff.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series to fit the regression line against (the series
-     *         must have at least order + 1 non-NaN items).
-     * @param order  the order of the function (&gt; 0).
-     *
+     *                must have at least order + 1 non-NaN items).
+     * @param order   the order of the function (&gt; 0).
      * @return The parameters.
-     *
      * @since 1.0.14
      */
-    public static double[] getPolynomialRegression(XYDataset dataset, 
-            int series, int order) {
+    public static double[] getPolynomialRegression(XYDataset dataset,
+                                                   int series, int order) {
         ParamChecks.nullNotPermitted(dataset, "dataset");
         int itemCount = dataset.getItemCount(series);
         if (itemCount < order + 1) {
@@ -256,10 +250,10 @@ public abstract class Regression {
         }
         int validItems = 0;
         double[][] data = new double[2][itemCount];
-        for(int item = 0; item < itemCount; item++){
+        for (int item = 0; item < itemCount; item++) {
             double x = dataset.getXValue(series, item);
             double y = dataset.getYValue(series, item);
-            if (!Double.isNaN(x) && !Double.isNaN(y)){
+            if (!Double.isNaN(x) && !Double.isNaN(y)) {
                 data[0][validItems] = x;
                 data[1][validItems] = y;
                 validItems++;
@@ -275,15 +269,15 @@ public abstract class Regression {
         double sumX = 0.0;
         double sumY = 0.0;
 
-        for(int item = 0; item < validItems; item++){
+        for (int item = 0; item < validItems; item++) {
             sumX += data[0][item];
             sumY += data[1][item];
-            for(int eq = 0; eq < equations; eq++){
-                for(int coe = 0; coe < coefficients - 1; coe++){
-                    matrix[eq][coe] += Math.pow(data[0][item],eq + coe);
+            for (int eq = 0; eq < equations; eq++) {
+                for (int coe = 0; coe < coefficients - 1; coe++) {
+                    matrix[eq][coe] += Math.pow(data[0][item], eq + coe);
                 }
                 matrix[eq][coefficients - 1] += data[1][item]
-                        * Math.pow(data[0][item],eq);
+                        * Math.pow(data[0][item], eq);
             }
         }
         double[][] subMatrix = calculateSubMatrix(matrix);
@@ -295,7 +289,7 @@ public abstract class Regression {
         }
         for (int eq = equations - 1; eq > -1; eq--) {
             double value = matrix[eq][coefficients - 1];
-            for (int coe = eq; coe < coefficients -1; coe++) {
+            for (int coe = eq; coe < coefficients - 1; coe++) {
                 value -= matrix[eq][coe] * result[coe];
             }
             result[eq] = value / matrix[eq][eq];
@@ -306,7 +300,7 @@ public abstract class Regression {
         for (int item = 0; item < validItems; item++) {
             double yCalc = 0;
             for (int eq = 0; eq < equations; eq++) {
-                yCalc += result[eq] * Math.pow(data[0][item],eq);
+                yCalc += result[eq] * Math.pow(data[0][item], eq);
             }
             yRegSquare += Math.pow(yCalc - meanY, 2);
             yObsSquare += Math.pow(data[1][item] - meanY, 2);
@@ -321,19 +315,18 @@ public abstract class Regression {
      * and columns is 1 less than that of the original matrix; (2)the matrix
      * is triangular, i.e. all elements a (row, column) with column &gt; row are
      * zero.  This method is used for calculating a polynomial regression.
-     * 
-     * @param matrix  the start matrix.
      *
+     * @param matrix the start matrix.
      * @return The new matrix.
      */
-    private static double[][] calculateSubMatrix(double[][] matrix){
+    private static double[][] calculateSubMatrix(double[][] matrix) {
         int equations = matrix.length;
         int coefficients = matrix[0].length;
         double[][] result = new double[equations - 1][coefficients - 1];
         for (int eq = 1; eq < equations; eq++) {
             double factor = matrix[0][0] / matrix[eq][0];
             for (int coe = 1; coe < coefficients; coe++) {
-                result[eq - 1][coe -1] = matrix[0][coe] - matrix[eq][coe]
+                result[eq - 1][coe - 1] = matrix[0][coe] - matrix[eq][coe]
                         * factor;
             }
         }
@@ -343,11 +336,11 @@ public abstract class Regression {
         // check for zero pivot element
         if (result[0][0] == 0) {
             boolean found = false;
-            for (int i = 0; i < result.length; i ++) {
+            for (int i = 0; i < result.length; i++) {
                 if (result[i][0] != 0) {
                     found = true;
                     double[] temp = result[0];
-                    System.arraycopy(result[i], 0, result[0], 0, 
+                    System.arraycopy(result[i], 0, result[0], 0,
                             result[i].length);
                     System.arraycopy(temp, 0, result[i], 0, temp.length);
                     break;
@@ -359,7 +352,7 @@ public abstract class Regression {
             }
         }
         double[][] subMatrix = calculateSubMatrix(result);
-        for (int eq = 1; eq < equations -  1; eq++) {
+        for (int eq = 1; eq < equations - 1; eq++) {
             result[eq][0] = 0;
             for (int coe = 1; coe < coefficients - 1; coe++) {
                 result[eq][coe] = subMatrix[eq - 1][coe - 1];

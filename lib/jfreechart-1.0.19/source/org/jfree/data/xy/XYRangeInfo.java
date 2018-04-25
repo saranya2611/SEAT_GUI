@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -40,8 +40,9 @@
 
 package org.jfree.data.xy;
 
-import java.util.List;
 import org.jfree.data.Range;
+
+import java.util.List;
 
 /**
  * An interface that can (optionally) be implemented by a dataset to assist in
@@ -54,15 +55,14 @@ public interface XYRangeInfo {
     /**
      * Returns the range of the values in this dataset's range.
      *
-     * @param visibleSeriesKeys  the keys of the visible series.
-     * @param xRange  the x-range (<code>null</code> not permitted).
-     * @param includeInterval  a flag that determines whether or not the
-     *                         y-interval is taken into account.
-     *
+     * @param visibleSeriesKeys the keys of the visible series.
+     * @param xRange            the x-range (<code>null</code> not permitted).
+     * @param includeInterval   a flag that determines whether or not the
+     *                          y-interval is taken into account.
      * @return The range (or <code>null</code> if the dataset contains no
-     *     values).
+     * values).
      */
     public Range getRangeBounds(List visibleSeriesKeys, Range xRange,
-            boolean includeInterval);
+                                boolean includeInterval);
 
 }

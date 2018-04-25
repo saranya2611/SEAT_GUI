@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -45,17 +45,6 @@
 
 package org.jfree.chart.annotations;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.axis.CategoryAnchor;
 import org.jfree.chart.axis.CategoryAxis;
@@ -72,44 +61,65 @@ import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * A line annotation that can be placed on a {@link CategoryPlot}.
  */
-public class CategoryLineAnnotation extends AbstractAnnotation 
+public class CategoryLineAnnotation extends AbstractAnnotation
         implements CategoryAnnotation, Cloneable, PublicCloneable,
         Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = 3477740483341587984L;
 
-    /** The category for the start of the line. */
+    /**
+     * The category for the start of the line.
+     */
     private Comparable category1;
 
-    /** The value for the start of the line. */
+    /**
+     * The value for the start of the line.
+     */
     private double value1;
 
-    /** The category for the end of the line. */
+    /**
+     * The category for the end of the line.
+     */
     private Comparable category2;
 
-    /** The value for the end of the line. */
+    /**
+     * The value for the end of the line.
+     */
     private double value2;
 
-    /** The line color. */
+    /**
+     * The line color.
+     */
     private transient Paint paint = Color.black;
 
-    /** The line stroke. */
+    /**
+     * The line stroke.
+     */
     private transient Stroke stroke = new BasicStroke(1.0f);
 
     /**
      * Creates a new annotation that draws a line between (category1, value1)
      * and (category2, value2).
      *
-     * @param category1  the category (<code>null</code> not permitted).
-     * @param value1  the value.
-     * @param category2  the category (<code>null</code> not permitted).
-     * @param value2  the value.
-     * @param paint  the line color (<code>null</code> not permitted).
-     * @param stroke  the line stroke (<code>null</code> not permitted).
+     * @param category1 the category (<code>null</code> not permitted).
+     * @param value1    the value.
+     * @param category2 the category (<code>null</code> not permitted).
+     * @param value2    the value.
+     * @param paint     the line color (<code>null</code> not permitted).
+     * @param stroke    the line stroke (<code>null</code> not permitted).
      */
     public CategoryLineAnnotation(Comparable category1, double value1,
                                   Comparable category2, double value2,
@@ -131,7 +141,6 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * Returns the category for the start of the line.
      *
      * @return The category for the start of the line (never <code>null</code>).
-     *
      * @see #setCategory1(Comparable)
      */
     public Comparable getCategory1() {
@@ -142,8 +151,7 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * Sets the category for the start of the line and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param category  the category (<code>null</code> not permitted).
-     *
+     * @param category the category (<code>null</code> not permitted).
      * @see #getCategory1()
      */
     public void setCategory1(Comparable category) {
@@ -156,7 +164,6 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * Returns the y-value for the start of the line.
      *
      * @return The y-value for the start of the line.
-     *
      * @see #setValue1(double)
      */
     public double getValue1() {
@@ -167,8 +174,7 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * Sets the y-value for the start of the line and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param value  the value.
-     *
+     * @param value the value.
      * @see #getValue1()
      */
     public void setValue1(double value) {
@@ -180,7 +186,6 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * Returns the category for the end of the line.
      *
      * @return The category for the end of the line (never <code>null</code>).
-     *
      * @see #setCategory2(Comparable)
      */
     public Comparable getCategory2() {
@@ -191,8 +196,7 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * Sets the category for the end of the line and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param category  the category (<code>null</code> not permitted).
-     *
+     * @param category the category (<code>null</code> not permitted).
      * @see #getCategory2()
      */
     public void setCategory2(Comparable category) {
@@ -205,7 +209,6 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * Returns the y-value for the end of the line.
      *
      * @return The y-value for the end of the line.
-     *
      * @see #setValue2(double)
      */
     public double getValue2() {
@@ -216,8 +219,7 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * Sets the y-value for the end of the line and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param value  the value.
-     *
+     * @param value the value.
      * @see #getValue2()
      */
     public void setValue2(double value) {
@@ -229,7 +231,6 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * Returns the paint used to draw the connecting line.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @see #setPaint(Paint)
      */
     public Paint getPaint() {
@@ -240,8 +241,7 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * Sets the paint used to draw the connecting line and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getPaint()
      */
     public void setPaint(Paint paint) {
@@ -254,7 +254,6 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * Returns the stroke used to draw the connecting line.
      *
      * @return The stroke (never <code>null</code>).
-     *
      * @see #setStroke(Stroke)
      */
     public Stroke getStroke() {
@@ -265,8 +264,7 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * Sets the stroke used to draw the connecting line and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param stroke  the stroke (<code>null</code> not permitted).
-     *
+     * @param stroke the stroke (<code>null</code> not permitted).
      * @see #getStroke()
      */
     public void setStroke(Stroke stroke) {
@@ -278,10 +276,10 @@ public class CategoryLineAnnotation extends AbstractAnnotation
     /**
      * Draws the annotation.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param plot       the plot.
+     * @param dataArea   the data area.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
      */
     @Override
@@ -299,28 +297,27 @@ public class CategoryLineAnnotation extends AbstractAnnotation
         double lineY2 = 0.0f;
         PlotOrientation orientation = plot.getOrientation();
         RectangleEdge domainEdge = Plot.resolveDomainAxisLocation(
-            plot.getDomainAxisLocation(), orientation);
+                plot.getDomainAxisLocation(), orientation);
         RectangleEdge rangeEdge = Plot.resolveRangeAxisLocation(
-            plot.getRangeAxisLocation(), orientation);
+                plot.getRangeAxisLocation(), orientation);
 
         if (orientation == PlotOrientation.HORIZONTAL) {
             lineY1 = domainAxis.getCategoryJava2DCoordinate(
-                CategoryAnchor.MIDDLE, catIndex1, catCount, dataArea,
-                domainEdge);
+                    CategoryAnchor.MIDDLE, catIndex1, catCount, dataArea,
+                    domainEdge);
             lineX1 = rangeAxis.valueToJava2D(this.value1, dataArea, rangeEdge);
             lineY2 = domainAxis.getCategoryJava2DCoordinate(
-                CategoryAnchor.MIDDLE, catIndex2, catCount, dataArea,
-                domainEdge);
+                    CategoryAnchor.MIDDLE, catIndex2, catCount, dataArea,
+                    domainEdge);
             lineX2 = rangeAxis.valueToJava2D(this.value2, dataArea, rangeEdge);
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             lineX1 = domainAxis.getCategoryJava2DCoordinate(
-                CategoryAnchor.MIDDLE, catIndex1, catCount, dataArea,
-                domainEdge);
+                    CategoryAnchor.MIDDLE, catIndex1, catCount, dataArea,
+                    domainEdge);
             lineY1 = rangeAxis.valueToJava2D(this.value1, dataArea, rangeEdge);
             lineX2 = domainAxis.getCategoryJava2DCoordinate(
-                CategoryAnchor.MIDDLE, catIndex2, catCount, dataArea,
-                domainEdge);
+                    CategoryAnchor.MIDDLE, catIndex2, catCount, dataArea,
+                    domainEdge);
             lineY2 = rangeAxis.valueToJava2D(this.value2, dataArea, rangeEdge);
         }
         g2.setPaint(this.paint);
@@ -331,8 +328,7 @@ public class CategoryLineAnnotation extends AbstractAnnotation
     /**
      * Tests this object for equality with another.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return <code>true</code> or <code>false</code>.
      */
     @Override
@@ -388,9 +384,8 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * Returns a clone of the annotation.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  this class will not throw this
-     *         exception, but subclasses (if any) might.
+     * @throws CloneNotSupportedException this class will not throw this
+     *                                    exception, but subclasses (if any) might.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -400,8 +395,7 @@ public class CategoryLineAnnotation extends AbstractAnnotation
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
+     * @param stream the output stream.
      * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
@@ -413,13 +407,12 @@ public class CategoryLineAnnotation extends AbstractAnnotation
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.paint = SerialUtilities.readPaint(stream);
         this.stroke = SerialUtilities.readStroke(stream);

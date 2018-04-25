@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -46,12 +46,12 @@
 
 package org.jfree.chart.axis;
 
-import java.io.Serializable;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.text.TextBlockAnchor;
 import org.jfree.ui.RectangleAnchor;
 import org.jfree.ui.TextAnchor;
+
+import java.io.Serializable;
 
 /**
  * The attributes that control the position of the labels for the categories on
@@ -60,22 +60,34 @@ import org.jfree.ui.TextAnchor;
  */
 public class CategoryLabelPosition implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 5168681143844183864L;
 
-    /** The category anchor point. */
+    /**
+     * The category anchor point.
+     */
     private RectangleAnchor categoryAnchor;
 
-    /** The text block anchor. */
+    /**
+     * The text block anchor.
+     */
     private TextBlockAnchor labelAnchor;
 
-    /** The rotation anchor. */
+    /**
+     * The rotation anchor.
+     */
     private TextAnchor rotationAnchor;
 
-    /** The rotation angle (in radians). */
+    /**
+     * The rotation angle (in radians).
+     */
     private double angle;
 
-    /** The width calculation type. */
+    /**
+     * The width calculation type.
+     */
     private CategoryLabelWidthType widthType;
 
     /**
@@ -95,9 +107,9 @@ public class CategoryLabelPosition implements Serializable {
     /**
      * Creates a new category label position record.
      *
-     * @param categoryAnchor  the category anchor (<code>null</code> not
-     *                        permitted).
-     * @param labelAnchor  the label anchor (<code>null</code> not permitted).
+     * @param categoryAnchor the category anchor (<code>null</code> not
+     *                       permitted).
+     * @param labelAnchor    the label anchor (<code>null</code> not permitted).
      */
     public CategoryLabelPosition(RectangleAnchor categoryAnchor,
                                  TextBlockAnchor labelAnchor) {
@@ -109,16 +121,16 @@ public class CategoryLabelPosition implements Serializable {
     /**
      * Creates a new category label position record.
      *
-     * @param categoryAnchor  the category anchor (<code>null</code> not
-     *                        permitted).
-     * @param labelAnchor  the label anchor (<code>null</code> not permitted).
-     * @param widthType  the width type (<code>null</code> not permitted).
-     * @param widthRatio  the maximum label width as a percentage (of the
-     *                    category space or the range space).
+     * @param categoryAnchor the category anchor (<code>null</code> not
+     *                       permitted).
+     * @param labelAnchor    the label anchor (<code>null</code> not permitted).
+     * @param widthType      the width type (<code>null</code> not permitted).
+     * @param widthRatio     the maximum label width as a percentage (of the
+     *                       category space or the range space).
      */
     public CategoryLabelPosition(RectangleAnchor categoryAnchor,
-            TextBlockAnchor labelAnchor, CategoryLabelWidthType widthType,
-            float widthRatio) {
+                                 TextBlockAnchor labelAnchor, CategoryLabelWidthType widthType,
+                                 float widthRatio) {
         // argument checking delegated...
         this(categoryAnchor, labelAnchor, TextAnchor.CENTER, 0.0, widthType,
                 widthRatio);
@@ -130,19 +142,19 @@ public class CategoryLabelPosition implements Serializable {
      * The item label is aligned by aligning the text anchor with the item
      * label anchor.
      *
-     * @param categoryAnchor  the category anchor (<code>null</code> not
-     *                        permitted).
-     * @param labelAnchor  the label anchor (<code>null</code> not permitted).
-     * @param rotationAnchor  the rotation anchor (<code>null</code> not
-     *                        permitted).
-     * @param angle  the rotation angle (<code>null</code> not permitted).
-     * @param widthType  the width type (<code>null</code> not permitted).
-     * @param widthRatio  the maximum label width as a percentage (of the
-     *                    category space or the range space).
+     * @param categoryAnchor the category anchor (<code>null</code> not
+     *                       permitted).
+     * @param labelAnchor    the label anchor (<code>null</code> not permitted).
+     * @param rotationAnchor the rotation anchor (<code>null</code> not
+     *                       permitted).
+     * @param angle          the rotation angle (<code>null</code> not permitted).
+     * @param widthType      the width type (<code>null</code> not permitted).
+     * @param widthRatio     the maximum label width as a percentage (of the
+     *                       category space or the range space).
      */
     public CategoryLabelPosition(RectangleAnchor categoryAnchor,
-            TextBlockAnchor labelAnchor, TextAnchor rotationAnchor, 
-            double angle, CategoryLabelWidthType widthType, float widthRatio) {
+                                 TextBlockAnchor labelAnchor, TextAnchor rotationAnchor,
+                                 double angle, CategoryLabelWidthType widthType, float widthRatio) {
 
         ParamChecks.nullNotPermitted(categoryAnchor, "categoryAnchor");
         ParamChecks.nullNotPermitted(labelAnchor, "labelAnchor");
@@ -215,8 +227,7 @@ public class CategoryLabelPosition implements Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

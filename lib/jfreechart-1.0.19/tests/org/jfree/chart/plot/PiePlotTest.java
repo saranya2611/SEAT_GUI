@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -47,22 +47,6 @@
 
 package org.jfree.chart.plot;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Stroke;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.text.AttributedString;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.LegendItemCollection;
@@ -76,14 +60,21 @@ import org.jfree.chart.util.DefaultShadowGenerator;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import org.junit.Test;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.text.AttributedString;
+
+import static org.junit.Assert.*;
 
 /**
  * Some tests for the {@link PiePlot} class.
  */
 public class PiePlotTest {
+
+    private static final double EPSILON = 0.000000001;
 
     /**
      * Test the equals() method.
@@ -351,11 +342,11 @@ public class PiePlotTest {
 
         // toolTipGenerator
         plot1.setToolTipGenerator(
-            new StandardPieToolTipGenerator("{2}{1}{0}")
+                new StandardPieToolTipGenerator("{2}{1}{0}")
         );
         assertFalse(plot1.equals(plot2));
         plot2.setToolTipGenerator(
-            new StandardPieToolTipGenerator("{2}{1}{0}")
+                new StandardPieToolTipGenerator("{2}{1}{0}")
         );
         assertTrue(plot1.equals(plot2));
 
@@ -591,23 +582,10 @@ public class PiePlotTest {
         boolean pass = false;
         try {
             plot.setBaseSectionPaint(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
-    }
-
-    static class NullLegendLabelGenerator implements PieSectionLabelGenerator {
-        @Override
-        public AttributedString generateAttributedSectionLabel(
-                PieDataset dataset, Comparable key) {
-            return null;
-        }
-        @Override
-        public String generateSectionLabel(PieDataset dataset, Comparable key) {
-            return null;
-        }
     }
 
     /**
@@ -624,19 +602,18 @@ public class PiePlotTest {
         plot.setLegendLabelGenerator(new NullLegendLabelGenerator());
         boolean success = false;
         try {
-            BufferedImage image = new BufferedImage(200 , 100,
+            BufferedImage image = new BufferedImage(200, 100,
                     BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = image.createGraphics();
             chart.draw(g2, new Rectangle2D.Double(0, 0, 200, 100), null, null);
             g2.dispose();
             success = true;
-        }
-        catch (Exception e) {
-          success = false;
+        } catch (Exception e) {
+            success = false;
         }
         assertTrue(success);
     }
-    
+
     @Test
     public void testBug1126() throws CloneNotSupportedException {
         DefaultPieDataset dataset1 = new DefaultPieDataset();
@@ -651,7 +628,7 @@ public class PiePlotTest {
         assertEquals(Color.BLUE, plot2.getSectionPaint("A"));
         assertEquals(Color.YELLOW, plot2.getSectionPaint("B"));
     }
-    
+
     @Test
     public void testBug1126_b() throws CloneNotSupportedException {
         DefaultPieDataset dataset1 = new DefaultPieDataset();
@@ -666,7 +643,7 @@ public class PiePlotTest {
         assertEquals(Color.BLUE, plot2.getSectionOutlinePaint("A"));
         assertEquals(Color.YELLOW, plot2.getSectionOutlinePaint("B"));
     }
-    
+
     @Test
     public void testBug1126_c() throws CloneNotSupportedException {
         DefaultPieDataset dataset1 = new DefaultPieDataset();
@@ -681,7 +658,7 @@ public class PiePlotTest {
         assertEquals(new BasicStroke(7.0f), plot2.getSectionOutlineStroke("A"));
         assertEquals(new BasicStroke(8.0f), plot2.getSectionOutlineStroke("B"));
     }
-    
+
     @Test
     public void testBug1126_d() throws CloneNotSupportedException {
         DefaultPieDataset dataset1 = new DefaultPieDataset();
@@ -696,8 +673,6 @@ public class PiePlotTest {
         assertEquals(0.3, plot2.getExplodePercent("A"), EPSILON);
         assertEquals(0.4, plot2.getExplodePercent("B"), EPSILON);
     }
-    
-    private static final double EPSILON = 0.000000001;
 
     @Test
     public void testBug1126_e() throws CloneNotSupportedException {
@@ -705,10 +680,23 @@ public class PiePlotTest {
         PiePlot plot1 = new PiePlot(dataset1);
         plot1.setLabelGenerator(new StandardPieSectionLabelGenerator());
         PiePlot plot2 = (PiePlot) plot1.clone();
-        StandardPieSectionLabelGenerator g2 
+        StandardPieSectionLabelGenerator g2
                 = (StandardPieSectionLabelGenerator) plot2.getLabelGenerator();
         g2.setAttributedLabel(1, new AttributedString("TESTING"));
         assertNotEquals(plot1, plot2);
+    }
+
+    static class NullLegendLabelGenerator implements PieSectionLabelGenerator {
+        @Override
+        public AttributedString generateAttributedSectionLabel(
+                PieDataset dataset, Comparable key) {
+            return null;
+        }
+
+        @Override
+        public String generateSectionLabel(PieDataset dataset, Comparable key) {
+            return null;
+        }
     }
 
 }

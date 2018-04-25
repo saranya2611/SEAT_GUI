@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -46,13 +46,19 @@ package org.jfree.chart.encoders;
  */
 public interface ImageFormat {
 
-    /** Portable Network Graphics - lossless */
+    /**
+     * Portable Network Graphics - lossless
+     */
     public static String PNG = "png";
 
-    /** Joint Photographic Experts Group format - lossy */
+    /**
+     * Joint Photographic Experts Group format - lossy
+     */
     public static String JPEG = "jpeg";
 
-    /** Graphics Interchange Format - lossless, but 256 colour restriction */
+    /**
+     * Graphics Interchange Format - lossless, but 256 colour restriction
+     */
     public static String GIF = "gif";
 
 }

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -69,7 +69,7 @@ public class MyPlotChangeListener implements PlotChangeListener {
     /**
      * Sets the event for the listener.
      *
-     * @param e  the event.
+     * @param e the event.
      */
     public void setEvent(PlotChangeEvent e) {
         this.event = e;
@@ -78,7 +78,7 @@ public class MyPlotChangeListener implements PlotChangeListener {
     /**
      * Receives notification of a plot change event.
      *
-     * @param e  the event.
+     * @param e the event.
      */
     @Override
     public void plotChanged(PlotChangeEvent e) {

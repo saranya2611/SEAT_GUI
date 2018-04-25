@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------
@@ -50,36 +50,37 @@
 
 package org.jfree.data.time;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.TimeZone;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link Week} class.
  */
 public class WeekTest {
 
-    /** A week. */
+    /**
+     * A week.
+     */
     private Week w1Y1900;
 
-    /** A week. */
+    /**
+     * A week.
+     */
     private Week w2Y1900;
 
-    /** A week. */
+    /**
+     * A week.
+     */
     private Week w51Y9999;
 
-    /** A week. */
+    /**
+     * A week.
+     */
     private Week w52Y9999;
 
     /**
@@ -184,18 +185,18 @@ public class WeekTest {
 
     /**
      * The first week in 2005 should span the range:
-     *
+     * <p>
      * TimeZone         | Start Millis  | End Millis    | Start Date  | End Date
      * -----------------+---------------+---------------+-------------+------------
      * Europe/London    | 1104710400000 | 1105315199999 |  3-Jan-2005 | 9-Jan-2005
      * Europe/Paris     | 1104706800000 | 1105311599999 |  3-Jan-2005 | 2-Jan-2005
      * America/New_York | 1104037200000 | 1104641999999 | 26-Dec-2004 | 1-Jan-2005
-     *
+     * <p>
      * In London and Paris, Monday is the first day of the week, while in the
      * US it is Sunday.
-     *
+     * <p>
      * Previously, we were using these values, but see Java Bug ID 4960215:
-     *
+     * <p>
      * TimeZone         | Start Millis  | End Millis    | Start Date  | End Date
      * -----------------+---------------+---------------+-------------+------------
      * Europe/London    | 1104105600000 | 1104710399999 | 27-Dec-2004 | 2-Jan-2005
@@ -223,18 +224,18 @@ public class WeekTest {
 
     /**
      * The 53rd week in 2004 in London and Paris should span the range:
-     *
+     * <p>
      * TimeZone         | Start Millis  | End Millis    | Start Date  | End Date
      * -----------------+---------------+---------------+-------------+------------
      * Europe/London    | 1104105600000 | 1104710399999 | 27-Dec-2004 | 02-Jan-2005
      * Europe/Paris     | 1104102000000 | 1104706799999 | 27-Dec-2004 | 02-Jan-2005
-     *
+     * <p>
      * The 53rd week in 2005 in New York should span the range:
-     *
+     * <p>
      * TimeZone         | Start Millis  | End Millis    | Start Date  | End Date
      * -----------------+---------------+---------------+-------------+------------
      * America/New_York | 1135486800000 | 1136091599999 | 25-Dec-2005 | 31-Dec-2005
-     *
+     * <p>
      * In London and Paris, Monday is the first day of the week, while in the
      * US it is Sunday.
      */
@@ -270,8 +271,7 @@ public class WeekTest {
                     TimeZone.getTimeZone("GMT"));
             assertEquals(2005, w.getYearValue());
             assertEquals(52, w.getWeek());
-        }
-        finally {
+        } finally {
             Locale.setDefault(saved);
         }
     }
@@ -290,8 +290,7 @@ public class WeekTest {
             Week w = new Week(gc.getTime(), zone);
             assertEquals(53, w.getWeek());
             assertEquals(new Year(2004), w.getYear());
-        }
-        finally {
+        } finally {
             Locale.setDefault(saved);
         }
     }
@@ -322,8 +321,7 @@ public class WeekTest {
         try {
             TimeZone zone = TimeZone.getTimeZone("America/Los_Angeles");
             assertEquals(-603302400000L, w.getFirstMillisecond(zone));
-        }
-        finally {
+        } finally {
             Locale.setDefault(saved);
         }
 
@@ -331,8 +329,7 @@ public class WeekTest {
         boolean pass = false;
         try {
             w.getFirstMillisecond((TimeZone) null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -352,8 +349,7 @@ public class WeekTest {
         boolean pass = false;
         try {
             w.getFirstMillisecond((Calendar) null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -385,8 +381,7 @@ public class WeekTest {
         try {
             TimeZone zone = TimeZone.getTimeZone("America/Los_Angeles");
             assertEquals(-629913600001L, w.getLastMillisecond(zone));
-        }
-        finally {
+        } finally {
             Locale.setDefault(saved);
         }
 
@@ -394,8 +389,7 @@ public class WeekTest {
         boolean pass = false;
         try {
             w.getLastMillisecond((TimeZone) null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -415,8 +409,7 @@ public class WeekTest {
         boolean pass = false;
         try {
             w.getLastMillisecond((Calendar) null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);

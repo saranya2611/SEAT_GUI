@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -43,17 +43,14 @@ package org.jfree.chart;
 
 import org.junit.Test;
 
-import java.awt.Color;
-import java.awt.GradientPaint;
+import java.awt.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
  * Some tests for the {@link PaintMap} class.
  */
-public class PaintMapTest  {
+public class PaintMapTest {
 
     /**
      * Some checks for the getPaint() method.
@@ -71,8 +68,7 @@ public class PaintMapTest  {
         try {
             m1.getPaint(null);
             fail("IllegalArgumentException should have been thrown on passing null value");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals("Null 'key' argument.", e.getMessage());
         }
     }
@@ -91,8 +87,7 @@ public class PaintMapTest  {
         try {
             m1.put(null, Color.blue);
             fail("IllegalArgumentException should have been thrown on null key");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals("Null 'key' argument.", e.getMessage());
         }
     }
@@ -168,7 +163,7 @@ public class PaintMapTest  {
 
     /**
      * This test covers a bug reported in the forum:
-     *
+     * <p>
      * http://www.jfree.org/phpBB2/viewtopic.php?t=19980
      */
     @Test

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -50,21 +50,27 @@ import java.io.Serializable;
  */
 public class YInterval implements Serializable {
 
-    /** The y-value. */
+    /**
+     * The y-value.
+     */
     private double y;
 
-    /** The lower bound of the y-interval. */
+    /**
+     * The lower bound of the y-interval.
+     */
     private double yLow;
 
-    /** The upper bound of the y-interval. */
+    /**
+     * The upper bound of the y-interval.
+     */
     private double yHigh;
 
     /**
      * Creates a new instance of <code>YInterval</code>.
      *
-     * @param y  the y-value.
+     * @param y     the y-value.
      * @param yLow  the lower bound of the y-interval.
-     * @param yHigh  the upper bound of the y-interval.
+     * @param yHigh the upper bound of the y-interval.
      */
     public YInterval(double y, double yLow, double yHigh) {
         this.y = y;
@@ -102,8 +108,7 @@ public class YInterval implements Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -49,28 +49,34 @@ import java.io.Serializable;
  */
 public final class CategoryAnchor implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -2604142742210173810L;
-
-    /** Start of period. */
+    /**
+     * Start of period.
+     */
     public static final CategoryAnchor START
-        = new CategoryAnchor("CategoryAnchor.START");
-
-    /** Middle of period. */
+            = new CategoryAnchor("CategoryAnchor.START");
+    /**
+     * Middle of period.
+     */
     public static final CategoryAnchor MIDDLE
-        = new CategoryAnchor("CategoryAnchor.MIDDLE");
-
-    /** End of period. */
+            = new CategoryAnchor("CategoryAnchor.MIDDLE");
+    /**
+     * End of period.
+     */
     public static final CategoryAnchor END
-        = new CategoryAnchor("CategoryAnchor.END");
-
-    /** The name. */
+            = new CategoryAnchor("CategoryAnchor.END");
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -2604142742210173810L;
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private CategoryAnchor(String name) {
         this.name = name;
@@ -90,8 +96,7 @@ public final class CategoryAnchor implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return A boolean.
      */
     @Override
@@ -113,17 +118,14 @@ public final class CategoryAnchor implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         if (this.equals(CategoryAnchor.START)) {
             return CategoryAnchor.START;
-        }
-        else if (this.equals(CategoryAnchor.MIDDLE)) {
+        } else if (this.equals(CategoryAnchor.MIDDLE)) {
             return CategoryAnchor.MIDDLE;
-        }
-        else if (this.equals(CategoryAnchor.END)) {
+        } else if (this.equals(CategoryAnchor.END)) {
             return CategoryAnchor.END;
         }
         return null;

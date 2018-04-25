@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -45,10 +45,9 @@
 
 package org.jfree.chart.plot;
 
-import java.awt.Paint;
-import java.awt.Stroke;
-
 import org.jfree.chart.event.MarkerChangeEvent;
+
+import java.awt.*;
 
 /**
  * A marker that represents a single value.  Markers can be added to plots to
@@ -56,13 +55,15 @@ import org.jfree.chart.event.MarkerChangeEvent;
  */
 public class ValueMarker extends Marker {
 
-    /** The value. */
+    /**
+     * The value.
+     */
     private double value;
 
     /**
      * Creates a new marker.
      *
-     * @param value  the value.
+     * @param value the value.
      */
     public ValueMarker(double value) {
         super();
@@ -74,7 +75,7 @@ public class ValueMarker extends Marker {
      *
      * @param value  the value.
      * @param paint  the paint (<code>null</code> not permitted).
-     * @param stroke  the stroke (<code>null</code> not permitted).
+     * @param stroke the stroke (<code>null</code> not permitted).
      */
     public ValueMarker(double value, Paint paint, Stroke stroke) {
         this(value, paint, stroke, paint, stroke, 1.0f);
@@ -83,12 +84,12 @@ public class ValueMarker extends Marker {
     /**
      * Creates a new value marker.
      *
-     * @param value  the value.
-     * @param paint  the paint (<code>null</code> not permitted).
-     * @param stroke  the stroke (<code>null</code> not permitted).
+     * @param value         the value.
+     * @param paint         the paint (<code>null</code> not permitted).
+     * @param stroke        the stroke (<code>null</code> not permitted).
      * @param outlinePaint  the outline paint (<code>null</code> permitted).
-     * @param outlineStroke  the outline stroke (<code>null</code> permitted).
-     * @param alpha  the alpha transparency (in the range 0.0f to 1.0f).
+     * @param outlineStroke the outline stroke (<code>null</code> permitted).
+     * @param alpha         the alpha transparency (in the range 0.0f to 1.0f).
      */
     public ValueMarker(double value, Paint paint, Stroke stroke,
                        Paint outlinePaint, Stroke outlineStroke, float alpha) {
@@ -100,7 +101,6 @@ public class ValueMarker extends Marker {
      * Returns the value.
      *
      * @return The value.
-     *
      * @see #setValue(double)
      */
     public double getValue() {
@@ -111,10 +111,8 @@ public class ValueMarker extends Marker {
      * Sets the value for the marker and sends a {@link MarkerChangeEvent} to
      * all registered listeners.
      *
-     * @param value  the value.
-     *
+     * @param value the value.
      * @see #getValue()
-     *
      * @since 1.0.3
      */
     public void setValue(double value) {
@@ -125,7 +123,7 @@ public class ValueMarker extends Marker {
     /**
      * Tests this marker for equality with an arbitrary object.  This method
      * returns <code>true</code> if:
-     *
+     * <p>
      * <ul>
      * <li><code>obj</code> is not <code>null</code>;</li>
      * <li><code>obj</code> is an instance of <code>ValueMarker</code>;</li>
@@ -133,8 +131,7 @@ public class ValueMarker extends Marker {
      * <li><code>super.equals(obj)</code> returns <code>true</code>.</li>
      * </ul>
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

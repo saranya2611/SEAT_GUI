@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -51,23 +51,31 @@ import java.io.Serializable;
  */
 public class HistogramBin implements Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 7614685080015589931L;
 
-    /** The number of items in the bin. */
+    /**
+     * The number of items in the bin.
+     */
     private int count;
 
-    /** The start boundary. */
+    /**
+     * The start boundary.
+     */
     private double startBoundary;
 
-    /** The end boundary. */
+    /**
+     * The end boundary.
+     */
     private double endBoundary;
 
     /**
      * Creates a new bin.
      *
-     * @param startBoundary  the start boundary.
-     * @param endBoundary  the end boundary.
+     * @param startBoundary the start boundary.
+     * @param endBoundary   the end boundary.
      */
     public HistogramBin(double startBoundary, double endBoundary) {
         if (startBoundary > endBoundary) {
@@ -125,8 +133,7 @@ public class HistogramBin implements Cloneable, Serializable {
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the object to test against.
-     *
+     * @param obj the object to test against.
      * @return A boolean.
      */
     @Override
@@ -151,7 +158,6 @@ public class HistogramBin implements Cloneable, Serializable {
      * Returns a clone of the bin.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException not thrown by this class.
      */
     @Override

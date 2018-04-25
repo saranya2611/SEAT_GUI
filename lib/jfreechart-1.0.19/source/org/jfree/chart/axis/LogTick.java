@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------
@@ -35,42 +35,45 @@
  * Changes
  * -------
  * 18-Mar-2014 : Version 1 (DG);
- * 
+ *
  */
 
 package org.jfree.chart.axis;
 
-import java.text.AttributedString;
 import org.jfree.ui.TextAnchor;
+
+import java.text.AttributedString;
 
 /**
  * A tick from a {@link LogAxis}.
  */
 public class LogTick extends ValueTick {
-    
-    /** The attributed string for the tick label. */
+
+    /**
+     * The attributed string for the tick label.
+     */
     AttributedString attributedLabel;
-    
+
     /**
      * Creates a new instance.
-     * 
-     * @param type  the type (major or minor tick, <code>null</code> not 
-     *         permitted).
-     * @param value  the value.
-     * @param label  the label (<code>null</code> permitted).
-     * @param textAnchor  the text anchor.
+     *
+     * @param type       the type (major or minor tick, <code>null</code> not
+     *                   permitted).
+     * @param value      the value.
+     * @param label      the label (<code>null</code> permitted).
+     * @param textAnchor the text anchor.
      */
-    public LogTick(TickType type, double value, AttributedString label, 
-            TextAnchor textAnchor) {
+    public LogTick(TickType type, double value, AttributedString label,
+                   TextAnchor textAnchor) {
         super(type, value, null, textAnchor, textAnchor, 0.0);
         this.attributedLabel = label;
     }
-    
+
     /**
-     * Returns the attributed string for the tick label, or <code>null</code> 
+     * Returns the attributed string for the tick label, or <code>null</code>
      * if there is no label.
-     * 
-     * @return The attributed string or <code>null</code>. 
+     *
+     * @return The attributed string or <code>null</code>.
      */
     public AttributedString getAttributedLabel() {
         return this.attributedLabel;

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -59,19 +59,16 @@ public class RendererUtilities {
      * Finds the lower index of the range of live items in the specified data
      * series.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series index.
-     * @param xLow  the lowest x-value in the live range.
-     * @param xHigh  the highest x-value in the live range.
-     *
+     * @param xLow    the lowest x-value in the live range.
+     * @param xHigh   the highest x-value in the live range.
      * @return The index of the required item.
-     *
-     * @since 1.0.6
-     *
      * @see #findLiveItemsUpperBound(XYDataset, int, double, double)
+     * @since 1.0.6
      */
     public static int findLiveItemsLowerBound(XYDataset dataset, int series,
-            double xLow, double xHigh) {
+                                              double xLow, double xHigh) {
         ParamChecks.nullNotPermitted(dataset, "dataset");
         if (xLow >= xHigh) {
             throw new IllegalArgumentException("Requires xLow < xHigh.");
@@ -100,14 +97,12 @@ public class RendererUtilities {
                 double midV = dataset.getXValue(series, mid);
                 if (midV >= xLow) {
                     high = mid;
-                }
-                else {
+                } else {
                     low = mid;
                 }
             }
             return high;
-        }
-        else if (dataset.getDomainOrder() == DomainOrder.DESCENDING) {
+        } else if (dataset.getDomainOrder() == DomainOrder.DESCENDING) {
             // when the x-values are sorted in descending order, the lower
             // bound is found by calculating relative to the xHigh value
             int low = 0;
@@ -125,14 +120,12 @@ public class RendererUtilities {
                 double midV = dataset.getXValue(series, mid);
                 if (midV > xHigh) {
                     low = mid;
-                }
-                else {
+                } else {
                     high = mid;
                 }
             }
             return high;
-        }
-        else {
+        } else {
             // we don't know anything about the ordering of the x-values,
             // but we can still skip any initial values that fall outside the
             // range...
@@ -153,19 +146,16 @@ public class RendererUtilities {
      * Finds the upper index of the range of live items in the specified data
      * series.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series index.
-     * @param xLow  the lowest x-value in the live range.
-     * @param xHigh  the highest x-value in the live range.
-     *
+     * @param xLow    the lowest x-value in the live range.
+     * @param xHigh   the highest x-value in the live range.
      * @return The index of the required item.
-     *
-     * @since 1.0.6
-     *
      * @see #findLiveItemsLowerBound(XYDataset, int, double, double)
+     * @since 1.0.6
      */
     public static int findLiveItemsUpperBound(XYDataset dataset, int series,
-            double xLow, double xHigh) {
+                                              double xLow, double xHigh) {
         ParamChecks.nullNotPermitted(dataset, "dataset");
         if (xLow >= xHigh) {
             throw new IllegalArgumentException("Requires xLow < xHigh.");
@@ -190,15 +180,13 @@ public class RendererUtilities {
                 double midV = dataset.getXValue(series, mid);
                 if (midV <= xHigh) {
                     low = mid;
-                }
-                else {
+                } else {
                     high = mid;
                 }
                 mid = (low + high) / 2;
             }
             return mid;
-        }
-        else if (dataset.getDomainOrder() == DomainOrder.DESCENDING) {
+        } else if (dataset.getDomainOrder() == DomainOrder.DESCENDING) {
             // when the x-values are descending, the upper bound is found by
             // comparing against xLow
             int low = 0;
@@ -216,15 +204,13 @@ public class RendererUtilities {
                 double midV = dataset.getXValue(series, mid);
                 if (midV >= xLow) {
                     low = mid;
-                }
-                else {
+                } else {
                     high = mid;
                 }
                 mid = (low + high) / 2;
             }
             return mid;
-        }
-        else {
+        } else {
             // we don't know anything about the ordering of the x-values,
             // but we can still skip any trailing values that fall outside the
             // range...
@@ -245,15 +231,14 @@ public class RendererUtilities {
      * Finds a range of item indices that is guaranteed to contain all the
      * x-values from x0 to x1 (inclusive).
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series index.
-     * @param xLow  the lower bound of the x-value range.
-     * @param xHigh  the upper bound of the x-value range.
-     *
+     * @param xLow    the lower bound of the x-value range.
+     * @param xHigh   the upper bound of the x-value range.
      * @return The indices of the boundary items.
      */
     public static int[] findLiveItems(XYDataset dataset, int series,
-            double xLow, double xHigh) {
+                                      double xLow, double xHigh) {
         // here we could probably be a little faster by searching for both
         // indices simultaneously, but I'll look at that later if it seems
         // like it matters...
@@ -262,7 +247,7 @@ public class RendererUtilities {
         if (i0 > i1) {
             i0 = i1;
         }
-        return new int[] {i0, i1};
+        return new int[]{i0, i1};
     }
 
 }

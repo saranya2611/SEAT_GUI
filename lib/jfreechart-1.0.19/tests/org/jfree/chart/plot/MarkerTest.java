@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -40,17 +40,6 @@
 
 package org.jfree.chart.plot;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.util.Arrays;
-import java.util.EventListener;
-
 import org.jfree.chart.event.MarkerChangeEvent;
 import org.jfree.chart.event.MarkerChangeListener;
 import org.jfree.ui.LengthAdjustmentType;
@@ -59,11 +48,18 @@ import org.jfree.ui.RectangleInsets;
 import org.jfree.ui.TextAnchor;
 import org.junit.Test;
 
+import java.awt.*;
+import java.util.Arrays;
+import java.util.EventListener;
+
+import static org.junit.Assert.*;
+
 /**
  * Tests for the {@link Marker} class.
  */
 public class MarkerTest implements MarkerChangeListener {
 
+    private static final float EPSILON = 0.000000001f;
     MarkerChangeEvent lastEvent;
 
     /**
@@ -85,8 +81,7 @@ public class MarkerTest implements MarkerChangeListener {
         try {
             m.setPaint(null);
             fail("Expected an IllegalArgumentException for null.");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
     }
@@ -110,8 +105,7 @@ public class MarkerTest implements MarkerChangeListener {
         try {
             m.setStroke(null);
             fail("Expected an IllegalArgumentException for null.");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
     }
@@ -155,8 +149,6 @@ public class MarkerTest implements MarkerChangeListener {
         m.setOutlineStroke(null);
         assertEquals(null, m.getOutlineStroke());
     }
-
-    private static final float EPSILON = 0.000000001f;
 
     /**
      * Some checks for the getAlpha() and setAlpha() methods.
@@ -213,8 +205,7 @@ public class MarkerTest implements MarkerChangeListener {
         try {
             m.setLabelFont(null);
             fail("Expected an IllegalArgumentException for null.");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
     }
@@ -238,8 +229,7 @@ public class MarkerTest implements MarkerChangeListener {
         try {
             m.setLabelPaint(null);
             fail("Expected an IllegalArgumentException for null.");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
     }
@@ -263,8 +253,7 @@ public class MarkerTest implements MarkerChangeListener {
         try {
             m.setLabelAnchor(null);
             fail("Expected an IllegalArgumentException for null.");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
     }
@@ -288,8 +277,7 @@ public class MarkerTest implements MarkerChangeListener {
         try {
             m.setLabelOffset(null);
             fail("Expected an IllegalArgumentException for null.");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
     }
@@ -314,8 +302,7 @@ public class MarkerTest implements MarkerChangeListener {
         try {
             m.setLabelOffsetType(null);
             fail("Expected an IllegalArgumentException for null.");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
     }
@@ -340,8 +327,7 @@ public class MarkerTest implements MarkerChangeListener {
         try {
             m.setLabelTextAnchor(null);
             fail("Expected an IllegalArgumentException for null.");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
     }
@@ -397,7 +383,7 @@ public class MarkerTest implements MarkerChangeListener {
     /**
      * Records the last event.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void markerChanged(MarkerChangeEvent event) {

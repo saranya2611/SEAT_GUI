@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -44,24 +44,19 @@
 
 package org.jfree.chart.block;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.RenderingHints;
-import java.awt.Stroke;
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
+
+import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import org.jfree.chart.util.ParamChecks;
-
-import org.jfree.io.SerialUtilities;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.util.ObjectUtilities;
-import org.jfree.util.PaintUtilities;
 
 /**
  * A line border for any {@link AbstractBlock}.
@@ -70,16 +65,24 @@ import org.jfree.util.PaintUtilities;
  */
 public class LineBorder implements BlockFrame, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = 4630356736707233924L;
 
-    /** The line color. */
+    /**
+     * The line color.
+     */
     private transient Paint paint;
 
-    /** The line stroke. */
+    /**
+     * The line stroke.
+     */
     private transient Stroke stroke;
 
-    /** The insets. */
+    /**
+     * The insets.
+     */
     private RectangleInsets insets;
 
     /**
@@ -94,8 +97,8 @@ public class LineBorder implements BlockFrame, Serializable {
      * Creates a new border with the specified color.
      *
      * @param paint  the color ({@code null} not permitted).
-     * @param stroke  the border stroke ({@code null} not permitted).
-     * @param insets  the insets ({@code null} not permitted).
+     * @param stroke the border stroke ({@code null} not permitted).
+     * @param insets the insets ({@code null} not permitted).
      */
     public LineBorder(Paint paint, Stroke stroke, RectangleInsets insets) {
         ParamChecks.nullNotPermitted(paint, "paint");
@@ -137,8 +140,8 @@ public class LineBorder implements BlockFrame, Serializable {
     /**
      * Draws the border by filling in the reserved space (in black).
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
+     * @param g2   the graphics device.
+     * @param area the area.
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D area) {
@@ -161,7 +164,7 @@ public class LineBorder implements BlockFrame, Serializable {
         g2.setPaint(getPaint());
         g2.setStroke(getStroke());
         Object saved = g2.getRenderingHint(RenderingHints.KEY_STROKE_CONTROL);
-        g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
+        g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_NORMALIZE);
         Line2D line = new Line2D.Double();
         if (t > 0.0) {
@@ -186,8 +189,7 @@ public class LineBorder implements BlockFrame, Serializable {
     /**
      * Tests this border for equality with an arbitrary instance.
      *
-     * @param obj  the object ({@code null} permitted).
-     *
+     * @param obj the object ({@code null} permitted).
      * @return A boolean.
      */
     @Override
@@ -214,9 +216,8 @@ public class LineBorder implements BlockFrame, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -227,13 +228,12 @@ public class LineBorder implements BlockFrame, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.paint = SerialUtilities.readPaint(stream);
         this.stroke = SerialUtilities.readStroke(stream);

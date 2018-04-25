@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------------
@@ -40,10 +40,11 @@
 
 package org.jfree.chart.labels;
 
+import org.jfree.chart.plot.Crosshair;
+
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
-import org.jfree.chart.plot.Crosshair;
 
 /**
  * A default label generator.
@@ -53,10 +54,14 @@ import org.jfree.chart.plot.Crosshair;
 public class StandardCrosshairLabelGenerator implements CrosshairLabelGenerator,
         Serializable {
 
-    /** The label format string. */
+    /**
+     * The label format string.
+     */
     private String labelTemplate;
 
-    /** A number formatter for the value. */
+    /**
+     * A number formatter for the value.
+     */
     private NumberFormat numberFormat;
 
     /**
@@ -69,13 +74,13 @@ public class StandardCrosshairLabelGenerator implements CrosshairLabelGenerator,
     /**
      * Creates a new instance with the specified attributes.
      *
-     * @param labelTemplate  the label template (<code>null</code> not
-     *     permitted).
+     * @param labelTemplate the label template (<code>null</code> not
+     *                      permitted).
      * @param numberFormat  the number formatter (<code>null</code> not
-     *     permitted).
+     *                      permitted).
      */
     public StandardCrosshairLabelGenerator(String labelTemplate,
-            NumberFormat numberFormat) {
+                                           NumberFormat numberFormat) {
         super();
         if (labelTemplate == null) {
             throw new IllegalArgumentException(
@@ -110,13 +115,12 @@ public class StandardCrosshairLabelGenerator implements CrosshairLabelGenerator,
     /**
      * Returns a string that can be used as the label for a crosshair.
      *
-     * @param crosshair  the crosshair (<code>null</code> not permitted).
-     *
+     * @param crosshair the crosshair (<code>null</code> not permitted).
      * @return The label (possibly <code>null</code>).
      */
     @Override
     public String generateLabel(Crosshair crosshair) {
-        Object[] v = new Object[] {this.numberFormat.format(
+        Object[] v = new Object[]{this.numberFormat.format(
                 crosshair.getValue())};
         String result = MessageFormat.format(this.labelTemplate, v);
         return result;
@@ -124,9 +128,8 @@ public class StandardCrosshairLabelGenerator implements CrosshairLabelGenerator,
 
     /**
      * Tests this generator for equality with an arbitrary object.
-     * 
-     * @param obj  the object (<code>null</code> permitted).
-     * 
+     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

@@ -57,46 +57,14 @@
  * 12-Dec-2011 : Added support for radiusMinorGridlinesVisible (MH);
  * 02-Jul-2013 : Use ParamChecks (DG);
  * 05-Jul-2013 : Fire change event from setRadiusMinorGridlinesVisible (DG);
- * 
+ *
  */
 
 package org.jfree.chart.plot;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Composite;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Point;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.TreeMap;
-
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.LegendItemCollection;
-import org.jfree.chart.axis.Axis;
-import org.jfree.chart.axis.AxisState;
-import org.jfree.chart.axis.NumberTick;
-import org.jfree.chart.axis.NumberTickUnit;
-import org.jfree.chart.axis.TickType;
-import org.jfree.chart.axis.TickUnit;
-import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.axis.ValueTick;
+import org.jfree.chart.axis.*;
 import org.jfree.chart.event.PlotChangeEvent;
 import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.event.RendererChangeListener;
@@ -118,6 +86,16 @@ import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.*;
+import java.util.List;
+
 /**
  * Plots data that is in (theta, radius) pairs where
  * theta equal to zero is due north and increases clockwise.
@@ -125,55 +103,70 @@ import org.jfree.util.PublicCloneable;
 public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
         RendererChangeListener, Cloneable, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 3794383185924179525L;
-
-    /** The default margin. */
-    private static final int DEFAULT_MARGIN = 20;
-
-    /** The annotation margin. */
-    private static final double ANNOTATION_MARGIN = 7.0;
-
     /**
      * The default angle tick unit size.
      *
      * @since 1.0.10
      */
     public static final double DEFAULT_ANGLE_TICK_UNIT_SIZE = 45.0;
-
     /**
      * The default angle offset.
      *
      * @since 1.0.14
      */
     public static final double DEFAULT_ANGLE_OFFSET = -90.0;
-
-    /** The default grid line stroke. */
+    /**
+     * The default grid line stroke.
+     */
     public static final Stroke DEFAULT_GRIDLINE_STROKE = new BasicStroke(
             0.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
             0.0f, new float[]{2.0f, 2.0f}, 0.0f);
-
-    /** The default grid line paint. */
+    /**
+     * The default grid line paint.
+     */
     public static final Paint DEFAULT_GRIDLINE_PAINT = Color.gray;
-
-    /** The resourceBundle for the localization. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 3794383185924179525L;
+    /**
+     * The default margin.
+     */
+    private static final int DEFAULT_MARGIN = 20;
+    /**
+     * The annotation margin.
+     */
+    private static final double ANNOTATION_MARGIN = 7.0;
+    /**
+     * The resourceBundle for the localization.
+     */
     protected static ResourceBundle localizationResources
             = ResourceBundleWrapper.getBundle(
-                    "org.jfree.chart.plot.LocalizationBundle");
+            "org.jfree.chart.plot.LocalizationBundle");
 
-    /** The angles that are marked with gridlines. */
+    /**
+     * The angles that are marked with gridlines.
+     */
     private List angleTicks;
 
-    /** The range axis (used for the y-values). */
+    /**
+     * The range axis (used for the y-values).
+     */
     private ObjectList axes;
 
-    /** The axis locations. */
+    /**
+     * The axis locations.
+     */
     private ObjectList axisLocations;
 
-    /** Storage for the datasets. */
+    /**
+     * Storage for the datasets.
+     */
     private ObjectList datasets;
 
-    /** Storage for the renderers. */
+    /**
+     * Storage for the renderers.
+     */
     private ObjectList renderers;
 
     /**
@@ -198,40 +191,61 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      */
     private boolean counterClockwise;
 
-    /** A flag that controls whether or not the angle labels are visible. */
+    /**
+     * A flag that controls whether or not the angle labels are visible.
+     */
     private boolean angleLabelsVisible = true;
 
-    /** The font used to display the angle labels - never null. */
+    /**
+     * The font used to display the angle labels - never null.
+     */
     private Font angleLabelFont = new Font("SansSerif", Font.PLAIN, 12);
 
-    /** The paint used to display the angle labels. */
+    /**
+     * The paint used to display the angle labels.
+     */
     private transient Paint angleLabelPaint = Color.black;
 
-    /** A flag that controls whether the angular grid-lines are visible. */
+    /**
+     * A flag that controls whether the angular grid-lines are visible.
+     */
     private boolean angleGridlinesVisible;
 
-    /** The stroke used to draw the angular grid-lines. */
+    /**
+     * The stroke used to draw the angular grid-lines.
+     */
     private transient Stroke angleGridlineStroke;
 
-    /** The paint used to draw the angular grid-lines. */
+    /**
+     * The paint used to draw the angular grid-lines.
+     */
     private transient Paint angleGridlinePaint;
 
-    /** A flag that controls whether the radius grid-lines are visible. */
+    /**
+     * A flag that controls whether the radius grid-lines are visible.
+     */
     private boolean radiusGridlinesVisible;
 
-    /** The stroke used to draw the radius grid-lines. */
+    /**
+     * The stroke used to draw the radius grid-lines.
+     */
     private transient Stroke radiusGridlineStroke;
 
-    /** The paint used to draw the radius grid-lines. */
+    /**
+     * The paint used to draw the radius grid-lines.
+     */
     private transient Paint radiusGridlinePaint;
 
     /**
      * A flag that controls whether the radial minor grid-lines are visible.
+     *
      * @since 1.0.15
      */
     private boolean radiusMinorGridlinesVisible;
 
-    /** The annotations for the plot. */
+    /**
+     * The annotations for the plot.
+     */
     private List cornerTextItems = new ArrayList();
 
     /**
@@ -264,15 +278,15 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
         this(null, null, null);
     }
 
-   /**
+    /**
      * Creates a new plot.
      *
-     * @param dataset  the dataset (<code>null</code> permitted).
-     * @param radiusAxis  the radius axis (<code>null</code> permitted).
-     * @param renderer  the renderer (<code>null</code> permitted).
+     * @param dataset    the dataset (<code>null</code> permitted).
+     * @param radiusAxis the radius axis (<code>null</code> permitted).
+     * @param renderer   the renderer (<code>null</code> permitted).
      */
     public PolarPlot(XYDataset dataset, ValueAxis radiusAxis,
-                PolarItemRenderer renderer) {
+                     PolarItemRenderer renderer) {
 
         super();
 
@@ -329,14 +343,13 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      */
     @Override
     public String getPlotType() {
-       return PolarPlot.localizationResources.getString("Polar_Plot");
+        return PolarPlot.localizationResources.getString("Polar_Plot");
     }
 
     /**
      * Returns the primary axis for the plot.
      *
      * @return The primary axis (possibly <code>null</code>).
-     *
      * @see #setAxis(ValueAxis)
      */
     public ValueAxis getAxis() {
@@ -344,14 +357,21 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     }
 
     /**
+     * Sets the primary axis for the plot and sends a {@link PlotChangeEvent}
+     * to all registered listeners.
+     *
+     * @param axis the new primary axis (<code>null</code> permitted).
+     */
+    public void setAxis(ValueAxis axis) {
+        setAxis(0, axis);
+    }
+
+    /**
      * Returns an axis for the plot.
      *
-     * @param index  the axis index.
-     *
+     * @param index the axis index.
      * @return The axis (<code>null</code> possible).
-     *
      * @see #setAxis(int, ValueAxis)
-     *
      * @since 1.0.14
      */
     public ValueAxis getAxis(int index) {
@@ -363,24 +383,12 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     }
 
     /**
-     * Sets the primary axis for the plot and sends a {@link PlotChangeEvent}
-     * to all registered listeners.
-     *
-     * @param axis  the new primary axis (<code>null</code> permitted).
-     */
-    public void setAxis(ValueAxis axis) {
-        setAxis(0, axis);
-    }
-
-    /**
      * Sets an axis for the plot and sends a {@link PlotChangeEvent} to all
      * registered listeners.
      *
-     * @param index  the axis index.
+     * @param index the axis index.
      * @param axis  the axis (<code>null</code> permitted).
-     *
      * @see #getAxis(int)
-     *
      * @since 1.0.14
      */
     public void setAxis(int index, ValueAxis axis) {
@@ -392,11 +400,9 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * {@link PlotChangeEvent} to all registered listeners.
      *
      * @param index  the axis index.
-     * @param axis  the axis (<code>null</code> permitted).
-     * @param notify  notify listeners?
-     *
+     * @param axis   the axis (<code>null</code> permitted).
+     * @param notify notify listeners?
      * @see #getAxis(int)
-     *
      * @since 1.0.14
      */
     public void setAxis(int index, ValueAxis axis, boolean notify) {
@@ -421,9 +427,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Returns the location of the primary axis.
      *
      * @return The location (never <code>null</code>).
-     *
      * @see #setAxisLocation(PolarAxisLocation)
-     *
      * @since 1.0.14
      */
     public PolarAxisLocation getAxisLocation() {
@@ -431,14 +435,24 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     }
 
     /**
+     * Sets the location of the primary axis and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param location the location (<code>null</code> not permitted).
+     * @see #getAxisLocation()
+     * @since 1.0.14
+     */
+    public void setAxisLocation(PolarAxisLocation location) {
+        // delegate...
+        setAxisLocation(0, location, true);
+    }
+
+    /**
      * Returns the location for an axis.
      *
-     * @param index  the axis index.
-     *
+     * @param index the axis index.
      * @return The location (never <code>null</code>).
-     *
      * @see #setAxisLocation(int, PolarAxisLocation)
-     *
      * @since 1.0.14
      */
     public PolarAxisLocation getAxisLocation(int index) {
@@ -450,29 +464,12 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     }
 
     /**
-     * Sets the location of the primary axis and sends a
-     * {@link PlotChangeEvent} to all registered listeners.
-     *
-     * @param location  the location (<code>null</code> not permitted).
-     *
-     * @see #getAxisLocation()
-     *
-     * @since 1.0.14
-     */
-    public void setAxisLocation(PolarAxisLocation location) {
-        // delegate...
-        setAxisLocation(0, location, true);
-    }
-
-    /**
      * Sets the location of the primary axis and, if requested, sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param location  the location (<code>null</code> not permitted).
-     * @param notify  notify listeners?
-     *
+     * @param location the location (<code>null</code> not permitted).
+     * @param notify   notify listeners?
      * @see #getAxisLocation()
-     *
      * @since 1.0.14
      */
     public void setAxisLocation(PolarAxisLocation location, boolean notify) {
@@ -484,11 +481,9 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Sets the location for an axis and sends a {@link PlotChangeEvent}
      * to all registered listeners.
      *
-     * @param index  the axis index.
-     * @param location  the location (<code>null</code> not permitted).
-     *
+     * @param index    the axis index.
+     * @param location the location (<code>null</code> not permitted).
      * @see #getAxisLocation(int)
-     *
      * @since 1.0.14
      */
     public void setAxisLocation(int index, PolarAxisLocation location) {
@@ -500,14 +495,13 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Sets the axis location for an axis and, if requested, sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param index  the axis index.
-     * @param location  the location (<code>null</code> not permitted).
-     * @param notify  notify listeners?
-     *
+     * @param index    the axis index.
+     * @param location the location (<code>null</code> not permitted).
+     * @param notify   notify listeners?
      * @since 1.0.14
      */
     public void setAxisLocation(int index, PolarAxisLocation location,
-            boolean notify) {
+                                boolean notify) {
         ParamChecks.nullNotPermitted(location, "location");
         this.axisLocations.set(index, location);
         if (notify) {
@@ -519,7 +513,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Returns the number of domain axes.
      *
      * @return The axis count.
-     *
      * @since 1.0.14
      **/
     public int getAxisCount() {
@@ -530,7 +523,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Returns the primary dataset for the plot.
      *
      * @return The primary dataset (possibly <code>null</code>).
-     *
      * @see #setDataset(XYDataset)
      */
     public XYDataset getDataset() {
@@ -538,14 +530,23 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     }
 
     /**
+     * Sets the primary dataset for the plot, replacing the existing dataset
+     * if there is one, and sends a {@code link PlotChangeEvent} to all
+     * registered listeners.
+     *
+     * @param dataset the dataset (<code>null</code> permitted).
+     * @see #getDataset()
+     */
+    public void setDataset(XYDataset dataset) {
+        setDataset(0, dataset);
+    }
+
+    /**
      * Returns the dataset with the specified index, if any.
      *
-     * @param index  the dataset index.
-     *
+     * @param index the dataset index.
      * @return The dataset (possibly <code>null</code>).
-     *
      * @see #setDataset(int, XYDataset)
-     *
      * @since 1.0.14
      */
     public XYDataset getDataset(int index) {
@@ -557,28 +558,13 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     }
 
     /**
-     * Sets the primary dataset for the plot, replacing the existing dataset
-     * if there is one, and sends a {@code link PlotChangeEvent} to all
-     * registered listeners.
-     *
-     * @param dataset  the dataset (<code>null</code> permitted).
-     *
-     * @see #getDataset()
-     */
-    public void setDataset(XYDataset dataset) {
-        setDataset(0, dataset);
-    }
-
-    /**
      * Sets a dataset for the plot, replacing the existing dataset at the same
      * index if there is one, and sends a {@code link PlotChangeEvent} to all
      * registered listeners.
      *
-     * @param index  the dataset index.
-     * @param dataset  the dataset (<code>null</code> permitted).
-     *
+     * @param index   the dataset index.
+     * @param dataset the dataset (<code>null</code> permitted).
      * @see #getDataset(int)
-     *
      * @since 1.0.14
      */
     public void setDataset(int index, XYDataset dataset) {
@@ -600,7 +586,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Returns the number of datasets.
      *
      * @return The number of datasets.
-     *
      * @since 1.0.14
      */
     public int getDatasetCount() {
@@ -611,10 +596,8 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Returns the index of the specified dataset, or <code>-1</code> if the
      * dataset does not belong to the plot.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     *
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @return The index.
-     *
      * @since 1.0.14
      */
     public int indexOf(XYDataset dataset) {
@@ -632,7 +615,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Returns the primary renderer.
      *
      * @return The renderer (possibly <code>null</code>).
-     *
      * @see #setRenderer(PolarItemRenderer)
      */
     public PolarItemRenderer getRenderer() {
@@ -640,14 +622,23 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     }
 
     /**
+     * Sets the primary renderer, and notifies all listeners of a change to the
+     * plot.  If the renderer is set to <code>null</code>, no data items will
+     * be drawn for the corresponding dataset.
+     *
+     * @param renderer the new renderer (<code>null</code> permitted).
+     * @see #getRenderer()
+     */
+    public void setRenderer(PolarItemRenderer renderer) {
+        setRenderer(0, renderer);
+    }
+
+    /**
      * Returns the renderer at the specified index, if there is one.
      *
-     * @param index  the renderer index.
-     *
+     * @param index the renderer index.
      * @return The renderer (possibly <code>null</code>).
-     *
      * @see #setRenderer(int, PolarItemRenderer)
-     *
      * @since 1.0.14
      */
     public PolarItemRenderer getRenderer(int index) {
@@ -659,27 +650,12 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     }
 
     /**
-     * Sets the primary renderer, and notifies all listeners of a change to the
-     * plot.  If the renderer is set to <code>null</code>, no data items will
-     * be drawn for the corresponding dataset.
-     *
-     * @param renderer  the new renderer (<code>null</code> permitted).
-     *
-     * @see #getRenderer()
-     */
-    public void setRenderer(PolarItemRenderer renderer) {
-        setRenderer(0, renderer);
-    }
-
-    /**
      * Sets a renderer and sends a {@link PlotChangeEvent} to all
      * registered listeners.
      *
-     * @param index  the index.
-     * @param renderer  the renderer.
-     *
+     * @param index    the index.
+     * @param renderer the renderer.
      * @see #getRenderer(int)
-     *
      * @since 1.0.14
      */
     public void setRenderer(int index, PolarItemRenderer renderer) {
@@ -690,12 +666,10 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Sets a renderer and, if requested, sends a {@link PlotChangeEvent} to
      * all registered listeners.
      *
-     * @param index  the index.
-     * @param renderer  the renderer.
-     * @param notify  notify listeners?
-     *
+     * @param index    the index.
+     * @param renderer the renderer.
+     * @param notify   notify listeners?
      * @see #getRenderer(int)
-     *
      * @since 1.0.14
      */
     public void setRenderer(int index, PolarItemRenderer renderer,
@@ -719,7 +693,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * lines.
      *
      * @return The tick unit (never <code>null</code>).
-     *
      * @since 1.0.10
      */
     public TickUnit getAngleTickUnit() {
@@ -730,8 +703,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Sets the tick unit that controls the spacing of the angular grid
      * lines, and sends a {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param unit  the tick unit (<code>null</code> not permitted).
-     *
+     * @param unit the tick unit (<code>null</code> not permitted).
      * @since 1.0.10
      */
     public void setAngleTickUnit(TickUnit unit) {
@@ -753,7 +725,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Sets the offset that is used for all angles and sends a
      * {@link PlotChangeEvent} to all registered listeners.
-     *
+     * <p>
      * This is useful to let 0 degrees be at the north, east, south or west
      * side of the chart.
      *
@@ -769,7 +741,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Get the direction for growing angle degrees.
      *
      * @return <code>true</code> if angle increases counterclockwise,
-     *         <code>false</code> otherwise.
+     * <code>false</code> otherwise.
      * @since 1.0.14
      */
     public boolean isCounterClockwise() {
@@ -778,15 +750,14 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
 
     /**
      * Sets the flag for increasing angle degrees direction.
-     *
+     * <p>
      * <code>true</code> for counterclockwise, <code>false</code> for
      * clockwise.
      *
      * @param counterClockwise The flag.
      * @since 1.0.14
      */
-    public void setCounterClockwise(boolean counterClockwise)
-    {
+    public void setCounterClockwise(boolean counterClockwise) {
         this.counterClockwise = counterClockwise;
     }
 
@@ -794,7 +765,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Returns a flag that controls whether or not the angle labels are visible.
      *
      * @return A boolean.
-     *
      * @see #setAngleLabelsVisible(boolean)
      */
     public boolean isAngleLabelsVisible() {
@@ -805,8 +775,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Sets the flag that controls whether or not the angle labels are visible,
      * and sends a {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param visible  the flag.
-     *
+     * @param visible the flag.
      * @see #isAngleLabelsVisible()
      */
     public void setAngleLabelsVisible(boolean visible) {
@@ -820,7 +789,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Returns the font used to display the angle labels.
      *
      * @return A font (never <code>null</code>).
-     *
      * @see #setAngleLabelFont(Font)
      */
     public Font getAngleLabelFont() {
@@ -831,8 +799,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Sets the font used to display the angle labels and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param font  the font (<code>null</code> not permitted).
-     *
+     * @param font the font (<code>null</code> not permitted).
      * @see #getAngleLabelFont()
      */
     public void setAngleLabelFont(Font font) {
@@ -845,7 +812,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Returns the paint used to display the angle labels.
      *
      * @return A paint (never <code>null</code>).
-     *
      * @see #setAngleLabelPaint(Paint)
      */
     public Paint getAngleLabelPaint() {
@@ -856,7 +822,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Sets the paint used to display the angle labels and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
+     * @param paint the paint (<code>null</code> not permitted).
      */
     public void setAngleLabelPaint(Paint paint) {
         ParamChecks.nullNotPermitted(paint, "paint");
@@ -869,7 +835,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * <code>false</code> otherwise.
      *
      * @return <code>true</code> or <code>false</code>.
-     *
      * @see #setAngleGridlinesVisible(boolean)
      */
     public boolean isAngleGridlinesVisible() {
@@ -883,8 +848,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * If the flag value is changed, a {@link PlotChangeEvent} is sent to all
      * registered listeners.
      *
-     * @param visible  the new value of the flag.
-     *
+     * @param visible the new value of the flag.
      * @see #isAngleGridlinesVisible()
      */
     public void setAngleGridlinesVisible(boolean visible) {
@@ -899,7 +863,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * angular axis.
      *
      * @return The stroke (possibly <code>null</code>).
-     *
      * @see #setAngleGridlineStroke(Stroke)
      */
     public Stroke getAngleGridlineStroke() {
@@ -912,8 +875,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * <p>
      * If you set this to <code>null</code>, no grid lines will be drawn.
      *
-     * @param stroke  the stroke (<code>null</code> permitted).
-     *
+     * @param stroke the stroke (<code>null</code> permitted).
      * @see #getAngleGridlineStroke()
      */
     public void setAngleGridlineStroke(Stroke stroke) {
@@ -926,7 +888,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * angular axis.
      *
      * @return The paint (possibly <code>null</code>).
-     *
      * @see #setAngleGridlinePaint(Paint)
      */
     public Paint getAngleGridlinePaint() {
@@ -938,8 +899,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * <p>
      * If you set this to <code>null</code>, no grid lines will be drawn.
      *
-     * @param paint  the paint (<code>null</code> permitted).
-     *
+     * @param paint the paint (<code>null</code> permitted).
      * @see #getAngleGridlinePaint()
      */
     public void setAngleGridlinePaint(Paint paint) {
@@ -952,7 +912,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * <code>false</code> otherwise.
      *
      * @return <code>true</code> or <code>false</code>.
-     *
      * @see #setRadiusGridlinesVisible(boolean)
      */
     public boolean isRadiusGridlinesVisible() {
@@ -966,8 +925,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * If the flag value is changed, a {@link PlotChangeEvent} is sent to all
      * registered listeners.
      *
-     * @param visible  the new value of the flag.
-     *
+     * @param visible the new value of the flag.
      * @see #isRadiusGridlinesVisible()
      */
     public void setRadiusGridlinesVisible(boolean visible) {
@@ -982,7 +940,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * radius axis.
      *
      * @return The stroke (possibly <code>null</code>).
-     *
      * @see #setRadiusGridlineStroke(Stroke)
      */
     public Stroke getRadiusGridlineStroke() {
@@ -995,8 +952,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * <p>
      * If you set this to <code>null</code>, no grid lines will be drawn.
      *
-     * @param stroke  the stroke (<code>null</code> permitted).
-     *
+     * @param stroke the stroke (<code>null</code> permitted).
      * @see #getRadiusGridlineStroke()
      */
     public void setRadiusGridlineStroke(Stroke stroke) {
@@ -1009,7 +965,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * axis.
      *
      * @return The paint (possibly <code>null</code>).
-     *
      * @see #setRadiusGridlinePaint(Paint)
      */
     public Paint getRadiusGridlinePaint() {
@@ -1022,8 +977,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * <p>
      * If you set this to <code>null</code>, no grid lines will be drawn.
      *
-     * @param paint  the paint (<code>null</code> permitted).
-     *
+     * @param paint the paint (<code>null</code> permitted).
      * @see #getRadiusGridlinePaint()
      */
     public void setRadiusGridlinePaint(Paint paint) {
@@ -1059,7 +1013,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Returns the margin around the plot area.
      *
      * @return The actual margin in pixels.
-     *
      * @since 1.0.14
      */
     public int getMargin() {
@@ -1071,7 +1024,6 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * {@link PlotChangeEvent} to all registered listeners.
      *
      * @param margin The new margin in pixels.
-     *
      * @since 1.0.14
      */
     public void setMargin(int margin) {
@@ -1083,9 +1035,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Returns the fixed legend items, if any.
      *
      * @return The legend items (possibly <code>null</code>).
-     *
      * @see #setFixedLegendItems(LegendItemCollection)
-     *
      * @since 1.0.14
      */
     public LegendItemCollection getFixedLegendItems() {
@@ -1097,10 +1047,8 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * <code>null</code> if you prefer the legend items to be created
      * automatically.
      *
-     * @param items  the legend items (<code>null</code> permitted).
-     *
+     * @param items the legend items (<code>null</code> permitted).
      * @see #getFixedLegendItems()
-     *
      * @since 1.0.14
      */
     public void setFixedLegendItems(LegendItemCollection items) {
@@ -1112,8 +1060,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Add text to be displayed in the lower right hand corner and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param text  the text to display (<code>null</code> not permitted).
-     *
+     * @param text the text to display (<code>null</code> not permitted).
      * @see #removeCornerTextItem(String)
      */
     public void addCornerTextItem(String text) {
@@ -1126,8 +1073,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Remove the given text from the list of corner text items and
      * sends a {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param text  the text to remove (<code>null</code> ignored).
-     *
+     * @param text the text to remove (<code>null</code> ignored).
      * @see #addCornerTextItem(String)
      */
     public void removeCornerTextItem(String text) {
@@ -1155,18 +1101,17 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Generates a list of tick values for the angular tick marks.
      *
      * @return A list of {@link NumberTick} instances.
-     *
      * @since 1.0.10
      */
     protected List refreshAngleTicks() {
         List ticks = new ArrayList();
         for (double currentTickVal = 0.0; currentTickVal < 360.0;
-                currentTickVal += this.angleTickUnit.getSize()) {
+             currentTickVal += this.angleTickUnit.getSize()) {
 
             TextAnchor ta = calculateTextAnchor(currentTickVal);
             NumberTick tick = new NumberTick(new Double(currentTickVal),
-                this.angleTickUnit.valueToString(currentTickVal),
-                ta, TextAnchor.CENTER, 0.0);
+                    this.angleTickUnit.valueToString(currentTickVal),
+                    ta, TextAnchor.CENTER, 0.0);
             ticks.add(tick);
         }
         return ticks;
@@ -1175,8 +1120,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Calculate the text position for the given degrees.
      *
-     * @param angleDegrees  the angle in degrees.
-     * 
+     * @param angleDegrees the angle in degrees.
      * @return The optimal text anchor.
      * @since 1.0.14
      */
@@ -1196,26 +1140,19 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
 
         if (normalizedAngle == 0.0) {
             ta = TextAnchor.CENTER_LEFT;
-        }
-        else if (normalizedAngle > 0.0 && normalizedAngle < 90.0) {
+        } else if (normalizedAngle > 0.0 && normalizedAngle < 90.0) {
             ta = TextAnchor.TOP_LEFT;
-        }
-        else if (normalizedAngle == 90.0) {
+        } else if (normalizedAngle == 90.0) {
             ta = TextAnchor.TOP_CENTER;
-        }
-        else if (normalizedAngle > 90.0 && normalizedAngle < 180.0) {
+        } else if (normalizedAngle > 90.0 && normalizedAngle < 180.0) {
             ta = TextAnchor.TOP_RIGHT;
-        }
-        else if (normalizedAngle == 180) {
+        } else if (normalizedAngle == 180) {
             ta = TextAnchor.CENTER_RIGHT;
-        }
-        else if (normalizedAngle > 180.0 && normalizedAngle < 270.0) {
+        } else if (normalizedAngle > 180.0 && normalizedAngle < 270.0) {
             ta = TextAnchor.BOTTOM_RIGHT;
-        }
-        else if (normalizedAngle == 270) {
+        } else if (normalizedAngle == 270) {
             ta = TextAnchor.BOTTOM_CENTER;
-        }
-        else if (normalizedAngle > 270.0 && normalizedAngle < 360.0) {
+        } else if (normalizedAngle > 270.0 && normalizedAngle < 360.0) {
             ta = TextAnchor.BOTTOM_LEFT;
         }
         return ta;
@@ -1225,9 +1162,8 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Maps a dataset to a particular axis.  All data will be plotted
      * against axis zero by default, no mapping is required for this case.
      *
-     * @param index  the dataset index (zero-based).
-     * @param axisIndex  the axis index.
-     *
+     * @param index     the dataset index (zero-based).
+     * @param axisIndex the axis index.
      * @since 1.0.14
      */
     public void mapDatasetToAxis(int index, int axisIndex) {
@@ -1241,9 +1177,8 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * conversion of data values into Java2D space is always performed using
      * the first axis in the list.
      *
-     * @param index  the dataset index (zero-based).
-     * @param axisIndices  the axis indices (<code>null</code> permitted).
-     *
+     * @param index       the dataset index (zero-based).
+     * @param axisIndices the axis indices (<code>null</code> permitted).
      * @since 1.0.14
      */
     public void mapDatasetToAxes(int index, List axisIndices) {
@@ -1261,7 +1196,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * This method is used to perform argument checking on the list of
      * axis indices passed to mapDatasetToAxes().
      *
-     * @param indices  the list of indices (<code>null</code> permitted).
+     * @param indices the list of indices (<code>null</code> permitted).
      */
     private void checkAxisIndices(List indices) {
         // axisIndices can be:
@@ -1291,10 +1226,8 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Returns the axis for a dataset.
      *
-     * @param index  the dataset index.
-     *
+     * @param index the dataset index.
      * @return The axis.
-     *
      * @since 1.0.14
      */
     public ValueAxis getAxisForDataset(int index) {
@@ -1305,8 +1238,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
             // the first axis in the list is used for data <--> Java2D
             Integer axisIndex = (Integer) axisIndices.get(0);
             valueAxis = getAxis(axisIndex.intValue());
-        }
-        else {
+        } else {
             valueAxis = getAxis(0);
         }
         return valueAxis;
@@ -1315,10 +1247,8 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Returns the index of the given axis.
      *
-     * @param axis  the axis.
-     *
+     * @param axis the axis.
      * @return The axis index or -1 if axis is not used in this plot.
-     *
      * @since 1.0.14
      */
     public int getAxisIndex(ValueAxis axis) {
@@ -1338,10 +1268,8 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Returns the index of the specified renderer, or <code>-1</code> if the
      * renderer is not assigned to this plot.
      *
-     * @param renderer  the renderer (<code>null</code> permitted).
-     *
+     * @param renderer the renderer (<code>null</code> permitted).
      * @return The renderer index.
-     *
      * @since 1.0.14
      */
     public int getIndexOf(PolarItemRenderer renderer) {
@@ -1351,26 +1279,26 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Draws the plot on a Java 2D graphics device (such as the screen or a
      * printer).
-     * <P>
+     * <p>
      * This plot relies on a {@link PolarItemRenderer} to draw each
      * item in the plot.  This allows the visual representation of the data to
      * be changed easily.
-     * <P>
+     * <p>
      * The optional info argument collects information about the rendering of
      * the plot (dimensions, tooltip information etc).  Just pass in
      * <code>null</code> if you do not need this information.
      *
-     * @param g2  the graphics device.
-     * @param area  the area within which the plot (including axes and
-     *              labels) should be drawn.
-     * @param anchor  the anchor point (<code>null</code> permitted).
-     * @param parentState  ignored.
-     * @param info  collects chart drawing information (<code>null</code>
-     *              permitted).
+     * @param g2          the graphics device.
+     * @param area        the area within which the plot (including axes and
+     *                    labels) should be drawn.
+     * @param anchor      the anchor point (<code>null</code> permitted).
+     * @param parentState ignored.
+     * @param info        collects chart drawing information (<code>null</code>
+     *                    permitted).
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D area, Point2D anchor,
-            PlotState parentState, PlotRenderingInfo info) {
+                     PlotState parentState, PlotRenderingInfo info) {
 
         // if the plot area is too small, just return...
         boolean b1 = (area.getWidth() <= MINIMUM_WIDTH_TO_DRAW);
@@ -1429,8 +1357,8 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Draws the corner text items.
      *
-     * @param g2  the drawing surface.
-     * @param area  the area.
+     * @param g2   the drawing surface.
+     * @param area the area.
      */
     protected void drawCornerTextItems(Graphics2D g2, Rectangle2D area) {
         if (this.cornerTextItems.isEmpty()) {
@@ -1440,7 +1368,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
         g2.setColor(Color.black);
         double width = 0.0;
         double height = 0.0;
-        for (Iterator it = this.cornerTextItems.iterator(); it.hasNext();) {
+        for (Iterator it = this.cornerTextItems.iterator(); it.hasNext(); ) {
             String msg = (String) it.next();
             FontMetrics fm = g2.getFontMetrics();
             Rectangle2D bounds = TextUtilities.getTextBounds(msg, g2, fm);
@@ -1457,7 +1385,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
         double y = area.getMaxY() - height;
         g2.drawRect((int) x, (int) y, (int) width, (int) height);
         x += ANNOTATION_MARGIN;
-        for (Iterator it = this.cornerTextItems.iterator(); it.hasNext();) {
+        for (Iterator it = this.cornerTextItems.iterator(); it.hasNext(); ) {
             String msg = (String) it.next();
             Rectangle2D bounds = TextUtilities.getTextBounds(msg, g2,
                     g2.getFontMetrics());
@@ -1469,17 +1397,15 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Draws the axis with the specified index.
      *
-     * @param axis  the axis.
-     * @param location  the axis location.
-     * @param g2  the graphics target.
-     * @param plotArea  the plot area.
-     *
+     * @param axis     the axis.
+     * @param location the axis location.
+     * @param g2       the graphics target.
+     * @param plotArea the plot area.
      * @return The axis state.
-     *
      * @since 1.0.14
      */
     protected AxisState drawAxis(ValueAxis axis, PolarAxisLocation location,
-            Graphics2D g2, Rectangle2D plotArea) {
+                                 Graphics2D g2, Rectangle2D plotArea) {
 
         double centerX = plotArea.getCenterX();
         double centerY = plotArea.getCenterY();
@@ -1494,38 +1420,31 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
             dataArea = new Rectangle2D.Double(x, y, r, r);
             result = axis.draw(g2, centerX, plotArea, dataArea,
                     RectangleEdge.RIGHT, null);
-        }
-        else if (location == PolarAxisLocation.NORTH_LEFT) {
+        } else if (location == PolarAxisLocation.NORTH_LEFT) {
             dataArea = new Rectangle2D.Double(centerX, y, r, r);
             result = axis.draw(g2, centerX, plotArea, dataArea,
                     RectangleEdge.LEFT, null);
-        }
-        else if (location == PolarAxisLocation.SOUTH_LEFT) {
+        } else if (location == PolarAxisLocation.SOUTH_LEFT) {
             dataArea = new Rectangle2D.Double(centerX, centerY, r, r);
             result = axis.draw(g2, centerX, plotArea, dataArea,
                     RectangleEdge.LEFT, null);
-        }
-        else if (location == PolarAxisLocation.SOUTH_RIGHT) {
+        } else if (location == PolarAxisLocation.SOUTH_RIGHT) {
             dataArea = new Rectangle2D.Double(x, centerY, r, r);
             result = axis.draw(g2, centerX, plotArea, dataArea,
                     RectangleEdge.RIGHT, null);
-        }
-        else if (location == PolarAxisLocation.EAST_ABOVE) {
+        } else if (location == PolarAxisLocation.EAST_ABOVE) {
             dataArea = new Rectangle2D.Double(centerX, centerY, r, r);
             result = axis.draw(g2, centerY, plotArea, dataArea,
                     RectangleEdge.TOP, null);
-        }
-        else if (location == PolarAxisLocation.EAST_BELOW) {
+        } else if (location == PolarAxisLocation.EAST_BELOW) {
             dataArea = new Rectangle2D.Double(centerX, y, r, r);
             result = axis.draw(g2, centerY, plotArea, dataArea,
                     RectangleEdge.BOTTOM, null);
-        }
-        else if (location == PolarAxisLocation.WEST_ABOVE) {
+        } else if (location == PolarAxisLocation.WEST_ABOVE) {
             dataArea = new Rectangle2D.Double(x, centerY, r, r);
             result = axis.draw(g2, centerY, plotArea, dataArea,
                     RectangleEdge.TOP, null);
-        }
-        else if (location == PolarAxisLocation.WEST_BELOW) {
+        } else if (location == PolarAxisLocation.WEST_BELOW) {
             dataArea = new Rectangle2D.Double(x, y, r, r);
             result = axis.draw(g2, centerY, plotArea, dataArea,
                     RectangleEdge.BOTTOM, null);
@@ -1538,13 +1457,13 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Draws a representation of the data within the dataArea region, using the
      * current m_Renderer.
      *
-     * @param g2  the graphics device.
-     * @param dataArea  the region in which the data is to be drawn.
-     * @param info  an optional object for collection dimension
-     *              information (<code>null</code> permitted).
+     * @param g2       the graphics device.
+     * @param dataArea the region in which the data is to be drawn.
+     * @param info     an optional object for collection dimension
+     *                 information (<code>null</code> permitted).
      */
     protected void render(Graphics2D g2, Rectangle2D dataArea,
-            PlotRenderingInfo info) {
+                          PlotRenderingInfo info) {
 
         // now get the data and plot it (the visual representation will depend
         // on the m_Renderer that has been set)...
@@ -1576,9 +1495,9 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Draws the gridlines for the plot, if they are visible.
      *
-     * @param g2  the graphics device.
-     * @param dataArea  the data area.
-     * @param angularTicks  the ticks for the angular axis.
+     * @param g2           the graphics device.
+     * @param dataArea     the data area.
+     * @param angularTicks the ticks for the angular axis.
      * @param radialTicks  the ticks for the radial axis.
      */
     protected void drawGridlines(Graphics2D g2, Rectangle2D dataArea,
@@ -1617,12 +1536,11 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Only ticks of a specific type may be in the result list.
      *
      * @param allTicks A list of all available ticks for the primary axis.
-     *        <code>null</code> not permitted.
+     *                 <code>null</code> not permitted.
      * @return Ticks to use for radial gridlines.
      * @since 1.0.15
      */
-    protected List buildRadialTicks(List allTicks)
-    {
+    protected List buildRadialTicks(List allTicks) {
         List ticks = new ArrayList();
         Iterator it = allTicks.iterator();
         while (it.hasNext()) {
@@ -1638,7 +1556,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Zooms the axis ranges by the specified percentage about the anchor point.
      *
-     * @param percent  the amount of the zoom.
+     * @param percent the amount of the zoom.
      */
     @Override
     public void zoom(double percent) {
@@ -1650,8 +1568,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
                     double scaledRadius = radius * percent;
                     axis.setUpperBound(scaledRadius);
                     axis.setAutoRange(false);
-                }
-                else {
+                } else {
                     axis.setAutoRange(true);
                 }
             }
@@ -1662,10 +1579,8 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * A utility method that returns a list of datasets that are mapped to a
      * particular axis.
      *
-     * @param axisIndex  the axis index (<code>null</code> not permitted).
-     *
+     * @param axisIndex the axis index (<code>null</code> not permitted).
      * @return A list of datasets.
-     *
      * @since 1.0.14
      */
     private List getDatasetsMappedToAxis(Integer axisIndex) {
@@ -1677,8 +1592,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
                 if (axisIndex.equals(ZERO)) {
                     result.add(this.datasets.get(i));
                 }
-            }
-            else {
+            } else {
                 if (mappedAxes.contains(axisIndex)) {
                     result.add(this.datasets.get(i));
                 }
@@ -1690,8 +1604,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Returns the range for the specified axis.
      *
-     * @param axis  the axis.
-     *
+     * @param axis the axis.
      * @return The range.
      */
     @Override
@@ -1723,10 +1636,10 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
 
     /**
      * Receives notification of a change to the plot's m_Dataset.
-     * <P>
+     * <p>
      * The axis ranges are updated if necessary.
      *
-     * @param event  information about the event (not used here).
+     * @param event information about the event (not used here).
      */
     @Override
     public void datasetChanged(DatasetChangeEvent event) {
@@ -1738,18 +1651,17 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
         }
         if (getParent() != null) {
             getParent().datasetChanged(event);
-        }
-        else {
+        } else {
             super.datasetChanged(event);
         }
     }
 
     /**
      * Notifies all registered listeners of a property change.
-     * <P>
+     * <p>
      * One source of property change events is the plot's m_Renderer.
      *
-     * @param event  information about the property change.
+     * @param event information about the property change.
      */
     @Override
     public void rendererChanged(RendererChangeEvent event) {
@@ -1787,8 +1699,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Tests this plot for equality with another object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return <code>true</code> or <code>false</code>.
      */
     @Override
@@ -1815,12 +1726,10 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
         if (this.angleGridlinesVisible != that.angleGridlinesVisible) {
             return false;
         }
-        if (this.angleOffset != that.angleOffset)
-        {
+        if (this.angleOffset != that.angleOffset) {
             return false;
         }
-        if (this.counterClockwise != that.counterClockwise)
-        {
+        if (this.counterClockwise != that.counterClockwise) {
             return false;
         }
         if (this.angleLabelsVisible != that.angleLabelsVisible) {
@@ -1837,7 +1746,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
             return false;
         }
         if (!PaintUtilities.equal(
-            this.angleGridlinePaint, that.angleGridlinePaint
+                this.angleGridlinePaint, that.angleGridlinePaint
         )) {
             return false;
         }
@@ -1853,7 +1762,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
             return false;
         }
         if (this.radiusMinorGridlinesVisible !=
-            that.radiusMinorGridlinesVisible) {
+                that.radiusMinorGridlinesVisible) {
             return false;
         }
         if (!this.cornerTextItems.equals(that.cornerTextItems)) {
@@ -1873,9 +1782,8 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Returns a clone of the plot.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  this can occur if some component of
-     *         the plot cannot be cloned.
+     * @throws CloneNotSupportedException this can occur if some component of
+     *                                    the plot cannot be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -1920,9 +1828,8 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -1936,13 +1843,12 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
 
         stream.defaultReadObject();
         this.angleGridlineStroke = SerialUtilities.readStroke(stream);
@@ -1979,9 +1885,9 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * This method is required by the {@link Zoomable} interface, but since
      * the plot does not have any domain axes, it does nothing.
      *
-     * @param factor  the zoom factor.
+     * @param factor the zoom factor.
      * @param state  the plot state.
-     * @param source  the source point (in Java2D coordinates).
+     * @param source the source point (in Java2D coordinates).
      */
     @Override
     public void zoomDomainAxes(double factor, PlotRenderingInfo state,
@@ -1993,11 +1899,10 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * This method is required by the {@link Zoomable} interface, but since
      * the plot does not have any domain axes, it does nothing.
      *
-     * @param factor  the zoom factor.
-     * @param state  the plot state.
-     * @param source  the source point (in Java2D coordinates).
-     * @param useAnchor  use source point as zoom anchor?
-     *
+     * @param factor    the zoom factor.
+     * @param state     the plot state.
+     * @param source    the source point (in Java2D coordinates).
+     * @param useAnchor use source point as zoom anchor?
      * @since 1.0.7
      */
     @Override
@@ -2010,10 +1915,10 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * This method is required by the {@link Zoomable} interface, but since
      * the plot does not have any domain axes, it does nothing.
      *
-     * @param lowerPercent  the new lower bound.
-     * @param upperPercent  the new upper bound.
-     * @param state  the plot state.
-     * @param source  the source point (in Java2D coordinates).
+     * @param lowerPercent the new lower bound.
+     * @param upperPercent the new upper bound.
+     * @param state        the plot state.
+     * @param source       the source point (in Java2D coordinates).
      */
     @Override
     public void zoomDomainAxes(double lowerPercent, double upperPercent,
@@ -2024,9 +1929,9 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Multiplies the range on the range axis/axes by the specified factor.
      *
-     * @param factor  the zoom factor.
+     * @param factor the zoom factor.
      * @param state  the plot state.
-     * @param source  the source point (in Java2D coordinates).
+     * @param source the source point (in Java2D coordinates).
      */
     @Override
     public void zoomRangeAxes(double factor, PlotRenderingInfo state,
@@ -2037,13 +1942,11 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Multiplies the range on the range axis by the specified factor.
      *
-     * @param factor  the zoom factor.
-     * @param info  the plot rendering info.
-     * @param source  the source point (in Java2D space).
-     * @param useAnchor  use source point as zoom anchor?
-     *
+     * @param factor    the zoom factor.
+     * @param info      the plot rendering info.
+     * @param source    the source point (in Java2D space).
+     * @param useAnchor use source point as zoom anchor?
      * @see #zoomDomainAxes(double, PlotRenderingInfo, Point2D, boolean)
-     *
      * @since 1.0.7
      */
     @Override
@@ -2060,8 +1963,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
                     double anchorX = axis.java2DToValue(sourceX,
                             info.getDataArea(), RectangleEdge.BOTTOM);
                     axis.resizeRange(factor, anchorX);
-                }
-                else {
+                } else {
                     axis.resizeRange(factor);
                 }
             }
@@ -2071,10 +1973,10 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * Zooms in on the range axes.
      *
-     * @param lowerPercent  the new lower bound.
-     * @param upperPercent  the new upper bound.
-     * @param state  the plot state.
-     * @param source  the source point (in Java2D coordinates).
+     * @param lowerPercent the new lower bound.
+     * @param upperPercent the new upper bound.
+     * @param state        the plot state.
+     * @param source       the source point (in Java2D coordinates).
      */
     @Override
     public void zoomRangeAxes(double lowerPercent, double upperPercent,
@@ -2117,17 +2019,15 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * <code>radius</code> is less than the lower bound of the axis, then
      * this method returns the centre point.
      *
-     * @param angleDegrees  the angle in degrees.
-     * @param radius  the radius.
-     * @param axis  the axis.
-     * @param dataArea  the data area.
-     *
+     * @param angleDegrees the angle in degrees.
+     * @param radius       the radius.
+     * @param axis         the axis.
+     * @param dataArea     the data area.
      * @return A point in Java2D space.
-     *
      * @since 1.0.14
      */
     public Point translateToJava2D(double angleDegrees, double radius,
-            ValueAxis axis, Rectangle2D dataArea) {
+                                   ValueAxis axis, Rectangle2D dataArea) {
 
         if (counterClockwise) {
             angleDegrees = -angleDegrees;
@@ -2168,17 +2068,15 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * <code>radius</code> is less than the lower bound of the axis, then
      * this method returns the centre point.
      *
-     * @param angleDegrees  the angle in degrees.
-     * @param radius  the radius.
-     * @param dataArea  the data area.
-     *
+     * @param angleDegrees the angle in degrees.
+     * @param radius       the radius.
+     * @param dataArea     the data area.
      * @return A point in Java2D space.
-     *
      * @deprecated Since 1.0.14, use {@link #translateToJava2D(double, double,
      * org.jfree.chart.axis.ValueAxis, java.awt.geom.Rectangle2D)} instead.
      */
     public Point translateValueThetaRadiusToJava2D(double angleDegrees,
-            double radius, Rectangle2D dataArea) {
+                                                   double radius, Rectangle2D dataArea) {
 
         return translateToJava2D(angleDegrees, radius, getAxis(), dataArea);
     }
@@ -2187,9 +2085,8 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * Returns the upper bound of the radius axis.
      *
      * @return The upper bound.
-     *
      * @deprecated Since 1.0.14, use {@link #getAxis()} and call the
-     *         getUpperBound() method.
+     * getUpperBound() method.
      */
     public double getMaxRadius() {
         return getAxis().getUpperBound();
@@ -2200,9 +2097,8 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * dataset is <code>null</code>, the method returns 0.
      *
      * @return The series count.
-     *
      * @deprecated Since 1.0.14, grab a reference to the dataset and check
-     *     the series count directly.
+     * the series count directly.
      */
     public int getSeriesCount() {
         int result = 0;
@@ -2216,12 +2112,10 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
     /**
      * A utility method for drawing the axes.
      *
-     * @param g2  the graphics device.
-     * @param plotArea  the plot area.
-     * @param dataArea  the data area.
-     *
+     * @param g2       the graphics device.
+     * @param plotArea the plot area.
+     * @param dataArea the data area.
      * @return A map containing the axis states.
-     *
      * @deprecated As of version 1.0.14, this method is no longer used.
      */
     protected AxisState drawAxis(Graphics2D g2, Rectangle2D plotArea,

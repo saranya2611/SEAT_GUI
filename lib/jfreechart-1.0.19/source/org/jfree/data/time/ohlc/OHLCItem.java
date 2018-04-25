@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------
@@ -44,7 +44,7 @@ import org.jfree.data.ComparableObjectItem;
 import org.jfree.data.time.RegularTimePeriod;
 
 /**
- * An item representing data in the form <code>(time-period, open, high, low, 
+ * An item representing data in the form <code>(time-period, open, high, low,
  * close)</code>.
  *
  * @since 1.0.4
@@ -54,14 +54,14 @@ public class OHLCItem extends ComparableObjectItem {
     /**
      * Creates a new instance of <code>OHLCItem</code>.
      *
-     * @param period  the time period.
-     * @param open  the open-value.
-     * @param high  the high-value.
-     * @param low  the low-value.
+     * @param period the time period.
+     * @param open   the open-value.
+     * @param high   the high-value.
+     * @param low    the low-value.
      * @param close  the close-value.
      */
     public OHLCItem(RegularTimePeriod period, double open, double high,
-            double low, double close) {
+                    double low, double close) {
         super(period, new OHLC(open, high, low, close));
     }
 
@@ -92,8 +92,7 @@ public class OHLCItem extends ComparableObjectItem {
         OHLC ohlc = (OHLC) getObject();
         if (ohlc != null) {
             return ohlc.getOpen();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }
@@ -107,8 +106,7 @@ public class OHLCItem extends ComparableObjectItem {
         OHLC ohlc = (OHLC) getObject();
         if (ohlc != null) {
             return ohlc.getHigh();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }
@@ -122,8 +120,7 @@ public class OHLCItem extends ComparableObjectItem {
         OHLC ohlc = (OHLC) getObject();
         if (ohlc != null) {
             return ohlc.getLow();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }
@@ -137,8 +134,7 @@ public class OHLCItem extends ComparableObjectItem {
         OHLC ohlc = (OHLC) getObject();
         if (ohlc != null) {
             return ohlc.getClose();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }

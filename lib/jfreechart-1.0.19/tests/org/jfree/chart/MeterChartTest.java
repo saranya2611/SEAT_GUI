@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -40,20 +40,20 @@
 
 package org.jfree.chart;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-
 import org.jfree.chart.plot.MeterInterval;
 import org.jfree.chart.plot.MeterPlot;
 import org.jfree.data.Range;
 import org.jfree.data.general.DefaultValueDataset;
 import org.junit.Test;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+
 /**
  * Miscellaneous checks for meter charts.
  */
-public class MeterChartTest  {
+public class MeterChartTest {
 
     /**
      * Draws the chart with a single range.  At one point, this caused a null

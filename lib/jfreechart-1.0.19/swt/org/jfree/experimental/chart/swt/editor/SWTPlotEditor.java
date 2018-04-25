@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -42,9 +42,6 @@
 
 package org.jfree.experimental.chart.swt.editor;
 
-import java.awt.Stroke;
-import java.util.ResourceBundle;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FillLayout;
@@ -59,34 +56,36 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.util.ResourceBundleWrapper;
 import org.jfree.experimental.swt.SWTUtils;
 
+import java.awt.*;
+import java.util.ResourceBundle;
+
 /**
  * An editor for plot properties.
  */
 class SWTPlotEditor extends Composite {
 
     /**
+     * The resourceBundle for the localization.
+     */
+    protected static ResourceBundle localizationResources
+            = ResourceBundleWrapper.getBundle(
+            "org.jfree.chart.editor.LocalizationBundle");
+    /**
      * A panel used to display/edit the properties of the domain axis (if any).
      */
     private SWTAxisEditor domainAxisPropertyPanel;
-
     /**
      * A panel used to display/edit the properties of the range axis (if any).
      */
     private SWTAxisEditor rangeAxisPropertyPanel;
-
     private SWTPlotAppearanceEditor plotAppearance;
-
-    /** The resourceBundle for the localization. */
-    protected static ResourceBundle localizationResources
-            = ResourceBundleWrapper.getBundle(
-                    "org.jfree.chart.editor.LocalizationBundle");
 
     /**
      * Creates a new editor for the specified plot.
      *
-     * @param parent  the parent.
+     * @param parent the parent.
      * @param style  the style.
-     * @param plot  the plot.
+     * @param plot   the plot.
      */
     public SWTPlotEditor(Composite parent, int style, Plot plot) {
         super(parent, style);
@@ -109,8 +108,7 @@ class SWTPlotEditor extends Composite {
         Axis domainAxis = null;
         if (plot instanceof CategoryPlot) {
             domainAxis = ((CategoryPlot) plot).getDomainAxis();
-        }
-        else if (plot instanceof XYPlot) {
+        } else if (plot instanceof XYPlot) {
             domainAxis = ((XYPlot) plot).getDomainAxis();
         }
         this.domainAxisPropertyPanel = SWTAxisEditor.getInstance(tabs,
@@ -123,8 +121,7 @@ class SWTPlotEditor extends Composite {
         Axis rangeAxis = null;
         if (plot instanceof CategoryPlot) {
             rangeAxis = ((CategoryPlot) plot).getRangeAxis();
-        }
-        else if (plot instanceof XYPlot) {
+        } else if (plot instanceof XYPlot) {
             rangeAxis = ((XYPlot) plot).getRangeAxis();
         }
         this.rangeAxisPropertyPanel = SWTAxisEditor.getInstance(tabs, SWT.NONE,
@@ -170,7 +167,7 @@ class SWTPlotEditor extends Composite {
      * Updates the plot properties to match the properties
      * defined on the panel.
      *
-     * @param plot  The plot.
+     * @param plot The plot.
      */
     public void updatePlotProperties(Plot plot) {
         // set the plot properties...
@@ -184,8 +181,7 @@ class SWTPlotEditor extends Composite {
             if (plot instanceof CategoryPlot) {
                 CategoryPlot p = (CategoryPlot) plot;
                 domainAxis = p.getDomainAxis();
-            }
-            else if (plot instanceof XYPlot) {
+            } else if (plot instanceof XYPlot) {
                 XYPlot p = (XYPlot) plot;
                 domainAxis = p.getDomainAxis();
             }
@@ -197,8 +193,7 @@ class SWTPlotEditor extends Composite {
             if (plot instanceof CategoryPlot) {
                 CategoryPlot p = (CategoryPlot) plot;
                 rangeAxis = p.getRangeAxis();
-            }
-            else if (plot instanceof XYPlot) {
+            } else if (plot instanceof XYPlot) {
                 XYPlot p = (XYPlot) plot;
                 rangeAxis = p.getRangeAxis();
             }
@@ -209,8 +204,7 @@ class SWTPlotEditor extends Composite {
             if (plot instanceof CategoryPlot) {
                 CategoryPlot p = (CategoryPlot) plot;
                 p.setOrientation(this.plotAppearance.getPlotOrientation());
-            }
-            else if (plot instanceof XYPlot) {
+            } else if (plot instanceof XYPlot) {
                 XYPlot p = (XYPlot) plot;
                 p.setOrientation(this.plotAppearance.getPlotOrientation());
             }

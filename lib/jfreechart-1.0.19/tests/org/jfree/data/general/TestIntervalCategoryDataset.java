@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------------
@@ -40,23 +40,28 @@
 
 package org.jfree.data.general;
 
-import java.io.Serializable;
-import java.util.List;
-
 import org.jfree.data.KeyedObjects2D;
 import org.jfree.data.UnknownKeyException;
 import org.jfree.data.category.IntervalCategoryDataset;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * A test implementation of the {@link IntervalCategoryDataset} interface.
  */
 public class TestIntervalCategoryDataset extends AbstractDataset
         implements IntervalCategoryDataset, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -8168173757291644622L;
 
-    /** A storage structure for the data. */
+    /**
+     * A storage structure for the data.
+     */
     private KeyedObjects2D data;
 
     /**
@@ -70,7 +75,6 @@ public class TestIntervalCategoryDataset extends AbstractDataset
      * Returns the number of rows in the table.
      *
      * @return The row count.
-     *
      * @see #getColumnCount()
      */
     @Override
@@ -82,7 +86,6 @@ public class TestIntervalCategoryDataset extends AbstractDataset
      * Returns the number of columns in the table.
      *
      * @return The column count.
-     *
      * @see #getRowCount()
      */
     @Override
@@ -93,11 +96,9 @@ public class TestIntervalCategoryDataset extends AbstractDataset
     /**
      * Returns a value from the table.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The value (possibly <code>null</code>).
-     *
      * @see #addValue(Number, Comparable, Comparable)
      * @see #removeValue(Comparable, Comparable)
      */
@@ -114,10 +115,8 @@ public class TestIntervalCategoryDataset extends AbstractDataset
     /**
      * Returns the key for the specified row.
      *
-     * @param row  the row index (zero-based).
-     *
+     * @param row the row index (zero-based).
      * @return The row key.
-     *
      * @see #getRowIndex(Comparable)
      * @see #getRowKeys()
      * @see #getColumnKey(int)
@@ -130,10 +129,8 @@ public class TestIntervalCategoryDataset extends AbstractDataset
     /**
      * Returns the row index for a given key.
      *
-     * @param key  the row key (<code>null</code> not permitted).
-     *
+     * @param key the row key (<code>null</code> not permitted).
      * @return The row index.
-     *
      * @see #getRowKey(int)
      */
     @Override
@@ -146,7 +143,6 @@ public class TestIntervalCategoryDataset extends AbstractDataset
      * Returns the row keys.
      *
      * @return The keys.
-     *
      * @see #getRowKey(int)
      */
     @Override
@@ -157,10 +153,8 @@ public class TestIntervalCategoryDataset extends AbstractDataset
     /**
      * Returns a column key.
      *
-     * @param column  the column index (zero-based).
-     *
+     * @param column the column index (zero-based).
      * @return The column key.
-     *
      * @see #getColumnIndex(Comparable)
      */
     @Override
@@ -171,10 +165,8 @@ public class TestIntervalCategoryDataset extends AbstractDataset
     /**
      * Returns the column index for a given key.
      *
-     * @param key  the column key (<code>null</code> not permitted).
-     *
+     * @param key the column key (<code>null</code> not permitted).
      * @return The column index.
-     *
      * @see #getColumnKey(int)
      */
     @Override
@@ -187,7 +179,6 @@ public class TestIntervalCategoryDataset extends AbstractDataset
      * Returns the column keys.
      *
      * @return The keys.
-     *
      * @see #getColumnKey(int)
      */
     @Override
@@ -198,13 +189,10 @@ public class TestIntervalCategoryDataset extends AbstractDataset
     /**
      * Returns the value for a pair of keys.
      *
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @return The value (possibly <code>null</code>).
-     *
      * @throws UnknownKeyException if either key is not defined in the dataset.
-     *
      * @see #addValue(Number, Comparable, Comparable)
      */
     @Override
@@ -220,15 +208,14 @@ public class TestIntervalCategoryDataset extends AbstractDataset
     /**
      * Adds a value to the table.  Performs the same function as setValue().
      *
-     * @param value  the value.
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param value     the value.
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @see #getValue(Comparable, Comparable)
      * @see #removeValue(Comparable, Comparable)
      */
     public void addItem(Number value, Number lower, Number upper,
-            Comparable rowKey, Comparable columnKey) {
+                        Comparable rowKey, Comparable columnKey) {
         IntervalDataItem item = new IntervalDataItem(value, lower, upper);
         this.data.addObject(item, rowKey, columnKey);
         fireDatasetChanged();
@@ -237,14 +224,13 @@ public class TestIntervalCategoryDataset extends AbstractDataset
     /**
      * Adds a value to the table.
      *
-     * @param value  the value.
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param value     the value.
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @see #getValue(Comparable, Comparable)
      */
     public void addItem(double value, double lower, double upper,
-            Comparable rowKey, Comparable columnKey) {
+                        Comparable rowKey, Comparable columnKey) {
         addItem(new Double(value), new Double(lower), new Double(upper),
                 rowKey, columnKey);
     }
@@ -253,14 +239,13 @@ public class TestIntervalCategoryDataset extends AbstractDataset
      * Adds or updates a value in the table and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param value  the value (<code>null</code> permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param value     the value (<code>null</code> permitted).
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @see #getValue(Comparable, Comparable)
      */
     public void setItem(Number value, Number lower, Number upper,
-            Comparable rowKey, Comparable columnKey) {
+                        Comparable rowKey, Comparable columnKey) {
         IntervalDataItem item = new IntervalDataItem(value, lower, upper);
         this.data.addObject(item, rowKey, columnKey);
         fireDatasetChanged();
@@ -270,14 +255,13 @@ public class TestIntervalCategoryDataset extends AbstractDataset
      * Adds or updates a value in the table and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param value  the value.
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param value     the value.
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @see #getValue(Comparable, Comparable)
      */
     public void setItem(double value, double lower, double upper,
-            Comparable rowKey, Comparable columnKey) {
+                        Comparable rowKey, Comparable columnKey) {
         setItem(new Double(value), new Double(lower), new Double(upper),
                 rowKey, columnKey);
     }
@@ -286,9 +270,8 @@ public class TestIntervalCategoryDataset extends AbstractDataset
      * Removes a value from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @see #addValue(Number, Comparable, Comparable)
      */
     public void removeItem(Comparable rowKey, Comparable columnKey) {
@@ -300,8 +283,7 @@ public class TestIntervalCategoryDataset extends AbstractDataset
      * Removes a row from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param rowIndex  the row index.
-     *
+     * @param rowIndex the row index.
      * @see #removeColumn(int)
      */
     public void removeRow(int rowIndex) {
@@ -313,8 +295,7 @@ public class TestIntervalCategoryDataset extends AbstractDataset
      * Removes a row from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param rowKey  the row key.
-     *
+     * @param rowKey the row key.
      * @see #removeColumn(Comparable)
      */
     public void removeRow(Comparable rowKey) {
@@ -326,8 +307,7 @@ public class TestIntervalCategoryDataset extends AbstractDataset
      * Removes a column from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param columnIndex  the column index.
-     *
+     * @param columnIndex the column index.
      * @see #removeRow(int)
      */
     public void removeColumn(int columnIndex) {
@@ -339,12 +319,10 @@ public class TestIntervalCategoryDataset extends AbstractDataset
      * Removes a column from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
-     * @see #removeRow(Comparable)
-     *
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @throws UnknownKeyException if <code>columnKey</code> is not defined
-     *         in the dataset.
+     *                             in the dataset.
+     * @see #removeRow(Comparable)
      */
     public void removeColumn(Comparable columnKey) {
         this.data.removeColumn(columnKey);
@@ -363,8 +341,7 @@ public class TestIntervalCategoryDataset extends AbstractDataset
     /**
      * Tests this dataset for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -392,8 +369,7 @@ public class TestIntervalCategoryDataset extends AbstractDataset
                     if (v2 != null) {
                         return false;
                     }
-                }
-                else if (!v1.equals(v2)) {
+                } else if (!v1.equals(v2)) {
                     return false;
                 }
             }
@@ -415,9 +391,8 @@ public class TestIntervalCategoryDataset extends AbstractDataset
      * Returns a clone of the dataset.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem cloning the
-     *         dataset.
+     *                                    dataset.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

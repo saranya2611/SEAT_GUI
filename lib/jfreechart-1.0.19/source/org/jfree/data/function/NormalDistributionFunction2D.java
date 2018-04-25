@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------------
@@ -45,9 +45,9 @@
 
 package org.jfree.data.function;
 
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
+
+import java.io.Serializable;
 
 /**
  * A normal distribution function.  See
@@ -55,22 +55,30 @@ import org.jfree.chart.HashUtilities;
  */
 public class NormalDistributionFunction2D implements Function2D, Serializable {
 
-    /** The mean. */
+    /**
+     * The mean.
+     */
     private double mean;
 
-    /** The standard deviation. */
+    /**
+     * The standard deviation.
+     */
     private double std;
 
-    /** Precomputed factor for the function value. */
+    /**
+     * Precomputed factor for the function value.
+     */
     private double factor;
 
-    /** Precomputed denominator for the function value. */
+    /**
+     * Precomputed denominator for the function value.
+     */
     private double denominator;
 
     /**
      * Constructs a new normal distribution function.
      *
-     * @param mean  the mean.
+     * @param mean the mean.
      * @param std  the standard deviation (&gt; 0).
      */
     public NormalDistributionFunction2D(double mean, double std) {
@@ -92,7 +100,7 @@ public class NormalDistributionFunction2D implements Function2D, Serializable {
     public double getMean() {
         return this.mean;
     }
-    
+
     /**
      * Returns the standard deviation for the function.
      *
@@ -105,8 +113,7 @@ public class NormalDistributionFunction2D implements Function2D, Serializable {
     /**
      * Returns the function value.
      *
-     * @param x  the x-value.
-     *
+     * @param x the x-value.
      * @return The value.
      */
     @Override
@@ -118,8 +125,7 @@ public class NormalDistributionFunction2D implements Function2D, Serializable {
     /**
      * Tests this function for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

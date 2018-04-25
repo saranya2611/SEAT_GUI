@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -56,10 +56,10 @@ public class VectorDataItem extends ComparableObjectItem {
     /**
      * Creates a new instance of <code>VectorDataItem</code>.
      *
-     * @param x  the x-value.
-     * @param y  the y-value.
-     * @param deltaX  the vector x.
-     * @param deltaY  the vector y.
+     * @param x      the x-value.
+     * @param y      the y-value.
+     * @param deltaX the vector x.
+     * @param deltaY the vector y.
      */
     public VectorDataItem(double x, double y, double deltaX, double deltaY) {
         super(new XYCoordinate(x, y), new Vector(deltaX, deltaY));
@@ -103,8 +103,7 @@ public class VectorDataItem extends ComparableObjectItem {
         Vector vi = (Vector) getObject();
         if (vi != null) {
             return vi.getX();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }
@@ -118,8 +117,7 @@ public class VectorDataItem extends ComparableObjectItem {
         Vector vi = (Vector) getObject();
         if (vi != null) {
             return vi.getY();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }

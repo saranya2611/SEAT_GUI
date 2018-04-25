@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -47,18 +47,18 @@
 
 package org.jfree.chart.encoders;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Iterator;
+import org.jfree.chart.util.ParamChecks;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
-import org.jfree.chart.util.ParamChecks;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Iterator;
 
 /**
  * Adapter class for the Sun JPEG Encoder.  The {@link ImageEncoderFactory}
@@ -67,7 +67,9 @@ import org.jfree.chart.util.ParamChecks;
  */
 public class SunJPEGEncoderAdapter implements ImageEncoder {
 
-    /** The quality setting (in the range 0.0f to 1.0f). */
+    /**
+     * The quality setting (in the range 0.0f to 1.0f).
+     */
     private float quality = 0.95f;
 
     /**
@@ -82,7 +84,6 @@ public class SunJPEGEncoderAdapter implements ImageEncoder {
      * file sizes).  The default value is 0.95f.
      *
      * @return A float representing the quality, in the range 0.0f to 1.0f.
-     *
      * @see #setQuality(float)
      */
     @Override
@@ -93,9 +94,8 @@ public class SunJPEGEncoderAdapter implements ImageEncoder {
     /**
      * Set the quality of the image encoding.
      *
-     * @param quality  A float representing the quality (in the range 0.0f to
-     *     1.0f).
-     *
+     * @param quality A float representing the quality (in the range 0.0f to
+     *                1.0f).
      * @see #getQuality()
      */
     @Override
@@ -122,7 +122,7 @@ public class SunJPEGEncoderAdapter implements ImageEncoder {
      * Set whether the encoder should encode alpha transparency (this is not
      * supported for JPEG, so this method does nothing).
      *
-     * @param encodingAlpha  ignored.
+     * @param encodingAlpha ignored.
      */
     @Override
     public void setEncodingAlpha(boolean encodingAlpha) {
@@ -132,14 +132,12 @@ public class SunJPEGEncoderAdapter implements ImageEncoder {
     /**
      * Encodes an image in JPEG format.
      *
-     * @param bufferedImage  the image to be encoded (<code>null</code> not
-     *     permitted).
-     *
+     * @param bufferedImage the image to be encoded (<code>null</code> not
+     *                      permitted).
      * @return The byte[] that is the encoded image.
-     *
-     * @throws IOException if there is an I/O problem.
+     * @throws IOException          if there is an I/O problem.
      * @throws NullPointerException if <code>bufferedImage</code> is
-     *     <code>null</code>.
+     *                              <code>null</code>.
      */
     @Override
     public byte[] encode(BufferedImage bufferedImage) throws IOException {
@@ -151,14 +149,13 @@ public class SunJPEGEncoderAdapter implements ImageEncoder {
     /**
      * Encodes an image in JPEG format and writes it to an output stream.
      *
-     * @param bufferedImage  the image to be encoded (<code>null</code> not
-     *     permitted).
+     * @param bufferedImage the image to be encoded (<code>null</code> not
+     *                      permitted).
      * @param outputStream  the OutputStream to write the encoded image to
-     *     (<code>null</code> not permitted).
-     *
-     * @throws IOException if there is an I/O problem.
+     *                      (<code>null</code> not permitted).
+     * @throws IOException          if there is an I/O problem.
      * @throws NullPointerException if <code>bufferedImage</code> is
-     *     <code>null</code>.
+     *                              <code>null</code>.
      */
     @Override
     public void encode(BufferedImage bufferedImage, OutputStream outputStream)

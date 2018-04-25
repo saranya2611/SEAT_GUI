@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -42,13 +42,13 @@
 
 package org.jfree.chart.encoders;
 
+import org.jfree.chart.util.ParamChecks;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
-import javax.imageio.ImageIO;
-import org.jfree.chart.util.ParamChecks;
 
 /**
  * Adapter class for the Sun PNG Encoder.  The ImageEncoderFactory will only
@@ -71,7 +71,7 @@ public class SunPNGEncoderAdapter implements ImageEncoder {
      * Set the quality of the image encoding (not supported in this
      * ImageEncoder).
      *
-     * @param quality  A float representing the quality.
+     * @param quality A float representing the quality.
      */
     @Override
     public void setQuality(float quality) {
@@ -92,8 +92,8 @@ public class SunPNGEncoderAdapter implements ImageEncoder {
      * Set whether the encoder should encode alpha transparency (not
      * supported in this ImageEncoder).
      *
-     * @param encodingAlpha  Whether the encoder should encode alpha
-     *                       transparency.
+     * @param encodingAlpha Whether the encoder should encode alpha
+     *                      transparency.
      */
     @Override
     public void setEncodingAlpha(boolean encodingAlpha) {
@@ -103,10 +103,8 @@ public class SunPNGEncoderAdapter implements ImageEncoder {
     /**
      * Encodes an image in PNG format.
      *
-     * @param bufferedImage  The image to be encoded.
-     *
+     * @param bufferedImage The image to be encoded.
      * @return The byte[] that is the encoded image.
-     *
      * @throws IOException if there is an IO problem.
      */
     @Override
@@ -119,7 +117,7 @@ public class SunPNGEncoderAdapter implements ImageEncoder {
     /**
      * Encodes an image in PNG format and writes it to an OutputStream.
      *
-     * @param bufferedImage  The image to be encoded.
+     * @param bufferedImage The image to be encoded.
      * @param outputStream  The OutputStream to write the encoded image to.
      * @throws IOException if there is an IO problem.
      */

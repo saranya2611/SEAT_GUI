@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -42,15 +42,12 @@
 
 package org.jfree.chart.annotations;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.chart.axis.CategoryAnchor;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link CategoryTextAnnotation} class.
@@ -62,9 +59,9 @@ public class CategoryTextAnnotationTest {
      */
     @Test
     public void testEquals() {
-        CategoryTextAnnotation a1 = new CategoryTextAnnotation("Test", 
+        CategoryTextAnnotation a1 = new CategoryTextAnnotation("Test",
                 "Category", 1.0);
-        CategoryTextAnnotation a2 = new CategoryTextAnnotation("Test", 
+        CategoryTextAnnotation a2 = new CategoryTextAnnotation("Test",
                 "Category", 1.0);
         assertTrue(a1.equals(a2));
 
@@ -92,9 +89,9 @@ public class CategoryTextAnnotationTest {
      */
     @Test
     public void testHashcode() {
-        CategoryTextAnnotation a1 = new CategoryTextAnnotation("Test", 
+        CategoryTextAnnotation a1 = new CategoryTextAnnotation("Test",
                 "Category", 1.0);
-        CategoryTextAnnotation a2 = new CategoryTextAnnotation("Test", 
+        CategoryTextAnnotation a2 = new CategoryTextAnnotation("Test",
                 "Category", 1.0);
         assertTrue(a1.equals(a2));
         int h1 = a1.hashCode();
@@ -130,7 +127,7 @@ public class CategoryTextAnnotationTest {
      */
     @Test
     public void testSerialization() {
-        CategoryTextAnnotation a1 = new CategoryTextAnnotation("Test", 
+        CategoryTextAnnotation a1 = new CategoryTextAnnotation("Test",
                 "Category", 1.0);
         CategoryTextAnnotation a2 = (CategoryTextAnnotation) TestUtilities.serialised(a1);
         assertEquals(a1, a2);

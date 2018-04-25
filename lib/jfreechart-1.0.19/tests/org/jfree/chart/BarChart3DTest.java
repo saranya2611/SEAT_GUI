@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -43,15 +43,6 @@
 
 package org.jfree.chart;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.event.ChartChangeEvent;
 import org.jfree.chart.event.ChartChangeListener;
@@ -68,13 +59,39 @@ import org.jfree.data.general.DatasetUtilities;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+
+import static org.junit.Assert.*;
+
 /**
  * Tests for a 3D bar chart.
  */
 public class BarChart3DTest {
 
-    /** The chart. */
+    /**
+     * The chart.
+     */
     private JFreeChart chart;
+
+    /**
+     * Create a bar chart with sample data in the range -3 to +3.
+     *
+     * @return The chart.
+     */
+    private static JFreeChart createBarChart3D() {
+        Number[][] data = new Integer[][]
+                {{new Integer(-3), new Integer(-2)},
+                        {new Integer(-1), new Integer(1)},
+                        {new Integer(2), new Integer(3)}};
+
+        CategoryDataset dataset = DatasetUtilities.createCategoryDataset("S",
+                "C", data);
+        return ChartFactory.createBarChart3D("Bar Chart 3D", "Domain", "Range",
+                dataset, PlotOrientation.HORIZONTAL, true, true, true);
+
+    }
 
     /**
      * Common test setup.
@@ -91,14 +108,13 @@ public class BarChart3DTest {
     @Test
     public void testDrawWithNullInfo() {
         try {
-            BufferedImage image = new BufferedImage(200 , 100,
+            BufferedImage image = new BufferedImage(200, 100,
                     BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = image.createGraphics();
             this.chart.draw(g2, new Rectangle2D.Double(0, 0, 200, 100), null,
                     null);
             g2.dispose();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("There should be no exception.");
         }
     }
@@ -111,9 +127,9 @@ public class BarChart3DTest {
 
         // create a dataset...
         Number[][] data = new Integer[][]
-            {{new Integer(-30), new Integer(-20)},
-             {new Integer(-10), new Integer(10)},
-             {new Integer(20), new Integer(30)}};
+                {{new Integer(-30), new Integer(-20)},
+                        {new Integer(-10), new Integer(10)},
+                        {new Integer(20), new Integer(30)}};
 
         CategoryDataset newData = DatasetUtilities.createCategoryDataset("S",
                 "C", data);
@@ -163,36 +179,19 @@ public class BarChart3DTest {
     }
 
     /**
-     * Create a bar chart with sample data in the range -3 to +3.
-     *
-     * @return The chart.
-     */
-    private static JFreeChart createBarChart3D() {
-        Number[][] data = new Integer[][]
-            {{new Integer(-3), new Integer(-2)},
-             {new Integer(-1), new Integer(1)},
-             {new Integer(2), new Integer(3)}};
-
-        CategoryDataset dataset = DatasetUtilities.createCategoryDataset("S",
-                "C", data);
-        return ChartFactory.createBarChart3D("Bar Chart 3D", "Domain", "Range",
-                dataset, PlotOrientation.HORIZONTAL, true, true, true);
-
-    }
-
-    /**
      * A chart change listener.
-     *
      */
     static class LocalListener implements ChartChangeListener {
 
-        /** A flag. */
+        /**
+         * A flag.
+         */
         private boolean flag;
 
         /**
          * Event handler.
          *
-         * @param event  the event.
+         * @param event the event.
          */
         @Override
         public void chartChanged(ChartChangeEvent event) {

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -47,7 +47,7 @@ import org.jfree.chart.event.AnnotationChangeListener;
  * The base interface for annotations.  All annotations should support the
  * {@link AnnotationChangeEvent} mechanism by allowing listeners to register
  * and receive notification of any changes to the annotation.
- * 
+ *
  * @since 1.0.14
  */
 public interface Annotation {
@@ -55,14 +55,14 @@ public interface Annotation {
     /**
      * Registers an object for notification of changes to the annotation.
      *
-     * @param listener  the object to register.
+     * @param listener the object to register.
      */
     public void addChangeListener(AnnotationChangeListener listener);
 
     /**
      * Deregisters an object for notification of changes to the annotation.
      *
-     * @param listener  the object to deregister.
+     * @param listener the object to deregister.
      */
     public void removeChangeListener(AnnotationChangeListener listener);
 

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -44,11 +44,11 @@
 
 package org.jfree.data.time;
 
+import org.jfree.data.Range;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
-
-import org.jfree.data.Range;
 
 /**
  * A range specified in terms of two <code>java.util.Date</code> objects.
@@ -56,13 +56,19 @@ import org.jfree.data.Range;
  */
 public class DateRange extends Range implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -4705682568375418157L;
 
-    /** The lower bound for the range. */
+    /**
+     * The lower bound for the range.
+     */
     private long lowerDate;
 
-    /** The upper bound for the range. */
+    /**
+     * The upper bound for the range.
+     */
     private long upperDate;
 
     /**
@@ -75,8 +81,8 @@ public class DateRange extends Range implements Serializable {
     /**
      * Constructs a new range.
      *
-     * @param lower  the lower bound (<code>null</code> not permitted).
-     * @param upper  the upper bound (<code>null</code> not permitted).
+     * @param lower the lower bound (<code>null</code> not permitted).
+     * @param upper the upper bound (<code>null</code> not permitted).
      */
     public DateRange(Date lower, Date upper) {
         super(lower.getTime(), upper.getTime());
@@ -88,8 +94,8 @@ public class DateRange extends Range implements Serializable {
      * Constructs a new range using two values that will be interpreted as
      * "milliseconds since midnight GMT, 1-Jan-1970".
      *
-     * @param lower  the lower (oldest) date.
-     * @param upper  the upper (most recent) date.
+     * @param lower the lower (oldest) date.
+     * @param upper the upper (most recent) date.
      */
     public DateRange(double lower, double upper) {
         super(lower, upper);
@@ -103,7 +109,7 @@ public class DateRange extends Range implements Serializable {
      * upper and lower bounds are evaluated as milliseconds since midnight
      * GMT, 1-Jan-1970.
      *
-     * @param other  the other range (<code>null</code> not permitted).
+     * @param other the other range (<code>null</code> not permitted).
      */
     public DateRange(Range other) {
         this(other.getLowerBound(), other.getUpperBound());
@@ -113,7 +119,6 @@ public class DateRange extends Range implements Serializable {
      * Returns the lower (earlier) date for the range.
      *
      * @return The lower date for the range.
-     *
      * @see #getLowerMillis()
      */
     public Date getLowerDate() {
@@ -124,9 +129,7 @@ public class DateRange extends Range implements Serializable {
      * Returns the lower bound of the range in milliseconds.
      *
      * @return The lower bound.
-     *
      * @see #getLowerDate()
-     *
      * @since 1.0.11
      */
     public long getLowerMillis() {
@@ -137,7 +140,6 @@ public class DateRange extends Range implements Serializable {
      * Returns the upper (later) date for the range.
      *
      * @return The upper date for the range.
-     *
      * @see #getUpperMillis()
      */
     public Date getUpperDate() {
@@ -148,9 +150,7 @@ public class DateRange extends Range implements Serializable {
      * Returns the upper bound of the range in milliseconds.
      *
      * @return The upper bound.
-     *
      * @see #getUpperDate()
-     *
      * @since 1.0.11
      */
     public long getUpperMillis() {

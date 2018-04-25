@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------
@@ -42,14 +42,11 @@
 package org.jfree.data.category;
 
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.util.TableOrder;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link CategoryToPieDataset} class.
@@ -85,19 +82,19 @@ public class CategoryToPieDatasetTest {
 
         // check negative index throws exception
         try {
-            /* Number n = */ d1.getValue(-1);
+            /* Number n = */
+            d1.getValue(-1);
             fail("Expected IndexOutOfBoundsException.");
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // this is expected
         }
 
         // check index == getItemCount() throws exception
         try {
-            /* Number n = */ d1.getValue(d1.getItemCount());
+            /* Number n = */
+            d1.getValue(d1.getItemCount());
             fail("Expected IndexOutOfBoundsException.");
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // this is expected
         }
 
@@ -105,10 +102,10 @@ public class CategoryToPieDatasetTest {
         CategoryToPieDataset p1 = new CategoryToPieDataset(null,
                 TableOrder.BY_COLUMN, 0);
         try {
-            /* Number n = */ p1.getValue(0);
+            /* Number n = */
+            p1.getValue(0);
             fail("Expected IndexOutOfBoundsException.");
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // this is expected
         }
     }
@@ -128,19 +125,19 @@ public class CategoryToPieDatasetTest {
 
         // check negative index throws exception
         try {
-            /* Number n = */ d1.getKey(-1);
+            /* Number n = */
+            d1.getKey(-1);
             fail("Expected IndexOutOfBoundsException.");
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // this is expected
         }
 
         // check index == getItemCount() throws exception
         try {
-            /* Number n = */ d1.getKey(d1.getItemCount());
+            /* Number n = */
+            d1.getKey(d1.getItemCount());
             fail("Expected IndexOutOfBoundsException.");
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // this is expected
         }
 
@@ -148,10 +145,10 @@ public class CategoryToPieDatasetTest {
         CategoryToPieDataset p1 = new CategoryToPieDataset(null,
                 TableOrder.BY_COLUMN, 0);
         try {
-            /* Number n = */ p1.getKey(0);
+            /* Number n = */
+            p1.getKey(0);
             fail("Expected IndexOutOfBoundsException.");
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // this is expected
         }
     }
@@ -174,8 +171,7 @@ public class CategoryToPieDatasetTest {
         boolean pass = false;
         try {
             d1.getIndex(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -206,7 +202,7 @@ public class CategoryToPieDatasetTest {
         underlying.addValue(2.2, "R1", "C2");
         CategoryToPieDataset d1 = new CategoryToPieDataset(underlying,
                 TableOrder.BY_COLUMN, 1);
-        CategoryToPieDataset d2 = (CategoryToPieDataset) 
+        CategoryToPieDataset d2 = (CategoryToPieDataset)
                 TestUtilities.serialised(d1);
         assertEquals(d1, d2);
 

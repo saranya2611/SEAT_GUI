@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -42,8 +42,6 @@
 
 package org.jfree.experimental.chart.swt.editor;
 
-import java.util.ResourceBundle;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -52,37 +50,39 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.ColorDialog;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.*;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.util.ResourceBundleWrapper;
 import org.jfree.experimental.swt.SWTPaintCanvas;
 import org.jfree.experimental.swt.SWTUtils;
+
+import java.util.ResourceBundle;
 
 /**
  * An editor for miscellaneous chart properties.
  */
 class SWTOtherEditor extends Composite {
 
-    /** A checkbox indicating whether or not
-     * the chart is drawn with anti-aliasing. */
-    private Button antialias;
-
-    /** The chart background color. */
-    private SWTPaintCanvas backgroundPaintCanvas;
-
-    /** The resourceBundle for the localization. */
+    /**
+     * The resourceBundle for the localization.
+     */
     protected static ResourceBundle localizationResources
             = ResourceBundleWrapper.getBundle(
-                    "org.jfree.chart.editor.LocalizationBundle");
+            "org.jfree.chart.editor.LocalizationBundle");
+    /**
+     * A checkbox indicating whether or not
+     * the chart is drawn with anti-aliasing.
+     */
+    private Button antialias;
+    /**
+     * The chart background color.
+     */
+    private SWTPaintCanvas backgroundPaintCanvas;
 
     /**
      * Creates a new instance.
      *
-     * @param parent  the parent.
+     * @param parent the parent.
      * @param style  the style.
      * @param chart  the chart.
      */
@@ -137,7 +137,7 @@ class SWTOtherEditor extends Composite {
     /**
      * Updates the chart.
      *
-     * @param chart  the chart.
+     * @param chart the chart.
      */
     public void updateChartProperties(JFreeChart chart) {
         chart.setAntiAlias(this.antialias.getSelection());

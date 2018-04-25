@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -44,18 +44,18 @@
 
 package org.jfree.data.xy;
 
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
-
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetChangeListener;
+
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 /**
  * A READ-ONLY wrapper around a {@link TableXYDataset} to convert it to a
  * table model for use in a JTable.  The first column of the table shows the
  * x-values, the remaining columns show the y-values for each series (series 0
  * appears in column 1, series 1 appears in column 2, etc).
- * <P>
+ * <p>
  * TO DO:
  * <ul>
  * <li>implement proper naming for x axis (getColumnName)</li>
@@ -63,9 +63,11 @@ import org.jfree.data.general.DatasetChangeListener;
  * </ul>
  */
 public class XYDatasetTableModel extends AbstractTableModel
-        implements TableModel, DatasetChangeListener  {
+        implements TableModel, DatasetChangeListener {
 
-    /** The dataset. */
+    /**
+     * The dataset.
+     */
     TableXYDataset model = null;
 
     /**
@@ -78,7 +80,7 @@ public class XYDatasetTableModel extends AbstractTableModel
     /**
      * Creates a new table model based on the specified dataset.
      *
-     * @param dataset  the dataset.
+     * @param dataset the dataset.
      */
     public XYDatasetTableModel(TableXYDataset dataset) {
         this();
@@ -89,7 +91,7 @@ public class XYDatasetTableModel extends AbstractTableModel
     /**
      * Sets the model (dataset).
      *
-     * @param dataset  the dataset.
+     * @param dataset the dataset.
      */
     public void setModel(TableXYDataset dataset) {
         this.model = dataset;
@@ -126,8 +128,7 @@ public class XYDatasetTableModel extends AbstractTableModel
     /**
      * Returns the column name.
      *
-     * @param column  the column index.
-     *
+     * @param column the column index.
      * @return The column name.
      */
     @Override
@@ -137,8 +138,7 @@ public class XYDatasetTableModel extends AbstractTableModel
         }
         if (column < 1) {
             return "X Value";
-        }
-        else {
+        } else {
             return this.model.getSeriesKey(column - 1).toString();
         }
     }
@@ -147,9 +147,8 @@ public class XYDatasetTableModel extends AbstractTableModel
      * Returns a value of the specified cell.
      * Column 0 is the X axis, Columns 1 and over are the Y axis
      *
-     * @param row  the row number.
-     * @param column  the column number.
-     *
+     * @param row    the row number.
+     * @param column the column number.
      * @return The value of the specified cell.
      */
     @Override
@@ -159,17 +158,15 @@ public class XYDatasetTableModel extends AbstractTableModel
         }
         if (column < 1) {
             return this.model.getX(0, row);
-        }
-        else {
+        } else {
             return this.model.getY(column - 1, row);
         }
     }
 
     /**
      * Receives notification that the underlying dataset has changed.
-    *
-     * @param event  the event
      *
+     * @param event the event
      * @see DatasetChangeListener
      */
     @Override
@@ -180,22 +177,21 @@ public class XYDatasetTableModel extends AbstractTableModel
     /**
      * Returns a flag indicating whether or not the specified cell is editable.
      *
-     * @param row  the row number.
-     * @param column  the column number.
-     *
+     * @param row    the row number.
+     * @param column the column number.
      * @return <code>true</code> if the specified cell is editable.
      */
     @Override
     public boolean isCellEditable(int row, int column) {
         return false;
-   }
+    }
 
     /**
      * Updates the {@link XYDataset} if allowed.
      *
      * @param value  the new value.
-     * @param row  the row.
-     * @param column  the column.
+     * @param row    the row.
+     * @param column the column.
      */
     @Override
     public void setValueAt(Object value, int row, int column) {

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -48,19 +48,19 @@
 
 package org.jfree.chart.block;
 
-import java.awt.Graphics2D;
+import org.jfree.chart.entity.EntityCollection;
+import org.jfree.chart.entity.StandardEntityCollection;
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.ui.Size2D;
+import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import org.jfree.chart.entity.EntityCollection;
-import org.jfree.chart.entity.StandardEntityCollection;
-import org.jfree.chart.util.ParamChecks;
-import org.jfree.ui.Size2D;
-import org.jfree.util.PublicCloneable;
 
 /**
  * A container for a collection of {@link Block} objects.  The container uses
@@ -69,13 +69,19 @@ import org.jfree.util.PublicCloneable;
 public class BlockContainer extends AbstractBlock
         implements Block, Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 8199508075695195293L;
 
-    /** The blocks within the container. */
+    /**
+     * The blocks within the container.
+     */
     private List blocks;
 
-    /** The object responsible for laying out the blocks. */
+    /**
+     * The object responsible for laying out the blocks.
+     */
     private Arrangement arrangement;
 
     /**
@@ -88,8 +94,8 @@ public class BlockContainer extends AbstractBlock
     /**
      * Creates a new instance with the specified arrangement.
      *
-     * @param arrangement  the arrangement manager (<code>null</code> not
-     *                     permitted).
+     * @param arrangement the arrangement manager (<code>null</code> not
+     *                    permitted).
      */
     public BlockContainer(Arrangement arrangement) {
         ParamChecks.nullNotPermitted(arrangement, "arrangement");
@@ -109,7 +115,7 @@ public class BlockContainer extends AbstractBlock
     /**
      * Sets the arrangement (layout) manager.
      *
-     * @param arrangement  the arrangement (<code>null</code> not permitted).
+     * @param arrangement the arrangement (<code>null</code> not permitted).
      */
     public void setArrangement(Arrangement arrangement) {
         ParamChecks.nullNotPermitted(arrangement, "arrangement");
@@ -139,7 +145,7 @@ public class BlockContainer extends AbstractBlock
     /**
      * Adds a block to the container.
      *
-     * @param block  the block (<code>null</code> permitted).
+     * @param block the block (<code>null</code> permitted).
      */
     public void add(Block block) {
         add(block, null);
@@ -148,8 +154,8 @@ public class BlockContainer extends AbstractBlock
     /**
      * Adds a block to the container.
      *
-     * @param block  the block (<code>null</code> permitted).
-     * @param key  the key (<code>null</code> permitted).
+     * @param block the block (<code>null</code> permitted).
+     * @param key   the key (<code>null</code> permitted).
      */
     public void add(Block block, Object key) {
         this.blocks.add(block);
@@ -168,9 +174,8 @@ public class BlockContainer extends AbstractBlock
      * Arranges the contents of the block, within the given constraints, and
      * returns the block size.
      *
-     * @param g2  the graphics device.
-     * @param constraint  the constraint (<code>null</code> not permitted).
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint (<code>null</code> not permitted).
      * @return The block size (in Java2D units, never <code>null</code>).
      */
     @Override
@@ -181,8 +186,8 @@ public class BlockContainer extends AbstractBlock
     /**
      * Draws the container and all the blocks within it.
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
+     * @param g2   the graphics device.
+     * @param area the area.
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D area) {
@@ -192,11 +197,10 @@ public class BlockContainer extends AbstractBlock
     /**
      * Draws the block within the specified area.
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
-     * @param params  passed on to blocks within the container
-     *                (<code>null</code> permitted).
-     *
+     * @param g2     the graphics device.
+     * @param area   the area.
+     * @param params passed on to blocks within the container
+     *               (<code>null</code> permitted).
      * @return An instance of {@link EntityBlockResult}, or <code>null</code>.
      */
     @Override
@@ -242,8 +246,7 @@ public class BlockContainer extends AbstractBlock
     /**
      * Tests this container for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -271,7 +274,6 @@ public class BlockContainer extends AbstractBlock
      * Returns a clone of the container.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem cloning.
      */
     @Override

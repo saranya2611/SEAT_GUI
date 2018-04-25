@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -54,11 +54,10 @@ public class LineUtilities {
     /**
      * Clips the specified line to the given rectangle.
      *
-     * @param line  the line (<code>null</code> not permitted).
-     * @param rect  the clipping rectangle (<code>null</code> not permitted).
-     *
+     * @param line the line (<code>null</code> not permitted).
+     * @param rect the clipping rectangle (<code>null</code> not permitted).
      * @return <code>true</code> if the clipped line is visible, and
-     *     <code>false</code> otherwise.
+     * <code>false</code> otherwise.
      */
     public static boolean clipLine(Line2D line, Rectangle2D rect) {
 
@@ -90,43 +89,36 @@ public class LineUtilities {
                         && dx != 0.0) {
                     y1 = y1 + (minX - x1) * dy / dx;
                     x1 = minX;
-                }
-                else if ((f1 & Rectangle2D.OUT_RIGHT) == Rectangle2D.OUT_RIGHT
+                } else if ((f1 & Rectangle2D.OUT_RIGHT) == Rectangle2D.OUT_RIGHT
                         && dx != 0.0) {
                     y1 = y1 + (maxX - x1) * dy / dx;
                     x1 = maxX;
-                }
-                else if ((f1 & Rectangle2D.OUT_BOTTOM) == Rectangle2D.OUT_BOTTOM
+                } else if ((f1 & Rectangle2D.OUT_BOTTOM) == Rectangle2D.OUT_BOTTOM
                         && dy != 0.0) {
                     x1 = x1 + (maxY - y1) * dx / dy;
                     y1 = maxY;
-                }
-                else if ((f1 & Rectangle2D.OUT_TOP) == Rectangle2D.OUT_TOP
+                } else if ((f1 & Rectangle2D.OUT_TOP) == Rectangle2D.OUT_TOP
                         && dy != 0.0) {
                     x1 = x1 + (minY - y1) * dx / dy;
                     y1 = minY;
                 }
                 f1 = rect.outcode(x1, y1);
-            }
-            else if (f2 != 0) {
+            } else if (f2 != 0) {
                 // second point is outside, so we update it against one of the
                 // four sides then continue
                 if ((f2 & Rectangle2D.OUT_LEFT) == Rectangle2D.OUT_LEFT
                         && dx != 0.0) {
                     y2 = y2 + (minX - x2) * dy / dx;
                     x2 = minX;
-                }
-                else if ((f2 & Rectangle2D.OUT_RIGHT) == Rectangle2D.OUT_RIGHT
+                } else if ((f2 & Rectangle2D.OUT_RIGHT) == Rectangle2D.OUT_RIGHT
                         && dx != 0.0) {
                     y2 = y2 + (maxX - x2) * dy / dx;
                     x2 = maxX;
-                }
-                else if ((f2 & Rectangle2D.OUT_BOTTOM) == Rectangle2D.OUT_BOTTOM
+                } else if ((f2 & Rectangle2D.OUT_BOTTOM) == Rectangle2D.OUT_BOTTOM
                         && dy != 0.0) {
                     x2 = x2 + (maxY - y2) * dx / dy;
                     y2 = maxY;
-                }
-                else if ((f2 & Rectangle2D.OUT_TOP) == Rectangle2D.OUT_TOP
+                } else if ((f2 & Rectangle2D.OUT_TOP) == Rectangle2D.OUT_TOP
                         && dy != 0.0) {
                     x2 = x2 + (minY - y2) * dx / dy;
                     y2 = minY;
@@ -137,24 +129,22 @@ public class LineUtilities {
 
         line.setLine(x1, y1, x2, y2);
         return true;  // the line is visible - if it wasn't, we'd have
-                      // returned false from within the while loop above
+        // returned false from within the while loop above
 
     }
-    
+
     /**
      * Creates a new line by extending an existing line.
      *
-     * @param line  the line (<code>null</code> not permitted).
-     * @param startPercent  the amount to extend the line at the start point
-     *                      end.
-     * @param endPercent  the amount to extend the line at the end point end.
-     *
+     * @param line         the line (<code>null</code> not permitted).
+     * @param startPercent the amount to extend the line at the start point
+     *                     end.
+     * @param endPercent   the amount to extend the line at the end point end.
      * @return A new line.
-     * 
      * @since 1.0.18
      */
     public static Line2D extendLine(Line2D line, double startPercent,
-                              double endPercent) {
+                                    double endPercent) {
         ParamChecks.nullNotPermitted(line, "line");
         double x1 = line.getX1();
         double x2 = line.getX2();

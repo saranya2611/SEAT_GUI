@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------
@@ -55,11 +55,9 @@ public interface IntervalCategoryDataset extends CategoryDataset {
     /**
      * Returns the start value for the interval for a given series and category.
      *
-     * @param series  the series (zero-based index).
-     * @param category  the category (zero-based index).
-     *
+     * @param series   the series (zero-based index).
+     * @param category the category (zero-based index).
      * @return The start value (possibly <code>null</code>).
-     *
      * @see #getEndValue(int, int)
      */
     public Number getStartValue(int series, int category);
@@ -67,11 +65,9 @@ public interface IntervalCategoryDataset extends CategoryDataset {
     /**
      * Returns the start value for the interval for a given series and category.
      *
-     * @param series  the series key.
-     * @param category  the category key.
-     *
+     * @param series   the series key.
+     * @param category the category key.
      * @return The start value (possibly <code>null</code>).
-     *
      * @see #getEndValue(Comparable, Comparable)
      */
     public Number getStartValue(Comparable series, Comparable category);
@@ -79,11 +75,9 @@ public interface IntervalCategoryDataset extends CategoryDataset {
     /**
      * Returns the end value for the interval for a given series and category.
      *
-     * @param series  the series (zero-based index).
-     * @param category  the category (zero-based index).
-     *
+     * @param series   the series (zero-based index).
+     * @param category the category (zero-based index).
      * @return The end value (possibly <code>null</code>).
-     *
      * @see #getStartValue(int, int)
      */
     public Number getEndValue(int series, int category);
@@ -91,11 +85,9 @@ public interface IntervalCategoryDataset extends CategoryDataset {
     /**
      * Returns the end value for the interval for a given series and category.
      *
-     * @param series  the series key.
-     * @param category  the category key.
-     *
+     * @param series   the series key.
+     * @param category the category key.
      * @return The end value (possibly <code>null</code>).
-     *
      * @see #getStartValue(Comparable, Comparable)
      */
     public Number getEndValue(Comparable series, Comparable category);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -40,7 +40,7 @@
  *               implementations (DG);
  * 02-Feb-2007 : Removed author tags all over JFreeChart sources (DG);
  * 06-Jul-2008 : Remove encoder only used in JDK 1.3 (DG);
- * 
+ *
  */
 
 package org.jfree.chart.encoders;
@@ -54,7 +54,9 @@ import java.util.Map;
  */
 public class ImageEncoderFactory {
 
-    /** Storage for the encoders. */
+    /**
+     * Storage for the encoders.
+     */
     private static Map encoders = null;
 
     static {
@@ -74,8 +76,8 @@ public class ImageEncoderFactory {
     /**
      * Used to set additional encoders or replace default ones.
      *
-     * @param format  The image format name.
-     * @param imageEncoderClassName  The name of the ImageEncoder class.
+     * @param format                The image format name.
+     * @param imageEncoderClassName The name of the ImageEncoder class.
      */
     public static void setImageEncoder(String format,
                                        String imageEncoderClassName) {
@@ -85,8 +87,7 @@ public class ImageEncoderFactory {
     /**
      * Used to retrieve an ImageEncoder for a specific image format.
      *
-     * @param format  The image format required.
-     *
+     * @param format The image format required.
      * @return The ImageEncoder or <code>null</code> if none available.
      */
     public static ImageEncoder newInstance(String format) {
@@ -99,8 +100,7 @@ public class ImageEncoderFactory {
         try {
             Class imageEncoderClass = Class.forName(className);
             imageEncoder = (ImageEncoder) imageEncoderClass.newInstance();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException(e.toString());
         }
         return imageEncoder;
@@ -110,8 +110,7 @@ public class ImageEncoderFactory {
      * Used to retrieve an ImageEncoder for a specific image format.
      *
      * @param format  The image format required.
-     * @param quality  The quality to be set before returning.
-     *
+     * @param quality The quality to be set before returning.
      * @return The ImageEncoder or <code>null</code> if none available.
      */
     public static ImageEncoder newInstance(String format, float quality) {
@@ -123,9 +122,8 @@ public class ImageEncoderFactory {
     /**
      * Used to retrieve an ImageEncoder for a specific image format.
      *
-     * @param format  The image format required.
-     * @param encodingAlpha  Sets whether alpha transparency should be encoded.
-     *
+     * @param format        The image format required.
+     * @param encodingAlpha Sets whether alpha transparency should be encoded.
      * @return The ImageEncoder or <code>null</code> if none available.
      */
     public static ImageEncoder newInstance(String format,
@@ -138,10 +136,9 @@ public class ImageEncoderFactory {
     /**
      * Used to retrieve an ImageEncoder for a specific image format.
      *
-     * @param format  The image format required.
-     * @param quality  The quality to be set before returning.
-     * @param encodingAlpha  Sets whether alpha transparency should be encoded.
-     *
+     * @param format        The image format required.
+     * @param quality       The quality to be set before returning.
+     * @param encodingAlpha Sets whether alpha transparency should be encoded.
      * @return The ImageEncoder or <code>null</code> if none available.
      */
     public static ImageEncoder newInstance(String format, float quality,

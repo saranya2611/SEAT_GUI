@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -43,12 +43,11 @@
 
 package org.jfree.chart.renderer;
 
-import java.awt.Color;
-import java.awt.Paint;
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
+import java.io.Serializable;
 
 /**
  * A paint scale that returns shades of gray.
@@ -58,10 +57,14 @@ import org.jfree.util.PublicCloneable;
 public class GrayPaintScale
         implements PaintScale, PublicCloneable, Serializable {
 
-    /** The lower bound. */
+    /**
+     * The lower bound.
+     */
     private double lowerBound;
 
-    /** The upper bound. */
+    /**
+     * The upper bound.
+     */
     private double upperBound;
 
     /**
@@ -81,11 +84,10 @@ public class GrayPaintScale
     /**
      * Creates a new paint scale for values in the specified range.
      *
-     * @param lowerBound  the lower bound.
-     * @param upperBound  the upper bound.
-     *
+     * @param lowerBound the lower bound.
+     * @param upperBound the upper bound.
      * @throws IllegalArgumentException if <code>lowerBound</code> is not
-     *       less than <code>upperBound</code>.
+     *                                  less than <code>upperBound</code>.
      */
     public GrayPaintScale(double lowerBound, double upperBound) {
         this(lowerBound, upperBound, 255);
@@ -94,14 +96,12 @@ public class GrayPaintScale
     /**
      * Creates a new paint scale for values in the specified range.
      *
-     * @param lowerBound  the lower bound.
-     * @param upperBound  the upper bound.
-     * @param alpha  the alpha transparency (0-255).
-     *
+     * @param lowerBound the lower bound.
+     * @param upperBound the upper bound.
+     * @param alpha      the alpha transparency (0-255).
      * @throws IllegalArgumentException if <code>lowerBound</code> is not
-     *       less than <code>upperBound</code>, or <code>alpha</code> is not in
-     *       the range 0 to 255.
-     *
+     *                                  less than <code>upperBound</code>, or <code>alpha</code> is not in
+     *                                  the range 0 to 255.
      * @since 1.0.13
      */
     public GrayPaintScale(double lowerBound, double upperBound, int alpha) {
@@ -123,7 +123,6 @@ public class GrayPaintScale
      * Returns the lower bound.
      *
      * @return The lower bound.
-     *
      * @see #getUpperBound()
      */
     @Override
@@ -135,7 +134,6 @@ public class GrayPaintScale
      * Returns the upper bound.
      *
      * @return The upper bound.
-     *
      * @see #getLowerBound()
      */
     @Override
@@ -145,9 +143,8 @@ public class GrayPaintScale
 
     /**
      * Returns the alpha transparency that was specified in the constructor.
-     * 
+     *
      * @return The alpha transparency (in the range 0 to 255).
-     * 
      * @since 1.0.13
      */
     public int getAlpha() {
@@ -157,9 +154,8 @@ public class GrayPaintScale
     /**
      * Returns a paint for the specified value.
      *
-     * @param value  the value (must be within the range specified by the
-     *         lower and upper bounds for the scale).
-     *
+     * @param value the value (must be within the range specified by the
+     *              lower and upper bounds for the scale).
      * @return A paint for the specified value.
      */
     @Override
@@ -182,8 +178,7 @@ public class GrayPaintScale
      * <li><code>obj</code> is an instance of <code>GrayPaintScale</code>;</li>
      * </ul>
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -225,9 +220,8 @@ public class GrayPaintScale
      * Returns a clone of this <code>GrayPaintScale</code> instance.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem cloning this
-     *     instance.
+     *                                    instance.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

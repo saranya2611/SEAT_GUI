@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -40,7 +40,7 @@
 
 package org.jfree.chart.entity;
 
-import java.awt.Shape;
+import java.awt.*;
 import java.io.Serializable;
 
 /**
@@ -48,21 +48,25 @@ import java.io.Serializable;
  * {@link org.jfree.chart.plot.XYPlot}.
  */
 public class XYAnnotationEntity extends ChartEntity
-                                implements Serializable {
+        implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 2340334068383660799L;
 
-    /** The renderer index. */
+    /**
+     * The renderer index.
+     */
     private int rendererIndex;
 
     /**
      * Creates a new entity.
      *
-     * @param hotspot  the area.
-     * @param rendererIndex  the rendererIndex (zero-based index).
-     * @param toolTipText  the tool tip text.
-     * @param urlText  the URL text for HTML image maps.
+     * @param hotspot       the area.
+     * @param rendererIndex the rendererIndex (zero-based index).
+     * @param toolTipText   the tool tip text.
+     * @param urlText       the URL text for HTML image maps.
      */
     public XYAnnotationEntity(Shape hotspot, int rendererIndex,
                               String toolTipText, String urlText) {
@@ -82,7 +86,7 @@ public class XYAnnotationEntity extends ChartEntity
     /**
      * Sets the renderer index.
      *
-     * @param index  the item index (zero-based).
+     * @param index the item index (zero-based).
      */
     public void setRendererIndex(int index) {
         this.rendererIndex = index;
@@ -91,8 +95,7 @@ public class XYAnnotationEntity extends ChartEntity
     /**
      * Tests the entity for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

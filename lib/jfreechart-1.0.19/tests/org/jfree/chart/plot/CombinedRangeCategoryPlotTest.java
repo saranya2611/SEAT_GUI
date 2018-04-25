@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------------
@@ -41,14 +41,6 @@
 
 package org.jfree.chart.plot;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.List;
-
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.TestUtilities;
 import org.jfree.chart.axis.CategoryAxis;
@@ -62,18 +54,28 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.junit.Test;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Tests for the {@link CombinedRangeCategoryPlot} class.
  */
 public class CombinedRangeCategoryPlotTest implements ChartChangeListener {
 
-    /** A list of the events received. */
+    /**
+     * A list of the events received.
+     */
     private List events = new java.util.ArrayList();
 
     /**
      * Receives a chart change event.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void chartChanged(ChartChangeEvent event) {
@@ -96,7 +98,7 @@ public class CombinedRangeCategoryPlotTest implements ChartChangeListener {
     @Test
     public void testCloning() throws CloneNotSupportedException {
         CombinedRangeCategoryPlot plot1 = createPlot();
-        CombinedRangeCategoryPlot plot2 = (CombinedRangeCategoryPlot) 
+        CombinedRangeCategoryPlot plot2 = (CombinedRangeCategoryPlot)
                 plot1.clone();
         assertTrue(plot1 != plot2);
         assertTrue(plot1.getClass() == plot2.getClass());
@@ -109,7 +111,7 @@ public class CombinedRangeCategoryPlotTest implements ChartChangeListener {
     @Test
     public void testSerialization() {
         CombinedRangeCategoryPlot plot1 = createPlot();
-        CombinedRangeCategoryPlot plot2 = (CombinedRangeCategoryPlot) 
+        CombinedRangeCategoryPlot plot2 = (CombinedRangeCategoryPlot)
                 TestUtilities.serialised(plot1);
         assertEquals(plot1, plot2);
     }

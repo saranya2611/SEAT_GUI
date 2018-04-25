@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -41,14 +41,6 @@
 
 package org.jfree.chart.axis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.TestUtilities;
@@ -61,10 +53,18 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleEdge;
 import org.junit.Test;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+
+import static org.junit.Assert.*;
+
 /**
  * Tests for the {@link LogAxis} class.
  */
 public class LogAxisTest {
+
+    private static final double EPSILON = 0.0000001;
 
     /**
      * Confirm that cloning works.
@@ -115,8 +115,6 @@ public class LogAxisTest {
         int h2 = a2.hashCode();
         assertEquals(h1, h2);
     }
-
-    private static final double EPSILON = 0.0000001;
 
     /**
      * Test the translation of Java2D values to data values.
@@ -265,7 +263,7 @@ public class LogAxisTest {
         LogAxis axis = new LogAxis("Log Axis");
         assertTrue(axis.isTickMarksVisible());
     }
-    
+
     /**
      * Checks that a TickUnit with a size of 0 doesn't crash.
      */

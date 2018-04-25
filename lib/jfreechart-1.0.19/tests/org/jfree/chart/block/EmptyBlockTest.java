@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -40,13 +40,10 @@
 
 package org.jfree.chart.block;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link EmptyBlock} class.
@@ -84,8 +81,7 @@ public class EmptyBlockTest {
 
         try {
             b2 = (EmptyBlock) b1.clone();
-        }
-        catch (CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException e) {
             fail(e.toString());
         }
         assertTrue(b1 != b2);

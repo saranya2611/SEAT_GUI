@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -48,14 +48,6 @@
 
 package org.jfree.chart.title;
 
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.jfree.chart.block.BlockContainer;
 import org.jfree.chart.block.BorderArrangement;
 import org.jfree.chart.block.RectangleConstraint;
@@ -65,12 +57,21 @@ import org.jfree.io.SerialUtilities;
 import org.jfree.ui.Size2D;
 import org.jfree.util.PaintUtilities;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * A title that contains multiple titles within a {@link BlockContainer}.
  */
 public class CompositeTitle extends Title implements Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -6770854036232562290L;
 
     /**
@@ -80,7 +81,9 @@ public class CompositeTitle extends Title implements Cloneable, Serializable {
      */
     private transient Paint backgroundPaint;
 
-    /** A container for the individual titles. */
+    /**
+     * A container for the individual titles.
+     */
     private BlockContainer container;
 
     /**
@@ -93,7 +96,7 @@ public class CompositeTitle extends Title implements Cloneable, Serializable {
     /**
      * Creates a new title using the specified container.
      *
-     * @param container  the container (<code>null</code> not permitted).
+     * @param container the container (<code>null</code> not permitted).
      */
     public CompositeTitle(BlockContainer container) {
         ParamChecks.nullNotPermitted(container, "container");
@@ -105,7 +108,6 @@ public class CompositeTitle extends Title implements Cloneable, Serializable {
      * Returns the background paint.
      *
      * @return The paint (possibly <code>null</code>).
-     *
      * @since 1.0.11
      */
     public Paint getBackgroundPaint() {
@@ -117,8 +119,7 @@ public class CompositeTitle extends Title implements Cloneable, Serializable {
      * registered listeners.  If you set this attribute to <code>null</code>,
      * no background is painted (which makes the title background transparent).
      *
-     * @param paint  the background paint (<code>null</code> permitted).
-     *
+     * @param paint the background paint (<code>null</code> permitted).
      * @since 1.0.11
      */
     public void setBackgroundPaint(Paint paint) {
@@ -138,7 +139,7 @@ public class CompositeTitle extends Title implements Cloneable, Serializable {
     /**
      * Sets the title container.
      *
-     * @param container  the container (<code>null</code> not permitted).
+     * @param container the container (<code>null</code> not permitted).
      */
     public void setTitleContainer(BlockContainer container) {
         ParamChecks.nullNotPermitted(container, "container");
@@ -149,9 +150,8 @@ public class CompositeTitle extends Title implements Cloneable, Serializable {
      * Arranges the contents of the block, within the given constraints, and
      * returns the block size.
      *
-     * @param g2  the graphics device.
-     * @param constraint  the constraint (<code>null</code> not permitted).
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint (<code>null</code> not permitted).
      * @return The block size (in Java2D units, never <code>null</code>).
      */
     @Override
@@ -166,8 +166,8 @@ public class CompositeTitle extends Title implements Cloneable, Serializable {
      * Draws the title on a Java 2D graphics device (such as the screen or a
      * printer).
      *
-     * @param g2  the graphics device.
-     * @param area  the area allocated for the title.
+     * @param g2   the graphics device.
+     * @param area the area allocated for the title.
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D area) {
@@ -177,10 +177,9 @@ public class CompositeTitle extends Title implements Cloneable, Serializable {
     /**
      * Draws the block within the specified area.
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
-     * @param params  ignored (<code>null</code> permitted).
-     *
+     * @param g2     the graphics device.
+     * @param area   the area.
+     * @param params ignored (<code>null</code> permitted).
      * @return Always <code>null</code>.
      */
     @Override
@@ -199,8 +198,7 @@ public class CompositeTitle extends Title implements Cloneable, Serializable {
     /**
      * Tests this title for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -224,9 +222,8 @@ public class CompositeTitle extends Title implements Cloneable, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -236,10 +233,9 @@ public class CompositeTitle extends Title implements Cloneable, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {

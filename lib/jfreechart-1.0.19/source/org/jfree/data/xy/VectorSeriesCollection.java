@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -45,13 +45,13 @@
 
 package org.jfree.data.xy;
 
-import java.io.Serializable;
-import java.util.List;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * A collection of {@link VectorSeries} objects.
@@ -61,7 +61,9 @@ import org.jfree.util.PublicCloneable;
 public class VectorSeriesCollection extends AbstractXYDataset
         implements VectorXYDataset, PublicCloneable, Serializable {
 
-    /** Storage for the data series. */
+    /**
+     * Storage for the data series.
+     */
     private List data;
 
     /**
@@ -75,7 +77,7 @@ public class VectorSeriesCollection extends AbstractXYDataset
      * Adds a series to the collection and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param series  the series (<code>null</code> not permitted).
+     * @param series the series (<code>null</code> not permitted).
      */
     public void addSeries(VectorSeries series) {
         ParamChecks.nullNotPermitted(series, "series");
@@ -88,10 +90,9 @@ public class VectorSeriesCollection extends AbstractXYDataset
      * Removes the specified series from the collection and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param series  the series (<code>null</code> not permitted).
-     *
+     * @param series the series (<code>null</code> not permitted).
      * @return A boolean indicating whether the series has actually been
-     *         removed.
+     * removed.
      */
     public boolean removeSeries(VectorSeries series) {
         ParamChecks.nullNotPermitted(series, "series");
@@ -135,12 +136,10 @@ public class VectorSeriesCollection extends AbstractXYDataset
     /**
      * Returns a series from the collection.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @return The series.
-     *
      * @throws IllegalArgumentException if <code>series</code> is not in the
-     *     range <code>0</code> to <code>getSeriesCount() - 1</code>.
+     *                                  range <code>0</code> to <code>getSeriesCount() - 1</code>.
      */
     public VectorSeries getSeries(int series) {
         if ((series < 0) || (series >= getSeriesCount())) {
@@ -152,13 +151,11 @@ public class VectorSeriesCollection extends AbstractXYDataset
     /**
      * Returns the key for a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
      * @return The key for a series.
-     *
      * @throws IllegalArgumentException if <code>series</code> is not in the
-     *     specified range.
+     *                                  specified range.
      */
     @Override
     public Comparable getSeriesKey(int series) {
@@ -170,8 +167,7 @@ public class VectorSeriesCollection extends AbstractXYDataset
      * Returns the index of the specified series, or -1 if that series is not
      * present in the dataset.
      *
-     * @param series  the series (<code>null</code> not permitted).
-     *
+     * @param series the series (<code>null</code> not permitted).
      * @return The series index.
      */
     public int indexOf(VectorSeries series) {
@@ -182,12 +178,10 @@ public class VectorSeriesCollection extends AbstractXYDataset
     /**
      * Returns the number of items in the specified series.
      *
-     * @param series  the series (zero-based index).
-     *
+     * @param series the series (zero-based index).
      * @return The item count.
-     *
      * @throws IllegalArgumentException if <code>series</code> is not in the
-     *     range <code>0</code> to <code>getSeriesCount() - 1</code>.
+     *                                  range <code>0</code> to <code>getSeriesCount() - 1</code>.
      */
     @Override
     public int getItemCount(int series) {
@@ -198,9 +192,8 @@ public class VectorSeriesCollection extends AbstractXYDataset
     /**
      * Returns the x-value for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The x-value.
      */
     @Override
@@ -215,9 +208,8 @@ public class VectorSeriesCollection extends AbstractXYDataset
      * creates a new {@link Double} instance every time it is called---use
      * {@link #getXValue(int, int)} instead, if possible.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The x-value.
      */
     @Override
@@ -228,9 +220,8 @@ public class VectorSeriesCollection extends AbstractXYDataset
     /**
      * Returns the y-value for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The y-value.
      */
     @Override
@@ -245,9 +236,8 @@ public class VectorSeriesCollection extends AbstractXYDataset
      * creates a new {@link Double} instance every time it is called---use
      * {@link #getYValue(int, int)} instead, if possible.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The y-value.
      */
     @Override
@@ -258,9 +248,8 @@ public class VectorSeriesCollection extends AbstractXYDataset
     /**
      * Returns the vector for an item in a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The vector (possibly <code>null</code>).
      */
     @Override
@@ -273,9 +262,8 @@ public class VectorSeriesCollection extends AbstractXYDataset
     /**
      * Returns the x-component of the vector for an item in a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The x-component of the vector.
      */
     @Override
@@ -288,9 +276,8 @@ public class VectorSeriesCollection extends AbstractXYDataset
     /**
      * Returns the y-component of the vector for an item in a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The y-component of the vector.
      */
     @Override
@@ -303,8 +290,7 @@ public class VectorSeriesCollection extends AbstractXYDataset
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -323,7 +309,6 @@ public class VectorSeriesCollection extends AbstractXYDataset
      * Returns a clone of this instance.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem.
      */
     @Override

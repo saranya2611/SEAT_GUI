@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -40,7 +40,7 @@
 
 package org.jfree.chart.plot.dial;
 
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
@@ -61,8 +61,7 @@ public interface DialFrame extends DialLayer {
      * <code>null</code> if the dial is completely open.  Other layers in the
      * plot will rely on their drawing to be clipped within this window.
      *
-     * @param frame  the reference frame for the dial.
-     *
+     * @param frame the reference frame for the dial.
      * @return The window.
      */
     public Shape getWindow(Rectangle2D frame);

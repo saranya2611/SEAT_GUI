@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -53,18 +53,17 @@ import org.jfree.data.contour.DefaultContourDataset;
  * Some utility methods for the {@link ContourPlot} class.
  *
  * @deprecated This class is no longer supported (as of version 1.0.4).  If
- *     you are creating contour plots, please try to use {@link XYPlot} and
- *     {@link XYBlockRenderer}.
+ * you are creating contour plots, please try to use {@link XYPlot} and
+ * {@link XYBlockRenderer}.
  */
 public abstract class ContourPlotUtilities {
 
     /**
      * Returns the visible z-range.
      *
-     * @param data  the dataset.
-     * @param x  the x range.
-     * @param y  the y range.
-     *
+     * @param data the dataset.
+     * @param x    the x range.
+     * @param y    the y range.
      * @return The range.
      */
     public static Range visibleRange(ContourDataset data, Range x, Range y) {

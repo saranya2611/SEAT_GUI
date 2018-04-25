@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------------------
@@ -43,27 +43,30 @@
 
 package org.jfree.chart.labels;
 
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.util.PublicCloneable;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.NumberFormat;
-
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.util.PublicCloneable;
 
 /**
  * A standard label generator that can be used with a
  * {@link org.jfree.chart.renderer.category.CategoryItemRenderer}.
  */
 public class StandardCategoryItemLabelGenerator
-    extends AbstractCategoryItemLabelGenerator
-    implements CategoryItemLabelGenerator, Cloneable, PublicCloneable,
-               Serializable {
+        extends AbstractCategoryItemLabelGenerator
+        implements CategoryItemLabelGenerator, Cloneable, PublicCloneable,
+        Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 3499701401211412882L;
-
-    /** The default format string. */
+    /**
+     * The default format string.
+     */
     public static final String DEFAULT_LABEL_FORMAT_STRING = "{2}";
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 3499701401211412882L;
 
     /**
      * Creates a new generator with a default number formatter.
@@ -75,9 +78,9 @@ public class StandardCategoryItemLabelGenerator
     /**
      * Creates a new generator with the specified number formatter.
      *
-     * @param labelFormat  the label format string (<code>null</code> not
-     *                     permitted).
-     * @param formatter  the number formatter (<code>null</code> not permitted).
+     * @param labelFormat the label format string (<code>null</code> not
+     *                    permitted).
+     * @param formatter   the number formatter (<code>null</code> not permitted).
      */
     public StandardCategoryItemLabelGenerator(String labelFormat,
                                               NumberFormat formatter) {
@@ -87,25 +90,24 @@ public class StandardCategoryItemLabelGenerator
     /**
      * Creates a new generator with the specified number formatter.
      *
-     * @param labelFormat  the label format string (<code>null</code> not
-     *                     permitted).
-     * @param formatter  the number formatter (<code>null</code> not permitted).
-     * @param percentFormatter  the percent formatter (<code>null</code> not
-     *     permitted).
-     *
+     * @param labelFormat      the label format string (<code>null</code> not
+     *                         permitted).
+     * @param formatter        the number formatter (<code>null</code> not permitted).
+     * @param percentFormatter the percent formatter (<code>null</code> not
+     *                         permitted).
      * @since 1.0.2
      */
     public StandardCategoryItemLabelGenerator(String labelFormat,
-            NumberFormat formatter, NumberFormat percentFormatter) {
+                                              NumberFormat formatter, NumberFormat percentFormatter) {
         super(labelFormat, formatter, percentFormatter);
     }
 
     /**
      * Creates a new generator with the specified date formatter.
      *
-     * @param labelFormat  the label format string (<code>null</code> not
-     *                     permitted).
-     * @param formatter  the date formatter (<code>null</code> not permitted).
+     * @param labelFormat the label format string (<code>null</code> not
+     *                    permitted).
+     * @param formatter   the date formatter (<code>null</code> not permitted).
      */
     public StandardCategoryItemLabelGenerator(String labelFormat,
                                               DateFormat formatter) {
@@ -117,10 +119,9 @@ public class StandardCategoryItemLabelGenerator
      * dataset implementation, each row is a series, and each column contains
      * values for a particular category.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param row  the row index (zero-based).
+     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param row     the row index (zero-based).
      * @param column  the column index (zero-based).
-     *
      * @return The label (possibly <code>null</code>).
      */
     @Override
@@ -131,10 +132,9 @@ public class StandardCategoryItemLabelGenerator
     /**
      * Tests this generator for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return <code>true</code> if this generator is equal to
-     *     <code>obj</code>, and <code>false</code> otherwise.
+     * <code>obj</code>, and <code>false</code> otherwise.
      */
     @Override
     public boolean equals(Object obj) {

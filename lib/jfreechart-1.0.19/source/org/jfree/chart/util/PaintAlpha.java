@@ -35,7 +35,7 @@
  * Changes
  * -------
  * 09-Mar-2011 : Written (DaveLaw)
- * 03-Jul-2012 : JDK 1.6 References made reflective for JDK 1.3 compatibility 
+ * 03-Jul-2012 : JDK 1.6 References made reflective for JDK 1.3 compatibility
  *               (DaveLaw);
  * 16-Sep-2013 : Removed reflection since we are requiring JDK 1.6 now (DG)
  *
@@ -43,12 +43,7 @@
 
 package org.jfree.chart.util;
 
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.LinearGradientPaint;
-import java.awt.Paint;
-import java.awt.RadialGradientPaint;
-import java.awt.TexturePaint;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.IndexColorModel;
 import java.awt.image.WritableRaster;
@@ -76,8 +71,7 @@ import java.util.Hashtable;
  * in particular a {@link PaintAlpha#cloneImage(BufferedImage) cloneImage(..)}
  * method which is needed to darken objects of type {@link TexturePaint}.
  *
- * @author  DaveLaw
- * 
+ * @author DaveLaw
  * @since 1.0.15
  */
 public class PaintAlpha {
@@ -101,7 +95,6 @@ public class PaintAlpha {
      * this here.
      *
      * @param legacyAlpha boolean
-     *
      * @return the previous setting
      */
     public static boolean setLegacyAlpha(boolean legacyAlpha) {
@@ -114,9 +107,10 @@ public class PaintAlpha {
      * Create a new (if possible, darker) <code>Paint</code> of the same Type.
      * If the Type is not supported, the original <code>Paint</code> is returned.
      * <p>
+     *
      * @param paint a <code>Paint</code> implementation
-     * (e.g. {@link Color}, {@link GradientPaint}, {@link TexturePaint},..)
-     * <p>
+     *              (e.g. {@link Color}, {@link GradientPaint}, {@link TexturePaint},..)
+     *              <p>
      * @return a (usually new, see above) <code>Paint</code>
      */
     public static Paint darker(Paint paint) {
@@ -143,8 +137,7 @@ public class PaintAlpha {
         if (paint instanceof TexturePaint) {
             try {
                 return darkerTexturePaint((TexturePaint) paint);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 /*
                  * Lots can go wrong while fiddling with Images, Color Models
                  * & such!  If anything at all goes awry, just return the original
@@ -164,21 +157,19 @@ public class PaintAlpha {
      * maintains the alpha-channel unchanged<br>
      *
      * @param paint a <code>Color</code>
-     *
      * @return a darker version of the <code>Color</code>
      */
     private static Color darker(Color paint) {
         return new Color(
-                (int)(paint.getRed  () * FACTOR),
-                (int)(paint.getGreen() * FACTOR),
-                (int)(paint.getBlue () * FACTOR), paint.getAlpha());
+                (int) (paint.getRed() * FACTOR),
+                (int) (paint.getGreen() * FACTOR),
+                (int) (paint.getBlue() * FACTOR), paint.getAlpha());
     }
 
     /**
      * Create a new <code>GradientPaint</code> with its colors darkened.
      *
-     * @param paint  the gradient paint (<code>null</code> not permitted).
-     *
+     * @param paint the gradient paint (<code>null</code> not permitted).
      * @return a darker version of the <code>GradientPaint</code>
      */
     private static GradientPaint darker(GradientPaint paint) {
@@ -192,7 +183,6 @@ public class PaintAlpha {
      * Create a new Gradient with its colours darkened.
      *
      * @param paint a <code>LinearGradientPaint</code>
-     *
      * @return a darker version of the <code>LinearGradientPaint</code>
      */
     private static Paint darkerLinearGradientPaint(LinearGradientPaint paint) {
@@ -202,7 +192,7 @@ public class PaintAlpha {
         }
         return new LinearGradientPaint(paint.getStartPoint(),
                 paint.getEndPoint(), paint.getFractions(), paintColors,
-                paint.getCycleMethod(), paint.getColorSpace(), 
+                paint.getCycleMethod(), paint.getColorSpace(),
                 paint.getTransform());
     }
 
@@ -210,7 +200,6 @@ public class PaintAlpha {
      * Create a new Gradient with its colours darkened.
      *
      * @param paint a <code>RadialGradientPaint</code>
-     *
      * @return a darker version of the <code>RadialGradientPaint</code>
      */
     private static Paint darkerRadialGradientPaint(RadialGradientPaint paint) {
@@ -218,8 +207,8 @@ public class PaintAlpha {
         for (int i = 0; i < paintColors.length; i++) {
             paintColors[i] = darker(paintColors[i]);
         }
-        return new RadialGradientPaint(paint.getCenterPoint(), 
-                paint.getRadius(), paint.getFocusPoint(), 
+        return new RadialGradientPaint(paint.getCenterPoint(),
+                paint.getRadius(), paint.getFocusPoint(),
                 paint.getFractions(), paintColors, paint.getCycleMethod(),
                 paint.getColorSpace(), paint.getTransform());
     }
@@ -231,7 +220,6 @@ public class PaintAlpha {
      * then darkening each color-pixel individually!
      *
      * @param paint a <code>TexturePaint</code>
-     *
      * @return a darker version of the <code>TexturePaint</code>
      */
     private static TexturePaint darkerTexturePaint(TexturePaint paint) {
@@ -254,9 +242,10 @@ public class PaintAlpha {
         final int miY = ras.getMinY();
         final int maY = ras.getMinY() + ras.getHeight();
 
-        final int   wid = ras.getWidth();
+        final int wid = ras.getWidth();
 
-        /**/  int[] pix = new int[wid * img.getSampleModel().getNumBands()];
+        /**/
+        int[] pix = new int[wid * img.getSampleModel().getNumBands()];
         /* (pix-buffer is large enough for all pixels of one row) */
 
         /**
@@ -280,21 +269,22 @@ public class PaintAlpha {
         if (img.getColorModel() instanceof IndexColorModel) {
 
             int[] nco = new int[4]; // RGB (+ optional Alpha which we leave
-                                    // unchanged)
+            // unchanged)
 
-            for (int y = miY; y < maY; y++)  {
+            for (int y = miY; y < maY; y++) {
 
                 pix = ras.getPixels(miX, y, wid, 1, pix);
 
                 for (int p = 0; p < pix.length; p++) {
-                    nco    =  img.getColorModel().getComponents(pix[p], nco, 0);
+                    nco = img.getColorModel().getComponents(pix[p], nco, 0);
                     nco[0] *= FACTOR; // Red
                     nco[1] *= FACTOR; // Green
                     nco[2] *= FACTOR; // Blue. Now map computed colour to
-                                      // nearest in Palette...
+                    // nearest in Palette...
                     pix[p] = img.getColorModel().getDataElement(nco, 0);
                 }
-                /**/ ras.setPixels(miX, y, wid, 1, pix);
+                /**/
+                ras.setPixels(miX, y, wid, 1, pix);
             }
             img.setData(ras);
 
@@ -314,29 +304,32 @@ public class PaintAlpha {
              * BufferedImage.TYPE_INT_ARGB:   // Type 02: tested OK 2011.02.27
              * BufferedImage.TYPE_4BYTE_ABGR: // Type 06: tested OK 2011.02.27
              */
-            for (int y = miY; y < maY; y++)  {
+            for (int y = miY; y < maY; y++) {
 
                 pix = ras.getPixels(miX, y, wid, 1, pix);
 
-                for (int p = 0; p < pix.length;) {
-                    pix[p] = (int)(pix[p++] * FACTOR); // Red
-                    pix[p] = (int)(pix[p++] * FACTOR); // Green
-                    pix[p] = (int)(pix[p++] * FACTOR); // Blue
-                    /* Ignore alpha-channel -> */p++;
+                for (int p = 0; p < pix.length; ) {
+                    pix[p] = (int) (pix[p++] * FACTOR); // Red
+                    pix[p] = (int) (pix[p++] * FACTOR); // Green
+                    pix[p] = (int) (pix[p++] * FACTOR); // Blue
+                    /* Ignore alpha-channel -> */
+                    p++;
                 }
-                /**/  ras.setPixels(miX, y, wid, 1, pix);
+                /**/
+                ras.setPixels(miX, y, wid, 1, pix);
             }
             img.setData(ras);
             return new TexturePaint(img, paint.getAnchorRect());
         } else {
-            for (int y = miY; y < maY; y++)  {
+            for (int y = miY; y < maY; y++) {
 
                 pix = ras.getPixels(miX, y, wid, 1, pix);
 
                 for (int p = 0; p < pix.length; p++) {
-                    pix[p] = (int)(pix[p] * FACTOR);
+                    pix[p] = (int) (pix[p] * FACTOR);
                 }
-                /**/  ras.setPixels(miX, y, wid, 1, pix);
+                /**/
+                ras.setPixels(miX, y, wid, 1, pix);
             }
             img.setData(ras);
             return new TexturePaint(img, paint.getAnchorRect());
@@ -366,20 +359,20 @@ public class PaintAlpha {
      * reused.<br>  That keeps things simple and should not be a problem, as all
      * known Color Models<br>
      * ({@link java.awt.image.IndexColorModel     IndexColorModel},
-     *  {@link java.awt.image.DirectColorModel    DirectColorModel},
-     *  {@link java.awt.image.ComponentColorModel ComponentColorModel}) are
+     * {@link java.awt.image.DirectColorModel    DirectColorModel},
+     * {@link java.awt.image.ComponentColorModel ComponentColorModel}) are
      * immutable.
      *
      * @param image original BufferedImage to clone
-     *
      * @return a new BufferedImage reusing the original's Color Model and
-     *         containing a clone of its pixels
+     * containing a clone of its pixels
      */
     public static BufferedImage cloneImage(BufferedImage image) {
 
         WritableRaster rin = image.getRaster();
         WritableRaster ras = rin.createCompatibleWritableRaster();
-        /**/ ras.setRect(rin); // <- this is the code that actually COPIES the pixels
+        /**/
+        ras.setRect(rin); // <- this is the code that actually COPIES the pixels
 
         /*
          * Buffered Images may have properties, but NEVER disclose them!

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -47,9 +47,9 @@
 
 package org.jfree.data.xy;
 
-import java.io.Serializable;
-
 import org.jfree.data.general.Series;
+
+import java.io.Serializable;
 
 /**
  * Represents a dense matrix M[i,j] where each Mij item of the matrix has a
@@ -57,10 +57,14 @@ import org.jfree.data.general.Series;
  */
 public class MatrixSeries extends Series implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 7934188527308315704L;
 
-    /** Series matrix values */
+    /**
+     * Series matrix values
+     */
     protected double[][] data;
 
     /**
@@ -69,9 +73,9 @@ public class MatrixSeries extends Series implements Serializable {
      * By default, all matrix items are initialzed to 0.
      * </p>
      *
-     * @param name  series name (<code>null</code> not permitted).
-     * @param rows  the number of rows.
-     * @param columns  the number of columns.
+     * @param name    series name (<code>null</code> not permitted).
+     * @param rows    the number of rows.
+     * @param columns the number of columns.
      */
     public MatrixSeries(String name, int rows, int columns) {
         super(name);
@@ -94,9 +98,7 @@ public class MatrixSeries extends Series implements Serializable {
      * creates a new <code>Double</code> instance every time it is called.
      *
      * @param itemIndex item index.
-     *
      * @return The matrix item at the specified index.
-     *
      * @see #get(int, int)
      */
     public Number getItem(int itemIndex) {
@@ -113,7 +115,6 @@ public class MatrixSeries extends Series implements Serializable {
      * Returns the column of the specified item.
      *
      * @param itemIndex the index of the item.
-     *
      * @return The column of the specified item.
      */
     public int getItemColumn(int itemIndex) {
@@ -137,7 +138,6 @@ public class MatrixSeries extends Series implements Serializable {
      * Returns the row of the specified item.
      *
      * @param itemIndex the index of the item.
-     *
      * @return The row of the specified item.
      */
     public int getItemRow(int itemIndex) {
@@ -161,9 +161,7 @@ public class MatrixSeries extends Series implements Serializable {
      *
      * @param i the row of the item.
      * @param j the column of the item.
-     *
      * @return The value of the specified item in this matrix series.
-     *
      * @see #getItem(int)
      * @see #update(int, int, double)
      */
@@ -175,10 +173,9 @@ public class MatrixSeries extends Series implements Serializable {
     /**
      * Updates the value of the specified item in this matrix series.
      *
-     * @param i the row of the item.
-     * @param j the column of the item.
+     * @param i   the row of the item.
+     * @param j   the column of the item.
      * @param mij the new value for the item.
-     *
      * @see #get(int, int)
      */
     public void update(int i, int j, double mij) {
@@ -207,8 +204,7 @@ public class MatrixSeries extends Series implements Serializable {
     /**
      * Tests this object instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

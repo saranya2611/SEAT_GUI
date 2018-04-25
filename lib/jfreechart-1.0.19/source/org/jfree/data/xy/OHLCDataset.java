@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -57,9 +57,8 @@ public interface OHLCDataset extends XYDataset {
     /**
      * Returns the high-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The value.
      */
     public Number getHigh(int series, int item);
@@ -68,9 +67,8 @@ public interface OHLCDataset extends XYDataset {
      * Returns the high-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The high-value.
      */
     public double getHighValue(int series, int item);
@@ -78,9 +76,8 @@ public interface OHLCDataset extends XYDataset {
     /**
      * Returns the low-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The value.
      */
     public Number getLow(int series, int item);
@@ -89,9 +86,8 @@ public interface OHLCDataset extends XYDataset {
      * Returns the low-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The low-value.
      */
     public double getLowValue(int series, int item);
@@ -99,9 +95,8 @@ public interface OHLCDataset extends XYDataset {
     /**
      * Returns the open-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The value.
      */
     public Number getOpen(int series, int item);
@@ -110,9 +105,8 @@ public interface OHLCDataset extends XYDataset {
      * Returns the open-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The open-value.
      */
     public double getOpenValue(int series, int item);
@@ -120,9 +114,8 @@ public interface OHLCDataset extends XYDataset {
     /**
      * Returns the y-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The value.
      */
     public Number getClose(int series, int item);
@@ -131,9 +124,8 @@ public interface OHLCDataset extends XYDataset {
      * Returns the close-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The close-value.
      */
     public double getCloseValue(int series, int item);
@@ -141,9 +133,8 @@ public interface OHLCDataset extends XYDataset {
     /**
      * Returns the volume for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The value.
      */
     public Number getVolume(int series, int item);
@@ -152,9 +143,8 @@ public interface OHLCDataset extends XYDataset {
      * Returns the volume-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The volume-value.
      */
     public double getVolumeValue(int series, int item);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -42,20 +42,17 @@
 
 package org.jfree.chart.plot;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.data.Range;
 import org.jfree.io.SerialUtilities;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PaintUtilities;
+
+import java.awt.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * An interval to be highlighted on a {@link MeterPlot}.  Instances of this
@@ -63,29 +60,41 @@ import org.jfree.util.PaintUtilities;
  */
 public class MeterInterval implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 1530982090622488257L;
 
-    /** The interval label. */
+    /**
+     * The interval label.
+     */
     private String label;
 
-    /** The interval range. */
+    /**
+     * The interval range.
+     */
     private Range range;
 
-    /** The outline paint (used for the arc marking the interval). */
+    /**
+     * The outline paint (used for the arc marking the interval).
+     */
     private transient Paint outlinePaint;
 
-    /** The outline stroke (used for the arc marking the interval). */
+    /**
+     * The outline stroke (used for the arc marking the interval).
+     */
     private transient Stroke outlineStroke;
 
-    /** The background paint for the interval. */
+    /**
+     * The background paint for the interval.
+     */
     private transient Paint backgroundPaint;
 
     /**
      * Creates a new interval.
      *
-     * @param label  the label (<code>null</code> not permitted).
-     * @param range  the range (<code>null</code> not permitted).
+     * @param label the label (<code>null</code> not permitted).
+     * @param range the range (<code>null</code> not permitted).
      */
     public MeterInterval(String label, Range range) {
         this(label, range, Color.yellow, new BasicStroke(2.0f), null);
@@ -94,12 +103,12 @@ public class MeterInterval implements Serializable {
     /**
      * Creates a new interval.
      *
-     * @param label  the label (<code>null</code> not permitted).
-     * @param range  the range (<code>null</code> not permitted).
-     * @param outlinePaint  the outline paint (<code>null</code> permitted).
-     * @param outlineStroke  the outline stroke (<code>null</code> permitted).
-     * @param backgroundPaint  the background paint (<code>null</code>
-     *                         permitted).
+     * @param label           the label (<code>null</code> not permitted).
+     * @param range           the range (<code>null</code> not permitted).
+     * @param outlinePaint    the outline paint (<code>null</code> permitted).
+     * @param outlineStroke   the outline stroke (<code>null</code> permitted).
+     * @param backgroundPaint the background paint (<code>null</code>
+     *                        permitted).
      */
     public MeterInterval(String label, Range range, Paint outlinePaint,
                          Stroke outlineStroke, Paint backgroundPaint) {
@@ -161,8 +170,7 @@ public class MeterInterval implements Serializable {
     /**
      * Checks this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -195,9 +203,8 @@ public class MeterInterval implements Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -209,13 +216,12 @@ public class MeterInterval implements Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.outlinePaint = SerialUtilities.readPaint(stream);
         this.outlineStroke = SerialUtilities.readStroke(stream);

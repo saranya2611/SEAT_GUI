@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -51,16 +51,16 @@
 
 package org.jfree.data.gantt;
 
-import java.io.Serializable;
-import java.util.Iterator;
-import java.util.List;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.data.general.AbstractSeriesDataset;
 import org.jfree.data.general.SeriesChangeEvent;
 import org.jfree.data.time.TimePeriod;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A collection of {@link TaskSeries} objects.  This class provides one
@@ -68,9 +68,11 @@ import org.jfree.util.PublicCloneable;
  */
 public class TaskSeriesCollection extends AbstractSeriesDataset
         implements GanttCategoryDataset, Cloneable, PublicCloneable,
-                   Serializable {
+        Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -2065799050738449903L;
 
     /**
@@ -79,7 +81,9 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
      */
     private List keys;
 
-    /** Storage for the series. */
+    /**
+     * Storage for the series.
+     */
     private List data;
 
     /**
@@ -93,10 +97,8 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns a series from the collection.
      *
-     * @param key  the series key (<code>null</code> not permitted).
-     *
+     * @param key the series key (<code>null</code> not permitted).
      * @return The series.
-     *
      * @since 1.0.1
      */
     public TaskSeries getSeries(Comparable key) {
@@ -114,10 +116,8 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns a series from the collection.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @return The series.
-     *
      * @since 1.0.1
      */
     public TaskSeries getSeries(int series) {
@@ -140,8 +140,7 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the name of a series.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @return The name of a series.
      */
     @Override
@@ -193,8 +192,7 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns a column key.
      *
-     * @param index  the column index.
-     *
+     * @param index the column index.
      * @return The column key.
      */
     @Override
@@ -205,8 +203,7 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the column index for a column key.
      *
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @return The column index.
      */
     @Override
@@ -218,8 +215,7 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the row index for the given row key.
      *
-     * @param rowKey  the row key.
-     *
+     * @param rowKey the row key.
      * @return The index.
      */
     @Override
@@ -239,8 +235,7 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the key for a row.
      *
-     * @param index  the row index (zero-based).
-     *
+     * @param index the row index (zero-based).
      * @return The key.
      */
     @Override
@@ -254,7 +249,7 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
      * {@link org.jfree.data.general.DatasetChangeEvent} to all registered
      * listeners.
      *
-     * @param series  the series (<code>null</code> not permitted).
+     * @param series the series (<code>null</code> not permitted).
      */
     public void add(TaskSeries series) {
         ParamChecks.nullNotPermitted(series, "series");
@@ -279,7 +274,7 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
      * a {@link org.jfree.data.general.DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param series  the series.
+     * @param series the series.
      */
     public void remove(TaskSeries series) {
         ParamChecks.nullNotPermitted(series, "series");
@@ -295,12 +290,12 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
      * a {@link org.jfree.data.general.DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param series  the series (zero based index).
+     * @param series the series (zero based index).
      */
     public void remove(int series) {
         if ((series < 0) || (series >= getSeriesCount())) {
             throw new IllegalArgumentException(
-                "TaskSeriesCollection.remove(): index outside valid range.");
+                    "TaskSeriesCollection.remove(): index outside valid range.");
         }
 
         // fetch the series, remove the change listener, then remove the series.
@@ -335,9 +330,8 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the value for an item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @return The item value.
      */
     @Override
@@ -348,9 +342,8 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the value for a task.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The start value.
      */
     @Override
@@ -362,9 +355,8 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
      * Returns the start value for a task.  This is a date/time value, measured
      * in milliseconds since 1-Jan-1970.
      *
-     * @param rowKey  the series.
-     * @param columnKey  the category.
-     *
+     * @param rowKey    the series.
+     * @param columnKey the category.
      * @return The start value (possibly <code>null</code>).
      */
     @Override
@@ -385,9 +377,8 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the start value for a task.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The start value.
      */
     @Override
@@ -401,9 +392,8 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
      * Returns the end value for a task.  This is a date/time value, measured
      * in milliseconds since 1-Jan-1970.
      *
-     * @param rowKey  the series.
-     * @param columnKey  the category.
-     *
+     * @param rowKey    the series.
+     * @param columnKey the category.
      * @return The end value (possibly <code>null</code>).
      */
     @Override
@@ -424,9 +414,8 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the end value for a task.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The end value.
      */
     @Override
@@ -439,9 +428,8 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the percent complete for a given item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The percent complete (possibly <code>null</code>).
      */
     @Override
@@ -454,9 +442,8 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the percent complete for a given item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @return The percent complete.
      */
     @Override
@@ -474,9 +461,8 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the number of sub-intervals for a given item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The sub-interval count.
      */
     @Override
@@ -489,9 +475,8 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the number of sub-intervals for a given item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @return The sub-interval count.
      */
     @Override
@@ -509,10 +494,9 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the start value of a sub-interval for a given item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     * @param subinterval  the sub-interval index (zero-based).
-     *
+     * @param row         the row index (zero-based).
+     * @param column      the column index (zero-based).
+     * @param subinterval the sub-interval index (zero-based).
      * @return The start value (possibly <code>null</code>).
      */
     @Override
@@ -525,10 +509,9 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the start value of a sub-interval for a given item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     * @param subinterval  the subinterval.
-     *
+     * @param rowKey      the row key.
+     * @param columnKey   the column key.
+     * @param subinterval the subinterval.
      * @return The start value (possibly <code>null</code>).
      */
     @Override
@@ -551,10 +534,9 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the end value of a sub-interval for a given item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     * @param subinterval  the subinterval.
-     *
+     * @param row         the row index (zero-based).
+     * @param column      the column index (zero-based).
+     * @param subinterval the subinterval.
      * @return The end value (possibly <code>null</code>).
      */
     @Override
@@ -567,10 +549,9 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the end value of a sub-interval for a given item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     * @param subinterval  the subinterval.
-     *
+     * @param rowKey      the row key.
+     * @param columnKey   the column key.
+     * @param subinterval the subinterval.
      * @return The end value (possibly <code>null</code>).
      */
     @Override
@@ -593,10 +574,9 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the percentage complete value of a sub-interval for a given item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     * @param subinterval  the sub-interval.
-     *
+     * @param row         the row index (zero-based).
+     * @param column      the column index (zero-based).
+     * @param subinterval the sub-interval.
      * @return The percent complete value (possibly <code>null</code>).
      */
     @Override
@@ -609,10 +589,9 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the percentage complete value of a sub-interval for a given item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     * @param subinterval  the sub-interval.
-     *
+     * @param rowKey      the row key.
+     * @param columnKey   the column key.
+     * @param subinterval the sub-interval.
      * @return The percent complete value (possibly <code>null</code>).
      */
     @Override
@@ -634,7 +613,7 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Called when a series belonging to the dataset changes.
      *
-     * @param event  information about the change.
+     * @param event information about the change.
      */
     @Override
     public void seriesChanged(SeriesChangeEvent event) {
@@ -667,8 +646,7 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -690,9 +668,8 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
      * Returns an independent copy of this dataset.
      *
      * @return A clone of the dataset.
-     *
      * @throws CloneNotSupportedException if there is some problem cloning
-     *     the dataset.
+     *                                    the dataset.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

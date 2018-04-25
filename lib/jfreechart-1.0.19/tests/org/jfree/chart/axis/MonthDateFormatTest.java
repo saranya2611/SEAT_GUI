@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -40,16 +40,14 @@
 
 package org.jfree.chart.axis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.jfree.chart.TestUtilities;
+import org.junit.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.jfree.chart.TestUtilities;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Some tests for the {@link MonthDateFormat} class.
@@ -66,49 +64,49 @@ public class MonthDateFormatTest {
         assertTrue(mf1.equals(mf2));
         assertTrue(mf2.equals(mf1));
 
-        boolean[] showYear1 = new boolean [12];
+        boolean[] showYear1 = new boolean[12];
         showYear1[0] = true;
-        boolean[] showYear2 = new boolean [12];
+        boolean[] showYear2 = new boolean[12];
         showYear1[1] = true;
 
         // time zone
         mf1 = new MonthDateFormat(TimeZone.getTimeZone("PST"), Locale.US, 1,
-            showYear1, new SimpleDateFormat("yy"));
+                showYear1, new SimpleDateFormat("yy"));
         assertFalse(mf1.equals(mf2));
         mf2 = new MonthDateFormat(TimeZone.getTimeZone("PST"), Locale.US, 1,
-            showYear1, new SimpleDateFormat("yy"));
+                showYear1, new SimpleDateFormat("yy"));
         assertTrue(mf1.equals(mf2));
 
         // locale
         mf1 = new MonthDateFormat(TimeZone.getTimeZone("PST"), Locale.FRANCE, 1,
-            showYear1, new SimpleDateFormat("yy"));
+                showYear1, new SimpleDateFormat("yy"));
         assertFalse(mf1.equals(mf2));
         mf2 = new MonthDateFormat(TimeZone.getTimeZone("PST"), Locale.FRANCE, 1,
-            showYear1, new SimpleDateFormat("yy"));
+                showYear1, new SimpleDateFormat("yy"));
         assertTrue(mf1.equals(mf2));
 
         // chars
         mf1 = new MonthDateFormat(TimeZone.getTimeZone("PST"), Locale.FRANCE, 2,
-            showYear1, new SimpleDateFormat("yy"));
+                showYear1, new SimpleDateFormat("yy"));
         assertFalse(mf1.equals(mf2));
         mf2 = new MonthDateFormat(TimeZone.getTimeZone("PST"), Locale.FRANCE, 2,
-            showYear1, new SimpleDateFormat("yy"));
+                showYear1, new SimpleDateFormat("yy"));
         assertTrue(mf1.equals(mf2));
 
         // showYear[]
         mf1 = new MonthDateFormat(TimeZone.getTimeZone("PST"), Locale.FRANCE, 2,
-            showYear2, new SimpleDateFormat("yy"));
+                showYear2, new SimpleDateFormat("yy"));
         assertFalse(mf1.equals(mf2));
         mf2 = new MonthDateFormat(TimeZone.getTimeZone("PST"), Locale.FRANCE, 2,
-            showYear2, new SimpleDateFormat("yy"));
+                showYear2, new SimpleDateFormat("yy"));
         assertTrue(mf1.equals(mf2));
 
         // yearFormatter
         mf1 = new MonthDateFormat(TimeZone.getTimeZone("PST"), Locale.FRANCE, 2,
-            showYear2, new SimpleDateFormat("yyyy"));
+                showYear2, new SimpleDateFormat("yyyy"));
         assertFalse(mf1.equals(mf2));
         mf2 = new MonthDateFormat(TimeZone.getTimeZone("PST"), Locale.FRANCE, 2,
-            showYear2, new SimpleDateFormat("yyyy"));
+                showYear2, new SimpleDateFormat("yyyy"));
         assertTrue(mf1.equals(mf2));
 
     }

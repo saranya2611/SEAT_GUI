@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -41,15 +41,6 @@
 
 package org.jfree.chart;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import java.awt.geom.Rectangle2D;
-import java.util.EventListener;
-import java.util.List;
-
-import javax.swing.event.CaretListener;
-
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.event.ChartChangeEvent;
 import org.jfree.chart.event.ChartChangeListener;
@@ -57,6 +48,13 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.DefaultXYDataset;
 import org.junit.Test;
+
+import javax.swing.event.CaretListener;
+import java.awt.geom.Rectangle2D;
+import java.util.EventListener;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link ChartPanel} class.
@@ -69,7 +67,7 @@ public class ChartPanelTest implements ChartChangeListener, ChartMouseListener {
      * Receives a chart change event and stores it in a list for later
      * inspection.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void chartChanged(ChartChangeEvent event) {
@@ -117,8 +115,7 @@ public class ChartPanelTest implements ChartChangeListener, ChartMouseListener {
         boolean pass = false;
         try {
             listeners = p.getListeners((Class) null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -127,8 +124,7 @@ public class ChartPanelTest implements ChartChangeListener, ChartMouseListener {
         pass = false;
         try {
             listeners = p.getListeners(Integer.class);
-        }
-        catch (ClassCastException e) {
+        } catch (ClassCastException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -137,7 +133,7 @@ public class ChartPanelTest implements ChartChangeListener, ChartMouseListener {
     /**
      * Ignores a mouse click event.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void chartMouseClicked(ChartMouseEvent event) {
@@ -147,7 +143,7 @@ public class ChartPanelTest implements ChartChangeListener, ChartMouseListener {
     /**
      * Ignores a mouse move event.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void chartMouseMoved(ChartMouseEvent event) {

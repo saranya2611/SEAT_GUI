@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -66,10 +66,6 @@
 
 package org.jfree.chart.renderer.xy;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.labels.XYItemLabelGenerator;
@@ -84,6 +80,10 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
+
 /**
  * An extension of {@link XYBarRenderer} that displays bars for different
  * series values at the same x next to each other. The assumption here is
@@ -95,17 +95,21 @@ import org.jfree.util.PublicCloneable;
  * <br><br>
  * <img src="../../../../../images/ClusteredXYBarRendererSample.png"
  * alt="ClusteredXYBarRendererSample.png">
- * <P>
+ * <p>
  * This renderer does not include code to calculate the crosshair point for the
  * plot.
  */
 public class ClusteredXYBarRenderer extends XYBarRenderer
         implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 5864462149177133147L;
 
-    /** Determines whether bar center should be interval start. */
+    /**
+     * Determines whether bar center should be interval start.
+     */
     private boolean centerBarAtStartValue;
 
     /**
@@ -118,9 +122,9 @@ public class ClusteredXYBarRenderer extends XYBarRenderer
     /**
      * Constructs a new XY clustered bar renderer.
      *
-     * @param margin  the percentage amount to trim from the width of each bar.
-     * @param centerBarAtStartValue  if true, bars will be centered on the
-     *         start of the time period.
+     * @param margin                the percentage amount to trim from the width of each bar.
+     * @param centerBarAtStartValue if true, bars will be centered on the
+     *                              start of the time period.
      */
     public ClusteredXYBarRenderer(double margin,
                                   boolean centerBarAtStartValue) {
@@ -143,8 +147,7 @@ public class ClusteredXYBarRenderer extends XYBarRenderer
     /**
      * Returns the x-value bounds for the specified dataset.
      *
-     * @param dataset  the dataset (<code>null</code> permitted).
-     *
+     * @param dataset the dataset (<code>null</code> permitted).
      * @return The bounds (possibly <code>null</code>).
      */
     @Override
@@ -155,8 +158,7 @@ public class ClusteredXYBarRenderer extends XYBarRenderer
         // need to handle cluster centering as a special case
         if (this.centerBarAtStartValue) {
             return findDomainBoundsWithOffset((IntervalXYDataset) dataset);
-        }
-        else {
+        } else {
             return super.findDomainBounds(dataset);
         }
     }
@@ -166,8 +168,7 @@ public class ClusteredXYBarRenderer extends XYBarRenderer
      * the range of x-values including the interval OFFSET so that it centers
      * the interval around the start value.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     *
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @return The range (possibly <code>null</code>).
      */
     protected Range findDomainBoundsWithOffset(IntervalXYDataset dataset) {
@@ -192,8 +193,7 @@ public class ClusteredXYBarRenderer extends XYBarRenderer
 
         if (minimum > maximum) {
             return null;
-        }
-        else {
+        } else {
             return new Range(minimum, maximum);
         }
     }
@@ -206,26 +206,26 @@ public class ClusteredXYBarRenderer extends XYBarRenderer
      * the number of series. Bars for each series are drawn in order left to
      * right.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the area within which the plot is being drawn.
-     * @param info  collects information about the drawing.
-     * @param plot  the plot (can be used to obtain standard color
-     *              information etc).
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param series  the series index.
-     * @param item  the item index.
-     * @param crosshairState  crosshair information for the plot
-     *                        (<code>null</code> permitted).
-     * @param pass  the pass index.
+     * @param g2             the graphics device.
+     * @param state          the renderer state.
+     * @param dataArea       the area within which the plot is being drawn.
+     * @param info           collects information about the drawing.
+     * @param plot           the plot (can be used to obtain standard color
+     *                       information etc).
+     * @param domainAxis     the domain axis.
+     * @param rangeAxis      the range axis.
+     * @param dataset        the dataset.
+     * @param series         the series index.
+     * @param item           the item index.
+     * @param crosshairState crosshair information for the plot
+     *                       (<code>null</code> permitted).
+     * @param pass           the pass index.
      */
     @Override
-    public void drawItem(Graphics2D g2, XYItemRendererState state, 
-            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset, 
-            int series, int item, CrosshairState crosshairState, int pass) {
+    public void drawItem(Graphics2D g2, XYItemRendererState state,
+                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+                         int series, int item, CrosshairState crosshairState, int pass) {
 
         IntervalXYDataset intervalDataset = (IntervalXYDataset) dataset;
 
@@ -234,8 +234,7 @@ public class ClusteredXYBarRenderer extends XYBarRenderer
         if (getUseYInterval()) {
             y0 = intervalDataset.getStartYValue(series, item);
             y1 = intervalDataset.getEndYValue(series, item);
-        }
-        else {
+        } else {
             y0 = getBase();
             y1 = intervalDataset.getYValue(series, item);
         }
@@ -283,8 +282,7 @@ public class ClusteredXYBarRenderer extends XYBarRenderer
             double ry = Math.min(barY0, barY1);
             double rh = Math.abs(barY1 - barY0);
             bar = new Rectangle2D.Double(rx, ry, rw, rh);
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             double barX0 = baseX + (seriesBarWidth * series);
             double barX1 = barX0 + seriesBarWidth;
             double rx = Math.min(barX0, barX1);
@@ -301,22 +299,19 @@ public class ClusteredXYBarRenderer extends XYBarRenderer
         if (orientation == PlotOrientation.HORIZONTAL) {
             if (positive && inverted || !positive && !inverted) {
                 barBase = RectangleEdge.RIGHT;
-            }
-            else {
+            } else {
                 barBase = RectangleEdge.LEFT;
             }
-        }
-        else {
+        } else {
             if (positive && !inverted || !positive && inverted) {
                 barBase = RectangleEdge.BOTTOM;
-            }
-            else {
+            } else {
                 barBase = RectangleEdge.TOP;
             }
         }
         if (pass == 0 && getShadowsVisible()) {
             getBarPainter().paintBarShadow(g2, this, series, item, bar, barBase,
-                !getUseYInterval());
+                    !getUseYInterval());
         }
         if (pass == 1) {
             getBarPainter().paintBar(g2, this, series, item, bar, barBase);
@@ -347,8 +342,7 @@ public class ClusteredXYBarRenderer extends XYBarRenderer
      * <code>ClusteredXYBarRenderer</code> with the same settings as this
      * renderer, and <code>false</code> otherwise.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -370,8 +364,7 @@ public class ClusteredXYBarRenderer extends XYBarRenderer
      * Returns a clone of the renderer.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the renderer cannot be cloned.
+     * @throws CloneNotSupportedException if the renderer cannot be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

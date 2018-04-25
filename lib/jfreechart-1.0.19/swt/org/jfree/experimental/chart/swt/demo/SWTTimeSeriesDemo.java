@@ -6,22 +6,22 @@
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
- * This library is free software; you can redistribute it and/or modify it 
- * under the terms of the GNU Lesser General Public License as published by 
- * the Free Software Foundation; either version 2.1 of the License, or 
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public 
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, 
- * USA.  
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -35,12 +35,9 @@
  * Changes
  * -------
  * 30-Jan-2007 : New class derived from TimeSeriesDemo.java (HP);
- * 
+ *
  */
 package org.jfree.experimental.chart.swt.demo;
-
-import java.awt.Color;
-import java.text.SimpleDateFormat;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -59,31 +56,32 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
 import org.jfree.ui.RectangleInsets;
 
+import java.awt.*;
+import java.text.SimpleDateFormat;
+
 /**
- * An example of a time series chart.  For the most part, default settings are 
- * used, except that the renderer is modified to show filled shapes (as well as 
+ * An example of a time series chart.  For the most part, default settings are
+ * used, except that the renderer is modified to show filled shapes (as well as
  * lines) at each data point.
  */
-public class SWTTimeSeriesDemo
-{
+public class SWTTimeSeriesDemo {
 
     /**
      * Creates a chart.
-     * 
-     * @param dataset  a dataset.
-     * 
+     *
+     * @param dataset a dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(XYDataset dataset) {
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Legal & General Unit Trust Prices",  // title
-            "Date",             // x-axis label
-            "Price Per Unit",   // y-axis label
-            dataset,            // data
-            true,               // create legend?
-            true,               // generate tooltips?
-            false               // generate URLs?
+                "Legal & General Unit Trust Prices",  // title
+                "Date",             // x-axis label
+                "Price Per Unit",   // y-axis label
+                dataset,            // data
+                true,               // create legend?
+                true,               // generate tooltips?
+                false               // generate URLs?
         );
 
         chart.setBackgroundPaint(Color.white);
@@ -95,21 +93,21 @@ public class SWTTimeSeriesDemo
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
-        
+
         XYItemRenderer r = plot.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {
             XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
             renderer.setBaseShapesVisible(true);
             renderer.setBaseShapesFilled(true);
         }
-        
+
         DateAxis axis = (DateAxis) plot.getDomainAxis();
         axis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy"));
-        
+
         return chart;
 
     }
-    
+
     /**
      * Creates a dataset, consisting of two series of monthly data.
      *
@@ -156,18 +154,18 @@ public class SWTTimeSeriesDemo
         s2.add(new Month(5, 2002), 111.6);
         s2.add(new Month(6, 2002), 108.8);
         s2.add(new Month(7, 2002), 101.6);
-        
+
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s1);
         dataset.addSeries(s2);
-        
+
         return dataset;
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         final JFreeChart chart = createChart(createDataset());

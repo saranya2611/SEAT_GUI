@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -45,35 +45,38 @@
 
 package org.jfree.data;
 
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
+
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import org.jfree.chart.util.ParamChecks;
-
-import org.jfree.util.ObjectUtilities;
-import org.jfree.util.PublicCloneable;
+import java.util.*;
 
 /**
  * A class that maps keys (instances of <code>Comparable</code>) to groups.
  */
 public class KeyToGroupMap implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -2228169345475318082L;
 
-    /** The default group. */
+    /**
+     * The default group.
+     */
     private Comparable defaultGroup;
 
-    /** The groups. */
+    /**
+     * The groups.
+     */
     private List groups;
 
-    /** A mapping between keys and groups. */
+    /**
+     * A mapping between keys and groups.
+     */
     private Map keyToGroupMap;
 
     /**
@@ -86,13 +89,65 @@ public class KeyToGroupMap implements Cloneable, PublicCloneable, Serializable {
     /**
      * Creates a new map with the specified default group.
      *
-     * @param defaultGroup  the default group (<code>null</code> not permitted).
+     * @param defaultGroup the default group (<code>null</code> not permitted).
      */
     public KeyToGroupMap(Comparable defaultGroup) {
         ParamChecks.nullNotPermitted(defaultGroup, "defaultGroup");
         this.defaultGroup = defaultGroup;
         this.groups = new ArrayList();
         this.keyToGroupMap = new HashMap();
+    }
+
+    /**
+     * Attempts to clone the specified object using reflection.
+     *
+     * @param object the object (<code>null</code> permitted).
+     * @return The cloned object, or the original object if cloning failed.
+     */
+    private static Object clone(Object object) {
+        if (object == null) {
+            return null;
+        }
+        Class c = object.getClass();
+        Object result = null;
+        try {
+            Method m = c.getMethod("clone", (Class[]) null);
+            if (Modifier.isPublic(m.getModifiers())) {
+                try {
+                    result = m.invoke(object, (Object[]) null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (NoSuchMethodException e) {
+            result = object;
+        }
+        return result;
+    }
+
+    /**
+     * Returns a clone of the list.
+     *
+     * @param list the list.
+     * @return A clone of the list.
+     * @throws CloneNotSupportedException if the list could not be cloned.
+     */
+    private static Collection clone(Collection list)
+            throws CloneNotSupportedException {
+        Collection result = null;
+        if (list != null) {
+            try {
+                List clone = (List) list.getClass().newInstance();
+                Iterator iterator = list.iterator();
+                while (iterator.hasNext()) {
+                    clone.add(KeyToGroupMap.clone(iterator.next()));
+                }
+                result = clone;
+            } catch (Exception e) {
+                throw new CloneNotSupportedException("Exception.");
+            }
+        }
+        return result;
     }
 
     /**
@@ -127,10 +182,9 @@ public class KeyToGroupMap implements Cloneable, PublicCloneable, Serializable {
     /**
      * Returns the index for the group.
      *
-     * @param group  the group.
-     *
+     * @param group the group.
      * @return The group index (or -1 if the group is not represented within
-     *         the map).
+     * the map).
      */
     public int getGroupIndex(Comparable group) {
         int result = this.groups.indexOf(group);
@@ -138,8 +192,7 @@ public class KeyToGroupMap implements Cloneable, PublicCloneable, Serializable {
             if (this.defaultGroup.equals(group)) {
                 result = 0;
             }
-        }
-        else {
+        } else {
             result = result + 1;
         }
         return result;
@@ -148,10 +201,9 @@ public class KeyToGroupMap implements Cloneable, PublicCloneable, Serializable {
     /**
      * Returns the group that a key is mapped to.
      *
-     * @param key  the key (<code>null</code> not permitted).
-     *
+     * @param key the key (<code>null</code> not permitted).
      * @return The group (never <code>null</code>, returns the default group if
-     *         there is no mapping for the specified key).
+     * there is no mapping for the specified key).
      */
     public Comparable getGroup(Comparable key) {
         ParamChecks.nullNotPermitted(key, "key");
@@ -166,9 +218,9 @@ public class KeyToGroupMap implements Cloneable, PublicCloneable, Serializable {
     /**
      * Maps a key to a group.
      *
-     * @param key  the key (<code>null</code> not permitted).
-     * @param group  the group (<code>null</code> permitted, clears any
-     *               existing mapping).
+     * @param key   the key (<code>null</code> not permitted).
+     * @param group the group (<code>null</code> permitted, clears any
+     *              existing mapping).
      */
     public void mapKeyToGroup(Comparable key, Comparable group) {
         ParamChecks.nullNotPermitted(key, "key");
@@ -183,8 +235,7 @@ public class KeyToGroupMap implements Cloneable, PublicCloneable, Serializable {
         }
         if (group == null) {
             this.keyToGroupMap.remove(key);
-        }
-        else {
+        } else {
             if (!this.groups.contains(group)) {
                 if (!this.defaultGroup.equals(group)) {
                     this.groups.add(group);
@@ -199,8 +250,7 @@ public class KeyToGroupMap implements Cloneable, PublicCloneable, Serializable {
      * won't always return an accurate result for the default group, since
      * explicit mappings are not required for this group.
      *
-     * @param group  the group (<code>null</code> not permitted).
-     *
+     * @param group the group (<code>null</code> not permitted).
      * @return The key count.
      */
     public int getKeyCount(Comparable group) {
@@ -219,8 +269,7 @@ public class KeyToGroupMap implements Cloneable, PublicCloneable, Serializable {
     /**
      * Tests the map for equality against an arbitrary object.
      *
-     * @param obj  the object to test against (<code>null</code> permitted).
-     *
+     * @param obj the object to test against (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -245,75 +294,16 @@ public class KeyToGroupMap implements Cloneable, PublicCloneable, Serializable {
      * Returns a clone of the map.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if there is a problem cloning the
-     *                                     map.
+     * @throws CloneNotSupportedException if there is a problem cloning the
+     *                                    map.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
         KeyToGroupMap result = (KeyToGroupMap) super.clone();
         result.defaultGroup
-            = (Comparable) KeyToGroupMap.clone(this.defaultGroup);
+                = (Comparable) KeyToGroupMap.clone(this.defaultGroup);
         result.groups = (List) KeyToGroupMap.clone(this.groups);
         result.keyToGroupMap = (Map) KeyToGroupMap.clone(this.keyToGroupMap);
-        return result;
-    }
-
-    /**
-     * Attempts to clone the specified object using reflection.
-     *
-     * @param object  the object (<code>null</code> permitted).
-     *
-     * @return The cloned object, or the original object if cloning failed.
-     */
-    private static Object clone(Object object) {
-        if (object == null) {
-            return null;
-        }
-        Class c = object.getClass();
-        Object result = null;
-        try {
-            Method m = c.getMethod("clone", (Class[]) null);
-            if (Modifier.isPublic(m.getModifiers())) {
-                try {
-                    result = m.invoke(object, (Object[]) null);
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        catch (NoSuchMethodException e) {
-            result = object;
-        }
-        return result;
-    }
-
-    /**
-     * Returns a clone of the list.
-     *
-     * @param list  the list.
-     *
-     * @return A clone of the list.
-     *
-     * @throws CloneNotSupportedException if the list could not be cloned.
-     */
-    private static Collection clone(Collection list)
-        throws CloneNotSupportedException {
-        Collection result = null;
-        if (list != null) {
-            try {
-                List clone = (List) list.getClass().newInstance();
-                Iterator iterator = list.iterator();
-                while (iterator.hasNext()) {
-                    clone.add(KeyToGroupMap.clone(iterator.next()));
-                }
-                result = clone;
-            }
-            catch (Exception e) {
-                throw new CloneNotSupportedException("Exception.");
-            }
-        }
         return result;
     }
 

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------------
@@ -41,11 +41,11 @@
 
 package org.jfree.chart.labels;
 
-import java.text.DateFormat;
-import java.text.NumberFormat;
-
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.IntervalCategoryDataset;
+
+import java.text.DateFormat;
+import java.text.NumberFormat;
 
 /**
  * A tooltip generator for plots that use data from an
@@ -54,12 +54,15 @@ import org.jfree.data.category.IntervalCategoryDataset;
 public class IntervalCategoryToolTipGenerator
         extends StandardCategoryToolTipGenerator {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -3853824986520333437L;
-
-    /** The default format string. */
+    /**
+     * The default format string.
+     */
     public static final String DEFAULT_TOOL_TIP_FORMAT_STRING
             = "({0}, {1}) = {3} - {4}";
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -3853824986520333437L;
 
     /**
      * Creates a new generator with a default number formatter.
@@ -71,9 +74,9 @@ public class IntervalCategoryToolTipGenerator
     /**
      * Creates a new generator with the specified number formatter.
      *
-     * @param labelFormat  the label format string (<code>null</code> not
-     *                     permitted).
-     * @param formatter  the number formatter (<code>null</code> not permitted).
+     * @param labelFormat the label format string (<code>null</code> not
+     *                    permitted).
+     * @param formatter   the number formatter (<code>null</code> not permitted).
      */
     public IntervalCategoryToolTipGenerator(String labelFormat,
                                             NumberFormat formatter) {
@@ -83,9 +86,9 @@ public class IntervalCategoryToolTipGenerator
     /**
      * Creates a new generator with the specified date formatter.
      *
-     * @param labelFormat  the label format string (<code>null</code> not
-     *                     permitted).
-     * @param formatter  the date formatter (<code>null</code> not permitted).
+     * @param labelFormat the label format string (<code>null</code> not
+     *                    permitted).
+     * @param formatter   the date formatter (<code>null</code> not permitted).
      */
     public IntervalCategoryToolTipGenerator(String labelFormat,
                                             DateFormat formatter) {
@@ -96,10 +99,9 @@ public class IntervalCategoryToolTipGenerator
      * Creates the array of items that can be passed to the
      * <code>MessageFormat</code> class for creating labels.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param row  the row index (zero-based).
+     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param row     the row index (zero-based).
      * @param column  the column index (zero-based).
-     *
      * @return The items (never <code>null</code>).
      */
     @Override
@@ -111,8 +113,7 @@ public class IntervalCategoryToolTipGenerator
         Number value = dataset.getValue(row, column);
         if (getNumberFormat() != null) {
             result[2] = getNumberFormat().format(value);
-        }
-        else if (getDateFormat() != null) {
+        } else if (getDateFormat() != null) {
             result[2] = getDateFormat().format(value);
         }
 
@@ -123,8 +124,7 @@ public class IntervalCategoryToolTipGenerator
             if (getNumberFormat() != null) {
                 result[3] = getNumberFormat().format(start);
                 result[4] = getNumberFormat().format(end);
-            }
-            else if (getDateFormat() != null) {
+            } else if (getDateFormat() != null) {
                 result[3] = getDateFormat().format(start);
                 result[4] = getDateFormat().format(end);
             }
@@ -136,8 +136,7 @@ public class IntervalCategoryToolTipGenerator
      * Tests this tool tip generator for equality with an arbitrary
      * object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

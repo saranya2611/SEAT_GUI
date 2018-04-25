@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -55,9 +55,8 @@ public interface VectorXYDataset extends XYDataset {
     /**
      * Returns the x-component of the vector for an item in a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The x-component of the vector.
      */
     public double getVectorXValue(int series, int item);
@@ -65,9 +64,8 @@ public interface VectorXYDataset extends XYDataset {
     /**
      * Returns the y-component of the vector for an item in a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The y-component of the vector.
      */
     public double getVectorYValue(int series, int item);
@@ -79,9 +77,8 @@ public interface VectorXYDataset extends XYDataset {
      * use the {@link #getVectorXValue(int, int)} and
      * {@link #getVectorYValue(int, int)} methods instead.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The vector (possibly <code>null</code>).
      */
     public Vector getVector(int series, int item);

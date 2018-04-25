@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -40,15 +40,14 @@
 
 package org.jfree.chart.plot;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 /**
  * Tests for the {@link PlotOrientation} class.
- *
  */
 public class PlotOrientationTest {
 
@@ -60,10 +59,10 @@ public class PlotOrientationTest {
         assertEquals(PlotOrientation.HORIZONTAL, PlotOrientation.HORIZONTAL);
         assertEquals(PlotOrientation.VERTICAL, PlotOrientation.VERTICAL);
         assertFalse(
-            PlotOrientation.HORIZONTAL.equals(PlotOrientation.VERTICAL)
+                PlotOrientation.HORIZONTAL.equals(PlotOrientation.VERTICAL)
         );
         assertFalse(
-            PlotOrientation.VERTICAL.equals(PlotOrientation.HORIZONTAL)
+                PlotOrientation.VERTICAL.equals(PlotOrientation.HORIZONTAL)
         );
     }
 
@@ -73,7 +72,7 @@ public class PlotOrientationTest {
     @Test
     public void testSerialization() {
         PlotOrientation orientation1 = PlotOrientation.HORIZONTAL;
-        PlotOrientation orientation2 = (PlotOrientation) 
+        PlotOrientation orientation2 = (PlotOrientation)
                 TestUtilities.serialised(orientation1);
         assertEquals(orientation1, orientation2);
         boolean same = orientation1 == orientation2;

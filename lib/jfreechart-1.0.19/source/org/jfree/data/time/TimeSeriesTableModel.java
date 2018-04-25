@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -43,10 +43,10 @@
 
 package org.jfree.data.time;
 
-import javax.swing.table.AbstractTableModel;
-
 import org.jfree.data.general.SeriesChangeEvent;
 import org.jfree.data.general.SeriesChangeListener;
+
+import javax.swing.table.AbstractTableModel;
 
 /**
  * Wrapper around a time series to convert it to a table model for use in
@@ -55,16 +55,24 @@ import org.jfree.data.general.SeriesChangeListener;
 public class TimeSeriesTableModel extends AbstractTableModel
         implements SeriesChangeListener {
 
-    /** The series. */
+    /**
+     * The series.
+     */
     private TimeSeries series;
 
-    /** A flag that controls whether the series is editable. */
+    /**
+     * A flag that controls whether the series is editable.
+     */
     private boolean editable;
 
-    /** The new time period. */
+    /**
+     * The new time period.
+     */
     private RegularTimePeriod newTimePeriod;
 
-    /** The new value. */
+    /**
+     * The new value.
+     */
     private Number newValue;
 
     /**
@@ -77,7 +85,7 @@ public class TimeSeriesTableModel extends AbstractTableModel
     /**
      * Constructs a table model for a time series.
      *
-     * @param series  the time series.
+     * @param series the time series.
      */
     public TimeSeriesTableModel(TimeSeries series) {
         this(series, false);
@@ -86,8 +94,8 @@ public class TimeSeriesTableModel extends AbstractTableModel
     /**
      * Creates a table model based on a time series.
      *
-     * @param series  the time series.
-     * @param editable  if {@code true}, the table is editable.
+     * @param series   the time series.
+     * @param editable if {@code true}, the table is editable.
      */
     public TimeSeriesTableModel(TimeSeries series, boolean editable) {
         this.series = series;
@@ -109,20 +117,17 @@ public class TimeSeriesTableModel extends AbstractTableModel
     /**
      * Returns the column class in the table model.
      *
-     * @param column  the column index.
-     *
+     * @param column the column index.
      * @return The column class in the table model.
      */
     @Override
     public Class getColumnClass(int column) {
         if (column == 0) {
             return String.class;
-        }
-        else {
+        } else {
             if (column == 1) {
                 return Double.class;
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -131,8 +136,7 @@ public class TimeSeriesTableModel extends AbstractTableModel
     /**
      * Returns the name of a column
      *
-     * @param column  the column index.
-     *
+     * @param column the column index.
      * @return The name of a column.
      */
     @Override
@@ -140,12 +144,10 @@ public class TimeSeriesTableModel extends AbstractTableModel
 
         if (column == 0) {
             return "Period:";
-        }
-        else {
+        } else {
             if (column == 1) {
                 return "Value:";
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -165,9 +167,8 @@ public class TimeSeriesTableModel extends AbstractTableModel
     /**
      * Returns the data value for a cell in the table model.
      *
-     * @param row  the row number.
-     * @param column  the column number.
-     *
+     * @param row    the row number.
+     * @param column the column number.
      * @return The data value for a cell in the table model.
      */
     @Override
@@ -176,25 +177,20 @@ public class TimeSeriesTableModel extends AbstractTableModel
         if (row < this.series.getItemCount()) {
             if (column == 0) {
                 return this.series.getTimePeriod(row);
-            }
-            else {
+            } else {
                 if (column == 1) {
                     return this.series.getValue(row);
-                }
-                else {
+                } else {
                     return null;
                 }
             }
-        }
-        else {
+        } else {
             if (column == 0) {
                 return this.newTimePeriod;
-            }
-            else {
+            } else {
                 if (column == 1) {
                     return this.newValue;
-                }
-                else {
+                } else {
                     return null;
                 }
             }
@@ -205,9 +201,8 @@ public class TimeSeriesTableModel extends AbstractTableModel
     /**
      * Returns a flag indicating whether or not the specified cell is editable.
      *
-     * @param row  the row number.
-     * @param column  the column number.
-     *
+     * @param row    the row number.
+     * @param column the column number.
      * @return <code>true</code> if the specified cell is editable.
      */
     @Override
@@ -215,12 +210,10 @@ public class TimeSeriesTableModel extends AbstractTableModel
         if (this.editable) {
             if ((column == 0) || (column == 1)) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -229,8 +222,8 @@ public class TimeSeriesTableModel extends AbstractTableModel
      * Updates the time series.
      *
      * @param value  the new value.
-     * @param row  the row.
-     * @param column  the column.
+     * @param row    the row.
+     * @param column the column.
      */
     @Override
     public void setValueAt(Object value, int row, int column) {
@@ -243,18 +236,15 @@ public class TimeSeriesTableModel extends AbstractTableModel
                     Double v = Double.valueOf(value.toString());
                     this.series.update(row, v);
 
-                }
-                catch (NumberFormatException nfe) {
+                } catch (NumberFormatException nfe) {
                     System.err.println("Number format exception");
                 }
             }
-        }
-        else {
+        } else {
             if (column == 0) {
                 // this.series.getClass().valueOf(value.toString());
                 this.newTimePeriod = null;
-            }
-            else if (column == 1) {
+            } else if (column == 1) {
                 this.newValue = Double.valueOf(value.toString());
             }
         }
@@ -264,7 +254,7 @@ public class TimeSeriesTableModel extends AbstractTableModel
      * Receives notification that the time series has been changed.  Responds
      * by firing a table data change event.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void seriesChanged(SeriesChangeEvent event) {

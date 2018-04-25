@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------
@@ -51,60 +51,69 @@
  * 26-Sep-2007 : Added isEmpty() and getItemCount() methods (DG);
  * 16-Oct-2011 : Added vetoable property change support for series name (DG);
  * 03-Jul-2013 : Use ParamChecks (DG);
- * 
+ *
  */
 
 package org.jfree.data.general;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyVetoException;
-import java.beans.VetoableChangeListener;
-import java.beans.VetoableChangeSupport;
-import java.io.Serializable;
-
-import javax.swing.event.EventListenerList;
-
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.util.ObjectUtilities;
+
+import javax.swing.event.EventListenerList;
+import java.beans.*;
+import java.io.Serializable;
 
 /**
  * Base class representing a data series.  Subclasses are left to implement the
  * actual data structures.
- * <P>
+ * <p>
  * The series has two properties ("Key" and "Description") for which you can
  * register a <code>PropertyChangeListener</code>.
- * <P>
+ * <p>
  * You can also register a {@link SeriesChangeListener} to receive notification
  * of changes to the series data.
  */
 public abstract class Series implements Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -6906561437538683581L;
 
-    /** The key for the series. */
+    /**
+     * The key for the series.
+     */
     private Comparable key;
 
-    /** A description of the series. */
+    /**
+     * A description of the series.
+     */
     private String description;
 
-    /** Storage for registered change listeners. */
+    /**
+     * Storage for registered change listeners.
+     */
     private EventListenerList listeners;
 
-    /** Object to support property change notification. */
+    /**
+     * Object to support property change notification.
+     */
     private PropertyChangeSupport propertyChangeSupport;
 
-    /** Object to support property change notification. */
+    /**
+     * Object to support property change notification.
+     */
     private VetoableChangeSupport vetoableChangeSupport;
 
-    /** A flag that controls whether or not changes are notified. */
+    /**
+     * A flag that controls whether or not changes are notified.
+     */
     private boolean notify;
 
     /**
      * Creates a new series with the specified key.
      *
-     * @param key  the series key (<code>null</code> not permitted).
+     * @param key the series key (<code>null</code> not permitted).
      */
     protected Series(Comparable key) {
         this(key, null);
@@ -113,8 +122,8 @@ public abstract class Series implements Cloneable, Serializable {
     /**
      * Creates a new series with the specified key and description.
      *
-     * @param key  the series key (<code>null</code> NOT permitted).
-     * @param description  the series description (<code>null</code> permitted).
+     * @param key         the series key (<code>null</code> NOT permitted).
+     * @param description the series description (<code>null</code> permitted).
      */
     protected Series(Comparable key, String description) {
         ParamChecks.nullNotPermitted(key, "key");
@@ -130,7 +139,6 @@ public abstract class Series implements Cloneable, Serializable {
      * Returns the key for the series.
      *
      * @return The series key (never <code>null</code>).
-     *
      * @see #setKey(Comparable)
      */
     public Comparable getKey() {
@@ -139,13 +147,12 @@ public abstract class Series implements Cloneable, Serializable {
 
     /**
      * Sets the key for the series and sends a <code>VetoableChangeEvent</code>
-     * (with the property name "Key") to all registered listeners.  For 
-     * backwards compatibility, this method also fires a regular 
-     * <code>PropertyChangeEvent</code>.  If the key change is vetoed this 
+     * (with the property name "Key") to all registered listeners.  For
+     * backwards compatibility, this method also fires a regular
+     * <code>PropertyChangeEvent</code>.  If the key change is vetoed this
      * method will throw an IllegalArgumentException.
      *
-     * @param key  the key (<code>null</code> not permitted).
-     *
+     * @param key the key (<code>null</code> not permitted).
      * @see #getKey()
      */
     public void setKey(Comparable key) {
@@ -169,7 +176,6 @@ public abstract class Series implements Cloneable, Serializable {
      * Returns a description of the series.
      *
      * @return The series description (possibly <code>null</code>).
-     *
      * @see #setDescription(String)
      */
     public String getDescription() {
@@ -180,8 +186,7 @@ public abstract class Series implements Cloneable, Serializable {
      * Sets the description of the series and sends a
      * <code>PropertyChangeEvent</code> to all registered listeners.
      *
-     * @param description  the description (<code>null</code> permitted).
-     *
+     * @param description the description (<code>null</code> permitted).
      * @see #getDescription()
      */
     public void setDescription(String description) {
@@ -196,7 +201,6 @@ public abstract class Series implements Cloneable, Serializable {
      * registered listeners.
      *
      * @return A boolean.
-     *
      * @see #setNotify(boolean)
      */
     public boolean getNotify() {
@@ -207,8 +211,7 @@ public abstract class Series implements Cloneable, Serializable {
      * Sets the flag that controls whether or not change events are sent to
      * registered listeners.
      *
-     * @param notify  the new value of the flag.
-     *
+     * @param notify the new value of the flag.
      * @see #getNotify()
      */
     public void setNotify(boolean notify) {
@@ -223,7 +226,6 @@ public abstract class Series implements Cloneable, Serializable {
      * <code>false</code> otherwise.
      *
      * @return A boolean.
-     *
      * @since 1.0.7
      */
     public boolean isEmpty() {
@@ -239,7 +241,7 @@ public abstract class Series implements Cloneable, Serializable {
 
     /**
      * Returns a clone of the series.
-     * <P>
+     * <p>
      * Notes:
      * <ul>
      * <li>No need to clone the name or description, since String object is
@@ -250,9 +252,8 @@ public abstract class Series implements Cloneable, Serializable {
      * </ul>
      *
      * @return A clone of the series.
-     *
-     * @throws CloneNotSupportedException  not thrown by this class, but
-     *         subclasses may differ.
+     * @throws CloneNotSupportedException not thrown by this class, but
+     *                                    subclasses may differ.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -266,8 +267,7 @@ public abstract class Series implements Cloneable, Serializable {
     /**
      * Tests the series for equality with another object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return <code>true</code> or <code>false</code>.
      */
     @Override
@@ -305,11 +305,11 @@ public abstract class Series implements Cloneable, Serializable {
     /**
      * Registers an object with this series, to receive notification whenever
      * the series changes.
-     * <P>
+     * <p>
      * Objects being registered must implement the {@link SeriesChangeListener}
      * interface.
      *
-     * @param listener  the listener to register.
+     * @param listener the listener to register.
      */
     public void addChangeListener(SeriesChangeListener listener) {
         this.listeners.add(SeriesChangeListener.class, listener);
@@ -319,7 +319,7 @@ public abstract class Series implements Cloneable, Serializable {
      * Deregisters an object, so that it not longer receives notification
      * whenever the series changes.
      *
-     * @param listener  the listener to deregister.
+     * @param listener the listener to deregister.
      */
     public void removeChangeListener(SeriesChangeListener listener) {
         this.listeners.remove(SeriesChangeListener.class, listener);
@@ -338,8 +338,8 @@ public abstract class Series implements Cloneable, Serializable {
     /**
      * Sends a change event to all registered listeners.
      *
-     * @param event  contains information about the event that triggered the
-     *               notification.
+     * @param event contains information about the event that triggered the
+     *              notification.
      */
     protected void notifyListeners(SeriesChangeEvent event) {
 
@@ -356,7 +356,7 @@ public abstract class Series implements Cloneable, Serializable {
     /**
      * Adds a property change listener to the series.
      *
-     * @param listener  the listener.
+     * @param listener the listener.
      */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         this.propertyChangeSupport.addPropertyChangeListener(listener);
@@ -365,7 +365,7 @@ public abstract class Series implements Cloneable, Serializable {
     /**
      * Removes a property change listener from the series.
      *
-     * @param listener  the listener.
+     * @param listener the listener.
      */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         this.propertyChangeSupport.removePropertyChangeListener(listener);
@@ -374,21 +374,20 @@ public abstract class Series implements Cloneable, Serializable {
     /**
      * Fires a property change event.
      *
-     * @param property  the property key.
-     * @param oldValue  the old value.
-     * @param newValue  the new value.
+     * @param property the property key.
+     * @param oldValue the old value.
+     * @param newValue the new value.
      */
     protected void firePropertyChange(String property, Object oldValue,
-            Object newValue) {
+                                      Object newValue) {
         this.propertyChangeSupport.firePropertyChange(property, oldValue,
                 newValue);
     }
-    
+
     /**
      * Adds a vetoable property change listener to the series.
      *
-     * @param listener  the listener.
-     * 
+     * @param listener the listener.
      * @since 1.0.14
      */
     public void addVetoableChangeListener(VetoableChangeListener listener) {
@@ -398,25 +397,23 @@ public abstract class Series implements Cloneable, Serializable {
     /**
      * Removes a vetoable property change listener from the series.
      *
-     * @param listener  the listener.
-     * 
-     * @since 1.0.14 
+     * @param listener the listener.
+     * @since 1.0.14
      */
     public void removeVetoableChangeListener(VetoableChangeListener listener) {
         this.vetoableChangeSupport.removeVetoableChangeListener(listener);
-    }    
+    }
 
     /**
      * Fires a vetoable property change event.
      *
-     * @param property  the property key.
-     * @param oldValue  the old value.
-     * @param newValue  the new value.
-     * 
+     * @param property the property key.
+     * @param oldValue the old value.
+     * @param newValue the new value.
      * @throws PropertyVetoException if the change was vetoed.
      */
     protected void fireVetoableChange(String property, Object oldValue,
-            Object newValue) throws PropertyVetoException {
+                                      Object newValue) throws PropertyVetoException {
         this.vetoableChangeSupport.fireVetoableChange(property, oldValue,
                 newValue);
     }

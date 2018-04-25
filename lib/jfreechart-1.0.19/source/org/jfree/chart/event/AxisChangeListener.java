@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -47,19 +47,18 @@ import java.util.EventListener;
 /**
  * The interface that must be supported by classes that wish to receive
  * notification of changes to an axis.
- * <P>
+ * <p>
  * The Plot class implements this interface, and automatically registers with
  * its axes (if any). Any axis changes are passed on by the plot as a plot
  * change event.  This is part of the notification mechanism that ensures that
  * charts are redrawn whenever changes are made to any chart component.
- *
  */
 public interface AxisChangeListener extends EventListener {
 
     /**
      * Receives notification of an axis change event.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     public void axisChanged(AxisChangeEvent event);
 

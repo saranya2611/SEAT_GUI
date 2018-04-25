@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------
@@ -41,36 +41,45 @@
 
 package org.jfree.data.time.ohlc;
 
-import java.io.Serializable;
 import org.jfree.chart.HashUtilities;
 
+import java.io.Serializable;
+
 /**
- * A data record containing open-high-low-close data (immutable).  This class 
+ * A data record containing open-high-low-close data (immutable).  This class
  * is used internally by the {@link OHLCItem} class.
  *
  * @since 1.0.4
  */
 public class OHLC implements Serializable {
 
-    /** The open value. */
+    /**
+     * The open value.
+     */
     private double open;
 
-    /** The close value. */
+    /**
+     * The close value.
+     */
     private double close;
 
-    /** The high value. */
+    /**
+     * The high value.
+     */
     private double high;
 
-    /** The low value. */
+    /**
+     * The low value.
+     */
     private double low;
 
     /**
      * Creates a new instance of <code>OHLC</code>.
      *
      * @param open  the open value.
-     * @param close  the close value.
+     * @param close the close value.
      * @param high  the high value.
-     * @param low  the low value.
+     * @param low   the low value.
      */
     public OHLC(double open, double high, double low, double close) {
         this.open = open;
@@ -118,8 +127,7 @@ public class OHLC implements Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

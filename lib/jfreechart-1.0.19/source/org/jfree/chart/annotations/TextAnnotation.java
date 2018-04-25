@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -50,18 +50,10 @@
  * 24-Jun-2009 : Fire change events (see patch 2809117 by PK) (DG);
  * 28-Oct-2011 : Added missing argument check, Bug #3428870 (MH);
  * 01-Jul-2013 : Added missing AnnotationChangeEvent for setText() (DG);
- * 
+ *
  */
 
 package org.jfree.chart.annotations;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Paint;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.event.AnnotationChangeEvent;
@@ -71,53 +63,77 @@ import org.jfree.ui.TextAnchor;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PaintUtilities;
 
+import java.awt.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * A base class for text annotations.  This class records the content but not
  * the location of the annotation.
  */
 public class TextAnnotation extends AbstractAnnotation implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 7008912287533127432L;
-
-    /** The default font. */
+    /**
+     * The default font.
+     */
     public static final Font DEFAULT_FONT
             = new Font("SansSerif", Font.PLAIN, 10);
-
-    /** The default paint. */
+    /**
+     * The default paint.
+     */
     public static final Paint DEFAULT_PAINT = Color.black;
-
-    /** The default text anchor. */
+    /**
+     * The default text anchor.
+     */
     public static final TextAnchor DEFAULT_TEXT_ANCHOR = TextAnchor.CENTER;
-
-    /** The default rotation anchor. */
+    /**
+     * The default rotation anchor.
+     */
     public static final TextAnchor DEFAULT_ROTATION_ANCHOR = TextAnchor.CENTER;
-
-    /** The default rotation angle. */
+    /**
+     * The default rotation angle.
+     */
     public static final double DEFAULT_ROTATION_ANGLE = 0.0;
-
-    /** The text. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 7008912287533127432L;
+    /**
+     * The text.
+     */
     private String text;
 
-    /** The font. */
+    /**
+     * The font.
+     */
     private Font font;
 
-    /** The paint. */
+    /**
+     * The paint.
+     */
     private transient Paint paint;
 
-    /** The text anchor. */
+    /**
+     * The text anchor.
+     */
     private TextAnchor textAnchor;
 
-    /** The rotation anchor. */
+    /**
+     * The rotation anchor.
+     */
     private TextAnchor rotationAnchor;
 
-    /** The rotation angle. */
+    /**
+     * The rotation angle.
+     */
     private double rotationAngle;
 
     /**
      * Creates a text annotation with default settings.
      *
-     * @param text  the text (<code>null</code> not permitted).
+     * @param text the text (<code>null</code> not permitted).
      */
     protected TextAnnotation(String text) {
         super();
@@ -134,7 +150,6 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * Returns the text for the annotation.
      *
      * @return The text (never <code>null</code>).
-     *
      * @see #setText(String)
      */
     public String getText() {
@@ -142,11 +157,10 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
     }
 
     /**
-     * Sets the text for the annotation and sends an 
+     * Sets the text for the annotation and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param text  the text (<code>null</code> not permitted).
-     *
+     * @param text the text (<code>null</code> not permitted).
      * @see #getText()
      */
     public void setText(String text) {
@@ -159,7 +173,6 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * Returns the font for the annotation.
      *
      * @return The font (never <code>null</code>).
-     *
      * @see #setFont(Font)
      */
     public Font getFont() {
@@ -170,8 +183,7 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * Sets the font for the annotation and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param font  the font (<code>null</code> not permitted).
-     *
+     * @param font the font (<code>null</code> not permitted).
      * @see #getFont()
      */
     public void setFont(Font font) {
@@ -184,7 +196,6 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * Returns the paint for the annotation.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @see #setPaint(Paint)
      */
     public Paint getPaint() {
@@ -195,8 +206,7 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * Sets the paint for the annotation and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getPaint()
      */
     public void setPaint(Paint paint) {
@@ -209,7 +219,6 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * Returns the text anchor.
      *
      * @return The text anchor.
-     *
      * @see #setTextAnchor(TextAnchor)
      */
     public TextAnchor getTextAnchor() {
@@ -221,8 +230,7 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * aligned to the (x, y) coordinate of the annotation) and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param anchor  the anchor point (<code>null</code> not permitted).
-     *
+     * @param anchor the anchor point (<code>null</code> not permitted).
      * @see #getTextAnchor()
      */
     public void setTextAnchor(TextAnchor anchor) {
@@ -235,7 +243,6 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * Returns the rotation anchor.
      *
      * @return The rotation anchor point (never <code>null</code>).
-     *
      * @see #setRotationAnchor(TextAnchor)
      */
     public TextAnchor getRotationAnchor() {
@@ -246,8 +253,7 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * Sets the rotation anchor point and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param anchor  the anchor (<code>null</code> not permitted).
-     *
+     * @param anchor the anchor (<code>null</code> not permitted).
      * @see #getRotationAnchor()
      */
     public void setRotationAnchor(TextAnchor anchor) {
@@ -260,7 +266,6 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * Returns the rotation angle in radians.
      *
      * @return The rotation angle.
-     *
      * @see #setRotationAngle(double)
      */
     public double getRotationAngle() {
@@ -271,8 +276,7 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * Sets the rotation angle and sends an {@link AnnotationChangeEvent} to
      * all registered listeners.  The angle is measured clockwise in radians.
      *
-     * @param angle  the angle (in radians).
-     *
+     * @param angle the angle (in radians).
      * @see #getRotationAngle()
      */
     public void setRotationAngle(double angle) {
@@ -283,8 +287,7 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return <code>true</code> or <code>false</code>.
      */
     @Override
@@ -343,8 +346,7 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
+     * @param stream the output stream.
      * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
@@ -355,13 +357,12 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.paint = SerialUtilities.readPaint(stream);
     }

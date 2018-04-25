@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -50,25 +50,31 @@ import java.io.Serializable;
  */
 public final class DialShape implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -3471933055190251131L;
-
-    /** Circle. */
+    /**
+     * Circle.
+     */
     public static final DialShape CIRCLE = new DialShape("DialShape.CIRCLE");
-
-    /** Chord. */
+    /**
+     * Chord.
+     */
     public static final DialShape CHORD = new DialShape("DialShape.CHORD");
-
-    /** Pie. */
+    /**
+     * Pie.
+     */
     public static final DialShape PIE = new DialShape("DialShape.PIE");
-
-    /** The name. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -3471933055190251131L;
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private DialShape(String name) {
         this.name = name;
@@ -88,8 +94,7 @@ public final class DialShape implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return A boolean.
      */
     @Override
@@ -121,17 +126,14 @@ public final class DialShape implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         if (this.equals(DialShape.CIRCLE)) {
             return DialShape.CIRCLE;
-        }
-        else if (this.equals(DialShape.CHORD)) {
+        } else if (this.equals(DialShape.CHORD)) {
             return DialShape.CHORD;
-        }
-        else if (this.equals(DialShape.PIE)) {
+        } else if (this.equals(DialShape.PIE)) {
             return DialShape.PIE;
         }
         return null;

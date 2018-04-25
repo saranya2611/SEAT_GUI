@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------
@@ -51,7 +51,7 @@ import java.io.Serializable;
 /**
  * Base class representing a tick unit.  This determines the spacing of the
  * tick marks on an axis.
- * <P>
+ * <p>
  * This class (and any subclasses) should be immutable, the reason being that
  * ORDERED collections of tick units are maintained and if one instance can be
  * changed, it may destroy the order of the collection that it belongs to.
@@ -62,10 +62,14 @@ import java.io.Serializable;
  */
 public abstract class TickUnit implements Comparable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 510179855057013974L;
 
-    /** The size of the tick unit. */
+    /**
+     * The size of the tick unit.
+     */
     private double size;
 
     /**
@@ -78,7 +82,7 @@ public abstract class TickUnit implements Comparable, Serializable {
     /**
      * Constructs a new tick unit.
      *
-     * @param size  the tick unit size.
+     * @param size the tick unit size.
      */
     public TickUnit(double size) {
         this.size = size;
@@ -87,9 +91,8 @@ public abstract class TickUnit implements Comparable, Serializable {
     /**
      * Constructs a new tick unit.
      *
-     * @param size  the tick unit size.
-     * @param minorTickCount  the minor tick count.
-     *
+     * @param size           the tick unit size.
+     * @param minorTickCount the minor tick count.
      * @since 1.0.7
      */
     public TickUnit(double size, int minorTickCount) {
@@ -110,7 +113,6 @@ public abstract class TickUnit implements Comparable, Serializable {
      * Returns the minor tick count.
      *
      * @return The minor tick count.
-     *
      * @since 1.0.7
      */
     public int getMinorTickCount() {
@@ -119,11 +121,10 @@ public abstract class TickUnit implements Comparable, Serializable {
 
     /**
      * Converts the supplied value to a string.
-     * <P>
+     * <p>
      * Subclasses may implement special formatting by overriding this method.
      *
-     * @param value  the data value.
-     *
+     * @param value the data value.
      * @return Value as string.
      */
     public String valueToString(double value) {
@@ -133,11 +134,10 @@ public abstract class TickUnit implements Comparable, Serializable {
     /**
      * Compares this tick unit to an arbitrary object.
      *
-     * @param object  the object to compare against.
-     *
+     * @param object the object to compare against.
      * @return <code>1</code> if the size of the other object is less than this,
-     *      <code>0</code> if both have the same size and <code>-1</code> this
-     *      size is less than the others.
+     * <code>0</code> if both have the same size and <code>-1</code> this
+     * size is less than the others.
      */
     @Override
     public int compareTo(Object object) {
@@ -146,15 +146,12 @@ public abstract class TickUnit implements Comparable, Serializable {
             TickUnit other = (TickUnit) object;
             if (this.size > other.getSize()) {
                 return 1;
-            }
-            else if (this.size < other.getSize()) {
+            } else if (this.size < other.getSize()) {
                 return -1;
-            }
-            else {
+            } else {
                 return 0;
             }
-        }
-        else {
+        } else {
             return -1;
         }
 
@@ -163,8 +160,7 @@ public abstract class TickUnit implements Comparable, Serializable {
     /**
      * Tests this unit for equality with another object.
      *
-     * @param obj  the object.
-     *
+     * @param obj the object.
      * @return <code>true</code> or <code>false</code>.
      */
     @Override

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -40,12 +40,10 @@
 
 package org.jfree.data.xy;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link XYIntervalDataItem} class.
@@ -53,6 +51,7 @@ import org.junit.Test;
 public class XYIntervalDataItemTest {
 
     private static final double EPSILON = 0.000000001;
+
     /**
      * Some checks for the constructor.
      */
@@ -137,7 +136,7 @@ public class XYIntervalDataItemTest {
     public void testSerialization() {
         XYIntervalDataItem item1 = new XYIntervalDataItem(1.0, 0.5, 1.5, 2.0,
                 1.9, 2.1);
-        XYIntervalDataItem item2 = (XYIntervalDataItem) 
+        XYIntervalDataItem item2 = (XYIntervalDataItem)
                 TestUtilities.serialised(item1);
         assertEquals(item1, item2);
     }

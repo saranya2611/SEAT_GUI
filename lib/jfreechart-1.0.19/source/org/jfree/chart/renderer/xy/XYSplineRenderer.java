@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -41,22 +41,13 @@
  * 25-Oct-2007 : Prevent duplicate control points (KR);
  * 19-May-2009 : Fixed FindBugs warnings, patch by Michal Wozniak (DG);
  * 14-Sep-2013 : Replaced Vector with List, general cleanup (KR);
- * 15-Sep-2013 : Added support to fill the area 'under' (between '0' and) the 
+ * 15-Sep-2013 : Added support to fill the area 'under' (between '0' and) the
  *               spline(KR);
  * 15-Sep-2013 : Replaced ControlPoint with Point2D.Float (KR);
  *
  */
 
 package org.jfree.chart.renderer.xy;
-
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.event.RendererChangeEvent;
@@ -69,6 +60,13 @@ import org.jfree.ui.GradientPaintTransformer;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.StandardGradientPaintTransformer;
 import org.jfree.util.ObjectUtilities;
+
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A renderer that connects data points with natural cubic splines and/or
@@ -85,56 +83,18 @@ import org.jfree.util.ObjectUtilities;
 public class XYSplineRenderer extends XYLineAndShapeRenderer {
 
     /**
-     * An enumeration of the fill types for the renderer.
-     * 
-     * @since 1.0.17
-     */
-    public static enum FillType {
-        NONE,
-        TO_ZERO,
-        TO_LOWER_BOUND,
-        TO_UPPER_BOUND
-    }
-    
-    /**
-     * Represents state information that applies to a single rendering of
-     * a chart.
-     */
-    public static class XYSplineState extends State {
-        
-        /** The area to fill under the curve. */
-        public GeneralPath fillArea;
-        
-        /** The points. */
-        public List<Point2D> points;
-        
-        /**
-         * Creates a new state instance.
-         * 
-         * @param info  the plot rendering info. 
-         */
-        public XYSplineState(PlotRenderingInfo info) {
-            super(info);
-            this.fillArea = new GeneralPath();
-            this.points = new ArrayList<Point2D>();
-        }
-    }
-    
-    /**
      * Resolution of splines (number of line segments between points)
      */
     private int precision;
-
     /**
-     * A flag that can be set to specify 
+     * A flag that can be set to specify
      * to fill the area under the spline.
      */
     private FillType fillType;
-
     private GradientPaintTransformer gradientPaintTransformer;
-    
+
     /**
-     * Creates a new instance with the precision attribute defaulting to 5 
+     * Creates a new instance with the precision attribute defaulting to 5
      * and no fill of the area 'under' the spline.
      */
     public XYSplineRenderer() {
@@ -142,10 +102,10 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
     }
 
     /**
-     * Creates a new renderer with the specified precision 
+     * Creates a new renderer with the specified precision
      * and no fill of the area 'under' (between '0' and) the spline.
      *
-     * @param precision  the number of points between data items.
+     * @param precision the number of points between data items.
      */
     public XYSplineRenderer(int precision) {
         this(precision, FillType.NONE);
@@ -155,10 +115,9 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
      * Creates a new renderer with the specified precision
      * and specified fill of the area 'under' (between '0' and) the spline.
      *
-     * @param precision  the number of points between data items.
-     * @param fillType  the type of fill beneath the curve (<code>null</code> 
-     *     not permitted).
-     * 
+     * @param precision the number of points between data items.
+     * @param fillType  the type of fill beneath the curve (<code>null</code>
+     *                  not permitted).
      * @since 1.0.17
      */
     public XYSplineRenderer(int precision, FillType fillType) {
@@ -177,7 +136,6 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
      * curve between data points.
      *
      * @return The number of line segments.
-     *
      * @see #setPrecision(int)
      */
     public int getPrecision() {
@@ -188,8 +146,7 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
      * Set the resolution of splines and sends a {@link RendererChangeEvent}
      * to all registered listeners.
      *
-     * @param p  number of line segments between points (must be &gt; 0).
-     *
+     * @param p number of line segments between points (must be &gt; 0).
      * @see #getPrecision()
      */
     public void setPrecision(int p) {
@@ -204,9 +161,7 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
      * Returns the type of fill that the renderer draws beneath the curve.
      *
      * @return The type of fill (never <code>null</code>).
-     *
-     * @see #setFillType(FillType) 
-     * 
+     * @see #setFillType(FillType)
      * @since 1.0.17
      */
     public FillType getFillType() {
@@ -217,10 +172,8 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
      * Set the fill type and sends a {@link RendererChangeEvent}
      * to all registered listeners.
      *
-     * @param fillType   the fill type (<code>null</code> not permitted).
-     *
+     * @param fillType the fill type (<code>null</code> not permitted).
      * @see #getFillType()
-     * 
      * @since 1.0.17
      */
     public void setFillType(FillType fillType) {
@@ -230,47 +183,44 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
 
     /**
      * Returns the gradient paint transformer, or <code>null</code>.
-     * 
+     *
      * @return The gradient paint transformer (possibly <code>null</code>).
-     * 
      * @since 1.0.17
      */
     public GradientPaintTransformer getGradientPaintTransformer() {
         return this.gradientPaintTransformer;
     }
-    
+
     /**
-     * Sets the gradient paint transformer and sends a 
+     * Sets the gradient paint transformer and sends a
      * {@link RendererChangeEvent} to all registered listeners.
-     * 
-     * @param gpt  the transformer (<code>null</code> permitted).
-     * 
+     *
+     * @param gpt the transformer (<code>null</code> permitted).
      * @since 1.0.17
      */
     public void setGradientPaintTransformer(GradientPaintTransformer gpt) {
         this.gradientPaintTransformer = gpt;
         fireChangeEvent();
     }
-    
+
     /**
      * Initialises the renderer.
-     * <P>
+     * <p>
      * This method will be called before the first item is rendered, giving the
      * renderer an opportunity to initialise any state information it wants to
      * maintain.  The renderer can do nothing if it chooses.
      *
-     * @param g2  the graphics device.
-     * @param dataArea  the area inside the axes.
-     * @param plot  the plot.
-     * @param data  the data.
-     * @param info  an optional info collection object to return data back to
-     *              the caller.
-     *
+     * @param g2       the graphics device.
+     * @param dataArea the area inside the axes.
+     * @param plot     the plot.
+     * @param data     the data.
+     * @param info     an optional info collection object to return data back to
+     *                 the caller.
      * @return The renderer state.
      */
     @Override
     public XYItemRendererState initialise(Graphics2D g2, Rectangle2D dataArea,
-            XYPlot plot, XYDataset data, PlotRenderingInfo info) {
+                                          XYPlot plot, XYDataset data, PlotRenderingInfo info) {
 
         setDrawSeriesLineAsPath(true);
         XYSplineState state = new XYSplineState(info);
@@ -284,23 +234,23 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
      * a GeneralPath is constructed and drawn at the end of
      * the series painting.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param plot  the plot (can be used to obtain standard color information
-     *              etc).
+     * @param g2       the graphics device.
+     * @param state    the renderer state.
+     * @param plot     the plot (can be used to obtain standard color information
+     *                 etc).
      * @param dataset  the dataset.
-     * @param pass  the pass.
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     * @param xAxis  the domain axis.
-     * @param yAxis  the range axis.
-     * @param dataArea  the area within which the data is being drawn.
+     * @param pass     the pass.
+     * @param series   the series index (zero-based).
+     * @param item     the item index (zero-based).
+     * @param xAxis    the domain axis.
+     * @param yAxis    the range axis.
+     * @param dataArea the area within which the data is being drawn.
      */
     @Override
     protected void drawPrimaryLineAsPath(XYItemRendererState state,
-            Graphics2D g2, XYPlot plot, XYDataset dataset, int pass,
-            int series, int item, ValueAxis xAxis, ValueAxis yAxis,
-            Rectangle2D dataArea) {
+                                         Graphics2D g2, XYPlot plot, XYDataset dataset, int pass,
+                                         int series, int item, ValueAxis xAxis, ValueAxis yAxis,
+                                         Rectangle2D dataArea) {
 
         XYSplineState s = (XYSplineState) state;
         RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
@@ -314,23 +264,23 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
 
         // Collect points
         if (!Double.isNaN(transX1) && !Double.isNaN(transY1)) {
-            Point2D p = plot.getOrientation() == PlotOrientation.HORIZONTAL 
-                ? new Point2D.Float((float) transY1, (float) transX1) 
-                : new Point2D.Float((float) transX1, (float) transY1);
+            Point2D p = plot.getOrientation() == PlotOrientation.HORIZONTAL
+                    ? new Point2D.Float((float) transY1, (float) transX1)
+                    : new Point2D.Float((float) transX1, (float) transY1);
             if (!s.points.contains(p))
                 s.points.add(p);
         }
-        
+
         if (item == dataset.getItemCount(series) - 1) {     // construct path
             if (s.points.size() > 1) {
                 Point2D origin;
                 if (this.fillType == FillType.TO_ZERO) {
-                    float xz = (float) xAxis.valueToJava2D(0, dataArea, 
+                    float xz = (float) xAxis.valueToJava2D(0, dataArea,
                             yAxisLocation);
-                    float yz = (float) yAxis.valueToJava2D(0, dataArea, 
+                    float yz = (float) yAxis.valueToJava2D(0, dataArea,
                             yAxisLocation);
                     origin = plot.getOrientation() == PlotOrientation.HORIZONTAL
-                            ? new Point2D.Float(yz, xz) 
+                            ? new Point2D.Float(yz, xz)
                             : new Point2D.Float(xz, yz);
                 } else if (this.fillType == FillType.TO_LOWER_BOUND) {
                     float xlb = (float) xAxis.valueToJava2D(
@@ -338,7 +288,7 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
                     float ylb = (float) yAxis.valueToJava2D(
                             yAxis.getLowerBound(), dataArea, yAxisLocation);
                     origin = plot.getOrientation() == PlotOrientation.HORIZONTAL
-                            ? new Point2D.Float(ylb, xlb) 
+                            ? new Point2D.Float(ylb, xlb)
                             : new Point2D.Float(xlb, ylb);
                 } else {// fillType == TO_UPPER_BOUND
                     float xub = (float) xAxis.valueToJava2D(
@@ -349,7 +299,7 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
                             ? new Point2D.Float(yub, xub)
                             : new Point2D.Float(xub, yub);
                 }
-                
+
                 // we need at least two points to draw something
                 Point2D cp0 = s.points.get(0);
                 s.seriesPath.moveTo(cp0.getX(), cp0.getY());
@@ -402,7 +352,7 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
                         sup[i] = h[i + 1] / 6;
                         sub[i] = h[i] / 6;
                         a[i] = (d[i + 1] - d[i]) / h[i + 1]
-                                   - (d[i] - d[i - 1]) / h[i];
+                                - (d[i] - d[i - 1]) / h[i];
                     }
                     solveTridiag(sub, diag, sup, a, np - 2);
 
@@ -440,13 +390,13 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
                 // fill under the curve...
                 if (this.fillType != FillType.NONE) {
                     Paint fp = getSeriesFillPaint(series);
-                    if (this.gradientPaintTransformer != null 
+                    if (this.gradientPaintTransformer != null
                             && fp instanceof GradientPaint) {
                         GradientPaint gp = this.gradientPaintTransformer
                                 .transform((GradientPaint) fp, s.fillArea);
                         g2.setPaint(gp);
                     } else {
-                        g2.setPaint(fp);                        
+                        g2.setPaint(fp);
                     }
                     g2.fill(s.fillArea);
                     s.fillArea.reset();
@@ -458,9 +408,9 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
             s.points = new ArrayList<Point2D>();
         }
     }
-    
+
     private void solveTridiag(float[] sub, float[] diag, float[] sup,
-            float[] b, int n) {
+                              float[] b, int n) {
 /*      solve linear system with tridiagonal n by n matrix a
         using Gaussian elimination *without* pivoting
         where   a(i,i-1) = sub[i]  for 2<=i<=n
@@ -470,7 +420,7 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
         right hand side vector b[1:n] is overwritten with solution
         NOTE: 1...n is used in all arrays, 0 is unused */
         int i;
-/*      factorization and forward substitution */
+        /*      factorization and forward substitution */
         for (i = 2; i <= n; i++) {
             sub[i] /= diag[i - 1];
             diag[i] -= sub[i] * sup[i - 1];
@@ -484,8 +434,7 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
     /**
      * Tests this renderer for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -503,10 +452,50 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
         if (this.fillType != that.fillType) {
             return false;
         }
-        if (!ObjectUtilities.equal(this.gradientPaintTransformer, 
+        if (!ObjectUtilities.equal(this.gradientPaintTransformer,
                 that.gradientPaintTransformer)) {
             return false;
         }
         return super.equals(obj);
+    }
+
+    /**
+     * An enumeration of the fill types for the renderer.
+     *
+     * @since 1.0.17
+     */
+    public static enum FillType {
+        NONE,
+        TO_ZERO,
+        TO_LOWER_BOUND,
+        TO_UPPER_BOUND
+    }
+
+    /**
+     * Represents state information that applies to a single rendering of
+     * a chart.
+     */
+    public static class XYSplineState extends State {
+
+        /**
+         * The area to fill under the curve.
+         */
+        public GeneralPath fillArea;
+
+        /**
+         * The points.
+         */
+        public List<Point2D> points;
+
+        /**
+         * Creates a new state instance.
+         *
+         * @param info the plot rendering info.
+         */
+        public XYSplineState(PlotRenderingInfo info) {
+            super(info);
+            this.fillArea = new GeneralPath();
+            this.points = new ArrayList<Point2D>();
+        }
     }
 }

@@ -40,16 +40,13 @@
 
 package org.jfree.chart.editor;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.FocusEvent;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import org.jfree.chart.axis.Axis;
 import org.jfree.chart.axis.LogAxis;
 import org.jfree.chart.axis.NumberTickUnit;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
 
 /**
  * A panel for editing properties of a {@link LogAxis}.
@@ -63,17 +60,17 @@ public class DefaultLogAxisEditor extends DefaultValueAxisEditor {
     /**
      * Standard constructor: builds a property panel for the specified axis.
      *
-     * @param axis  the axis, which should be changed.
+     * @param axis the axis, which should be changed.
      */
     public DefaultLogAxisEditor(LogAxis axis) {
         super(axis);
         this.manualTickUnitValue = axis.getTickUnit().getSize();
         manualTickUnit.setText(Double.toString(this.manualTickUnitValue));
     }
-    
+
     /**
      * Creates a panel for editing the tick unit.
-     * 
+     *
      * @return A panel.
      */
     @Override
@@ -96,7 +93,7 @@ public class DefaultLogAxisEditor extends DefaultValueAxisEditor {
 
     /**
      * Handles actions from within the property panel.
-     * 
+     *
      * @param event an event.
      */
     @Override
@@ -104,8 +101,7 @@ public class DefaultLogAxisEditor extends DefaultValueAxisEditor {
         String command = event.getActionCommand();
         if (command.equals("TickUnitValue")) {
             validateTickUnit();
-        }
-        else {
+        } else {
             // pass to the super-class for handling
             super.actionPerformed(event);
         }
@@ -128,8 +124,7 @@ public class DefaultLogAxisEditor extends DefaultValueAxisEditor {
         if (isAutoTickUnitSelection()) {
             this.manualTickUnit.setText(Double.toString(this.manualTickUnitValue));
             this.manualTickUnit.setEnabled(false);
-        }
-        else {
+        } else {
             this.manualTickUnit.setEnabled(true);
         }
     }
@@ -141,8 +136,7 @@ public class DefaultLogAxisEditor extends DefaultValueAxisEditor {
         double newTickUnit;
         try {
             newTickUnit = Double.parseDouble(this.manualTickUnit.getText());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             newTickUnit = this.manualTickUnitValue;
         }
 
@@ -156,7 +150,7 @@ public class DefaultLogAxisEditor extends DefaultValueAxisEditor {
      * Sets the properties of the specified axis to match the properties
      * defined on this panel.
      *
-     * @param axis  the axis.
+     * @param axis the axis.
      */
     @Override
     public void setAxisProperties(Axis axis) {

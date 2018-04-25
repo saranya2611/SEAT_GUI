@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -53,10 +53,8 @@ public interface ImageEncoder {
     /**
      * Encodes an image in a particular format.
      *
-     * @param bufferedImage  The image to be encoded.
-     *
+     * @param bufferedImage The image to be encoded.
      * @return The byte[] that is the encoded image.
-     *
      * @throws IOException if there is an IO problem.
      */
     public byte[] encode(BufferedImage bufferedImage) throws IOException;
@@ -64,12 +62,12 @@ public interface ImageEncoder {
     /**
      * Encodes an image in a particular format and writes it to an OutputStream.
      *
-     * @param bufferedImage  The image to be encoded.
+     * @param bufferedImage The image to be encoded.
      * @param outputStream  The OutputStream to write the encoded image to.
      * @throws IOException if there is an IO problem.
      */
     public void encode(BufferedImage bufferedImage, OutputStream outputStream)
-        throws IOException;
+            throws IOException;
 
     /**
      * Get the quality of the image encoding.
@@ -82,7 +80,7 @@ public interface ImageEncoder {
      * Set the quality of the image encoding (not supported by all
      * ImageEncoders).
      *
-     * @param quality  A float representing the quality.
+     * @param quality A float representing the quality.
      */
     public void setQuality(float quality);
 
@@ -97,8 +95,8 @@ public interface ImageEncoder {
      * Set whether the encoder should encode alpha transparency (not
      * supported by all ImageEncoders).
      *
-     * @param encodingAlpha  Whether the encoder should encode alpha
-     *                       transparency.
+     * @param encodingAlpha Whether the encoder should encode alpha
+     *                      transparency.
      */
     public void setEncodingAlpha(boolean encodingAlpha);
 

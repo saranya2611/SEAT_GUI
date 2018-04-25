@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -58,12 +58,20 @@
  * 06-Mar-2009 : Fixed equals() implementation (DG);
  * 10-Jun-2009 : Simplified code in getX() and getY() methods (DG);
  * 02-Jul-2013 : Use ParamChecks (DG);
- * 21-Nov-2013 : Fixed bug where removeSeries(int) was not deregistering 
+ * 21-Nov-2013 : Fixed bug where removeSeries(int) was not deregistering
  *               vetoable listener (DG);
  *
  */
 
 package org.jfree.data.xy;
+
+import org.jfree.chart.HashUtilities;
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.data.*;
+import org.jfree.data.general.DatasetChangeEvent;
+import org.jfree.data.general.Series;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
@@ -73,33 +81,27 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jfree.chart.HashUtilities;
-import org.jfree.chart.util.ParamChecks;
-import org.jfree.data.DomainInfo;
-import org.jfree.data.DomainOrder;
-import org.jfree.data.Range;
-import org.jfree.data.RangeInfo;
-import org.jfree.data.UnknownKeyException;
-import org.jfree.data.general.DatasetChangeEvent;
-import org.jfree.data.general.Series;
-import org.jfree.util.ObjectUtilities;
-import org.jfree.util.PublicCloneable;
-
 /**
  * Represents a collection of {@link XYSeries} objects that can be used as a
  * dataset.
  */
 public class XYSeriesCollection extends AbstractIntervalXYDataset
-        implements IntervalXYDataset, DomainInfo, RangeInfo, 
+        implements IntervalXYDataset, DomainInfo, RangeInfo,
         VetoableChangeListener, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -7590013825931496766L;
 
-    /** The series that are included in the collection. */
+    /**
+     * The series that are included in the collection.
+     */
     private List data;
 
-    /** The interval delegate (used to calculate the start and end x-values). */
+    /**
+     * The interval delegate (used to calculate the start and end x-values).
+     */
     private IntervalXYDelegate intervalDelegate;
 
     /**
@@ -112,7 +114,7 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Constructs a dataset and populates it with a single series.
      *
-     * @param series  the series (<code>null</code> ignored).
+     * @param series the series (<code>null</code> ignored).
      */
     public XYSeriesCollection(XYSeries series) {
         this.data = new java.util.ArrayList();
@@ -146,17 +148,16 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
      * Adds a series to the collection and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param series  the series (<code>null</code> not permitted).
-     * 
+     * @param series the series (<code>null</code> not permitted).
      * @throws IllegalArgumentException if the key for the series is null or
-     *     not unique within the dataset.
+     *                                  not unique within the dataset.
      */
     public void addSeries(XYSeries series) {
         ParamChecks.nullNotPermitted(series, "series");
         if (getSeriesIndex(series.getKey()) >= 0) {
             throw new IllegalArgumentException(
-                "This dataset already contains a series with the key " 
-                + series.getKey());
+                    "This dataset already contains a series with the key "
+                            + series.getKey());
         }
         this.data.add(series);
         series.addChangeListener(this);
@@ -168,7 +169,7 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
      * Removes a series from the collection and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param series  the series index (zero-based).
+     * @param series the series index (zero-based).
      */
     public void removeSeries(int series) {
         if ((series < 0) || (series >= getSeriesCount())) {
@@ -184,7 +185,7 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
      * Removes a series from the collection and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param series  the series (<code>null</code> not permitted).
+     * @param series the series (<code>null</code> not permitted).
      */
     public void removeSeries(XYSeries series) {
         ParamChecks.nullNotPermitted(series, "series");
@@ -204,9 +205,9 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
         // Unregister the collection as a change listener to each series in
         // the collection.
         for (int i = 0; i < this.data.size(); i++) {
-          XYSeries series = (XYSeries) this.data.get(i);
-          series.removeChangeListener(this);
-          series.removeVetoableChangeListener(this);
+            XYSeries series = (XYSeries) this.data.get(i);
+            series.removeChangeListener(this);
+            series.removeVetoableChangeListener(this);
         }
 
         // Remove all the series from the collection and notify listeners.
@@ -237,10 +238,8 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
      * Returns the index of the specified series, or -1 if that series is not
      * present in the dataset.
      *
-     * @param series  the series (<code>null</code> not permitted).
-     *
+     * @param series the series (<code>null</code> not permitted).
      * @return The series index.
-     *
      * @since 1.0.6
      */
     public int indexOf(XYSeries series) {
@@ -251,12 +250,10 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns a series from the collection.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @return The series.
-     *
      * @throws IllegalArgumentException if <code>series</code> is not in the
-     *     range <code>0</code> to <code>getSeriesCount() - 1</code>.
+     *                                  range <code>0</code> to <code>getSeriesCount() - 1</code>.
      */
     public XYSeries getSeries(int series) {
         if ((series < 0) || (series >= getSeriesCount())) {
@@ -268,13 +265,10 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns a series from the collection.
      *
-     * @param key  the key (<code>null</code> not permitted).
-     *
+     * @param key the key (<code>null</code> not permitted).
      * @return The series with the specified key.
-     *
      * @throws UnknownKeyException if <code>key</code> is not found in the
-     *         collection.
-     *
+     *                             collection.
      * @since 1.0.9
      */
     public XYSeries getSeries(Comparable key) {
@@ -292,13 +286,11 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the key for a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
      * @return The key for a series.
-     *
      * @throws IllegalArgumentException if <code>series</code> is not in the
-     *     specified range.
+     *                                  specified range.
      */
     @Override
     public Comparable getSeriesKey(int series) {
@@ -309,11 +301,9 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the index of the series with the specified key, or -1 if no
      * series has that key.
-     * 
-     * @param key  the key (<code>null</code> not permitted).
-     * 
+     *
+     * @param key the key (<code>null</code> not permitted).
      * @return The index.
-     * 
      * @since 1.0.14
      */
     public int getSeriesIndex(Comparable key) {
@@ -331,12 +321,10 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the number of items in the specified series.
      *
-     * @param series  the series (zero-based index).
-     *
+     * @param series the series (zero-based index).
      * @return The item count.
-     *
      * @throws IllegalArgumentException if <code>series</code> is not in the
-     *     range <code>0</code> to <code>getSeriesCount() - 1</code>.
+     *                                  range <code>0</code> to <code>getSeriesCount() - 1</code>.
      */
     @Override
     public int getItemCount(int series) {
@@ -347,9 +335,8 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the x-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The value.
      */
     @Override
@@ -361,9 +348,8 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the starting X value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The starting X value.
      */
     @Override
@@ -374,9 +360,8 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the ending X value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The ending X value.
      */
     @Override
@@ -387,9 +372,8 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the y-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
+     * @param series the series (zero-based index).
      * @param index  the index of the item of interest (zero-based).
-     *
      * @return The value (possibly <code>null</code>).
      */
     @Override
@@ -401,9 +385,8 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the starting Y value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The starting Y value.
      */
     @Override
@@ -414,9 +397,8 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the ending Y value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The ending Y value.
      */
     @Override
@@ -427,8 +409,7 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Tests this collection for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -450,7 +431,6 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
      * Returns a clone of this instance.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem.
      */
     @Override
@@ -478,9 +458,8 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the minimum x-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The minimum value.
      */
     @Override
@@ -495,8 +474,7 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
             double lowX = series.getMinX();
             if (Double.isNaN(result)) {
                 result = lowX;
-            }
-            else {
+            } else {
                 if (!Double.isNaN(lowX)) {
                     result = Math.min(result, lowX);
                 }
@@ -508,17 +486,15 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the maximum x-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The maximum value.
      */
     @Override
     public double getDomainUpperBound(boolean includeInterval) {
         if (includeInterval) {
             return this.intervalDelegate.getDomainUpperBound(includeInterval);
-        }
-        else {
+        } else {
             double result = Double.NaN;
             int seriesCount = getSeriesCount();
             for (int s = 0; s < seriesCount; s++) {
@@ -526,8 +502,7 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
                 double hiX = series.getMaxX();
                 if (Double.isNaN(result)) {
                     result = hiX;
-                }
-                else {
+                } else {
                     if (!Double.isNaN(hiX)) {
                         result = Math.max(result, hiX);
                     }
@@ -540,18 +515,16 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the range of the values in this dataset's domain.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The range (or <code>null</code> if the dataset contains no
-     *     values).
+     * values).
      */
     @Override
     public Range getDomainBounds(boolean includeInterval) {
         if (includeInterval) {
             return this.intervalDelegate.getDomainBounds(includeInterval);
-        }
-        else {
+        } else {
             double lower = Double.POSITIVE_INFINITY;
             double upper = Double.NEGATIVE_INFINITY;
             int seriesCount = getSeriesCount();
@@ -568,8 +541,7 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
             }
             if (lower > upper) {
                 return null;
-            }
-            else {
+            } else {
                 return new Range(lower, upper);
             }
         }
@@ -589,7 +561,7 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
      * Sets the interval width and sends a {@link DatasetChangeEvent} to all
      * registered listeners.
      *
-     * @param width  the width (negative values not permitted).
+     * @param width the width (negative values not permitted).
      */
     public void setIntervalWidth(double width) {
         if (width < 0.0) {
@@ -613,7 +585,7 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
      * relation to the interval surrounding the x-value (0.0 means the x-value
      * will be positioned at the start, 0.5 in the middle, and 1.0 at the end).
      *
-     * @param factor  the factor.
+     * @param factor the factor.
      */
     public void setIntervalPositionFactor(double factor) {
         this.intervalDelegate.setIntervalPositionFactor(factor);
@@ -633,7 +605,7 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
      * Sets the flag that indicates whether the interval width is automatically
      * calculated or not.
      *
-     * @param b  a boolean.
+     * @param b a boolean.
      */
     public void setAutoWidth(boolean b) {
         this.intervalDelegate.setAutoWidth(b);
@@ -643,10 +615,9 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the range of the values in this dataset's range.
      *
-     * @param includeInterval  ignored.
-     *
+     * @param includeInterval ignored.
      * @return The range (or <code>null</code> if the dataset contains no
-     *     values).
+     * values).
      */
     @Override
     public Range getRangeBounds(boolean includeInterval) {
@@ -666,8 +637,7 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
         }
         if (lower > upper) {
             return null;
-        }
-        else {
+        } else {
             return new Range(lower, upper);
         }
     }
@@ -675,9 +645,8 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the minimum y-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         y-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        y-interval is taken into account.
      * @return The minimum value.
      */
     @Override
@@ -689,8 +658,7 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
             double lowY = series.getMinY();
             if (Double.isNaN(result)) {
                 result = lowY;
-            }
-            else {
+            } else {
                 if (!Double.isNaN(lowY)) {
                     result = Math.min(result, lowY);
                 }
@@ -702,9 +670,8 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     /**
      * Returns the maximum y-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         y-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        y-interval is taken into account.
      * @return The maximum value.
      */
     @Override
@@ -716,8 +683,7 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
             double hiY = series.getMaxY();
             if (Double.isNaN(result)) {
                 result = hiY;
-            }
-            else {
+            } else {
                 if (!Double.isNaN(hiY)) {
                     result = Math.max(result, hiY);
                 }
@@ -727,12 +693,11 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
     }
 
     /**
-     * Receives notification that the key for one of the series in the 
-     * collection has changed, and vetos it if the key is already present in 
+     * Receives notification that the key for one of the series in the
+     * collection has changed, and vetos it if the key is already present in
      * the collection.
-     * 
-     * @param e  the event.
-     * 
+     *
+     * @param e the event.
      * @since 1.0.14
      */
     @Override
@@ -742,7 +707,7 @@ public class XYSeriesCollection extends AbstractIntervalXYDataset
         if (!"Key".equals(e.getPropertyName())) {
             return;
         }
-        
+
         // to be defensive, let's check that the source series does in fact
         // belong to this collection
         Series s = (Series) e.getSource();

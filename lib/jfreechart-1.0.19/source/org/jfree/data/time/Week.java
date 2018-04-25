@@ -74,12 +74,13 @@
 
 package org.jfree.data.time;
 
+import org.jfree.chart.util.ParamChecks;
+
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-import org.jfree.chart.util.ParamChecks;
 
 /**
  * A calendar week.  All years are considered to have 53 weeks, numbered from 1
@@ -87,31 +88,42 @@ import org.jfree.chart.util.ParamChecks;
  * 1st week of the year *begins* in the previous calendar year, but it always
  * finishes in the current year (this behaviour matches the workings of the
  * <code>GregorianCalendar</code> class).
- * <P>
+ * <p>
  * This class is immutable, which is a requirement for all
  * {@link RegularTimePeriod} subclasses.
  */
 public class Week extends RegularTimePeriod implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 1856387786939865061L;
-
-    /** Constant for the first week in the year. */
+    /**
+     * Constant for the first week in the year.
+     */
     public static final int FIRST_WEEK_IN_YEAR = 1;
-
-    /** Constant for the last week in the year. */
+    /**
+     * Constant for the last week in the year.
+     */
     public static final int LAST_WEEK_IN_YEAR = 53;
-
-    /** The year in which the week falls. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 1856387786939865061L;
+    /**
+     * The year in which the week falls.
+     */
     private short year;
 
-    /** The week (1-53). */
+    /**
+     * The week (1-53).
+     */
     private byte week;
 
-    /** The first millisecond. */
+    /**
+     * The first millisecond.
+     */
     private long firstMillisecond;
 
-    /** The last millisecond. */
+    /**
+     * The last millisecond.
+     */
     private long lastMillisecond;
 
     /**
@@ -125,8 +137,8 @@ public class Week extends RegularTimePeriod implements Serializable {
     /**
      * Creates a time period representing the week in the specified year.
      *
-     * @param week  the week (1 to 53).
-     * @param year  the year (1900 to 9999).
+     * @param week the week (1 to 53).
+     * @param year the year (1900 to 9999).
      */
     public Week(int week, int year) {
         if ((week < FIRST_WEEK_IN_YEAR) && (week > LAST_WEEK_IN_YEAR)) {
@@ -141,8 +153,8 @@ public class Week extends RegularTimePeriod implements Serializable {
     /**
      * Creates a time period representing the week in the specified year.
      *
-     * @param week  the week (1 to 53).
-     * @param year  the year (1900 to 9999).
+     * @param week the week (1 to 53).
+     * @param year the year (1900 to 9999).
      */
     public Week(int week, Year year) {
         if ((week < FIRST_WEEK_IN_YEAR) && (week > LAST_WEEK_IN_YEAR)) {
@@ -152,7 +164,7 @@ public class Week extends RegularTimePeriod implements Serializable {
         this.week = (byte) week;
         this.year = (short) year.getYear();
         peg(Calendar.getInstance());
-   }
+    }
 
     /**
      * Creates a time period for the week in which the specified date/time
@@ -160,8 +172,7 @@ public class Week extends RegularTimePeriod implements Serializable {
      * day-of-the-week that marks the beginning of the week, as well as the
      * minimal number of days in the first week of the year).
      *
-     * @param time  the time (<code>null</code> not permitted).
-     *
+     * @param time the time (<code>null</code> not permitted).
      * @see #Week(Date, TimeZone, Locale)
      */
     public Week(Date time) {
@@ -173,9 +184,8 @@ public class Week extends RegularTimePeriod implements Serializable {
      * Creates a time period for the week in which the specified date/time
      * falls, calculated relative to the specified time zone.
      *
-     * @param time  the date/time (<code>null</code> not permitted).
-     * @param zone  the time zone (<code>null</code> not permitted).
-     *
+     * @param time the date/time (<code>null</code> not permitted).
+     * @param zone the time zone (<code>null</code> not permitted).
      * @deprecated As of 1.0.7, use {@link #Week(Date, TimeZone, Locale)}.
      */
     public Week(Date time, TimeZone zone) {
@@ -187,10 +197,9 @@ public class Week extends RegularTimePeriod implements Serializable {
      * Creates a time period for the week in which the specified date/time
      * falls, calculated relative to the specified time zone.
      *
-     * @param time  the date/time (<code>null</code> not permitted).
-     * @param zone  the time zone (<code>null</code> not permitted).
-     * @param locale  the locale (<code>null</code> not permitted).
-     *
+     * @param time   the date/time (<code>null</code> not permitted).
+     * @param zone   the time zone (<code>null</code> not permitted).
+     * @param locale the locale (<code>null</code> not permitted).
      * @since 1.0.7
      */
     public Week(Date time, TimeZone zone, Locale locale) {
@@ -208,8 +217,7 @@ public class Week extends RegularTimePeriod implements Serializable {
                 && calendar.get(Calendar.MONTH) == Calendar.DECEMBER) {
             this.week = 1;
             this.year = (short) (calendar.get(Calendar.YEAR) + 1);
-        }
-        else {
+        } else {
             this.week = (byte) Math.min(tempWeek, LAST_WEEK_IN_YEAR);
             int yyyy = calendar.get(Calendar.YEAR);
             // alternatively, sometimes the first few days of the year are
@@ -221,6 +229,129 @@ public class Week extends RegularTimePeriod implements Serializable {
             this.year = (short) yyyy;
         }
         peg(calendar);
+    }
+
+    /**
+     * Parses the string argument as a week.
+     * <p>
+     * This method is required to accept the format "YYYY-Wnn".  It will also
+     * accept "Wnn-YYYY". Anything else, at the moment, is a bonus.
+     *
+     * @param s string to parse.
+     * @return <code>null</code> if the string is not parseable, the week
+     * otherwise.
+     */
+    public static Week parseWeek(String s) {
+
+        Week result = null;
+        if (s != null) {
+
+            // trim whitespace from either end of the string
+            s = s.trim();
+
+            int i = Week.findSeparator(s);
+            if (i != -1) {
+                String s1 = s.substring(0, i).trim();
+                String s2 = s.substring(i + 1, s.length()).trim();
+
+                Year y = Week.evaluateAsYear(s1);
+                int w;
+                if (y != null) {
+                    w = Week.stringToWeek(s2);
+                    if (w == -1) {
+                        throw new TimePeriodFormatException(
+                                "Can't evaluate the week.");
+                    }
+                    result = new Week(w, y);
+                } else {
+                    y = Week.evaluateAsYear(s2);
+                    if (y != null) {
+                        w = Week.stringToWeek(s1);
+                        if (w == -1) {
+                            throw new TimePeriodFormatException(
+                                    "Can't evaluate the week.");
+                        }
+                        result = new Week(w, y);
+                    } else {
+                        throw new TimePeriodFormatException(
+                                "Can't evaluate the year.");
+                    }
+                }
+
+            } else {
+                throw new TimePeriodFormatException(
+                        "Could not find separator.");
+            }
+
+        }
+        return result;
+
+    }
+
+    /**
+     * Finds the first occurrence of ' ', '-', ',' or '.'
+     *
+     * @param s the string to parse.
+     * @return <code>-1</code> if none of the characters was found, the
+     * index of the first occurrence otherwise.
+     */
+    private static int findSeparator(String s) {
+
+        int result = s.indexOf('-');
+        if (result == -1) {
+            result = s.indexOf(',');
+        }
+        if (result == -1) {
+            result = s.indexOf(' ');
+        }
+        if (result == -1) {
+            result = s.indexOf('.');
+        }
+        return result;
+    }
+
+    /**
+     * Creates a year from a string, or returns null (format exceptions
+     * suppressed).
+     *
+     * @param s string to parse.
+     * @return <code>null</code> if the string is not parseable, the year
+     * otherwise.
+     */
+    private static Year evaluateAsYear(String s) {
+
+        Year result = null;
+        try {
+            result = Year.parseYear(s);
+        } catch (TimePeriodFormatException e) {
+            // suppress
+        }
+        return result;
+
+    }
+
+    /**
+     * Converts a string to a week.
+     *
+     * @param s the string to parse.
+     * @return <code>-1</code> if the string does not contain a week number,
+     * the number of the week otherwise.
+     */
+    private static int stringToWeek(String s) {
+
+        int result = -1;
+        s = s.replace('W', ' ');
+        s = s.trim();
+        try {
+            result = Integer.parseInt(s);
+            if ((result < 1) || (result > LAST_WEEK_IN_YEAR)) {
+                result = -1;
+            }
+        } catch (NumberFormatException e) {
+            // suppress
+        }
+        return result;
+
     }
 
     /**
@@ -257,7 +388,6 @@ public class Week extends RegularTimePeriod implements Serializable {
      * {@link #peg(Calendar)} method.
      *
      * @return The first millisecond of the week.
-     *
      * @see #getLastMillisecond()
      */
     @Override
@@ -272,7 +402,6 @@ public class Week extends RegularTimePeriod implements Serializable {
      * {@link #peg(Calendar)} method.
      *
      * @return The last millisecond of the week.
-     *
      * @see #getFirstMillisecond()
      */
     @Override
@@ -284,8 +413,7 @@ public class Week extends RegularTimePeriod implements Serializable {
      * Recalculates the start date/time and end date/time for this time period
      * relative to the supplied calendar (which incorporates a time zone).
      *
-     * @param calendar  the calendar (<code>null</code> not permitted).
-     *
+     * @param calendar the calendar (<code>null</code> not permitted).
      * @since 1.0.3
      */
     @Override
@@ -308,8 +436,7 @@ public class Week extends RegularTimePeriod implements Serializable {
         Week result;
         if (this.week != FIRST_WEEK_IN_YEAR) {
             result = new Week(this.week - 1, this.year);
-        }
-        else {
+        } else {
             // we need to work out if the previous year has 52 or 53 weeks...
             if (this.year > 1900) {
                 int yy = this.year - 1;
@@ -317,8 +444,7 @@ public class Week extends RegularTimePeriod implements Serializable {
                 prevYearCalendar.set(yy, Calendar.DECEMBER, 31);
                 result = new Week(prevYearCalendar.getActualMaximum(
                         Calendar.WEEK_OF_YEAR), yy);
-            }
-            else {
+            } else {
                 result = null;
             }
         }
@@ -341,20 +467,17 @@ public class Week extends RegularTimePeriod implements Serializable {
         Week result;
         if (this.week < 52) {
             result = new Week(this.week + 1, this.year);
-        }
-        else {
+        } else {
             Calendar calendar = Calendar.getInstance();
             calendar.set(this.year, Calendar.DECEMBER, 31);
             int actualMaxWeek
-                = calendar.getActualMaximum(Calendar.WEEK_OF_YEAR);
+                    = calendar.getActualMaximum(Calendar.WEEK_OF_YEAR);
             if (this.week < actualMaxWeek) {
                 result = new Week(this.week + 1, this.year);
-            }
-            else {
+            } else {
                 if (this.year < 9999) {
                     result = new Week(FIRST_WEEK_IN_YEAR, this.year + 1);
-                }
-                else {
+                } else {
                     result = null;
                 }
             }
@@ -377,12 +500,10 @@ public class Week extends RegularTimePeriod implements Serializable {
      * Returns the first millisecond of the week, evaluated using the supplied
      * calendar (which determines the time zone).
      *
-     * @param calendar  the calendar (<code>null</code> not permitted).
-     *
+     * @param calendar the calendar (<code>null</code> not permitted).
      * @return The first millisecond of the week.
-     *
      * @throws NullPointerException if <code>calendar</code> is
-     *     <code>null</code>.
+     *                              <code>null</code>.
      */
     @Override
     public long getFirstMillisecond(Calendar calendar) {
@@ -402,12 +523,10 @@ public class Week extends RegularTimePeriod implements Serializable {
      * Returns the last millisecond of the week, evaluated using the supplied
      * calendar (which determines the time zone).
      *
-     * @param calendar  the calendar (<code>null</code> not permitted).
-     *
+     * @param calendar the calendar (<code>null</code> not permitted).
      * @return The last millisecond of the week.
-     *
      * @throws NullPointerException if <code>calendar</code> is
-     *     <code>null</code>.
+     *                              <code>null</code>.
      */
     @Override
     public long getLastMillisecond(Calendar calendar) {
@@ -425,7 +544,7 @@ public class Week extends RegularTimePeriod implements Serializable {
 
     /**
      * Returns a string representing the week (e.g. "Week 9, 2002").
-     *
+     * <p>
      * TODO: look at internationalisation.
      *
      * @return A string representing the week.
@@ -440,10 +559,9 @@ public class Week extends RegularTimePeriod implements Serializable {
      * true if the target is a Week instance representing the same week as this
      * object.  In all other cases, returns false.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return <code>true</code> if week and year of this and object are the
-     *         same.
+     * same.
      */
     @Override
     public boolean equals(Object obj) {
@@ -485,11 +603,10 @@ public class Week extends RegularTimePeriod implements Serializable {
     /**
      * Returns an integer indicating the order of this Week object relative to
      * the specified object:
-     *
+     * <p>
      * negative == before, zero == same, positive == after.
      *
-     * @param o1  the object to compare.
-     *
+     * @param o1 the object to compare.
      * @return negative == before, zero == same, positive == after.
      */
     @Override
@@ -521,137 +638,6 @@ public class Week extends RegularTimePeriod implements Serializable {
             result = 1;
         }
 
-        return result;
-
-    }
-
-    /**
-     * Parses the string argument as a week.
-     * <P>
-     * This method is required to accept the format "YYYY-Wnn".  It will also
-     * accept "Wnn-YYYY". Anything else, at the moment, is a bonus.
-     *
-     * @param s  string to parse.
-     *
-     * @return <code>null</code> if the string is not parseable, the week
-     *         otherwise.
-     */
-    public static Week parseWeek(String s) {
-
-        Week result = null;
-        if (s != null) {
-
-            // trim whitespace from either end of the string
-            s = s.trim();
-
-            int i = Week.findSeparator(s);
-            if (i != -1) {
-                String s1 = s.substring(0, i).trim();
-                String s2 = s.substring(i + 1, s.length()).trim();
-
-                Year y = Week.evaluateAsYear(s1);
-                int w;
-                if (y != null) {
-                    w = Week.stringToWeek(s2);
-                    if (w == -1) {
-                        throw new TimePeriodFormatException(
-                                "Can't evaluate the week.");
-                    }
-                    result = new Week(w, y);
-                }
-                else {
-                    y = Week.evaluateAsYear(s2);
-                    if (y != null) {
-                        w = Week.stringToWeek(s1);
-                        if (w == -1) {
-                            throw new TimePeriodFormatException(
-                                    "Can't evaluate the week.");
-                        }
-                        result = new Week(w, y);
-                    }
-                    else {
-                        throw new TimePeriodFormatException(
-                                "Can't evaluate the year.");
-                    }
-                }
-
-            }
-            else {
-                throw new TimePeriodFormatException(
-                        "Could not find separator.");
-            }
-
-        }
-        return result;
-
-    }
-
-    /**
-     * Finds the first occurrence of ' ', '-', ',' or '.'
-     *
-     * @param s  the string to parse.
-     *
-     * @return <code>-1</code> if none of the characters was found, the
-     *      index of the first occurrence otherwise.
-     */
-    private static int findSeparator(String s) {
-
-        int result = s.indexOf('-');
-        if (result == -1) {
-            result = s.indexOf(',');
-        }
-        if (result == -1) {
-            result = s.indexOf(' ');
-        }
-        if (result == -1) {
-            result = s.indexOf('.');
-        }
-        return result;
-    }
-
-    /**
-     * Creates a year from a string, or returns null (format exceptions
-     * suppressed).
-     *
-     * @param s  string to parse.
-     *
-     * @return <code>null</code> if the string is not parseable, the year
-     *         otherwise.
-     */
-    private static Year evaluateAsYear(String s) {
-
-        Year result = null;
-        try {
-            result = Year.parseYear(s);
-        }
-        catch (TimePeriodFormatException e) {
-            // suppress
-        }
-        return result;
-
-    }
-
-    /**
-     * Converts a string to a week.
-     *
-     * @param s  the string to parse.
-     * @return <code>-1</code> if the string does not contain a week number,
-     *         the number of the week otherwise.
-     */
-    private static int stringToWeek(String s) {
-
-        int result = -1;
-        s = s.replace('W', ' ');
-        s = s.trim();
-        try {
-            result = Integer.parseInt(s);
-            if ((result < 1) || (result > LAST_WEEK_IN_YEAR)) {
-                result = -1;
-            }
-        }
-        catch (NumberFormatException e) {
-            // suppress
-        }
         return result;
 
     }

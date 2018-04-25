@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -58,43 +58,40 @@
 
 package org.jfree.chart.title;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.chart.block.RectangleConstraint;
 import org.jfree.chart.event.TitleChangeEvent;
-import org.jfree.ui.HorizontalAlignment;
-import org.jfree.ui.RectangleEdge;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.Size2D;
-import org.jfree.ui.VerticalAlignment;
+import org.jfree.ui.*;
 import org.jfree.util.ObjectUtilities;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * A chart title that displays an image.  This is useful, for example, if you
  * have an image of your corporate logo and want to use as a footnote or part
  * of a title in a chart you create.
- * <P>
+ * <p>
  * ImageTitle needs an image passed to it in the constructor.  For ImageTitle
  * to work, you must have already loaded this image from its source (disk or
  * URL).  It is recommended you use something like
  * Toolkit.getDefaultToolkit().getImage() to get the image.  Then, use
  * MediaTracker or some other message to make sure the image is fully loaded
  * from disk.
- * <P>
+ * <p>
  * SPECIAL NOTE:  this class fails to serialize, so if you are
  * relying on your charts to be serializable, please avoid using this class.
  */
 public class ImageTitle extends Title {
 
-    /** The title image. */
+    /**
+     * The title image.
+     */
     private Image image;
 
     /**
      * Creates a new image title.
      *
-     * @param image  the image ({@code null} not permitted).
+     * @param image the image ({@code null} not permitted).
      */
     public ImageTitle(Image image) {
         this(image, image.getHeight(null), image.getWidth(null),
@@ -105,10 +102,10 @@ public class ImageTitle extends Title {
     /**
      * Creates a new image title.
      *
-     * @param image  the image ({@code null} not permitted).
-     * @param position  the title position.
-     * @param horizontalAlignment  the horizontal alignment.
-     * @param verticalAlignment  the vertical alignment.
+     * @param image               the image ({@code null} not permitted).
+     * @param position            the title position.
+     * @param horizontalAlignment the horizontal alignment.
+     * @param verticalAlignment   the vertical alignment.
      */
     public ImageTitle(Image image, RectangleEdge position,
                       HorizontalAlignment horizontalAlignment,
@@ -123,14 +120,14 @@ public class ImageTitle extends Title {
      * Creates a new image title with the given image scaled to the given
      * width and height in the given location.
      *
-     * @param image  the image ({@code null} not permitted).
-     * @param height  the height used to draw the image.
-     * @param width  the width used to draw the image.
-     * @param position  the title position.
-     * @param horizontalAlignment  the horizontal alignment.
-     * @param verticalAlignment  the vertical alignment.
-     * @param padding  the amount of space to leave around the outside of the
-     *                 title.
+     * @param image               the image ({@code null} not permitted).
+     * @param height              the height used to draw the image.
+     * @param width               the width used to draw the image.
+     * @param position            the title position.
+     * @param horizontalAlignment the horizontal alignment.
+     * @param verticalAlignment   the vertical alignment.
+     * @param padding             the amount of space to leave around the outside of the
+     *                            title.
      */
     public ImageTitle(Image image, int height, int width,
                       RectangleEdge position,
@@ -161,7 +158,7 @@ public class ImageTitle extends Title {
      * Sets the image for the title and notifies registered listeners that the
      * title has been modified.
      *
-     * @param image  the new image ({@code null} not permitted).
+     * @param image the new image ({@code null} not permitted).
      */
     public void setImage(Image image) {
         if (image == null) {
@@ -175,9 +172,8 @@ public class ImageTitle extends Title {
      * Arranges the contents of the block, within the given constraints, and
      * returns the block size.
      *
-     * @param g2  the graphics device.
-     * @param constraint  the constraint ({@code null} not permitted).
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint ({@code null} not permitted).
      * @return The block size (in Java2D units, never {@code null}).
      */
     @Override
@@ -192,20 +188,18 @@ public class ImageTitle extends Title {
      * Draws the title on a Java 2D graphics device (such as the screen or a
      * printer).
      *
-     * @param g2  the graphics device.
-     * @param area  the area allocated for the title.
+     * @param g2   the graphics device.
+     * @param area the area allocated for the title.
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D area) {
         RectangleEdge position = getPosition();
         if (position == RectangleEdge.TOP || position == RectangleEdge.BOTTOM) {
             drawHorizontal(g2, area);
-        }
-        else if (position == RectangleEdge.LEFT
-                     || position == RectangleEdge.RIGHT) {
+        } else if (position == RectangleEdge.LEFT
+                || position == RectangleEdge.RIGHT) {
             drawVertical(g2, area);
-        }
-        else {
+        } else {
             throw new RuntimeException("Invalid title position.");
         }
     }
@@ -214,10 +208,9 @@ public class ImageTitle extends Title {
      * Draws the title on a Java 2D graphics device (such as the screen or a
      * printer).
      *
-     * @param g2  the graphics device.
-     * @param chartArea  the area within which the title (and plot) should be
-     *                   drawn.
-     *
+     * @param g2        the graphics device.
+     * @param chartArea the area within which the title (and plot) should be
+     *                  drawn.
      * @return The size of the area used by the title.
      */
     protected Size2D drawHorizontal(Graphics2D g2, Rectangle2D chartArea) {
@@ -237,8 +230,7 @@ public class ImageTitle extends Title {
 
         if (getPosition() == RectangleEdge.TOP) {
             startY = chartArea.getY() + topSpace;
-        }
-        else {
+        } else {
             startY = chartArea.getY() + chartArea.getHeight() - bottomSpace - h;
         }
 
@@ -247,19 +239,17 @@ public class ImageTitle extends Title {
         double startX = 0.0;
         if (horizontalAlignment == HorizontalAlignment.CENTER) {
             startX = chartArea.getX() + leftSpace + chartArea.getWidth() / 2.0
-                     - w / 2.0;
-        }
-        else if (horizontalAlignment == HorizontalAlignment.LEFT) {
+                    - w / 2.0;
+        } else if (horizontalAlignment == HorizontalAlignment.LEFT) {
             startX = chartArea.getX() + leftSpace;
-        }
-        else if (horizontalAlignment == HorizontalAlignment.RIGHT) {
+        } else if (horizontalAlignment == HorizontalAlignment.RIGHT) {
             startX = chartArea.getX() + chartArea.getWidth() - rightSpace - w;
         }
         g2.drawImage(this.image, (int) startX, (int) startY, (int) w, (int) h,
                 null);
 
         return new Size2D(chartArea.getWidth() + leftSpace + rightSpace,
-            h + topSpace + bottomSpace);
+                h + topSpace + bottomSpace);
 
     }
 
@@ -267,10 +257,9 @@ public class ImageTitle extends Title {
      * Draws the title on a Java 2D graphics device (such as the screen or a
      * printer).
      *
-     * @param g2  the graphics device.
-     * @param chartArea  the area within which the title (and plot) should be
-     *                   drawn.
-     *
+     * @param g2        the graphics device.
+     * @param chartArea the area within which the title (and plot) should be
+     *                  drawn.
      * @return The size of the area used by the title.
      */
     protected Size2D drawVertical(Graphics2D g2, Rectangle2D chartArea) {
@@ -294,8 +283,7 @@ public class ImageTitle extends Title {
 
         if (getPosition() == RectangleEdge.LEFT) {
             startX = chartArea.getX() + leftSpace;
-        }
-        else {
+        } else {
             startX = chartArea.getMaxX() - rightSpace - w;
         }
 
@@ -304,12 +292,10 @@ public class ImageTitle extends Title {
         double startY = 0.0;
         if (alignment == VerticalAlignment.CENTER) {
             startY = chartArea.getMinY() + topSpace
-                     + chartArea.getHeight() / 2.0 - h / 2.0;
-        }
-        else if (alignment == VerticalAlignment.TOP) {
+                    + chartArea.getHeight() / 2.0 - h / 2.0;
+        } else if (alignment == VerticalAlignment.TOP) {
             startY = chartArea.getMinY() + topSpace;
-        }
-        else if (alignment == VerticalAlignment.BOTTOM) {
+        } else if (alignment == VerticalAlignment.BOTTOM) {
             startY = chartArea.getMaxY() - bottomSpace - h;
         }
 
@@ -317,17 +303,16 @@ public class ImageTitle extends Title {
                 null);
 
         return new Size2D(chartArea.getWidth() + leftSpace + rightSpace,
-            h + topSpace + bottomSpace);
+                h + topSpace + bottomSpace);
 
     }
 
     /**
      * Draws the block within the specified area.
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
-     * @param params  ignored ({@code null} permitted).
-     *
+     * @param g2     the graphics device.
+     * @param area   the area.
+     * @param params ignored ({@code null} permitted).
      * @return Always {@code null}.
      */
     @Override
@@ -342,12 +327,11 @@ public class ImageTitle extends Title {
      * <ul>
      * <li>{@code obj} is an instance of {@code ImageTitle};
      * <li>{@code obj} references the same image as this
-     *     {@code ImageTitle};
+     * {@code ImageTitle};
      * <li>{@code super.equals(obj)} returns {@code true};
      * </ul>
      *
-     * @param obj  the object ({@code null} permitted).
-     *
+     * @param obj the object ({@code null} permitted).
      * @return A boolean.
      */
     @Override

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -49,28 +49,34 @@ import java.io.Serializable;
  */
 public final class DateTickMarkPosition implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 2540750672764537240L;
-
-    /** Start of period. */
+    /**
+     * Start of period.
+     */
     public static final DateTickMarkPosition START
-        = new DateTickMarkPosition("DateTickMarkPosition.START");
-
-    /** Middle of period. */
+            = new DateTickMarkPosition("DateTickMarkPosition.START");
+    /**
+     * Middle of period.
+     */
     public static final DateTickMarkPosition MIDDLE
-        = new DateTickMarkPosition("DateTickMarkPosition.MIDDLE");
-
-    /** End of period. */
+            = new DateTickMarkPosition("DateTickMarkPosition.MIDDLE");
+    /**
+     * End of period.
+     */
     public static final DateTickMarkPosition END
-        = new DateTickMarkPosition("DateTickMarkPosition.END");
-
-    /** The name. */
+            = new DateTickMarkPosition("DateTickMarkPosition.END");
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 2540750672764537240L;
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private DateTickMarkPosition(String name) {
         this.name = name;
@@ -90,8 +96,7 @@ public final class DateTickMarkPosition implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return A boolean.
      */
     @Override
@@ -115,17 +120,14 @@ public final class DateTickMarkPosition implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         if (this.equals(DateTickMarkPosition.START)) {
             return DateTickMarkPosition.START;
-        }
-        else if (this.equals(DateTickMarkPosition.MIDDLE)) {
+        } else if (this.equals(DateTickMarkPosition.MIDDLE)) {
             return DateTickMarkPosition.MIDDLE;
-        }
-        else if (this.equals(DateTickMarkPosition.END)) {
+        } else if (this.equals(DateTickMarkPosition.END)) {
             return DateTickMarkPosition.END;
         }
         return null;

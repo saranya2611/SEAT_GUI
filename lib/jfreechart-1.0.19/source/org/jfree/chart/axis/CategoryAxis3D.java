@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -57,24 +57,26 @@
 
 package org.jfree.chart.axis;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.Effect3D;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.ui.RectangleEdge;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
+
 /**
  * An axis that displays categories and has a 3D effect.
  * Used for bar charts and line charts.
  */
-public class CategoryAxis3D extends CategoryAxis implements Cloneable, 
+public class CategoryAxis3D extends CategoryAxis implements Cloneable,
         Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 4114732251353700972L;
 
     /**
@@ -87,7 +89,7 @@ public class CategoryAxis3D extends CategoryAxis implements Cloneable,
     /**
      * Creates a new axis using default attribute values.
      *
-     * @param label  the axis label (<code>null</code> permitted).
+     * @param label the axis label (<code>null</code> permitted).
      */
     public CategoryAxis3D(String label) {
         super(label);
@@ -97,22 +99,21 @@ public class CategoryAxis3D extends CategoryAxis implements Cloneable,
      * Draws the axis on a Java 2D graphics device (such as the screen or a
      * printer).
      *
-     * @param g2  the graphics device (<code>null</code> not permitted).
-     * @param cursor  the cursor location.
+     * @param g2        the graphics device (<code>null</code> not permitted).
+     * @param cursor    the cursor location.
      * @param plotArea  the area within which the axis should be drawn
      *                  (<code>null</code> not permitted).
      * @param dataArea  the area within which the plot is being drawn
      *                  (<code>null</code> not permitted).
-     * @param edge  the location of the axis (<code>null</code> not permitted).
-     * @param plotState  collects information about the plot (<code>null</code>
-     *                   permitted).
-     *
+     * @param edge      the location of the axis (<code>null</code> not permitted).
+     * @param plotState collects information about the plot (<code>null</code>
+     *                  permitted).
      * @return The axis state (never <code>null</code>).
      */
     @Override
     public AxisState draw(Graphics2D g2, double cursor, Rectangle2D plotArea,
-            Rectangle2D dataArea, RectangleEdge edge, 
-            PlotRenderingInfo plotState) {
+                          Rectangle2D dataArea, RectangleEdge edge,
+                          PlotRenderingInfo plotState) {
 
         // if the axis is not visible, don't draw it...
         if (!isVisible()) {
@@ -134,14 +135,12 @@ public class CategoryAxis3D extends CategoryAxis implements Cloneable,
 
             if (edge == RectangleEdge.LEFT || edge == RectangleEdge.BOTTOM) {
                 adjustedY += e3D.getYOffset();
-            }
-            else if (edge == RectangleEdge.RIGHT || edge == RectangleEdge.TOP) {
+            } else if (edge == RectangleEdge.RIGHT || edge == RectangleEdge.TOP) {
                 adjustedX += e3D.getXOffset();
             }
             adjustedDataArea.setRect(adjustedX, adjustedY, adjustedW,
                     adjustedH);
-        }
-        else {
+        } else {
             adjustedDataArea.setRect(dataArea);
         }
 
@@ -156,9 +155,9 @@ public class CategoryAxis3D extends CategoryAxis implements Cloneable,
         state = drawCategoryLabels(g2, plotArea, adjustedDataArea, edge,
                 state, plotState);
         if (getAttributedLabel() != null) {
-            state = drawAttributedLabel(getAttributedLabel(), g2, plotArea, 
+            state = drawAttributedLabel(getAttributedLabel(), g2, plotArea,
                     dataArea, edge, state);
-            
+
         } else {
             state = drawLabel(getLabel(), g2, plotArea, dataArea, edge, state);
         }
@@ -168,18 +167,17 @@ public class CategoryAxis3D extends CategoryAxis implements Cloneable,
     /**
      * Returns the Java 2D coordinate for a category.
      *
-     * @param anchor  the anchor point.
-     * @param category  the category index.
-     * @param categoryCount  the category count.
-     * @param area  the data area.
-     * @param edge  the location of the axis.
-     *
+     * @param anchor        the anchor point.
+     * @param category      the category index.
+     * @param categoryCount the category count.
+     * @param area          the data area.
+     * @param edge          the location of the axis.
      * @return The coordinate.
      */
     @Override
-    public double getCategoryJava2DCoordinate(CategoryAnchor anchor, 
-            int category, int categoryCount, Rectangle2D area, 
-            RectangleEdge edge) {
+    public double getCategoryJava2DCoordinate(CategoryAnchor anchor,
+                                              int category, int categoryCount, Rectangle2D area,
+                                              RectangleEdge edge) {
 
         double result = 0.0;
         Rectangle2D adjustedArea = area;
@@ -194,8 +192,7 @@ public class CategoryAxis3D extends CategoryAxis implements Cloneable,
 
             if (edge == RectangleEdge.LEFT || edge == RectangleEdge.BOTTOM) {
                 adjustedY += e3D.getYOffset();
-            }
-            else if (edge == RectangleEdge.RIGHT || edge == RectangleEdge.TOP) {
+            } else if (edge == RectangleEdge.RIGHT || edge == RectangleEdge.TOP) {
                 adjustedX += e3D.getXOffset();
             }
             adjustedArea = new Rectangle2D.Double(adjustedX, adjustedY,
@@ -205,12 +202,10 @@ public class CategoryAxis3D extends CategoryAxis implements Cloneable,
         if (anchor == CategoryAnchor.START) {
             result = getCategoryStart(category, categoryCount, adjustedArea,
                     edge);
-        }
-        else if (anchor == CategoryAnchor.MIDDLE) {
+        } else if (anchor == CategoryAnchor.MIDDLE) {
             result = getCategoryMiddle(category, categoryCount, adjustedArea,
                     edge);
-        }
-        else if (anchor == CategoryAnchor.END) {
+        } else if (anchor == CategoryAnchor.END) {
             result = getCategoryEnd(category, categoryCount, adjustedArea,
                     edge);
         }
@@ -222,9 +217,8 @@ public class CategoryAxis3D extends CategoryAxis implements Cloneable,
      * Returns a clone of the axis.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException If the axis is not cloneable for
-     *         some reason.
+     *                                    some reason.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

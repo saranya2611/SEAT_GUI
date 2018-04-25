@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -51,18 +51,24 @@ import org.jfree.data.Range;
  * accommodate non-grid data.
  *
  * @deprecated This class is no longer supported (as of version 1.0.4).  If
- *     you are creating contour plots, please try to use {@link XYPlot} and
- *     {@link XYBlockRenderer}.
+ * you are creating contour plots, please try to use {@link XYPlot} and
+ * {@link XYBlockRenderer}.
  */
 public class NonGridContourDataset extends DefaultContourDataset {
 
-    /** Default number of x values. */
+    /**
+     * Default number of x values.
+     */
     static final int DEFAULT_NUM_X = 50;
 
-    /** Default number of y values. */
+    /**
+     * Default number of y values.
+     */
     static final int DEFAULT_NUM_Y = 50;
 
-    /** Default power. */
+    /**
+     * Default power.
+     */
     static final int DEFAULT_POWER = 4;
 
     /**
@@ -76,10 +82,10 @@ public class NonGridContourDataset extends DefaultContourDataset {
      * Constructor for NonGridContourDataset.  Uses default values for grid
      * dimensions and weighting.
      *
-     * @param seriesName  the series name.
-     * @param xData  the x values.
-     * @param yData  the y values.
-     * @param zData  the z values.
+     * @param seriesName the series name.
+     * @param xData      the x values.
+     * @param yData      the y values.
+     * @param zData      the z values.
      */
     public NonGridContourDataset(String seriesName,
                                  Object[] xData, Object[] yData,
@@ -91,13 +97,13 @@ public class NonGridContourDataset extends DefaultContourDataset {
     /**
      * Constructor for NonGridContourDataset.
      *
-     * @param seriesName  the series name.
-     * @param xData  the x values.
-     * @param yData  the y values.
-     * @param zData  the z values.
-     * @param numX  number grid cells in along the x-axis
-     * @param numY  number grid cells in along the y-axis
-     * @param power  exponent for inverse distance weighting
+     * @param seriesName the series name.
+     * @param xData      the x values.
+     * @param yData      the y values.
+     * @param zData      the z values.
+     * @param numX       number grid cells in along the x-axis
+     * @param numY       number grid cells in along the y-axis
+     * @param power      exponent for inverse distance weighting
      */
     public NonGridContourDataset(String seriesName,
                                  Object[] xData, Object[] yData,
@@ -116,14 +122,14 @@ public class NonGridContourDataset extends DefaultContourDataset {
      *
      * @param numX  number grid points in along the x-axis
      * @param numY  number grid points in along the y-axis
-     * @param power  exponent for inverse distance weighting
+     * @param power exponent for inverse distance weighting
      */
     protected void buildGrid(int numX, int numY, int power) {
 
         int numValues = numX * numY;
         double[] xGrid = new double[numValues];
-        double[] yGrid = new double [numValues];
-        double[] zGrid = new double [numValues];
+        double[] yGrid = new double[numValues];
+        double[] zGrid = new double[numValues];
 
         // Find min, max for the x and y axes
         double xMin = 1.e20;
@@ -161,8 +167,7 @@ public class NonGridContourDataset extends DefaultContourDataset {
         for (int i = 0; i < numX; i++) {
             if (i == 0) {
                 x = xMin;
-            }
-            else {
+            } else {
                 x += dxGrid;
             }
             double y = 0.0;
@@ -171,8 +176,7 @@ public class NonGridContourDataset extends DefaultContourDataset {
                 xGrid[k] = x;
                 if (j == 0) {
                     y = yMin;
-                }
-                else {
+                } else {
                     y += dyGrid;
                 }
                 yGrid[k] = y;
@@ -193,9 +197,8 @@ public class NonGridContourDataset extends DefaultContourDataset {
                 d = Math.sqrt(d);
                 if (d > 0.0) {
                     d = 1.0 / d;
-                }
-                else { // if d is real small set the inverse to a large number
-                       // to avoid INF
+                } else { // if d is real small set the inverse to a large number
+                    // to avoid INF
                     d = 1.e20;
                 }
                 if (this.zValues[k] != null) {
@@ -209,8 +212,8 @@ public class NonGridContourDataset extends DefaultContourDataset {
 
         //initalize xValues, yValues, and zValues arrays.
         initialize(
-            formObjectArray(xGrid), formObjectArray(yGrid),
-            formObjectArray(zGrid)
+                formObjectArray(xGrid), formObjectArray(yGrid),
+                formObjectArray(zGrid)
         );
 
     }
@@ -218,11 +221,10 @@ public class NonGridContourDataset extends DefaultContourDataset {
     /**
      * Calculates the distance between two points.
      *
-     * @param xDataPt  the x coordinate.
-     * @param yDataPt  the y coordinate.
+     * @param xDataPt the x coordinate.
+     * @param yDataPt the y coordinate.
      * @param xGrdPt  the x grid coordinate.
      * @param yGrdPt  the y grid coordinate.
-     *
      * @return The distance between two points.
      */
     protected double distance(double xDataPt,

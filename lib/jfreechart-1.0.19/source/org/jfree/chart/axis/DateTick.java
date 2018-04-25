@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------
@@ -43,29 +43,31 @@
 
 package org.jfree.chart.axis;
 
-import java.util.Date;
-
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.ui.TextAnchor;
 import org.jfree.util.ObjectUtilities;
+
+import java.util.Date;
 
 /**
  * A tick used by the {@link DateAxis} class.
  */
 public class DateTick extends ValueTick {
 
-    /** The date. */
+    /**
+     * The date.
+     */
     private Date date;
 
     /**
      * Creates a new date tick.
      *
-     * @param date  the date.
-     * @param label  the label.
-     * @param textAnchor  the part of the label that is aligned to the anchor
-     *                    point.
-     * @param rotationAnchor  defines the rotation point relative to the text.
-     * @param angle  the rotation angle (in radians).
+     * @param date           the date.
+     * @param label          the label.
+     * @param textAnchor     the part of the label that is aligned to the anchor
+     *                       point.
+     * @param rotationAnchor defines the rotation point relative to the text.
+     * @param angle          the rotation angle (in radians).
      */
     public DateTick(Date date, String label,
                     TextAnchor textAnchor, TextAnchor rotationAnchor,
@@ -76,14 +78,13 @@ public class DateTick extends ValueTick {
     /**
      * Creates a new date tick.
      *
-     * @param tickType the tick type (<code>null</code> not permitted).
-     * @param date  the date.
-     * @param label  the label.
-     * @param textAnchor  the part of the label that is aligned to the anchor
-     *                    point.
-     * @param rotationAnchor  defines the rotation point relative to the text.
-     * @param angle  the rotation angle (in radians).
-     *
+     * @param tickType       the tick type (<code>null</code> not permitted).
+     * @param date           the date.
+     * @param label          the label.
+     * @param textAnchor     the part of the label that is aligned to the anchor
+     *                       point.
+     * @param rotationAnchor defines the rotation point relative to the text.
+     * @param angle          the rotation angle (in radians).
      * @since 1.0.12
      */
     public DateTick(TickType tickType, Date date, String label,
@@ -107,8 +108,7 @@ public class DateTick extends ValueTick {
     /**
      * Tests this tick for equality with an arbitrary object.
      *
-     * @param obj  the object to test (<code>null</code> permitted).
-     *
+     * @param obj the object to test (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

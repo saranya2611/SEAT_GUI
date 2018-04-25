@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -40,12 +40,10 @@
 
 package org.jfree.data.statistics;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link SimpleHistogramBin} class.
@@ -66,7 +64,7 @@ public class SimpleHistogramBinTest {
         assertFalse(bin1.accepts(Double.NaN));
 
         SimpleHistogramBin bin2
-            = new SimpleHistogramBin(1.0, 2.0, false, false);
+                = new SimpleHistogramBin(1.0, 2.0, false, false);
         assertFalse(bin2.accepts(0.0));
         assertFalse(bin2.accepts(1.0));
         assertTrue(bin2.accepts(1.5));

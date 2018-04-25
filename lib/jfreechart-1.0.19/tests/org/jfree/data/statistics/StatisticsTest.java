@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -41,19 +41,22 @@
 
 package org.jfree.data.statistics;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the {@link Statistics} class.
  */
 public class StatisticsTest {
+
+    static final double EPSILON = 0.0000000001;
 
     /**
      * Some checks for the calculateMean(Number[]) and
@@ -66,8 +69,7 @@ public class StatisticsTest {
         boolean pass = false;
         try {
             Statistics.calculateMean((Number[]) null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -75,8 +77,7 @@ public class StatisticsTest {
         pass = false;
         try {
             Statistics.calculateMean((Number[]) null, false);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -87,19 +88,19 @@ public class StatisticsTest {
                 false)));
 
         // try an array containing a single Number
-        Number[] values = new Number[] {new Double(1.0)};
+        Number[] values = new Number[]{new Double(1.0)};
         assertEquals(1.0, Statistics.calculateMean(values), EPSILON);
         assertEquals(1.0, Statistics.calculateMean(values, true), EPSILON);
         assertEquals(1.0, Statistics.calculateMean(values, false), EPSILON);
 
         // try an array containing a single Number and a null
-        values = new Number[] {new Double(1.0), null};
+        values = new Number[]{new Double(1.0), null};
         assertTrue(Double.isNaN(Statistics.calculateMean(values)));
         assertTrue(Double.isNaN(Statistics.calculateMean(values, true)));
         assertEquals(1.0, Statistics.calculateMean(values, false), EPSILON);
 
         // try an array containing a single Number and a NaN
-        values = new Number[] {new Double(1.0), new Double(Double.NaN)};
+        values = new Number[]{new Double(1.0), new Double(Double.NaN)};
         assertTrue(Double.isNaN(Statistics.calculateMean(values)));
         assertTrue(Double.isNaN(Statistics.calculateMean(values, true)));
         assertEquals(1.0, Statistics.calculateMean(values, false), EPSILON);
@@ -116,8 +117,7 @@ public class StatisticsTest {
         boolean pass = false;
         try {
             Statistics.calculateMean((Collection) null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -125,8 +125,7 @@ public class StatisticsTest {
         pass = false;
         try {
             Statistics.calculateMean((Collection) null, false);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -171,8 +170,6 @@ public class StatisticsTest {
         assertTrue(Double.isNaN(Statistics.calculateMean(values)));
     }
 
-    static final double EPSILON = 0.0000000001;
-
     /**
      * Some checks for the calculateMedian(List, boolean) method.
      */
@@ -193,8 +190,7 @@ public class StatisticsTest {
         boolean pass = false;
         try {
             Statistics.calculateMedian(list, false);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -202,8 +198,7 @@ public class StatisticsTest {
         pass = false;
         try {
             Statistics.calculateMedian(list, true);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -214,8 +209,7 @@ public class StatisticsTest {
         pass = false;
         try {
             Statistics.calculateMedian(list, false);
-        }
-        catch (ClassCastException e) {
+        } catch (ClassCastException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -223,8 +217,7 @@ public class StatisticsTest {
         pass = false;
         try {
             Statistics.calculateMedian(list, true);
-        }
-        catch (ClassCastException e) {
+        } catch (ClassCastException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -380,7 +373,7 @@ public class StatisticsTest {
 
     /**
      * A simple test for the correlation calculation.
-     *
+     * <p>
      * http://trochim.human.cornell.edu/kb/statcorr.htm
      */
     @Test
@@ -441,8 +434,7 @@ public class StatisticsTest {
         boolean pass = false;
         try {
             Statistics.getStdDev(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -451,8 +443,7 @@ public class StatisticsTest {
         pass = false;
         try {
             Statistics.getStdDev(new Double[0]);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);

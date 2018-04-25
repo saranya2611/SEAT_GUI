@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------
@@ -44,19 +44,6 @@
 
 package org.jfree.chart.annotations;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
@@ -71,6 +58,15 @@ import org.jfree.text.TextUtilities;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * An arrow and label that can be placed on a {@link CategoryPlot}.  The arrow
@@ -90,25 +86,33 @@ import org.jfree.util.PublicCloneable;
 public class CategoryPointerAnnotation extends CategoryTextAnnotation
         implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -4031161445009858551L;
-
-    /** The default tip radius (in Java2D units). */
+    /**
+     * The default tip radius (in Java2D units).
+     */
     public static final double DEFAULT_TIP_RADIUS = 10.0;
-
-    /** The default base radius (in Java2D units). */
+    /**
+     * The default base radius (in Java2D units).
+     */
     public static final double DEFAULT_BASE_RADIUS = 30.0;
-
-    /** The default label offset (in Java2D units). */
+    /**
+     * The default label offset (in Java2D units).
+     */
     public static final double DEFAULT_LABEL_OFFSET = 3.0;
-
-    /** The default arrow length (in Java2D units). */
+    /**
+     * The default arrow length (in Java2D units).
+     */
     public static final double DEFAULT_ARROW_LENGTH = 5.0;
-
-    /** The default arrow width (in Java2D units). */
+    /**
+     * The default arrow width (in Java2D units).
+     */
     public static final double DEFAULT_ARROW_WIDTH = 3.0;
-
-    /** The angle of the arrow's line (in radians). */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -4031161445009858551L;
+    /**
+     * The angle of the arrow's line (in radians).
+     */
     private double angle;
 
     /**
@@ -123,31 +127,41 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      */
     private double baseRadius;
 
-    /** The length of the arrow head (in Java2D units). */
+    /**
+     * The length of the arrow head (in Java2D units).
+     */
     private double arrowLength;
 
-    /** The arrow width (in Java2D units, per side). */
+    /**
+     * The arrow width (in Java2D units, per side).
+     */
     private double arrowWidth;
 
-    /** The arrow stroke. */
+    /**
+     * The arrow stroke.
+     */
     private transient Stroke arrowStroke;
 
-    /** The arrow paint. */
+    /**
+     * The arrow paint.
+     */
     private transient Paint arrowPaint;
 
-    /** The radius from the base point to the anchor point for the label. */
+    /**
+     * The radius from the base point to the anchor point for the label.
+     */
     private double labelOffset;
 
     /**
      * Creates a new label and arrow annotation.
      *
-     * @param label  the label (<code>null</code> permitted).
-     * @param key  the category key.
-     * @param value  the y-value (measured against the chart's range axis).
-     * @param angle  the angle of the arrow's line (in radians).
+     * @param label the label (<code>null</code> permitted).
+     * @param key   the category key.
+     * @param value the y-value (measured against the chart's range axis).
+     * @param angle the angle of the arrow's line (in radians).
      */
     public CategoryPointerAnnotation(String label, Comparable key, double value,
-            double angle) {
+                                     double angle) {
 
         super(label, key, value);
         this.angle = angle;
@@ -165,7 +179,6 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Returns the angle of the arrow.
      *
      * @return The angle (in radians).
-     *
      * @see #setAngle(double)
      */
     public double getAngle() {
@@ -176,8 +189,7 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Sets the angle of the arrow and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param angle  the angle (in radians).
-     *
+     * @param angle the angle (in radians).
      * @see #getAngle()
      */
     public void setAngle(double angle) {
@@ -189,7 +201,6 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Returns the tip radius.
      *
      * @return The tip radius (in Java2D units).
-     *
      * @see #setTipRadius(double)
      */
     public double getTipRadius() {
@@ -200,8 +211,7 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Sets the tip radius and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param radius  the radius (in Java2D units).
-     *
+     * @param radius the radius (in Java2D units).
      * @see #getTipRadius()
      */
     public void setTipRadius(double radius) {
@@ -213,7 +223,6 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Returns the base radius.
      *
      * @return The base radius (in Java2D units).
-     *
      * @see #setBaseRadius(double)
      */
     public double getBaseRadius() {
@@ -224,8 +233,7 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Sets the base radius and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param radius  the radius (in Java2D units).
-     *
+     * @param radius the radius (in Java2D units).
      * @see #getBaseRadius()
      */
     public void setBaseRadius(double radius) {
@@ -237,7 +245,6 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Returns the label offset.
      *
      * @return The label offset (in Java2D units).
-     *
      * @see #setLabelOffset(double)
      */
     public double getLabelOffset() {
@@ -249,8 +256,7 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * line, in Java2D units) and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param offset  the offset (in Java2D units).
-     *
+     * @param offset the offset (in Java2D units).
      * @see #getLabelOffset()
      */
     public void setLabelOffset(double offset) {
@@ -262,7 +268,6 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Returns the arrow length.
      *
      * @return The arrow length.
-     *
      * @see #setArrowLength(double)
      */
     public double getArrowLength() {
@@ -273,8 +278,7 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Sets the arrow length and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param length  the length.
-     *
+     * @param length the length.
      * @see #getArrowLength()
      */
     public void setArrowLength(double length) {
@@ -286,7 +290,6 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Returns the arrow width.
      *
      * @return The arrow width (in Java2D units).
-     *
      * @see #setArrowWidth(double)
      */
     public double getArrowWidth() {
@@ -297,8 +300,7 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Sets the arrow width and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param width  the width (in Java2D units).
-     *
+     * @param width the width (in Java2D units).
      * @see #getArrowWidth()
      */
     public void setArrowWidth(double width) {
@@ -310,7 +312,6 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Returns the stroke used to draw the arrow line.
      *
      * @return The arrow stroke (never <code>null</code>).
-     *
      * @see #setArrowStroke(Stroke)
      */
     public Stroke getArrowStroke() {
@@ -321,8 +322,7 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Sets the stroke used to draw the arrow line and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param stroke  the stroke (<code>null</code> not permitted).
-     *
+     * @param stroke the stroke (<code>null</code> not permitted).
      * @see #getArrowStroke()
      */
     public void setArrowStroke(Stroke stroke) {
@@ -335,7 +335,6 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Returns the paint used for the arrow.
      *
      * @return The arrow paint (never <code>null</code>).
-     *
      * @see #setArrowPaint(Paint)
      */
     public Paint getArrowPaint() {
@@ -346,8 +345,7 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Sets the paint used for the arrow and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param paint  the arrow paint (<code>null</code> not permitted).
-     *
+     * @param paint the arrow paint (<code>null</code> not permitted).
      * @see #getArrowPaint()
      */
     public void setArrowPaint(Paint paint) {
@@ -359,15 +357,15 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
     /**
      * Draws the annotation.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param plot       the plot.
+     * @param dataArea   the data area.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
      */
     @Override
     public void draw(Graphics2D g2, CategoryPlot plot, Rectangle2D dataArea,
-            CategoryAxis domainAxis, ValueAxis rangeAxis) {
+                     CategoryAxis domainAxis, ValueAxis rangeAxis) {
 
         PlotOrientation orientation = plot.getOrientation();
         RectangleEdge domainEdge = Plot.resolveDomainAxisLocation(
@@ -395,14 +393,14 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
         double arrowBaseY = endY + Math.sin(this.angle) * this.arrowLength;
 
         double arrowLeftX = arrowBaseX
-            + Math.cos(this.angle + Math.PI / 2.0) * this.arrowWidth;
+                + Math.cos(this.angle + Math.PI / 2.0) * this.arrowWidth;
         double arrowLeftY = arrowBaseY
-            + Math.sin(this.angle + Math.PI / 2.0) * this.arrowWidth;
+                + Math.sin(this.angle + Math.PI / 2.0) * this.arrowWidth;
 
         double arrowRightX = arrowBaseX
-            - Math.cos(this.angle + Math.PI / 2.0) * this.arrowWidth;
+                - Math.cos(this.angle + Math.PI / 2.0) * this.arrowWidth;
         double arrowRightY = arrowBaseY
-            - Math.sin(this.angle + Math.PI / 2.0) * this.arrowWidth;
+                - Math.sin(this.angle + Math.PI / 2.0) * this.arrowWidth;
 
         GeneralPath arrow = new GeneralPath();
         arrow.moveTo((float) endX, (float) endY);
@@ -420,10 +418,11 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
         g2.setFont(getFont());
         g2.setPaint(getPaint());
         double labelX = j2DX
-            + Math.cos(this.angle) * (this.baseRadius + this.labelOffset);
+                + Math.cos(this.angle) * (this.baseRadius + this.labelOffset);
         double labelY = j2DY
-            + Math.sin(this.angle) * (this.baseRadius + this.labelOffset);
-        /* Rectangle2D hotspot = */ TextUtilities.drawAlignedString(getText(),
+                + Math.sin(this.angle) * (this.baseRadius + this.labelOffset);
+        /* Rectangle2D hotspot = */
+        TextUtilities.drawAlignedString(getText(),
                 g2, (float) labelX, (float) labelY, getTextAnchor());
         // TODO: implement the entity for the annotation
 
@@ -432,8 +431,7 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
     /**
      * Tests this annotation for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return <code>true</code> or <code>false</code>.
      */
     @Override
@@ -505,8 +503,7 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * Returns a clone of the annotation.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the annotation can't be cloned.
+     * @throws CloneNotSupportedException if the annotation can't be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -516,8 +513,7 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
+     * @param stream the output stream.
      * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
@@ -529,13 +525,12 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.arrowPaint = SerialUtilities.readPaint(stream);
         this.arrowStroke = SerialUtilities.readStroke(stream);

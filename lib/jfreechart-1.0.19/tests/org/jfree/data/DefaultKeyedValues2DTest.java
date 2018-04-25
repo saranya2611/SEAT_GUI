@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------
@@ -46,17 +46,17 @@
 
 package org.jfree.data;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link DefaultKeyedValues2D} class.
  */
 public class DefaultKeyedValues2DTest {
+
+    private static final double EPSILON = 0.0000000001;
 
     /**
      * Some checks for the getValue() method.
@@ -69,8 +69,7 @@ public class DefaultKeyedValues2DTest {
         boolean pass = false;
         try {
             d.getValue("XX", "C1");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -78,8 +77,7 @@ public class DefaultKeyedValues2DTest {
         pass = false;
         try {
             d.getValue("R1", "XX");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -115,7 +113,7 @@ public class DefaultKeyedValues2DTest {
         kv2D1.addValue(new Double(345.9), "Row2", "Col1");
         kv2D1.addValue(new Double(452.7), "Row2", "Col2");
 
-        DefaultKeyedValues2D kv2D2 = (DefaultKeyedValues2D) 
+        DefaultKeyedValues2D kv2D2 = (DefaultKeyedValues2D)
                 TestUtilities.serialised(kv2D1);
         assertEquals(kv2D1, kv2D2);
     }
@@ -178,8 +176,6 @@ public class DefaultKeyedValues2DTest {
         assertEquals(2, d.getColumnCount());
     }
 
-    private static final double EPSILON = 0.0000000001;
-
     /**
      * Some basic checks for the getValue(int, int) method.
      */
@@ -189,8 +185,7 @@ public class DefaultKeyedValues2DTest {
         boolean pass = false;
         try {
             d.getValue(0, 0);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -204,8 +199,7 @@ public class DefaultKeyedValues2DTest {
         pass = false;
         try {
             d.getValue(2, 0);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -220,8 +214,7 @@ public class DefaultKeyedValues2DTest {
         boolean pass = false;
         try {
             d.getRowKey(0);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -248,8 +241,7 @@ public class DefaultKeyedValues2DTest {
         boolean pass = false;
         try {
             d.getColumnKey(0);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -302,8 +294,7 @@ public class DefaultKeyedValues2DTest {
         boolean pass = false;
         try {
             d.removeRow(0);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -325,8 +316,7 @@ public class DefaultKeyedValues2DTest {
         boolean pass = false;
         try {
             d.removeColumn("XXX");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);

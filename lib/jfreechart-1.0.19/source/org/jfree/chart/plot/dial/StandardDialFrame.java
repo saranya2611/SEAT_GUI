@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -43,12 +43,13 @@
 
 package org.jfree.chart.plot.dial;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
+import org.jfree.chart.HashUtilities;
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
@@ -56,12 +57,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
-import org.jfree.chart.HashUtilities;
-import org.jfree.chart.util.ParamChecks;
-import org.jfree.io.SerialUtilities;
-import org.jfree.util.PaintUtilities;
-import org.jfree.util.PublicCloneable;
 
 /**
  * A simple circular frame for the {@link DialPlot} class.
@@ -71,10 +66,14 @@ import org.jfree.util.PublicCloneable;
 public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
         Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = 1016585407507121596L;
 
-    /** The outer radius, relative to the framing rectangle. */
+    /**
+     * The outer radius, relative to the framing rectangle.
+     */
     private double radius;
 
     /**
@@ -109,7 +108,6 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns the radius, relative to the framing rectangle.
      *
      * @return The radius.
-     *
      * @see #setRadius(double)
      */
     public double getRadius() {
@@ -120,8 +118,7 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
      * Sets the radius and sends a {@link DialLayerChangeEvent} to all
      * registered listeners.
      *
-     * @param radius  the radius (must be positive).
-     *
+     * @param radius the radius (must be positive).
      * @see #getRadius()
      */
     public void setRadius(double radius) {
@@ -137,7 +134,6 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns the background paint.
      *
      * @return The background paint (never <code>null</code>).
-     *
      * @see #setBackgroundPaint(Paint)
      */
     public Paint getBackgroundPaint() {
@@ -148,8 +144,7 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
      * Sets the background paint and sends a {@link DialLayerChangeEvent} to
      * all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getBackgroundPaint()
      */
     public void setBackgroundPaint(Paint paint) {
@@ -162,7 +157,6 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns the foreground paint.
      *
      * @return The foreground paint (never <code>null</code>).
-     *
      * @see #setForegroundPaint(Paint)
      */
     public Paint getForegroundPaint() {
@@ -173,8 +167,7 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
      * Sets the foreground paint and sends a {@link DialLayerChangeEvent} to
      * all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getForegroundPaint()
      */
     public void setForegroundPaint(Paint paint) {
@@ -187,7 +180,6 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns the stroke for the frame.
      *
      * @return The stroke (never <code>null</code>).
-     *
      * @see #setStroke(Stroke)
      */
     public Stroke getStroke() {
@@ -198,8 +190,7 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
      * Sets the stroke and sends a {@link DialLayerChangeEvent} to all
      * registered listeners.
      *
-     * @param stroke  the stroke (<code>null</code> not permitted).
-     *
+     * @param stroke the stroke (<code>null</code> not permitted).
      * @see #getStroke()
      */
     public void setStroke(Stroke stroke) {
@@ -212,8 +203,7 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns the shape for the window for this dial.  Some dial layers will
      * request that their drawing be clipped within this window.
      *
-     * @param frame  the reference frame (<code>null</code> not permitted).
-     *
+     * @param frame the reference frame (<code>null</code> not permitted).
      * @return The shape of the dial's window.
      */
     @Override
@@ -239,14 +229,14 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
      * Draws the frame.  This method is called by the {@link DialPlot} class,
      * you shouldn't need to call it directly.
      *
-     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param g2    the graphics target (<code>null</code> not permitted).
      * @param plot  the plot (<code>null</code> not permitted).
-     * @param frame  the frame (<code>null</code> not permitted).
+     * @param frame the frame (<code>null</code> not permitted).
      * @param view  the view (<code>null</code> not permitted).
      */
     @Override
     public void draw(Graphics2D g2, DialPlot plot, Rectangle2D frame,
-            Rectangle2D view) {
+                     Rectangle2D view) {
 
         Shape window = getWindow(frame);
 
@@ -270,8 +260,7 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -320,9 +309,8 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
      * Returns a clone of this instance.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if any of the frame's attributes
-     *     cannot be cloned.
+     *                                    cannot be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -332,9 +320,8 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -346,10 +333,9 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {

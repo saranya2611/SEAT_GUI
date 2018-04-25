@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -55,8 +55,7 @@ public class EncoderUtil {
      * Encode the image in a specific format.
      *
      * @param image  The image to be encoded.
-     * @param format  The {@link ImageFormat} to use.
-     *
+     * @param format The {@link ImageFormat} to use.
      * @return The byte[] that is the encoded image.
      * @throws IOException if there is an IO problem.
      */
@@ -69,16 +68,16 @@ public class EncoderUtil {
     /**
      * Encode the image in a specific format.
      *
-     * @param image  The image to be encoded.
-     * @param format  The {@link ImageFormat} to use.
-     * @param encodeAlpha  Whether to encode alpha transparency (not supported
-     *                     by all ImageEncoders).
+     * @param image       The image to be encoded.
+     * @param format      The {@link ImageFormat} to use.
+     * @param encodeAlpha Whether to encode alpha transparency (not supported
+     *                    by all ImageEncoders).
      * @return The byte[] that is the encoded image.
      * @throws IOException if there is an IO problem.
      */
     public static byte[] encode(BufferedImage image, String format,
-            boolean encodeAlpha) throws IOException {
-        ImageEncoder imageEncoder = ImageEncoderFactory.newInstance(format, 
+                                boolean encodeAlpha) throws IOException {
+        ImageEncoder imageEncoder = ImageEncoderFactory.newInstance(format,
                 encodeAlpha);
         return imageEncoder.encode(image);
     }
@@ -86,16 +85,16 @@ public class EncoderUtil {
     /**
      * Encode the image in a specific format.
      *
-     * @param image  The image to be encoded.
+     * @param image   The image to be encoded.
      * @param format  The {@link ImageFormat} to use.
-     * @param quality  The quality to use for the image encoding (not supported
-     *                 by all ImageEncoders).
+     * @param quality The quality to use for the image encoding (not supported
+     *                by all ImageEncoders).
      * @return The byte[] that is the encoded image.
      * @throws IOException if there is an IO problem.
      */
     public static byte[] encode(BufferedImage image, String format,
-            float quality) throws IOException {
-        ImageEncoder imageEncoder = ImageEncoderFactory.newInstance(format, 
+                                float quality) throws IOException {
+        ImageEncoder imageEncoder = ImageEncoderFactory.newInstance(format,
                 quality);
         return imageEncoder.encode(image);
     }
@@ -103,18 +102,18 @@ public class EncoderUtil {
     /**
      * Encode the image in a specific format.
      *
-     * @param image  The image to be encoded.
-     * @param format  The {@link ImageFormat} to use.
-     * @param quality  The quality to use for the image encoding (not supported
-     *                 by all ImageEncoders).
-     * @param encodeAlpha  Whether to encode alpha transparency (not supported
-     *                     by all ImageEncoders).
+     * @param image       The image to be encoded.
+     * @param format      The {@link ImageFormat} to use.
+     * @param quality     The quality to use for the image encoding (not supported
+     *                    by all ImageEncoders).
+     * @param encodeAlpha Whether to encode alpha transparency (not supported
+     *                    by all ImageEncoders).
      * @return The byte[] that is the encoded image.
      * @throws IOException if there is an IO problem.
      */
     public static byte[] encode(BufferedImage image, String format,
-            float quality, boolean encodeAlpha) throws IOException {
-        ImageEncoder imageEncoder = ImageEncoderFactory.newInstance(format, 
+                                float quality, boolean encodeAlpha) throws IOException {
+        ImageEncoder imageEncoder = ImageEncoderFactory.newInstance(format,
                 quality, encodeAlpha);
         return imageEncoder.encode(image);
     }
@@ -122,13 +121,13 @@ public class EncoderUtil {
     /**
      * Encode the image in a specific format and write it to an OutputStream.
      *
-     * @param image  The image to be encoded.
-     * @param format  The {@link ImageFormat} to use.
-     * @param outputStream  The OutputStream to write the encoded image to.
+     * @param image        The image to be encoded.
+     * @param format       The {@link ImageFormat} to use.
+     * @param outputStream The OutputStream to write the encoded image to.
      * @throws IOException if there is an IO problem.
      */
     public static void writeBufferedImage(BufferedImage image, String format,
-            OutputStream outputStream) throws IOException {
+                                          OutputStream outputStream) throws IOException {
         ImageEncoder imageEncoder = ImageEncoderFactory.newInstance(format);
         imageEncoder.encode(image, outputStream);
     }
@@ -136,16 +135,16 @@ public class EncoderUtil {
     /**
      * Encode the image in a specific format and write it to an OutputStream.
      *
-     * @param image  The image to be encoded.
-     * @param format  The {@link ImageFormat} to use.
-     * @param outputStream  The OutputStream to write the encoded image to.
-     * @param quality  The quality to use for the image encoding (not
-     *                 supported by all ImageEncoders).
+     * @param image        The image to be encoded.
+     * @param format       The {@link ImageFormat} to use.
+     * @param outputStream The OutputStream to write the encoded image to.
+     * @param quality      The quality to use for the image encoding (not
+     *                     supported by all ImageEncoders).
      * @throws IOException if there is an IO problem.
      */
     public static void writeBufferedImage(BufferedImage image, String format,
-        OutputStream outputStream, float quality) throws IOException {
-        ImageEncoder imageEncoder = ImageEncoderFactory.newInstance(format, 
+                                          OutputStream outputStream, float quality) throws IOException {
+        ImageEncoder imageEncoder = ImageEncoderFactory.newInstance(format,
                 quality);
         imageEncoder.encode(image, outputStream);
     }
@@ -153,16 +152,16 @@ public class EncoderUtil {
     /**
      * Encode the image in a specific format and write it to an OutputStream.
      *
-     * @param image  The image to be encoded.
-     * @param format  The {@link ImageFormat} to use.
-     * @param outputStream  The OutputStream to write the encoded image to.
+     * @param image        The image to be encoded.
+     * @param format       The {@link ImageFormat} to use.
+     * @param outputStream The OutputStream to write the encoded image to.
      * @param encodeAlpha  Whether to encode alpha transparency (not
      *                     supported by all ImageEncoders).
      * @throws IOException if there is an IO problem.
      */
     public static void writeBufferedImage(BufferedImage image, String format,
-            OutputStream outputStream, boolean encodeAlpha) throws IOException {
-        ImageEncoder imageEncoder = ImageEncoderFactory.newInstance(format, 
+                                          OutputStream outputStream, boolean encodeAlpha) throws IOException {
+        ImageEncoder imageEncoder = ImageEncoderFactory.newInstance(format,
                 encodeAlpha);
         imageEncoder.encode(image, outputStream);
     }
@@ -170,19 +169,19 @@ public class EncoderUtil {
     /**
      * Encode the image in a specific format and write it to an OutputStream.
      *
-     * @param image  The image to be encoded.
-     * @param format  The {@link ImageFormat} to use.
-     * @param outputStream  The OutputStream to write the encoded image to.
-     * @param quality  The quality to use for the image encoding (not
-     *                 supported by all ImageEncoders).
+     * @param image        The image to be encoded.
+     * @param format       The {@link ImageFormat} to use.
+     * @param outputStream The OutputStream to write the encoded image to.
+     * @param quality      The quality to use for the image encoding (not
+     *                     supported by all ImageEncoders).
      * @param encodeAlpha  Whether to encode alpha transparency (not supported
      *                     by all ImageEncoders).
      * @throws IOException if there is an IO problem.
      */
     public static void writeBufferedImage(BufferedImage image, String format,
-            OutputStream outputStream, float quality, boolean encodeAlpha)
+                                          OutputStream outputStream, float quality, boolean encodeAlpha)
             throws IOException {
-        ImageEncoder imageEncoder = ImageEncoderFactory.newInstance(format, 
+        ImageEncoder imageEncoder = ImageEncoderFactory.newInstance(format,
                 quality, encodeAlpha);
         imageEncoder.encode(image, outputStream);
     }

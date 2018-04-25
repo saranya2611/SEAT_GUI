@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -40,14 +40,12 @@
 
 package org.jfree.data.xy;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
+import org.jfree.chart.TestUtilities;
+import org.junit.Test;
 
 import java.util.Date;
 
-import org.jfree.chart.TestUtilities;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link OHLCDataItem} class.
@@ -59,9 +57,9 @@ public class OHLCDataItemTest {
      */
     @Test
     public void testEquals() {
-        OHLCDataItem i1 = new OHLCDataItem(new Date(1L), 1.0, 2.0, 3.0, 4.0, 
+        OHLCDataItem i1 = new OHLCDataItem(new Date(1L), 1.0, 2.0, 3.0, 4.0,
                 5.0);
-        OHLCDataItem i2 = new OHLCDataItem(new Date(1L), 1.0, 2.0, 3.0, 4.0, 
+        OHLCDataItem i2 = new OHLCDataItem(new Date(1L), 1.0, 2.0, 3.0, 4.0,
                 5.0);
         assertTrue(i1.equals(i2));
         assertTrue(i2.equals(i1));
@@ -73,7 +71,7 @@ public class OHLCDataItemTest {
     @Test
     public void testCloning() {
         OHLCDataItem i1 = new OHLCDataItem(
-            new Date(1L), 1.0, 2.0, 3.0, 4.0, 5.0
+                new Date(1L), 1.0, 2.0, 3.0, 4.0, 5.0
         );
         assertFalse(i1 instanceof Cloneable);
     }
@@ -83,7 +81,7 @@ public class OHLCDataItemTest {
      */
     @Test
     public void testSerialization() {
-        OHLCDataItem i1 = new OHLCDataItem(new Date(1L), 1.0, 2.0, 3.0, 4.0, 
+        OHLCDataItem i1 = new OHLCDataItem(new Date(1L), 1.0, 2.0, 3.0, 4.0,
                 5.0);
         OHLCDataItem i2 = (OHLCDataItem) TestUtilities.serialised(i1);
         assertEquals(i1, i2);

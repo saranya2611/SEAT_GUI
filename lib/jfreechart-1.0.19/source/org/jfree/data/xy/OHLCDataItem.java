@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -42,9 +42,10 @@
 
 package org.jfree.data.xy;
 
+import org.jfree.chart.util.ParamChecks;
+
 import java.io.Serializable;
 import java.util.Date;
-import org.jfree.chart.util.ParamChecks;
 
 /**
  * Represents a single (open-high-low-close) data item in
@@ -54,39 +55,53 @@ import org.jfree.chart.util.ParamChecks;
  */
 public class OHLCDataItem implements Comparable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 7753817154401169901L;
 
-    /** The date. */
+    /**
+     * The date.
+     */
     private Date date;
 
-    /** The open value. */
+    /**
+     * The open value.
+     */
     private Number open;
 
-    /** The high value. */
+    /**
+     * The high value.
+     */
     private Number high;
 
-    /** The low value. */
+    /**
+     * The low value.
+     */
     private Number low;
 
-    /** The close value. */
+    /**
+     * The close value.
+     */
     private Number close;
 
-    /** The trading volume (number of shares, contracts or whatever). */
+    /**
+     * The trading volume (number of shares, contracts or whatever).
+     */
     private Number volume;
 
     /**
      * Creates a new item.
      *
-     * @param date  the date (<code>null</code> not permitted).
-     * @param open  the open value.
-     * @param high  the high value.
-     * @param low  the low value.
+     * @param date   the date (<code>null</code> not permitted).
+     * @param open   the open value.
+     * @param high   the high value.
+     * @param low    the low value.
      * @param close  the close value.
-     * @param volume  the volume.
+     * @param volume the volume.
      */
     public OHLCDataItem(Date date, double open, double high, double low,
-            double close, double volume) {
+                        double close, double volume) {
         ParamChecks.nullNotPermitted(date, "date");
         this.date = date;
         this.open = new Double(open);
@@ -153,8 +168,7 @@ public class OHLCDataItem implements Comparable, Serializable {
     /**
      * Checks this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -189,18 +203,16 @@ public class OHLCDataItem implements Comparable, Serializable {
      * negative integer, zero, or a positive integer as this object is less
      * than, equal to, or greater than the specified object.
      *
-     * @param object  the object to compare to.
-     *
+     * @param object the object to compare to.
      * @return A negative integer, zero, or a positive integer as this object
-     *         is less than, equal to, or greater than the specified object.
+     * is less than, equal to, or greater than the specified object.
      */
     @Override
     public int compareTo(Object object) {
         if (object instanceof OHLCDataItem) {
             OHLCDataItem item = (OHLCDataItem) object;
             return this.date.compareTo(item.date);
-        }
-        else {
+        } else {
             throw new ClassCastException("OHLCDataItem.compareTo().");
         }
     }

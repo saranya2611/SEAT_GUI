@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------
@@ -44,15 +44,15 @@
 
 package org.jfree.data.gantt;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.data.time.SimpleTimePeriod;
 import org.jfree.data.time.TimePeriod;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
  * A simple representation of a task.  The task has a description and a
@@ -60,27 +60,37 @@ import org.jfree.util.PublicCloneable;
  */
 public class Task implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 1094303785346988894L;
 
-    /** The task description. */
+    /**
+     * The task description.
+     */
     private String description;
 
-    /** The time period for the task (estimated or actual). */
+    /**
+     * The time period for the task (estimated or actual).
+     */
     private TimePeriod duration;
 
-    /** The percent complete (<code>null</code> is permitted). */
+    /**
+     * The percent complete (<code>null</code> is permitted).
+     */
     private Double percentComplete;
 
-    /** Storage for the sub-tasks (if any). */
+    /**
+     * Storage for the sub-tasks (if any).
+     */
     private List subtasks;
 
     /**
      * Creates a new task.
      *
-     * @param description  the task description (<code>null</code> not
-     *                     permitted).
-     * @param duration  the task duration (<code>null</code> permitted).
+     * @param description the task description (<code>null</code> not
+     *                    permitted).
+     * @param duration    the task duration (<code>null</code> permitted).
      */
     public Task(String description, TimePeriod duration) {
         ParamChecks.nullNotPermitted(description, "description");
@@ -93,10 +103,10 @@ public class Task implements Cloneable, PublicCloneable, Serializable {
     /**
      * Creates a new task.
      *
-     * @param description  the task description (<code>null</code> not
-     *                     permitted).
-     * @param start  the start date (<code>null</code> not permitted).
-     * @param end  the end date (<code>null</code> not permitted).
+     * @param description the task description (<code>null</code> not
+     *                    permitted).
+     * @param start       the start date (<code>null</code> not permitted).
+     * @param end         the end date (<code>null</code> not permitted).
      */
     public Task(String description, Date start, Date end) {
         this(description, new SimpleTimePeriod(start, end));
@@ -114,7 +124,7 @@ public class Task implements Cloneable, PublicCloneable, Serializable {
     /**
      * Sets the task description.
      *
-     * @param description  the description (<code>null</code> not permitted).
+     * @param description the description (<code>null</code> not permitted).
      */
     public void setDescription(String description) {
         ParamChecks.nullNotPermitted(description, "description");
@@ -133,7 +143,7 @@ public class Task implements Cloneable, PublicCloneable, Serializable {
     /**
      * Sets the task duration (actual or estimated).
      *
-     * @param duration  the duration (<code>null</code> permitted).
+     * @param duration the duration (<code>null</code> permitted).
      */
     public void setDuration(TimePeriod duration) {
         this.duration = duration;
@@ -151,25 +161,25 @@ public class Task implements Cloneable, PublicCloneable, Serializable {
     /**
      * Sets the percentage complete for the task.
      *
-     * @param percent  the percentage (<code>null</code> permitted).
-     */
-    public void setPercentComplete(Double percent) {
-        this.percentComplete = percent;
-    }
-
-    /**
-     * Sets the percentage complete for the task.
-     *
-     * @param percent  the percentage.
+     * @param percent the percentage.
      */
     public void setPercentComplete(double percent) {
         setPercentComplete(new Double(percent));
     }
 
     /**
+     * Sets the percentage complete for the task.
+     *
+     * @param percent the percentage (<code>null</code> permitted).
+     */
+    public void setPercentComplete(Double percent) {
+        this.percentComplete = percent;
+    }
+
+    /**
      * Adds a sub-task to the task.
      *
-     * @param subtask  the subtask (<code>null</code> not permitted).
+     * @param subtask the subtask (<code>null</code> not permitted).
      */
     public void addSubtask(Task subtask) {
         ParamChecks.nullNotPermitted(subtask, "subtask");
@@ -179,7 +189,7 @@ public class Task implements Cloneable, PublicCloneable, Serializable {
     /**
      * Removes a sub-task from the task.
      *
-     * @param subtask  the subtask.
+     * @param subtask the subtask.
      */
     public void removeSubtask(Task subtask) {
         this.subtasks.remove(subtask);
@@ -197,8 +207,7 @@ public class Task implements Cloneable, PublicCloneable, Serializable {
     /**
      * Returns a sub-task.
      *
-     * @param index  the index.
-     *
+     * @param index the index.
      * @return The sub-task.
      */
     public Task getSubtask(int index) {
@@ -208,8 +217,7 @@ public class Task implements Cloneable, PublicCloneable, Serializable {
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param object  the other object (<code>null</code> permitted).
-     *
+     * @param object the other object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -241,9 +249,8 @@ public class Task implements Cloneable, PublicCloneable, Serializable {
      * Returns a clone of the task.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  never thrown by this class, but
-     *         subclasses may not support cloning.
+     * @throws CloneNotSupportedException never thrown by this class, but
+     *                                    subclasses may not support cloning.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

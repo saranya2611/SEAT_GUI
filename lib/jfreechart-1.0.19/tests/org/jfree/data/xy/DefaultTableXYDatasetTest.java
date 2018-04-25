@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------
@@ -43,19 +43,18 @@
 
 package org.jfree.data.xy;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link DefaultTableXYDataset} class.
  */
 public class DefaultTableXYDatasetTest {
+
+    private static final double EPSILON = 0.0000000001;
 
     /**
      * Confirm that the equals method can distinguish all the required fields.
@@ -125,12 +124,10 @@ public class DefaultTableXYDatasetTest {
         s1.add(2.0, 2.2);
         d1.addSeries(s1);
 
-        DefaultTableXYDataset d2 = (DefaultTableXYDataset) 
+        DefaultTableXYDataset d2 = (DefaultTableXYDataset)
                 TestUtilities.serialised(d1);
         assertEquals(d1, d2);
     }
-
-    private static final double EPSILON = 0.0000000001;
 
     /**
      * This is a test for bug 1312066 - adding a new series should trigger a
@@ -188,8 +185,7 @@ public class DefaultTableXYDatasetTest {
         boolean pass = false;
         try {
             d1.getSeries(-1);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -197,8 +193,7 @@ public class DefaultTableXYDatasetTest {
         pass = false;
         try {
             d1.getSeries(1);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);

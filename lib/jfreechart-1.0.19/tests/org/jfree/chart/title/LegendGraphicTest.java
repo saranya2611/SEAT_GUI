@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -40,23 +40,17 @@
 
 package org.jfree.chart.title;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.Stroke;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.ui.GradientPaintTransformType;
 import org.jfree.ui.RectangleAnchor;
 import org.jfree.ui.StandardGradientPaintTransformer;
 import org.junit.Test;
+
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link LegendGraphic} class.
@@ -221,7 +215,7 @@ public class LegendGraphicTest {
     @Test
     public void testSerialization() {
         Stroke s = new BasicStroke(1.23f);
-        LegendGraphic g1 = new LegendGraphic(new Rectangle2D.Double(1.0, 2.0, 
+        LegendGraphic g1 = new LegendGraphic(new Rectangle2D.Double(1.0, 2.0,
                 3.0, 4.0), Color.black);
         g1.setOutlineStroke(s);
         LegendGraphic g2 = (LegendGraphic) TestUtilities.serialised(g1);

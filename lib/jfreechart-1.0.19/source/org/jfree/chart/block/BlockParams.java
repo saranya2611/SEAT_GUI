@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -89,7 +89,7 @@ public class BlockParams implements EntityBlockParams {
     /**
      * Sets the flag that controls whether or not chart entities are generated.
      *
-     * @param generate  the flag.
+     * @param generate the flag.
      */
     public void setGenerateEntities(boolean generate) {
         this.generateEntities = generate;
@@ -109,7 +109,7 @@ public class BlockParams implements EntityBlockParams {
      * Sets the translation required to convert local x-coordinates into the
      * coordinate space of the container.
      *
-     * @param x  the x-translation amount.
+     * @param x the x-translation amount.
      */
     public void setTranslateX(double x) {
         this.translateX = x;
@@ -129,7 +129,7 @@ public class BlockParams implements EntityBlockParams {
      * Sets the translation required to convert local y-coordinates into the
      * coordinate space of the container.
      *
-     * @param y  the y-translation amount.
+     * @param y the y-translation amount.
      */
     public void setTranslateY(double y) {
         this.translateY = y;

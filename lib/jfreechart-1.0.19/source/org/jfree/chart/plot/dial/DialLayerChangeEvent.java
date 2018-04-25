@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -50,13 +50,15 @@ import org.jfree.chart.event.ChartChangeEvent;
  */
 public class DialLayerChangeEvent extends ChartChangeEvent {
 
-    /** The dial layer that generated the event. */
+    /**
+     * The dial layer that generated the event.
+     */
     private DialLayer layer;
 
     /**
      * Creates a new instance.
      *
-     * @param layer  the dial layer that generated the event.
+     * @param layer the dial layer that generated the event.
      */
     public DialLayerChangeEvent(DialLayer layer) {
         super(layer);

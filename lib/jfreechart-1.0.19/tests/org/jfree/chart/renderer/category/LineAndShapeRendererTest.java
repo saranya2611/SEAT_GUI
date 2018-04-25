@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------
@@ -44,11 +44,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.TestUtilities;
@@ -59,6 +54,8 @@ import org.jfree.data.Range;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link LineAndShapeRenderer} class.
@@ -175,9 +172,8 @@ public class LineAndShapeRendererTest {
     /**
      * Checks that the two renderers are equal but independent of one another.
      *
-     * @param r1  renderer 1.
-     * @param r2  renderer 2.
-     *
+     * @param r1 renderer 1.
+     * @param r2 renderer 2.
      * @return A boolean.
      */
     private boolean checkIndependence(LineAndShapeRenderer r1,
@@ -288,7 +284,7 @@ public class LineAndShapeRendererTest {
     @Test
     public void testSerialization() {
         LineAndShapeRenderer r1 = new LineAndShapeRenderer();
-        LineAndShapeRenderer r2 = (LineAndShapeRenderer) 
+        LineAndShapeRenderer r2 = (LineAndShapeRenderer)
                 TestUtilities.serialised(r1);
         assertEquals(r1, r2);
     }
@@ -310,7 +306,8 @@ public class LineAndShapeRendererTest {
         CategoryPlot plot = new CategoryPlot(dataset0, new CategoryAxis("x"),
                 new NumberAxis("y"), r);
         plot.setDataset(1, dataset1);
-        /*JFreeChart chart =*/ new JFreeChart(plot);
+        /*JFreeChart chart =*/
+        new JFreeChart(plot);
         LegendItem li = r.getLegendItem(1, 2);
         assertEquals("R5", li.getLabel());
         assertEquals(1, li.getDatasetIndex());

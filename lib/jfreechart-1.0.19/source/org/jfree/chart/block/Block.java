@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------
@@ -43,11 +43,11 @@
 
 package org.jfree.chart.block;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.ui.Drawable;
 import org.jfree.ui.Size2D;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * A block is an arbitrary item that can be drawn (in Java2D space) within a
@@ -66,7 +66,7 @@ public interface Block extends Drawable {
     /**
      * Sets the ID for the block.
      *
-     * @param id  the ID.
+     * @param id the ID.
      */
     public void setID(String id);
 
@@ -74,8 +74,7 @@ public interface Block extends Drawable {
      * Arranges the contents of the block, with no constraints, and returns
      * the block size.
      *
-     * @param g2  the graphics device.
-     *
+     * @param g2 the graphics device.
      * @return The size of the block.
      */
     public Size2D arrange(Graphics2D g2);
@@ -84,9 +83,8 @@ public interface Block extends Drawable {
      * Arranges the contents of the block, within the given constraints, and
      * returns the block size.
      *
-     * @param g2  the graphics device.
-     * @param constraint  the constraint (<code>null</code> not permitted).
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint (<code>null</code> not permitted).
      * @return The block size (in Java2D units, never <code>null</code>).
      */
     public Size2D arrange(Graphics2D g2, RectangleConstraint constraint);
@@ -101,7 +99,7 @@ public interface Block extends Drawable {
     /**
      * Sets the bounds of the block.
      *
-     * @param bounds  the bounds.
+     * @param bounds the bounds.
      */
     public void setBounds(Rectangle2D bounds);
 
@@ -110,10 +108,9 @@ public interface Block extends Drawable {
      * for the implementing class for information about the <code>params</code>
      * and return value supported.
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
-     * @param params  optional parameters (<code>null</code> permitted).
-     *
+     * @param g2     the graphics device.
+     * @param area   the area.
+     * @param params optional parameters (<code>null</code> permitted).
      * @return An optional return value (possibly <code>null</code>).
      */
     public Object draw(Graphics2D g2, Rectangle2D area, Object params);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -40,33 +40,29 @@
 
 package org.jfree.chart.plot.dial;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-
-import java.awt.Color;
-import java.awt.GradientPaint;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.chart.event.PlotChangeEvent;
 import org.jfree.chart.event.PlotChangeListener;
 import org.junit.Test;
+
+import java.awt.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link DialPlot} class.
  */
 public class DialPlotTest implements PlotChangeListener {
 
-    /** The last plot change event received. */
+    /**
+     * The last plot change event received.
+     */
     private PlotChangeEvent lastEvent;
 
     /**
      * Records the last plot change event received.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void plotChanged(PlotChangeEvent event) {

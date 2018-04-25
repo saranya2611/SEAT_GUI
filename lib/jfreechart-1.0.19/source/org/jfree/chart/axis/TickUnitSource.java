@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -48,11 +48,10 @@ public interface TickUnitSource {
 
     /**
      * Returns the smallest tick unit available in the source that is larger
-     * than <code>unit</code> or, if there is no larger unit, returns 
+     * than <code>unit</code> or, if there is no larger unit, returns
      * <code>unit</code>.
      *
-     * @param unit  the unit (<code>null</code> not permitted).
-     *
+     * @param unit the unit (<code>null</code> not permitted).
      * @return A tick unit that is larger than the supplied unit.
      */
     public TickUnit getLargerTickUnit(TickUnit unit);
@@ -61,19 +60,17 @@ public interface TickUnitSource {
      * Returns the tick unit in the collection that is greater than or equal
      * to (in size) the specified unit.
      *
-     * @param unit  the unit.
-     *
+     * @param unit the unit.
      * @return A unit from the collection.
      */
     public TickUnit getCeilingTickUnit(TickUnit unit);
 
     /**
-     * Returns the smallest tick unit available in the source that is greater 
+     * Returns the smallest tick unit available in the source that is greater
      * than or equal to the specified size.  If there is no such tick unit,
      * the method should return the largest available tick in the source.
      *
-     * @param size  the size.
-     *
+     * @param size the size.
      * @return A unit from the collection (never <code>null</code>).
      */
     public TickUnit getCeilingTickUnit(double size);

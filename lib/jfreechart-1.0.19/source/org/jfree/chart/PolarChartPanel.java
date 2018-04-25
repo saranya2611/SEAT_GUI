@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -44,14 +44,12 @@
 
 package org.jfree.chart;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PolarPlot;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * <code>PolarChartPanel</code> is the top level object for using the
@@ -62,9 +60,9 @@ import org.jfree.chart.plot.PolarPlot;
  * The main modification to <code>ChartPanel</code> is the popup menu.  It
  * removes <code>ChartPanel</code>'s versions of:
  * <ul>
- *    <li><code>Zoom In</code></li>
- *    <li><code>Zoom Out</code></li>
- *    <li><code>Auto Range</code></li>
+ * <li><code>Zoom In</code></li>
+ * <li><code>Zoom Out</code></li>
+ * <li><code>Auto Range</code></li>
  * </ul>
  * and replaces them with versions more appropriate for {@link PolarPlot}.
  */
@@ -74,16 +72,22 @@ public class PolarChartPanel extends ChartPanel {
     // --- Constants ---
     // -----------------
 
-    /** Zoom in command string. */
+    /**
+     * Zoom in command string.
+     */
     private static final String POLAR_ZOOM_IN_ACTION_COMMAND = "Polar Zoom In";
 
-    /** Zoom out command string. */
+    /**
+     * Zoom out command string.
+     */
     private static final String POLAR_ZOOM_OUT_ACTION_COMMAND
-        = "Polar Zoom Out";
+            = "Polar Zoom Out";
 
-    /** Auto range command string. */
+    /**
+     * Auto range command string.
+     */
     private static final String POLAR_AUTO_RANGE_ACTION_COMMAND
-        = "Polar Auto Range";
+            = "Polar Auto Range";
 
     // ------------------------
     // --- Member Variables ---
@@ -92,10 +96,11 @@ public class PolarChartPanel extends ChartPanel {
     // --------------------
     // --- Constructors ---
     // --------------------
+
     /**
      * Constructs a JFreeChart panel.
      *
-     * @param chart  the chart.
+     * @param chart the chart.
      */
     public PolarChartPanel(JFreeChart chart) {
         this(chart, true);
@@ -104,8 +109,8 @@ public class PolarChartPanel extends ChartPanel {
     /**
      * Creates a new panel.
      *
-     * @param chart  the chart.
-     * @param useBuffer  buffered?
+     * @param chart     the chart.
+     * @param useBuffer buffered?
      */
     public PolarChartPanel(JFreeChart chart, boolean useBuffer) {
         super(chart, useBuffer);
@@ -119,10 +124,11 @@ public class PolarChartPanel extends ChartPanel {
     // --------------------------
     // --- ChartPanel Methods ---
     // --------------------------
+
     /**
      * Sets the chart that is displayed in the panel.
      *
-     * @param chart  The chart.
+     * @param chart The chart.
      */
     @Override
     public void setChart(JFreeChart chart) {
@@ -133,89 +139,82 @@ public class PolarChartPanel extends ChartPanel {
     /**
      * Creates a popup menu for the panel.
      *
-     * @param properties  include a menu item for the chart property editor.
-     * @param save  include a menu item for saving the chart.
-     * @param print  include a menu item for printing the chart.
-     * @param zoom  include menu items for zooming.
-     *
+     * @param properties include a menu item for the chart property editor.
+     * @param save       include a menu item for saving the chart.
+     * @param print      include a menu item for printing the chart.
+     * @param zoom       include menu items for zooming.
      * @return The popup menu.
      */
     @Override
     protected JPopupMenu createPopupMenu(boolean properties, boolean save,
-            boolean print, boolean zoom) {
+                                         boolean print, boolean zoom) {
 
-       JPopupMenu result = super.createPopupMenu(properties, save, print, zoom);
-       int zoomInIndex = getPopupMenuItem(result,
-               localizationResources.getString("Zoom_In"));
-       int zoomOutIndex = getPopupMenuItem(result,
-               localizationResources.getString("Zoom_Out"));
-       int autoIndex = getPopupMenuItem(result,
-               localizationResources.getString("Auto_Range"));
-       if (zoom) {
-           JMenuItem zoomIn = new JMenuItem(
-                   localizationResources.getString("Zoom_In"));
-           zoomIn.setActionCommand(POLAR_ZOOM_IN_ACTION_COMMAND);
-           zoomIn.addActionListener(this);
+        JPopupMenu result = super.createPopupMenu(properties, save, print, zoom);
+        int zoomInIndex = getPopupMenuItem(result,
+                localizationResources.getString("Zoom_In"));
+        int zoomOutIndex = getPopupMenuItem(result,
+                localizationResources.getString("Zoom_Out"));
+        int autoIndex = getPopupMenuItem(result,
+                localizationResources.getString("Auto_Range"));
+        if (zoom) {
+            JMenuItem zoomIn = new JMenuItem(
+                    localizationResources.getString("Zoom_In"));
+            zoomIn.setActionCommand(POLAR_ZOOM_IN_ACTION_COMMAND);
+            zoomIn.addActionListener(this);
 
-           JMenuItem zoomOut = new JMenuItem(
-                   localizationResources.getString("Zoom_Out"));
-           zoomOut.setActionCommand(POLAR_ZOOM_OUT_ACTION_COMMAND);
-           zoomOut.addActionListener(this);
+            JMenuItem zoomOut = new JMenuItem(
+                    localizationResources.getString("Zoom_Out"));
+            zoomOut.setActionCommand(POLAR_ZOOM_OUT_ACTION_COMMAND);
+            zoomOut.addActionListener(this);
 
-           JMenuItem auto = new JMenuItem(
-                   localizationResources.getString("Auto_Range"));
-           auto.setActionCommand(POLAR_AUTO_RANGE_ACTION_COMMAND);
-           auto.addActionListener(this);
+            JMenuItem auto = new JMenuItem(
+                    localizationResources.getString("Auto_Range"));
+            auto.setActionCommand(POLAR_AUTO_RANGE_ACTION_COMMAND);
+            auto.addActionListener(this);
 
-           if (zoomInIndex != -1) {
-               result.remove(zoomInIndex);
-           }
-           else {
-               zoomInIndex = result.getComponentCount() - 1;
-           }
-           result.add(zoomIn, zoomInIndex);
-           if (zoomOutIndex != -1) {
-               result.remove(zoomOutIndex);
-           }
-           else {
-               zoomOutIndex = zoomInIndex + 1;
-           }
-           result.add(zoomOut, zoomOutIndex);
-           if (autoIndex != -1) {
-               result.remove(autoIndex);
-           }
-           else {
-               autoIndex = zoomOutIndex + 1;
-           }
-           result.add(auto, autoIndex);
-       }
-       return result;
+            if (zoomInIndex != -1) {
+                result.remove(zoomInIndex);
+            } else {
+                zoomInIndex = result.getComponentCount() - 1;
+            }
+            result.add(zoomIn, zoomInIndex);
+            if (zoomOutIndex != -1) {
+                result.remove(zoomOutIndex);
+            } else {
+                zoomOutIndex = zoomInIndex + 1;
+            }
+            result.add(zoomOut, zoomOutIndex);
+            if (autoIndex != -1) {
+                result.remove(autoIndex);
+            } else {
+                autoIndex = zoomOutIndex + 1;
+            }
+            result.add(auto, autoIndex);
+        }
+        return result;
     }
 
     /**
      * Handles action events generated by the popup menu.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-       String command = event.getActionCommand();
+        String command = event.getActionCommand();
 
-       if (command.equals(POLAR_ZOOM_IN_ACTION_COMMAND)) {
-           PolarPlot plot = (PolarPlot) getChart().getPlot();
-           plot.zoom(0.5);
-       }
-       else if (command.equals(POLAR_ZOOM_OUT_ACTION_COMMAND)) {
-           PolarPlot plot = (PolarPlot) getChart().getPlot();
-           plot.zoom(2.0);
-       }
-       else if (command.equals(POLAR_AUTO_RANGE_ACTION_COMMAND)) {
-           PolarPlot plot = (PolarPlot) getChart().getPlot();
-           plot.getAxis().setAutoRange(true);
-       }
-       else {
-           super.actionPerformed(event);
-       }
+        if (command.equals(POLAR_ZOOM_IN_ACTION_COMMAND)) {
+            PolarPlot plot = (PolarPlot) getChart().getPlot();
+            plot.zoom(0.5);
+        } else if (command.equals(POLAR_ZOOM_OUT_ACTION_COMMAND)) {
+            PolarPlot plot = (PolarPlot) getChart().getPlot();
+            plot.zoom(2.0);
+        } else if (command.equals(POLAR_AUTO_RANGE_ACTION_COMMAND)) {
+            PolarPlot plot = (PolarPlot) getChart().getPlot();
+            plot.getAxis().setAutoRange(true);
+        } else {
+            super.actionPerformed(event);
+        }
     }
 
     // ----------------------
@@ -229,21 +228,20 @@ public class PolarChartPanel extends ChartPanel {
     /**
      * Test that the chart is using an xy plot with time as the domain axis.
      *
-     * @param chart  the chart.
+     * @param chart the chart.
      */
     private void checkChart(JFreeChart chart) {
         Plot plot = chart.getPlot();
         if (!(plot instanceof PolarPlot)) {
             throw new IllegalArgumentException("plot is not a PolarPlot");
-       }
+        }
     }
 
     /**
      * Returns the index of an item in a popup menu.
      *
-     * @param menu  the menu.
-     * @param text  the label.
-     *
+     * @param menu the menu.
+     * @param text the label.
      * @return The item index.
      */
     private int getPopupMenuItem(JPopupMenu menu, String text) {
@@ -256,8 +254,8 @@ public class PolarChartPanel extends ChartPanel {
                     index = i;
                 }
             }
-       }
-       return index;
+        }
+        return index;
     }
 
 }

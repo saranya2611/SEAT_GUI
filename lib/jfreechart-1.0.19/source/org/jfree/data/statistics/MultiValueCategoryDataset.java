@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------
@@ -40,9 +40,9 @@
 
 package org.jfree.data.statistics;
 
-import java.util.List;
-
 import org.jfree.data.category.CategoryDataset;
+
+import java.util.List;
 
 /**
  * A category dataset that defines multiple values for each item.
@@ -55,9 +55,8 @@ public interface MultiValueCategoryDataset extends CategoryDataset {
      * Returns a list (possibly empty) of the values for the specified item.
      * The returned list should be unmodifiable.
      *
-     * @param row  the row index (zero-based).
-     * @param column   the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The list of values.
      */
     public List getValues(int row, int column);
@@ -66,9 +65,8 @@ public interface MultiValueCategoryDataset extends CategoryDataset {
      * Returns a list (possibly empty) of the values for the specified item.
      * The returned list should be unmodifiable.
      *
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @return The list of values.
      */
     public List getValues(Comparable rowKey, Comparable columnKey);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -40,18 +40,17 @@
 
 package org.jfree.data.xml;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.general.PieDataset;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.general.PieDataset;
-import org.xml.sax.SAXException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * A utility class for reading datasets from XML.
@@ -61,14 +60,12 @@ public class DatasetReader {
     /**
      * Reads a {@link PieDataset} from an XML file.
      *
-     * @param file  the file.
-     *
+     * @param file the file.
      * @return A dataset.
-     *
      * @throws IOException if there is a problem reading the file.
      */
     public static PieDataset readPieDatasetFromXML(File file)
-        throws IOException {
+            throws IOException {
         InputStream in = new FileInputStream(file);
         return readPieDatasetFromXML(in);
     }
@@ -76,14 +73,12 @@ public class DatasetReader {
     /**
      * Reads a {@link PieDataset} from a stream.
      *
-     * @param in  the input stream.
-     *
+     * @param in the input stream.
      * @return A dataset.
-     *
      * @throws IOException if there is an I/O error.
      */
     public static PieDataset readPieDatasetFromXML(InputStream in)
-        throws IOException {
+            throws IOException {
 
         PieDataset result = null;
         SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -92,11 +87,9 @@ public class DatasetReader {
             PieDatasetHandler handler = new PieDatasetHandler();
             parser.parse(in, handler);
             result = handler.getDataset();
-        }
-        catch (SAXException e) {
+        } catch (SAXException e) {
             System.out.println(e.getMessage());
-        }
-        catch (ParserConfigurationException e2) {
+        } catch (ParserConfigurationException e2) {
             System.out.println(e2.getMessage());
         }
         return result;
@@ -106,14 +99,12 @@ public class DatasetReader {
     /**
      * Reads a {@link CategoryDataset} from a file.
      *
-     * @param file  the file.
-     *
+     * @param file the file.
      * @return A dataset.
-     *
      * @throws IOException if there is a problem reading the file.
      */
     public static CategoryDataset readCategoryDatasetFromXML(File file)
-        throws IOException {
+            throws IOException {
         InputStream in = new FileInputStream(file);
         return readCategoryDatasetFromXML(in);
     }
@@ -121,14 +112,12 @@ public class DatasetReader {
     /**
      * Reads a {@link CategoryDataset} from a stream.
      *
-     * @param in  the stream.
-     *
+     * @param in the stream.
      * @return A dataset.
-     *
      * @throws IOException if there is a problem reading the file.
      */
     public static CategoryDataset readCategoryDatasetFromXML(InputStream in)
-        throws IOException {
+            throws IOException {
 
         CategoryDataset result = null;
 
@@ -138,11 +127,9 @@ public class DatasetReader {
             CategoryDatasetHandler handler = new CategoryDatasetHandler();
             parser.parse(in, handler);
             result = handler.getDataset();
-        }
-        catch (SAXException e) {
+        } catch (SAXException e) {
             System.out.println(e.getMessage());
-        }
-        catch (ParserConfigurationException e2) {
+        } catch (ParserConfigurationException e2) {
             System.out.println(e2.getMessage());
         }
         return result;

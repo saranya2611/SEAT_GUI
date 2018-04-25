@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -60,10 +60,9 @@ public interface XYItemLabelGenerator {
      * Generates a label for the specified item. The label is typically a
      * formatted version of the data value, but any text can be used.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param item    the item index (zero-based).
      * @return The label (possibly <code>null</code>).
      */
     public String generateLabel(XYDataset dataset, int series, int item);

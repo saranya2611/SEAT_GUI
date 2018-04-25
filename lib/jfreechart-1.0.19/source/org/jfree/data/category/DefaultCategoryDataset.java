@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -48,14 +48,14 @@
 
 package org.jfree.data.category;
 
-import java.io.Serializable;
-import java.util.List;
-
 import org.jfree.data.DefaultKeyedValues2D;
 import org.jfree.data.UnknownKeyException;
 import org.jfree.data.general.AbstractDataset;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * A default implementation of the {@link CategoryDataset} interface.
@@ -63,10 +63,14 @@ import org.jfree.util.PublicCloneable;
 public class DefaultCategoryDataset extends AbstractDataset
         implements CategoryDataset, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -8168173757291644622L;
 
-    /** A storage structure for the data. */
+    /**
+     * A storage structure for the data.
+     */
     private DefaultKeyedValues2D data;
 
     /**
@@ -80,7 +84,6 @@ public class DefaultCategoryDataset extends AbstractDataset
      * Returns the number of rows in the table.
      *
      * @return The row count.
-     *
      * @see #getColumnCount()
      */
     @Override
@@ -92,7 +95,6 @@ public class DefaultCategoryDataset extends AbstractDataset
      * Returns the number of columns in the table.
      *
      * @return The column count.
-     *
      * @see #getRowCount()
      */
     @Override
@@ -103,11 +105,9 @@ public class DefaultCategoryDataset extends AbstractDataset
     /**
      * Returns a value from the table.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The value (possibly <code>null</code>).
-     *
      * @see #addValue(Number, Comparable, Comparable)
      * @see #removeValue(Comparable, Comparable)
      */
@@ -119,10 +119,8 @@ public class DefaultCategoryDataset extends AbstractDataset
     /**
      * Returns the key for the specified row.
      *
-     * @param row  the row index (zero-based).
-     *
+     * @param row the row index (zero-based).
      * @return The row key.
-     *
      * @see #getRowIndex(Comparable)
      * @see #getRowKeys()
      * @see #getColumnKey(int)
@@ -135,10 +133,8 @@ public class DefaultCategoryDataset extends AbstractDataset
     /**
      * Returns the row index for a given key.
      *
-     * @param key  the row key (<code>null</code> not permitted).
-     *
+     * @param key the row key (<code>null</code> not permitted).
      * @return The row index.
-     *
      * @see #getRowKey(int)
      */
     @Override
@@ -151,7 +147,6 @@ public class DefaultCategoryDataset extends AbstractDataset
      * Returns the row keys.
      *
      * @return The keys.
-     *
      * @see #getRowKey(int)
      */
     @Override
@@ -162,10 +157,8 @@ public class DefaultCategoryDataset extends AbstractDataset
     /**
      * Returns a column key.
      *
-     * @param column  the column index (zero-based).
-     *
+     * @param column the column index (zero-based).
      * @return The column key.
-     *
      * @see #getColumnIndex(Comparable)
      */
     @Override
@@ -176,10 +169,8 @@ public class DefaultCategoryDataset extends AbstractDataset
     /**
      * Returns the column index for a given key.
      *
-     * @param key  the column key (<code>null</code> not permitted).
-     *
+     * @param key the column key (<code>null</code> not permitted).
      * @return The column index.
-     *
      * @see #getColumnKey(int)
      */
     @Override
@@ -192,7 +183,6 @@ public class DefaultCategoryDataset extends AbstractDataset
      * Returns the column keys.
      *
      * @return The keys.
-     *
      * @see #getColumnKey(int)
      */
     @Override
@@ -203,13 +193,10 @@ public class DefaultCategoryDataset extends AbstractDataset
     /**
      * Returns the value for a pair of keys.
      *
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @return The value (possibly <code>null</code>).
-     *
      * @throws UnknownKeyException if either key is not defined in the dataset.
-     *
      * @see #addValue(Number, Comparable, Comparable)
      */
     @Override
@@ -220,10 +207,9 @@ public class DefaultCategoryDataset extends AbstractDataset
     /**
      * Adds a value to the table.  Performs the same function as setValue().
      *
-     * @param value  the value.
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param value     the value.
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @see #getValue(Comparable, Comparable)
      * @see #removeValue(Comparable, Comparable)
      */
@@ -236,10 +222,9 @@ public class DefaultCategoryDataset extends AbstractDataset
     /**
      * Adds a value to the table.
      *
-     * @param value  the value.
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param value     the value.
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @see #getValue(Comparable, Comparable)
      */
     public void addValue(double value, Comparable rowKey,
@@ -251,10 +236,9 @@ public class DefaultCategoryDataset extends AbstractDataset
      * Adds or updates a value in the table and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param value  the value (<code>null</code> permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param value     the value (<code>null</code> permitted).
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @see #getValue(Comparable, Comparable)
      */
     public void setValue(Number value, Comparable rowKey,
@@ -267,10 +251,9 @@ public class DefaultCategoryDataset extends AbstractDataset
      * Adds or updates a value in the table and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param value  the value.
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param value     the value.
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @see #getValue(Comparable, Comparable)
      */
     public void setValue(double value, Comparable rowKey,
@@ -282,10 +265,9 @@ public class DefaultCategoryDataset extends AbstractDataset
      * Adds the specified value to an existing value in the dataset (if the
      * existing value is <code>null</code>, it is treated as if it were 0.0).
      *
-     * @param value  the value.
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param value     the value.
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @throws UnknownKeyException if either key is not defined in the dataset.
      */
     public void incrementValue(double value,
@@ -303,9 +285,8 @@ public class DefaultCategoryDataset extends AbstractDataset
      * Removes a value from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @see #addValue(Number, Comparable, Comparable)
      */
     public void removeValue(Comparable rowKey, Comparable columnKey) {
@@ -317,8 +298,7 @@ public class DefaultCategoryDataset extends AbstractDataset
      * Removes a row from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param rowIndex  the row index.
-     *
+     * @param rowIndex the row index.
      * @see #removeColumn(int)
      */
     public void removeRow(int rowIndex) {
@@ -330,8 +310,7 @@ public class DefaultCategoryDataset extends AbstractDataset
      * Removes a row from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param rowKey  the row key.
-     *
+     * @param rowKey the row key.
      * @see #removeColumn(Comparable)
      */
     public void removeRow(Comparable rowKey) {
@@ -343,8 +322,7 @@ public class DefaultCategoryDataset extends AbstractDataset
      * Removes a column from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param columnIndex  the column index.
-     *
+     * @param columnIndex the column index.
      * @see #removeRow(int)
      */
     public void removeColumn(int columnIndex) {
@@ -356,12 +334,10 @@ public class DefaultCategoryDataset extends AbstractDataset
      * Removes a column from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
-     * @see #removeRow(Comparable)
-     *
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @throws UnknownKeyException if <code>columnKey</code> is not defined
-     *         in the dataset.
+     *                             in the dataset.
+     * @see #removeRow(Comparable)
      */
     public void removeColumn(Comparable columnKey) {
         this.data.removeColumn(columnKey);
@@ -380,8 +356,7 @@ public class DefaultCategoryDataset extends AbstractDataset
     /**
      * Tests this dataset for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -409,8 +384,7 @@ public class DefaultCategoryDataset extends AbstractDataset
                     if (v2 != null) {
                         return false;
                     }
-                }
-                else if (!v1.equals(v2)) {
+                } else if (!v1.equals(v2)) {
                     return false;
                 }
             }
@@ -432,9 +406,8 @@ public class DefaultCategoryDataset extends AbstractDataset
      * Returns a clone of the dataset.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem cloning the
-     *         dataset.
+     *                                    dataset.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

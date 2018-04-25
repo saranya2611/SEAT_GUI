@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------
@@ -52,48 +52,48 @@
 
 package org.jfree.chart.axis;
 
-import java.awt.BasicStroke;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.RenderingHints;
-import java.awt.Stroke;
+import org.jfree.chart.plot.*;
+import org.jfree.chart.renderer.xy.XYBlockRenderer;
+import org.jfree.ui.RectangleEdge;
+
+import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
-
-import org.jfree.chart.plot.ColorPalette;
-import org.jfree.chart.plot.ContourPlot;
-import org.jfree.chart.plot.Plot;
-import org.jfree.chart.plot.RainbowPalette;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYBlockRenderer;
-import org.jfree.ui.RectangleEdge;
 
 /**
  * A color bar.
  *
  * @deprecated This class is no longer supported (as of version 1.0.4).  If
- *     you are creating contour plots, please try to use {@link XYPlot} and
- *     {@link XYBlockRenderer}.
+ * you are creating contour plots, please try to use {@link XYPlot} and
+ * {@link XYBlockRenderer}.
  */
 public class ColorBar implements Cloneable, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -2101776212647268103L;
-
-    /** The default color bar thickness. */
+    /**
+     * The default color bar thickness.
+     */
     public static final int DEFAULT_COLORBAR_THICKNESS = 0;
-
-    /** The default color bar thickness percentage. */
+    /**
+     * The default color bar thickness percentage.
+     */
     public static final double DEFAULT_COLORBAR_THICKNESS_PERCENT = 0.10;
-
-    /** The default outer gap. */
+    /**
+     * The default outer gap.
+     */
     public static final int DEFAULT_OUTERGAP = 2;
-
-    /** The axis. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -2101776212647268103L;
+    /**
+     * The axis.
+     */
     private ValueAxis axis;
 
-    /** The color bar thickness. */
+    /**
+     * The color bar thickness.
+     */
     private int colorBarThickness = DEFAULT_COLORBAR_THICKNESS;
 
     /**
@@ -102,20 +102,26 @@ public class ColorBar implements Cloneable, Serializable {
     private double colorBarThicknessPercent
             = DEFAULT_COLORBAR_THICKNESS_PERCENT;
 
-    /** The color palette. */
+    /**
+     * The color palette.
+     */
     private ColorPalette colorPalette = null;
 
-    /** The color bar length. */
+    /**
+     * The color bar length.
+     */
     private int colorBarLength = 0; // default make height of plotArea
 
-    /** The amount of blank space around the colorbar. */
+    /**
+     * The amount of blank space around the colorbar.
+     */
     private int outerGap;
 
     /**
      * Constructs a horizontal colorbar axis, using default values where
      * necessary.
      *
-     * @param label  the axis label.
+     * @param label the axis label.
      */
     public ColorBar(String label) {
 
@@ -137,7 +143,7 @@ public class ColorBar implements Cloneable, Serializable {
     /**
      * Configures the color bar.
      *
-     * @param plot  the plot.
+     * @param plot the plot.
      */
     public void configure(ContourPlot plot) {
         double minZ = plot.getDataset().getMinZValue();
@@ -158,7 +164,7 @@ public class ColorBar implements Cloneable, Serializable {
     /**
      * Sets the axis.
      *
-     * @param axis  the axis.
+     * @param axis the axis.
      */
     public void setAxis(ValueAxis axis) {
         this.axis = axis;
@@ -177,14 +183,13 @@ public class ColorBar implements Cloneable, Serializable {
      * Draws the plot on a Java 2D graphics device (such as the screen or a
      * printer).
      *
-     * @param g2  the graphics device.
-     * @param cursor  the cursor.
-     * @param plotArea  the area within which the chart should be drawn.
-     * @param dataArea  the area within which the plot should be drawn (a
-     *                  subset of the drawArea).
-     * @param reservedArea  the reserved area.
-     * @param edge  the color bar location.
-     *
+     * @param g2           the graphics device.
+     * @param cursor       the cursor.
+     * @param plotArea     the area within which the chart should be drawn.
+     * @param dataArea     the area within which the plot should be drawn (a
+     *                     subset of the drawArea).
+     * @param reservedArea the reserved area.
+     * @param edge         the color bar location.
      * @return The new cursor location.
      */
     public double draw(Graphics2D g2, double cursor,
@@ -201,8 +206,7 @@ public class ColorBar implements Cloneable, Serializable {
         double length;
         if (RectangleEdge.isLeftOrRight(edge)) {
             length = dataArea.getHeight();
-        }
-        else {
+        } else {
             length = dataArea.getWidth();
         }
 
@@ -213,16 +217,13 @@ public class ColorBar implements Cloneable, Serializable {
         if (edge == RectangleEdge.BOTTOM) {
             colorBarArea = new Rectangle2D.Double(dataArea.getX(),
                     plotArea.getMaxY() + this.outerGap, length, thickness);
-        }
-        else if (edge == RectangleEdge.TOP) {
+        } else if (edge == RectangleEdge.TOP) {
             colorBarArea = new Rectangle2D.Double(dataArea.getX(),
                     reservedArea.getMinY() + this.outerGap, length, thickness);
-        }
-        else if (edge == RectangleEdge.LEFT) {
+        } else if (edge == RectangleEdge.LEFT) {
             colorBarArea = new Rectangle2D.Double(plotArea.getX() - thickness
                     - this.outerGap, dataArea.getMinY(), thickness, length);
-        }
-        else if (edge == RectangleEdge.RIGHT) {
+        } else if (edge == RectangleEdge.RIGHT) {
             colorBarArea = new Rectangle2D.Double(plotArea.getMaxX()
                     + this.outerGap, dataArea.getMinY(), thickness, length);
         }
@@ -238,18 +239,15 @@ public class ColorBar implements Cloneable, Serializable {
             cursor = colorBarArea.getMinY();
             state = this.axis.draw(g2, cursor, reservedArea, colorBarArea,
                     RectangleEdge.TOP, null);
-        }
-        else if (edge == RectangleEdge.BOTTOM) {
+        } else if (edge == RectangleEdge.BOTTOM) {
             cursor = colorBarArea.getMaxY();
             state = this.axis.draw(g2, cursor, reservedArea, colorBarArea,
                     RectangleEdge.BOTTOM, null);
-        }
-        else if (edge == RectangleEdge.LEFT) {
+        } else if (edge == RectangleEdge.LEFT) {
             cursor = colorBarArea.getMinX();
             state = this.axis.draw(g2, cursor, reservedArea, colorBarArea,
                     RectangleEdge.LEFT, null);
-        }
-        else if (edge == RectangleEdge.RIGHT) {
+        } else if (edge == RectangleEdge.RIGHT) {
             cursor = colorBarArea.getMaxX();
             state = this.axis.draw(g2, cursor, reservedArea, colorBarArea,
                     RectangleEdge.RIGHT, null);
@@ -263,16 +261,16 @@ public class ColorBar implements Cloneable, Serializable {
      * Draws the plot on a Java 2D graphics device (such as the screen or a
      * printer).
      *
-     * @param g2  the graphics device.
-     * @param colorBarArea  the area within which the axis should be drawn.
-     * @param edge  the location.
+     * @param g2           the graphics device.
+     * @param colorBarArea the area within which the axis should be drawn.
+     * @param edge         the location.
      */
     public void drawColorBar(Graphics2D g2, Rectangle2D colorBarArea,
                              RectangleEdge edge) {
 
         Object antiAlias = g2.getRenderingHint(RenderingHints.KEY_ANTIALIASING);
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                            RenderingHints.VALUE_ANTIALIAS_OFF);
+                RenderingHints.VALUE_ANTIALIAS_OFF);
 
         // setTickValues was missing from ColorPalette v. 0.96
         //colorPalette.setTickValues(this.axis.getTicks());
@@ -292,8 +290,7 @@ public class ColorBar implements Cloneable, Serializable {
                 g2.draw(line);
                 xx += 1;
             }
-        }
-        else {
+        } else {
             double y1 = colorBarArea.getX();
             double y2 = colorBarArea.getMaxX();
             double xx = colorBarArea.getY();
@@ -322,10 +319,18 @@ public class ColorBar implements Cloneable, Serializable {
     }
 
     /**
+     * Sets the color palette.
+     *
+     * @param palette the new palette.
+     */
+    public void setColorPalette(ColorPalette palette) {
+        this.colorPalette = palette;
+    }
+
+    /**
      * Returns the Paint associated with a value.
      *
-     * @param value  the value.
-     *
+     * @param value the value.
      * @return The paint.
      */
     public Paint getPaint(double value) {
@@ -333,18 +338,9 @@ public class ColorBar implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the color palette.
-     *
-     * @param palette  the new palette.
-     */
-    public void setColorPalette(ColorPalette palette) {
-        this.colorPalette = palette;
-    }
-
-    /**
      * Sets the maximum value.
      *
-     * @param value  the maximum value.
+     * @param value the maximum value.
      */
     public void setMaximumValue(double value) {
         this.colorPalette.setMaxZ(value);
@@ -354,7 +350,7 @@ public class ColorBar implements Cloneable, Serializable {
     /**
      * Sets the minimum value.
      *
-     * @param value  the minimum value.
+     * @param value the minimum value.
      */
     public void setMinimumValue(double value) {
         this.colorPalette.setMinZ(value);
@@ -364,13 +360,12 @@ public class ColorBar implements Cloneable, Serializable {
     /**
      * Reserves the space required to draw the color bar.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot that the axis belongs to.
-     * @param plotArea  the area within which the plot should be drawn.
-     * @param dataArea  the data area.
-     * @param edge  the axis location.
-     * @param space  the space already reserved.
-     *
+     * @param g2       the graphics device.
+     * @param plot     the plot that the axis belongs to.
+     * @param plotArea the area within which the plot should be drawn.
+     * @param dataArea the data area.
+     * @param edge     the axis location.
+     * @param space    the space already reserved.
      * @return The space required to draw the axis in the specified plot area.
      */
     public AxisSpace reserveSpace(Graphics2D g2, Plot plot,
@@ -389,18 +384,16 @@ public class ColorBar implements Cloneable, Serializable {
     /**
      * Calculates the bar thickness.
      *
-     * @param plotArea  the plot area.
-     * @param edge  the location.
-     *
+     * @param plotArea the plot area.
+     * @param edge     the location.
      * @return The thickness.
      */
     private double calculateBarThickness(Rectangle2D plotArea,
-            RectangleEdge edge) {
+                                         RectangleEdge edge) {
         double result;
         if (RectangleEdge.isLeftOrRight(edge)) {
             result = plotArea.getWidth() * this.colorBarThicknessPercent;
-        }
-        else {
+        } else {
             result = plotArea.getHeight() * this.colorBarThicknessPercent;
         }
         return result;
@@ -410,9 +403,8 @@ public class ColorBar implements Cloneable, Serializable {
      * Returns a clone of the object.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if some component of the color bar
-     *         does not support cloning.
+     *                                    does not support cloning.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -424,8 +416,7 @@ public class ColorBar implements Cloneable, Serializable {
     /**
      * Tests this object for equality with another.
      *
-     * @param obj  the object to test against.
-     *
+     * @param obj the object to test against.
      * @return A boolean.
      */
     @Override

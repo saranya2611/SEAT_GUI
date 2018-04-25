@@ -62,23 +62,12 @@
 
 package org.jfree.experimental.swt;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Composite;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.Image;
-import java.awt.Paint;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.*;
+import org.jfree.chart.util.ParamChecks;
+
+import java.awt.*;
 import java.awt.RenderingHints.Key;
-import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
@@ -91,20 +80,8 @@ import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
 import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.Path;
-import org.eclipse.swt.graphics.Resource;
-import org.eclipse.swt.graphics.Transform;
-import org.jfree.chart.util.ParamChecks;
 
 /**
  * This is a class utility to draw Graphics2D stuff on a swt composite.
@@ -113,7 +90,9 @@ import org.jfree.chart.util.ParamChecks;
  */
 public class SWTGraphics2D extends Graphics2D {
 
-    /** The swt graphic composite */
+    /**
+     * The swt graphic composite
+     */
     private GC gc;
 
     /**
@@ -122,26 +101,37 @@ public class SWTGraphics2D extends Graphics2D {
      */
     private RenderingHints hints;
 
-    /** A reference to the compositing rule to apply. This is necessary
-     * due to the poor compositing interface of the SWT toolkit. */
+    /**
+     * A reference to the compositing rule to apply. This is necessary
+     * due to the poor compositing interface of the SWT toolkit.
+     */
     private java.awt.Composite composite;
 
-    /** A HashMap to store the Swt color resources. */
+    /**
+     * A HashMap to store the Swt color resources.
+     */
     private Map colorsPool = new HashMap();
 
-    /** A HashMap to store the Swt font resources. */
+    /**
+     * A HashMap to store the Swt font resources.
+     */
     private Map fontsPool = new HashMap();
 
-    /** A HashMap to store the Swt transform resources. */
+    /**
+     * A HashMap to store the Swt transform resources.
+     */
     private Map transformsPool = new HashMap();
 
-    /** A List to store the Swt resources. */
+    /**
+     * A List to store the Swt resources.
+     */
     private List resourcePool = new ArrayList();
+    private Color backgroundColor;
 
     /**
      * Creates a new instance.
      *
-     * @param gc  the graphics context.
+     * @param gc the graphics context.
      */
     public SWTGraphics2D(GC gc) {
         super();
@@ -175,10 +165,8 @@ public class SWTGraphics2D extends Graphics2D {
      * Returns the current value for the specified hint key, or
      * <code>null</code> if no value is set.
      *
-     * @param hintKey  the hint key (<code>null</code> permitted).
-     *
+     * @param hintKey the hint key (<code>null</code> permitted).
      * @return The hint value, or <code>null</code>.
-     *
      * @see #setRenderingHint(RenderingHints.Key, Object)
      */
     public Object getRenderingHint(Key hintKey) {
@@ -189,12 +177,10 @@ public class SWTGraphics2D extends Graphics2D {
      * Sets the value for a rendering hint.  For now, this graphics context
      * ignores all hints.
      *
-     * @param hintKey  the key (<code>null</code> not permitted).
-     * @param hintValue  the value (must be compatible with the specified key).
-     *
+     * @param hintKey   the key (<code>null</code> not permitted).
+     * @param hintValue the value (must be compatible with the specified key).
      * @throws IllegalArgumentException if <code>hintValue</code> is not
-     *         compatible with the <code>hintKey</code>.
-     *
+     *                                  compatible with the <code>hintKey</code>.
      * @see #getRenderingHint(RenderingHints.Key)
      */
     public void setRenderingHint(Key hintKey, Object hintValue) {
@@ -211,23 +197,10 @@ public class SWTGraphics2D extends Graphics2D {
     }
 
     /**
-     * Adds the hints in the specified map to the graphics context, replacing
-     * any existing hints.  For now, this graphics context ignores all hints.
-     *
-     * @param hints  the hints (<code>null</code> not permitted).
-     *
-     * @see #setRenderingHints(Map)
-     */
-    public void addRenderingHints(Map hints) {
-        this.hints.putAll(hints);
-    }
-
-    /**
      * Replaces the existing hints with those contained in the specified
      * map.  Note that, for now, this graphics context ignores all hints.
      *
-     * @param hints  the hints (<code>null</code> not permitted).
-     *
+     * @param hints the hints (<code>null</code> not permitted).
      * @see #addRenderingHints(Map)
      */
     public void setRenderingHints(Map hints) {
@@ -238,10 +211,20 @@ public class SWTGraphics2D extends Graphics2D {
     }
 
     /**
+     * Adds the hints in the specified map to the graphics context, replacing
+     * any existing hints.  For now, this graphics context ignores all hints.
+     *
+     * @param hints the hints (<code>null</code> not permitted).
+     * @see #setRenderingHints(Map)
+     */
+    public void addRenderingHints(Map hints) {
+        this.hints.putAll(hints);
+    }
+
+    /**
      * Returns the current paint for this graphics context.
      *
      * @return The current paint.
-     *
      * @see #setPaint(Paint)
      */
     public Paint getPaint() {
@@ -258,8 +241,7 @@ public class SWTGraphics2D extends Graphics2D {
      * support, the paint used is the <code>Color</code> returned by
      * <code>getColor1()</code>).
      *
-     * @param paint  the paint (<code>null</code> permitted, ignored).
-     *
+     * @param paint the paint (<code>null</code> permitted, ignored).
      * @see #getPaint()
      * @see #setColor(Color)
      */
@@ -269,12 +251,10 @@ public class SWTGraphics2D extends Graphics2D {
         }
         if (paint instanceof Color) {
             setColor((Color) paint);
-        }
-        else if (paint instanceof GradientPaint) {
+        } else if (paint instanceof GradientPaint) {
             GradientPaint gp = (GradientPaint) paint;
             setColor(gp.getColor1());
-        }
-        else {
+        } else {
             throw new RuntimeException("Can only handle 'Color' at present.");
         }
     }
@@ -283,7 +263,6 @@ public class SWTGraphics2D extends Graphics2D {
      * Returns the current color for this graphics context.
      *
      * @return The current color.
-     *
      * @see #setColor(Color)
      */
     public Color getColor() {
@@ -296,8 +275,7 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Sets the current color for this graphics context.
      *
-     * @param color  the color (<code>null</code> permitted but ignored).
-     *
+     * @param color the color (<code>null</code> permitted but ignored).
      * @see #getColor()
      */
     public void setColor(Color color) {
@@ -310,26 +288,14 @@ public class SWTGraphics2D extends Graphics2D {
         if (this.composite instanceof AlphaComposite) {
             AlphaComposite acomp = (AlphaComposite) this.composite;
             switch (acomp.getRule()) {
-            case AlphaComposite.SRC_OVER:
-                this.gc.setAlpha((int) (color.getAlpha() * acomp.getAlpha()));
-                break;
-            default:
-                this.gc.setAlpha(color.getAlpha());
-                break;
+                case AlphaComposite.SRC_OVER:
+                    this.gc.setAlpha((int) (color.getAlpha() * acomp.getAlpha()));
+                    break;
+                default:
+                    this.gc.setAlpha(color.getAlpha());
+                    break;
             }
         }
-    }
-
-    private Color backgroundColor;
-    
-    /**
-     * Sets the background colour.
-     *
-     * @param color  the colour.
-     */
-    public void setBackground(Color color) {
-        // since this is only used by clearRect(), we don't update the GC yet
-        this.backgroundColor = color;
     }
 
     /**
@@ -342,6 +308,16 @@ public class SWTGraphics2D extends Graphics2D {
     }
 
     /**
+     * Sets the background colour.
+     *
+     * @param color the colour.
+     */
+    public void setBackground(Color color) {
+        // since this is only used by clearRect(), we don't update the GC yet
+        this.backgroundColor = color;
+    }
+
+    /**
      * Not implemented - see {@link Graphics#setPaintMode()}.
      */
     public void setPaintMode() {
@@ -351,7 +327,7 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Not implemented - see {@link Graphics#setXORMode(Color)}.
      *
-     * @param color  the colour.
+     * @param color the colour.
      */
     public void setXORMode(Color color) {
         // TODO Auto-generated method stub
@@ -361,7 +337,6 @@ public class SWTGraphics2D extends Graphics2D {
      * Returns the current composite.
      *
      * @return The current composite.
-     *
      * @see #setComposite(Composite)
      */
     public Composite getComposite() {
@@ -372,7 +347,7 @@ public class SWTGraphics2D extends Graphics2D {
      * Sets the current composite.  This implementation currently supports
      * only the {@link AlphaComposite} class.
      *
-     * @param comp  the composite (<code>null</code> not permitted).
+     * @param comp the composite (<code>null</code> not permitted).
      */
     public void setComposite(Composite comp) {
         if (comp == null) {
@@ -390,7 +365,6 @@ public class SWTGraphics2D extends Graphics2D {
      * Returns the current stroke for this graphics context.
      *
      * @return The current stroke.
-     *
      * @see #setStroke(Stroke)
      */
     public Stroke getStroke() {
@@ -403,8 +377,7 @@ public class SWTGraphics2D extends Graphics2D {
      * Sets the stroke for this graphics context.  For now, this implementation
      * only recognises the {@link BasicStroke} class.
      *
-     * @param stroke  the stroke (<code>null</code> not permitted).
-     *
+     * @param stroke the stroke (<code>null</code> not permitted).
      * @see #getStroke()
      */
     public void setStroke(Stroke stroke) {
@@ -429,8 +402,7 @@ public class SWTGraphics2D extends Graphics2D {
                 }
                 this.gc.setLineDash(swtDashes);
             }
-        }
-        else {
+        } else {
             throw new RuntimeException(
                     "Can only handle 'Basic Stroke' at present.");
         }
@@ -439,7 +411,7 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Applies the specified clip.
      *
-     * @param s  the shape for the clip.
+     * @param s the shape for the clip.
      */
     public void clip(Shape s) {
         Path path = toSwtPath(s);
@@ -461,14 +433,14 @@ public class SWTGraphics2D extends Graphics2D {
      * Sets the clipping to the intersection of the current clip region and
      * the specified rectangle.
      *
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
+     * @param x      the x-coordinate.
+     * @param y      the y-coordinate.
      * @param width  the width.
-     * @param height  the height.
+     * @param height the height.
      */
     public void clipRect(int x, int y, int width, int height) {
         org.eclipse.swt.graphics.Rectangle clip = this.gc.getClipping();
-        org.eclipse.swt.graphics.Rectangle r 
+        org.eclipse.swt.graphics.Rectangle r
                 = new org.eclipse.swt.graphics.Rectangle(x, y, width, height);
         clip.intersect(r);
         this.gc.setClipping(clip);
@@ -486,7 +458,7 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Sets the clip region.
      *
-     * @param clip  the clip.
+     * @param clip the clip.
      */
     public void setClip(Shape clip) {
         if (clip == null) {
@@ -500,10 +472,10 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Sets the clip region to the specified rectangle.
      *
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
+     * @param x      the x-coordinate.
+     * @param y      the y-coordinate.
      * @param width  the width.
-     * @param height  the height.
+     * @param height the height.
      */
     public void setClip(int x, int y, int width, int height) {
         this.gc.setClipping(x, y, width, height);
@@ -525,7 +497,7 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Sets the current transform.
      *
-     * @param t  the transform.
+     * @param t the transform.
      */
     public void setTransform(AffineTransform t) {
         Transform transform = getSwtTransformFromPool(t);
@@ -535,7 +507,7 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Concatenates the specified transform to the existing transform.
      *
-     * @param t  the transform.
+     * @param t the transform.
      */
     public void transform(AffineTransform t) {
         Transform swtTransform = new Transform(this.gc.getDevice());
@@ -548,8 +520,8 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Applies a translation.
      *
-     * @param x  the translation along the x-axis.
-     * @param y  the translation along the y-axis.
+     * @param x the translation along the x-axis.
+     * @param y the translation along the y-axis.
      */
     public void translate(int x, int y) {
         Transform swtTransform = new Transform(this.gc.getDevice());
@@ -562,8 +534,8 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Applies a translation.
      *
-     * @param tx  the translation along the x-axis.
-     * @param ty  the translation along the y-axis.
+     * @param tx the translation along the x-axis.
+     * @param ty the translation along the y-axis.
      */
     public void translate(double tx, double ty) {
         translate((int) tx, (int) ty);
@@ -572,7 +544,7 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Applies a rotation transform.
      *
-     * @param theta  the angle of rotation.
+     * @param theta the angle of rotation.
      */
     public void rotate(double theta) {
         AffineTransform t = getTransform();
@@ -594,8 +566,8 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Applies a scale transform.
      *
-     * @param scaleX  the scale factor along the x-axis.
-     * @param scaleY  the scale factor along the y-axis.
+     * @param scaleX the scale factor along the x-axis.
+     * @param scaleY the scale factor along the y-axis.
      */
     public void scale(double scaleX, double scaleY) {
         Transform swtTransform = new Transform(this.gc.getDevice());
@@ -608,8 +580,8 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Applies a shear transform.
      *
-     * @param shearX  the x-factor.
-     * @param shearY  the y-factor.
+     * @param shearX the x-factor.
+     * @param shearY the y-factor.
      */
     public void shear(double shearX, double shearY) {
         transform(AffineTransform.getShearInstance(shearX, shearY));
@@ -619,8 +591,7 @@ public class SWTGraphics2D extends Graphics2D {
      * Draws the outline of the specified shape using the current stroke and
      * paint settings.
      *
-     * @param shape  the shape (<code>null</code> not permitted).
-     *
+     * @param shape the shape (<code>null</code> not permitted).
      * @see #getPaint()
      * @see #getStroke()
      * @see #fill(Shape)
@@ -635,11 +606,10 @@ public class SWTGraphics2D extends Graphics2D {
      * Draws a line from (x1, y1) to (x2, y2) using the current stroke
      * and paint settings.
      *
-     * @param x1  the x-coordinate for the starting point.
-     * @param y1  the y-coordinate for the starting point.
-     * @param x2  the x-coordinate for the ending point.
-     * @param y2  the y-coordinate for the ending point.
-     *
+     * @param x1 the x-coordinate for the starting point.
+     * @param y1 the y-coordinate for the starting point.
+     * @param x2 the x-coordinate for the ending point.
+     * @param y2 the y-coordinate for the ending point.
      * @see #draw(Shape)
      */
     public void drawLine(int x1, int y1, int x2, int y2) {
@@ -650,13 +620,12 @@ public class SWTGraphics2D extends Graphics2D {
      * Draws the outline of the polygon specified by the given points, using
      * the current paint and stroke settings.
      *
-     * @param xPoints  the x-coordinates.
-     * @param yPoints  the y-coordinates.
-     * @param npoints  the number of points in the polygon.
-     *
+     * @param xPoints the x-coordinates.
+     * @param yPoints the y-coordinates.
+     * @param npoints the number of points in the polygon.
      * @see #draw(Shape)
      */
-    public void drawPolygon(int [] xPoints, int [] yPoints, int npoints) {
+    public void drawPolygon(int[] xPoints, int[] yPoints, int npoints) {
         drawPolyline(xPoints, yPoints, npoints);
         if (npoints > 1) {
             this.gc.drawLine(xPoints[npoints - 1], yPoints[npoints - 1],
@@ -668,13 +637,12 @@ public class SWTGraphics2D extends Graphics2D {
      * Draws a sequence of connected lines specified by the given points, using
      * the current paint and stroke settings.
      *
-     * @param xPoints  the x-coordinates.
-     * @param yPoints  the y-coordinates.
-     * @param npoints  the number of points in the polygon.
-     *
+     * @param xPoints the x-coordinates.
+     * @param yPoints the y-coordinates.
+     * @param npoints the number of points in the polygon.
      * @see #draw(Shape)
      */
-    public void drawPolyline(int [] xPoints, int [] yPoints, int npoints) {
+    public void drawPolyline(int[] xPoints, int[] yPoints, int npoints) {
         if (npoints > 1) {
             int x0 = xPoints[0];
             int y0 = yPoints[0];
@@ -692,11 +660,10 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Draws an oval that fits within the specified rectangular region.
      *
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
+     * @param x      the x-coordinate.
+     * @param y      the y-coordinate.
      * @param width  the frame width.
-     * @param height  the frame height.
-     *
+     * @param height the frame height.
      * @see #fillOval(int, int, int, int)
      * @see #draw(Shape)
      */
@@ -708,17 +675,16 @@ public class SWTGraphics2D extends Graphics2D {
      * Draws an arc that is part of an ellipse that fits within the specified
      * framing rectangle.
      *
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
-     * @param width  the frame width.
-     * @param height  the frame height.
-     * @param arcStart  the arc starting point, in degrees.
-     * @param arcAngle  the extent of the arc.
-     *
+     * @param x        the x-coordinate.
+     * @param y        the y-coordinate.
+     * @param width    the frame width.
+     * @param height   the frame height.
+     * @param arcStart the arc starting point, in degrees.
+     * @param arcAngle the extent of the arc.
      * @see #fillArc(int, int, int, int, int, int)
      */
     public void drawArc(int x, int y, int width, int height, int arcStart,
-            int arcAngle) {
+                        int arcAngle) {
         this.gc.drawArc(x, y, width - 1, height - 1, arcStart, arcAngle);
     }
 
@@ -726,19 +692,18 @@ public class SWTGraphics2D extends Graphics2D {
      * Draws a rectangle with rounded corners that fits within the specified
      * framing rectangle.
      *
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
-     * @param width  the frame width.
-     * @param height  the frame height.
+     * @param x         the x-coordinate.
+     * @param y         the y-coordinate.
+     * @param width     the frame width.
+     * @param height    the frame height.
      * @param arcWidth  the width of the arc defining the roundedness of the
-     *         rectangle's corners.
+     *                  rectangle's corners.
      * @param arcHeight the height of the arc defining the roundedness of the
-     *         rectangle's corners.
-     *
+     *                  rectangle's corners.
      * @see #fillRoundRect(int, int, int, int, int, int)
      */
     public void drawRoundRect(int x, int y, int width, int height,
-            int arcWidth, int arcHeight) {
+                              int arcWidth, int arcHeight) {
         this.gc.drawRoundRectangle(x, y, width - 1, height - 1, arcWidth,
                 arcHeight);
     }
@@ -746,8 +711,7 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Fills the specified shape using the current paint.
      *
-     * @param shape  the shape (<code>null</code> not permitted).
-     *
+     * @param shape the shape (<code>null</code> not permitted).
      * @see #getPaint()
      * @see #draw(Shape)
      */
@@ -766,6 +730,7 @@ public class SWTGraphics2D extends Graphics2D {
      * Fill a rectangle area on the swt graphic composite.
      * The <code>fillRectangle</code> method of the <code>GC</code>
      * class uses the background color so we must switch colors.
+     *
      * @see java.awt.Graphics#fillRect(int, int, int, int)
      */
     public void fillRect(int x, int y, int width, int height) {
@@ -777,11 +742,10 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Fills the specified rectangle with the current background colour.
      *
-     * @param x  the x-coordinate for the rectangle.
-     * @param y  the y-coordinate for the rectangle.
+     * @param x      the x-coordinate for the rectangle.
+     * @param y      the y-coordinate for the rectangle.
      * @param width  the width.
-     * @param height  the height.
-     *
+     * @param height the height.
      * @see #fillRect(int, int, int, int)
      */
     public void clearRect(int x, int y, int width, int height) {
@@ -798,9 +762,9 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Fills the specified polygon.
      *
-     * @param xPoints  the x-coordinates.
-     * @param yPoints  the y-coordinates.
-     * @param npoints  the number of points.
+     * @param xPoints the x-coordinates.
+     * @param yPoints the y-coordinates.
+     * @param npoints the number of points.
      */
     public void fillPolygon(int[] xPoints, int[] yPoints, int npoints) {
         int[] pointArray = new int[npoints * 2];
@@ -817,19 +781,18 @@ public class SWTGraphics2D extends Graphics2D {
      * Draws a rectangle with rounded corners that fits within the specified
      * framing rectangle.
      *
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
-     * @param width  the frame width.
-     * @param height  the frame height.
+     * @param x         the x-coordinate.
+     * @param y         the y-coordinate.
+     * @param width     the frame width.
+     * @param height    the frame height.
      * @param arcWidth  the width of the arc defining the roundedness of the
-     *         rectangle's corners.
+     *                  rectangle's corners.
      * @param arcHeight the height of the arc defining the roundedness of the
-     *         rectangle's corners.
-     *
+     *                  rectangle's corners.
      * @see #drawRoundRect(int, int, int, int, int, int)
      */
     public void fillRoundRect(int x, int y, int width, int height,
-            int arcWidth, int arcHeight) {
+                              int arcWidth, int arcHeight) {
         switchColors();
         this.gc.fillRoundRectangle(x, y, width - 1, height - 1, arcWidth,
                 arcHeight);
@@ -839,11 +802,10 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Fills an oval that fits within the specified rectangular region.
      *
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
+     * @param x      the x-coordinate.
+     * @param y      the y-coordinate.
      * @param width  the frame width.
-     * @param height  the frame height.
-     *
+     * @param height the frame height.
      * @see #drawOval(int, int, int, int)
      * @see #fill(Shape)
      */
@@ -857,17 +819,16 @@ public class SWTGraphics2D extends Graphics2D {
      * Fills an arc that is part of an ellipse that fits within the specified
      * framing rectangle.
      *
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
-     * @param width  the frame width.
-     * @param height  the frame height.
-     * @param arcStart  the arc starting point, in degrees.
-     * @param arcAngle  the extent of the arc.
-     *
+     * @param x        the x-coordinate.
+     * @param y        the y-coordinate.
+     * @param width    the frame width.
+     * @param height   the frame height.
+     * @param arcStart the arc starting point, in degrees.
+     * @param arcAngle the extent of the arc.
      * @see #drawArc(int, int, int, int, int, int)
      */
     public void fillArc(int x, int y, int width, int height, int arcStart,
-            int arcAngle) {
+                        int arcAngle) {
         switchColors();
         this.gc.fillArc(x, y, width - 1, height - 1, arcStart, arcAngle);
         switchColors();
@@ -877,6 +838,7 @@ public class SWTGraphics2D extends Graphics2D {
      * Returns the font in form of an awt font created
      * with the parameters of the font of the swt graphic
      * composite.
+     *
      * @see java.awt.Graphics#getFont()
      */
     public Font getFont() {
@@ -890,6 +852,7 @@ public class SWTGraphics2D extends Graphics2D {
      * Set the font swt graphic composite from the specified
      * awt font. Be careful that the newly created swt font
      * must be disposed separately.
+     *
      * @see java.awt.Graphics#setFont(java.awt.Font)
      */
     public void setFont(Font font) {
@@ -901,7 +864,6 @@ public class SWTGraphics2D extends Graphics2D {
      * Returns the font metrics.
      *
      * @param font the font.
-     *
      * @return The font metrics.
      */
     public FontMetrics getFontMetrics(Font font) {
@@ -921,10 +883,10 @@ public class SWTGraphics2D extends Graphics2D {
 
     /**
      * Draws the specified glyph vector at the location <code>(x, y)</code>.
-     * 
-     * @param g  the glyph vector (<code>null</code> not permitted).
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
+     *
+     * @param g the glyph vector (<code>null</code> not permitted).
+     * @param x the x-coordinate.
+     * @param y the y-coordinate.
      */
     public void drawGlyphVector(GlyphVector g, float x, float y) {
         fill(g.getOutline(x, y));
@@ -944,9 +906,9 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Draws a string at the specified position.
      *
-     * @param text  the string.
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
+     * @param text the string.
+     * @param x    the x-coordinate.
+     * @param y    the y-coordinate.
      */
     public void drawString(String text, float x, float y) {
         if (text == null) {
@@ -959,9 +921,9 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Draws a string at the specified position.
      *
-     * @param iterator  the string.
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
+     * @param iterator the string.
+     * @param x        the x-coordinate.
+     * @param y        the y-coordinate.
      */
     public void drawString(AttributedCharacterIterator iterator, int x, int y) {
         // for now we simply want to extract the chars from the iterator
@@ -973,31 +935,30 @@ public class SWTGraphics2D extends Graphics2D {
             sb.append(c);
             c = iterator.next();
         }
-        drawString(new String(sb),x,y);
+        drawString(new String(sb), x, y);
     }
 
     /**
      * Draws a string at the specified position.
      *
-     * @param iterator  the string.
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
+     * @param iterator the string.
+     * @param x        the x-coordinate.
+     * @param y        the y-coordinate.
      */
     public void drawString(AttributedCharacterIterator iterator, float x,
-            float y) {
+                           float y) {
         drawString(iterator, (int) x, (int) y);
     }
 
     /**
      * Returns <code>true</code> if the rectangle (in device space) intersects
-     * with the shape (the interior, if <code>onStroke</code> is false, 
+     * with the shape (the interior, if <code>onStroke</code> is false,
      * otherwise the stroked outline of the shape).
-     * 
-     * @param rect  a rectangle (in device space).
-     * @param s the shape.
-     * @param onStroke  test the stroked outline only?
-     * 
-     * @return A boolean. 
+     *
+     * @param rect     a rectangle (in device space).
+     * @param s        the shape.
+     * @param onStroke test the stroked outline only?
+     * @return A boolean.
      */
     @Override
     public boolean hit(Rectangle rect, Shape s, boolean onStroke) {
@@ -1030,14 +991,13 @@ public class SWTGraphics2D extends Graphics2D {
      * Not implemented - see {@link Graphics2D#drawImage(Image,
      * AffineTransform, ImageObserver)}.
      *
-     * @param image  the image.
-     * @param xform  the transform.
-     * @param obs  an image observer.
-     *
+     * @param image the image.
+     * @param xform the transform.
+     * @param obs   an image observer.
      * @return A boolean.
      */
     public boolean drawImage(Image image, AffineTransform xform,
-            ImageObserver obs) {
+                             ImageObserver obs) {
         // TODO Auto-generated method stub
         return false;
     }
@@ -1045,13 +1005,13 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Draws an image.
      *
-     * @param image  the image.
-     * @param op  the image operation.
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
+     * @param image the image.
+     * @param op    the image operation.
+     * @param x     the x-coordinate.
+     * @param y     the y-coordinate.
      */
     public void drawImage(BufferedImage image, BufferedImageOp op, int x,
-            int y) {
+                          int y) {
         org.eclipse.swt.graphics.Image im = new org.eclipse.swt.graphics.Image(
                 this.gc.getDevice(), SWTUtils.convertToSWT(image));
         this.gc.drawImage(im, x, y);
@@ -1062,9 +1022,9 @@ public class SWTGraphics2D extends Graphics2D {
      * Draws an SWT image with the top left corner of the image aligned to the
      * point (x, y).
      *
-     * @param image  the image.
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
+     * @param image the image.
+     * @param x     the x-coordinate.
+     * @param y     the y-coordinate.
      */
     public void drawImage(org.eclipse.swt.graphics.Image image, int x, int y) {
         this.gc.drawImage(image, x, y);
@@ -1074,8 +1034,8 @@ public class SWTGraphics2D extends Graphics2D {
      * Not implemented - see {@link Graphics2D#drawRenderedImage(RenderedImage,
      * AffineTransform)}.
      *
-     * @param image  the image.
-     * @param xform  the transform.
+     * @param image the image.
+     * @param xform the transform.
      */
     public void drawRenderedImage(RenderedImage image, AffineTransform xform) {
         // TODO Auto-generated method stub
@@ -1083,13 +1043,13 @@ public class SWTGraphics2D extends Graphics2D {
 
     /**
      * Not implemented - see {@link Graphics2D#drawRenderableImage(
-     * RenderableImage, AffineTransform)}.
+     *RenderableImage, AffineTransform)}.
      *
-     * @param image  the image.
-     * @param xform  the transform.
+     * @param image the image.
+     * @param xform the transform.
      */
     public void drawRenderableImage(RenderableImage image,
-            AffineTransform xform) {
+                                    AffineTransform xform) {
         // TODO Auto-generated method stub
 
     }
@@ -1097,15 +1057,14 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Draws an image with the top left corner aligned to the point (x, y).
      *
-     * @param image  the image.
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
-     * @param observer  ignored here.
-     *
+     * @param image    the image.
+     * @param x        the x-coordinate.
+     * @param y        the y-coordinate.
+     * @param observer ignored here.
      * @return <code>true</code> if the image has been drawn.
      */
     public boolean drawImage(Image image, int x, int y,
-            ImageObserver observer) {
+                             ImageObserver observer) {
         ImageData data = SWTUtils.convertAWTImageToSWT(image);
         if (data == null) {
             return false;
@@ -1121,17 +1080,16 @@ public class SWTGraphics2D extends Graphics2D {
      * Draws an image with the top left corner aligned to the point (x, y),
      * and scaled to the specified width and height.
      *
-     * @param image  the image.
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
-     * @param width  the width for the rendered image.
-     * @param height  the height for the rendered image.
-     * @param observer  ignored here.
-     *
+     * @param image    the image.
+     * @param x        the x-coordinate.
+     * @param y        the y-coordinate.
+     * @param width    the width for the rendered image.
+     * @param height   the height for the rendered image.
+     * @param observer ignored here.
      * @return <code>true</code> if the image has been drawn.
      */
     public boolean drawImage(Image image, int x, int y, int width, int height,
-            ImageObserver observer) {
+                             ImageObserver observer) {
         ImageData data = SWTUtils.convertAWTImageToSWT(image);
         if (data == null) {
             return false;
@@ -1148,16 +1106,15 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Draws an image.
      *
-     * @param image (<code>null</code> not permitted).
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
+     * @param image    (<code>null</code> not permitted).
+     * @param x        the x-coordinate.
+     * @param y        the y-coordinate.
      * @param bgcolor  the background color.
-     * @param observer  an image observer.
-     *
+     * @param observer an image observer.
      * @return A boolean.
      */
     public boolean drawImage(Image image, int x, int y, Color bgcolor,
-            ImageObserver observer) {
+                             ImageObserver observer) {
         ParamChecks.nullNotPermitted(image, "image");
         int w = image.getWidth(null);
         int h = image.getHeight(null);
@@ -1173,18 +1130,17 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Draws an image.
      *
-     * @param image  the image (<code>null</code> not permitted).
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
-     * @param width  the width.
-     * @param height  the height.
+     * @param image    the image (<code>null</code> not permitted).
+     * @param x        the x-coordinate.
+     * @param y        the y-coordinate.
+     * @param width    the width.
+     * @param height   the height.
      * @param bgcolor  the background colour.
-     * @param observer  an image observer.
-     *
+     * @param observer an image observer.
      * @return A boolean.
      */
     public boolean drawImage(Image image, int x, int y, int width, int height,
-            Color bgcolor, ImageObserver observer) {
+                             Color bgcolor, ImageObserver observer) {
         ParamChecks.nullNotPermitted(image, "image");
         int w = image.getWidth(null);
         int h = image.getHeight(null);
@@ -1199,9 +1155,9 @@ public class SWTGraphics2D extends Graphics2D {
 
     /**
      * Not implemented - see {@link Graphics#drawImage(Image, int, int, int,
-     *     int, int, int, int, int, ImageObserver)}.
+     * int, int, int, int, int, ImageObserver)}.
      *
-     * @param image  the image.
+     * @param image    the image.
      * @param dx1
      * @param dy1
      * @param dx2
@@ -1213,16 +1169,16 @@ public class SWTGraphics2D extends Graphics2D {
      * @param observer
      */
     public boolean drawImage(Image image, int dx1, int dy1, int dx2, int dy2,
-            int sx1, int sy1, int sx2, int sy2, ImageObserver observer) {
+                             int sx1, int sy1, int sx2, int sy2, ImageObserver observer) {
         // TODO Auto-generated method stub
         return false;
     }
 
     /**
      * Not implemented - see {@link Graphics#drawImage(Image, int, int, int,
-     *     int, int, int, int, int, Color, ImageObserver)}.
+     * int, int, int, int, int, Color, ImageObserver)}.
      *
-     * @param image  the image.
+     * @param image    the image.
      * @param dx1
      * @param dy1
      * @param dx2
@@ -1235,8 +1191,8 @@ public class SWTGraphics2D extends Graphics2D {
      * @param observer
      */
     public boolean drawImage(Image image, int dx1, int dy1, int dx2, int dy2,
-            int sx1, int sy1, int sx2, int sy2, Color bgcolor,
-            ImageObserver observer) {
+                             int sx1, int sy1, int sx2, int sy2, Color bgcolor,
+                             ImageObserver observer) {
         // TODO Auto-generated method stub
         return false;
     }
@@ -1268,7 +1224,7 @@ public class SWTGraphics2D extends Graphics2D {
      * Dispose the resource pool.
      */
     private void disposeResourcePool() {
-        for (Iterator it = this.resourcePool.iterator(); it.hasNext();) {
+        for (Iterator it = this.resourcePool.iterator(); it.hasNext(); ) {
             Resource resource = (Resource) it.next();
             resource.dispose();
         }
@@ -1290,7 +1246,7 @@ public class SWTGraphics2D extends Graphics2D {
      */
     private org.eclipse.swt.graphics.Font getSwtFontFromPool(Font font) {
         org.eclipse.swt.graphics.Font swtFont = (org.eclipse.swt.graphics.Font)
-        this.fontsPool.get(font);
+                this.fontsPool.get(font);
         if (swtFont == null) {
             swtFont = new org.eclipse.swt.graphics.Font(this.gc.getDevice(),
                     SWTUtils.toSwtFontData(this.gc.getDevice(), font, true));
@@ -1313,10 +1269,10 @@ public class SWTGraphics2D extends Graphics2D {
     private org.eclipse.swt.graphics.Color getSwtColorFromPool(Color awtColor) {
         org.eclipse.swt.graphics.Color swtColor =
                 (org.eclipse.swt.graphics.Color)
-                // we can't use the following valueOf() method, because it
-                // won't compile with JDK1.4
-                // this.colorsPool.get(Integer.valueOf(awtColor.getRGB()));
-                this.colorsPool.get(new Integer(awtColor.getRGB()));
+                        // we can't use the following valueOf() method, because it
+                        // won't compile with JDK1.4
+                        // this.colorsPool.get(Integer.valueOf(awtColor.getRGB()));
+                        this.colorsPool.get(new Integer(awtColor.getRGB()));
         if (swtColor == null) {
             swtColor = SWTUtils.toSwtColor(this.gc.getDevice(), awtColor);
             addToResourcePool(swtColor);
@@ -1368,8 +1324,7 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Converts an AWT <code>Shape</code> into a SWT <code>Path</code>.
      *
-     * @param shape  the shape (<code>null</code> not permitted).
-     *
+     * @param shape the shape (<code>null</code> not permitted).
      * @return The path.
      */
     private Path toSwtPath(Shape shape) {
@@ -1407,8 +1362,7 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Converts an SWT transform into the equivalent AWT transform.
      *
-     * @param swtTransform  the SWT transform.
-     *
+     * @param swtTransform the SWT transform.
      * @return The AWT transform.
      */
     private AffineTransform toAwtTransform(Transform swtTransform) {
@@ -1421,92 +1375,76 @@ public class SWTGraphics2D extends Graphics2D {
     /**
      * Returns the AWT line cap corresponding to the specified SWT line cap.
      *
-     * @param swtLineCap  the SWT line cap.
-     *
+     * @param swtLineCap the SWT line cap.
      * @return The AWT line cap.
      */
     private int toAwtLineCap(int swtLineCap) {
         if (swtLineCap == SWT.CAP_FLAT) {
             return BasicStroke.CAP_BUTT;
-        }
-        else if (swtLineCap == SWT.CAP_ROUND) {
+        } else if (swtLineCap == SWT.CAP_ROUND) {
             return BasicStroke.CAP_ROUND;
-        }
-        else if (swtLineCap == SWT.CAP_SQUARE) {
+        } else if (swtLineCap == SWT.CAP_SQUARE) {
             return BasicStroke.CAP_SQUARE;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("SWT LineCap " + swtLineCap
-                + " not recognised");
+                    + " not recognised");
         }
     }
 
     /**
      * Returns the AWT line join corresponding to the specified SWT line join.
      *
-     * @param swtLineJoin  the SWT line join.
-     *
+     * @param swtLineJoin the SWT line join.
      * @return The AWT line join.
      */
     private int toAwtLineJoin(int swtLineJoin) {
         if (swtLineJoin == SWT.JOIN_BEVEL) {
             return BasicStroke.JOIN_BEVEL;
-        }
-        else if (swtLineJoin == SWT.JOIN_MITER) {
+        } else if (swtLineJoin == SWT.JOIN_MITER) {
             return BasicStroke.JOIN_MITER;
-        }
-        else if (swtLineJoin == SWT.JOIN_ROUND) {
+        } else if (swtLineJoin == SWT.JOIN_ROUND) {
             return BasicStroke.JOIN_ROUND;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("SWT LineJoin " + swtLineJoin
-                + " not recognised");
+                    + " not recognised");
         }
     }
 
     /**
      * Returns the SWT line cap corresponding to the specified AWT line cap.
      *
-     * @param awtLineCap  the AWT line cap.
-     *
+     * @param awtLineCap the AWT line cap.
      * @return The SWT line cap.
      */
     private int toSwtLineCap(int awtLineCap) {
         if (awtLineCap == BasicStroke.CAP_BUTT) {
             return SWT.CAP_FLAT;
-        }
-        else if (awtLineCap == BasicStroke.CAP_ROUND) {
+        } else if (awtLineCap == BasicStroke.CAP_ROUND) {
             return SWT.CAP_ROUND;
-        }
-        else if (awtLineCap == BasicStroke.CAP_SQUARE) {
+        } else if (awtLineCap == BasicStroke.CAP_SQUARE) {
             return SWT.CAP_SQUARE;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("AWT LineCap " + awtLineCap
-                + " not recognised");
+                    + " not recognised");
         }
     }
 
     /**
      * Returns the SWT line join corresponding to the specified AWT line join.
      *
-     * @param awtLineJoin  the AWT line join.
-     *
+     * @param awtLineJoin the AWT line join.
      * @return The SWT line join.
      */
     private int toSwtLineJoin(int awtLineJoin) {
         if (awtLineJoin == BasicStroke.JOIN_BEVEL) {
             return SWT.JOIN_BEVEL;
-        }
-        else if (awtLineJoin == BasicStroke.JOIN_MITER) {
+        } else if (awtLineJoin == BasicStroke.JOIN_MITER) {
             return SWT.JOIN_MITER;
-        }
-        else if (awtLineJoin == BasicStroke.JOIN_ROUND) {
+        } else if (awtLineJoin == BasicStroke.JOIN_ROUND) {
             return SWT.JOIN_ROUND;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("AWT LineJoin " + awtLineJoin
-                + " not recognised");
+                    + " not recognised");
         }
     }
 }

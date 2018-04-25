@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------
@@ -41,9 +41,9 @@
 
 package org.jfree.chart.plot;
 
-import java.awt.geom.Point2D;
-
 import org.jfree.chart.ChartPanel;
+
+import java.awt.geom.Point2D;
 
 /**
  * An interface that the {@link ChartPanel} class uses to communicate with
@@ -77,21 +77,21 @@ public interface Pannable {
     /**
      * Pans the domain axes by the specified percentage.
      *
-     * @param percent  the distance to pan (as a percentage of the axis length).
-     * @param info the plot info
-     * @param source the source point where the pan action started.
+     * @param percent the distance to pan (as a percentage of the axis length).
+     * @param info    the plot info
+     * @param source  the source point where the pan action started.
      */
     public void panDomainAxes(double percent, PlotRenderingInfo info,
-            Point2D source);
+                              Point2D source);
 
     /**
      * Pans the range axes by the specified percentage.
      *
-     * @param percent  the distance to pan (as a percentage of the axis length).
-     * @param info the plot info
-     * @param source the source point where the pan action started.
+     * @param percent the distance to pan (as a percentage of the axis length).
+     * @param info    the plot info
+     * @param source  the source point where the pan action started.
      */
     public void panRangeAxes(double percent, PlotRenderingInfo info,
-            Point2D source);
+                             Point2D source);
 
 }

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -47,61 +47,72 @@
 
 package org.jfree.chart.axis;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Composite;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
+import org.jfree.chart.plot.IntervalMarker;
+import org.jfree.text.TextUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.ObjectUtilities;
+
+import java.awt.*;
 import java.awt.font.LineMetrics;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jfree.chart.plot.IntervalMarker;
-import org.jfree.text.TextUtilities;
-import org.jfree.ui.RectangleEdge;
-import org.jfree.util.ObjectUtilities;
-
 /**
  * A band that can be added to a number axis to display regions.
  */
 public class MarkerAxisBand implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -1729482413886398919L;
 
-    /** The axis that the band belongs to. */
+    /**
+     * The axis that the band belongs to.
+     */
     private NumberAxis axis;
 
-    /** The top outer gap. */
+    /**
+     * The top outer gap.
+     */
     private double topOuterGap;
 
-    /** The top inner gap. */
+    /**
+     * The top inner gap.
+     */
     private double topInnerGap;
 
-    /** The bottom outer gap. */
+    /**
+     * The bottom outer gap.
+     */
     private double bottomOuterGap;
 
-    /** The bottom inner gap. */
+    /**
+     * The bottom inner gap.
+     */
     private double bottomInnerGap;
 
-    /** The font. */
+    /**
+     * The font.
+     */
     private Font font;
 
-    /** Storage for the markers. */
+    /**
+     * Storage for the markers.
+     */
     private List markers;
 
     /**
      * Constructs a new axis band.
      *
-     * @param axis  the owner.
-     * @param topOuterGap  the top outer gap.
-     * @param topInnerGap  the top inner gap.
-     * @param bottomOuterGap  the bottom outer gap.
-     * @param bottomInnerGap  the bottom inner gap.
-     * @param font  the font.
+     * @param axis           the owner.
+     * @param topOuterGap    the top outer gap.
+     * @param topInnerGap    the top inner gap.
+     * @param bottomOuterGap the bottom outer gap.
+     * @param bottomInnerGap the bottom inner gap.
+     * @param font           the font.
      */
     public MarkerAxisBand(NumberAxis axis,
                           double topOuterGap, double topInnerGap,
@@ -119,7 +130,7 @@ public class MarkerAxisBand implements Serializable {
     /**
      * Adds a marker to the band.
      *
-     * @param marker  the marker.
+     * @param marker the marker.
      */
     public void addMarker(IntervalMarker marker) {
         this.markers.add(marker);
@@ -128,8 +139,7 @@ public class MarkerAxisBand implements Serializable {
     /**
      * Returns the height of the band.
      *
-     * @param g2  the graphics device.
-     *
+     * @param g2 the graphics device.
      * @return The height of the band.
      */
     public double getHeight(Graphics2D g2) {
@@ -137,10 +147,10 @@ public class MarkerAxisBand implements Serializable {
         double result = 0.0;
         if (this.markers.size() > 0) {
             LineMetrics metrics = this.font.getLineMetrics(
-                "123g", g2.getFontRenderContext()
+                    "123g", g2.getFontRenderContext()
             );
             result = this.topOuterGap + this.topInnerGap + metrics.getHeight()
-                     + this.bottomInnerGap + this.bottomOuterGap;
+                    + this.bottomInnerGap + this.bottomOuterGap;
         }
         return result;
 
@@ -149,10 +159,10 @@ public class MarkerAxisBand implements Serializable {
     /**
      * A utility method that draws a string inside a rectangle.
      *
-     * @param g2  the graphics device.
-     * @param bounds  the rectangle.
-     * @param font  the font.
-     * @param text  the text.
+     * @param g2     the graphics device.
+     * @param bounds the rectangle.
+     * @param font   the font.
+     * @param text   the text.
      */
     private void drawStringInRect(Graphics2D g2, Rectangle2D bounds, Font font,
                                   String text) {
@@ -165,22 +175,22 @@ public class MarkerAxisBand implements Serializable {
             x = x + (bounds.getWidth() - r.getWidth()) / 2;
         }
         LineMetrics metrics = font.getLineMetrics(
-            text, g2.getFontRenderContext()
+                text, g2.getFontRenderContext()
         );
         g2.drawString(
-            text, (float) x, (float) (bounds.getMaxY()
-                - this.bottomInnerGap - metrics.getDescent())
+                text, (float) x, (float) (bounds.getMaxY()
+                        - this.bottomInnerGap - metrics.getDescent())
         );
     }
 
     /**
      * Draws the band.
      *
-     * @param g2  the graphics device.
-     * @param plotArea  the plot area.
-     * @param dataArea  the data area.
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
+     * @param g2       the graphics device.
+     * @param plotArea the plot area.
+     * @param dataArea the data area.
+     * @param x        the x-coordinate.
+     * @param y        the y-coordinate.
      */
     public void draw(Graphics2D g2, Rectangle2D plotArea, Rectangle2D dataArea,
                      double x, double y) {
@@ -189,26 +199,26 @@ public class MarkerAxisBand implements Serializable {
         Iterator iterator = this.markers.iterator();
         while (iterator.hasNext()) {
             IntervalMarker marker = (IntervalMarker) iterator.next();
-            double start =  Math.max(
-                marker.getStartValue(), this.axis.getRange().getLowerBound()
+            double start = Math.max(
+                    marker.getStartValue(), this.axis.getRange().getLowerBound()
             );
             double end = Math.min(
-                marker.getEndValue(), this.axis.getRange().getUpperBound()
+                    marker.getEndValue(), this.axis.getRange().getUpperBound()
             );
             double s = this.axis.valueToJava2D(
-                start, dataArea, RectangleEdge.BOTTOM
+                    start, dataArea, RectangleEdge.BOTTOM
             );
             double e = this.axis.valueToJava2D(
-                end, dataArea, RectangleEdge.BOTTOM
+                    end, dataArea, RectangleEdge.BOTTOM
             );
             Rectangle2D r = new Rectangle2D.Double(
-                s, y + this.topOuterGap, e - s,
-                h - this.topOuterGap - this.bottomOuterGap
+                    s, y + this.topOuterGap, e - s,
+                    h - this.topOuterGap - this.bottomOuterGap
             );
 
             Composite originalComposite = g2.getComposite();
             g2.setComposite(AlphaComposite.getInstance(
-                AlphaComposite.SRC_OVER, marker.getAlpha())
+                    AlphaComposite.SRC_OVER, marker.getAlpha())
             );
             g2.setPaint(marker.getPaint());
             g2.fill(r);
@@ -226,8 +236,7 @@ public class MarkerAxisBand implements Serializable {
      * Tests this axis for equality with another object.  Note that the axis
      * that the band belongs to is ignored in the test.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return <code>true</code> or <code>false</code>.
      */
     @Override

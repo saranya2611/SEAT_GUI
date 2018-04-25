@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -51,10 +51,6 @@
 
 package org.jfree.chart.annotations;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.axis.CategoryAnchor;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
@@ -68,31 +64,43 @@ import org.jfree.text.TextUtilities;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
+
 /**
  * A text annotation that can be placed on a {@link CategoryPlot}.
  */
 public class CategoryTextAnnotation extends TextAnnotation
         implements CategoryAnnotation, Cloneable, PublicCloneable,
-                   Serializable {
+        Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 3333360090781320147L;
 
-    /** The category. */
+    /**
+     * The category.
+     */
     private Comparable category;
 
-    /** The category anchor (START, MIDDLE, or END). */
+    /**
+     * The category anchor (START, MIDDLE, or END).
+     */
     private CategoryAnchor categoryAnchor;
 
-    /** The value. */
+    /**
+     * The value.
+     */
     private double value;
 
     /**
      * Creates a new annotation to be displayed at the given location.
      *
-     * @param text  the text (<code>null</code> not permitted).
-     * @param category  the category (<code>null</code> not permitted).
-     * @param value  the value.
+     * @param text     the text (<code>null</code> not permitted).
+     * @param category the category (<code>null</code> not permitted).
+     * @param value    the value.
      */
     public CategoryTextAnnotation(String text, Comparable category,
                                   double value) {
@@ -107,7 +115,6 @@ public class CategoryTextAnnotation extends TextAnnotation
      * Returns the category.
      *
      * @return The category (never <code>null</code>).
-     *
      * @see #setCategory(Comparable)
      */
     public Comparable getCategory() {
@@ -118,8 +125,7 @@ public class CategoryTextAnnotation extends TextAnnotation
      * Sets the category that the annotation attaches to and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param category  the category (<code>null</code> not permitted).
-     *
+     * @param category the category (<code>null</code> not permitted).
      * @see #getCategory()
      */
     public void setCategory(Comparable category) {
@@ -132,7 +138,6 @@ public class CategoryTextAnnotation extends TextAnnotation
      * Returns the category anchor point.
      *
      * @return The category anchor point.
-     *
      * @see #setCategoryAnchor(CategoryAnchor)
      */
     public CategoryAnchor getCategoryAnchor() {
@@ -143,8 +148,7 @@ public class CategoryTextAnnotation extends TextAnnotation
      * Sets the category anchor point and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param anchor  the anchor point (<code>null</code> not permitted).
-     *
+     * @param anchor the anchor point (<code>null</code> not permitted).
      * @see #getCategoryAnchor()
      */
     public void setCategoryAnchor(CategoryAnchor anchor) {
@@ -157,7 +161,6 @@ public class CategoryTextAnnotation extends TextAnnotation
      * Returns the value that the annotation attaches to.
      *
      * @return The value.
-     *
      * @see #setValue(double)
      */
     public double getValue() {
@@ -168,8 +171,7 @@ public class CategoryTextAnnotation extends TextAnnotation
      * Sets the value and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param value  the value.
-     *
+     * @param value the value.
      * @see #getValue()
      */
     public void setValue(double value) {
@@ -180,15 +182,15 @@ public class CategoryTextAnnotation extends TextAnnotation
     /**
      * Draws the annotation.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param plot       the plot.
+     * @param dataArea   the data area.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
      */
     @Override
     public void draw(Graphics2D g2, CategoryPlot plot, Rectangle2D dataArea,
-            CategoryAxis domainAxis, ValueAxis rangeAxis) {
+                     CategoryAxis domainAxis, ValueAxis rangeAxis) {
 
         CategoryDataset dataset = plot.getDataset();
         int catIndex = dataset.getColumnIndex(this.category);
@@ -208,8 +210,7 @@ public class CategoryTextAnnotation extends TextAnnotation
                     domainEdge);
             anchorX = (float) rangeAxis.valueToJava2D(this.value, dataArea,
                     rangeEdge);
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             anchorX = (float) domainAxis.getCategoryJava2DCoordinate(
                     this.categoryAnchor, catIndex, catCount, dataArea,
                     domainEdge);
@@ -226,8 +227,7 @@ public class CategoryTextAnnotation extends TextAnnotation
     /**
      * Tests this object for equality with another.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return <code>true</code> or <code>false</code>.
      */
     @Override
@@ -273,9 +273,8 @@ public class CategoryTextAnnotation extends TextAnnotation
      * Returns a clone of the annotation.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  this class will not throw this
-     *         exception, but subclasses (if any) might.
+     * @throws CloneNotSupportedException this class will not throw this
+     *                                    exception, but subclasses (if any) might.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

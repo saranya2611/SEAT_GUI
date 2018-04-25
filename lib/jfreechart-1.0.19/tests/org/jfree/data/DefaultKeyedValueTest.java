@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -41,11 +41,9 @@
 package org.jfree.data;
 
 import org.jfree.chart.TestUtilities;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link DefaultKeyedValue} class.
@@ -64,9 +62,9 @@ public class DefaultKeyedValueTest {
         // try null key
         boolean pass = false;
         try {
-            /*v =*/ new DefaultKeyedValue(null, new Integer(1));
-        }
-        catch (IllegalArgumentException e) {
+            /*v =*/
+            new DefaultKeyedValue(null, new Integer(1));
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -45,12 +45,12 @@
 
 package org.jfree.data.xy;
 
-import java.io.Serializable;
-import java.util.List;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Represents a collection of {@link MatrixSeries} that can be used as a
@@ -61,10 +61,14 @@ import org.jfree.util.PublicCloneable;
 public class MatrixSeriesCollection extends AbstractXYZDataset
         implements XYZDataset, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -3197705779242543945L;
 
-    /** The series that are included in the collection. */
+    /**
+     * The series that are included in the collection.
+     */
     private List seriesList;
 
     /**
@@ -93,7 +97,6 @@ public class MatrixSeriesCollection extends AbstractXYZDataset
      * Returns the number of items in the specified series.
      *
      * @param seriesIndex zero-based series index.
-     *
      * @return The number of items in the specified series.
      */
     @Override
@@ -106,7 +109,6 @@ public class MatrixSeriesCollection extends AbstractXYZDataset
      * Returns the series having the specified index.
      *
      * @param seriesIndex zero-based series index.
-     *
      * @return The series.
      */
     public MatrixSeries getSeries(int seriesIndex) {
@@ -133,7 +135,6 @@ public class MatrixSeriesCollection extends AbstractXYZDataset
      * Returns the key for a series.
      *
      * @param seriesIndex zero-based series index.
-     *
      * @return The key for a series.
      */
     @Override
@@ -147,10 +148,8 @@ public class MatrixSeriesCollection extends AbstractXYZDataset
      * specified matrix series.
      *
      * @param seriesIndex zero-based series index.
-     * @param itemIndex zero-based item index.
-     *
+     * @param itemIndex   zero-based item index.
      * @return The j index value for the specified matrix item.
-     *
      * @see org.jfree.data.xy.XYDataset#getXValue(int, int)
      */
     @Override
@@ -167,10 +166,8 @@ public class MatrixSeriesCollection extends AbstractXYZDataset
      * specified matrix series.
      *
      * @param seriesIndex zero-based series index.
-     * @param itemIndex zero-based item index.
-     *
+     * @param itemIndex   zero-based item index.
      * @return The i index value for the specified matrix item.
-     *
      * @see org.jfree.data.xy.XYDataset#getYValue(int, int)
      */
     @Override
@@ -187,10 +184,8 @@ public class MatrixSeriesCollection extends AbstractXYZDataset
      * specified matrix series.
      *
      * @param seriesIndex the series (zero-based index).
-     * @param itemIndex zero-based item index.
-     *
+     * @param itemIndex   zero-based item index.
      * @return The Mij item value for the specified matrix item.
-     *
      * @see org.jfree.data.xy.XYZDataset#getZValue(int, int)
      */
     @Override
@@ -224,7 +219,6 @@ public class MatrixSeriesCollection extends AbstractXYZDataset
      * Tests this collection for equality with an arbitrary object.
      *
      * @param obj the object.
-     *
      * @return A boolean.
      */
     @Override
@@ -260,7 +254,6 @@ public class MatrixSeriesCollection extends AbstractXYZDataset
      * Returns a clone of this instance.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem.
      */
     @Override
@@ -310,7 +303,7 @@ public class MatrixSeriesCollection extends AbstractXYZDataset
 
     /**
      * Removes a series from the collection.
-     * <P>
+     * <p>
      * Notifies all registered listeners that the dataset has changed.
      *
      * @param seriesIndex the series (zero based index).

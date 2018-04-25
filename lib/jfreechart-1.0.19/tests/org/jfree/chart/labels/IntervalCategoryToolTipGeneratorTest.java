@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------------------
@@ -41,19 +41,16 @@
 
 package org.jfree.chart.labels;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.jfree.chart.TestUtilities;
+import org.jfree.util.PublicCloneable;
+import org.junit.Test;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 
-import org.jfree.chart.TestUtilities;
-
-import org.jfree.util.PublicCloneable;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link IntervalCategoryToolTipGenerator} class.
@@ -121,7 +118,7 @@ public class IntervalCategoryToolTipGeneratorTest {
     public void testCloning() throws CloneNotSupportedException {
         IntervalCategoryToolTipGenerator g1
                 = new IntervalCategoryToolTipGenerator();
-        IntervalCategoryToolTipGenerator g2 
+        IntervalCategoryToolTipGenerator g2
                 = (IntervalCategoryToolTipGenerator) g1.clone();
         assertTrue(g1 != g2);
         assertTrue(g1.getClass() == g2.getClass());

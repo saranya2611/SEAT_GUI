@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -40,25 +40,27 @@
 
 package org.jfree.chart.entity;
 
-import java.awt.Shape;
+import java.awt.*;
 import java.io.Serializable;
 
 /**
  * A chart entity representing a tick label.
  */
 public class TickLabelEntity extends ChartEntity implements Cloneable,
-                                                            Serializable {
+        Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 681583956588092095L;
 
     /**
      * Creates a new entity.
      *
-     * @param area  the area (<code>null</code> not permitted).
-     * @param toolTipText  the tool tip text (<code>null</code> permitted).
-     * @param urlText  the URL text for HTML image maps (<code>null</code>
-     *                 permitted).
+     * @param area        the area (<code>null</code> not permitted).
+     * @param toolTipText the tool tip text (<code>null</code> permitted).
+     * @param urlText     the URL text for HTML image maps (<code>null</code>
+     *                    permitted).
      */
     public TickLabelEntity(Shape area, String toolTipText, String urlText) {
         super(area, toolTipText, urlText);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------------
@@ -44,18 +44,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.Test;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
 import org.jfree.chart.LegendItemCollection;
 import org.jfree.chart.labels.IntervalCategoryItemLabelGenerator;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
@@ -65,6 +53,12 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.urls.StandardCategoryURLGenerator;
 import org.jfree.data.Range;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.junit.Test;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link AbstractCategoryItemRenderer} class.
@@ -265,7 +259,7 @@ public class AbstractCategoryItemRendererTest {
      * Check that the legendItemLabelGenerator is cloned.
      */
     @Test
-    public void testCloning_LegendItemLabelGenerator() 
+    public void testCloning_LegendItemLabelGenerator()
             throws CloneNotSupportedException {
         StandardCategorySeriesLabelGenerator generator
                 = new StandardCategorySeriesLabelGenerator("Series {0}");
@@ -286,7 +280,7 @@ public class AbstractCategoryItemRendererTest {
      * Check that the legendItemToolTipGenerator is cloned.
      */
     @Test
-    public void testCloning_LegendItemToolTipGenerator() 
+    public void testCloning_LegendItemToolTipGenerator()
             throws CloneNotSupportedException {
         StandardCategorySeriesLabelGenerator generator
                 = new StandardCategorySeriesLabelGenerator("Series {0}");
@@ -307,7 +301,7 @@ public class AbstractCategoryItemRendererTest {
      * Check that the legendItemURLGenerator is cloned.
      */
     @Test
-    public void testCloning_LegendItemURLGenerator() 
+    public void testCloning_LegendItemURLGenerator()
             throws CloneNotSupportedException {
         StandardCategorySeriesLabelGenerator generator
                 = new StandardCategorySeriesLabelGenerator("Series {0}");

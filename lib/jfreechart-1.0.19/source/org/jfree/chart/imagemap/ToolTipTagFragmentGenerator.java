@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------------
@@ -56,8 +56,7 @@ public interface ToolTipTagFragmentGenerator {
      * user-defined data, so care should be taken to filter/escape any
      * characters that may corrupt the HTML tag.
      *
-     * @param toolTipText  the tooltip.
-     *
+     * @param toolTipText the tooltip.
      * @return The formatted HTML area tag attribute(s).
      */
     public String generateToolTipFragment(String toolTipText);

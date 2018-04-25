@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -43,13 +43,13 @@
 
 package org.jfree.data.xy;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.jfree.data.DomainOrder;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.util.PublicCloneable;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A default implementation of the {@link XYDataset} interface that stores
@@ -95,13 +95,11 @@ public class DefaultXYDataset extends AbstractXYDataset
     /**
      * Returns the key for a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
      * @return The key for the series.
-     *
      * @throws IllegalArgumentException if <code>series</code> is not in the
-     *     specified range.
+     *                                  specified range.
      */
     @Override
     public Comparable getSeriesKey(int series) {
@@ -115,8 +113,7 @@ public class DefaultXYDataset extends AbstractXYDataset
      * Returns the index of the series with the specified key, or -1 if there
      * is no such series in the dataset.
      *
-     * @param seriesKey  the series key (<code>null</code> permitted).
-     *
+     * @param seriesKey the series key (<code>null</code> permitted).
      * @return The index, or -1.
      */
     @Override
@@ -139,13 +136,11 @@ public class DefaultXYDataset extends AbstractXYDataset
     /**
      * Returns the number of items in the specified series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
      * @return The item count.
-     *
      * @throws IllegalArgumentException if <code>series</code> is not in the
-     *     specified range.
+     *                                  specified range.
      */
     @Override
     public int getItemCount(int series) {
@@ -159,18 +154,15 @@ public class DefaultXYDataset extends AbstractXYDataset
     /**
      * Returns the x-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The x-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getX(int, int)
      */
     @Override
@@ -182,18 +174,15 @@ public class DefaultXYDataset extends AbstractXYDataset
     /**
      * Returns the x-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The x-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getXValue(int, int)
      */
     @Override
@@ -204,18 +193,15 @@ public class DefaultXYDataset extends AbstractXYDataset
     /**
      * Returns the y-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The y-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getY(int, int)
      */
     @Override
@@ -227,18 +213,15 @@ public class DefaultXYDataset extends AbstractXYDataset
     /**
      * Returns the y-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The y-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getX(int, int)
      */
     @Override
@@ -251,10 +234,10 @@ public class DefaultXYDataset extends AbstractXYDataset
      * the data for that series, then sends a {@link DatasetChangeEvent} to
      * all registered listeners.
      *
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     * @param data  the data (must be an array with length 2, containing two
-     *     arrays of equal length, the first containing the x-values and the
-     *     second containing the y-values).
+     * @param seriesKey the series key (<code>null</code> not permitted).
+     * @param data      the data (must be an array with length 2, containing two
+     *                  arrays of equal length, the first containing the x-values and the
+     *                  second containing the y-values).
      */
     public void addSeries(Comparable seriesKey, double[][] data) {
         if (seriesKey == null) {
@@ -270,14 +253,13 @@ public class DefaultXYDataset extends AbstractXYDataset
         }
         if (data[0].length != data[1].length) {
             throw new IllegalArgumentException(
-                "The 'data' array must contain two arrays with equal length.");
+                    "The 'data' array must contain two arrays with equal length.");
         }
         int seriesIndex = indexOf(seriesKey);
         if (seriesIndex == -1) {  // add a new series
             this.seriesKeys.add(seriesKey);
             this.seriesList.add(data);
-        }
-        else {  // replace an existing series
+        } else {  // replace an existing series
             this.seriesList.remove(seriesIndex);
             this.seriesList.add(seriesIndex, data);
         }
@@ -288,8 +270,7 @@ public class DefaultXYDataset extends AbstractXYDataset
      * Removes a series from the dataset, then sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     *
+     * @param seriesKey the series key (<code>null</code> not permitted).
      */
     public void removeSeries(Comparable seriesKey) {
         int seriesIndex = indexOf(seriesKey);
@@ -306,13 +287,12 @@ public class DefaultXYDataset extends AbstractXYDataset
      * <ul>
      * <li><code>obj</code> is not <code>null</code>;</li>
      * <li><code>obj</code> is an instance of
-     *         <code>DefaultXYDataset</code>;</li>
+     * <code>DefaultXYDataset</code>;</li>
      * <li>both datasets have the same number of series, each containing
-     *         exactly the same values.</li>
+     * exactly the same values.</li>
      * </ul>
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -361,10 +341,9 @@ public class DefaultXYDataset extends AbstractXYDataset
      * Creates an independent copy of this dataset.
      *
      * @return The cloned dataset.
-     *
      * @throws CloneNotSupportedException if there is a problem cloning the
-     *     dataset (for instance, if a non-cloneable object is used for a
-     *     series key).
+     *                                    dataset (for instance, if a non-cloneable object is used for a
+     *                                    series key).
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -379,7 +358,7 @@ public class DefaultXYDataset extends AbstractXYDataset
             double[] yy = new double[y.length];
             System.arraycopy(x, 0, xx, 0, x.length);
             System.arraycopy(y, 0, yy, 0, y.length);
-            clone.seriesList.add(i, new double[][] {xx, yy});
+            clone.seriesList.add(i, new double[][]{xx, yy});
         }
         return clone;
     }

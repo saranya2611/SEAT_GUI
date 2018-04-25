@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -46,23 +46,10 @@
 
 package org.jfree.chart.renderer.xy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
-import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartRenderingInfo;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.LegendItem;
+import org.jfree.chart.*;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.entity.XYItemEntity;
-import org.jfree.chart.TestUtilities;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
@@ -70,6 +57,13 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.util.PublicCloneable;
 import org.jfree.util.UnitType;
 import org.junit.Test;
+
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link StandardXYItemRenderer} class.
@@ -194,7 +188,7 @@ public class StandardXYItemRendererTest {
     @Test
     public void testSerialization() {
         StandardXYItemRenderer r1 = new StandardXYItemRenderer();
-        StandardXYItemRenderer r2 = (StandardXYItemRenderer) 
+        StandardXYItemRenderer r2 = (StandardXYItemRenderer)
                 TestUtilities.serialised(r1);
         assertEquals(r1, r2);
     }
@@ -228,7 +222,8 @@ public class StandardXYItemRendererTest {
         XYPlot plot = new XYPlot(d1, new NumberAxis("x"),
                 new NumberAxis("y"), r);
         plot.setDataset(1, d2);
-        /*JFreeChart chart =*/ new JFreeChart(plot);
+        /*JFreeChart chart =*/
+        new JFreeChart(plot);
         LegendItem li = r.getLegendItem(1, 2);
         assertEquals("S5", li.getLabel());
         assertEquals(1, li.getDatasetIndex());
@@ -253,7 +248,7 @@ public class StandardXYItemRendererTest {
         xAxis.setRange(0.0, 5.0);
         NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
         yAxis.setRange(0.0, 5.0);
-        BufferedImage image = new BufferedImage(200 , 100,
+        BufferedImage image = new BufferedImage(200, 100,
                 BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = image.createGraphics();
         ChartRenderingInfo info = new ChartRenderingInfo();

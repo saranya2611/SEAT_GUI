@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -41,11 +41,6 @@
 
 package org.jfree.chart.demo;
 
-import java.awt.Color;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JPanel;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -61,6 +56,10 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RectangleInsets;
 import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.SimpleDateFormat;
 
 /**
  * An example of a time series chart.  For the most part, default settings are
@@ -82,7 +81,7 @@ public class TimeSeriesChartDemo1 extends ApplicationFrame {
      * A demonstration application showing how to create a simple time series
      * chart.  This example uses monthly data.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public TimeSeriesChartDemo1(String title) {
         super(title);
@@ -94,20 +93,19 @@ public class TimeSeriesChartDemo1 extends ApplicationFrame {
     /**
      * Creates a chart.
      *
-     * @param dataset  a dataset.
-     *
+     * @param dataset a dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(XYDataset dataset) {
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Legal & General Unit Trust Prices",  // title
-            "Date",             // x-axis label
-            "Price Per Unit",   // y-axis label
-            dataset,            // data
-            true,               // create legend?
-            true,               // generate tooltips?
-            false               // generate URLs?
+                "Legal & General Unit Trust Prices",  // title
+                "Date",             // x-axis label
+                "Price Per Unit",   // y-axis label
+                dataset,            // data
+                true,               // create legend?
+                true,               // generate tooltips?
+                false               // generate URLs?
         );
 
         chart.setBackgroundPaint(Color.white);
@@ -214,7 +212,7 @@ public class TimeSeriesChartDemo1 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 

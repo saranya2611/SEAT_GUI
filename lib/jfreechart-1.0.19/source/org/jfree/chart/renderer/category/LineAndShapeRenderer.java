@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -94,14 +94,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
@@ -110,11 +102,12 @@ import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
-import org.jfree.util.BooleanList;
-import org.jfree.util.BooleanUtilities;
-import org.jfree.util.ObjectUtilities;
-import org.jfree.util.PublicCloneable;
-import org.jfree.util.ShapeUtilities;
+import org.jfree.util.*;
+
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
 /**
  * A renderer that draws shapes for each data item, and lines between data
@@ -128,7 +121,9 @@ import org.jfree.util.ShapeUtilities;
 public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
         implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -197749519869226398L;
 
     /**
@@ -163,7 +158,9 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      */
     private BooleanList seriesShapesVisible;
 
-    /** The default value returned by the getShapeVisible() method. */
+    /**
+     * The default value returned by the getShapeVisible() method.
+     */
     private boolean baseShapesVisible;
 
     /**
@@ -179,7 +176,9 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      */
     private BooleanList seriesShapesFilled;
 
-    /** The default value returned by the getShapeFilled() method. */
+    /**
+     * The default value returned by the getShapeFilled() method.
+     */
     private boolean baseShapesFilled;
 
     /**
@@ -188,7 +187,9 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      */
     private boolean useFillPaint;
 
-    /** A flag that controls whether outlines are drawn for shapes. */
+    /**
+     * A flag that controls whether outlines are drawn for shapes.
+     */
     private boolean drawOutlines;
 
     /**
@@ -224,7 +225,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Creates a new renderer with lines and/or shapes visible.
      *
      * @param lines  draw lines?
-     * @param shapes  draw shapes?
+     * @param shapes draw shapes?
      */
     public LineAndShapeRenderer(boolean lines, boolean shapes) {
         super();
@@ -250,9 +251,8 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Returns the flag used to control whether or not the line for an item is
      * visible.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return A boolean.
      */
     public boolean getItemLineVisible(int series, int item) {
@@ -262,8 +262,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
         }
         if (flag != null) {
             return flag.booleanValue();
-        }
-        else {
+        } else {
             return this.baseLinesVisible;
         }
     }
@@ -274,11 +273,9 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * settings will apply.
      *
      * @return A flag (possibly <code>null</code>).
-     *
      * @see #setLinesVisible(Boolean)
-     *
      * @deprecated As of 1.0.7 (the override facility is unnecessary, just
-     *     use the per-series and base (default) settings).
+     * use the per-series and base (default) settings).
      */
     public Boolean getLinesVisible() {
         return this.linesVisible;
@@ -287,15 +284,27 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     /**
      * Sets a flag that controls whether or not lines are drawn between the
      * items in ALL series, and sends a {@link RendererChangeEvent} to all
+     * registered listeners.
+     *
+     * @param visible the flag.
+     * @see #getLinesVisible()
+     * @deprecated As of 1.0.7 (the override facility is unnecessary, just
+     * use the per-series and base (default) settings).
+     */
+    public void setLinesVisible(boolean visible) {
+        setLinesVisible(BooleanUtilities.valueOf(visible));
+    }
+
+    /**
+     * Sets a flag that controls whether or not lines are drawn between the
+     * items in ALL series, and sends a {@link RendererChangeEvent} to all
      * registered listeners.  You need to set this to <code>null</code> if you
      * want the "per series" settings to apply.
      *
-     * @param visible  the flag (<code>null</code> permitted).
-     *
+     * @param visible the flag (<code>null</code> permitted).
      * @see #getLinesVisible()
-     *
      * @deprecated As of 1.0.7 (the override facility is unnecessary, just
-     *     use the per-series and base (default) settings).
+     * use the per-series and base (default) settings).
      */
     public void setLinesVisible(Boolean visible) {
         this.linesVisible = visible;
@@ -303,29 +312,11 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets a flag that controls whether or not lines are drawn between the
-     * items in ALL series, and sends a {@link RendererChangeEvent} to all
-     * registered listeners.
-     *
-     * @param visible  the flag.
-     *
-     * @see #getLinesVisible()
-     *
-     * @deprecated As of 1.0.7 (the override facility is unnecessary, just
-     *     use the per-series and base (default) settings).
-     */
-    public void setLinesVisible(boolean visible) {
-        setLinesVisible(BooleanUtilities.valueOf(visible));
-    }
-
-    /**
      * Returns the flag used to control whether or not the lines for a series
      * are visible.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @return The flag (possibly <code>null</code>).
-     *
      * @see #setSeriesLinesVisible(int, Boolean)
      */
     public Boolean getSeriesLinesVisible(int series) {
@@ -336,9 +327,8 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Sets the 'lines visible' flag for a series and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param series  the series index (zero-based).
-     * @param flag  the flag (<code>null</code> permitted).
-     *
+     * @param series the series index (zero-based).
+     * @param flag   the flag (<code>null</code> permitted).
      * @see #getSeriesLinesVisible(int)
      */
     public void setSeriesLinesVisible(int series, Boolean flag) {
@@ -351,8 +341,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * {@link RendererChangeEvent} to all registered listeners.
      *
      * @param series  the series index (zero-based).
-     * @param visible  the flag.
-     *
+     * @param visible the flag.
      * @see #getSeriesLinesVisible(int)
      */
     public void setSeriesLinesVisible(int series, boolean visible) {
@@ -363,7 +352,6 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Returns the base 'lines visible' attribute.
      *
      * @return The base flag.
-     *
      * @see #getBaseLinesVisible()
      */
     public boolean getBaseLinesVisible() {
@@ -374,8 +362,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Sets the base 'lines visible' flag and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param flag  the flag.
-     *
+     * @param flag the flag.
      * @see #getBaseLinesVisible()
      */
     public void setBaseLinesVisible(boolean flag) {
@@ -389,9 +376,8 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Returns the flag used to control whether or not the shape for an item is
      * visible.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return A boolean.
      */
     public boolean getItemShapeVisible(int series, int item) {
@@ -401,8 +387,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
         }
         if (flag != null) {
             return flag.booleanValue();
-        }
-        else {
+        } else {
             return this.baseShapesVisible;
         }
     }
@@ -412,11 +397,9 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * items in ALL series.
      *
      * @return The flag (possibly <code>null</code>).
-     *
      * @see #setShapesVisible(Boolean)
-     *
      * @deprecated As of 1.0.7 (the override facility is unnecessary, just
-     *     use the per-series and base (default) settings).
+     * use the per-series and base (default) settings).
      */
     public Boolean getShapesVisible() {
         return this.shapesVisible;
@@ -426,12 +409,23 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Sets the 'shapes visible' for ALL series and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param visible  the flag (<code>null</code> permitted).
-     *
+     * @param visible the flag.
      * @see #getShapesVisible()
-     *
      * @deprecated As of 1.0.7 (the override facility is unnecessary, just
-     *     use the per-series and base (default) settings).
+     * use the per-series and base (default) settings).
+     */
+    public void setShapesVisible(boolean visible) {
+        setShapesVisible(BooleanUtilities.valueOf(visible));
+    }
+
+    /**
+     * Sets the 'shapes visible' for ALL series and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param visible the flag (<code>null</code> permitted).
+     * @see #getShapesVisible()
+     * @deprecated As of 1.0.7 (the override facility is unnecessary, just
+     * use the per-series and base (default) settings).
      */
     public void setShapesVisible(Boolean visible) {
         this.shapesVisible = visible;
@@ -439,28 +433,11 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the 'shapes visible' for ALL series and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
-     *
-     * @param visible  the flag.
-     *
-     * @see #getShapesVisible()
-     *
-     * @deprecated As of 1.0.7 (the override facility is unnecessary, just
-     *     use the per-series and base (default) settings).
-     */
-    public void setShapesVisible(boolean visible) {
-        setShapesVisible(BooleanUtilities.valueOf(visible));
-    }
-
-    /**
      * Returns the flag used to control whether or not the shapes for a series
      * are visible.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @return A boolean.
-     *
      * @see #setSeriesShapesVisible(int, Boolean)
      */
     public Boolean getSeriesShapesVisible(int series) {
@@ -472,8 +449,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * {@link RendererChangeEvent} to all registered listeners.
      *
      * @param series  the series index (zero-based).
-     * @param visible  the flag.
-     *
+     * @param visible the flag.
      * @see #getSeriesShapesVisible(int)
      */
     public void setSeriesShapesVisible(int series, boolean visible) {
@@ -484,9 +460,8 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Sets the 'shapes visible' flag for a series and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param series  the series index (zero-based).
-     * @param flag  the flag.
-     *
+     * @param series the series index (zero-based).
+     * @param flag   the flag.
      * @see #getSeriesShapesVisible(int)
      */
     public void setSeriesShapesVisible(int series, Boolean flag) {
@@ -498,7 +473,6 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Returns the base 'shape visible' attribute.
      *
      * @return The base flag.
-     *
      * @see #setBaseShapesVisible(boolean)
      */
     public boolean getBaseShapesVisible() {
@@ -509,8 +483,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Sets the base 'shapes visible' flag and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param flag  the flag.
-     *
+     * @param flag the flag.
      * @see #getBaseShapesVisible()
      */
     public void setBaseShapesVisible(boolean flag) {
@@ -523,7 +496,6 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * <code>false</code> otherwise.
      *
      * @return A boolean.
-     *
      * @see #setDrawOutlines(boolean)
      */
     public boolean getDrawOutlines() {
@@ -534,12 +506,11 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Sets the flag that controls whether outlines are drawn for
      * shapes, and sends a {@link RendererChangeEvent} to all registered
      * listeners.
-     * <P>
+     * <p>
      * In some cases, shapes look better if they do NOT have an outline, but
      * this flag allows you to set your own preference.
      *
-     * @param flag  the flag.
-     *
+     * @param flag the flag.
      * @see #getDrawOutlines()
      */
     public void setDrawOutlines(boolean flag) {
@@ -552,7 +523,6 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * shape outlines.  If not, the regular series paint is used.
      *
      * @return A boolean.
-     *
      * @see #setUseOutlinePaint(boolean)
      */
     public boolean getUseOutlinePaint() {
@@ -564,8 +534,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * outlines, and sends a {@link RendererChangeEvent} to all registered
      * listeners.
      *
-     * @param use  the flag.
-     *
+     * @param use the flag.
      * @see #getUseOutlinePaint()
      */
     public void setUseOutlinePaint(boolean use) {
@@ -581,9 +550,8 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * <code>getSeriesShapesFilled</code> method. You can override this method
      * if you require different behaviour.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return A boolean.
      */
     public boolean getItemShapeFilled(int series, int item) {
@@ -594,8 +562,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Returns the flag used to control whether or not the shapes for a series
      * are filled.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @return A boolean.
      */
     public boolean getSeriesShapesFilled(int series) {
@@ -609,8 +576,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
         Boolean flag = this.seriesShapesFilled.getBoolean(series);
         if (flag != null) {
             return flag.booleanValue();
-        }
-        else {
+        } else {
             return this.baseShapesFilled;
         }
 
@@ -621,11 +587,9 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * ALL series.
      *
      * @return A Boolean.
-     *
      * @see #setShapesFilled(Boolean)
-     *
      * @deprecated As of 1.0.7 (the override facility is unnecessary, just
-     *     use the per-series and base (default) settings).
+     * use the per-series and base (default) settings).
      */
     public Boolean getShapesFilled() {
         return this.shapesFilled;
@@ -635,32 +599,10 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Sets the 'shapes filled' for ALL series and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param filled  the flag.
-     *
+     * @param filled the flag (<code>null</code> permitted).
      * @see #getShapesFilled()
-     *
      * @deprecated As of 1.0.7 (the override facility is unnecessary, just
-     *     use the per-series and base (default) settings).
-     */
-    public void setShapesFilled(boolean filled) {
-        if (filled) {
-            setShapesFilled(Boolean.TRUE);
-        }
-        else {
-            setShapesFilled(Boolean.FALSE);
-        }
-    }
-
-    /**
-     * Sets the 'shapes filled' for ALL series and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
-     *
-     * @param filled  the flag (<code>null</code> permitted).
-     *
-     * @see #getShapesFilled()
-     *
-     * @deprecated As of 1.0.7 (the override facility is unnecessary, just
-     *     use the per-series and base (default) settings).
+     * use the per-series and base (default) settings).
      */
     public void setShapesFilled(Boolean filled) {
         this.shapesFilled = filled;
@@ -668,12 +610,28 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
+     * Sets the 'shapes filled' for ALL series and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param filled the flag.
+     * @see #getShapesFilled()
+     * @deprecated As of 1.0.7 (the override facility is unnecessary, just
+     * use the per-series and base (default) settings).
+     */
+    public void setShapesFilled(boolean filled) {
+        if (filled) {
+            setShapesFilled(Boolean.TRUE);
+        } else {
+            setShapesFilled(Boolean.FALSE);
+        }
+    }
+
+    /**
      * Sets the 'shapes filled' flag for a series and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param series  the series index (zero-based).
-     * @param filled  the flag.
-     *
+     * @param series the series index (zero-based).
+     * @param filled the flag.
      * @see #getSeriesShapesFilled(int)
      */
     public void setSeriesShapesFilled(int series, Boolean filled) {
@@ -685,9 +643,8 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Sets the 'shapes filled' flag for a series and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param series  the series index (zero-based).
-     * @param filled  the flag.
-     *
+     * @param series the series index (zero-based).
+     * @param filled the flag.
      * @see #getSeriesShapesFilled(int)
      */
     public void setSeriesShapesFilled(int series, boolean filled) {
@@ -699,7 +656,6 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Returns the base 'shape filled' attribute.
      *
      * @return The base flag.
-     *
      * @see #setBaseShapesFilled(boolean)
      */
     public boolean getBaseShapesFilled() {
@@ -710,8 +666,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Sets the base 'shapes filled' flag and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param flag  the flag.
-     *
+     * @param flag the flag.
      * @see #getBaseShapesFilled()
      */
     public void setBaseShapesFilled(boolean flag) {
@@ -725,7 +680,6 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * use the regular paint.
      *
      * @return A boolean.
-     *
      * @see #setUseFillPaint(boolean)
      */
     public boolean getUseFillPaint() {
@@ -737,8 +691,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * shapes, and sends a {@link RendererChangeEvent} to all
      * registered listeners.
      *
-     * @param flag  the flag.
-     *
+     * @param flag the flag.
      * @see #getUseFillPaint()
      */
     public void setUseFillPaint(boolean flag) {
@@ -751,9 +704,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * data item is offset within the category according to the series.
      *
      * @return A boolean.
-     *
      * @see #setUseSeriesOffset(boolean)
-     *
      * @since 1.0.7
      */
     public boolean getUseSeriesOffset() {
@@ -765,10 +716,8 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * data item is offset within its category according to the series, and
      * sends a {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param offset  the offset.
-     *
+     * @param offset the offset.
      * @see #getUseSeriesOffset()
-     *
      * @since 1.0.7
      */
     public void setUseSeriesOffset(boolean offset) {
@@ -783,10 +732,8 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * a {@link BarRenderer}).
      *
      * @return The item margin.
-     *
      * @see #setItemMargin(double)
      * @see #getUseSeriesOffset()
-     *
      * @since 1.0.7
      */
     public double getItemMargin() {
@@ -798,11 +745,9 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * (expressed as a percentage of the overall category width), and sends
      * a {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param margin  the margin (0.0 &lt;= margin &lt; 1.0).
-     *
+     * @param margin the margin (0.0 &lt;= margin &lt; 1.0).
      * @see #getItemMargin()
      * @see #getUseSeriesOffset()
-     *
      * @since 1.0.7
      */
     public void setItemMargin(double margin) {
@@ -816,9 +761,8 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     /**
      * Returns a legend item for a series.
      *
-     * @param datasetIndex  the dataset index (zero-based).
-     * @param series  the series index (zero-based).
-     *
+     * @param datasetIndex the dataset index (zero-based).
+     * @param series       the series index (zero-based).
      * @return The legend item.
      */
     @Override
@@ -887,22 +831,22 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     /**
      * Draw a single data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the area in which the data is drawn.
-     * @param plot  the plot.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the area in which the data is drawn.
+     * @param plot       the plot.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     * @param pass  the pass index.
+     * @param dataset    the dataset.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
+     * @param pass       the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, CategoryItemRendererState state,
-            Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
-            ValueAxis rangeAxis, CategoryDataset dataset, int row, int column,
-            int pass) {
+                         Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
+                         ValueAxis rangeAxis, CategoryDataset dataset, int row, int column,
+                         int pass) {
 
         // do nothing if item is not visible
         if (!getItemVisible(row, column)) {
@@ -935,8 +879,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
             x1 = domainAxis.getCategorySeriesMiddle(column,
                     dataset.getColumnCount(), visibleRow, visibleRowCount,
                     this.itemMargin, dataArea, plot.getDomainAxisEdge());
-        }
-        else {
+        } else {
             x1 = domainAxis.getCategoryMiddle(column, getColumnCount(),
                     dataArea, plot.getDomainAxisEdge());
         }
@@ -957,8 +900,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
                                 visibleRow, visibleRowCount,
                                 this.itemMargin, dataArea,
                                 plot.getDomainAxisEdge());
-                    }
-                    else {
+                    } else {
                         x0 = domainAxis.getCategoryMiddle(column - 1,
                                 getColumnCount(), dataArea,
                                 plot.getDomainAxisEdge());
@@ -969,8 +911,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
                     Line2D line = null;
                     if (orientation == PlotOrientation.HORIZONTAL) {
                         line = new Line2D.Double(y0, x0, y1, x1);
-                    }
-                    else if (orientation == PlotOrientation.VERTICAL) {
+                    } else if (orientation == PlotOrientation.VERTICAL) {
                         line = new Line2D.Double(x0, y0, x1, y1);
                     }
                     g2.setPaint(getItemPaint(row, column));
@@ -984,8 +925,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
             Shape shape = getItemShape(row, column);
             if (orientation == PlotOrientation.HORIZONTAL) {
                 shape = ShapeUtilities.createTranslatedShape(shape, y1, x1);
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
+            } else if (orientation == PlotOrientation.VERTICAL) {
                 shape = ShapeUtilities.createTranslatedShape(shape, x1, y1);
             }
 
@@ -993,8 +933,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
                 if (getItemShapeFilled(row, column)) {
                     if (this.useFillPaint) {
                         g2.setPaint(getItemFillPaint(row, column));
-                    }
-                    else {
+                    } else {
                         g2.setPaint(getItemPaint(row, column));
                     }
                     g2.fill(shape);
@@ -1002,8 +941,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
                 if (this.drawOutlines) {
                     if (this.useOutlinePaint) {
                         g2.setPaint(getItemOutlinePaint(row, column));
-                    }
-                    else {
+                    } else {
                         g2.setPaint(getItemPaint(row, column));
                     }
                     g2.setStroke(getItemOutlineStroke(row, column));
@@ -1016,8 +954,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
                 if (orientation == PlotOrientation.HORIZONTAL) {
                     drawItemLabel(g2, orientation, dataset, row, column, y1,
                             x1, (value < 0.0));
-                }
-                else if (orientation == PlotOrientation.VERTICAL) {
+                } else if (orientation == PlotOrientation.VERTICAL) {
                     drawItemLabel(g2, orientation, dataset, row, column, x1,
                             y1, (value < 0.0));
                 }
@@ -1041,8 +978,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     /**
      * Tests this renderer for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -1102,8 +1038,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * Returns an independent copy of the renderer.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  should not happen.
+     * @throws CloneNotSupportedException should not happen.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

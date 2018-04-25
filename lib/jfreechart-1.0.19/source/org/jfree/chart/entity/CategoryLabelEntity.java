@@ -41,11 +41,11 @@
 
 package org.jfree.chart.entity;
 
-import java.awt.Shape;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.util.ObjectUtilities;
+
+import java.awt.*;
 
 /**
  * An entity to represent the labels on a {@link CategoryAxis}.
@@ -54,19 +54,21 @@ import org.jfree.util.ObjectUtilities;
  */
 public class CategoryLabelEntity extends TickLabelEntity {
 
-    /** The category key. */
+    /**
+     * The category key.
+     */
     private Comparable key;
 
     /**
      * Creates a new entity.
      *
-     * @param key  the category key.
-     * @param area  the hotspot.
-     * @param toolTipText  the tool tip text.
-     * @param urlText  the URL text.
+     * @param key         the category key.
+     * @param area        the hotspot.
+     * @param toolTipText the tool tip text.
+     * @param urlText     the URL text.
      */
     public CategoryLabelEntity(Comparable key, Shape area,
-            String toolTipText, String urlText) {
+                               String toolTipText, String urlText) {
         super(area, toolTipText, urlText);
         this.key = key;
     }
@@ -83,8 +85,7 @@ public class CategoryLabelEntity extends TickLabelEntity {
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

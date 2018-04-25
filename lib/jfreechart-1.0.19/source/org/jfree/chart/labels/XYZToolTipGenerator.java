@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -53,10 +53,9 @@ public interface XYZToolTipGenerator extends XYToolTipGenerator {
     /**
      * Generates a tool tip text item for a particular item within a series.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param item    the item index (zero-based).
      * @return The tooltip text (possibly <code>null</code>).
      */
     public String generateToolTip(XYZDataset dataset, int series, int item);

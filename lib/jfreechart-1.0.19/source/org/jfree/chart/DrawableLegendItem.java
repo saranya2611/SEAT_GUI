@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -47,7 +47,7 @@
 
 package org.jfree.chart;
 
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
@@ -65,31 +65,45 @@ public class DrawableLegendItem {
      */
     private LegendItem item;
 
-    /** The x-coordinate for the item's location. */
+    /**
+     * The x-coordinate for the item's location.
+     */
     private double x;
 
-    /** The y-coordinate for the item's location. */
+    /**
+     * The y-coordinate for the item's location.
+     */
     private double y;
 
-    /** The width of the item. */
+    /**
+     * The width of the item.
+     */
     private double width;
 
-    /** The height of the item. */
+    /**
+     * The height of the item.
+     */
     private double height;
 
-    /** A shape used to indicate color on the legend. */
+    /**
+     * A shape used to indicate color on the legend.
+     */
     private Shape marker;
 
-    /** A line used to indicate the series stroke on the legend */
+    /**
+     * A line used to indicate the series stroke on the legend
+     */
     private Line2D line;
 
-    /** The label position within the item. */
+    /**
+     * The label position within the item.
+     */
     private Point2D labelPosition;
 
     /**
      * Create a legend item.
      *
-     * @param item  the legend item for display.
+     * @param item the legend item for display.
      */
     public DrawableLegendItem(LegendItem item) {
         this.item = item;
@@ -116,7 +130,7 @@ public class DrawableLegendItem {
     /**
      * Set the x-coordinate for the item's location.
      *
-     * @param x  the x-coordinate.
+     * @param x the x-coordinate.
      */
     public void setX(double x) {
         this.x = x;
@@ -134,7 +148,7 @@ public class DrawableLegendItem {
     /**
      * Set the y-coordinate for the item's location.
      *
-     * @param y  the y-coordinate.
+     * @param y the y-coordinate.
      */
     public void setY(double y) {
         this.y = y;
@@ -163,7 +177,7 @@ public class DrawableLegendItem {
      * item.
      *
      * @return The largest x coordinate of the framing rectangle of this legend
-     *         item.
+     * item.
      */
     public double getMaxX() {
         return getX() + getWidth();
@@ -174,7 +188,7 @@ public class DrawableLegendItem {
      * item.
      *
      * @return The largest Y coordinate of the framing rectangle of this legend
-     *         item.
+     * item.
      */
     public double getMaxY() {
         return getY() + getHeight();
@@ -192,20 +206,11 @@ public class DrawableLegendItem {
     /**
      * Set the marker.
      *
-     * @param marker  a shape used to indicate color on the legend for this
-     *                item.
+     * @param marker a shape used to indicate color on the legend for this
+     *               item.
      */
     public void setMarker(Shape marker) {
         this.marker = marker;
-    }
-
-    /**
-     * Sets the line used to label this series.
-     *
-     * @param l the new line to use.
-     */
-    public void setLine(Line2D l) {
-        this.line = l;
     }
 
     /**
@@ -215,6 +220,15 @@ public class DrawableLegendItem {
      */
     public Line2D getLine() {
         return this.line;
+    }
+
+    /**
+     * Sets the line used to label this series.
+     *
+     * @param l the new line to use.
+     */
+    public void setLine(Line2D l) {
+        this.line = l;
     }
 
     /**
@@ -229,7 +243,7 @@ public class DrawableLegendItem {
     /**
      * Sets the label position.
      *
-     * @param position  the label position.
+     * @param position the label position.
      */
     public void setLabelPosition(Point2D position) {
         this.labelPosition = position;
@@ -238,10 +252,10 @@ public class DrawableLegendItem {
     /**
      * Set the bounds of this item.
      *
-     * @param x  x-coordinate for the item's location.
-     * @param y  y-coordinate for the item's location.
+     * @param x      x-coordinate for the item's location.
+     * @param y      y-coordinate for the item's location.
      * @param width  the width of this item.
-     * @param height  the height of this item.
+     * @param height the height of this item.
      */
     public void setBounds(double x, double y, double width, double height) {
         this.x = x;

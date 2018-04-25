@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -40,7 +40,6 @@
 
 package org.jfree.chart.fx.interaction;
 
-import java.awt.geom.Point2D;
 import javafx.scene.input.ScrollEvent;
 import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.JFreeChart;
@@ -50,50 +49,56 @@ import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.Zoomable;
 
+import java.awt.geom.Point2D;
+
 /**
  * Handles scroll events (mouse wheel etc) on a {@link ChartCanvas}.
- * 
+ * <p>
  * <p>THE API FOR THIS CLASS IS SUBJECT TO CHANGE IN FUTURE RELEASES.  This is
- * so that we can incorporate feedback on the (new) JavaFX support in 
+ * so that we can incorporate feedback on the (new) JavaFX support in
  * JFreeChart.</p>
- * 
+ *
  * @since 1.0.18
  */
-public class ScrollHandlerFX extends AbstractMouseHandlerFX 
+public class ScrollHandlerFX extends AbstractMouseHandlerFX
         implements MouseHandlerFX {
 
-    /** The zoom factor. */
+    /**
+     * The zoom factor.
+     */
     private double zoomFactor = 0.1;
-    
+
     /**
      * Creates a new instance with the specified ID.
-     * 
-     * @param id  the handler ID (<code>null</code> not permitted).
+     *
+     * @param id the handler ID (<code>null</code> not permitted).
      */
     public ScrollHandlerFX(String id) {
         super(id, false, false, false, false);
         this.zoomFactor = 0.1;
-    };
+    }
+
+    ;
 
     /**
      * Returns the zoom factor.  The default value is 0.10 (ten percent).
-     * 
-     * @return The zoom factor. 
+     *
+     * @return The zoom factor.
      */
     public double getZoomFactor() {
         return this.zoomFactor;
     }
 
     /**
-     * Sets the zoom factor (a percentage amount by which the mouse wheel 
+     * Sets the zoom factor (a percentage amount by which the mouse wheel
      * movement will change the chart size).
-     * 
-     * @param zoomFactor  the zoom factor.
+     *
+     * @param zoomFactor the zoom factor.
      */
     public void setZoomFactor(double zoomFactor) {
         this.zoomFactor = zoomFactor;
     }
-    
+
     @Override
     public void handleScroll(ChartCanvas canvas, ScrollEvent e) {
         JFreeChart chart = canvas.getChart();
@@ -101,21 +106,20 @@ public class ScrollHandlerFX extends AbstractMouseHandlerFX
         if (plot instanceof Zoomable) {
             Zoomable zoomable = (Zoomable) plot;
             handleZoomable(canvas, zoomable, e);
-        }
-        else if (plot instanceof PiePlot) {
+        } else if (plot instanceof PiePlot) {
             PiePlot pp = (PiePlot) plot;
             pp.handleMouseWheelRotation((int) e.getDeltaY());
         }
     }
-    
+
     /**
      * Handle the case where a plot implements the {@link Zoomable} interface.
      *
-     * @param zoomable  the zoomable plot.
-     * @param e  the mouse wheel event.
+     * @param zoomable the zoomable plot.
+     * @param e        the mouse wheel event.
      */
-    private void handleZoomable(ChartCanvas canvas, Zoomable zoomable, 
-            ScrollEvent e) {
+    private void handleZoomable(ChartCanvas canvas, Zoomable zoomable,
+                                ScrollEvent e) {
         // don't zoom unless the mouse pointer is in the plot's data area
         ChartRenderingInfo info = canvas.getRenderingInfo();
         PlotRenderingInfo pinfo = info.getPlotInfo();
@@ -137,7 +141,7 @@ public class ScrollHandlerFX extends AbstractMouseHandlerFX
                 zoomable.zoomRangeAxes(zf, pinfo, p, true);
             }
             plot.setNotify(notifyState);  // this generates the change event too
-        } 
+        }
     }
 
 }

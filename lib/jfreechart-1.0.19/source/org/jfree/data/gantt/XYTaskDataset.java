@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -41,8 +41,6 @@
 
 package org.jfree.data.gantt;
 
-import java.util.Date;
-
 import org.jfree.chart.axis.SymbolAxis;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.util.ParamChecks;
@@ -51,6 +49,8 @@ import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.time.TimePeriod;
 import org.jfree.data.xy.AbstractXYDataset;
 import org.jfree.data.xy.IntervalXYDataset;
+
+import java.util.Date;
 
 /**
  * A dataset implementation that wraps a {@link TaskSeriesCollection} and
@@ -65,19 +65,25 @@ import org.jfree.data.xy.IntervalXYDataset;
 public class XYTaskDataset extends AbstractXYDataset
         implements IntervalXYDataset, DatasetChangeListener {
 
-    /** The underlying tasks. */
+    /**
+     * The underlying tasks.
+     */
     private TaskSeriesCollection underlying;
 
-    /** The series interval width (typically 0.0 &lt; w &lt;= 1.0). */
+    /**
+     * The series interval width (typically 0.0 &lt; w &lt;= 1.0).
+     */
     private double seriesWidth;
 
-    /** A flag that controls whether or not the data values are transposed. */
+    /**
+     * A flag that controls whether or not the data values are transposed.
+     */
     private boolean transposed;
 
     /**
      * Creates a new dataset based on the supplied collection of tasks.
      *
-     * @param tasks  the underlying dataset (<code>null</code> not permitted).
+     * @param tasks the underlying dataset (<code>null</code> not permitted).
      */
     public XYTaskDataset(TaskSeriesCollection tasks) {
         ParamChecks.nullNotPermitted(tasks, "tasks");
@@ -100,7 +106,6 @@ public class XYTaskDataset extends AbstractXYDataset
      * Returns the width of the interval for each series this dataset.
      *
      * @return The width of the series interval.
-     *
      * @see #setSeriesWidth(double)
      */
     public double getSeriesWidth() {
@@ -111,8 +116,7 @@ public class XYTaskDataset extends AbstractXYDataset
      * Sets the series interval width and sends a {@link DatasetChangeEvent} to
      * all registered listeners.
      *
-     * @param w  the width.
-     *
+     * @param w the width.
      * @see #getSeriesWidth()
      */
     public void setSeriesWidth(double w) {
@@ -131,7 +135,6 @@ public class XYTaskDataset extends AbstractXYDataset
      * is set to <code>true</code>, the x and y-values are reversed.
      *
      * @return The flag.
-     *
      * @see #setTransposed(boolean)
      */
     public boolean isTransposed() {
@@ -142,8 +145,7 @@ public class XYTaskDataset extends AbstractXYDataset
      * Sets the flag that controls whether or not the dataset is transposed
      * and sends a {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param transposed  the new flag value.
-     *
+     * @param transposed the new flag value.
      * @see #isTransposed()
      */
     public void setTransposed(boolean transposed) {
@@ -164,8 +166,7 @@ public class XYTaskDataset extends AbstractXYDataset
     /**
      * Returns the name of a series.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @return The name of a series.
      */
     @Override
@@ -176,8 +177,7 @@ public class XYTaskDataset extends AbstractXYDataset
     /**
      * Returns the number of items (tasks) in the specified series.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @return The item count.
      */
     @Override
@@ -188,17 +188,15 @@ public class XYTaskDataset extends AbstractXYDataset
     /**
      * Returns the x-value (as a double primitive) for an item within a series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
      */
     @Override
     public double getXValue(int series, int item) {
         if (!this.transposed) {
             return getSeriesValue(series);
-        }
-        else {
+        } else {
             return getItemValue(series, item);
         }
     }
@@ -208,17 +206,15 @@ public class XYTaskDataset extends AbstractXYDataset
      * given series, measured in milliseconds since 1-Jan-1970 (as in
      * java.util.Date).
      *
-     * @param series  the series index.
-     * @param item  the item (or task) index.
-     *
+     * @param series the series index.
+     * @param item   the item (or task) index.
      * @return The start date/time.
      */
     @Override
     public double getStartXValue(int series, int item) {
         if (!this.transposed) {
             return getSeriesStartValue(series);
-        }
-        else {
+        } else {
             return getItemStartValue(series, item);
         }
     }
@@ -228,17 +224,15 @@ public class XYTaskDataset extends AbstractXYDataset
      * given series, measured in milliseconds since 1-Jan-1970 (as in
      * java.util.Date).
      *
-     * @param series  the series index.
-     * @param item  the item (or task) index.
-     *
+     * @param series the series index.
+     * @param item   the item (or task) index.
      * @return The end date/time.
      */
     @Override
     public double getEndXValue(int series, int item) {
         if (!this.transposed) {
             return getSeriesEndValue(series);
-        }
-        else {
+        } else {
             return getItemEndValue(series, item);
         }
     }
@@ -246,9 +240,8 @@ public class XYTaskDataset extends AbstractXYDataset
     /**
      * Returns the x-value for the specified series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The x-value (in milliseconds).
      */
     @Override
@@ -261,9 +254,8 @@ public class XYTaskDataset extends AbstractXYDataset
      * given series, measured in milliseconds since 1-Jan-1970 (as in
      * java.util.Date).
      *
-     * @param series  the series index.
-     * @param item  the item (or task) index.
-     *
+     * @param series the series index.
+     * @param item   the item (or task) index.
      * @return The start date/time.
      */
     @Override
@@ -276,9 +268,8 @@ public class XYTaskDataset extends AbstractXYDataset
      * given series, measured in milliseconds since 1-Jan-1970 (as in
      * java.util.Date).
      *
-     * @param series  the series index.
-     * @param item  the item (or task) index.
-     *
+     * @param series the series index.
+     * @param item   the item (or task) index.
      * @return The end date/time.
      */
     @Override
@@ -289,17 +280,15 @@ public class XYTaskDataset extends AbstractXYDataset
     /**
      * Returns the y-value (as a double primitive) for an item within a series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
      */
     @Override
     public double getYValue(int series, int item) {
         if (!this.transposed) {
             return getItemValue(series, item);
-        }
-        else {
+        } else {
             return getSeriesValue(series);
         }
     }
@@ -308,17 +297,15 @@ public class XYTaskDataset extends AbstractXYDataset
      * Returns the starting value of the y-interval for an item in the
      * given series.
      *
-     * @param series  the series index.
-     * @param item  the item (or task) index.
-     *
+     * @param series the series index.
+     * @param item   the item (or task) index.
      * @return The y-interval start.
      */
     @Override
     public double getStartYValue(int series, int item) {
         if (!this.transposed) {
             return getItemStartValue(series, item);
-        }
-        else {
+        } else {
             return getSeriesStartValue(series);
         }
     }
@@ -327,17 +314,15 @@ public class XYTaskDataset extends AbstractXYDataset
      * Returns the ending value of the y-interval for an item in the
      * given series.
      *
-     * @param series  the series index.
-     * @param item  the item (or task) index.
-     *
+     * @param series the series index.
+     * @param item   the item (or task) index.
      * @return The y-interval end.
      */
     @Override
     public double getEndYValue(int series, int item) {
         if (!this.transposed) {
             return getItemEndValue(series, item);
-        }
-        else {
+        } else {
             return getSeriesEndValue(series);
         }
     }
@@ -347,9 +332,8 @@ public class XYTaskDataset extends AbstractXYDataset
      * implementation, we return the series index as the y-value (this means
      * that every item in the series has a constant integer value).
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The y-value.
      */
     @Override
@@ -361,9 +345,8 @@ public class XYTaskDataset extends AbstractXYDataset
      * Returns the starting value of the y-interval for an item in the
      * given series.
      *
-     * @param series  the series index.
-     * @param item  the item (or task) index.
-     *
+     * @param series the series index.
+     * @param item   the item (or task) index.
      * @return The y-interval start.
      */
     @Override
@@ -375,9 +358,8 @@ public class XYTaskDataset extends AbstractXYDataset
      * Returns the ending value of the y-interval for an item in the
      * given series.
      *
-     * @param series  the series index.
-     * @param item  the item (or task) index.
-     *
+     * @param series the series index.
+     * @param item   the item (or task) index.
      * @return The y-interval end.
      */
     @Override
@@ -427,7 +409,7 @@ public class XYTaskDataset extends AbstractXYDataset
      * Receives a change event from the underlying dataset and responds by
      * firing a change event for this dataset.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void datasetChanged(DatasetChangeEvent event) {
@@ -437,8 +419,7 @@ public class XYTaskDataset extends AbstractXYDataset
     /**
      * Tests this dataset for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -466,7 +447,6 @@ public class XYTaskDataset extends AbstractXYDataset
      * Returns a clone of this dataset.
      *
      * @return A clone of this dataset.
-     *
      * @throws CloneNotSupportedException if there is a problem cloning.
      */
     @Override

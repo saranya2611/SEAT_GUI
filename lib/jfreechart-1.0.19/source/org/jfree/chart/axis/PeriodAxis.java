@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -65,30 +65,6 @@
 
 package org.jfree.chart.axis;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.lang.reflect.Constructor;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
-
 import org.jfree.chart.event.AxisChangeEvent;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
@@ -105,6 +81,19 @@ import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.lang.reflect.Constructor;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.List;
+
 /**
  * An axis that displays a date scale based on a
  * {@link org.jfree.data.time.RegularTimePeriod}.  This axis works when
@@ -114,13 +103,19 @@ import org.jfree.util.PublicCloneable;
 public class PeriodAxis extends ValueAxis
         implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 8353295532075872069L;
 
-    /** The first time period in the overall range. */
+    /**
+     * The first time period in the overall range.
+     */
     private RegularTimePeriod first;
 
-    /** The last time period in the overall range. */
+    /**
+     * The last time period in the overall range.
+     */
     private RegularTimePeriod last;
 
     /**
@@ -131,7 +126,7 @@ public class PeriodAxis extends ValueAxis
 
     /**
      * The locale (never <code>null</code>).
-     * 
+     *
      * @since 1.0.13
      */
     private Locale locale;
@@ -166,25 +161,35 @@ public class PeriodAxis extends ValueAxis
      */
     private Class minorTickTimePeriodClass;
 
-    /** The length of the tick mark inside the data area (zero permitted). */
+    /**
+     * The length of the tick mark inside the data area (zero permitted).
+     */
     private float minorTickMarkInsideLength = 0.0f;
 
-    /** The length of the tick mark outside the data area (zero permitted). */
+    /**
+     * The length of the tick mark outside the data area (zero permitted).
+     */
     private float minorTickMarkOutsideLength = 2.0f;
 
-    /** The stroke used to draw tick marks. */
+    /**
+     * The stroke used to draw tick marks.
+     */
     private transient Stroke minorTickMarkStroke = new BasicStroke(0.5f);
 
-    /** The paint used to draw tick marks. */
+    /**
+     * The paint used to draw tick marks.
+     */
     private transient Paint minorTickMarkPaint = Color.black;
 
-    /** Info for each labeling band. */
+    /**
+     * Info for each labeling band.
+     */
     private PeriodAxisLabelInfo[] labelInfo;
 
     /**
      * Creates a new axis.
      *
-     * @param label  the axis label.
+     * @param label the axis label.
      */
     public PeriodAxis(String label) {
         this(label, new Day(), new Day());
@@ -193,9 +198,9 @@ public class PeriodAxis extends ValueAxis
     /**
      * Creates a new axis.
      *
-     * @param label  the axis label (<code>null</code> permitted).
-     * @param first  the first time period in the axis range
-     *               (<code>null</code> not permitted).
+     * @param label the axis label (<code>null</code> permitted).
+     * @param first the first time period in the axis range
+     *              (<code>null</code> not permitted).
      * @param last  the last time period in the axis range
      *              (<code>null</code> not permitted).
      */
@@ -207,36 +212,34 @@ public class PeriodAxis extends ValueAxis
     /**
      * Creates a new axis.
      *
-     * @param label  the axis label (<code>null</code> permitted).
-     * @param first  the first time period in the axis range
-     *               (<code>null</code> not permitted).
-     * @param last  the last time period in the axis range
-     *              (<code>null</code> not permitted).
-     * @param timeZone  the time zone (<code>null</code> not permitted).
-     *
+     * @param label    the axis label (<code>null</code> permitted).
+     * @param first    the first time period in the axis range
+     *                 (<code>null</code> not permitted).
+     * @param last     the last time period in the axis range
+     *                 (<code>null</code> not permitted).
+     * @param timeZone the time zone (<code>null</code> not permitted).
      * @deprecated As of version 1.0.13, you should use the constructor that
-     *     specifies a Locale also.
+     * specifies a Locale also.
      */
-    public PeriodAxis(String label, RegularTimePeriod first, 
-            RegularTimePeriod last, TimeZone timeZone) {
+    public PeriodAxis(String label, RegularTimePeriod first,
+                      RegularTimePeriod last, TimeZone timeZone) {
         this(label, first, last, timeZone, Locale.getDefault());
     }
 
     /**
      * Creates a new axis.
      *
-     * @param label  the axis label (<code>null</code> permitted).
-     * @param first  the first time period in the axis range
-     *               (<code>null</code> not permitted).
-     * @param last  the last time period in the axis range
-     *              (<code>null</code> not permitted).
-     * @param timeZone  the time zone (<code>null</code> not permitted).
-     * @param locale  the locale (<code>null</code> not permitted).
-     *
+     * @param label    the axis label (<code>null</code> permitted).
+     * @param first    the first time period in the axis range
+     *                 (<code>null</code> not permitted).
+     * @param last     the last time period in the axis range
+     *                 (<code>null</code> not permitted).
+     * @param timeZone the time zone (<code>null</code> not permitted).
+     * @param locale   the locale (<code>null</code> not permitted).
      * @since 1.0.13
      */
     public PeriodAxis(String label, RegularTimePeriod first,
-            RegularTimePeriod last, TimeZone timeZone, Locale locale) {
+                      RegularTimePeriod last, TimeZone timeZone, Locale locale) {
         super(label, null);
         ParamChecks.nullNotPermitted(timeZone, "timeZone");
         ParamChecks.nullNotPermitted(locale, "locale");
@@ -275,7 +278,7 @@ public class PeriodAxis extends ValueAxis
      * Sets the first time period in the axis range and sends an
      * {@link AxisChangeEvent} to all registered listeners.
      *
-     * @param first  the time period (<code>null</code> not permitted).
+     * @param first the time period (<code>null</code> not permitted).
      */
     public void setFirst(RegularTimePeriod first) {
         ParamChecks.nullNotPermitted(first, "first");
@@ -297,7 +300,7 @@ public class PeriodAxis extends ValueAxis
      * Sets the last time period in the axis range and sends an
      * {@link AxisChangeEvent} to all registered listeners.
      *
-     * @param last  the time period (<code>null</code> not permitted).
+     * @param last the time period (<code>null</code> not permitted).
      */
     public void setLast(RegularTimePeriod last) {
         ParamChecks.nullNotPermitted(last, "last");
@@ -320,7 +323,7 @@ public class PeriodAxis extends ValueAxis
      * Sets the time zone that is used to convert the time periods into
      * absolute milliseconds.
      *
-     * @param zone  the time zone (<code>null</code> not permitted).
+     * @param zone the time zone (<code>null</code> not permitted).
      */
     public void setTimeZone(TimeZone zone) {
         ParamChecks.nullNotPermitted(zone, "zone");
@@ -335,7 +338,6 @@ public class PeriodAxis extends ValueAxis
      * Returns the locale for this axis.
      *
      * @return The locale (never (<code>null</code>).
-     *
      * @since 1.0.13
      */
     public Locale getLocale() {
@@ -357,7 +359,7 @@ public class PeriodAxis extends ValueAxis
      * axis range when the auto-range flag is set to <code>true</code> and
      * sends an {@link AxisChangeEvent} to all registered listeners.
      *
-     * @param c  the class (<code>null</code> not permitted).
+     * @param c the class (<code>null</code> not permitted).
      */
     public void setAutoRangeTimePeriodClass(Class c) {
         ParamChecks.nullNotPermitted(c, "c");
@@ -378,8 +380,8 @@ public class PeriodAxis extends ValueAxis
      * Sets the class that controls the spacing of the major tick marks, and
      * sends an {@link AxisChangeEvent} to all registered listeners.
      *
-     * @param c  the class (a subclass of {@link RegularTimePeriod} is
-     *           expected).
+     * @param c the class (a subclass of {@link RegularTimePeriod} is
+     *          expected).
      */
     public void setMajorTickTimePeriodClass(Class c) {
         ParamChecks.nullNotPermitted(c, "c");
@@ -403,7 +405,7 @@ public class PeriodAxis extends ValueAxis
      * are displayed for the axis, and sends a {@link AxisChangeEvent}
      * to all registered listeners.
      *
-     * @param visible  the flag.
+     * @param visible the flag.
      */
     @Override
     public void setMinorTickMarksVisible(boolean visible) {
@@ -424,8 +426,8 @@ public class PeriodAxis extends ValueAxis
      * Sets the class that controls the spacing of the minor tick marks, and
      * sends an {@link AxisChangeEvent} to all registered listeners.
      *
-     * @param c  the class (a subclass of {@link RegularTimePeriod} is
-     *           expected).
+     * @param c the class (a subclass of {@link RegularTimePeriod} is
+     *          expected).
      */
     public void setMinorTickTimePeriodClass(Class c) {
         ParamChecks.nullNotPermitted(c, "c");
@@ -448,7 +450,7 @@ public class PeriodAxis extends ValueAxis
      * visible, and sends a {@link AxisChangeEvent} to all registered
      * listeners.
      *
-     * @param stroke  the stroke (<code>null</code> not permitted).
+     * @param stroke the stroke (<code>null</code> not permitted).
      */
     public void setMinorTickMarkStroke(Stroke stroke) {
         ParamChecks.nullNotPermitted(stroke, "stroke");
@@ -471,7 +473,7 @@ public class PeriodAxis extends ValueAxis
      * visible, and sends a {@link AxisChangeEvent} to all registered
      * listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
+     * @param paint the paint (<code>null</code> not permitted).
      */
     public void setMinorTickMarkPaint(Paint paint) {
         ParamChecks.nullNotPermitted(paint, "paint");
@@ -493,7 +495,7 @@ public class PeriodAxis extends ValueAxis
      * Sets the inside length of the minor tick marks and sends an
      * {@link AxisChangeEvent} to all registered listeners.
      *
-     * @param length  the length.
+     * @param length the length.
      */
     @Override
     public void setMinorTickMarkInsideLength(float length) {
@@ -515,7 +517,7 @@ public class PeriodAxis extends ValueAxis
      * Sets the outside length of the minor tick marks and sends an
      * {@link AxisChangeEvent} to all registered listeners.
      *
-     * @param length  the length.
+     * @param length the length.
      */
     @Override
     public void setMinorTickMarkOutsideLength(float length) {
@@ -536,7 +538,7 @@ public class PeriodAxis extends ValueAxis
      * Sets the array of label info records and sends an
      * {@link AxisChangeEvent} to all registered listeners.
      *
-     * @param info  the info.
+     * @param info the info.
      */
     public void setLabelInfo(PeriodAxisLabelInfo[] info) {
         this.labelInfo = info;
@@ -548,15 +550,15 @@ public class PeriodAxis extends ValueAxis
      * {@link AxisChangeEvent} to all registered listeners.  As a side-effect,
      * the auto-range flag is set to <code>false</code> (optional).
      *
-     * @param range  the range (<code>null</code> not permitted).
-     * @param turnOffAutoRange  a flag that controls whether or not the auto
-     *                          range is turned off.
-     * @param notify  a flag that controls whether or not listeners are
-     *                notified.
+     * @param range            the range (<code>null</code> not permitted).
+     * @param turnOffAutoRange a flag that controls whether or not the auto
+     *                         range is turned off.
+     * @param notify           a flag that controls whether or not listeners are
+     *                         notified.
      */
     @Override
-    public void setRange(Range range, boolean turnOffAutoRange, 
-            boolean notify) {
+    public void setRange(Range range, boolean turnOffAutoRange,
+                         boolean notify) {
         long upper = Math.round(range.getUpperBound());
         long lower = Math.round(range.getLowerBound());
         this.first = createInstance(this.autoRangeTimePeriodClass,
@@ -564,7 +566,7 @@ public class PeriodAxis extends ValueAxis
         this.last = createInstance(this.autoRangeTimePeriodClass,
                 new Date(upper), this.timeZone, this.locale);
         super.setRange(new Range(this.first.getFirstMillisecond(),
-                this.last.getLastMillisecond() + 1.0), turnOffAutoRange,
+                        this.last.getLastMillisecond() + 1.0), turnOffAutoRange,
                 notify);
     }
 
@@ -582,19 +584,18 @@ public class PeriodAxis extends ValueAxis
     /**
      * Estimates the space (height or width) required to draw the axis.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot that the axis belongs to.
-     * @param plotArea  the area within which the plot (including axes) should
-     *                  be drawn.
-     * @param edge  the axis location.
-     * @param space  space already reserved.
-     *
+     * @param g2       the graphics device.
+     * @param plot     the plot that the axis belongs to.
+     * @param plotArea the area within which the plot (including axes) should
+     *                 be drawn.
+     * @param edge     the axis location.
+     * @param space    space already reserved.
      * @return The space required to draw the axis (including pre-reserved
-     *         space).
+     * space).
      */
     @Override
-    public AxisSpace reserveSpace(Graphics2D g2, Plot plot, 
-            Rectangle2D plotArea, RectangleEdge edge, AxisSpace space) {
+    public AxisSpace reserveSpace(Graphics2D g2, Plot plot,
+                                  Rectangle2D plotArea, RectangleEdge edge, AxisSpace space) {
         // create a new space object if one wasn't supplied...
         if (space == null) {
             space = new AxisSpace();
@@ -620,14 +621,13 @@ public class PeriodAxis extends ValueAxis
             PeriodAxisLabelInfo info = this.labelInfo[i];
             FontMetrics fm = g2.getFontMetrics(info.getLabelFont());
             tickLabelBandsDimension
-                += info.getPadding().extendHeight(fm.getHeight());
+                    += info.getPadding().extendHeight(fm.getHeight());
         }
 
         if (RectangleEdge.isTopOrBottom(edge)) {
             labelHeight = labelEnclosure.getHeight();
             space.add(labelHeight + tickLabelBandsDimension, edge);
-        }
-        else if (RectangleEdge.isLeftOrRight(edge)) {
+        } else if (RectangleEdge.isLeftOrRight(edge)) {
             labelWidth = labelEnclosure.getWidth();
             space.add(labelWidth + tickLabelBandsDimension, edge);
         }
@@ -649,20 +649,19 @@ public class PeriodAxis extends ValueAxis
      * Draws the axis on a Java 2D graphics device (such as the screen or a
      * printer).
      *
-     * @param g2  the graphics device (<code>null</code> not permitted).
-     * @param cursor  the cursor location (determines where to draw the axis).
+     * @param g2        the graphics device (<code>null</code> not permitted).
+     * @param cursor    the cursor location (determines where to draw the axis).
      * @param plotArea  the area within which the axes and plot should be drawn.
      * @param dataArea  the area within which the data should be drawn.
-     * @param edge  the axis location (<code>null</code> not permitted).
-     * @param plotState  collects information about the plot
-     *                   (<code>null</code> permitted).
-     *
+     * @param edge      the axis location (<code>null</code> not permitted).
+     * @param plotState collects information about the plot
+     *                  (<code>null</code> permitted).
      * @return The axis state (never <code>null</code>).
      */
     @Override
     public AxisState draw(Graphics2D g2, double cursor, Rectangle2D plotArea,
-            Rectangle2D dataArea, RectangleEdge edge,
-            PlotRenderingInfo plotState) {
+                          Rectangle2D dataArea, RectangleEdge edge,
+                          PlotRenderingInfo plotState) {
 
         AxisState axisState = new AxisState(cursor);
         if (isAxisLineVisible()) {
@@ -678,12 +677,12 @@ public class PeriodAxis extends ValueAxis
         }
 
         if (getAttributedLabel() != null) {
-            axisState = drawAttributedLabel(getAttributedLabel(), g2, plotArea, 
+            axisState = drawAttributedLabel(getAttributedLabel(), g2, plotArea,
                     dataArea, edge, axisState);
         } else {
-            axisState = drawLabel(getLabel(), g2, plotArea, dataArea, edge, 
+            axisState = drawLabel(getLabel(), g2, plotArea, dataArea, edge,
                     axisState);
-        } 
+        }
         return axisState;
 
     }
@@ -691,17 +690,16 @@ public class PeriodAxis extends ValueAxis
     /**
      * Draws the tick marks for the axis.
      *
-     * @param g2  the graphics device.
-     * @param state  the axis state.
-     * @param dataArea  the data area.
-     * @param edge  the edge.
+     * @param g2       the graphics device.
+     * @param state    the axis state.
+     * @param dataArea the data area.
+     * @param edge     the edge.
      */
-    protected void drawTickMarks(Graphics2D g2, AxisState state, 
-            Rectangle2D dataArea, RectangleEdge edge) {
+    protected void drawTickMarks(Graphics2D g2, AxisState state,
+                                 Rectangle2D dataArea, RectangleEdge edge) {
         if (RectangleEdge.isTopOrBottom(edge)) {
             drawTickMarksHorizontal(g2, state, dataArea, edge);
-        }
-        else if (RectangleEdge.isLeftOrRight(edge)) {
+        } else if (RectangleEdge.isLeftOrRight(edge)) {
             drawTickMarksVertical(g2, state, dataArea, edge);
         }
     }
@@ -710,19 +708,19 @@ public class PeriodAxis extends ValueAxis
      * Draws the major and minor tick marks for an axis that lies at the top or
      * bottom of the plot.
      *
-     * @param g2  the graphics device.
-     * @param state  the axis state.
-     * @param dataArea  the data area.
-     * @param edge  the edge.
+     * @param g2       the graphics device.
+     * @param state    the axis state.
+     * @param dataArea the data area.
+     * @param edge     the edge.
      */
     protected void drawTickMarksHorizontal(Graphics2D g2, AxisState state,
-            Rectangle2D dataArea, RectangleEdge edge) {
+                                           Rectangle2D dataArea, RectangleEdge edge) {
         List ticks = new ArrayList();
         double x0;
         double y0 = state.getCursor();
         double insideLength = getTickMarkInsideLength();
         double outsideLength = getTickMarkOutsideLength();
-        RegularTimePeriod t = createInstance(this.majorTickTimePeriodClass, 
+        RegularTimePeriod t = createInstance(this.majorTickTimePeriodClass,
                 this.first.getStart(), getTimeZone(), this.locale);
         long t0 = t.getFirstMillisecond();
         Line2D inside = null;
@@ -736,8 +734,7 @@ public class PeriodAxis extends ValueAxis
             if (edge == RectangleEdge.TOP) {
                 inside = new Line2D.Double(x0, y0, x0, y0 + insideLength);
                 outside = new Line2D.Double(x0, y0, x0, y0 - outsideLength);
-            }
-            else if (edge == RectangleEdge.BOTTOM) {
+            } else if (edge == RectangleEdge.BOTTOM) {
                 inside = new Line2D.Double(x0, y0, x0, y0 - insideLength);
                 outside = new Line2D.Double(x0, y0, x0, y0 + outsideLength);
             }
@@ -761,8 +758,7 @@ public class PeriodAxis extends ValueAxis
                                 y0 + this.minorTickMarkInsideLength);
                         outside = new Line2D.Double(xx0, y0, xx0,
                                 y0 - this.minorTickMarkOutsideLength);
-                    }
-                    else if (edge == RectangleEdge.BOTTOM) {
+                    } else if (edge == RectangleEdge.BOTTOM) {
                         inside = new Line2D.Double(xx0, y0, xx0,
                                 y0 - this.minorTickMarkInsideLength);
                         outside = new Line2D.Double(xx0, y0, xx0,
@@ -786,8 +782,7 @@ public class PeriodAxis extends ValueAxis
         if (edge == RectangleEdge.TOP) {
             state.cursorUp(Math.max(outsideLength,
                     this.minorTickMarkOutsideLength));
-        }
-        else if (edge == RectangleEdge.BOTTOM) {
+        } else if (edge == RectangleEdge.BOTTOM) {
             state.cursorDown(Math.max(outsideLength,
                     this.minorTickMarkOutsideLength));
         }
@@ -797,29 +792,28 @@ public class PeriodAxis extends ValueAxis
     /**
      * Draws the tick marks for a vertical axis.
      *
-     * @param g2  the graphics device.
-     * @param state  the axis state.
-     * @param dataArea  the data area.
-     * @param edge  the edge.
+     * @param g2       the graphics device.
+     * @param state    the axis state.
+     * @param dataArea the data area.
+     * @param edge     the edge.
      */
     protected void drawTickMarksVertical(Graphics2D g2, AxisState state,
-            Rectangle2D dataArea, RectangleEdge edge) {
+                                         Rectangle2D dataArea, RectangleEdge edge) {
         // FIXME:  implement this...
     }
 
     /**
      * Draws the tick labels for one "band" of time periods.
      *
-     * @param band  the band index (zero-based).
-     * @param g2  the graphics device.
-     * @param state  the axis state.
-     * @param dataArea  the data area.
-     * @param edge  the edge where the axis is located.
-     *
+     * @param band     the band index (zero-based).
+     * @param g2       the graphics device.
+     * @param state    the axis state.
+     * @param dataArea the data area.
+     * @param edge     the edge where the axis is located.
      * @return The updated axis state.
      */
     protected AxisState drawTickLabels(int band, Graphics2D g2, AxisState state,
-            Rectangle2D dataArea, RectangleEdge edge) {
+                                       Rectangle2D dataArea, RectangleEdge edge) {
 
         // work out the initial gap
         double delta1 = 0.0;
@@ -827,8 +821,7 @@ public class PeriodAxis extends ValueAxis
         if (edge == RectangleEdge.BOTTOM) {
             delta1 = this.labelInfo[band].getPadding().calculateTopOutset(
                     fm.getHeight());
-        }
-        else if (edge == RectangleEdge.TOP) {
+        } else if (edge == RectangleEdge.TOP) {
             delta1 = this.labelInfo[band].getPadding().calculateBottomOutset(
                     fm.getHeight());
         }
@@ -856,12 +849,11 @@ public class PeriodAxis extends ValueAxis
                 dataArea, edge));
         if (isInverted()) {
             ww = axisMax - ww;
-        }
-        else {
+        } else {
             ww = ww - axisMin;
         }
         long length = p1.getLastMillisecond()
-                      - p1.getFirstMillisecond();
+                - p1.getFirstMillisecond();
         int periods = (int) (ww / length) + 1;
 
         RegularTimePeriod p = this.labelInfo[band].createInstance(
@@ -891,8 +883,7 @@ public class PeriodAxis extends ValueAxis
                             axisMin), dataArea, edge);
                     if (bb.getWidth() < (dataArea.getMaxX() - xstart)) {
                         x = ((float) dataArea.getMaxX() + xstart) / 2.0f;
-                    }
-                    else {
+                    } else {
                         label = null;
                     }
                 }
@@ -907,8 +898,7 @@ public class PeriodAxis extends ValueAxis
                             axisMax), dataArea, edge);
                     if (bb.getWidth() < (xlast - dataArea.getX())) {
                         x = (xlast + (float) dataArea.getX()) / 2.0f;
-                    }
-                    else {
+                    } else {
                         label = null;
                     }
                 }
@@ -941,8 +931,7 @@ public class PeriodAxis extends ValueAxis
             if (edge == RectangleEdge.BOTTOM) {
                 used += this.labelInfo[band].getPadding().calculateBottomOutset(
                         fm.getHeight());
-            }
-            else if (edge == RectangleEdge.TOP) {
+            } else if (edge == RectangleEdge.TOP) {
                 used += this.labelInfo[band].getPadding().calculateTopOutset(
                         fm.getHeight());
             }
@@ -955,16 +944,15 @@ public class PeriodAxis extends ValueAxis
      * Calculates the positions of the ticks for the axis, storing the results
      * in the tick list (ready for drawing).
      *
-     * @param g2  the graphics device.
-     * @param state  the axis state.
-     * @param dataArea  the area inside the axes.
-     * @param edge  the edge on which the axis is located.
-     *
+     * @param g2       the graphics device.
+     * @param state    the axis state.
+     * @param dataArea the area inside the axes.
+     * @param edge     the edge on which the axis is located.
      * @return The list of ticks.
      */
     @Override
     public List refreshTicks(Graphics2D g2, AxisState state,
-            Rectangle2D dataArea, RectangleEdge edge) {
+                             Rectangle2D dataArea, RectangleEdge edge) {
         return Collections.EMPTY_LIST;
     }
 
@@ -974,15 +962,14 @@ public class PeriodAxis extends ValueAxis
      * <p>
      * Note that it is possible for the coordinate to fall outside the area.
      *
-     * @param value  the data value.
+     * @param value the data value.
      * @param area  the area for plotting the data.
      * @param edge  the edge along which the axis lies.
-     *
      * @return The Java2D coordinate.
      */
     @Override
     public double valueToJava2D(double value, Rectangle2D area,
-            RectangleEdge edge) {
+                                RectangleEdge edge) {
 
         double result = Double.NaN;
         double axisMin = this.first.getFirstMillisecond();
@@ -992,23 +979,20 @@ public class PeriodAxis extends ValueAxis
             double maxX = area.getMaxX();
             if (isInverted()) {
                 result = maxX + ((value - axisMin) / (axisMax - axisMin))
-                         * (minX - maxX);
-            }
-            else {
+                        * (minX - maxX);
+            } else {
                 result = minX + ((value - axisMin) / (axisMax - axisMin))
-                         * (maxX - minX);
+                        * (maxX - minX);
             }
-        }
-        else if (RectangleEdge.isLeftOrRight(edge)) {
+        } else if (RectangleEdge.isLeftOrRight(edge)) {
             double minY = area.getMinY();
             double maxY = area.getMaxY();
             if (isInverted()) {
                 result = minY + (((value - axisMin) / (axisMax - axisMin))
-                         * (maxY - minY));
-            }
-            else {
+                        * (maxY - minY));
+            } else {
                 result = maxY - (((value - axisMin) / (axisMax - axisMin))
-                         * (maxY - minY));
+                        * (maxY - minY));
             }
         }
         return result;
@@ -1019,15 +1003,14 @@ public class PeriodAxis extends ValueAxis
      * Converts a coordinate in Java2D space to the corresponding data value,
      * assuming that the axis runs along one edge of the specified dataArea.
      *
-     * @param java2DValue  the coordinate in Java2D space.
-     * @param area  the area in which the data is plotted.
-     * @param edge  the edge along which the axis lies.
-     *
+     * @param java2DValue the coordinate in Java2D space.
+     * @param area        the area in which the data is plotted.
+     * @param edge        the edge along which the axis lies.
      * @return The data value.
      */
     @Override
     public double java2DToValue(double java2DValue, Rectangle2D area,
-            RectangleEdge edge) {
+                                RectangleEdge edge) {
 
         double result;
         double min = 0.0;
@@ -1037,18 +1020,16 @@ public class PeriodAxis extends ValueAxis
         if (RectangleEdge.isTopOrBottom(edge)) {
             min = area.getX();
             max = area.getMaxX();
-        }
-        else if (RectangleEdge.isLeftOrRight(edge)) {
+        } else if (RectangleEdge.isLeftOrRight(edge)) {
             min = area.getMaxY();
             max = area.getY();
         }
         if (isInverted()) {
-             result = axisMax - ((java2DValue - min) / (max - min)
-                      * (axisMax - axisMin));
-        }
-        else {
-             result = axisMin + ((java2DValue - min) / (max - min)
-                      * (axisMax - axisMin));
+            result = axisMax - ((java2DValue - min) / (max - min)
+                    * (axisMax - axisMin));
+        } else {
+            result = axisMin + ((java2DValue - min) / (max - min)
+                    * (axisMax - axisMin));
         }
         return result;
     }
@@ -1086,8 +1067,7 @@ public class PeriodAxis extends ValueAxis
     /**
      * Tests the axis for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -1152,9 +1132,8 @@ public class PeriodAxis extends ValueAxis
      * Returns a clone of the axis.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  this class is cloneable, but
-     *         subclasses may not be.
+     * @throws CloneNotSupportedException this class is cloneable, but
+     *                                    subclasses may not be.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -1169,30 +1148,27 @@ public class PeriodAxis extends ValueAxis
      * {@link RegularTimePeriod} class that includes the specified millisecond,
      * assuming the specified time zone.
      *
-     * @param periodClass  the class.
-     * @param millisecond  the time.
-     * @param zone  the time zone.
-     * @param locale  the locale.
-     *
+     * @param periodClass the class.
+     * @param millisecond the time.
+     * @param zone        the time zone.
+     * @param locale      the locale.
      * @return The time period.
      */
-    private RegularTimePeriod createInstance(Class periodClass, 
-            Date millisecond, TimeZone zone, Locale locale) {
+    private RegularTimePeriod createInstance(Class periodClass,
+                                             Date millisecond, TimeZone zone, Locale locale) {
         RegularTimePeriod result = null;
         try {
-            Constructor c = periodClass.getDeclaredConstructor(new Class[] {
+            Constructor c = periodClass.getDeclaredConstructor(new Class[]{
                     Date.class, TimeZone.class, Locale.class});
-            result = (RegularTimePeriod) c.newInstance(new Object[] {
+            result = (RegularTimePeriod) c.newInstance(new Object[]{
                     millisecond, zone, locale});
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             try {
-                Constructor c = periodClass.getDeclaredConstructor(new Class[] {
+                Constructor c = periodClass.getDeclaredConstructor(new Class[]{
                         Date.class});
-                result = (RegularTimePeriod) c.newInstance(new Object[] {
+                result = (RegularTimePeriod) c.newInstance(new Object[]{
                         millisecond});
-            }
-            catch (Exception e2) {
+            } catch (Exception e2) {
                 // do nothing
             }
         }
@@ -1202,9 +1178,8 @@ public class PeriodAxis extends ValueAxis
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -1215,13 +1190,12 @@ public class PeriodAxis extends ValueAxis
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.minorTickMarkStroke = SerialUtilities.readStroke(stream);
         this.minorTickMarkPaint = SerialUtilities.readPaint(stream);

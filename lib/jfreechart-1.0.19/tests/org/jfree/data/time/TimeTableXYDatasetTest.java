@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------
@@ -41,14 +41,12 @@
 
 package org.jfree.data.time;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
+import org.jfree.chart.TestUtilities;
+import org.junit.Test;
 
 import java.util.TimeZone;
 
-import org.jfree.chart.TestUtilities;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * A collection of test cases for the {@link TimeTableXYDataset} class.
@@ -79,7 +77,7 @@ public class TimeTableXYDatasetTest {
      * Some checks for the getTimePeriod() method.
      */
     @Test
-    public void testGetTimePeriod()  {
+    public void testGetTimePeriod() {
         TimeTableXYDataset d = new TimeTableXYDataset();
         d.add(new Year(1999), 1.0, "Series 1");
         d.add(new Year(1998), 2.0, "Series 1");
@@ -127,8 +125,7 @@ public class TimeTableXYDatasetTest {
         TimeTableXYDataset clone = null;
         try {
             clone = (TimeTableXYDataset) d.clone();
-        }
-        catch (CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException e) {
             assertTrue(false);
         }
         assertTrue(clone.equals(d));
@@ -145,7 +142,7 @@ public class TimeTableXYDatasetTest {
     public void testSerialization() {
         TimeTableXYDataset d1 = new TimeTableXYDataset();
         d1.add(new Year(1999), 123.4, "S1");
-        TimeTableXYDataset d2 = (TimeTableXYDataset) 
+        TimeTableXYDataset d2 = (TimeTableXYDataset)
                 TestUtilities.serialised(d1);
         assertTrue(d1.equals(d2));
     }

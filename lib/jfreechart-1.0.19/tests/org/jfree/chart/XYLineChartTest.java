@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -40,15 +40,6 @@
 
 package org.jfree.chart;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-
-
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.event.ChartChangeEvent;
 import org.jfree.chart.event.ChartChangeListener;
@@ -63,13 +54,36 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+
+import static org.junit.Assert.*;
+
 /**
  * Some tests for an XY line chart.
  */
 public class XYLineChartTest {
 
-    /** A chart. */
+    /**
+     * A chart.
+     */
     private JFreeChart chart;
+
+    /**
+     * Create a horizontal bar chart with sample data in the range -3 to +3.
+     *
+     * @return The chart.
+     */
+    private static JFreeChart createChart() {
+        XYSeries series1 = new XYSeries("Series 1");
+        series1.add(1.0, 1.0);
+        series1.add(2.0, 2.0);
+        series1.add(3.0, 3.0);
+        XYDataset dataset = new XYSeriesCollection(series1);
+        return ChartFactory.createXYLineChart("XY Line Chart", "Domain",
+                "Range", dataset);
+    }
 
     /**
      * Common test setup.
@@ -86,15 +100,14 @@ public class XYLineChartTest {
     @Test
     public void testDrawWithNullInfo() {
         try {
-            BufferedImage image = new BufferedImage(200 , 100,
+            BufferedImage image = new BufferedImage(200, 100,
                     BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = image.createGraphics();
             this.chart.draw(g2, new Rectangle2D.Double(0, 0, 200, 100), null,
                     null);
             g2.dispose();
-        }
-        catch (Exception e) {
-          fail("No exception should be triggered.");
+        } catch (Exception e) {
+            fail("No exception should be triggered.");
         }
     }
 
@@ -119,9 +132,9 @@ public class XYLineChartTest {
         ValueAxis axis = plot.getRangeAxis();
         Range range = axis.getRange();
         assertTrue("Expecting the lower bound of the range to be around 10: "
-                   + range.getLowerBound(), range.getLowerBound() <= 10);
+                + range.getLowerBound(), range.getLowerBound() <= 10);
         assertTrue("Expecting the upper bound of the range to be around 30: "
-                   + range.getUpperBound(), range.getUpperBound() >= 30);
+                + range.getUpperBound(), range.getUpperBound() >= 30);
 
     }
 
@@ -140,33 +153,19 @@ public class XYLineChartTest {
     }
 
     /**
-     * Create a horizontal bar chart with sample data in the range -3 to +3.
-     *
-     * @return The chart.
-     */
-    private static JFreeChart createChart() {
-        XYSeries series1 = new XYSeries("Series 1");
-        series1.add(1.0, 1.0);
-        series1.add(2.0, 2.0);
-        series1.add(3.0, 3.0);
-        XYDataset dataset = new XYSeriesCollection(series1);
-        return ChartFactory.createXYLineChart("XY Line Chart", "Domain",
-                "Range", dataset);
-    }
-
-    /**
      * A chart change listener.
-     *
      */
     static class LocalListener implements ChartChangeListener {
 
-        /** A flag. */
+        /**
+         * A flag.
+         */
         private boolean flag = false;
 
         /**
          * Event handler.
          *
-         * @param event  the event.
+         * @param event the event.
          */
         @Override
         public void chartChanged(ChartChangeEvent event) {

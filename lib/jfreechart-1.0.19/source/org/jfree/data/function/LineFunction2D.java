@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -42,26 +42,30 @@
 
 package org.jfree.data.function;
 
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
+
+import java.io.Serializable;
 
 /**
  * A function in the form y = a + bx.
  */
 public class LineFunction2D implements Function2D, Serializable {
 
-    /** The intercept. */
+    /**
+     * The intercept.
+     */
     private double a;
 
-    /** The slope of the line. */
+    /**
+     * The slope of the line.
+     */
     private double b;
 
     /**
      * Constructs a new line function.
      *
-     * @param a  the intercept.
-     * @param b  the slope.
+     * @param a the intercept.
+     * @param b the slope.
      */
     public LineFunction2D(double a, double b) {
         this.a = a;
@@ -72,7 +76,6 @@ public class LineFunction2D implements Function2D, Serializable {
      * Returns the 'a' coefficient that was specified in the constructor.
      *
      * @return The 'a' coefficient.
-     *
      * @since 1.0.14
      */
     public double getIntercept() {
@@ -83,7 +86,6 @@ public class LineFunction2D implements Function2D, Serializable {
      * Returns the 'b' coefficient that was specified in the constructor.
      *
      * @return The 'b' coefficient.
-     *
      * @since 1.0.14
      */
     public double getSlope() {
@@ -93,8 +95,7 @@ public class LineFunction2D implements Function2D, Serializable {
     /**
      * Returns the function value.
      *
-     * @param x  the x-value.
-     *
+     * @param x the x-value.
      * @return The value.
      */
     @Override
@@ -105,8 +106,7 @@ public class LineFunction2D implements Function2D, Serializable {
     /**
      * Tests this function for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -126,7 +126,7 @@ public class LineFunction2D implements Function2D, Serializable {
 
     /**
      * Returns a hash code for this instance.
-     * 
+     *
      * @return A hash code.
      */
     @Override
