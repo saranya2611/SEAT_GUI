@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2be689e-2fb6-44ac-9aea-bd26d6f42fcc" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/gui/defaultSetOfFilesWizard3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/defaultSetOfFilesWizard3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,8 +50,8 @@
       <file leaf-file-name="defaultSetOfFilesWizard3.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gui/defaultSetOfFilesWizard3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="397" column="231" selection-start-line="397" selection-start-column="231" selection-end-line="397" selection-end-column="231" />
+            <state relative-caret-position="64">
+              <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
               <folding>
                 <element signature="e#5040#5214#0" expanded="true" />
                 <element signature="e#5213#5214#0" expanded="true" />
@@ -479,34 +479,6 @@
             </path>
             <path>
               <item name="gui_v1_18Dec2017" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gui_v1_18Dec2017" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gui" type="462c0819:PsiDirectoryNode" />
-              <item name="analyzeAllotmentsWizard4" type="e9f4de52:FormNode" />
-            </path>
-            <path>
-              <item name="gui_v1_18Dec2017" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gui_v1_18Dec2017" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gui" type="462c0819:PsiDirectoryNode" />
-              <item name="defaultSetOfFilesWizard2" type="e9f4de52:FormNode" />
-            </path>
-            <path>
-              <item name="gui_v1_18Dec2017" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gui_v1_18Dec2017" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gui" type="462c0819:PsiDirectoryNode" />
-              <item name="defaultSetOfFilesWizard3" type="e9f4de52:FormNode" />
-            </path>
-            <path>
-              <item name="gui_v1_18Dec2017" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gui_v1_18Dec2017" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gui" type="462c0819:PsiDirectoryNode" />
-              <item name="inputToAllotmentsWizard1" type="e9f4de52:FormNode" />
-            </path>
-            <path>
-              <item name="gui_v1_18Dec2017" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -523,7 +495,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="JAVA" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/JGoodies/jgoodies-validation-2_5_1-20141229.zip!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/forms_rt-7.0.3.jar!/" />
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -691,7 +663,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="69" y="24" width="1851" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -702,11 +673,11 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.289959" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.289959" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21934089" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21934089" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
@@ -1059,8 +1030,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/defaultSetOfFilesWizard3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="397" column="231" selection-start-line="397" selection-start-column="231" selection-end-line="397" selection-end-column="231" />
+        <state relative-caret-position="64">
+          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
           <folding>
             <element signature="e#5040#5214#0" expanded="true" />
             <element signature="e#5213#5214#0" expanded="true" />
@@ -1089,7 +1060,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>No facets are configured</last-edited>
+          <last-edited />
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1101,7 +1072,7 @@
       </state>
       <state key="GlobalLibrariesConfigurable.UI">
         <settings>
-          <last-edited>forms_rt-7.0</last-edited>
+          <last-edited>lib</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
