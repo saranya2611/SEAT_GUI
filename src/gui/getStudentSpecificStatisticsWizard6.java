@@ -4,6 +4,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
@@ -384,6 +385,9 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
                     new Slice(numberOfCore, "Core (" + Integer.toString(numberOfCore) + ")"), new Slice(numberOfElec, "Elective (" + Integer.toString(numberOfElec) + ")")
             };
             PieChart_AWT demo = new PieChart_AWT(enteredRollNumber + ": Core and Elective", slices);
+            PiePlot plot = (PiePlot) demo.chart.getPlot();
+            plot.setSectionPaint(slices[0].name, new Color(20, 10, 50));
+            plot.setSectionPaint(slices[1].name, Color.red);
             demo.setSize(560, 400);
             RefineryUtilities.positionFrameOnScreen(demo, 0.1, 0.1);
             demo.setVisible(true);
@@ -507,6 +511,9 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
                     new Slice(numberOfCourseAllocated, electiveAllocatedLegend.toString()), new Slice(numberOfCourseRejected, electiveRejectedLegend.toString())
             };
             PieChart_AWT demo = new PieChart_AWT(enteredRollNumber + ": Elective - Allocated and Rejected", slices);
+            PiePlot plot = (PiePlot) demo.chart.getPlot();
+            plot.setSectionPaint(slices[0].name, new Color(200, 100, 150));
+            plot.setSectionPaint(slices[1].name, Color.green);
             demo.setSize(560, 400);
             RefineryUtilities.positionFrameOnScreen(demo, 0.9, 0.1);
             demo.setVisible(true);
@@ -681,6 +688,7 @@ class Slice {
 class PieChart_AWT extends JFrame {
 
     Slice[] slices;
+    JFreeChart chart;
 
     public PieChart_AWT(String title, Slice[] slices) {
         super(title);
@@ -707,7 +715,7 @@ class PieChart_AWT extends JFrame {
     }
 
     public JPanel createDemoPanel() {
-        JFreeChart chart = createChart(createDataset());
+        chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
 }
