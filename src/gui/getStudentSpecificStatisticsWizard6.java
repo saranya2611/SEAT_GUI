@@ -2,19 +2,37 @@ package gui;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
+import org.jfree.ui.RefineryUtilities;
 import services.CheckInputFormats;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
-import static gui.formValues.*;
+import static gui.formValues.studentPreferenceListNameWithPath;
 
 
 public class getStudentSpecificStatisticsWizard6 extends JFrame {
+    public String perStudentAllottedCoursesFileName, perStudentStatisticsFileName, rejectionReasoningsFileName;
+    String line, chosenDirectoryName, studentPreferenceListName, errorMsg, enteredRollNumber, matchedString;
+    int lineNo;
+    String[] inputLine;
+    String splitByComma = ",";
+    String splitByNewLine = "\n";
+    JButton checkButton;
+    String rollNumberPattern = "^[A-Za-z][A-Za-z][0-9][0-9][Bb][0-9][0-9][0-9]";
+    ArrayList<String> arrayOfMatchingsFromStudentPreferences, arrayOfMatchingsFromAllottedCourses, arrayOfMatchingsFromAllottementStatistics, arrayOfMatchingsFromRejectionReasons, arrayOfMatchings, coreCourses;
     private JLabel jLabelStudentwiseAllotmentAnalysisWizard6;
     private JLabel chosenDirectoryLabelWizard6;
     private JTextField chosenDirectoryTextFieldWizard6;
@@ -33,162 +51,6 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
     private JButton studentPreferenceCheckButtonWizard6;
     private JButton studentPreferenceBrowseButtonWizard6;
     private JButton goToWizard5FromWizard6;
-
-    String line, chosenDirectoryName, studentPreferenceListName, errorMsg, enteredRollNumber, matchedString;
-    int lineNo;
-    String[] inputLine;
-    String splitByComma = ",";
-    String splitByNewLine = "\n";
-    JButton checkButton;
-    String rollNumberPattern = "^[A-Za-z][A-Za-z][0-9][0-9][Bb][0-9][0-9][0-9]";
-
-    public String perStudentAllottedCoursesFileName, perStudentStatisticsFileName, rejectionReasoningsFileName;
-
-    ArrayList<String> arrayOfMatchingsFromStudentPreferences, arrayOfMatchingsFromAllottedCourses, arrayOfMatchingsFromAllottementStatistics, arrayOfMatchingsFromRejectionReasons, arrayOfMatchings, coreCourses;
-
-    // General function to check the existence of file or folder
-    public void enableFileDirectoryExistenceCheckButton(JButton currentCheckButton, File file1, String errorMsg) {
-        checkButton = currentCheckButton;
-        if (file1.exists()) {
-            checkButton.setVisible(true);
-            try {
-                Image img = ImageIO.read(getClass().getResource("greenYes.png"));
-                checkButton.setIcon(new ImageIcon(img));
-                chosenDirectoryCheckButtonWizard6.setEnabled(true);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            checkButton.setVisible(true);
-            try {
-                Image img = ImageIO.read(getClass().getResource("redCross.png"));
-                checkButton.setIcon(new ImageIcon(img));
-                chosenDirectoryCheckButtonWizard6.setEnabled(true);
-                JOptionPane.showMessageDialog(null, errorMsg, "Input Format Error", JOptionPane.ERROR_MESSAGE);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    // General function to get student-wise details
-    public ArrayList<String> getStudentWiseDetails(String fileName, String fieldSeparator, String subString, ArrayList<String> arrayOfMatchings) throws IOException {
-        BufferedReader buffRead = null; // Initialize a buffer
-        int index = 1;
-        //System.out.println("FileName : " + fileName + "\n Roll number: " + subString);
-        try {
-            buffRead = new BufferedReader(new FileReader(fileName));
-            buffRead.readLine(); //Skip the first line since it will be the header row
-            //read input file line by line
-            arrayOfMatchings = new ArrayList<String>();
-            while ((line = buffRead.readLine()) != null) {
-                line.replaceAll("\\s+", ""); //Remove all whitespace
-                inputLine = line.split(fieldSeparator);
-                //System.out.println("Current Input Line " + inputLine[0]);
-
-                //Get the column after splitting the line with delimiter specified in fieldSeparator without header in first line
-                String loadedOutputFileContent = inputLine[0];
-                if (loadedOutputFileContent.toLowerCase().contains(subString.toLowerCase())) {
-                    matchedString = loadedOutputFileContent;
-                    //System.out.println("matchedString : " + matchedString);
-                    arrayOfMatchings.add(loadedOutputFileContent);
-                    //System.out.println("content in index arrayOfMatchings[" + index + "] :" + loadedOutputFileContent);
-                    index++;
-                }
-            }
-            //System.out.printf("Length of array Of Matchings : %d\n", arrayOfMatchings.size());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return arrayOfMatchings;
-    }
-
-    // General function to post process students elective preferences
-    public void postProcessPreferenceDetailsForDisplay(ArrayList<String> arrayOfMatchings, String substring, String fileName) {
-
-        if (fileName.equals(studentPreferenceListNameWithPath)) {
-            int iteration = 0;
-            int entryCount = arrayOfMatchings.size();
-            // System.out.println("\n Length of array of matched contents: " + entryCount);
-            //System.out.println("\n Array with matched elements:" + arrayOfMatchings);
-            if (entryCount != 0) {
-                while (iteration < entryCount) {
-                    String matchedString = arrayOfMatchings.get(iteration); //.split(splitByComma);
-                    //  System.out.println("Matched elective: " + matchedString);
-                    //  if (matchedString.contains("ELEC")) {
-                    studentStatsTextAreaWizard6.append("\n" + matchedString);
-                    // }
-                    iteration++;
-                }
-            } else {
-                studentStatsTextAreaWizard6.append("\n The student did not register any core courses as well as elective courses");
-            }
-        }
-    }
-
-    // General function to post process students elective preferences
-    public void postProcessPerStudentAllottedCoursesForDisplay(ArrayList<String> arrayOfMatchings, String substring, String fileName) {
-
-        System.out.println("FileName in postProcessing " + fileName);
-
-        if (fileName.equals(formValues.perStudentAllottedCoursesFileName)) {
-            int iteration = 1;
-            //System.out.println("\n Length of array of matched contents: " + entryCount);
-            int courseCount = (arrayOfMatchings.get(0).split(splitByComma).length);
-            //System.out.println("\n Array with matched elements:" + arrayOfMatchings);
-            if (courseCount > 1) {
-                while (iteration < courseCount) {
-                    String matchedString = arrayOfMatchings.get(0).split(splitByComma)[iteration].split("\\$")[0];
-                    //System.out.println("Allotted elective: [" + iteration + "]" + matchedString);
-                    studentStatsTextAreaWizard6.append("\n" + matchedString);
-                    iteration++;
-                }
-            } else {
-                studentStatsTextAreaWizard6.append("\n All the preferred courses for this student were rejected (OR) the student did not register any elective courses ");
-            }
-        }
-
-        if (fileName.equals(formValues.perStudentAllottedStatisticsFileName)) {
-            int iteration = 1;
-            int fieldCount = arrayOfMatchings.get(0).split(splitByComma).length - 1;
-            System.out.println("Statistics " + arrayOfMatchings.get(0));
-            if (fieldCount > 1) {
-                String effectiveRank = arrayOfMatchings.get(0).split(splitByComma)[1];
-                String creditSatistfaction = arrayOfMatchings.get(0).split(splitByComma)[2];
-                studentStatsTextAreaWizard6.append("\n Effective Average Rank : " + effectiveRank + "\n Credit satisfaction ratio : " + creditSatistfaction);
-            } else {
-                studentStatsTextAreaWizard6.append("\n The student did not register any elective courses");
-            }
-        }
-
-        if (fileName.equals(formValues.rejectionReasonsFileName)) {
-            int iteration = 0;
-            ArrayList<String> courseDict = new ArrayList<String>();
-            int index = 1, dictIndex = 0;
-            int rejectionCount = arrayOfMatchings.size();
-            if (rejectionCount > 0) {
-                while (iteration < rejectionCount) {
-                    String matchedString = arrayOfMatchings.get(iteration);
-                    //System.out.println("Rejected Course [" + iteration + "] :" + matchedString);
-                    String rejectedCourseName = matchedString.split(splitByComma)[1].split("\\$")[0];
-                    if (!courseDict.contains(rejectedCourseName)) {
-                        if (!matchedString.contains("Already allotted to inside department version of the course")) {
-                            courseDict.add(rejectedCourseName);
-                            dictIndex++;
-                            String rejectedReasons = matchedString.split(splitByComma)[2];
-                            studentStatsTextAreaWizard6.append("\n Rejected Elective : [" + index + "] : " + rejectedCourseName + " , Rejection Reason : " + rejectedReasons);
-                            index++;
-                        }
-                    }
-                    iteration++;
-                }
-            } else {
-                studentStatsTextAreaWizard6.append("\n The student got allotted to all his preferences (OR) did not register for any elective courses");
-            }
-        }
-
-    }
-
 
     // Constructor function
     public getStudentSpecificStatisticsWizard6() {
@@ -362,6 +224,9 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
                         e1.printStackTrace();
                     }
 
+                    // Display pie chart for core and elective
+                    postProcessPreferenceDetailsForChartDisplay(arrayOfMatchingsFromStudentPreferences, enteredRollNumber);
+
                     // Get the per student allotted courses details
                     try {
                         arrayOfMatchingsFromAllottedCourses = getStudentWiseDetails(perStudentAllottedCoursesFileName, splitByNewLine, enteredRollNumber, arrayOfMatchingsFromAllottedCourses);
@@ -396,6 +261,9 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
                         e1.printStackTrace();
                     }
 
+                    //Display pie chart for elective allocation and rejection
+                    postProcessPerStudentAllottedCoursesForChartDisplay(arrayOfMatchingsFromAllottedCourses, arrayOfMatchingsFromRejectionReasons, enteredRollNumber);
+
                 } else {
                     JOptionPane.showMessageDialog(null, "\n Roll number MUST be of form : [A-Z][A-Z][0-9][0-9][B][0-9][0-9][0-9] \n Eg: ME16B001, me16b001, Cs15b001, cs15b001\n ", "Input Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -411,6 +279,239 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
         });
     }
 
+    // General function to check the existence of file or folder
+    public void enableFileDirectoryExistenceCheckButton(JButton currentCheckButton, File file1, String errorMsg) {
+        checkButton = currentCheckButton;
+        if (file1.exists()) {
+            checkButton.setVisible(true);
+            try {
+                Image img = ImageIO.read(getClass().getResource("greenYes.png"));
+                checkButton.setIcon(new ImageIcon(img));
+                chosenDirectoryCheckButtonWizard6.setEnabled(true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            checkButton.setVisible(true);
+            try {
+                Image img = ImageIO.read(getClass().getResource("redCross.png"));
+                checkButton.setIcon(new ImageIcon(img));
+                chosenDirectoryCheckButtonWizard6.setEnabled(true);
+                JOptionPane.showMessageDialog(null, errorMsg, "Input Format Error", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // General function to get student-wise details
+    public ArrayList<String> getStudentWiseDetails(String fileName, String fieldSeparator, String subString, ArrayList<String> arrayOfMatchings) throws IOException {
+        BufferedReader buffRead = null; // Initialize a buffer
+        int index = 1;
+        //System.out.println("FileName : " + fileName + "\n Roll number: " + subString);
+        try {
+            buffRead = new BufferedReader(new FileReader(fileName));
+            buffRead.readLine(); //Skip the first line since it will be the header row
+            //read input file line by line
+            arrayOfMatchings = new ArrayList<String>();
+            while ((line = buffRead.readLine()) != null) {
+                line.replaceAll("\\s+", ""); //Remove all whitespace
+                inputLine = line.split(fieldSeparator);
+                //System.out.println("Current Input Line " + inputLine[0]);
+
+                //Get the column after splitting the line with delimiter specified in fieldSeparator without header in first line
+                String loadedOutputFileContent = inputLine[0];
+                if (loadedOutputFileContent.toLowerCase().contains(subString.toLowerCase())) {
+                    matchedString = loadedOutputFileContent;
+                    //System.out.println("matchedString : " + matchedString);
+                    arrayOfMatchings.add(loadedOutputFileContent);
+                    //System.out.println("content in index arrayOfMatchings[" + index + "] :" + loadedOutputFileContent);
+                    index++;
+                }
+            }
+            //System.out.printf("Length of array Of Matchings : %d\n", arrayOfMatchings.size());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return arrayOfMatchings;
+    }
+
+    // General function to post process students elective preferences
+    public void postProcessPreferenceDetailsForDisplay(ArrayList<String> arrayOfMatchings, String substring, String fileName) {
+        int numberOfCore = 0, numberOfElec = 0;
+        if (fileName.equals(studentPreferenceListNameWithPath)) {
+            int iteration = 0;
+            int entryCount = arrayOfMatchings.size();
+            // System.out.println("\n Length of array of matched contents: " + entryCount);
+            //System.out.println("\n Array with matched elements:" + arrayOfMatchings);
+            if (entryCount != 0) {
+                while (iteration < entryCount) {
+                    String matchedString = arrayOfMatchings.get(iteration); //.split(splitByComma);
+                    //  System.out.println("Matched elective: " + matchedString);
+                    //  if (matchedString.contains("ELEC")) {
+                    studentStatsTextAreaWizard6.append("\n" + matchedString);
+                    if (matchedString.toLowerCase().contains("core"))
+                        numberOfCore++;
+                    else if (matchedString.toLowerCase().contains("elec"))
+                        numberOfElec++;
+                    // }
+                    iteration++;
+                }
+            } else {
+                studentStatsTextAreaWizard6.append("\n The student did not register any core courses as well as elective courses");
+            }
+        }
+    }
+
+    // Chart display function to post process students elective preferences
+    public void postProcessPreferenceDetailsForChartDisplay(ArrayList<String> arrayOfMatchings, String enteredRollNumber) {
+        int numberOfCore = 0, numberOfElec = 0;
+        int iteration = 0;
+        int entryCount = arrayOfMatchings.size();
+        // System.out.println("\n Length of array of matched contents: " + entryCount);
+        //System.out.println("\n Array with matched elements:" + arrayOfMatchings);
+        if (entryCount != 0) {
+            while (iteration < entryCount) {
+                String matchedString = arrayOfMatchings.get(iteration);
+                if (matchedString.toLowerCase().contains("core"))
+                    numberOfCore++;
+                else if (matchedString.toLowerCase().contains("elec"))
+                    numberOfElec++;
+                // }
+                iteration++;
+            }
+            Slice[] slices = {
+                    new Slice(numberOfCore, "Core (" + Integer.toString(numberOfCore) + ")"), new Slice(numberOfElec, "Elective (" + Integer.toString(numberOfElec) + ")")
+            };
+            PieChart_AWT demo = new PieChart_AWT(enteredRollNumber + ": Core and Elective", slices);
+            demo.setSize(560, 400);
+            RefineryUtilities.positionFrameOnScreen(demo, 0.1, 0.1);
+            demo.setVisible(true);
+        } else {
+            studentStatsTextAreaWizard6.append("\n The student did not register any core courses as well as elective courses");
+        }
+
+    }
+
+    // General function to post process students elective preferences
+    public void postProcessPerStudentAllottedCoursesForDisplay(ArrayList<String> arrayOfMatchings, String substring, String fileName) {
+
+        System.out.println("FileName in postProcessing " + fileName);
+
+        if (fileName.equals(formValues.perStudentAllottedCoursesFileName)) {
+            int iteration = 1;
+            //System.out.println("\n Length of array of matched contents: " + entryCount);
+            int courseCount = (arrayOfMatchings.get(0).split(splitByComma).length);
+            //System.out.println("\n Array with matched elements:" + arrayOfMatchings);
+            if (courseCount > 1) {
+                while (iteration < courseCount) {
+                    String matchedString = arrayOfMatchings.get(0).split(splitByComma)[iteration].split("\\$")[0];
+                    //System.out.println("Allotted elective: [" + iteration + "]" + matchedString);
+                    studentStatsTextAreaWizard6.append("\n" + matchedString);
+                    iteration++;
+                }
+            } else {
+                studentStatsTextAreaWizard6.append("\n All the preferred courses for this student were rejected (OR) the student did not register any elective courses ");
+            }
+        }
+
+        if (fileName.equals(formValues.perStudentAllottedStatisticsFileName)) {
+            int iteration = 1;
+            int fieldCount = arrayOfMatchings.get(0).split(splitByComma).length - 1;
+            System.out.println("Statistics " + arrayOfMatchings.get(0));
+            if (fieldCount > 1) {
+                String effectiveRank = arrayOfMatchings.get(0).split(splitByComma)[1];
+                String creditSatistfaction = arrayOfMatchings.get(0).split(splitByComma)[2];
+                studentStatsTextAreaWizard6.append("\n Effective Average Rank : " + effectiveRank + "\n Credit satisfaction ratio : " + creditSatistfaction);
+            } else {
+                studentStatsTextAreaWizard6.append("\n The student did not register any elective courses");
+            }
+        }
+
+        if (fileName.equals(formValues.rejectionReasonsFileName)) {
+            int iteration = 0;
+            ArrayList<String> courseDict = new ArrayList<String>();
+            int index = 1, dictIndex = 0;
+            int rejectionCount = arrayOfMatchings.size();
+            if (rejectionCount > 0) {
+                while (iteration < rejectionCount) {
+                    String matchedString = arrayOfMatchings.get(iteration);
+                    //System.out.println("Rejected Course [" + iteration + "] :" + matchedString);
+                    String rejectedCourseName = matchedString.split(splitByComma)[1].split("\\$")[0];
+                    if (!courseDict.contains(rejectedCourseName)) {
+                        if (!matchedString.contains("Already allotted to inside department version of the course")) {
+                            courseDict.add(rejectedCourseName);
+                            dictIndex++;
+                            String rejectedReasons = matchedString.split(splitByComma)[2];
+                            studentStatsTextAreaWizard6.append("\n Rejected Elective : [" + index + "] : " + rejectedCourseName + " , Rejection Reason : " + rejectedReasons);
+                            index++;
+                        }
+                    }
+                    iteration++;
+                }
+            } else {
+                studentStatsTextAreaWizard6.append("\n The student got allotted to all his preferences (OR) did not register for any elective courses");
+            }
+        }
+
+    }
+
+    // Chart display function to post process students elective preferences
+    public void postProcessPerStudentAllottedCoursesForChartDisplay(ArrayList<String> arrayOfMatchingsFromAllottedCourses, ArrayList<String> arrayOfMatchingsFromRejectionReasons, String enteredRollNumber) {
+
+        int iteration = 1, numberOfCourseAllocated = 0, numberOfCourseRejected = 0;
+        StringBuilder electiveAllocatedLegend = new StringBuilder();
+        StringBuilder electiveRejectedLegend = new StringBuilder();
+        //System.out.println("\n Length of array of matched contents: " + entryCount);
+        int courseCount = (arrayOfMatchingsFromAllottedCourses.get(0).split(splitByComma).length);
+        //System.out.println("\n Array with matched elements:" + arrayOfMatchings);
+        electiveAllocatedLegend.append("Allocated\n---------");
+        if (courseCount > 1) {
+            while (iteration < courseCount) {
+                String matchedString = arrayOfMatchingsFromAllottedCourses.get(0).split(splitByComma)[iteration].split("\\$")[0];
+                //System.out.println("Allotted elective: [" + iteration + "]" + matchedString);
+                electiveAllocatedLegend.append("\n" + matchedString);
+                iteration++;
+            }
+        } else {
+            studentStatsTextAreaWizard6.append("\n All the preferred courses for this student were rejected (OR) the student did not register any elective courses ");
+        }
+        numberOfCourseAllocated = iteration - 1;
+        iteration = 0;
+        ArrayList<String> courseDict = new ArrayList<String>();
+        int index = 1, dictIndex = 0;
+        int rejectionCount = arrayOfMatchingsFromRejectionReasons.size();
+        electiveRejectedLegend.append("Rejected\n--------");
+        if (rejectionCount > 0) {
+            while (iteration < rejectionCount) {
+                String matchedString = arrayOfMatchingsFromRejectionReasons.get(iteration);
+                //System.out.println("Rejected Course [" + iteration + "] :" + matchedString);
+                String rejectedCourseName = matchedString.split(splitByComma)[1].split("\\$")[0];
+                if (!courseDict.contains(rejectedCourseName)) {
+                    if (!matchedString.contains("Already allotted to inside department version of the course")) {
+                        courseDict.add(rejectedCourseName);
+                        dictIndex++;
+                        String rejectedReasons = matchedString.split(splitByComma)[2];
+                        electiveRejectedLegend.append("\n" + rejectedCourseName);
+                        index++;
+                    }
+                }
+                iteration++;
+            }
+            numberOfCourseRejected = courseDict.size();
+        } else {
+            studentStatsTextAreaWizard6.append("\n The student got allotted to all his preferences (OR) did not register for any elective courses");
+        }
+        if (numberOfCourseAllocated != 0 && numberOfCourseRejected != 0) {
+            Slice[] slices = {
+                    new Slice(numberOfCourseAllocated, electiveAllocatedLegend.toString()), new Slice(numberOfCourseRejected, electiveRejectedLegend.toString())
+            };
+            PieChart_AWT demo = new PieChart_AWT(enteredRollNumber + ": Elective - Allocated and Rejected", slices);
+            demo.setSize(560, 400);
+            RefineryUtilities.positionFrameOnScreen(demo, 0.9, 0.1);
+            demo.setVisible(true);
+        }
+    }
 
     /**
      * Method generated by IntelliJ IDEA GUI Designer
@@ -560,5 +661,53 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
      */
     public JComponent $$$getRootComponent$$$() {
         return jPanelStudentwiseAllotmentWizard6;
+    }
+}
+
+
+// Supporting data class for Chart
+class Slice {
+    double value;
+    String name;
+
+    public Slice(double value, String name) {
+        this.value = value;
+        this.name = name;
+    }
+}
+
+
+// Class to generate and display Chart
+class PieChart_AWT extends JFrame {
+
+    Slice[] slices;
+
+    public PieChart_AWT(String title, Slice[] slices) {
+        super(title);
+        this.slices = slices;
+        setContentPane(createDemoPanel());
+    }
+
+    private static JFreeChart createChart(PieDataset dataset) {
+        JFreeChart chart = ChartFactory.createPieChart(
+                "",   // chart title
+                dataset,          // data
+                true,             // include legend
+                true,
+                false);
+
+        return chart;
+    }
+
+    private PieDataset createDataset() {
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        for (int i = 0; i < slices.length; i++)
+            dataset.setValue(slices[i].name, slices[i].value);
+        return dataset;
+    }
+
+    public JPanel createDemoPanel() {
+        JFreeChart chart = createChart(createDataset());
+        return new ChartPanel(chart);
     }
 }

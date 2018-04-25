@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -44,22 +44,19 @@
 
 package org.jfree.chart.plot.dial;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
+import org.jfree.chart.HashUtilities;
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
-import org.jfree.chart.HashUtilities;
-import org.jfree.chart.util.ParamChecks;
-import org.jfree.io.SerialUtilities;
-import org.jfree.util.PaintUtilities;
-import org.jfree.util.PublicCloneable;
 
 /**
  * A layer that draws a range highlight on a dial plot.
@@ -69,16 +66,24 @@ import org.jfree.util.PublicCloneable;
 public class StandardDialRange extends AbstractDialLayer implements DialLayer,
         Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = 345515648249364904L;
 
-    /** The scale index. */
+    /**
+     * The scale index.
+     */
     private int scaleIndex;
 
-    /** The minimum data value for the scale. */
+    /**
+     * The minimum data value for the scale.
+     */
     private double lowerBound;
 
-    /** The maximum data value for the scale. */
+    /**
+     * The maximum data value for the scale.
+     */
     private double upperBound;
 
     /**
@@ -109,9 +114,9 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
     /**
      * Creates a new instance of <code>StandardDialRange</code>.
      *
-     * @param lower  the lower bound.
-     * @param upper  the upper bound.
-     * @param paint  the paint (<code>null</code> not permitted).
+     * @param lower the lower bound.
+     * @param upper the upper bound.
+     * @param paint the paint (<code>null</code> not permitted).
      */
     public StandardDialRange(double lower, double upper, Paint paint) {
         ParamChecks.nullNotPermitted(paint, "paint");
@@ -127,7 +132,6 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
      * Returns the scale index.
      *
      * @return The scale index.
-     *
      * @see #setScaleIndex(int)
      */
     public int getScaleIndex() {
@@ -138,8 +142,7 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
      * Sets the scale index and sends a {@link DialLayerChangeEvent} to all
      * registered listeners.
      *
-     * @param index  the scale index.
-     *
+     * @param index the scale index.
      * @see #getScaleIndex()
      */
     public void setScaleIndex(int index) {
@@ -151,7 +154,6 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
      * Returns the lower bound (a data value) of the dial range.
      *
      * @return The lower bound of the dial range.
-     *
      * @see #setLowerBound(double)
      */
     public double getLowerBound() {
@@ -162,8 +164,7 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
      * Sets the lower bound of the dial range and sends a
      * {@link DialLayerChangeEvent} to all registered listeners.
      *
-     * @param bound  the lower bound.
-     *
+     * @param bound the lower bound.
      * @see #getLowerBound()
      */
     public void setLowerBound(double bound) {
@@ -179,7 +180,6 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
      * Returns the upper bound of the dial range.
      *
      * @return The upper bound.
-     *
      * @see #setUpperBound(double)
      */
     public double getUpperBound() {
@@ -190,8 +190,7 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
      * Sets the upper bound of the dial range and sends a
      * {@link DialLayerChangeEvent} to all registered listeners.
      *
-     * @param bound  the upper bound.
-     *
+     * @param bound the upper bound.
      * @see #getUpperBound()
      */
     public void setUpperBound(double bound) {
@@ -207,8 +206,8 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
      * Sets the bounds for the range and sends a {@link DialLayerChangeEvent}
      * to all registered listeners.
      *
-     * @param lower  the lower bound.
-     * @param upper  the upper bound.
+     * @param lower the lower bound.
+     * @param upper the upper bound.
      */
     public void setBounds(double lower, double upper) {
         if (lower >= upper) {
@@ -224,7 +223,6 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
      * Returns the paint used to highlight the range.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @see #setPaint(Paint)
      */
     public Paint getPaint() {
@@ -235,8 +233,7 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
      * Sets the paint used to highlight the range and sends a
      * {@link DialLayerChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getPaint()
      */
     public void setPaint(Paint paint) {
@@ -249,7 +246,6 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
      * Returns the inner radius.
      *
      * @return The inner radius.
-     *
      * @see #setInnerRadius(double)
      */
     public double getInnerRadius() {
@@ -260,8 +256,7 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
      * Sets the inner radius and sends a {@link DialLayerChangeEvent} to all
      * registered listeners.
      *
-     * @param radius  the radius.
-     *
+     * @param radius the radius.
      * @see #getInnerRadius()
      */
     public void setInnerRadius(double radius) {
@@ -273,7 +268,6 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
      * Returns the outer radius.
      *
      * @return The outer radius.
-     *
      * @see #setOuterRadius(double)
      */
     public double getOuterRadius() {
@@ -284,8 +278,7 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
      * Sets the outer radius and sends a {@link DialLayerChangeEvent} to all
      * registered listeners.
      *
-     * @param radius  the radius.
-     *
+     * @param radius the radius.
      * @see #getOuterRadius()
      */
     public void setOuterRadius(double radius) {
@@ -307,14 +300,14 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
     /**
      * Draws the range.
      *
-     * @param g2  the graphics target.
+     * @param g2    the graphics target.
      * @param plot  the plot.
-     * @param frame  the dial's reference frame (in Java2D space).
+     * @param frame the dial's reference frame (in Java2D space).
      * @param view  the dial's view rectangle (in Java2D space).
      */
     @Override
     public void draw(Graphics2D g2, DialPlot plot, Rectangle2D frame,
-            Rectangle2D view) {
+                     Rectangle2D view) {
 
         Rectangle2D arcRectInner = DialPlot.rectangleByRadius(frame,
                 this.innerRadius, this.innerRadius);
@@ -343,8 +336,7 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -401,9 +393,8 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
      * Returns a clone of this instance.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if any of the attributes of this
-     *     instance cannot be cloned.
+     *                                    instance cannot be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -413,9 +404,8 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -425,10 +415,9 @@ public class StandardDialRange extends AbstractDialLayer implements DialLayer,
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------
@@ -49,7 +49,7 @@ public class TimePeriodFormatException extends IllegalArgumentException {
     /**
      * Creates a new exception.
      *
-     * @param message  a message describing the exception.
+     * @param message a message describing the exception.
      */
     public TimePeriodFormatException(String message) {
         super(message);

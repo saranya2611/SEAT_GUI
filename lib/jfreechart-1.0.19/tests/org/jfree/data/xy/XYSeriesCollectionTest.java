@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -49,20 +49,13 @@
 
 package org.jfree.data.xy;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.fail;
-
 import org.jfree.chart.TestUtilities;
 import org.jfree.data.Range;
 import org.jfree.data.UnknownKeyException;
 import org.jfree.util.PublicCloneable;
-
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link XYSeriesCollection} class.
@@ -157,7 +150,7 @@ public class XYSeriesCollectionTest {
         s1.add(1.0, 1.1);
         XYSeriesCollection c1 = new XYSeriesCollection();
         c1.addSeries(s1);
-        XYSeriesCollection c2 = (XYSeriesCollection) 
+        XYSeriesCollection c2 = (XYSeriesCollection)
                 TestUtilities.serialised(c1);
         assertEquals(c1, c2);
     }
@@ -171,12 +164,11 @@ public class XYSeriesCollectionTest {
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(s1);
         try {
-            /* XYSeries s = */ dataset.getSeries(1);
-        }
-        catch (IllegalArgumentException e) {
+            /* XYSeries s = */
+            dataset.getSeries(1);
+        } catch (IllegalArgumentException e) {
             // correct outcome
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             assertTrue(false);  // wrong outcome
         }
     }
@@ -194,16 +186,14 @@ public class XYSeriesCollectionTest {
         try {
             c.getSeries(-1);
             fail("Should have thrown IndexOutOfBoundsException on negative key");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals("Series index out of bounds", e.getMessage());
         }
 
         try {
             c.getSeries(1);
             fail("Should have thrown IndexOutOfBoundsException on key out of range");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals("Series index out of bounds", e.getMessage());
         }
     }
@@ -221,20 +211,18 @@ public class XYSeriesCollectionTest {
         try {
             c.getSeries("s2");
             fail("Should have thrown UnknownKeyException on unknown key");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             assertEquals("Key not found: s2", e.getMessage());
         }
 
         try {
             c.getSeries(null);
             fail("Should have thrown IndexOutOfBoundsException on null key");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals("Null 'key' argument.", e.getMessage());
         }
     }
-    
+
     /**
      * Some basic checks for the addSeries() method.
      */
@@ -271,16 +259,14 @@ public class XYSeriesCollectionTest {
         try {
             c.removeSeries(-1);
             fail("Should have thrown IndexOutOfBoundsException on negative key");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals("Series index out of bounds.", e.getMessage());
         }
 
         try {
             c.removeSeries(1);
             fail("Should have thrown IndexOutOfBoundsException on key out of range");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals("Series index out of bounds.", e.getMessage());
         }
     }
@@ -349,7 +335,7 @@ public class XYSeriesCollectionTest {
     @Test
     public void testGetRangeBounds() {
         XYSeriesCollection dataset = new XYSeriesCollection();
-        
+
         // when the dataset contains no series, we expect the value range to 
         // be null
         assertNull(dataset.getRangeBounds(false));
@@ -370,16 +356,16 @@ public class XYSeriesCollectionTest {
         series.add(-1.0, -1.1);
         assertEquals(new Range(-1.1, 1.1), dataset.getRangeBounds(false));
         assertEquals(new Range(-1.1, 1.1), dataset.getRangeBounds(true));
-        
+
         series.add(0.0, null);
         assertEquals(new Range(-1.1, 1.1), dataset.getRangeBounds(false));
         assertEquals(new Range(-1.1, 1.1), dataset.getRangeBounds(true));
-        
+
         XYSeries s2 = new XYSeries("S2");
         dataset.addSeries(s2);
         assertEquals(new Range(-1.1, 1.1), dataset.getRangeBounds(false));
         assertEquals(new Range(-1.1, 1.1), dataset.getRangeBounds(true));
-        
+
         s2.add(2.0, 5.0);
         assertEquals(new Range(-1.1, 5.0), dataset.getRangeBounds(false));
         assertEquals(new Range(-1.1, 5.0), dataset.getRangeBounds(true));
@@ -388,7 +374,7 @@ public class XYSeriesCollectionTest {
     @Test
     public void testGetRangeLowerBound() {
         XYSeriesCollection dataset = new XYSeriesCollection();
-        
+
         // when the dataset contains no series, we expect the value range to 
         // be null
         assertTrue(Double.isNaN(dataset.getRangeLowerBound(false)));
@@ -409,25 +395,25 @@ public class XYSeriesCollectionTest {
         series.add(-1.0, -1.1);
         assertEquals(-1.1, dataset.getRangeLowerBound(false), EPSILON);
         assertEquals(-1.1, dataset.getRangeLowerBound(true), EPSILON);
-        
+
         series.add(0.0, null);
         assertEquals(-1.1, dataset.getRangeLowerBound(false), EPSILON);
         assertEquals(-1.1, dataset.getRangeLowerBound(true), EPSILON);
-        
+
         XYSeries s2 = new XYSeries("S2");
         dataset.addSeries(s2);
         assertEquals(-1.1, dataset.getRangeLowerBound(false), EPSILON);
         assertEquals(-1.1, dataset.getRangeLowerBound(true), EPSILON);
-        
+
         s2.add(2.0, 5.0);
         assertEquals(-1.1, dataset.getRangeLowerBound(false), EPSILON);
         assertEquals(-1.1, dataset.getRangeLowerBound(true), EPSILON);
     }
-    
+
     @Test
     public void testGetRangeUpperBound() {
         XYSeriesCollection dataset = new XYSeriesCollection();
-        
+
         // when the dataset contains no series, we expect the value range to 
         // be null
         assertTrue(Double.isNaN(dataset.getRangeUpperBound(false)));
@@ -448,23 +434,23 @@ public class XYSeriesCollectionTest {
         series.add(-1.0, -1.1);
         assertEquals(1.1, dataset.getRangeUpperBound(false), EPSILON);
         assertEquals(1.1, dataset.getRangeUpperBound(true), EPSILON);
-        
+
         series.add(0.0, null);
         assertEquals(1.1, dataset.getRangeUpperBound(false), EPSILON);
         assertEquals(1.1, dataset.getRangeUpperBound(true), EPSILON);
-        
+
         XYSeries s2 = new XYSeries("S2");
         dataset.addSeries(s2);
         assertEquals(1.1, dataset.getRangeUpperBound(false), EPSILON);
         assertEquals(1.1, dataset.getRangeUpperBound(true), EPSILON);
-        
+
         s2.add(2.0, 5.0);
         assertEquals(5.0, dataset.getRangeUpperBound(false), EPSILON);
         assertEquals(5.0, dataset.getRangeUpperBound(true), EPSILON);
     }
-    
+
     /**
-     * A check that the dataset prevents renaming a series to the name of an 
+     * A check that the dataset prevents renaming a series to the name of an
      * existing series in the dataset.
      */
     @Test
@@ -478,9 +464,8 @@ public class XYSeriesCollectionTest {
         try {
             s2.setKey("S1");
             fail("Should have thrown IllegalArgumentException on negative key");
-        }
-        catch (IllegalArgumentException e) {
-           assertEquals("Duplicate key2", e.getMessage());
+        } catch (IllegalArgumentException e) {
+            assertEquals("Duplicate key2", e.getMessage());
         }
     }
 
@@ -506,9 +491,9 @@ public class XYSeriesCollectionTest {
         assertEquals(5.0, r.getLowerBound(), EPSILON);
         assertEquals(6.0, r.getUpperBound(), EPSILON);
     }
- 
+
     /**
-     * Test that a series belonging to a collection can be renamed (in fact, 
+     * Test that a series belonging to a collection can be renamed (in fact,
      * because of a bug this was not possible in JFreeChart 1.0.14).
      */
     @Test
@@ -521,13 +506,12 @@ public class XYSeriesCollectionTest {
         collection.addSeries(series2);
         series1.setKey("C");
         assertEquals("C", collection.getSeries(0).getKey());
-        
+
         // next, check that setting a duplicate key fails
         try {
             series2.setKey("C");
             fail("Expected an IllegalArgumentException.");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             // expected
         }
         assertEquals("B", series2.getKey());  // the series name should not 

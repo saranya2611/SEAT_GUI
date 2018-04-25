@@ -51,16 +51,17 @@ import org.jfree.chart.util.ParamChecks;
  */
 public class AnnotationChangeEvent extends ChartChangeEvent {
 
-    /** The annotation that generated the event. */
+    /**
+     * The annotation that generated the event.
+     */
     private Annotation annotation;
 
     /**
      * Creates a new <code>AnnotationChangeEvent</code> instance.
      *
-     * @param source  the event source.
-     * @param annotation  the annotation that triggered the event
-     *     (<code>null</code> not permitted).
-     *
+     * @param source     the event source.
+     * @param annotation the annotation that triggered the event
+     *                   (<code>null</code> not permitted).
      * @since 1.0.14
      */
     public AnnotationChangeEvent(Object source, Annotation annotation) {
@@ -73,7 +74,6 @@ public class AnnotationChangeEvent extends ChartChangeEvent {
      * Returns the annotation that triggered the event.
      *
      * @return The annotation that triggered the event (never <code>null</code>).
-     *
      * @since 1.0.14
      */
     public Annotation getAnnotation() {

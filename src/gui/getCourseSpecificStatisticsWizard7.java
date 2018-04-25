@@ -16,9 +16,17 @@ import java.util.ArrayList;
 
 import static gui.formValues.courseListNameWithPath;
 import static gui.formValues.perCourseAllottedStatisticsFileNameWithPath;
-import static gui.formValues.studentPreferenceListNameWithPath;
 
 public class getCourseSpecificStatisticsWizard7 extends JFrame {
+    public String perCourseStatisticsFileName, courseListFileName;
+    String line, chosenDirectoryName, courseListName, errorMsg, enteredCourseNumber, matchedString, courseName, slotsOfMatchedString;
+    int lineNo;
+    String[] inputLine;
+    String splitByComma = ",";
+    String splitByNewLine = "\n";
+    JButton checkButton;
+    String courseNumberPattern = "^[A-Za-z][A-Za-z][0-9][0-9][0-9][0-9][AaBbCcDd\\+\\*]*";
+    ArrayList<String> arrayOfMatchingsFromCourseList, arrayOfMatchingsFromPerCourseStatisticsFile, arrayOfMatchings;
     private JPanel jPanelCoursewiseAllotmentWizard7;
     private JLabel jLabelCoursewiseAllotmentAnalysisWizard7;
     private JLabel chosenDirectoryLabelWizard7;
@@ -38,17 +46,198 @@ public class getCourseSpecificStatisticsWizard7 extends JFrame {
     private JButton courseListBrowseButtonWizard7;
     private JButton goToWizard5FromWizard7;
 
-    String line, chosenDirectoryName, courseListName, errorMsg, enteredCourseNumber, matchedString, courseName, slotsOfMatchedString;
-    int lineNo;
-    String[] inputLine;
-    String splitByComma = ",";
-    String splitByNewLine = "\n";
-    JButton checkButton;
-    String courseNumberPattern = "^[A-Za-z][A-Za-z][0-9][0-9][0-9][0-9][AaBbCcDd\\+\\*]*";
+    // Constructor function
+    public getCourseSpecificStatisticsWizard7() {
+        super();
+        $$$setupUI$$$();
 
-    public String perCourseStatisticsFileName, courseListFileName;
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 4 - this.getSize().width / 2, dim.height / 4 - this.getSize().height / 2);
+        setSize(1200, 800);
 
-    ArrayList<String> arrayOfMatchingsFromCourseList, arrayOfMatchingsFromPerCourseStatisticsFile, arrayOfMatchings;
+        JScrollPane scrPaneWizard7 = new JScrollPane(jPanelCoursewiseAllotmentWizard7);
+        add(scrPaneWizard7);
+
+        jPanelCoursewiseAllotmentWizard7.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+            }
+        });
+
+        // Decide which components to be visible and which components are need not to be visible
+        chosenDirectoryBrowseButtonWizard7.setEnabled(true);
+        chosenDirectoryTextFieldWizard7.setEnabled(false);
+        chosenDirectoryTextFieldWizard7.setVisible(true);
+        chosenDirectoryCheckButtonWizard7.setVisible(false);
+        courseListCheckButtonWizard7.setVisible(false);
+        courseListTextFieldWizard7.setEnabled(true);
+        courseListTextFieldWizard7.setEditable(false);
+        courseListBrowseButtonWizard7.setEnabled(true);
+        courseNumberCheckButtonWizard7.setVisible(false);
+        courseNumberTextFieldWizard7.setEnabled(true);
+        courseNumberTextFieldWizard7.setEditable(true);
+
+        // Row 1: Selected directory from previous window
+        chosenDirectoryTextFieldWizard7.setText(formValues.getAnalyseAllotmentDirPath());
+        chosenDirectoryName = chosenDirectoryTextFieldWizard7.getText();
+        formValues.setAnalyseAllotmentDirPath(chosenDirectoryName);
+        File directoryName = new File(chosenDirectoryName);
+        errorMsg = "Directory not found....!!!";
+        enableFileDirectoryExistenceCheckButton(chosenDirectoryCheckButtonWizard7, directoryName, errorMsg);
+        chosenDirectoryBrowseButtonWizard7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chosenDirectoryBrowseButtonWizard7.setEnabled(true);
+                chosenDirectoryBrowseButtonWizard7.setEnabled(true);
+                JFileChooser jfc = new JFileChooser(formValues.getAnalyseAllotmentDirPath());
+                jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                int outputFilesDir = jfc.showOpenDialog(null);
+                if (outputFilesDir == JFileChooser.APPROVE_OPTION) {
+                    File outputFilesDirName = jfc.getSelectedFile();
+                    chosenDirectoryBrowseButtonWizard7.setText(outputFilesDirName.getAbsolutePath());
+                    chosenDirectoryName = chosenDirectoryTextFieldWizard7.getText();
+                    formValues.setAnalyseAllotmentDirPath(chosenDirectoryName);
+                    File directoryName = new File(chosenDirectoryName);
+                    enableFileDirectoryExistenceCheckButton(chosenDirectoryCheckButtonWizard7, directoryName, errorMsg);
+                }
+            }
+        });
+
+        /* Load the required files. The files required to give complete details about the student in query are
+         *  1) ../courseList.csv -->this will be outside the generated allotment folder. This is one of the input for the executeAllotments code
+         *                                                                         --> This file has multiple entries for a course with different slots and each entry has 8 columns: CourseNo,DepartmentCode,MaxOverall2rength,MinOtherBranch2rength,AllocationType,Credit,Slot,Additional Slot,
+         *  2) perCourseAllotedStudents.csv .csv --> has the list of students allotted to a course along with number of total seats given to SEAT and  total number of seats allotted through SEAT;
+         *                                                          --> Pattern : Course ID, Total Capacity, Allotted Capacity, Students Allotted {RollNo1, RollNo2, RollNo3, ....}
+         */
+
+        // Row 1: Get (1) Default chosen directory
+        courseListCheckButtonWizard7.setVisible(false);
+        // Check the existence of default file
+        chosenDirectoryBrowseButtonWizard7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser jfc = new JFileChooser(formValues.getAnalyseAllotmentDirPath());
+                jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                int courseListFileFlag = jfc.showOpenDialog(null);
+                if (courseListFileFlag == JFileChooser.APPROVE_OPTION) {
+                    File courseListFile = jfc.getSelectedFile();
+                    courseListTextFieldWizard7.setText(courseListFile.getAbsolutePath());
+                    courseListName = courseListTextFieldWizard7.getText();
+                    formValues.setCourseListNameWithPath(courseListName);
+                    System.out.println("Course list " + courseListName);
+                    courseListName = formValues.getCourseListNameWithPath();
+                    errorMsg = CheckInputFormats.checkCourseListFileFormat(courseListName);
+                    if (errorMsg != null) {
+                        enableFileDirectoryExistenceCheckButton(courseListCheckButtonWizard7, courseListFile, errorMsg);
+                        courseStatsTextAreaWizard7.append("\n Course List: " + formValues.getCourseListNameWithPath());
+                        courseStatsTextAreaWizard7.append("\n============================================================== \n ");
+                    } else {
+                        enableFileDirectoryExistenceCheckButton(courseListCheckButtonWizard7, courseListFile, errorMsg);
+                        courseStatsTextAreaWizard7.append("\n Course List: " + formValues.getCourseListNameWithPath());
+                        courseStatsTextAreaWizard7.append("\n============================================================== \n ");
+                    }
+                }
+            }
+        });
+
+        // Row-2 Get courseList.csv
+        // Row 2: Get (1) registrationDataWithBS17CS16ME16changes.csv
+        courseListCheckButtonWizard7.setVisible(false);
+        // Check the existence of default file
+        courseListBrowseButtonWizard7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser jfc = new JFileChooser(formValues.getAnalyseAllotmentDirPath());
+                jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                int courseListFileFlag = jfc.showOpenDialog(null);
+                if (courseListFileFlag == JFileChooser.APPROVE_OPTION) {
+                    File courseListFile = jfc.getSelectedFile();
+                    courseListTextFieldWizard7.setText(courseListFile.getAbsolutePath());
+                    courseListName = courseListTextFieldWizard7.getText();
+                    formValues.setCourseListNameWithPath(courseListName);
+                    //System.out.println("Student preference list " + courseListName);
+                    courseListName = formValues.getCourseListNameWithPath();
+                    errorMsg = CheckInputFormats.checkCourseListFileFormat(courseListName);
+                    if (errorMsg != null) {
+                        enableFileDirectoryExistenceCheckButton(courseListCheckButtonWizard7, courseListFile, errorMsg);
+                        courseStatsTextAreaWizard7.append("\n Course List: " + formValues.getCourseListNameWithPath());
+                        courseStatsTextAreaWizard7.append("\n============================================================== \n ");
+                    } else {
+                        enableFileDirectoryExistenceCheckButton(courseListCheckButtonWizard7, courseListFile, errorMsg);
+                        courseStatsTextAreaWizard7.append("\n Course List: " + formValues.getCourseListNameWithPath());
+                        courseStatsTextAreaWizard7.append("\n============================================================== \n ");
+                    }
+                }
+            }
+        });
+
+        // Row -3 : Get student Course number textfield action
+        courseNumberTextFieldWizard7.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    enteredCourseNumber = courseNumberTextFieldWizard7.getText();
+                    if (enteredCourseNumber.matches(courseNumberPattern)) {
+                        System.out.println("\n Entered course number is :" + enteredCourseNumber);
+                        courseNumberGetDetailsButtonWizard7.doClick();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "\n Course number MUST be of form : [A-Z][A-Z][0-9][0-9][0-9][0-9][A/B/C/D/*/+] \n Eg: AE1100, HS3002A, ME3110+\n ", "Input Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+
+        // Row-3 Get details button click action
+        courseNumberGetDetailsButtonWizard7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                enteredCourseNumber = courseNumberTextFieldWizard7.getText();
+                System.out.println("\n Course number is :::::: " + enteredCourseNumber);
+                // Get (1) course list
+                courseListName = formValues.getCourseListNameWithPath();
+
+                // Get (2) perCourseAllotedStudents.csv
+                formValues.setPerCourseAllottedStatisticsFileNameWithPath(chosenDirectoryName + '/' + "perCourseAllotedStudents.csv");
+                perCourseStatisticsFileName = formValues.getPerCourseAllottedStatisticsFileNameWithPath();
+
+                if (enteredCourseNumber.matches(courseNumberPattern)) {
+                    System.out.println("\n Course number is :" + enteredCourseNumber);
+
+                    // Get the details of a course from course list
+                    try {
+                        arrayOfMatchingsFromPerCourseStatisticsFile = getCourseWiseDetails(perCourseStatisticsFileName, splitByNewLine, enteredCourseNumber, arrayOfMatchingsFromPerCourseStatisticsFile);
+                        arrayOfMatchingsFromCourseList = getCourseWiseDetails(courseListName, splitByNewLine, enteredCourseNumber, arrayOfMatchingsFromCourseList);
+                        System.out.println(arrayOfMatchingsFromCourseList);
+                        if (arrayOfMatchingsFromCourseList.isEmpty()) {
+                            courseStatsTextAreaWizard7.append("\n \n Details of  " + enteredCourseNumber.toUpperCase() + " : ");
+                            courseStatsTextAreaWizard7.append("\n----------------------------------------------------");
+                            courseStatsTextAreaWizard7.append("\n Either this course is not a B.Tech/DD course (OR) the entered course number does not exists.!!!!");
+                            JOptionPane.showMessageDialog(null, "\n Either this course is not a B.Tech/DD course  (OR) the entered course number does not exists.!!", "Course number not found", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            courseStatsTextAreaWizard7.append("\n \n Details of  " + enteredCourseNumber.toUpperCase() + " : ");
+                            courseStatsTextAreaWizard7.append("\n----------------------------------------------------");
+                            postProcessCourseDetailsForDisplay(arrayOfMatchingsFromPerCourseStatisticsFile, enteredCourseNumber, perCourseStatisticsFileName);
+                            postProcessCourseDetailsForDisplay(arrayOfMatchingsFromCourseList, enteredCourseNumber, courseListName);
+                        }
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "\n Course number MUST be of form : [A-Z][A-Z][0-9][0-9][0-9][0-9][A/B/C/D/*/+] \n Eg: AE1100, HS3002A, ME3203+\n ", "Input Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        goToWizard5FromWizard7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                analyzeAllotmentsWizard4 wizard4 = new analyzeAllotmentsWizard4();
+                wizard4.setVisible(true);
+                dispose();
+            }
+        });
+    }
 
     // General function to check the existence of file or folder
     public void enableFileDirectoryExistenceCheckButton(JButton currentCheckButton, File file1, String errorMsg) {
@@ -179,201 +368,6 @@ public class getCourseSpecificStatisticsWizard7 extends JFrame {
             courseStatsTextAreaWizard7.append("\n Slots of this course : " + slotsDict);
         }
     }
-
-
-    // Constructor function
-    public getCourseSpecificStatisticsWizard7() {
-        super();
-        $$$setupUI$$$();
-
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 4 - this.getSize().width / 2, dim.height / 4 - this.getSize().height / 2);
-        setSize(1200, 800);
-
-        JScrollPane scrPaneWizard7 = new JScrollPane(jPanelCoursewiseAllotmentWizard7);
-        add(scrPaneWizard7);
-
-        jPanelCoursewiseAllotmentWizard7.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                super.componentResized(e);
-            }
-        });
-
-        // Decide which components to be visible and which components are need not to be visible
-        chosenDirectoryBrowseButtonWizard7.setEnabled(true);
-        chosenDirectoryTextFieldWizard7.setEnabled(false);
-        chosenDirectoryTextFieldWizard7.setVisible(true);
-        chosenDirectoryCheckButtonWizard7.setVisible(false);
-        courseListCheckButtonWizard7.setVisible(false);
-        courseListTextFieldWizard7.setEnabled(true);
-        courseListTextFieldWizard7.setEditable(false);
-        courseListBrowseButtonWizard7.setEnabled(true);
-        courseNumberCheckButtonWizard7.setVisible(false);
-        courseNumberTextFieldWizard7.setEnabled(true);
-        courseNumberTextFieldWizard7.setEditable(true);
-
-        // Row 1: Selected directory from previous window
-        chosenDirectoryTextFieldWizard7.setText(formValues.getAnalyseAllotmentDirPath());
-        chosenDirectoryName = chosenDirectoryTextFieldWizard7.getText();
-        formValues.setAnalyseAllotmentDirPath(chosenDirectoryName);
-        File directoryName = new File(chosenDirectoryName);
-        errorMsg = "Directory not found....!!!";
-        enableFileDirectoryExistenceCheckButton(chosenDirectoryCheckButtonWizard7, directoryName, errorMsg);
-        chosenDirectoryBrowseButtonWizard7.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                chosenDirectoryBrowseButtonWizard7.setEnabled(true);
-                chosenDirectoryBrowseButtonWizard7.setEnabled(true);
-                JFileChooser jfc = new JFileChooser(formValues.getAnalyseAllotmentDirPath());
-                jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                int outputFilesDir = jfc.showOpenDialog(null);
-                if (outputFilesDir == JFileChooser.APPROVE_OPTION) {
-                    File outputFilesDirName = jfc.getSelectedFile();
-                    chosenDirectoryBrowseButtonWizard7.setText(outputFilesDirName.getAbsolutePath());
-                    chosenDirectoryName = chosenDirectoryTextFieldWizard7.getText();
-                    formValues.setAnalyseAllotmentDirPath(chosenDirectoryName);
-                    File directoryName = new File(chosenDirectoryName);
-                    enableFileDirectoryExistenceCheckButton(chosenDirectoryCheckButtonWizard7, directoryName, errorMsg);
-                }
-            }
-        });
-
-        /* Load the required files. The files required to give complete details about the student in query are
-         *  1) ../courseList.csv -->this will be outside the generated allotment folder. This is one of the input for the executeAllotments code
-         *                                                                         --> This file has multiple entries for a course with different slots and each entry has 8 columns: CourseNo,DepartmentCode,MaxOverall2rength,MinOtherBranch2rength,AllocationType,Credit,Slot,Additional Slot,
-         *  2) perCourseAllotedStudents.csv .csv --> has the list of students allotted to a course along with number of total seats given to SEAT and  total number of seats allotted through SEAT;
-         *                                                          --> Pattern : Course ID, Total Capacity, Allotted Capacity, Students Allotted {RollNo1, RollNo2, RollNo3, ....}
-         */
-
-        // Row 1: Get (1) Default chosen directory
-        courseListCheckButtonWizard7.setVisible(false);
-        // Check the existence of default file
-        chosenDirectoryBrowseButtonWizard7.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser jfc = new JFileChooser(formValues.getAnalyseAllotmentDirPath());
-                jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                int courseListFileFlag = jfc.showOpenDialog(null);
-                if (courseListFileFlag == JFileChooser.APPROVE_OPTION) {
-                    File courseListFile = jfc.getSelectedFile();
-                    courseListTextFieldWizard7.setText(courseListFile.getAbsolutePath());
-                    courseListName = courseListTextFieldWizard7.getText();
-                    formValues.setCourseListNameWithPath(courseListName);
-                    System.out.println("Course list " + courseListName);
-                    courseListName = formValues.getCourseListNameWithPath();
-                    errorMsg = CheckInputFormats.checkCourseListFileFormat(courseListName);
-                    if (errorMsg != null) {
-                        enableFileDirectoryExistenceCheckButton(courseListCheckButtonWizard7, courseListFile, errorMsg);
-                        courseStatsTextAreaWizard7.append("\n Course List: " + formValues.getCourseListNameWithPath());
-                        courseStatsTextAreaWizard7.append("\n============================================================== \n ");
-                    } else {
-                        enableFileDirectoryExistenceCheckButton(courseListCheckButtonWizard7, courseListFile, errorMsg);
-                        courseStatsTextAreaWizard7.append("\n Course List: " + formValues.getCourseListNameWithPath());
-                        courseStatsTextAreaWizard7.append("\n============================================================== \n ");
-                    }
-                }
-            }
-        });
-
-        // Row-2 Get courseList.csv 
-        // Row 2: Get (1) registrationDataWithBS17CS16ME16changes.csv
-        courseListCheckButtonWizard7.setVisible(false);
-        // Check the existence of default file
-        courseListBrowseButtonWizard7.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser jfc = new JFileChooser(formValues.getAnalyseAllotmentDirPath());
-                jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                int courseListFileFlag = jfc.showOpenDialog(null);
-                if (courseListFileFlag == JFileChooser.APPROVE_OPTION) {
-                    File courseListFile = jfc.getSelectedFile();
-                    courseListTextFieldWizard7.setText(courseListFile.getAbsolutePath());
-                    courseListName = courseListTextFieldWizard7.getText();
-                    formValues.setCourseListNameWithPath(courseListName);
-                    //System.out.println("Student preference list " + courseListName);
-                    courseListName = formValues.getCourseListNameWithPath();
-                    errorMsg = CheckInputFormats.checkCourseListFileFormat(courseListName);
-                    if (errorMsg != null) {
-                        enableFileDirectoryExistenceCheckButton(courseListCheckButtonWizard7, courseListFile, errorMsg);
-                        courseStatsTextAreaWizard7.append("\n Course List: " + formValues.getCourseListNameWithPath());
-                        courseStatsTextAreaWizard7.append("\n============================================================== \n ");
-                    } else {
-                        enableFileDirectoryExistenceCheckButton(courseListCheckButtonWizard7, courseListFile, errorMsg);
-                        courseStatsTextAreaWizard7.append("\n Course List: " + formValues.getCourseListNameWithPath());
-                        courseStatsTextAreaWizard7.append("\n============================================================== \n ");
-                    }
-                }
-            }
-        });
-
-        // Row -3 : Get student Course number textfield action
-        courseNumberTextFieldWizard7.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    enteredCourseNumber = courseNumberTextFieldWizard7.getText();
-                    if (enteredCourseNumber.matches(courseNumberPattern)) {
-                        System.out.println("\n Entered course number is :" + enteredCourseNumber);
-                        courseNumberGetDetailsButtonWizard7.doClick();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "\n Course number MUST be of form : [A-Z][A-Z][0-9][0-9][0-9][0-9][A/B/C/D/*/+] \n Eg: AE1100, HS3002A, ME3110+\n ", "Input Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            }
-        });
-
-        // Row-3 Get details button click action
-        courseNumberGetDetailsButtonWizard7.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                enteredCourseNumber = courseNumberTextFieldWizard7.getText();
-                System.out.println("\n Course number is :::::: " + enteredCourseNumber);
-                // Get (1) course list
-                courseListName = formValues.getCourseListNameWithPath();
-
-                // Get (2) perCourseAllotedStudents.csv
-                formValues.setPerCourseAllottedStatisticsFileNameWithPath(chosenDirectoryName + '/' + "perCourseAllotedStudents.csv");
-                perCourseStatisticsFileName = formValues.getPerCourseAllottedStatisticsFileNameWithPath();
-
-                if (enteredCourseNumber.matches(courseNumberPattern)) {
-                    System.out.println("\n Course number is :" + enteredCourseNumber);
-
-                    // Get the details of a course from course list
-                    try {
-                        arrayOfMatchingsFromPerCourseStatisticsFile = getCourseWiseDetails(perCourseStatisticsFileName, splitByNewLine, enteredCourseNumber, arrayOfMatchingsFromPerCourseStatisticsFile);
-                        arrayOfMatchingsFromCourseList = getCourseWiseDetails(courseListName, splitByNewLine, enteredCourseNumber, arrayOfMatchingsFromCourseList);
-                        System.out.println(arrayOfMatchingsFromCourseList);
-                        if (arrayOfMatchingsFromCourseList.isEmpty()) {
-                            courseStatsTextAreaWizard7.append("\n \n Details of  " + enteredCourseNumber.toUpperCase() + " : ");
-                            courseStatsTextAreaWizard7.append("\n----------------------------------------------------");
-                            courseStatsTextAreaWizard7.append("\n Either this course is not a B.Tech/DD course (OR) the entered course number does not exists.!!!!");
-                            JOptionPane.showMessageDialog(null, "\n Either this course is not a B.Tech/DD course  (OR) the entered course number does not exists.!!", "Course number not found", JOptionPane.WARNING_MESSAGE);
-                        } else {
-                            courseStatsTextAreaWizard7.append("\n \n Details of  " + enteredCourseNumber.toUpperCase() + " : ");
-                            courseStatsTextAreaWizard7.append("\n----------------------------------------------------");
-                            postProcessCourseDetailsForDisplay(arrayOfMatchingsFromPerCourseStatisticsFile, enteredCourseNumber, perCourseStatisticsFileName);
-                            postProcessCourseDetailsForDisplay(arrayOfMatchingsFromCourseList, enteredCourseNumber, courseListName);
-                        }
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "\n Course number MUST be of form : [A-Z][A-Z][0-9][0-9][0-9][0-9][A/B/C/D/*/+] \n Eg: AE1100, HS3002A, ME3203+\n ", "Input Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
-        goToWizard5FromWizard7.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                analyzeAllotmentsWizard4 wizard4 = new analyzeAllotmentsWizard4();
-                wizard4.setVisible(true);
-                dispose();
-            }
-        });
-    }
-
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

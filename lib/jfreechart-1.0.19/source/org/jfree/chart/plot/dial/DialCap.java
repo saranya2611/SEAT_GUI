@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------
@@ -41,23 +41,19 @@
 
 package org.jfree.chart.plot.dial;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
+import org.jfree.chart.HashUtilities;
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
-import org.jfree.chart.HashUtilities;
-import org.jfree.chart.util.ParamChecks;
-import org.jfree.io.SerialUtilities;
-import org.jfree.util.PaintUtilities;
-import org.jfree.util.PublicCloneable;
 
 /**
  * A regular dial layer that can be used to draw a cap over the center of
@@ -68,7 +64,9 @@ import org.jfree.util.PublicCloneable;
 public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable,
         PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = -2929484264982524463L;
 
     /**
@@ -112,7 +110,6 @@ public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable,
      * rectangle.
      *
      * @return The radius.
-     *
      * @see #setRadius(double)
      */
     public double getRadius() {
@@ -124,8 +121,7 @@ public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable,
      * rectangle, and sends a {@link DialLayerChangeEvent} to all registered
      * listeners.
      *
-     * @param radius  the radius (must be greater than zero).
-     *
+     * @param radius the radius (must be greater than zero).
      * @see #getRadius()
      */
     public void setRadius(double radius) {
@@ -140,7 +136,6 @@ public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable,
      * Returns the paint used to fill the cap.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @see #setFillPaint(Paint)
      */
     public Paint getFillPaint() {
@@ -151,8 +146,7 @@ public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable,
      * Sets the paint for the cap background and sends a
      * {@link DialLayerChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getFillPaint()
      */
     public void setFillPaint(Paint paint) {
@@ -165,7 +159,6 @@ public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable,
      * Returns the paint used to draw the outline of the cap.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @see #setOutlinePaint(Paint)
      */
     public Paint getOutlinePaint() {
@@ -176,8 +169,7 @@ public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable,
      * Sets the paint used to draw the outline of the cap and sends a
      * {@link DialLayerChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getOutlinePaint()
      */
     public void setOutlinePaint(Paint paint) {
@@ -190,7 +182,6 @@ public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable,
      * Returns the stroke used to draw the outline of the cap.
      *
      * @return The stroke (never <code>null</code>).
-     *
      * @see #setOutlineStroke(Stroke)
      */
     public Stroke getOutlineStroke() {
@@ -201,8 +192,7 @@ public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable,
      * Sets the stroke used to draw the outline of the cap and sends a
      * {@link DialLayerChangeEvent} to all registered listeners.
      *
-     * @param stroke  the stroke (<code>null</code> not permitted).
-     *
+     * @param stroke the stroke (<code>null</code> not permitted).
      * @see #getOutlineStroke()
      */
     public void setOutlineStroke(Stroke stroke) {
@@ -227,14 +217,14 @@ public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable,
      * frame specifies a window, the clipping region will already have been
      * set to this window before this method is called.
      *
-     * @param g2  the graphics device (<code>null</code> not permitted).
+     * @param g2    the graphics device (<code>null</code> not permitted).
      * @param plot  the plot (ignored here).
-     * @param frame  the dial frame (ignored here).
+     * @param frame the dial frame (ignored here).
      * @param view  the view rectangle (<code>null</code> not permitted).
      */
     @Override
     public void draw(Graphics2D g2, DialPlot plot, Rectangle2D frame,
-            Rectangle2D view) {
+                     Rectangle2D view) {
 
         g2.setPaint(this.fillPaint);
 
@@ -252,8 +242,7 @@ public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable,
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -299,9 +288,8 @@ public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable,
      * Returns a clone of this instance.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if some attribute of the cap cannot
-     *     be cloned.
+     *                                    be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -311,9 +299,8 @@ public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable,
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -325,10 +312,9 @@ public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable,
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -49,28 +49,34 @@ import java.io.Serializable;
  */
 public class HistogramType implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 2618927186251997727L;
-
-    /** Frequency histogram. */
+    /**
+     * Frequency histogram.
+     */
     public static final HistogramType FREQUENCY
-        = new HistogramType("FREQUENCY");
-
-    /** Relative frequency. */
+            = new HistogramType("FREQUENCY");
+    /**
+     * Relative frequency.
+     */
     public static final HistogramType RELATIVE_FREQUENCY
-        = new HistogramType("RELATIVE_FREQUENCY");
-
-    /** Scale area to one. */
+            = new HistogramType("RELATIVE_FREQUENCY");
+    /**
+     * Scale area to one.
+     */
     public static final HistogramType SCALE_AREA_TO_1
-        = new HistogramType("SCALE_AREA_TO_1");
-
-    /** The type name. */
+            = new HistogramType("SCALE_AREA_TO_1");
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 2618927186251997727L;
+    /**
+     * The type name.
+     */
     private String name;
 
     /**
      * Creates a new type.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private HistogramType(String name) {
         this.name = name;
@@ -89,8 +95,7 @@ public class HistogramType implements Serializable {
     /**
      * Tests this type for equality with an arbitrary object.
      *
-     * @param obj  the object to test against.
-     *
+     * @param obj the object to test against.
      * @return A boolean.
      */
     @Override
@@ -131,17 +136,14 @@ public class HistogramType implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         if (this.equals(HistogramType.FREQUENCY)) {
             return HistogramType.FREQUENCY;
-        }
-        else if (this.equals(HistogramType.RELATIVE_FREQUENCY)) {
+        } else if (this.equals(HistogramType.RELATIVE_FREQUENCY)) {
             return HistogramType.RELATIVE_FREQUENCY;
-        }
-        else if (this.equals(HistogramType.SCALE_AREA_TO_1)) {
+        } else if (this.equals(HistogramType.SCALE_AREA_TO_1)) {
             return HistogramType.SCALE_AREA_TO_1;
         }
         return null;

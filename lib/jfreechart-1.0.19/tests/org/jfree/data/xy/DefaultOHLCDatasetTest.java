@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -42,18 +42,15 @@
 
 package org.jfree.data.xy;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-
-import java.util.Date;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.Range;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import java.util.Date;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link DefaultOHLCDataset} class.
@@ -94,10 +91,10 @@ public class DefaultOHLCDatasetTest {
         d2 = new DefaultOHLCDataset("Series 2", new OHLCDataItem[0]);
         assertTrue(d1.equals(d2));
 
-        d1 = new DefaultOHLCDataset("Series 2", new OHLCDataItem[] {
+        d1 = new DefaultOHLCDataset("Series 2", new OHLCDataItem[]{
                 new OHLCDataItem(new Date(123L), 1.2, 3.4, 5.6, 7.8, 99.9)});
         assertFalse(d1.equals(d2));
-        d2 = new DefaultOHLCDataset("Series 2", new OHLCDataItem[] {
+        d2 = new DefaultOHLCDataset("Series 2", new OHLCDataItem[]{
                 new OHLCDataItem(new Date(123L), 1.2, 3.4, 5.6, 7.8, 99.9)});
         assertTrue(d1.equals(d2));
 
@@ -126,7 +123,7 @@ public class DefaultOHLCDatasetTest {
         OHLCDataItem item2 = new OHLCDataItem(new Date(2L), 6.0, 7.0, 8.0, 9.0,
                 10.0);
         // create an array of items in reverse order
-        OHLCDataItem[] items = new OHLCDataItem[] {item2, item1};
+        OHLCDataItem[] items = new OHLCDataItem[]{item2, item1};
         DefaultOHLCDataset d1 = new DefaultOHLCDataset("Series 1", items);
         DefaultOHLCDataset d2 = (DefaultOHLCDataset) d1.clone();
         assertTrue(d1 != d2);

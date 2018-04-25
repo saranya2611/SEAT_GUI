@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -41,12 +41,7 @@
 
 package org.jfree.chart.plot;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.chart.event.MarkerChangeEvent;
 import org.jfree.chart.event.MarkerChangeListener;
 import org.jfree.ui.GradientPaintTransformType;
@@ -54,17 +49,20 @@ import org.jfree.ui.GradientPaintTransformer;
 import org.jfree.ui.StandardGradientPaintTransformer;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 /**
  * Tests for the {@link IntervalMarker} class.
  */
 public class IntervalMarkerTest implements MarkerChangeListener {
 
+    private static final double EPSILON = 0.0000000001;
     MarkerChangeEvent lastEvent;
 
     /**
      * Records the last event.
      *
-     * @param event  the last event.
+     * @param event the last event.
      */
     @Override
     public void markerChanged(MarkerChangeEvent event) {
@@ -113,7 +111,7 @@ public class IntervalMarkerTest implements MarkerChangeListener {
         assertTrue(m1.equals(m2));
     }
 
-   /**
+    /**
      * Serialize an instance, restore it, and check for equality.
      */
     @Test
@@ -122,8 +120,6 @@ public class IntervalMarkerTest implements MarkerChangeListener {
         IntervalMarker m2 = (IntervalMarker) TestUtilities.serialised(m1);
         assertEquals(m1, m2);
     }
-
-    private static final double EPSILON = 0.0000000001;
 
     /**
      * Some checks for the getStartValue() and setStartValue() methods.

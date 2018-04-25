@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -53,12 +53,26 @@ import static org.junit.Assert.assertNull;
 
 /**
  * Tests for a pie chart.
- *
  */
-public class PieChartTest  {
+public class PieChartTest {
 
-    /** A chart. */
+    /**
+     * A chart.
+     */
     private JFreeChart pieChart;
+
+    /**
+     * Creates a pie chart.
+     *
+     * @return The pie chart.
+     */
+    private static JFreeChart createPieChart() {
+        DefaultPieDataset data = new DefaultPieDataset();
+        data.setValue("Java", new Double(43.2));
+        data.setValue("Visual Basic", new Double(0.0));
+        data.setValue("C/C++", new Double(17.5));
+        return ChartFactory.createPieChart("Pie Chart", data);
+    }
 
     /**
      * Common test setup.
@@ -84,31 +98,19 @@ public class PieChartTest  {
     }
 
     /**
-     * Creates a pie chart.
-     *
-     * @return The pie chart.
-     */
-    private static JFreeChart createPieChart() {
-        DefaultPieDataset data = new DefaultPieDataset();
-        data.setValue("Java", new Double(43.2));
-        data.setValue("Visual Basic", new Double(0.0));
-        data.setValue("C/C++", new Double(17.5));
-        return ChartFactory.createPieChart("Pie Chart", data);
-    }
-
-    /**
      * A chart change listener.
-     *
      */
     static class LocalListener implements ChartChangeListener {
 
-        /** A flag. */
+        /**
+         * A flag.
+         */
         private boolean flag;
 
         /**
          * Event handler.
          *
-         * @param event  the event.
+         * @param event the event.
          */
         @Override
         public void chartChanged(ChartChangeEvent event) {

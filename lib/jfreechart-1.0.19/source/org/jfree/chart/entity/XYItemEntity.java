@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -50,9 +50,9 @@
 
 package org.jfree.chart.entity;
 
-import java.awt.Shape;
-
 import org.jfree.data.xy.XYDataset;
+
+import java.awt.*;
 
 /**
  * A chart entity that represents one item within an
@@ -60,27 +60,35 @@ import org.jfree.data.xy.XYDataset;
  */
 public class XYItemEntity extends ChartEntity {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -3870862224880283771L;
 
-    /** The dataset. */
+    /**
+     * The dataset.
+     */
     private transient XYDataset dataset;
 
-    /** The series. */
+    /**
+     * The series.
+     */
     private int series;
 
-    /** The item. */
+    /**
+     * The item.
+     */
     private int item;
 
     /**
      * Creates a new entity.
      *
-     * @param area  the area.
-     * @param dataset  the dataset.
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     * @param toolTipText  the tool tip text.
-     * @param urlText  the URL text for HTML image maps.
+     * @param area        the area.
+     * @param dataset     the dataset.
+     * @param series      the series (zero-based index).
+     * @param item        the item (zero-based index).
+     * @param toolTipText the tool tip text.
+     * @param urlText     the URL text for HTML image maps.
      */
     public XYItemEntity(Shape area,
                         XYDataset dataset, int series, int item,
@@ -103,7 +111,7 @@ public class XYItemEntity extends ChartEntity {
     /**
      * Sets the dataset this entity refers to.
      *
-     * @param dataset  the dataset.
+     * @param dataset the dataset.
      */
     public void setDataset(XYDataset dataset) {
         this.dataset = dataset;
@@ -148,8 +156,7 @@ public class XYItemEntity extends ChartEntity {
     /**
      * Tests the entity for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -179,7 +186,7 @@ public class XYItemEntity extends ChartEntity {
     @Override
     public String toString() {
         return "XYItemEntity: series = " + getSeriesIndex() + ", item = "
-            + getItem() + ", dataset = " + getDataset();
+                + getItem() + ", dataset = " + getDataset();
     }
 
 }

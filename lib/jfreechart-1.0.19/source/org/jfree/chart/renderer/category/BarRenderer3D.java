@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -96,27 +96,10 @@
  * 11-Jun-2012 : Utilise new PaintAlpha class - patch 3204823 from DaveLaw (DG);
  * 03-Jul-2013 : Use ParamChecks (DG);
  * 11-Mar-2014 : Check visible series (DG);
- * 
+ *
  */
 
 package org.jfree.chart.renderer.category;
-
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Composite;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 
 import org.jfree.chart.Effect3D;
 import org.jfree.chart.axis.CategoryAxis;
@@ -126,12 +109,7 @@ import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.labels.CategoryItemLabelGenerator;
 import org.jfree.chart.labels.ItemLabelAnchor;
 import org.jfree.chart.labels.ItemLabelPosition;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.Marker;
-import org.jfree.chart.plot.Plot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.PlotRenderingInfo;
-import org.jfree.chart.plot.ValueMarker;
+import org.jfree.chart.plot.*;
 import org.jfree.chart.util.PaintAlpha;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.data.Range;
@@ -145,6 +123,16 @@ import org.jfree.ui.TextAnchor;
 import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * A renderer for bars with a 3D effect, for use with the
  * {@link CategoryPlot} class.  The example shown here is generated
@@ -157,25 +145,35 @@ import org.jfree.util.PublicCloneable;
 public class BarRenderer3D extends BarRenderer
         implements Effect3D, Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 7686976503536003636L;
-
-    /** The default x-offset for the 3D effect. */
+    /**
+     * The default x-offset for the 3D effect.
+     */
     public static final double DEFAULT_X_OFFSET = 12.0;
-
-    /** The default y-offset for the 3D effect. */
+    /**
+     * The default y-offset for the 3D effect.
+     */
     public static final double DEFAULT_Y_OFFSET = 8.0;
-
-    /** The default wall paint. */
+    /**
+     * The default wall paint.
+     */
     public static final Paint DEFAULT_WALL_PAINT = new Color(0xDD, 0xDD, 0xDD);
-
-    /** The size of x-offset for the 3D effect. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 7686976503536003636L;
+    /**
+     * The size of x-offset for the 3D effect.
+     */
     private double xOffset;
 
-    /** The size of y-offset for the 3D effect. */
+    /**
+     * The size of y-offset for the 3D effect.
+     */
     private double yOffset;
 
-    /** The paint used to shade the left and lower 3D wall. */
+    /**
+     * The paint used to shade the left and lower 3D wall.
+     */
     private transient Paint wallPaint;
 
     /**
@@ -188,8 +186,8 @@ public class BarRenderer3D extends BarRenderer
     /**
      * Constructs a new renderer with the specified '3D effect'.
      *
-     * @param xOffset  the x-offset for the 3D effect.
-     * @param yOffset  the y-offset for the 3D effect.
+     * @param xOffset the x-offset for the 3D effect.
+     * @param yOffset the y-offset for the 3D effect.
      */
     public BarRenderer3D(double xOffset, double yOffset) {
 
@@ -211,7 +209,6 @@ public class BarRenderer3D extends BarRenderer
      * Returns the x-offset for the 3D effect.
      *
      * @return The 3D effect.
-     *
      * @see #getYOffset()
      */
     @Override
@@ -234,7 +231,6 @@ public class BarRenderer3D extends BarRenderer
      * background.
      *
      * @return The paint.
-     *
      * @see #setWallPaint(Paint)
      */
     public Paint getWallPaint() {
@@ -246,8 +242,7 @@ public class BarRenderer3D extends BarRenderer
      * background, and sends a {@link RendererChangeEvent} to all registered
      * listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getWallPaint()
      */
     public void setWallPaint(Paint paint) {
@@ -262,18 +257,17 @@ public class BarRenderer3D extends BarRenderer
      * to subsequent calls to the drawItem method.  This method gets called
      * once at the start of the process of drawing a chart.
      *
-     * @param g2  the graphics device.
-     * @param dataArea  the area in which the data is to be plotted.
-     * @param plot  the plot.
-     * @param rendererIndex  the renderer index.
-     * @param info  collects chart rendering information for return to caller.
-     *
+     * @param g2            the graphics device.
+     * @param dataArea      the area in which the data is to be plotted.
+     * @param plot          the plot.
+     * @param rendererIndex the renderer index.
+     * @param info          collects chart rendering information for return to caller.
      * @return The renderer state.
      */
     @Override
-    public CategoryItemRendererState initialise(Graphics2D g2, 
-            Rectangle2D dataArea, CategoryPlot plot, int rendererIndex,
-            PlotRenderingInfo info) {
+    public CategoryItemRendererState initialise(Graphics2D g2,
+                                                Rectangle2D dataArea, CategoryPlot plot, int rendererIndex,
+                                                PlotRenderingInfo info) {
 
         Rectangle2D adjusted = new Rectangle2D.Double(dataArea.getX(),
                 dataArea.getY() + getYOffset(), dataArea.getWidth()
@@ -287,13 +281,13 @@ public class BarRenderer3D extends BarRenderer
     /**
      * Draws the background for the plot.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the area inside the axes.
+     * @param g2       the graphics device.
+     * @param plot     the plot.
+     * @param dataArea the area inside the axes.
      */
     @Override
     public void drawBackground(Graphics2D g2, CategoryPlot plot,
-            Rectangle2D dataArea) {
+                               Rectangle2D dataArea) {
 
         float x0 = (float) dataArea.getX();
         float x1 = x0 + (float) Math.abs(this.xOffset);
@@ -369,9 +363,9 @@ public class BarRenderer3D extends BarRenderer
     /**
      * Draws the outline for the plot.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the area inside the axes.
+     * @param g2       the graphics device.
+     * @param plot     the plot.
+     * @param dataArea the area inside the axes.
      */
     @Override
     public void drawOutline(Graphics2D g2, CategoryPlot plot,
@@ -410,16 +404,15 @@ public class BarRenderer3D extends BarRenderer
     /**
      * Draws a grid line against the domain axis.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the area for plotting data (not yet adjusted for any
-     *                  3D effect).
-     * @param value  the Java2D value at which the grid line should be drawn.
-     *
+     * @param g2       the graphics device.
+     * @param plot     the plot.
+     * @param dataArea the area for plotting data (not yet adjusted for any
+     *                 3D effect).
+     * @param value    the Java2D value at which the grid line should be drawn.
      */
     @Override
     public void drawDomainGridline(Graphics2D g2, CategoryPlot plot,
-            Rectangle2D dataArea, double value) {
+                                   Rectangle2D dataArea, double value) {
 
         Line2D line1 = null;
         Line2D line2 = null;
@@ -432,8 +425,7 @@ public class BarRenderer3D extends BarRenderer
             double x2 = dataArea.getMaxX();
             line1 = new Line2D.Double(x0, y0, x1, y1);
             line2 = new Line2D.Double(x1, y1, x2, y1);
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             double x0 = value;
             double x1 = value + getXOffset();
             double y0 = dataArea.getMaxY();
@@ -454,17 +446,16 @@ public class BarRenderer3D extends BarRenderer
     /**
      * Draws a grid line against the range axis.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param axis  the value axis.
-     * @param dataArea  the area for plotting data (not yet adjusted for any
-     *                  3D effect).
-     * @param value  the value at which the grid line should be drawn.
-     *
+     * @param g2       the graphics device.
+     * @param plot     the plot.
+     * @param axis     the value axis.
+     * @param dataArea the area for plotting data (not yet adjusted for any
+     *                 3D effect).
+     * @param value    the value at which the grid line should be drawn.
      */
     @Override
     public void drawRangeGridline(Graphics2D g2, CategoryPlot plot,
-            ValueAxis axis, Rectangle2D dataArea, double value) {
+                                  ValueAxis axis, Rectangle2D dataArea, double value) {
 
         Range range = axis.getRange();
 
@@ -488,8 +479,7 @@ public class BarRenderer3D extends BarRenderer
             double y2 = dataArea.getMinY();
             line1 = new Line2D.Double(x0, y0, x1, y1);
             line2 = new Line2D.Double(x1, y1, x1, y2);
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             double y0 = axis.valueToJava2D(value, adjusted,
                     plot.getRangeAxisEdge());
             double y1 = y0 - getYOffset();
@@ -511,22 +501,20 @@ public class BarRenderer3D extends BarRenderer
     /**
      * Draws a line perpendicular to the range axis.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param axis  the value axis.
-     * @param dataArea  the area for plotting data (not yet adjusted for any 3D
-     *                  effect).
-     * @param value  the value at which the grid line should be drawn.
-     * @param paint  the paint.
-     * @param stroke  the stroke.
-     *
+     * @param g2       the graphics device.
+     * @param plot     the plot.
+     * @param axis     the value axis.
+     * @param dataArea the area for plotting data (not yet adjusted for any 3D
+     *                 effect).
+     * @param value    the value at which the grid line should be drawn.
+     * @param paint    the paint.
+     * @param stroke   the stroke.
      * @see #drawRangeGridline
-     *
      * @since 1.0.13
      */
     @Override
     public void drawRangeLine(Graphics2D g2, CategoryPlot plot, ValueAxis axis,
-            Rectangle2D dataArea, double value, Paint paint, Stroke stroke) {
+                              Rectangle2D dataArea, double value, Paint paint, Stroke stroke) {
 
         Range range = axis.getRange();
         if (!range.contains(value)) {
@@ -549,8 +537,7 @@ public class BarRenderer3D extends BarRenderer
             double y2 = dataArea.getMinY();
             line1 = new Line2D.Double(x0, y0, x1, y1);
             line2 = new Line2D.Double(x1, y1, x1, y2);
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             double y0 = axis.valueToJava2D(value, adjusted,
                     plot.getRangeAxisEdge());
             double y1 = y0 - getYOffset();
@@ -570,15 +557,15 @@ public class BarRenderer3D extends BarRenderer
     /**
      * Draws a range marker.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param axis  the value axis.
-     * @param marker  the marker.
-     * @param dataArea  the area for plotting data (not including 3D effect).
+     * @param g2       the graphics device.
+     * @param plot     the plot.
+     * @param axis     the value axis.
+     * @param marker   the marker.
+     * @param dataArea the area for plotting data (not including 3D effect).
      */
     @Override
-    public void drawRangeMarker(Graphics2D g2, CategoryPlot plot, 
-            ValueAxis axis, Marker marker, Rectangle2D dataArea) {
+    public void drawRangeMarker(Graphics2D g2, CategoryPlot plot,
+                                ValueAxis axis, Marker marker, Rectangle2D dataArea) {
 
 
         Rectangle2D adjusted = new Rectangle2D.Double(dataArea.getX(),
@@ -606,8 +593,7 @@ public class BarRenderer3D extends BarRenderer
                         (float) (adjusted.getMinY() - getYOffset()));
                 path.lineTo(x, (float) adjusted.getMinY());
                 path.closePath();
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
+            } else if (orientation == PlotOrientation.VERTICAL) {
                 float y = (float) axis.valueToJava2D(value, adjusted,
                         plot.getRangeAxisEdge());
                 float x = (float) dataArea.getX();
@@ -641,8 +627,7 @@ public class BarRenderer3D extends BarRenderer
                         marker.getLabelTextAnchor());
             }
 
-        }
-        else {
+        } else {
             super.drawRangeMarker(g2, plot, axis, marker, adjusted);
             // TODO: draw the interval marker with a 3D effect
         }
@@ -651,22 +636,22 @@ public class BarRenderer3D extends BarRenderer
     /**
      * Draws a 3D bar to represent one data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the area for plotting the data.
-     * @param plot  the plot.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the area for plotting the data.
+     * @param plot       the plot.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     * @param pass  the pass index.
+     * @param dataset    the dataset.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
+     * @param pass       the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, CategoryItemRendererState state,
-            Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
-            ValueAxis rangeAxis, CategoryDataset dataset, int row, int column,
-            int pass) {
+                         Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
+                         ValueAxis rangeAxis, CategoryDataset dataset, int row, int column,
+                         int pass) {
 
         // nothing is drawn if the row index is not included in the list with
         // the indices of the visible rows...
@@ -708,8 +693,7 @@ public class BarRenderer3D extends BarRenderer
         if (orientation == PlotOrientation.HORIZONTAL) {
             bar = new Rectangle2D.Double(barL0, barW0, barLength,
                     state.getBarWidth());
-        }
-        else {
+        } else {
             bar = new Rectangle2D.Double(barW0, barL0, state.getBarWidth(),
                     barLength);
         }
@@ -761,7 +745,7 @@ public class BarRenderer3D extends BarRenderer
         }
 
         CategoryItemLabelGenerator generator
-            = getItemLabelGenerator(row, column);
+                = getItemLabelGenerator(row, column);
         if (generator != null && isItemLabelVisible(row, column)) {
             drawItemLabel(g2, dataset, row, column, plot, generator, bar,
                     (value < 0.0));
@@ -786,8 +770,7 @@ public class BarRenderer3D extends BarRenderer
     /**
      * Tests this renderer for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -814,9 +797,8 @@ public class BarRenderer3D extends BarRenderer
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -826,13 +808,12 @@ public class BarRenderer3D extends BarRenderer
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.wallPaint = SerialUtilities.readPaint(stream);
     }

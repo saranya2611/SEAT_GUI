@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -47,8 +47,8 @@ import org.jfree.data.Range;
  * An interface defining methods related to contour plots.
  *
  * @deprecated This interface is no longer supported (as of version 1.0.4).
- *     If you are creating contour plots, please try to use {@link XYPlot} and
- *     {@link XYBlockRenderer}.
+ * If you are creating contour plots, please try to use {@link XYPlot} and
+ * {@link XYBlockRenderer}.
  */
 public interface ContourValuePlot {
 

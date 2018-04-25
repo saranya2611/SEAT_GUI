@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -41,17 +41,6 @@
 
 package org.jfree.chart.annotations;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -63,6 +52,13 @@ import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * A box annotation that can be placed on an {@link XYPlot}.  The
  * box coordinates are specified in data space.
@@ -70,38 +66,54 @@ import org.jfree.util.PublicCloneable;
 public class XYBoxAnnotation extends AbstractXYAnnotation
         implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 6764703772526757457L;
 
-    /** The lower x-coordinate. */
+    /**
+     * The lower x-coordinate.
+     */
     private double x0;
 
-    /** The lower y-coordinate. */
+    /**
+     * The lower y-coordinate.
+     */
     private double y0;
 
-    /** The upper x-coordinate. */
+    /**
+     * The upper x-coordinate.
+     */
     private double x1;
 
-    /** The upper y-coordinate. */
+    /**
+     * The upper y-coordinate.
+     */
     private double y1;
 
-    /** The stroke used to draw the box outline. */
+    /**
+     * The stroke used to draw the box outline.
+     */
     private transient Stroke stroke;
 
-    /** The paint used to draw the box outline. */
+    /**
+     * The paint used to draw the box outline.
+     */
     private transient Paint outlinePaint;
 
-    /** The paint used to fill the box. */
+    /**
+     * The paint used to fill the box.
+     */
     private transient Paint fillPaint;
 
     /**
      * Creates a new annotation (where, by default, the box is drawn
      * with a black outline).
      *
-     * @param x0  the lower x-coordinate of the box (in data space).
-     * @param y0  the lower y-coordinate of the box (in data space).
-     * @param x1  the upper x-coordinate of the box (in data space).
-     * @param y1  the upper y-coordinate of the box (in data space).
+     * @param x0 the lower x-coordinate of the box (in data space).
+     * @param y0 the lower y-coordinate of the box (in data space).
+     * @param x1 the upper x-coordinate of the box (in data space).
+     * @param y1 the upper y-coordinate of the box (in data space).
      */
     public XYBoxAnnotation(double x0, double y0, double x1, double y1) {
         this(x0, y0, x1, y1, new BasicStroke(1.0f), Color.black);
@@ -111,12 +123,12 @@ public class XYBoxAnnotation extends AbstractXYAnnotation
      * Creates a new annotation where the box is drawn as an outline using
      * the specified <code>stroke</code> and <code>outlinePaint</code>.
      *
-     * @param x0  the lower x-coordinate of the box (in data space).
-     * @param y0  the lower y-coordinate of the box (in data space).
-     * @param x1  the upper x-coordinate of the box (in data space).
-     * @param y1  the upper y-coordinate of the box (in data space).
-     * @param stroke  the shape stroke (<code>null</code> permitted).
-     * @param outlinePaint  the shape color (<code>null</code> permitted).
+     * @param x0           the lower x-coordinate of the box (in data space).
+     * @param y0           the lower y-coordinate of the box (in data space).
+     * @param x1           the upper x-coordinate of the box (in data space).
+     * @param y1           the upper y-coordinate of the box (in data space).
+     * @param stroke       the shape stroke (<code>null</code> permitted).
+     * @param outlinePaint the shape color (<code>null</code> permitted).
      */
     public XYBoxAnnotation(double x0, double y0, double x1, double y1,
                            Stroke stroke, Paint outlinePaint) {
@@ -126,14 +138,14 @@ public class XYBoxAnnotation extends AbstractXYAnnotation
     /**
      * Creates a new annotation.
      *
-     * @param x0  the lower x-coordinate of the box (in data space).
-     * @param y0  the lower y-coordinate of the box (in data space).
-     * @param x1  the upper x-coordinate of the box (in data space).
-     * @param y1  the upper y-coordinate of the box (in data space).
-     * @param stroke  the shape stroke (<code>null</code> permitted).
-     * @param outlinePaint  the shape color (<code>null</code> permitted).
-     * @param fillPaint  the paint used to fill the shape (<code>null</code>
-     *                   permitted).
+     * @param x0           the lower x-coordinate of the box (in data space).
+     * @param y0           the lower y-coordinate of the box (in data space).
+     * @param x1           the upper x-coordinate of the box (in data space).
+     * @param y1           the upper y-coordinate of the box (in data space).
+     * @param stroke       the shape stroke (<code>null</code> permitted).
+     * @param outlinePaint the shape color (<code>null</code> permitted).
+     * @param fillPaint    the paint used to fill the shape (<code>null</code>
+     *                     permitted).
      */
     public XYBoxAnnotation(double x0, double y0, double x1, double y1,
                            Stroke stroke, Paint outlinePaint, Paint fillPaint) {
@@ -151,13 +163,13 @@ public class XYBoxAnnotation extends AbstractXYAnnotation
      * Draws the annotation.  This method is usually called by the
      * {@link XYPlot} class, you shouldn't need to call it directly.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the range axis.
-     * @param rendererIndex  the renderer index.
-     * @param info  the plot rendering info.
+     * @param g2            the graphics device.
+     * @param plot          the plot.
+     * @param dataArea      the data area.
+     * @param domainAxis    the domain axis.
+     * @param rangeAxis     the range axis.
+     * @param rendererIndex the renderer index.
+     * @param info          the plot rendering info.
      */
     @Override
     public void draw(Graphics2D g2, XYPlot plot, Rectangle2D dataArea,
@@ -181,8 +193,7 @@ public class XYBoxAnnotation extends AbstractXYAnnotation
         if (orientation == PlotOrientation.HORIZONTAL) {
             box = new Rectangle2D.Double(transY0, transX1, transY1 - transY0,
                     transX0 - transX1);
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             box = new Rectangle2D.Double(transX0, transY1, transX1 - transX0,
                     transY0 - transY1);
         }
@@ -204,8 +215,7 @@ public class XYBoxAnnotation extends AbstractXYAnnotation
     /**
      * Tests this annotation for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -270,7 +280,6 @@ public class XYBoxAnnotation extends AbstractXYAnnotation
      * Returns a clone.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException not thrown by this class, but may be
      *                                    by subclasses.
      */
@@ -282,8 +291,7 @@ public class XYBoxAnnotation extends AbstractXYAnnotation
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream (<code>null</code> not permitted).
-     *
+     * @param stream the output stream (<code>null</code> not permitted).
      * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
@@ -296,13 +304,12 @@ public class XYBoxAnnotation extends AbstractXYAnnotation
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream (<code>null</code> not permitted).
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream (<code>null</code> not permitted).
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
 
         stream.defaultReadObject();
         this.stroke = SerialUtilities.readStroke(stream);

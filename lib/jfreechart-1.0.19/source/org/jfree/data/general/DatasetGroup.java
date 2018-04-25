@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -43,8 +43,9 @@
 
 package org.jfree.data.general;
 
-import java.io.Serializable;
 import org.jfree.chart.util.ParamChecks;
+
+import java.io.Serializable;
 
 /**
  * A class that is used to group datasets (currently not used for any specific
@@ -52,10 +53,14 @@ import org.jfree.chart.util.ParamChecks;
  */
 public class DatasetGroup implements Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -3640642179674185688L;
 
-    /** The group id. */
+    /**
+     * The group id.
+     */
     private String id;
 
     /**
@@ -69,7 +74,7 @@ public class DatasetGroup implements Cloneable, Serializable {
     /**
      * Creates a new group with the specified id.
      *
-     * @param id  the identification for the group.
+     * @param id the identification for the group.
      */
     public DatasetGroup(String id) {
         ParamChecks.nullNotPermitted(id, "id");
@@ -89,7 +94,6 @@ public class DatasetGroup implements Cloneable, Serializable {
      * Clones the group.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException not by this class.
      */
     @Override
@@ -100,8 +104,7 @@ public class DatasetGroup implements Cloneable, Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

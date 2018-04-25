@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -45,36 +45,37 @@
 
 package org.jfree.data.time;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.TimeZone;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {link Quarter} class.
  */
 public class QuarterTest {
 
-    /** A quarter. */
+    /**
+     * A quarter.
+     */
     private Quarter q1Y1900;
 
-    /** A quarter. */
+    /**
+     * A quarter.
+     */
     private Quarter q2Y1900;
 
-    /** A quarter. */
+    /**
+     * A quarter.
+     */
     private Quarter q3Y9999;
 
-    /** A quarter. */
+    /**
+     * A quarter.
+     */
     private Quarter q4Y9999;
 
     /**
@@ -90,7 +91,7 @@ public class QuarterTest {
 
     /**
      * Check that a Quarter instance is equal to itself.
-     *
+     * <p>
      * SourceForge Bug ID: 558850.
      */
     @Test
@@ -198,8 +199,7 @@ public class QuarterTest {
         // test 1...
         try {
             quarter = Quarter.parseQuarter("Q1-2000");
-        }
-        catch (TimePeriodFormatException e) {
+        } catch (TimePeriodFormatException e) {
             quarter = new Quarter(1, 1900);
         }
         assertEquals(1, quarter.getQuarter());
@@ -208,8 +208,7 @@ public class QuarterTest {
         // test 2...
         try {
             quarter = Quarter.parseQuarter("2001-Q2");
-        }
-        catch (TimePeriodFormatException e) {
+        } catch (TimePeriodFormatException e) {
             quarter = new Quarter(1, 1900);
         }
         assertEquals(2, quarter.getQuarter());
@@ -218,8 +217,7 @@ public class QuarterTest {
         // test 3...
         try {
             quarter = Quarter.parseQuarter("Q3, 2002");
-        }
-        catch (TimePeriodFormatException e) {
+        } catch (TimePeriodFormatException e) {
             quarter = new Quarter(1, 1900);
         }
         assertEquals(3, quarter.getQuarter());
@@ -268,18 +266,18 @@ public class QuarterTest {
     public void testConstructor() {
         boolean pass = false;
         try {
-            /*Quarter q =*/ new Quarter(0, 2005);
-        }
-        catch (IllegalArgumentException e) {
+            /*Quarter q =*/
+            new Quarter(0, 2005);
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
 
         pass = false;
         try {
-            /*Quarter q =*/ new Quarter(5, 2005);
-        }
-        catch (IllegalArgumentException e) {
+            /*Quarter q =*/
+            new Quarter(5, 2005);
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -313,8 +311,7 @@ public class QuarterTest {
         boolean pass = false;
         try {
             q.getFirstMillisecond((TimeZone) null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -334,8 +331,7 @@ public class QuarterTest {
         boolean pass = false;
         try {
             q.getFirstMillisecond((Calendar) null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -369,8 +365,7 @@ public class QuarterTest {
         boolean pass = false;
         try {
             q.getLastMillisecond((TimeZone) null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -390,8 +385,7 @@ public class QuarterTest {
         boolean pass = false;
         try {
             q.getLastMillisecond((Calendar) null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);

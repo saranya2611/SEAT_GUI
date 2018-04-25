@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -46,28 +46,30 @@
 
 package org.jfree.data.gantt;
 
-import java.util.Collections;
-import java.util.List;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.data.general.Series;
 import org.jfree.util.ObjectUtilities;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * A series that contains zero, one or many {@link Task} objects.
- * <P>
+ * <p>
  * This class is used as a building block for the {@link TaskSeriesCollection}
  * class that can be used to construct basic Gantt charts.
  */
 public class TaskSeries extends Series {
 
-    /** Storage for the tasks in the series. */
+    /**
+     * Storage for the tasks in the series.
+     */
     private List tasks;
 
     /**
      * Constructs a new series with the specified name.
      *
-     * @param name  the series name (<code>null</code> not permitted).
+     * @param name the series name (<code>null</code> not permitted).
      */
     public TaskSeries(String name) {
         super(name);
@@ -79,7 +81,7 @@ public class TaskSeries extends Series {
      * {@link org.jfree.data.general.SeriesChangeEvent} to all registered
      * listeners.
      *
-     * @param task  the task (<code>null</code> not permitted).
+     * @param task the task (<code>null</code> not permitted).
      */
     public void add(Task task) {
         ParamChecks.nullNotPermitted(task, "task");
@@ -92,7 +94,7 @@ public class TaskSeries extends Series {
      * a {@link org.jfree.data.general.SeriesChangeEvent}
      * to all registered listeners.
      *
-     * @param task  the task.
+     * @param task the task.
      */
     public void remove(Task task) {
         this.tasks.remove(task);
@@ -122,8 +124,7 @@ public class TaskSeries extends Series {
     /**
      * Returns a task from the series.
      *
-     * @param index  the task index (zero-based).
-     *
+     * @param index the task index (zero-based).
      * @return The task.
      */
     public Task get(int index) {
@@ -133,8 +134,7 @@ public class TaskSeries extends Series {
     /**
      * Returns the task in the series that has the specified description.
      *
-     * @param description  the name (<code>null</code> not permitted).
-     *
+     * @param description the name (<code>null</code> not permitted).
      * @return The task (possibly <code>null</code>).
      */
     public Task get(String description) {
@@ -162,8 +162,7 @@ public class TaskSeries extends Series {
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the object to test against (<code>null</code> permitted).
-     *
+     * @param obj the object to test against (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -188,9 +187,8 @@ public class TaskSeries extends Series {
      * Returns an independent copy of this series.
      *
      * @return A clone of the series.
-     *
      * @throws CloneNotSupportedException if there is some problem cloning
-     *     the dataset.
+     *                                    the dataset.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

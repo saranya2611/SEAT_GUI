@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -42,16 +42,6 @@
 
 package org.jfree.chart.plot.dial;
 
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.io.SerialUtilities;
@@ -59,6 +49,13 @@ import org.jfree.ui.GradientPaintTransformer;
 import org.jfree.ui.StandardGradientPaintTransformer;
 import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * A regular dial layer that can be used to draw the background for a dial.
@@ -68,7 +65,9 @@ import org.jfree.util.PublicCloneable;
 public class DialBackground extends AbstractDialLayer implements DialLayer,
         Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = -9019069533317612375L;
 
     /**
@@ -94,10 +93,9 @@ public class DialBackground extends AbstractDialLayer implements DialLayer,
     /**
      * Creates a new instance of <code>DialBackground</code>.  The
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @throws IllegalArgumentException if <code>paint</code> is
-     *     <code>null</code>.
+     *                                  <code>null</code>.
      */
     public DialBackground(Paint paint) {
         ParamChecks.nullNotPermitted(paint, "paint");
@@ -109,7 +107,6 @@ public class DialBackground extends AbstractDialLayer implements DialLayer,
      * Returns the paint used to fill the background.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @see #setPaint(Paint)
      */
     public Paint getPaint() {
@@ -120,8 +117,7 @@ public class DialBackground extends AbstractDialLayer implements DialLayer,
      * Sets the paint for the dial background and sends a
      * {@link DialLayerChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getPaint()
      */
     public void setPaint(Paint paint) {
@@ -135,7 +131,6 @@ public class DialBackground extends AbstractDialLayer implements DialLayer,
      * <code>GradientPaint</code> instance used for the background paint.
      *
      * @return The transformer (never <code>null</code>).
-     *
      * @see #setGradientPaintTransformer(GradientPaintTransformer)
      */
     public GradientPaintTransformer getGradientPaintTransformer() {
@@ -147,8 +142,7 @@ public class DialBackground extends AbstractDialLayer implements DialLayer,
      * <code>GradientPaint</code> instance used for the background paint, and
      * sends a {@link DialLayerChangeEvent} to all registered listeners.
      *
-     * @param t  the transformer (<code>null</code> not permitted).
-     *
+     * @param t the transformer (<code>null</code> not permitted).
      * @see #getGradientPaintTransformer()
      */
     public void setGradientPaintTransformer(GradientPaintTransformer t) {
@@ -173,14 +167,14 @@ public class DialBackground extends AbstractDialLayer implements DialLayer,
      * frame specifies a window, the clipping region will already have been
      * set to this window before this method is called.
      *
-     * @param g2  the graphics device (<code>null</code> not permitted).
+     * @param g2    the graphics device (<code>null</code> not permitted).
      * @param plot  the plot (ignored here).
-     * @param frame  the dial frame (ignored here).
+     * @param frame the dial frame (ignored here).
      * @param view  the view rectangle (<code>null</code> not permitted).
      */
     @Override
     public void draw(Graphics2D g2, DialPlot plot, Rectangle2D frame,
-            Rectangle2D view) {
+                     Rectangle2D view) {
 
         Paint p = this.paint;
         if (p instanceof GradientPaint) {
@@ -194,8 +188,7 @@ public class DialBackground extends AbstractDialLayer implements DialLayer,
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -234,9 +227,8 @@ public class DialBackground extends AbstractDialLayer implements DialLayer,
      * Returns a clone of this instance.
      *
      * @return The clone.
-     *
      * @throws CloneNotSupportedException if some attribute of this instance
-     *     cannot be cloned.
+     *                                    cannot be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -246,9 +238,8 @@ public class DialBackground extends AbstractDialLayer implements DialLayer,
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -258,10 +249,9 @@ public class DialBackground extends AbstractDialLayer implements DialLayer,
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {

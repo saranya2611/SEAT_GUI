@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -57,15 +57,6 @@
 
 package org.jfree.chart.renderer.xy;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CrosshairState;
 import org.jfree.chart.plot.PlotRenderingInfo;
@@ -74,6 +65,11 @@ import org.jfree.data.xy.WindDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
 /**
  * A specialised renderer for displaying wind intensity/direction data.
@@ -86,7 +82,9 @@ import org.jfree.util.PublicCloneable;
 public class WindItemRenderer extends AbstractXYItemRenderer
         implements XYItemRenderer, Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 8078914101916976844L;
 
     /**
@@ -99,26 +97,26 @@ public class WindItemRenderer extends AbstractXYItemRenderer
     /**
      * Draws the visual representation of a single data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param plotArea  the area within which the plot is being drawn.
-     * @param info  optional information collection.
-     * @param plot  the plot (can be used to obtain standard color
-     *              information etc).
-     * @param domainAxis  the horizontal axis.
-     * @param rangeAxis  the vertical axis.
-     * @param dataset  the dataset.
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     * @param crosshairState  crosshair information for the plot
-     *                        (<code>null</code> permitted).
-     * @param pass  the pass index.
+     * @param g2             the graphics device.
+     * @param state          the renderer state.
+     * @param plotArea       the area within which the plot is being drawn.
+     * @param info           optional information collection.
+     * @param plot           the plot (can be used to obtain standard color
+     *                       information etc).
+     * @param domainAxis     the horizontal axis.
+     * @param rangeAxis      the vertical axis.
+     * @param dataset        the dataset.
+     * @param series         the series index (zero-based).
+     * @param item           the item index (zero-based).
+     * @param crosshairState crosshair information for the plot
+     *                       (<code>null</code> permitted).
+     * @param pass           the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, XYItemRendererState state,
-            Rectangle2D plotArea, PlotRenderingInfo info, XYPlot plot,
-            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-            int series, int item, CrosshairState crosshairState, int pass) {
+                         Rectangle2D plotArea, PlotRenderingInfo info, XYPlot plot,
+                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+                         int series, int item, CrosshairState crosshairState, int pass) {
 
         WindDataset windData = (WindDataset) dataset;
 
@@ -170,7 +168,7 @@ public class WindItemRenderer extends AbstractXYItemRenderer
         double aldir = Math.toRadians(windDir.doubleValue()
                 * (-30.0) - 90.0 - 5.0);
         ralx2 = wforce.doubleValue() * Math.cos(aldir) * 8000000 * 0.8
-        + x.doubleValue();
+                + x.doubleValue();
         raly2 = wforce.doubleValue() * Math.sin(aldir) * 0.8;
 
         alx2 = domainAxis.valueToJava2D(ralx2, plotArea, domainAxisLocation);
@@ -197,8 +195,7 @@ public class WindItemRenderer extends AbstractXYItemRenderer
      * Returns a clone of the renderer.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the renderer cannot be cloned.
+     * @throws CloneNotSupportedException if the renderer cannot be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

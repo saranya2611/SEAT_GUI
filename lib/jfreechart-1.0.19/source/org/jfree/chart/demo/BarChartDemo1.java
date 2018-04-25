@@ -18,9 +18,9 @@
  *     names of its contributors may be used to endorse or promote products
  *     derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL OBJECT REFINERY LIMITED BE LIABLE FOR ANY
  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
@@ -37,13 +37,10 @@
  * 09-Mar-2005 : Version 1 (DG);
  * 11-Mar-2014 : Use new ChartFactory method (DG);
  * 25-Jun-2014 : Update to use real data (DG);
- * 
+ *
  */
 
 package org.jfree.chart.demo;
-
-import java.awt.Color;
-import java.awt.Dimension;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -58,6 +55,8 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
+
+import java.awt.*;
 
 /**
  * A simple demonstration application showing how to create a bar chart.
@@ -76,7 +75,7 @@ public class BarChartDemo1 extends ApplicationFrame {
     /**
      * Creates a new demo instance.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public BarChartDemo1(String title) {
         super(title);
@@ -106,15 +105,14 @@ public class BarChartDemo1 extends ApplicationFrame {
     /**
      * Creates a sample chart.
      *
-     * @param dataset  the dataset.
-     *
+     * @param dataset the dataset.
      * @return The chart.
      */
     private static JFreeChart createChart(CategoryDataset dataset) {
         JFreeChart chart = ChartFactory.createBarChart(
-            "Performance: JFreeSVG vs Batik", null /* x-axis label*/, 
+                "Performance: JFreeSVG vs Batik", null /* x-axis label*/,
                 "Milliseconds" /* y-axis label */, dataset);
-        chart.addSubtitle(new TextTitle("Time to generate 1000 charts in SVG " 
+        chart.addSubtitle(new TextTitle("Time to generate 1000 charts in SVG "
                 + "format (lower bars = better performance)"));
         chart.setBackgroundPaint(Color.white);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
@@ -138,7 +136,7 @@ public class BarChartDemo1 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         BarChartDemo1 demo = new BarChartDemo1("JFreeChart: BarChartDemo1.java");

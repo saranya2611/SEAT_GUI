@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -43,19 +43,14 @@
 
 package org.jfree.data.time.ohlc;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.general.SeriesChangeEvent;
 import org.jfree.data.general.SeriesChangeListener;
 import org.jfree.data.general.SeriesException;
 import org.jfree.data.time.Year;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link OHLCSeries} class.
@@ -67,7 +62,7 @@ public class OHLCSeriesTest implements SeriesChangeListener {
     /**
      * Records a change event.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void seriesChanged(SeriesChangeEvent event) {
@@ -205,8 +200,7 @@ public class OHLCSeriesTest implements SeriesChangeListener {
         boolean pass = false;
         try {
             s1.add(new Year(2006), 1.0, 1.0, 1.0, 1.0);
-        }
-        catch (SeriesException e) {
+        } catch (SeriesException e) {
             pass = true;
         }
         assertTrue(pass);

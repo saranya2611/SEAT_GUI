@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------------
@@ -42,14 +42,11 @@
 
 package org.jfree.data.xy;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link YIntervalSeriesCollection} class.
@@ -118,7 +115,7 @@ public class YIntervalSeriesCollectionTest {
         YIntervalSeriesCollection c1 = new YIntervalSeriesCollection();
         YIntervalSeries s1 = new YIntervalSeries("Series");
         s1.add(1.0, 1.1, 1.2, 1.3);
-        YIntervalSeriesCollection c2 = (YIntervalSeriesCollection) 
+        YIntervalSeriesCollection c2 = (YIntervalSeriesCollection)
                 TestUtilities.serialised(c1);
         assertEquals(c1, c2);
     }
@@ -138,8 +135,7 @@ public class YIntervalSeriesCollectionTest {
         boolean pass = false;
         try {
             c.removeSeries(-1);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -147,8 +143,7 @@ public class YIntervalSeriesCollectionTest {
         pass = false;
         try {
             c.removeSeries(1);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -164,12 +159,11 @@ public class YIntervalSeriesCollectionTest {
         YIntervalSeriesCollection dataset = new YIntervalSeriesCollection();
         dataset.addSeries(s1);
         try {
-            /* XYSeries s = */ dataset.getSeries(1);
-        }
-        catch (IllegalArgumentException e) {
+            /* XYSeries s = */
+            dataset.getSeries(1);
+        } catch (IllegalArgumentException e) {
             // correct outcome
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             assertTrue(false);  // wrong outcome
         }
     }

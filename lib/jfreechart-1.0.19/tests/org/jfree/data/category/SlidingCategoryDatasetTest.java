@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -41,15 +41,13 @@
 
 package org.jfree.data.category;
 
-import java.util.List;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.UnknownKeyException;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link SlidingCategoryDataset} class.
@@ -120,7 +118,7 @@ public class SlidingCategoryDatasetTest {
         u1.addValue(1.0, "R1", "C1");
         u1.addValue(2.0, "R1", "C2");
         SlidingCategoryDataset d1 = new SlidingCategoryDataset(u1, 0, 5);
-        SlidingCategoryDataset d2 = (SlidingCategoryDataset) 
+        SlidingCategoryDataset d2 = (SlidingCategoryDataset)
                 TestUtilities.serialised(d1);
         assertEquals(d1, d2);
 
@@ -225,8 +223,7 @@ public class SlidingCategoryDatasetTest {
         boolean pass = false;
         try {
             dataset.getValue("R1", "C1");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -234,8 +231,7 @@ public class SlidingCategoryDatasetTest {
         pass = false;
         try {
             dataset.getValue("R1", "C4");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);

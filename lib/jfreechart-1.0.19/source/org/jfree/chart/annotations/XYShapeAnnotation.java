@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -55,19 +55,6 @@
 
 package org.jfree.chart.annotations;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.Plot;
@@ -81,6 +68,14 @@ import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * A simple <code>Shape</code> annotation that can be placed on an
  * {@link XYPlot}.  The shape coordinates are specified in data space.
@@ -88,27 +83,37 @@ import org.jfree.util.PublicCloneable;
 public class XYShapeAnnotation extends AbstractXYAnnotation
         implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -8553218317600684041L;
 
-    /** The shape. */
+    /**
+     * The shape.
+     */
     private transient Shape shape;
 
-    /** The stroke used to draw the shape's outline. */
+    /**
+     * The stroke used to draw the shape's outline.
+     */
     private transient Stroke stroke;
 
-    /** The paint used to draw the shape's outline. */
+    /**
+     * The paint used to draw the shape's outline.
+     */
     private transient Paint outlinePaint;
 
-    /** The paint used to fill the shape. */
+    /**
+     * The paint used to fill the shape.
+     */
     private transient Paint fillPaint;
 
     /**
      * Creates a new annotation (where, by default, the shape is drawn
      * with a black outline).
      *
-     * @param shape  the shape (coordinates in data space, <code>null</code>
-     *     not permitted).
+     * @param shape the shape (coordinates in data space, <code>null</code>
+     *              not permitted).
      */
     public XYShapeAnnotation(Shape shape) {
         this(shape, new BasicStroke(1.0f), Color.black);
@@ -118,9 +123,9 @@ public class XYShapeAnnotation extends AbstractXYAnnotation
      * Creates a new annotation where the shape is drawn as an outline using
      * the specified <code>stroke</code> and <code>outlinePaint</code>.
      *
-     * @param shape  the shape (<code>null</code> not permitted).
-     * @param stroke  the shape stroke (<code>null</code> permitted).
-     * @param outlinePaint  the shape color (<code>null</code> permitted).
+     * @param shape        the shape (<code>null</code> not permitted).
+     * @param stroke       the shape stroke (<code>null</code> permitted).
+     * @param outlinePaint the shape color (<code>null</code> permitted).
      */
     public XYShapeAnnotation(Shape shape, Stroke stroke, Paint outlinePaint) {
         this(shape, stroke, outlinePaint, null);
@@ -129,11 +134,11 @@ public class XYShapeAnnotation extends AbstractXYAnnotation
     /**
      * Creates a new annotation.
      *
-     * @param shape  the shape (<code>null</code> not permitted).
-     * @param stroke  the shape stroke (<code>null</code> permitted).
-     * @param outlinePaint  the shape color (<code>null</code> permitted).
-     * @param fillPaint  the paint used to fill the shape (<code>null</code>
-     *                   permitted.
+     * @param shape        the shape (<code>null</code> not permitted).
+     * @param stroke       the shape stroke (<code>null</code> permitted).
+     * @param outlinePaint the shape color (<code>null</code> permitted).
+     * @param fillPaint    the paint used to fill the shape (<code>null</code>
+     *                     permitted.
      */
     public XYShapeAnnotation(Shape shape, Stroke stroke, Paint outlinePaint,
                              Paint fillPaint) {
@@ -149,13 +154,13 @@ public class XYShapeAnnotation extends AbstractXYAnnotation
      * Draws the annotation.  This method is usually called by the
      * {@link XYPlot} class, you shouldn't need to call it directly.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the range axis.
-     * @param rendererIndex  the renderer index.
-     * @param info  the plot rendering info.
+     * @param g2            the graphics device.
+     * @param plot          the plot.
+     * @param dataArea      the data area.
+     * @param domainAxis    the domain axis.
+     * @param rangeAxis     the range axis.
+     * @param rendererIndex the renderer index.
+     * @param info          the plot rendering info.
      */
     @Override
     public void draw(Graphics2D g2, XYPlot plot, Rectangle2D dataArea,
@@ -195,8 +200,7 @@ public class XYShapeAnnotation extends AbstractXYAnnotation
                     m12, m02);
             s = t1.createTransformedShape(this.shape);
             s = t2.createTransformedShape(s);
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             AffineTransform t = new AffineTransform(m00, 0, 0, m11, m02, m12);
             s = t.createTransformedShape(this.shape);
         }
@@ -218,8 +222,7 @@ public class XYShapeAnnotation extends AbstractXYAnnotation
     /**
      * Tests this annotation for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -273,7 +276,6 @@ public class XYShapeAnnotation extends AbstractXYAnnotation
      * Returns a clone.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException ???.
      */
     @Override
@@ -284,8 +286,7 @@ public class XYShapeAnnotation extends AbstractXYAnnotation
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
+     * @param stream the output stream.
      * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
@@ -299,13 +300,12 @@ public class XYShapeAnnotation extends AbstractXYAnnotation
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.shape = SerialUtilities.readShape(stream);
         this.stroke = SerialUtilities.readStroke(stream);

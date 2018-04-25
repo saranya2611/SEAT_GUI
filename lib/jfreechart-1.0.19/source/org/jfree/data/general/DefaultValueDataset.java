@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -44,10 +44,10 @@
 
 package org.jfree.data.general;
 
-import java.io.Serializable;
-
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
 
 /**
  * A dataset that stores a single value (that is possibly <code>null</code>).
@@ -57,10 +57,14 @@ import org.jfree.util.PublicCloneable;
 public class DefaultValueDataset extends AbstractDataset
         implements ValueDataset, Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 8137521217249294891L;
 
-    /** The value. */
+    /**
+     * The value.
+     */
     private Number value;
 
     /**
@@ -73,7 +77,7 @@ public class DefaultValueDataset extends AbstractDataset
     /**
      * Creates a new dataset with the specified value.
      *
-     * @param value  the value.
+     * @param value the value.
      */
     public DefaultValueDataset(double value) {
         this(new Double(value));
@@ -82,7 +86,7 @@ public class DefaultValueDataset extends AbstractDataset
     /**
      * Creates a new dataset with the specified value.
      *
-     * @param value  the initial value (<code>null</code> permitted).
+     * @param value the initial value (<code>null</code> permitted).
      */
     public DefaultValueDataset(Number value) {
         super();
@@ -103,7 +107,7 @@ public class DefaultValueDataset extends AbstractDataset
      * Sets the value and sends a {@link DatasetChangeEvent} to all registered
      * listeners.
      *
-     * @param value  the new value (<code>null</code> permitted).
+     * @param value the new value (<code>null</code> permitted).
      */
     public void setValue(Number value) {
         this.value = value;
@@ -113,8 +117,7 @@ public class DefaultValueDataset extends AbstractDataset
     /**
      * Tests this dataset for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -40,24 +40,18 @@
 
 package org.jfree.chart;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.chart.plot.DefaultDrawingSupplier;
 import org.jfree.chart.plot.PieLabelLinkStyle;
 import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.chart.renderer.xy.StandardXYBarPainter;
 import org.jfree.ui.RectangleInsets;
 import org.junit.Test;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the {@link StandardChartTheme} class.
@@ -129,18 +123,18 @@ public class StandardChartThemeTest {
 
         //drawingSupplier;
         t1.setDrawingSupplier(new DefaultDrawingSupplier(
-                new Paint[] {Color.red},
-                new Paint[] {Color.blue},
-                new Stroke[] {new BasicStroke(1.0f)},
-                new Stroke[] {new BasicStroke(1.0f)},
-                new Shape[] {new Rectangle2D.Double(1.0, 2.0, 3.0, 4.0)}));
+                new Paint[]{Color.red},
+                new Paint[]{Color.blue},
+                new Stroke[]{new BasicStroke(1.0f)},
+                new Stroke[]{new BasicStroke(1.0f)},
+                new Shape[]{new Rectangle2D.Double(1.0, 2.0, 3.0, 4.0)}));
         assertFalse(t1.equals(t2));
         t2.setDrawingSupplier(new DefaultDrawingSupplier(
-                new Paint[] {Color.red},
-                new Paint[] {Color.blue},
-                new Stroke[] {new BasicStroke(1.0f)},
-                new Stroke[] {new BasicStroke(1.0f)},
-                new Shape[] {new Rectangle2D.Double(1.0, 2.0, 3.0, 4.0)}));
+                new Paint[]{Color.red},
+                new Paint[]{Color.blue},
+                new Stroke[]{new BasicStroke(1.0f)},
+                new Stroke[]{new BasicStroke(1.0f)},
+                new Shape[]{new Rectangle2D.Double(1.0, 2.0, 3.0, 4.0)}));
         assertTrue(t1.equals(t2));
 
         //plotBackgroundPaint;

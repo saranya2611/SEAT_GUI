@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -51,25 +51,33 @@ import java.io.Serializable;
  */
 public final class PieLabelLinkStyle implements Serializable {
 
-    /** STANDARD. */
+    /**
+     * STANDARD.
+     */
     public static final PieLabelLinkStyle STANDARD
             = new PieLabelLinkStyle("PieLabelLinkStyle.STANDARD");
 
-    /** QUAD_CURVE. */
+    /**
+     * QUAD_CURVE.
+     */
     public static final PieLabelLinkStyle QUAD_CURVE
             = new PieLabelLinkStyle("PieLabelLinkStyle.QUAD_CURVE");
 
-    /** CUBIC_CURVE. */
+    /**
+     * CUBIC_CURVE.
+     */
     public static final PieLabelLinkStyle CUBIC_CURVE
             = new PieLabelLinkStyle("PieLabelLinkStyle.CUBIC_CURVE");
 
-    /** The name. */
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private PieLabelLinkStyle(String name) {
         this.name = name;
@@ -89,8 +97,7 @@ public final class PieLabelLinkStyle implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -122,18 +129,15 @@ public final class PieLabelLinkStyle implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         Object result = null;
         if (this.equals(PieLabelLinkStyle.STANDARD)) {
             result = PieLabelLinkStyle.STANDARD;
-        }
-        else if (this.equals(PieLabelLinkStyle.QUAD_CURVE)) {
+        } else if (this.equals(PieLabelLinkStyle.QUAD_CURVE)) {
             result = PieLabelLinkStyle.QUAD_CURVE;
-        }
-        else if (this.equals(PieLabelLinkStyle.CUBIC_CURVE)) {
+        } else if (this.equals(PieLabelLinkStyle.CUBIC_CURVE)) {
             result = PieLabelLinkStyle.CUBIC_CURVE;
         }
         return result;

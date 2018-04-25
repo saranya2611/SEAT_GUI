@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -75,9 +75,8 @@ public interface CategoryItemLabelGenerator {
     /**
      * Generates a label for the specified row.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param row  the row index (zero-based).
-     *
+     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param row     the row index (zero-based).
      * @return The label.
      */
     public String generateRowLabel(CategoryDataset dataset, int row);
@@ -85,9 +84,8 @@ public interface CategoryItemLabelGenerator {
     /**
      * Generates a label for the specified row.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param column  the column index (zero-based).
-     *
      * @return The label.
      */
     public String generateColumnLabel(CategoryDataset dataset, int column);
@@ -96,10 +94,9 @@ public interface CategoryItemLabelGenerator {
      * Generates a label for the specified item. The label is typically a
      * formatted version of the data value, but any text can be used.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param row  the row index (zero-based).
+     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param row     the row index (zero-based).
      * @param column  the column index (zero-based).
-     *
      * @return The label (possibly <code>null</code>).
      */
     public String generateLabel(CategoryDataset dataset, int row, int column);

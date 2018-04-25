@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -53,24 +53,29 @@ import java.io.Serializable;
  */
 public final class PlotOrientation implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -2508771828190337782L;
-
-    /** For a plot where the range axis is horizontal. */
+    /**
+     * For a plot where the range axis is horizontal.
+     */
     public static final PlotOrientation HORIZONTAL
             = new PlotOrientation("PlotOrientation.HORIZONTAL");
-
-    /** For a plot where the range axis is vertical. */
+    /**
+     * For a plot where the range axis is vertical.
+     */
     public static final PlotOrientation VERTICAL
             = new PlotOrientation("PlotOrientation.VERTICAL");
-
-    /** The name. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -2508771828190337782L;
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private PlotOrientation(String name) {
         this.name = name;
@@ -78,28 +83,26 @@ public final class PlotOrientation implements Serializable {
 
     /**
      * Returns <code>true</code> if this orientation is <code>HORIZONTAL</code>,
-     * and <code>false</code> otherwise.  
-     * 
+     * and <code>false</code> otherwise.
+     *
      * @return A boolean.
-     * 
      * @since 1.0.18
      */
     public boolean isHorizontal() {
         return this.equals(PlotOrientation.HORIZONTAL);
     }
-    
+
     /**
      * Returns <code>true</code> if this orientation is <code>VERTICAL</code>,
      * and <code>false</code> otherwise.
-     * 
+     *
      * @return A boolean.
-     * 
      * @since 1.0.18
      */
     public boolean isVertical() {
         return this.equals(PlotOrientation.VERTICAL);
     }
-    
+
     /**
      * Returns a string representing the object.
      *
@@ -114,8 +117,7 @@ public final class PlotOrientation implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -147,15 +149,13 @@ public final class PlotOrientation implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         Object result = null;
         if (this.equals(PlotOrientation.HORIZONTAL)) {
             result = PlotOrientation.HORIZONTAL;
-        }
-        else if (this.equals(PlotOrientation.VERTICAL)) {
+        } else if (this.equals(PlotOrientation.VERTICAL)) {
             result = PlotOrientation.VERTICAL;
         }
         return result;

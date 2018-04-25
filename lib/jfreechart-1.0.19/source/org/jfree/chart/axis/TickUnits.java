@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -67,10 +67,14 @@ import java.util.List;
  */
 public class TickUnits implements TickUnitSource, Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 1134174035901467545L;
 
-    /** Storage for the tick units. */
+    /**
+     * Storage for the tick units.
+     */
     private List tickUnits;
 
     /**
@@ -84,7 +88,7 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
      * Adds a tick unit to the collection.  The tick units are maintained in
      * ascending order.
      *
-     * @param unit  the tick unit to add (<code>null</code> not permitted).
+     * @param unit the tick unit to add (<code>null</code> not permitted).
      */
     public void add(TickUnit unit) {
         if (unit == null) {
@@ -96,7 +100,7 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
 
     /**
      * Returns the number of tick units in this collection.
-     * <P>
+     * <p>
      * This method is required for the XML writer.
      *
      * @return The number of units in this collection.
@@ -107,11 +111,10 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
 
     /**
      * Returns the tickunit on the given position.
-     * <P>
+     * <p>
      * This method is required for the XML writer.
      *
      * @param pos the position in the list.
-     *
      * @return The tickunit.
      */
     public TickUnit get(int pos) {
@@ -121,8 +124,7 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
     /**
      * Returns a tick unit that is larger than the supplied unit.
      *
-     * @param unit   the unit.
-     *
+     * @param unit the unit.
      * @return A tick unit that is larger than the supplied unit.
      */
     @Override
@@ -130,8 +132,7 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
         int index = Collections.binarySearch(this.tickUnits, unit);
         if (index >= 0) {
             index = index + 1;
-        }
-        else {
+        } else {
             index = -index;
         }
 
@@ -143,8 +144,7 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
      * Returns the tick unit in the collection that is greater than or equal
      * to (in size) the specified unit.
      *
-     * @param unit  the unit.
-     *
+     * @param unit the unit.
      * @return A unit from the collection.
      */
     @Override
@@ -152,8 +152,7 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
         int index = Collections.binarySearch(this.tickUnits, unit);
         if (index >= 0) {
             return (TickUnit) this.tickUnits.get(index);
-        }
-        else {
+        } else {
             index = -(index + 1);
             return (TickUnit) this.tickUnits.get(Math.min(index,
                     this.tickUnits.size() - 1));
@@ -164,8 +163,7 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
      * Returns the tick unit in the collection that is greater than or equal
      * to the specified size.
      *
-     * @param size  the size.
-     *
+     * @param size the size.
      * @return A unit from the collection.
      */
     @Override
@@ -178,9 +176,8 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
      * Returns a clone of the collection.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if an item in the collection does not
-     *         support cloning.
+     *                                    support cloning.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -192,8 +189,7 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
     /**
      * Tests an object for equality with this instance.
      *
-     * @param obj  the object to test (<code>null</code> permitted).
-     *
+     * @param obj the object to test (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -51,11 +51,10 @@ public interface WindDataset extends XYDataset {
      * Returns the wind direction (should be in the range 0 to 12,
      * corresponding to the positions on an upside-down clock face).
      *
-     * @param series  the series (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item (in the range <code>0</code> to
-     *     <code>getItemCount(series) - 1</code>).
-     *
+     * @param series the series (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item (in the range <code>0</code> to
+     *               <code>getItemCount(series) - 1</code>).
      * @return The wind direction.
      */
     public Number getWindDirection(int series, int item);
@@ -65,11 +64,10 @@ public interface WindDataset extends XYDataset {
      * <p>
      * http://en.wikipedia.org/wiki/Beaufort_scale
      *
-     * @param series  the series (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item (in the range <code>0</code> to
-     *     <code>getItemCount(series) - 1</code>).
-     *
+     * @param series the series (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item (in the range <code>0</code> to
+     *               <code>getItemCount(series) - 1</code>).
      * @return The wind force.
      */
     public Number getWindForce(int series, int item);

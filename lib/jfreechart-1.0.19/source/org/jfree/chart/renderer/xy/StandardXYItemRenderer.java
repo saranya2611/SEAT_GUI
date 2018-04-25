@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -110,12 +110,20 @@
 
 package org.jfree.chart.renderer.xy;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Paint;
-import java.awt.Point;
-import java.awt.Shape;
-import java.awt.Stroke;
+import org.jfree.chart.LegendItem;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.entity.EntityCollection;
+import org.jfree.chart.event.RendererChangeEvent;
+import org.jfree.chart.labels.XYToolTipGenerator;
+import org.jfree.chart.plot.*;
+import org.jfree.chart.urls.XYURLGenerator;
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.*;
+
+import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
@@ -124,76 +132,73 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import org.jfree.chart.LegendItem;
-import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.entity.EntityCollection;
-import org.jfree.chart.event.RendererChangeEvent;
-import org.jfree.chart.labels.XYToolTipGenerator;
-import org.jfree.chart.plot.CrosshairState;
-import org.jfree.chart.plot.Plot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.PlotRenderingInfo;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.urls.XYURLGenerator;
-import org.jfree.chart.util.ParamChecks;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.io.SerialUtilities;
-import org.jfree.ui.RectangleEdge;
-import org.jfree.util.BooleanList;
-import org.jfree.util.BooleanUtilities;
-import org.jfree.util.ObjectUtilities;
-import org.jfree.util.PublicCloneable;
-import org.jfree.util.ShapeUtilities;
-import org.jfree.util.UnitType;
-
 /**
  * Standard item renderer for an {@link XYPlot}.  This class can draw (a)
  * shapes at each point, or (b) lines between points, or (c) both shapes and
  * lines.
- * <P>
+ * <p>
  * This renderer has been retained for historical reasons and, in general, you
  * should use the {@link XYLineAndShapeRenderer} class instead.
  */
 public class StandardXYItemRenderer extends AbstractXYItemRenderer
         implements XYItemRenderer, Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -3271351259436865995L;
-
-    /** Constant for the type of rendering (shapes only). */
+    /**
+     * Constant for the type of rendering (shapes only).
+     */
     public static final int SHAPES = 1;
-
-    /** Constant for the type of rendering (lines only). */
+    /**
+     * Constant for the type of rendering (lines only).
+     */
     public static final int LINES = 2;
-
-    /** Constant for the type of rendering (shapes and lines). */
+    /**
+     * Constant for the type of rendering (shapes and lines).
+     */
     public static final int SHAPES_AND_LINES = SHAPES | LINES;
-
-    /** Constant for the type of rendering (images only). */
+    /**
+     * Constant for the type of rendering (images only).
+     */
     public static final int IMAGES = 4;
-
-    /** Constant for the type of rendering (discontinuous lines). */
+    /**
+     * Constant for the type of rendering (discontinuous lines).
+     */
     public static final int DISCONTINUOUS = 8;
-
-    /** Constant for the type of rendering (discontinuous lines). */
+    /**
+     * Constant for the type of rendering (discontinuous lines).
+     */
     public static final int DISCONTINUOUS_LINES = LINES | DISCONTINUOUS;
-
-    /** A flag indicating whether or not shapes are drawn at each XY point. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -3271351259436865995L;
+    /**
+     * A flag indicating whether or not shapes are drawn at each XY point.
+     */
     private boolean baseShapesVisible;
 
-    /** A flag indicating whether or not lines are drawn between XY points. */
+    /**
+     * A flag indicating whether or not lines are drawn between XY points.
+     */
     private boolean plotLines;
 
-    /** A flag indicating whether or not images are drawn between XY points. */
+    /**
+     * A flag indicating whether or not images are drawn between XY points.
+     */
     private boolean plotImages;
 
-    /** A flag controlling whether or not discontinuous lines are used. */
+    /**
+     * A flag controlling whether or not discontinuous lines are used.
+     */
     private boolean plotDiscontinuous;
 
-    /** Specifies how the gap threshold value is interpreted. */
+    /**
+     * Specifies how the gap threshold value is interpreted.
+     */
     private UnitType gapThresholdType = UnitType.RELATIVE;
 
-    /** Threshold for deciding when to discontinue a line. */
+    /**
+     * Threshold for deciding when to discontinue a line.
+     */
     private double gapThreshold = 1.0;
 
     /**
@@ -209,7 +214,9 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      */
     private BooleanList seriesShapesFilled;
 
-    /** The default value returned by the getShapeFilled() method. */
+    /**
+     * The default value returned by the getShapeFilled() method.
+     */
     private boolean baseShapesFilled;
 
     /**
@@ -236,7 +243,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * the constants: {@link #SHAPES}, {@link #LINES} or
      * {@link #SHAPES_AND_LINES}.
      *
-     * @param type  the type.
+     * @param type the type.
      */
     public StandardXYItemRenderer(int type) {
         this(type, null);
@@ -247,9 +254,9 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * the constants: {@link #SHAPES}, {@link #LINES} or
      * {@link #SHAPES_AND_LINES}.
      *
-     * @param type  the type of renderer.
-     * @param toolTipGenerator  the item label generator (<code>null</code>
-     *                          permitted).
+     * @param type             the type of renderer.
+     * @param toolTipGenerator the item label generator (<code>null</code>
+     *                         permitted).
      */
     public StandardXYItemRenderer(int type,
                                   XYToolTipGenerator toolTipGenerator) {
@@ -261,10 +268,10 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * the constants: {@link #SHAPES}, {@link #LINES} or
      * {@link #SHAPES_AND_LINES}.
      *
-     * @param type  the type of renderer.
-     * @param toolTipGenerator  the item label generator (<code>null</code>
-     *                          permitted).
-     * @param urlGenerator  the URL generator.
+     * @param type             the type of renderer.
+     * @param toolTipGenerator the item label generator (<code>null</code>
+     *                         permitted).
+     * @param urlGenerator     the URL generator.
      */
     public StandardXYItemRenderer(int type,
                                   XYToolTipGenerator toolTipGenerator,
@@ -297,7 +304,6 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Returns true if shapes are being plotted by the renderer.
      *
      * @return <code>true</code> if shapes are being plotted by the renderer.
-     *
      * @see #setBaseShapesVisible
      */
     public boolean getBaseShapesVisible() {
@@ -308,8 +314,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Sets the flag that controls whether or not a shape is plotted at each
      * data point.
      *
-     * @param flag  the flag.
-     *
+     * @param flag the flag.
      * @see #getBaseShapesVisible
      */
     public void setBaseShapesVisible(boolean flag) {
@@ -329,11 +334,9 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * <code>getSeriesShapesFilled</code> method.  You can override this method
      * if you require different behaviour.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return A boolean.
-     *
      * @see #getSeriesShapesFilled(int)
      */
     public boolean getItemShapeFilled(int series, int item) {
@@ -346,8 +349,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
         Boolean flag = this.seriesShapesFilled.getBoolean(series);
         if (flag != null) {
             return flag.booleanValue();
-        }
-        else {
+        } else {
             return this.baseShapesFilled;
         }
     }
@@ -357,12 +359,10 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * for ALL series.
      *
      * @return The flag (possibly <code>null</code>).
-     *
      * @since 1.0.5
-     *
      * @deprecated As of 1.0.8, you should avoid using this method and rely
-     *             on just the per-series ({@link #getSeriesShapesFilled(int)})
-     *             and base-level ({@link #getBaseShapesFilled()}) settings.
+     * on just the per-series ({@link #getSeriesShapesFilled(int)})
+     * and base-level ({@link #getBaseShapesFilled()}) settings.
      */
     public Boolean getShapesFilled() {
         return this.shapesFilled;
@@ -373,33 +373,12 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * for ALL series and sends a {@link RendererChangeEvent} to all registered
      * listeners.
      *
-     * @param filled  the flag.
-     *
-     * @see #setShapesFilled(Boolean)
-     *
-     * @deprecated As of 1.0.8, you should avoid using this method and rely
-     *             on just the per-series ({@link #setSeriesShapesFilled(int,
-     *             Boolean)}) and base-level ({@link #setBaseShapesVisible(
-     *             boolean)}) settings.
-     */
-    public void setShapesFilled(boolean filled) {
-        // here we use BooleanUtilities to remain compatible with JDKs < 1.4
-        setShapesFilled(BooleanUtilities.valueOf(filled));
-    }
-
-    /**
-     * Sets the override flag that controls whether or not shapes are filled
-     * for ALL series and sends a {@link RendererChangeEvent} to all registered
-     * listeners.
-     *
-     * @param filled  the flag (<code>null</code> permitted).
-     *
+     * @param filled the flag (<code>null</code> permitted).
      * @see #setShapesFilled(boolean)
-     *
      * @deprecated As of 1.0.8, you should avoid using this method and rely
-     *             on just the per-series ({@link #setSeriesShapesFilled(int,
-     *             Boolean)}) and base-level ({@link #setBaseShapesVisible(
-     *             boolean)}) settings.
+     * on just the per-series ({@link #setSeriesShapesFilled(int,
+     * Boolean)}) and base-level ({@link #setBaseShapesVisible(
+     *boolean)}) settings.
      */
     public void setShapesFilled(Boolean filled) {
         this.shapesFilled = filled;
@@ -407,11 +386,27 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
     }
 
     /**
+     * Sets the override flag that controls whether or not shapes are filled
+     * for ALL series and sends a {@link RendererChangeEvent} to all registered
+     * listeners.
+     *
+     * @param filled the flag.
+     * @see #setShapesFilled(Boolean)
+     * @deprecated As of 1.0.8, you should avoid using this method and rely
+     * on just the per-series ({@link #setSeriesShapesFilled(int,
+     * Boolean)}) and base-level ({@link #setBaseShapesVisible(
+     *boolean)}) settings.
+     */
+    public void setShapesFilled(boolean filled) {
+        // here we use BooleanUtilities to remain compatible with JDKs < 1.4
+        setShapesFilled(BooleanUtilities.valueOf(filled));
+    }
+
+    /**
      * Returns the flag used to control whether or not the shapes for a series
      * are filled.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @return A boolean.
      */
     public Boolean getSeriesShapesFilled(int series) {
@@ -422,9 +417,8 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Sets the 'shapes filled' flag for a series and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param series  the series index (zero-based).
-     * @param flag  the flag.
-     *
+     * @param series the series index (zero-based).
+     * @param flag   the flag.
      * @see #getSeriesShapesFilled(int)
      */
     public void setSeriesShapesFilled(int series, Boolean flag) {
@@ -436,7 +430,6 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Returns the base 'shape filled' attribute.
      *
      * @return The base flag.
-     *
      * @see #setBaseShapesFilled(boolean)
      */
     public boolean getBaseShapesFilled() {
@@ -447,8 +440,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Sets the base 'shapes filled' flag and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param flag  the flag.
-     *
+     * @param flag the flag.
      * @see #getBaseShapesFilled()
      */
     public void setBaseShapesFilled(boolean flag) {
@@ -459,7 +451,6 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Returns true if lines are being plotted by the renderer.
      *
      * @return <code>true</code> if lines are being plotted by the renderer.
-     *
      * @see #setPlotLines(boolean)
      */
     public boolean getPlotLines() {
@@ -471,8 +462,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * each data point and sends a {@link RendererChangeEvent} to all
      * registered listeners.
      *
-     * @param flag  the flag.
-     *
+     * @param flag the flag.
      * @see #getPlotLines()
      */
     public void setPlotLines(boolean flag) {
@@ -486,7 +476,6 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Returns the gap threshold type (relative or absolute).
      *
      * @return The type.
-     *
      * @see #setGapThresholdType(UnitType)
      */
     public UnitType getGapThresholdType() {
@@ -497,8 +486,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Sets the gap threshold type and sends a {@link RendererChangeEvent} to
      * all registered listeners.
      *
-     * @param thresholdType  the type (<code>null</code> not permitted).
-     *
+     * @param thresholdType the type (<code>null</code> not permitted).
      * @see #getGapThresholdType()
      */
     public void setGapThresholdType(UnitType thresholdType) {
@@ -511,7 +499,6 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Returns the gap threshold for discontinuous lines.
      *
      * @return The gap threshold.
-     *
      * @see #setGapThreshold(double)
      */
     public double getGapThreshold() {
@@ -522,8 +509,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Sets the gap threshold for discontinuous lines and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param t  the threshold.
-     *
+     * @param t the threshold.
      * @see #getGapThreshold()
      */
     public void setGapThreshold(double t) {
@@ -535,7 +521,6 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Returns true if images are being plotted by the renderer.
      *
      * @return <code>true</code> if images are being plotted by the renderer.
-     *
      * @see #setPlotImages(boolean)
      */
     public boolean getPlotImages() {
@@ -547,8 +532,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * data point and sends a {@link RendererChangeEvent} to all registered
      * listeners.
      *
-     * @param flag  the flag.
-     *
+     * @param flag the flag.
      * @see #getPlotImages()
      */
     public void setPlotImages(boolean flag) {
@@ -573,8 +557,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * discontinuous lines, and sends a {@link RendererChangeEvent} to all
      * registered listeners.
      *
-     * @param flag  the new flag value.
-     *
+     * @param flag the new flag value.
      * @since 1.0.5
      */
     public void setPlotDiscontinuous(boolean flag) {
@@ -589,7 +572,6 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * single path.
      *
      * @return A boolean.
-     *
      * @see #setDrawSeriesLineAsPath(boolean)
      */
     public boolean getDrawSeriesLineAsPath() {
@@ -600,8 +582,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Sets the flag that controls whether or not each series is drawn as a
      * single path.
      *
-     * @param flag  the flag.
-     *
+     * @param flag the flag.
      * @see #getDrawSeriesLineAsPath()
      */
     public void setDrawSeriesLineAsPath(boolean flag) {
@@ -612,7 +593,6 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Returns the shape used to represent a line in the legend.
      *
      * @return The legend line (never <code>null</code>).
-     *
      * @see #setLegendLine(Shape)
      */
     public Shape getLegendLine() {
@@ -623,8 +603,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Sets the shape used as a line in each legend item and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param line  the line (<code>null</code> not permitted).
-     *
+     * @param line the line (<code>null</code> not permitted).
      * @see #getLegendLine()
      */
     public void setLegendLine(Shape line) {
@@ -636,9 +615,8 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
     /**
      * Returns a legend item for a series.
      *
-     * @param datasetIndex  the dataset index (zero-based).
-     * @param series  the series index (zero-based).
-     *
+     * @param datasetIndex the dataset index (zero-based).
+     * @param series       the series index (zero-based).
      * @return A legend item for the series.
      */
     @Override
@@ -688,91 +666,23 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Records the state for the renderer.  This is used to preserve state
-     * information between calls to the drawItem() method for a single chart
-     * drawing.
-     */
-    public static class State extends XYItemRendererState {
-
-        /** The path for the current series. */
-        public GeneralPath seriesPath;
-
-        /** The series index. */
-        private int seriesIndex;
-
-        /**
-         * A flag that indicates if the last (x, y) point was 'good'
-         * (non-null).
-         */
-        private boolean lastPointGood;
-
-        /**
-         * Creates a new state instance.
-         *
-         * @param info  the plot rendering info.
-         */
-        public State(PlotRenderingInfo info) {
-            super(info);
-        }
-
-        /**
-         * Returns a flag that indicates if the last point drawn (in the
-         * current series) was 'good' (non-null).
-         *
-         * @return A boolean.
-         */
-        public boolean isLastPointGood() {
-            return this.lastPointGood;
-        }
-
-        /**
-         * Sets a flag that indicates if the last point drawn (in the current
-         * series) was 'good' (non-null).
-         *
-         * @param good  the flag.
-         */
-        public void setLastPointGood(boolean good) {
-            this.lastPointGood = good;
-        }
-
-        /**
-         * Returns the series index for the current path.
-         *
-         * @return The series index for the current path.
-         */
-        public int getSeriesIndex() {
-            return this.seriesIndex;
-        }
-
-        /**
-         * Sets the series index for the current path.
-         *
-         * @param index  the index.
-         */
-        public void setSeriesIndex(int index) {
-            this.seriesIndex = index;
-        }
-    }
-
-    /**
      * Initialises the renderer.
-     * <P>
+     * <p>
      * This method will be called before the first item is rendered, giving the
      * renderer an opportunity to initialise any state information it wants to
      * maintain. The renderer can do nothing if it chooses.
      *
-     * @param g2  the graphics device.
-     * @param dataArea  the area inside the axes.
-     * @param plot  the plot.
-     * @param data  the data.
-     * @param info  an optional info collection object to return data back to
-     *              the caller.
-     *
+     * @param g2       the graphics device.
+     * @param dataArea the area inside the axes.
+     * @param plot     the plot.
+     * @param data     the data.
+     * @param info     an optional info collection object to return data back to
+     *                 the caller.
      * @return The renderer state.
      */
     @Override
     public XYItemRendererState initialise(Graphics2D g2, Rectangle2D dataArea,
-            XYPlot plot, XYDataset data, PlotRenderingInfo info) {
+                                          XYPlot plot, XYDataset data, PlotRenderingInfo info) {
 
         State state = new State(info);
         state.seriesPath = new GeneralPath();
@@ -784,26 +694,26 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
     /**
      * Draws the visual representation of a single data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the area within which the data is being drawn.
-     * @param info  collects information about the drawing.
-     * @param plot  the plot (can be used to obtain standard color information
-     *              etc).
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     * @param crosshairState  crosshair information for the plot
-     *                        (<code>null</code> permitted).
-     * @param pass  the pass index.
+     * @param g2             the graphics device.
+     * @param state          the renderer state.
+     * @param dataArea       the area within which the data is being drawn.
+     * @param info           collects information about the drawing.
+     * @param plot           the plot (can be used to obtain standard color information
+     *                       etc).
+     * @param domainAxis     the domain axis.
+     * @param rangeAxis      the range axis.
+     * @param dataset        the dataset.
+     * @param series         the series index (zero-based).
+     * @param item           the item index (zero-based).
+     * @param crosshairState crosshair information for the plot
+     *                       (<code>null</code> permitted).
+     * @param pass           the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, XYItemRendererState state,
-            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-            int series, int item, CrosshairState crosshairState, int pass) {
+                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+                         int series, int item, CrosshairState crosshairState, int pass) {
 
         boolean itemVisible = getItemVisible(series, item);
 
@@ -854,13 +764,11 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
                     if (s.isLastPointGood()) {
                         // TODO: check threshold
                         s.seriesPath.lineTo(x, y);
-                    }
-                    else {
+                    } else {
                         s.seriesPath.moveTo(x, y);
                     }
                     s.setLastPointGood(true);
-                }
-                else {
+                } else {
                     s.setLastPointGood(false);
                 }
                 if (item == dataset.getItemCount(series) - 1) {
@@ -871,9 +779,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
                         g2.draw(s.seriesPath);
                     }
                 }
-            }
-
-            else if (item != 0 && itemVisible) {
+            } else if (item != 0 && itemVisible) {
                 // get the previous data point...
                 double x0 = dataset.getXValue(series, item - 1);
                 double y0 = dataset.getYValue(series, item - 1);
@@ -887,10 +793,9 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
                         double maxX = dataset.getXValue(series, numX - 1);
                         if (this.gapThresholdType == UnitType.ABSOLUTE) {
                             drawLine = Math.abs(x1 - x0) <= this.gapThreshold;
-                        }
-                        else {
+                        } else {
                             drawLine = Math.abs(x1 - x0) <= ((maxX - minX)
-                                / numX * getGapThreshold());
+                                    / numX * getGapThreshold());
                         }
                     }
                     if (drawLine) {
@@ -901,15 +806,14 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
 
                         // only draw if we have good values
                         if (Double.isNaN(transX0) || Double.isNaN(transY0)
-                            || Double.isNaN(transX1) || Double.isNaN(transY1)) {
+                                || Double.isNaN(transX1) || Double.isNaN(transY1)) {
                             return;
                         }
 
                         if (orientation == PlotOrientation.HORIZONTAL) {
                             state.workingLine.setLine(transY0, transX0,
                                     transY1, transX1);
-                        }
-                        else if (orientation == PlotOrientation.VERTICAL) {
+                        } else if (orientation == PlotOrientation.VERTICAL) {
                             state.workingLine.setLine(transX0, transY0,
                                     transX1, transY1);
                         }
@@ -935,16 +839,14 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
             if (orientation == PlotOrientation.HORIZONTAL) {
                 shape = ShapeUtilities.createTranslatedShape(shape, transY1,
                         transX1);
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
+            } else if (orientation == PlotOrientation.VERTICAL) {
                 shape = ShapeUtilities.createTranslatedShape(shape, transX1,
                         transY1);
             }
             if (shape.intersects(dataArea)) {
                 if (getItemShapeFilled(series, item)) {
                     g2.fill(shape);
-                }
-                else {
+                } else {
                     g2.draw(shape);
                 }
             }
@@ -994,8 +896,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
     /**
      * Tests this renderer for equality with another object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -1049,8 +950,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * Returns a clone of the renderer.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the renderer cannot be cloned.
+     * @throws CloneNotSupportedException if the renderer cannot be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -1061,24 +961,16 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
         return clone;
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // PROTECTED METHODS
-    // These provide the opportunity to subclass the standard renderer and
-    // create custom effects.
-    ////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns the image used to draw a single data item.
      *
-     * @param plot  the plot (can be used to obtain standard color information
-     *              etc).
-     * @param series  the series index.
-     * @param item  the item index.
-     * @param x  the x value of the item.
-     * @param y  the y value of the item.
-     *
+     * @param plot   the plot (can be used to obtain standard color information
+     *               etc).
+     * @param series the series index.
+     * @param item   the item index.
+     * @param x      the x value of the item.
+     * @param y      the y value of the item.
      * @return The image.
-     *
      * @see #getPlotImages()
      */
     protected Image getImage(Plot plot, int series, int item,
@@ -1087,21 +979,26 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
         return null;
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // PROTECTED METHODS
+    // These provide the opportunity to subclass the standard renderer and
+    // create custom effects.
+    ////////////////////////////////////////////////////////////////////////////
+
     /**
      * Returns the hotspot of the image used to draw a single data item.
      * The hotspot is the point relative to the top left of the image
      * that should indicate the data item. The default is the center of the
      * image.
      *
-     * @param plot  the plot (can be used to obtain standard color information
-     *              etc).
+     * @param plot   the plot (can be used to obtain standard color information
+     *               etc).
      * @param image  the image (can be used to get size information about the
      *               image)
-     * @param series  the series index
-     * @param item  the item index
-     * @param x  the x value of the item
-     * @param y  the y value of the item
-     *
+     * @param series the series index
+     * @param item   the item index
+     * @param x      the x value of the item
+     * @param y      the y value of the item
      * @return The hotspot used to draw the data item.
      */
     protected Point getImageHotspot(Plot plot, int series, int item,
@@ -1116,10 +1013,9 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
@@ -1130,13 +1026,83 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
         SerialUtilities.writeShape(this.legendLine, stream);
+    }
+
+    /**
+     * Records the state for the renderer.  This is used to preserve state
+     * information between calls to the drawItem() method for a single chart
+     * drawing.
+     */
+    public static class State extends XYItemRendererState {
+
+        /**
+         * The path for the current series.
+         */
+        public GeneralPath seriesPath;
+
+        /**
+         * The series index.
+         */
+        private int seriesIndex;
+
+        /**
+         * A flag that indicates if the last (x, y) point was 'good'
+         * (non-null).
+         */
+        private boolean lastPointGood;
+
+        /**
+         * Creates a new state instance.
+         *
+         * @param info the plot rendering info.
+         */
+        public State(PlotRenderingInfo info) {
+            super(info);
+        }
+
+        /**
+         * Returns a flag that indicates if the last point drawn (in the
+         * current series) was 'good' (non-null).
+         *
+         * @return A boolean.
+         */
+        public boolean isLastPointGood() {
+            return this.lastPointGood;
+        }
+
+        /**
+         * Sets a flag that indicates if the last point drawn (in the current
+         * series) was 'good' (non-null).
+         *
+         * @param good the flag.
+         */
+        public void setLastPointGood(boolean good) {
+            this.lastPointGood = good;
+        }
+
+        /**
+         * Returns the series index for the current path.
+         *
+         * @return The series index for the current path.
+         */
+        public int getSeriesIndex() {
+            return this.seriesIndex;
+        }
+
+        /**
+         * Sets the series index for the current path.
+         *
+         * @param index the index.
+         */
+        public void setSeriesIndex(int index) {
+            this.seriesIndex = index;
+        }
     }
 
 }

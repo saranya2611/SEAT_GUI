@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -41,12 +41,13 @@
 
 package org.jfree.chart.panel;
 
-import javax.swing.event.EventListenerList;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.event.ChartChangeEvent;
 import org.jfree.chart.event.OverlayChangeEvent;
 import org.jfree.chart.event.OverlayChangeListener;
 import org.jfree.chart.util.ParamChecks;
+
+import javax.swing.event.EventListenerList;
 
 /**
  * A base class for implementing overlays for a {@link ChartPanel}.
@@ -55,7 +56,9 @@ import org.jfree.chart.util.ParamChecks;
  */
 public class AbstractOverlay {
 
-    /** Storage for registered change listeners. */
+    /**
+     * Storage for registered change listeners.
+     */
     private transient EventListenerList changeListeners;
 
     /**
@@ -68,8 +71,7 @@ public class AbstractOverlay {
     /**
      * Registers an object for notification of changes to the overlay.
      *
-     * @param listener  the listener (<code>null</code> not permitted).
-     *
+     * @param listener the listener (<code>null</code> not permitted).
      * @see #removeChangeListener(OverlayChangeListener)
      */
     public void addChangeListener(OverlayChangeListener listener) {
@@ -80,8 +82,7 @@ public class AbstractOverlay {
     /**
      * Deregisters an object for notification of changes to the overlay.
      *
-     * @param listener  the listener (<code>null</code> not permitted)
-     *
+     * @param listener the listener (<code>null</code> not permitted)
      * @see #addChangeListener(OverlayChangeListener)
      */
     public void removeChangeListener(OverlayChangeListener listener) {
@@ -91,7 +92,7 @@ public class AbstractOverlay {
 
     /**
      * Sends a default {@link ChartChangeEvent} to all registered listeners.
-     * <P>
+     * <p>
      * This method is for convenience only.
      */
     public void fireOverlayChanged() {
@@ -102,11 +103,11 @@ public class AbstractOverlay {
     /**
      * Sends a {@link ChartChangeEvent} to all registered listeners.
      *
-     * @param event  information about the event that triggered the
-     *               notification.
+     * @param event information about the event that triggered the
+     *              notification.
      */
     protected void notifyListeners(OverlayChangeEvent event) {
-       Object[] listeners = this.changeListeners.getListenerList();
+        Object[] listeners = this.changeListeners.getListenerList();
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == OverlayChangeListener.class) {
                 ((OverlayChangeListener) listeners[i + 1]).overlayChanged(

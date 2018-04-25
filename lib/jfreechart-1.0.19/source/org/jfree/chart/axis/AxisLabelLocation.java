@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -45,33 +45,39 @@ import java.io.Serializable;
 
 /**
  * Used to indicate the location of an axis label.
- * 
+ *
  * @since 1.0.16
  */
 public final class AxisLabelLocation implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 1L;
-
-    /** Axis label at the top. */
+    /**
+     * Axis label at the top.
+     */
     public static final AxisLabelLocation HIGH_END = new AxisLabelLocation(
             "HIGH_END");
-    
-    /** Axis label at the middle. */
+    /**
+     * Axis label at the middle.
+     */
     public static final AxisLabelLocation MIDDLE = new AxisLabelLocation(
             "MIDDLE");
-    
-    /** Axis label at the bottom. */
+    /**
+     * Axis label at the bottom.
+     */
     public static final AxisLabelLocation LOW_END = new AxisLabelLocation(
             "LOW_END");
-
-    /** The name. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 1L;
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private AxisLabelLocation(String name) {
         this.name = name;
@@ -91,8 +97,7 @@ public final class AxisLabelLocation implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the other object (<code>null</code> permitted).
-     *
+     * @param obj the other object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -112,8 +117,8 @@ public final class AxisLabelLocation implements Serializable {
 
     /**
      * Returns a hash code for this instance.
-     * 
-     * @return A hash code. 
+     *
+     * @return A hash code.
      */
     @Override
     public int hashCode() {
@@ -126,7 +131,6 @@ public final class AxisLabelLocation implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {

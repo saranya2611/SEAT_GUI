@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -42,9 +42,10 @@
 
 package org.jfree.chart.axis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.jfree.chart.TestUtilities;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.text.Format;
 import java.text.NumberFormat;
@@ -55,101 +56,93 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 
-import org.jfree.chart.TestUtilities;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * JUnit Tests for the {@link SegmentedTimeline} class.
  */
 public class SegmentedTimelineTest {
 
-    /** These constants control test cycles in the validateXXXX methods. */
+    /**
+     * These constants control test cycles in the validateXXXX methods.
+     */
     private static final int TEST_CYCLE_START = 0;
 
-    /** These constants control test cycles in the validateXXXX methods. */
-    private static final int TEST_CYCLE_END   = 1000;
+    /**
+     * These constants control test cycles in the validateXXXX methods.
+     */
+    private static final int TEST_CYCLE_END = 1000;
 
-    /** These constants control test cycles in the validateXXXX methods. */
-    private static final int TEST_CYCLE_INC   = 55;
+    /**
+     * These constants control test cycles in the validateXXXX methods.
+     */
+    private static final int TEST_CYCLE_INC = 55;
 
-    /** Number of ms in five years */
+    /**
+     * Number of ms in five years
+     */
     private static final long FIVE_YEARS = 5 * 365
             * SegmentedTimeline.DAY_SEGMENT_SIZE;
 
-    /** Number format object for ms tests. */
+    /**
+     * Number format object for ms tests.
+     */
     private static final NumberFormat NUMBER_FORMAT
             = NumberFormat.getNumberInstance();
 
-    /** Date format object for Monday through Friday tests. */
+    /**
+     * Date format object for Monday through Friday tests.
+     */
     private static final SimpleDateFormat DATE_FORMAT;
 
-    /** Date format object 9:00 AM to 4:00 PM tests. */
+    /**
+     * Date format object 9:00 AM to 4:00 PM tests.
+     */
     private static final SimpleDateFormat DATE_TIME_FORMAT;
 
-    /** Some ms exceptions for ms testing. */
+    /**
+     * Some ms exceptions for ms testing.
+     */
     private static final String[] MS_EXCEPTIONS = {"0", "2", "4", "10", "15",
-        "16", "17", "18", "19", "20", "21", "22", "23", "24", "47", "58",
-        "100", "101"};
+            "16", "17", "18", "19", "20", "21", "22", "23", "24", "47", "58",
+            "100", "101"};
 
-     /** Some ms4 exceptions for ms testing. */
-     private static final String[] MS2_BASE_TIMELINE_EXCEPTIONS = {"0", "8",
-         "16", "24", "32", "40", "48", "56", "64", "72", "80", "88", "96",
-         "104", "112", "120", "128", "136"};
+    /**
+     * Some ms4 exceptions for ms testing.
+     */
+    private static final String[] MS2_BASE_TIMELINE_EXCEPTIONS = {"0", "8",
+            "16", "24", "32", "40", "48", "56", "64", "72", "80", "88", "96",
+            "104", "112", "120", "128", "136"};
 
-    /** US non-trading dates in 2000 through 2002 to test exceptions. */
+    /**
+     * US non-trading dates in 2000 through 2002 to test exceptions.
+     */
     private static final String[] US_HOLIDAYS = {"2000-01-17", "2000-02-21",
-        "2000-04-21", "2000-05-29", "2000-07-04", "2000-09-04", "2000-11-23",
-        "2000-12-25", "2001-01-01", "2001-01-15", "2001-02-19", "2001-04-13",
-        "2001-05-28", "2001-07-04", "2001-09-03", "2001-09-11", "2001-09-12",
-        "2001-09-13", "2001-09-14", "2001-11-22", "2001-12-25", "2002-01-01",
-        "2002-01-21", "2002-02-18", "2002-03-29", "2002-05-27", "2002-07-04",
-        "2002-09-02", "2002-11-28", "2002-12-25"};
-
-     /** Some test exceptions for the fifteen min timeline. */
-     private static final String[] FIFTEEN_MIN_EXCEPTIONS = {
-         "2000-01-10 09:00:00", "2000-01-10 09:15:00", "2000-01-10 09:30:00",
-         "2000-01-10 09:45:00", "2000-01-10 10:00:00", "2000-01-10 10:15:00",
-         "2000-02-15 09:00:00", "2000-02-15 09:15:00", "2000-02-15 09:30:00",
-         "2000-02-15 09:45:00", "2000-02-15 10:00:00", "2000-02-15 10:15:00",
-         "2000-02-16 11:00:00", "2000-02-16 11:15:00", "2000-02-16 11:30:00",
-         "2000-02-16 11:45:00", "2000-02-16 12:00:00", "2000-02-16 12:15:00",
-         "2000-02-16 12:30:00", "2000-02-16 12:45:00", "2000-02-16 01:00:00",
-         "2000-02-16 01:15:00", "2000-02-16 01:30:00", "2000-02-16 01:45:00",
-         "2000-05-17 11:45:00", "2000-05-17 12:00:00", "2000-05-17 12:15:00",
-         "2000-05-17 12:30:00", "2000-05-17 12:45:00", "2000-05-17 01:00:00",
-         "2000-05-17 01:15:00", "2000-05-17 01:30:00", "2000-05-17 01:45:00",
-         "2000-05-17 02:00:00", "2000-05-17 02:15:00", "2000-05-17 02:30:00",
-         "2000-05-17 02:45:00", "2000-05-17 03:00:00", "2000-05-17 03:15:00",
-         "2000-05-17 03:30:00", "2000-05-17 03:45:00", "2000-05-17 04:00:00"};
-
-    /** Our 1-ms test timeline using 5 included and 2 excluded segments. */
-    private SegmentedTimeline msTimeline;
+            "2000-04-21", "2000-05-29", "2000-07-04", "2000-09-04", "2000-11-23",
+            "2000-12-25", "2001-01-01", "2001-01-15", "2001-02-19", "2001-04-13",
+            "2001-05-28", "2001-07-04", "2001-09-03", "2001-09-11", "2001-09-12",
+            "2001-09-13", "2001-09-14", "2001-11-22", "2001-12-25", "2002-01-01",
+            "2002-01-21", "2002-02-18", "2002-03-29", "2002-05-27", "2002-07-04",
+            "2002-09-02", "2002-11-28", "2002-12-25"};
 
     /**
-     * Our 1-ms test timeline (with baseTimeline) using 2 included and 2
-     * excluded segments.
+     * Some test exceptions for the fifteen min timeline.
      */
-    private SegmentedTimeline ms2Timeline;
-
-    /**
-     * Our 4-ms test base timeline for ms2Timeline using 1 included and 1
-     * excluded segments
-     */
-    private SegmentedTimeline ms2BaseTimeline;
-
-    /** Our test Monday through Friday test timeline. */
-    private SegmentedTimeline mondayFridayTimeline;
-
-    /** Our 9:00 AM to 4:00 PM fifteen minute timeline. */
-    private SegmentedTimeline fifteenMinTimeline;
-
-    /** ms from 1970-01-01 to first monday after 2001-01-01. */
-    private Calendar monday;
-
-    /** ms from 1970-01-01 to 9 am first monday after 2001-01-01. */
-    private Calendar monday9am;
+    private static final String[] FIFTEEN_MIN_EXCEPTIONS = {
+            "2000-01-10 09:00:00", "2000-01-10 09:15:00", "2000-01-10 09:30:00",
+            "2000-01-10 09:45:00", "2000-01-10 10:00:00", "2000-01-10 10:15:00",
+            "2000-02-15 09:00:00", "2000-02-15 09:15:00", "2000-02-15 09:30:00",
+            "2000-02-15 09:45:00", "2000-02-15 10:00:00", "2000-02-15 10:15:00",
+            "2000-02-16 11:00:00", "2000-02-16 11:15:00", "2000-02-16 11:30:00",
+            "2000-02-16 11:45:00", "2000-02-16 12:00:00", "2000-02-16 12:15:00",
+            "2000-02-16 12:30:00", "2000-02-16 12:45:00", "2000-02-16 01:00:00",
+            "2000-02-16 01:15:00", "2000-02-16 01:30:00", "2000-02-16 01:45:00",
+            "2000-05-17 11:45:00", "2000-05-17 12:00:00", "2000-05-17 12:15:00",
+            "2000-05-17 12:30:00", "2000-05-17 12:45:00", "2000-05-17 01:00:00",
+            "2000-05-17 01:15:00", "2000-05-17 01:30:00", "2000-05-17 01:45:00",
+            "2000-05-17 02:00:00", "2000-05-17 02:15:00", "2000-05-17 02:30:00",
+            "2000-05-17 02:45:00", "2000-05-17 03:00:00", "2000-05-17 03:15:00",
+            "2000-05-17 03:30:00", "2000-05-17 03:45:00", "2000-05-17 04:00:00"};
 
     /** Static initialization block. */
     static {
@@ -159,6 +152,37 @@ public class SegmentedTimelineTest {
         DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         DATE_TIME_FORMAT.setTimeZone(SegmentedTimeline.NO_DST_TIME_ZONE);
     }
+
+    /**
+     * Our 1-ms test timeline using 5 included and 2 excluded segments.
+     */
+    private SegmentedTimeline msTimeline;
+    /**
+     * Our 1-ms test timeline (with baseTimeline) using 2 included and 2
+     * excluded segments.
+     */
+    private SegmentedTimeline ms2Timeline;
+    /**
+     * Our 4-ms test base timeline for ms2Timeline using 1 included and 1
+     * excluded segments
+     */
+    private SegmentedTimeline ms2BaseTimeline;
+    /**
+     * Our test Monday through Friday test timeline.
+     */
+    private SegmentedTimeline mondayFridayTimeline;
+    /**
+     * Our 9:00 AM to 4:00 PM fifteen minute timeline.
+     */
+    private SegmentedTimeline fifteenMinTimeline;
+    /**
+     * ms from 1970-01-01 to first monday after 2001-01-01.
+     */
+    private Calendar monday;
+    /**
+     * ms from 1970-01-01 to 9 am first monday after 2001-01-01.
+     */
+    private Calendar monday9am;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -316,7 +340,7 @@ public class SegmentedTimelineTest {
         assertEquals(SegmentedTimeline.FIFTEEN_MINUTE_SEGMENT_SIZE,
                 this.fifteenMinTimeline.getSegmentSize());
         assertEquals(SegmentedTimeline.FIRST_MONDAY_AFTER_1900 + 36
-                * this.fifteenMinTimeline.getSegmentSize(),
+                        * this.fifteenMinTimeline.getSegmentSize(),
                 this.fifteenMinTimeline.getStartTime());
         assertEquals(28, this.fifteenMinTimeline.getSegmentsIncluded());
         assertEquals(68, this.fifteenMinTimeline.getSegmentsExcluded());
@@ -365,6 +389,7 @@ public class SegmentedTimelineTest {
     /**
      * Tests one segment of the Monday through Friday timeline. Internal indices
      * inside one segment as well as adjacent segments are verified.
+     *
      * @param timeline the timeline to use for verifications.
      */
     public void verifyOneSegment(SegmentedTimeline timeline) {
@@ -394,26 +419,21 @@ public class SegmentedTimelineTest {
             long delta;
             if (timeline.getSegmentSize() > 1000000) {
                 delta = timeline.getSegmentSize() / 10000;
-            }
-            else if (timeline.getSegmentSize() > 100000) {
+            } else if (timeline.getSegmentSize() > 100000) {
                 delta = timeline.getSegmentSize() / 1000;
-            }
-            else if (timeline.getSegmentSize() > 10000) {
+            } else if (timeline.getSegmentSize() > 10000) {
                 delta = timeline.getSegmentSize() / 100;
-            }
-            else if (timeline.getSegmentSize() > 1000) {
+            } else if (timeline.getSegmentSize() > 1000) {
                 delta = timeline.getSegmentSize() / 10;
-            }
-            else if (timeline.getSegmentSize() > 100) {
+            } else if (timeline.getSegmentSize() > 100) {
                 delta = timeline.getSegmentSize() / 5;
-            }
-            else {
+            } else {
                 delta = 1;
             }
 
             long start = segment1.getSegmentStart() + delta;
             long end = segment1.getSegmentStart()
-                       + timeline.getSegmentSize() - 1;
+                    + timeline.getSegmentSize() - 1;
             SegmentedTimeline.Segment lastSeg = timeline.getSegment(
                     segment1.getSegmentStart());
             SegmentedTimeline.Segment seg;
@@ -473,6 +493,7 @@ public class SegmentedTimelineTest {
 
     /**
      * Tests the inc methods.
+     *
      * @param timeline the timeline to use for verifications.
      */
     public void verifyInc(SegmentedTimeline timeline) {
@@ -500,8 +521,7 @@ public class SegmentedTimelineTest {
                             - seg1.getSegmentEnd()) % m);
                     assertEquals(0, (seg2.getMillisecond()
                             - seg1.getMillisecond()) % m);
-                }
-                else {
+                } else {
                     // physically consecutive
                     assertEquals(seg1.getSegmentStart() + m,
                             seg2.getSegmentStart());
@@ -579,7 +599,7 @@ public class SegmentedTimelineTest {
      * calculated correctly.
      *
      * @param timeline the timeline to verify
-     * @param n the first segment number to start verifying
+     * @param n        the first segment number to start verifying
      */
     public void verifyIncludedAndExcludedSegments(SegmentedTimeline timeline,
                                                   long n) {
@@ -595,8 +615,7 @@ public class SegmentedTimelineTest {
                 assertTrue(segment.inIncludeSegments());
                 assertTrue(!segment.inExcludeSegments());
                 assertTrue(!segment.inExceptionSegments());
-            }
-            else {
+            } else {
                 // should be an excluded segment
                 assertTrue(!segment.inIncludeSegments());
                 assertTrue(segment.inExcludeSegments());
@@ -638,7 +657,7 @@ public class SegmentedTimelineTest {
      */
     @Test
     public void testMondayThoughFridayExceptionSegments()
-        throws ParseException {
+            throws ParseException {
         verifyExceptionSegments(this.mondayFridayTimeline,
                 US_HOLIDAYS, DATE_FORMAT);
     }
@@ -657,16 +676,15 @@ public class SegmentedTimelineTest {
     /**
      * Tests methods related to adding exceptions.
      *
-     * @param timeline the timeline to verify
+     * @param timeline        the timeline to verify
      * @param exceptionString array of Strings that represent the exceptions
-     * @param fmt Format object that can parse the exceptionString strings
-     *
+     * @param fmt             Format object that can parse the exceptionString strings
      * @throws ParseException if there is a parsing error.
      */
     public void verifyExceptionSegments(SegmentedTimeline timeline,
                                         String[] exceptionString,
                                         Format fmt)
-        throws ParseException {
+            throws ParseException {
 
         // fill in the exceptions
         long[] exception = verifyFillInExceptions(timeline, exceptionString,
@@ -688,7 +706,7 @@ public class SegmentedTimelineTest {
             // exclude current exception and last one
             assertEquals(Math.max(0, m - i - 2),
                     timeline.getExceptionSegmentCount(exception[i] + 1,
-                    exception[m - 1] - 1));
+                            exception[m - 1] - 1));
         }
 
     }
@@ -767,15 +785,15 @@ public class SegmentedTimelineTest {
     /**
      * Tests translations between timelines.
      *
-     * @param timeline the timeline to use for verifications.
-     * @param startTest  ??.
+     * @param timeline  the timeline to use for verifications.
+     * @param startTest ??.
      */
     public void verifyTranslations(SegmentedTimeline timeline, long startTest) {
         for (long testCycle = TEST_CYCLE_START; testCycle < TEST_CYCLE_END;
              testCycle += TEST_CYCLE_INC) {
 
             long millisecond = startTest + testCycle
-                               * timeline.getSegmentSize();
+                    * timeline.getSegmentSize();
             SegmentedTimeline.Segment segment = timeline.getSegment(
                     millisecond);
 
@@ -795,9 +813,7 @@ public class SegmentedTimelineTest {
                     }
                     while (!tempSegment.inIncludeSegments());
                     assertEquals(tempSegment.getMillisecond(), newValue);
-                }
-
-                else {
+                } else {
                     assertEquals(segment.getMillisecond(), newValue);
                 }
                 segment.inc();
@@ -823,6 +839,7 @@ public class SegmentedTimelineTest {
 
     /**
      * Tests serialization of an instance.
+     *
      * @param a1 The timeline to verify the serialization
      */
     private void verifySerialization(SegmentedTimeline a1) {
@@ -833,16 +850,17 @@ public class SegmentedTimelineTest {
     /**
      * Adds an array of exceptions to the timeline. The timeline exception list
      * is first cleared.
-     * @param timeline The timeline where the exceptions will be stored
+     *
+     * @param timeline        The timeline where the exceptions will be stored
      * @param exceptionString The exceptions to load
-     * @param fmt The date formatter to use to parse each exceptions[i] value
-     * @throws ParseException If there is any exception parsing each
-     *         exceptions[i] value.
+     * @param fmt             The date formatter to use to parse each exceptions[i] value
      * @return An array of Dates[] containing each exception date.
+     * @throws ParseException If there is any exception parsing each
+     *                        exceptions[i] value.
      */
     private long[] verifyFillInExceptions(SegmentedTimeline timeline,
-                                         String[] exceptionString,
-                                         Format fmt) throws ParseException {
+                                          String[] exceptionString,
+                                          Format fmt) throws ParseException {
         // make sure there are no exceptions
         timeline.setExceptionSegments(new java.util.ArrayList());
         assertEquals(0, timeline.getExceptionSegments().size());
@@ -853,8 +871,7 @@ public class SegmentedTimelineTest {
             long e;
             if (fmt instanceof NumberFormat) {
                 e = ((NumberFormat) fmt).parse(exceptionString[i]).longValue();
-            }
-            else {
+            } else {
                 e = timeline.getTime(((SimpleDateFormat) fmt)
                         .parse(exceptionString[i]));
             }
@@ -872,7 +889,7 @@ public class SegmentedTimelineTest {
         // make array of exceptions
         long[] exception = new long[exceptionList.size()];
         int i = 0;
-        for (Iterator iter = exceptionList.iterator(); iter.hasNext();) {
+        for (Iterator iter = exceptionList.iterator(); iter.hasNext(); ) {
             Long l = (Long) iter.next();
             exception[i++] = l.longValue();
         }
@@ -884,22 +901,21 @@ public class SegmentedTimelineTest {
     /**
      * Adds an array of exceptions relative to the base timeline.
      *
-     * @param timeline The timeline where the exceptions will be stored
+     * @param timeline        The timeline where the exceptions will be stored
      * @param exceptionString The exceptions to load
-     * @param fmt The date formatter to use to parse each exceptions[i] value
+     * @param fmt             The date formatter to use to parse each exceptions[i] value
      * @throws ParseException If there is any exception parsing each
      *                        exceptions[i] value.
      */
     private void fillInBaseTimelineExceptions(SegmentedTimeline timeline,
-                                             String[] exceptionString,
-                                             Format fmt) throws ParseException {
+                                              String[] exceptionString,
+                                              Format fmt) throws ParseException {
         SegmentedTimeline baseTimeline = timeline.getBaseTimeline();
         for (int i = 0; i < exceptionString.length; i++) {
             long e;
             if (fmt instanceof NumberFormat) {
                 e = ((NumberFormat) fmt).parse(exceptionString[i]).longValue();
-            }
-            else {
+            } else {
                 e = timeline.getTime(((SimpleDateFormat) fmt)
                         .parse(exceptionString[i]));
             }
@@ -909,7 +925,7 @@ public class SegmentedTimelineTest {
             // baseTimeline.segment are now exceptions
             SegmentedTimeline.Segment segment1 = baseTimeline.getSegment(e);
             for (SegmentedTimeline.Segment segment2
-                    = timeline.getSegment(segment1.getSegmentStart());
+                 = timeline.getSegment(segment1.getSegmentStart());
                  segment2.getSegmentStart() <= segment1.getSegmentEnd();
                  segment2.inc()) {
                 if (!segment2.inExcludeSegments()) {
@@ -924,9 +940,9 @@ public class SegmentedTimelineTest {
      * Adds new exceptions to a timeline. The exceptions are the excluded
      * segments from its base timeline.
      *
-     * @param timeline  the timeline.
-     * @param from  the start.
-     * @param to  the end.
+     * @param timeline the timeline.
+     * @param from     the start.
+     * @param to       the end.
      */
     private void fillInBaseTimelineExclusionsAsExceptions(
             SegmentedTimeline timeline, long from, long to) {
@@ -946,8 +962,8 @@ public class SegmentedTimelineTest {
                 // baseTimeline.segment are now exceptions
                 for (SegmentedTimeline.Segment segment2 = timeline.getSegment(
                         segment1.getSegmentStart());
-                    segment2.getSegmentStart() <= segment1.getSegmentEnd();
-                    segment2.inc()) {
+                     segment2.getSegmentStart() <= segment1.getSegmentEnd();
+                     segment2.inc()) {
                     if (!segment2.inExcludeSegments()) {
                         assertTrue(segment2.inExceptionSegments());
                     }

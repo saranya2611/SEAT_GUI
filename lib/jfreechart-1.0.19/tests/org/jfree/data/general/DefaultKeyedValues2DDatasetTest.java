@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------------
@@ -42,8 +42,9 @@ package org.jfree.data.general;
 
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the {@link DefaultKeyedValues2DDataset} class.
@@ -59,7 +60,7 @@ public class DefaultKeyedValues2DDatasetTest {
         d1.setValue(new Integer(1), "V1", "C1");
         d1.setValue(null, "V2", "C1");
         d1.setValue(new Integer(3), "V3", "C2");
-        DefaultKeyedValues2DDataset d2 = (DefaultKeyedValues2DDataset) 
+        DefaultKeyedValues2DDataset d2 = (DefaultKeyedValues2DDataset)
                 d1.clone();
         assertTrue(d1 != d2);
         assertTrue(d1.getClass() == d2.getClass());
@@ -76,7 +77,7 @@ public class DefaultKeyedValues2DDatasetTest {
         d1.addValue(new Double(345.9), "Row2", "Col1");
         d1.addValue(new Double(452.7), "Row2", "Col2");
 
-        DefaultKeyedValues2DDataset d2 = (DefaultKeyedValues2DDataset) 
+        DefaultKeyedValues2DDataset d2 = (DefaultKeyedValues2DDataset)
                 TestUtilities.serialised(d1);
         assertEquals(d1, d2);
     }

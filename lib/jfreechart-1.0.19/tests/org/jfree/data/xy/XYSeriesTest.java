@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -46,20 +46,18 @@
 
 package org.jfree.data.xy;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.general.SeriesException;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link XYSeries} class.
  */
 public class XYSeriesTest {
+
+    private static final double EPSILON = 0.0000000001;
 
     /**
      * Confirm that the equals method can distinguish all the required fields.
@@ -261,8 +259,6 @@ public class XYSeriesTest {
         assertEquals(5.5, s1.getMaxY(), EPSILON);
     }
 
-    private static final double EPSILON = 0.0000000001;
-
     /**
      * When items are added with duplicate x-values, we expect them to remain
      * in the order they were added.
@@ -295,8 +291,7 @@ public class XYSeriesTest {
         try {
             series.update(new Integer(2), new Integer(99));
             assertTrue(false);
-        }
-        catch (SeriesException e) {
+        } catch (SeriesException e) {
             // got the required exception
         }
     }
@@ -306,12 +301,12 @@ public class XYSeriesTest {
      */
     @Test
     public void testUpdate2() {
-       XYSeries series = new XYSeries("Series", false, true);
-       series.add(5.0, 55.0);
-       series.add(4.0, 44.0);
-       series.add(6.0, 66.0);
-       series.update(new Double(4.0), new Double(99.0));
-       assertEquals(new Double(99.0), series.getY(1));
+        XYSeries series = new XYSeries("Series", false, true);
+        series.add(5.0, 55.0);
+        series.add(4.0, 44.0);
+        series.add(6.0, 66.0);
+        series.update(new Double(4.0), new Double(99.0));
+        assertEquals(new Double(99.0), series.getY(1));
     }
 
     /**
@@ -621,7 +616,7 @@ public class XYSeriesTest {
 
         s1.add(0.0, null);
         assertEquals(-1.1, s1.getMinY(), EPSILON);
-   }
+    }
 
     /**
      * Some checks for the getMaxY() method.
@@ -646,10 +641,10 @@ public class XYSeriesTest {
         s1.add(0.0, null);
         assertEquals(99.9, s1.getMaxY(), EPSILON);
     }
-    
+
     /**
      * A test for a bug reported in the forum:
-     * 
+     * <p>
      * http://www.jfree.org/forum/viewtopic.php?f=3&t=116601
      */
     @Test
@@ -660,7 +655,7 @@ public class XYSeriesTest {
         series.addOrUpdate(3, 40);
         assertEquals(40.0, series.getMaxY(), EPSILON);
         series.addOrUpdate(2, 22);
-        assertEquals(40.0, series.getMaxY(), EPSILON);        
+        assertEquals(40.0, series.getMaxY(), EPSILON);
     }
 
     /**
@@ -778,28 +773,28 @@ public class XYSeriesTest {
         XYSeries s1 = new XYSeries("S");
         s1.setKey("S1");
         assertEquals("S1", s1.getKey());
-        
+
         XYSeriesCollection c = new XYSeriesCollection();
         c.addSeries(s1);
         XYSeries s2 = new XYSeries("S2");
         c.addSeries(s2);
-        
+
         // now we should be allowed to change s1's key to anything but "S2"
         s1.setKey("OK");
         assertEquals("OK", s1.getKey());
-        
+
         try {
             s1.setKey("S2");
             fail("Expect an exception here.");
         } catch (IllegalArgumentException e) {
             // OK
         }
-        
+
         // after s1 is removed from the collection, we should be able to set
         // the key to anything we want...
         c.removeSeries(s1);
         s1.setKey("S2");
-        
+
         // check that removing by index also works
         s1.setKey("S1");
         c.addSeries(s1);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------------
@@ -40,15 +40,15 @@
 
 package org.jfree.chart.labels;
 
+import org.jfree.data.xy.IntervalXYDataset;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.util.PublicCloneable;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
 import java.util.Date;
-
-import org.jfree.data.xy.IntervalXYDataset;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.util.PublicCloneable;
 
 /**
  * An item label generator for datasets that implement the
@@ -58,9 +58,11 @@ import org.jfree.util.PublicCloneable;
  */
 public class IntervalXYItemLabelGenerator extends AbstractXYItemLabelGenerator
         implements XYItemLabelGenerator, Cloneable, PublicCloneable,
-                   Serializable {
+        Serializable {
 
-    /** The default item label format. */
+    /**
+     * The default item label format.
+     */
     public static final String DEFAULT_ITEM_LABEL_FORMAT = "{5} - {6}";
 
     /**
@@ -68,21 +70,21 @@ public class IntervalXYItemLabelGenerator extends AbstractXYItemLabelGenerator
      */
     public IntervalXYItemLabelGenerator() {
         this(DEFAULT_ITEM_LABEL_FORMAT, NumberFormat.getNumberInstance(),
-            NumberFormat.getNumberInstance());
+                NumberFormat.getNumberInstance());
     }
 
     /**
      * Creates an item label generator using the specified number formatters.
      *
-     * @param formatString  the item label format string (<code>null</code> not
-     *                      permitted).
-     * @param xFormat  the format object for the x values (<code>null</code>
-     *                 not permitted).
-     * @param yFormat  the format object for the y values (<code>null</code>
-     *                 not permitted).
+     * @param formatString the item label format string (<code>null</code> not
+     *                     permitted).
+     * @param xFormat      the format object for the x values (<code>null</code>
+     *                     not permitted).
+     * @param yFormat      the format object for the y values (<code>null</code>
+     *                     not permitted).
      */
     public IntervalXYItemLabelGenerator(String formatString,
-        NumberFormat xFormat, NumberFormat yFormat) {
+                                        NumberFormat xFormat, NumberFormat yFormat) {
 
         super(formatString, xFormat, yFormat);
     }
@@ -90,15 +92,15 @@ public class IntervalXYItemLabelGenerator extends AbstractXYItemLabelGenerator
     /**
      * Creates an item label generator using the specified formatters.
      *
-     * @param formatString  the item label format string (<code>null</code>
-     *                      not permitted).
-     * @param xFormat  the format object for the x values (<code>null</code>
-     *                 not permitted).
-     * @param yFormat  the format object for the y values (<code>null</code>
-     *                 not permitted).
+     * @param formatString the item label format string (<code>null</code>
+     *                     not permitted).
+     * @param xFormat      the format object for the x values (<code>null</code>
+     *                     not permitted).
+     * @param yFormat      the format object for the y values (<code>null</code>
+     *                     not permitted).
      */
     public IntervalXYItemLabelGenerator(String formatString,
-        DateFormat xFormat, NumberFormat yFormat) {
+                                        DateFormat xFormat, NumberFormat yFormat) {
 
         super(formatString, xFormat, yFormat);
     }
@@ -108,15 +110,15 @@ public class IntervalXYItemLabelGenerator extends AbstractXYItemLabelGenerator
      * number formatter for the x-values and a date formatter for the
      * y-values).
      *
-     * @param formatString  the item label format string (<code>null</code>
-     *                      not permitted).
-     * @param xFormat  the format object for the x values (<code>null</code>
-     *                 permitted).
-     * @param yFormat  the format object for the y values (<code>null</code>
-     *                 not permitted).
+     * @param formatString the item label format string (<code>null</code>
+     *                     not permitted).
+     * @param xFormat      the format object for the x values (<code>null</code>
+     *                     permitted).
+     * @param yFormat      the format object for the y values (<code>null</code>
+     *                     not permitted).
      */
     public IntervalXYItemLabelGenerator(String formatString,
-            NumberFormat xFormat, DateFormat yFormat) {
+                                        NumberFormat xFormat, DateFormat yFormat) {
 
         super(formatString, xFormat, yFormat);
     }
@@ -124,15 +126,15 @@ public class IntervalXYItemLabelGenerator extends AbstractXYItemLabelGenerator
     /**
      * Creates a label generator using the specified date formatters.
      *
-     * @param formatString  the label format string (<code>null</code> not
-     *                      permitted).
-     * @param xFormat  the format object for the x values (<code>null</code>
-     *                 not permitted).
-     * @param yFormat  the format object for the y values (<code>null</code>
-     *                 not permitted).
+     * @param formatString the label format string (<code>null</code> not
+     *                     permitted).
+     * @param xFormat      the format object for the x values (<code>null</code>
+     *                     not permitted).
+     * @param yFormat      the format object for the y values (<code>null</code>
+     *                     not permitted).
      */
     public IntervalXYItemLabelGenerator(String formatString,
-            DateFormat xFormat, DateFormat yFormat) {
+                                        DateFormat xFormat, DateFormat yFormat) {
 
         super(formatString, xFormat, yFormat);
     }
@@ -141,12 +143,11 @@ public class IntervalXYItemLabelGenerator extends AbstractXYItemLabelGenerator
      * Creates the array of items that can be passed to the
      * {@link MessageFormat} class for creating labels.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param item    the item (zero-based index).
      * @return An array of seven items from the dataset formatted as
-     *         <code>String</code> objects (never <code>null</code>).
+     * <code>String</code> objects (never <code>null</code>).
      */
     @Override
     protected Object[] createItemArray(XYDataset dataset, int series,
@@ -177,8 +178,7 @@ public class IntervalXYItemLabelGenerator extends AbstractXYItemLabelGenerator
             result[1] = xdf.format(new Date((long) x));
             result[2] = xdf.format(new Date((long) xs));
             result[3] = xdf.format(new Date((long) xe));
-        }
-        else {
+        } else {
             NumberFormat xnf = getXFormat();
             result[1] = xnf.format(x);
             result[2] = xnf.format(xs);
@@ -189,36 +189,30 @@ public class IntervalXYItemLabelGenerator extends AbstractXYItemLabelGenerator
         DateFormat ydf = getYDateFormat();
         if (Double.isNaN(y) && dataset.getY(series, item) == null) {
             result[4] = getNullYString();
-        }
-        else {
+        } else {
             if (ydf != null) {
                 result[4] = ydf.format(new Date((long) y));
-            }
-            else {
+            } else {
                 result[4] = ynf.format(y);
             }
         }
         if (Double.isNaN(ys) && intervalDataset != null
                 && intervalDataset.getStartY(series, item) == null) {
             result[5] = getNullYString();
-        }
-        else {
+        } else {
             if (ydf != null) {
                 result[5] = ydf.format(new Date((long) ys));
-            }
-            else {
+            } else {
                 result[5] = ynf.format(ys);
             }
         }
         if (Double.isNaN(ye) && intervalDataset != null
                 && intervalDataset.getEndY(series, item) == null) {
             result[6] = getNullYString();
-        }
-        else {
+        } else {
             if (ydf != null) {
                 result[6] = ydf.format(new Date((long) ye));
-            }
-            else {
+            } else {
                 result[6] = ynf.format(ye);
             }
         }
@@ -228,10 +222,9 @@ public class IntervalXYItemLabelGenerator extends AbstractXYItemLabelGenerator
     /**
      * Generates the item label text for an item in a dataset.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param item    the item index (zero-based).
      * @return The label text (possibly <code>null</code>).
      */
     @Override
@@ -243,7 +236,6 @@ public class IntervalXYItemLabelGenerator extends AbstractXYItemLabelGenerator
      * Returns an independent copy of the generator.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if cloning is not supported.
      */
     @Override
@@ -254,8 +246,7 @@ public class IntervalXYItemLabelGenerator extends AbstractXYItemLabelGenerator
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the other object (<code>null</code> permitted).
-     *
+     * @param obj the other object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

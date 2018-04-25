@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------------------------
@@ -40,8 +40,9 @@
 
 package org.jfree.chart.imagemap;
 
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for the {@link DynamicDriveToolTipTagFragmentGenerator} class.
@@ -56,10 +57,10 @@ public class DynamicDriveToolTipTagFragmentGeneratorTest {
         OverLIBToolTipTagFragmentGenerator g
                 = new OverLIBToolTipTagFragmentGenerator();
         assertEquals(" onMouseOver=\"return overlib('abc');\""
-                + " onMouseOut=\"return nd();\"",
+                        + " onMouseOut=\"return nd();\"",
                 g.generateToolTipFragment("abc"));
         assertEquals(" onMouseOver=\"return overlib("
-                + "'It\\'s \\\"A\\\", 100.0');\" onMouseOut=\"return nd();\"",
+                        + "'It\\'s \\\"A\\\", 100.0');\" onMouseOut=\"return nd();\"",
                 g.generateToolTipFragment("It\'s \"A\", 100.0"));
     }
 

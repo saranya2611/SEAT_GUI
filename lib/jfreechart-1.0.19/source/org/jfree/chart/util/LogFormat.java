@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -58,13 +58,19 @@ import java.text.ParsePosition;
  */
 public class LogFormat extends NumberFormat {
 
-    /** The log base value. */
+    /**
+     * The log base value.
+     */
     private double base;
 
-    /** The natural logarithm of the base value. */
+    /**
+     * The natural logarithm of the base value.
+     */
     private double baseLog;
 
-    /** The label for the log base (for example, "e"). */
+    /**
+     * The label for the log base (for example, "e").
+     */
     private String baseLabel;
 
     /**
@@ -74,10 +80,14 @@ public class LogFormat extends NumberFormat {
      */
     private String powerLabel;
 
-    /** A flag that controls whether or not the base is shown. */
+    /**
+     * A flag that controls whether or not the base is shown.
+     */
     private boolean showBase;
 
-    /** The number formatter for the exponent. */
+    /**
+     * The number formatter for the exponent.
+     */
     private NumberFormat formatter = new DecimalFormat("0.0#");
 
     /**
@@ -92,8 +102,8 @@ public class LogFormat extends NumberFormat {
     /**
      * Creates a new instance.
      *
-     * @param base  the base.
-     * @param baseLabel  the base label (<code>null</code> not permitted).
+     * @param base      the base.
+     * @param baseLabel the base label (<code>null</code> not permitted).
      * @param showBase  a flag that controls whether or not the base value is
      *                  shown.
      */
@@ -104,16 +114,15 @@ public class LogFormat extends NumberFormat {
     /**
      * Creates a new instance.
      *
-     * @param base  the base.
+     * @param base       the base.
      * @param baseLabel  the base label (<code>null</code> not permitted).
-     * @param powerLabel  the power label (<code>null</code> not permitted).
-     * @param showBase  a flag that controls whether or not the base value is
-     *                  shown.
-     *
+     * @param powerLabel the power label (<code>null</code> not permitted).
+     * @param showBase   a flag that controls whether or not the base value is
+     *                   shown.
      * @since 1.0.10
      */
     public LogFormat(double base, String baseLabel, String powerLabel,
-            boolean showBase) {
+                     boolean showBase) {
         ParamChecks.nullNotPermitted(baseLabel, "baseLabel");
         ParamChecks.nullNotPermitted(powerLabel, "powerLabel");
         this.base = base;
@@ -127,7 +136,6 @@ public class LogFormat extends NumberFormat {
      * Returns the number format used for the exponent.
      *
      * @return The number format (never <code>null</code>).
-     *
      * @since 1.0.13.
      */
     public NumberFormat getExponentFormat() {
@@ -137,8 +145,7 @@ public class LogFormat extends NumberFormat {
     /**
      * Sets the number format used for the exponent.
      *
-     * @param format  the formatter (<code>null</code> not permitted).
-     *
+     * @param format the formatter (<code>null</code> not permitted).
      * @since 1.0.13
      */
     public void setExponentFormat(NumberFormat format) {
@@ -149,8 +156,7 @@ public class LogFormat extends NumberFormat {
     /**
      * Calculates the log of a given value.
      *
-     * @param value  the value.
-     *
+     * @param value the value.
      * @return The log of the value.
      */
     private double calculateLog(double value) {
@@ -160,15 +166,14 @@ public class LogFormat extends NumberFormat {
     /**
      * Returns a formatted representation of the specified number.
      *
-     * @param number  the number.
-     * @param toAppendTo  the string buffer to append to.
-     * @param pos  the position.
-     *
+     * @param number     the number.
+     * @param toAppendTo the string buffer to append to.
+     * @param pos        the position.
      * @return A string buffer containing the formatted value.
      */
     @Override
     public StringBuffer format(double number, StringBuffer toAppendTo,
-            FieldPosition pos) {
+                               FieldPosition pos) {
         StringBuffer result = new StringBuffer();
         if (this.showBase) {
             result.append(this.baseLabel);
@@ -182,15 +187,14 @@ public class LogFormat extends NumberFormat {
      * Formats the specified number as a hexadecimal string.  The decimal
      * fraction is ignored.
      *
-     * @param number  the number to format.
-     * @param toAppendTo  the buffer to append to (ignored here).
-     * @param pos  the field position (ignored here).
-     *
+     * @param number     the number to format.
+     * @param toAppendTo the buffer to append to (ignored here).
+     * @param pos        the field position (ignored here).
      * @return The string buffer.
      */
     @Override
     public StringBuffer format(long number, StringBuffer toAppendTo,
-            FieldPosition pos) {
+                               FieldPosition pos) {
         StringBuffer result = new StringBuffer();
         if (this.showBase) {
             result.append(this.baseLabel);
@@ -204,21 +208,19 @@ public class LogFormat extends NumberFormat {
      * Parsing is not implemented, so this method always returns
      * <code>null</code>.
      *
-     * @param source  ignored.
-     * @param parsePosition  ignored.
-     *
+     * @param source        ignored.
+     * @param parsePosition ignored.
      * @return Always <code>null</code>.
      */
     @Override
-    public Number parse (String source, ParsePosition parsePosition) {
+    public Number parse(String source, ParsePosition parsePosition) {
         return null; // don't bother with parsing
     }
 
     /**
      * Tests this formatter for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------------
@@ -55,17 +55,17 @@
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 25-Jan-2007 : Added new constructor - see bug 1624067 (DG);
  * 24-Jun-2009 : Added new constructor (DG);
- * 
+ *
  */
 
 package org.jfree.chart.labels;
 
+import org.jfree.data.xy.XYDataset;
+import org.jfree.util.PublicCloneable;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.NumberFormat;
-
-import org.jfree.data.xy.XYDataset;
-import org.jfree.util.PublicCloneable;
 
 /**
  * A standard item label generator for plots that use data from an
@@ -73,13 +73,16 @@ import org.jfree.util.PublicCloneable;
  */
 public class StandardXYItemLabelGenerator extends AbstractXYItemLabelGenerator
         implements XYItemLabelGenerator, Cloneable, PublicCloneable,
-            Serializable {
+        Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 7807668053171837925L;
-
-    /** The default item label format. */
+    /**
+     * The default item label format.
+     */
     public static final String DEFAULT_ITEM_LABEL_FORMAT = "{2}";
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 7807668053171837925L;
 
     /**
      * Creates an item label generator using default number formatters.
@@ -92,9 +95,8 @@ public class StandardXYItemLabelGenerator extends AbstractXYItemLabelGenerator
     /**
      * Creates an item label generator using the specified number formatters.
      *
-     * @param formatString  the item label format string (<code>null</code> not
-     *                      permitted).
-     *
+     * @param formatString the item label format string (<code>null</code> not
+     *                     permitted).
      * @since 1.0.14
      */
     public StandardXYItemLabelGenerator(String formatString) {
@@ -105,15 +107,15 @@ public class StandardXYItemLabelGenerator extends AbstractXYItemLabelGenerator
     /**
      * Creates an item label generator using the specified number formatters.
      *
-     * @param formatString  the item label format string (<code>null</code> not
-     *                      permitted).
-     * @param xFormat  the format object for the x values (<code>null</code>
-     *                 not permitted).
-     * @param yFormat  the format object for the y values (<code>null</code>
-     *                 not permitted).
+     * @param formatString the item label format string (<code>null</code> not
+     *                     permitted).
+     * @param xFormat      the format object for the x values (<code>null</code>
+     *                     not permitted).
+     * @param yFormat      the format object for the y values (<code>null</code>
+     *                     not permitted).
      */
     public StandardXYItemLabelGenerator(String formatString,
-            NumberFormat xFormat, NumberFormat yFormat) {
+                                        NumberFormat xFormat, NumberFormat yFormat) {
 
         super(formatString, xFormat, yFormat);
     }
@@ -121,15 +123,15 @@ public class StandardXYItemLabelGenerator extends AbstractXYItemLabelGenerator
     /**
      * Creates an item label generator using the specified formatters.
      *
-     * @param formatString  the item label format string (<code>null</code>
-     *                      not permitted).
-     * @param xFormat  the format object for the x values (<code>null</code>
-     *                 not permitted).
-     * @param yFormat  the format object for the y values (<code>null</code>
-     *                 not permitted).
+     * @param formatString the item label format string (<code>null</code>
+     *                     not permitted).
+     * @param xFormat      the format object for the x values (<code>null</code>
+     *                     not permitted).
+     * @param yFormat      the format object for the y values (<code>null</code>
+     *                     not permitted).
      */
     public StandardXYItemLabelGenerator(String formatString,
-            DateFormat xFormat, NumberFormat yFormat) {
+                                        DateFormat xFormat, NumberFormat yFormat) {
 
         super(formatString, xFormat, yFormat);
     }
@@ -139,17 +141,16 @@ public class StandardXYItemLabelGenerator extends AbstractXYItemLabelGenerator
      * number formatter for the x-values and a date formatter for the
      * y-values).
      *
-     * @param formatString  the item label format string (<code>null</code>
-     *                      not permitted).
-     * @param xFormat  the format object for the x values (<code>null</code>
-     *                 permitted).
-     * @param yFormat  the format object for the y values (<code>null</code>
-     *                 not permitted).
-     *
+     * @param formatString the item label format string (<code>null</code>
+     *                     not permitted).
+     * @param xFormat      the format object for the x values (<code>null</code>
+     *                     permitted).
+     * @param yFormat      the format object for the y values (<code>null</code>
+     *                     not permitted).
      * @since 1.0.4
      */
     public StandardXYItemLabelGenerator(String formatString,
-            NumberFormat xFormat, DateFormat yFormat) {
+                                        NumberFormat xFormat, DateFormat yFormat) {
 
         super(formatString, xFormat, yFormat);
     }
@@ -157,15 +158,15 @@ public class StandardXYItemLabelGenerator extends AbstractXYItemLabelGenerator
     /**
      * Creates a label generator using the specified date formatters.
      *
-     * @param formatString  the label format string (<code>null</code> not
-     *                      permitted).
-     * @param xFormat  the format object for the x values (<code>null</code>
-     *                 not permitted).
-     * @param yFormat  the format object for the y values (<code>null</code>
-     *                 not permitted).
+     * @param formatString the label format string (<code>null</code> not
+     *                     permitted).
+     * @param xFormat      the format object for the x values (<code>null</code>
+     *                     not permitted).
+     * @param yFormat      the format object for the y values (<code>null</code>
+     *                     not permitted).
      */
     public StandardXYItemLabelGenerator(String formatString,
-            DateFormat xFormat, DateFormat yFormat) {
+                                        DateFormat xFormat, DateFormat yFormat) {
 
         super(formatString, xFormat, yFormat);
     }
@@ -173,10 +174,9 @@ public class StandardXYItemLabelGenerator extends AbstractXYItemLabelGenerator
     /**
      * Generates the item label text for an item in a dataset.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param item    the item index (zero-based).
      * @return The label text (possibly <code>null</code>).
      */
     @Override
@@ -188,7 +188,6 @@ public class StandardXYItemLabelGenerator extends AbstractXYItemLabelGenerator
      * Returns an independent copy of the generator.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if cloning is not supported.
      */
     @Override
@@ -199,8 +198,7 @@ public class StandardXYItemLabelGenerator extends AbstractXYItemLabelGenerator
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the other object (<code>null</code> permitted).
-     *
+     * @param obj the other object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

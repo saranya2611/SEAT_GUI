@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -47,14 +47,14 @@
 
 package org.jfree.chart.block;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.data.Range;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.Size2D;
 import org.jfree.util.ObjectUtilities;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
 /**
  * An arrangement manager that lays out blocks in a similar way to
@@ -62,22 +62,34 @@ import org.jfree.util.ObjectUtilities;
  */
 public class BorderArrangement implements Arrangement, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 506071142274883745L;
 
-    /** The block (if any) at the center of the layout. */
+    /**
+     * The block (if any) at the center of the layout.
+     */
     private Block centerBlock;
 
-    /** The block (if any) at the top of the layout. */
+    /**
+     * The block (if any) at the top of the layout.
+     */
     private Block topBlock;
 
-    /** The block (if any) at the bottom of the layout. */
+    /**
+     * The block (if any) at the bottom of the layout.
+     */
     private Block bottomBlock;
 
-    /** The block (if any) at the left of the layout. */
+    /**
+     * The block (if any) at the left of the layout.
+     */
     private Block leftBlock;
 
-    /** The block (if any) at the right of the layout. */
+    /**
+     * The block (if any) at the right of the layout.
+     */
     private Block rightBlock;
 
     /**
@@ -91,28 +103,24 @@ public class BorderArrangement implements Arrangement, Serializable {
      * If the key is not an instance of {@link RectangleEdge} the block will
      * be added in the center.
      *
-     * @param block  the block (<code>null</code> permitted).
-     * @param key  the edge (an instance of {@link RectangleEdge}) or
-     *             <code>null</code> for the center block.
+     * @param block the block (<code>null</code> permitted).
+     * @param key   the edge (an instance of {@link RectangleEdge}) or
+     *              <code>null</code> for the center block.
      */
     @Override
     public void add(Block block, Object key) {
 
         if (!(key instanceof RectangleEdge)) { // catches null also
             this.centerBlock = block;
-        }
-        else {
+        } else {
             RectangleEdge edge = (RectangleEdge) key;
             if (edge == RectangleEdge.TOP) {
                 this.topBlock = block;
-            }
-            else if (edge == RectangleEdge.BOTTOM) {
+            } else if (edge == RectangleEdge.BOTTOM) {
                 this.bottomBlock = block;
-            }
-            else if (edge == RectangleEdge.LEFT) {
+            } else if (edge == RectangleEdge.LEFT) {
                 this.leftBlock = block;
-            }
-            else if (edge == RectangleEdge.RIGHT) {
+            } else if (edge == RectangleEdge.RIGHT) {
                 this.rightBlock = block;
             }
         }
@@ -123,14 +131,13 @@ public class BorderArrangement implements Arrangement, Serializable {
      * constraint.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The block size.
      */
     @Override
     public Size2D arrange(BlockContainer container, Graphics2D g2,
-            RectangleConstraint constraint) {
+                          RectangleConstraint constraint) {
         RectangleConstraint contentConstraint
                 = container.toContentConstraint(constraint);
         Size2D contentSize = null;
@@ -139,38 +146,30 @@ public class BorderArrangement implements Arrangement, Serializable {
         if (w == LengthConstraintType.NONE) {
             if (h == LengthConstraintType.NONE) {
                 contentSize = arrangeNN(container, g2);
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
+                throw new RuntimeException("Not implemented.");
+            } else if (h == LengthConstraintType.RANGE) {
                 throw new RuntimeException("Not implemented.");
             }
-            else if (h == LengthConstraintType.RANGE) {
-                throw new RuntimeException("Not implemented.");
-            }
-        }
-        else if (w == LengthConstraintType.FIXED) {
+        } else if (w == LengthConstraintType.FIXED) {
             if (h == LengthConstraintType.NONE) {
                 contentSize = arrangeFN(container, g2, constraint.getWidth());
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
                 contentSize = arrangeFF(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
                 contentSize = arrangeFR(container, g2, constraint);
             }
-        }
-        else if (w == LengthConstraintType.RANGE) {
+        } else if (w == LengthConstraintType.RANGE) {
             if (h == LengthConstraintType.NONE) {
                 throw new RuntimeException("Not implemented.");
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
                 throw new RuntimeException("Not implemented.");
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
                 contentSize = arrangeRR(container, constraint.getWidthRange(),
                         constraint.getHeightRange(), g2);
             }
         }
-        assert contentSize != null; 
+        assert contentSize != null;
         return new Size2D(container.calculateTotalWidth(contentSize.getWidth()),
                 container.calculateTotalHeight(contentSize.getHeight()));
     }
@@ -178,9 +177,8 @@ public class BorderArrangement implements Arrangement, Serializable {
     /**
      * Performs an arrangement without constraints.
      *
-     * @param container  the container.
-     * @param g2  the graphics device.
-     *
+     * @param container the container.
+     * @param g2        the graphics device.
      * @return The container size after the arrangement.
      */
     protected Size2D arrangeNN(BlockContainer container, Graphics2D g2) {
@@ -201,7 +199,7 @@ public class BorderArrangement implements Arrangement, Serializable {
             Size2D size = this.leftBlock.arrange(g2, RectangleConstraint.NONE);
             w[2] = size.width;
             h[2] = size.height;
-       }
+        }
         if (this.rightBlock != null) {
             Size2D size = this.rightBlock.arrange(g2, RectangleConstraint.NONE);
             w[3] = size.width;
@@ -248,9 +246,8 @@ public class BorderArrangement implements Arrangement, Serializable {
      * Performs an arrangement with a fixed width and a range for the height.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The container size after the arrangement.
      */
     protected Size2D arrangeFR(BlockContainer container, Graphics2D g2,
@@ -258,8 +255,7 @@ public class BorderArrangement implements Arrangement, Serializable {
         Size2D size1 = arrangeFN(container, g2, constraint.getWidth());
         if (constraint.getHeightRange().contains(size1.getHeight())) {
             return size1;
-        }
-        else {
+        } else {
             double h = constraint.getHeightRange().constrain(size1.getHeight());
             RectangleConstraint c2 = constraint.toFixedHeight(h);
             return arrange(container, g2, c2);
@@ -270,10 +266,9 @@ public class BorderArrangement implements Arrangement, Serializable {
      * Arranges the container width a fixed width and no constraint on the
      * height.
      *
-     * @param container  the container.
-     * @param g2  the graphics device.
-     * @param width  the fixed width.
-     *
+     * @param container the container.
+     * @param g2        the graphics device.
+     * @param width     the fixed width.
      * @return The container size after arranging the contents.
      */
     protected Size2D arrangeFN(BlockContainer container, Graphics2D g2,
@@ -331,11 +326,10 @@ public class BorderArrangement implements Arrangement, Serializable {
      * Performs an arrangement with range constraints on both the vertical
      * and horizontal sides.
      *
-     * @param container  the container.
+     * @param container   the container.
      * @param widthRange  the allowable range for the container width.
-     * @param heightRange  the allowable range for the container height.
-     * @param g2  the graphics device.
-     *
+     * @param heightRange the allowable range for the container height.
+     * @param g2          the graphics device.
      * @return The container size.
      */
     protected Size2D arrangeRR(BlockContainer container,
@@ -415,9 +409,8 @@ public class BorderArrangement implements Arrangement, Serializable {
      * Arranges the items within a container.
      *
      * @param container  the container.
-     * @param constraint  the constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the constraint.
+     * @param g2         the graphics device.
      * @return The container size after the arrangement.
      */
     protected Size2D arrangeFF(BlockContainer container, Graphics2D g2,
@@ -504,8 +497,7 @@ public class BorderArrangement implements Arrangement, Serializable {
     /**
      * Tests this arrangement for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

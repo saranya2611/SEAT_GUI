@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -46,17 +46,14 @@
 
 package org.jfree.chart.axis;
 
+import org.jfree.chart.util.ParamChecks;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
-import org.jfree.chart.util.ParamChecks;
+import java.util.*;
 
 /**
  * A formatter that formats dates to show the year and quarter (for example,
@@ -65,29 +62,35 @@ import org.jfree.chart.util.ParamChecks;
 public class QuarterDateFormat extends DateFormat
         implements Cloneable, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -6738465248529797176L;
-
-    /** Symbols for regular quarters. */
-    public static final String[] REGULAR_QUARTERS = new String[] {"1", "2",
+    /**
+     * Symbols for regular quarters.
+     */
+    public static final String[] REGULAR_QUARTERS = new String[]{"1", "2",
             "3", "4"};
-
-    /** Symbols for roman numbered quarters. */
-    public static final String[] ROMAN_QUARTERS  = new String[] {"I", "II",
+    /**
+     * Symbols for roman numbered quarters.
+     */
+    public static final String[] ROMAN_QUARTERS = new String[]{"I", "II",
             "III", "IV"};
-
     /**
      * Symbols for greek numbered quarters.
      *
      * @since 1.0.6
      */
-    public static final String[] GREEK_QUARTERS = new String[] {"\u0391",
+    public static final String[] GREEK_QUARTERS = new String[]{"\u0391",
             "\u0392", "\u0393", "\u0394"};
-
-    /** The strings. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -6738465248529797176L;
+    /**
+     * The strings.
+     */
     private String[] quarters = REGULAR_QUARTERS;
 
-    /** A flag that controls whether the quarter or the year goes first. */
+    /**
+     * A flag that controls whether the quarter or the year goes first.
+     */
     private boolean quarterFirst;
 
     /**
@@ -100,7 +103,7 @@ public class QuarterDateFormat extends DateFormat
     /**
      * Creates a new instance for the specified time zone.
      *
-     * @param zone  the time zone (<code>null</code> not permitted).
+     * @param zone the time zone (<code>null</code> not permitted).
      */
     public QuarterDateFormat(TimeZone zone) {
         this(zone, REGULAR_QUARTERS);
@@ -109,8 +112,8 @@ public class QuarterDateFormat extends DateFormat
     /**
      * Creates a new instance for the specified time zone.
      *
-     * @param zone  the time zone (<code>null</code> not permitted).
-     * @param quarterSymbols  the quarter symbols.
+     * @param zone           the time zone (<code>null</code> not permitted).
+     * @param quarterSymbols the quarter symbols.
      */
     public QuarterDateFormat(TimeZone zone, String[] quarterSymbols) {
         this(zone, quarterSymbols, false);
@@ -119,15 +122,14 @@ public class QuarterDateFormat extends DateFormat
     /**
      * Creates a new instance for the specified time zone.
      *
-     * @param zone  the time zone (<code>null</code> not permitted).
-     * @param quarterSymbols  the quarter symbols.
-     * @param quarterFirst  a flag that controls whether the quarter or the
-     *         year is displayed first.
-     *
+     * @param zone           the time zone (<code>null</code> not permitted).
+     * @param quarterSymbols the quarter symbols.
+     * @param quarterFirst   a flag that controls whether the quarter or the
+     *                       year is displayed first.
      * @since 1.0.6
      */
     public QuarterDateFormat(TimeZone zone, String[] quarterSymbols,
-            boolean quarterFirst) {
+                             boolean quarterFirst) {
         ParamChecks.nullNotPermitted(zone, "zone");
         this.calendar = new GregorianCalendar(zone);
         this.quarters = quarterSymbols;
@@ -143,10 +145,9 @@ public class QuarterDateFormat extends DateFormat
     /**
      * Formats the given date.
      *
-     * @param date  the date.
-     * @param toAppendTo  the string buffer.
-     * @param fieldPosition  the field position.
-     *
+     * @param date          the date.
+     * @param toAppendTo    the string buffer.
+     * @param fieldPosition the field position.
      * @return The formatted date.
      */
     @Override
@@ -160,8 +161,7 @@ public class QuarterDateFormat extends DateFormat
             toAppendTo.append(this.quarters[quarter]);
             toAppendTo.append(" ");
             toAppendTo.append(year);
-        }
-        else {
+        } else {
             toAppendTo.append(year);
             toAppendTo.append(" ");
             toAppendTo.append(this.quarters[quarter]);
@@ -172,9 +172,8 @@ public class QuarterDateFormat extends DateFormat
     /**
      * Parses the given string (not implemented).
      *
-     * @param source  the date string.
-     * @param pos  the parse position.
-     *
+     * @param source the date string.
+     * @param pos    the parse position.
      * @return <code>null</code>, as this method has not been implemented.
      */
     @Override
@@ -185,8 +184,7 @@ public class QuarterDateFormat extends DateFormat
     /**
      * Tests this formatter for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

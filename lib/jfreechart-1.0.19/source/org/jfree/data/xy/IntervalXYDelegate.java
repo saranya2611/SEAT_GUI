@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -53,8 +53,6 @@
 
 package org.jfree.data.xy;
 
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.data.DomainInfo;
@@ -64,6 +62,8 @@ import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
 
 /**
  * A delegate that handles the specification or automatic calculation of the
@@ -85,7 +85,9 @@ import org.jfree.util.PublicCloneable;
 public class IntervalXYDelegate implements DatasetChangeListener,
         DomainInfo, Serializable, Cloneable, PublicCloneable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -685166711639592857L;
 
     /**
@@ -117,7 +119,7 @@ public class IntervalXYDelegate implements DatasetChangeListener,
     /**
      * Creates a new delegate that.
      *
-     * @param dataset  the underlying dataset (<code>null</code> not permitted).
+     * @param dataset the underlying dataset (<code>null</code> not permitted).
      */
     public IntervalXYDelegate(XYDataset dataset) {
         this(dataset, true);
@@ -126,9 +128,9 @@ public class IntervalXYDelegate implements DatasetChangeListener,
     /**
      * Creates a new delegate for the specified dataset.
      *
-     * @param dataset  the underlying dataset (<code>null</code> not permitted).
-     * @param autoWidth  a flag that controls whether the interval width is
-     *                   calculated automatically.
+     * @param dataset   the underlying dataset (<code>null</code> not permitted).
+     * @param autoWidth a flag that controls whether the interval width is
+     *                  calculated automatically.
      */
     public IntervalXYDelegate(XYDataset dataset, boolean autoWidth) {
         ParamChecks.nullNotPermitted(dataset, "dataset");
@@ -158,7 +160,7 @@ public class IntervalXYDelegate implements DatasetChangeListener,
      * represented by the dataset.  The calling dataset must fire an
      * appropriate {@link DatasetChangeEvent}.
      *
-     * @param b  a boolean.
+     * @param b a boolean.
      */
     public void setAutoWidth(boolean b) {
         this.autoWidth = b;
@@ -189,8 +191,8 @@ public class IntervalXYDelegate implements DatasetChangeListener,
      * using this delegate is responsible for generating the
      * appropriate {@link DatasetChangeEvent}.
      *
-     * @param d  the new interval position factor (in the range
-     *           <code>0.0</code> to <code>1.0</code> inclusive).
+     * @param d the new interval position factor (in the range
+     *          <code>0.0</code> to <code>1.0</code> inclusive).
      */
     public void setIntervalPositionFactor(double d) {
         if (d < 0.0 || 1.0 < d) {
@@ -218,7 +220,7 @@ public class IntervalXYDelegate implements DatasetChangeListener,
      * that is using this delegate is responsible for generating the
      * appropriate {@link DatasetChangeEvent}.
      *
-     * @param w  the width (negative values not permitted).
+     * @param w the width (negative values not permitted).
      */
     public void setFixedIntervalWidth(double w) {
         if (w < 0.0) {
@@ -240,8 +242,7 @@ public class IntervalXYDelegate implements DatasetChangeListener,
             // everything is fine: autoWidth is on, and an autoIntervalWidth
             // was set.
             return this.autoIntervalWidth;
-        }
-        else {
+        } else {
             // either autoWidth is off or autoIntervalWidth was not set.
             return this.fixedIntervalWidth;
         }
@@ -250,11 +251,9 @@ public class IntervalXYDelegate implements DatasetChangeListener,
     /**
      * Returns the start value of the x-interval for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The start value of the x-interval (possibly <code>null</code>).
-     *
      * @see #getStartXValue(int, int)
      */
     public Number getStartX(int series, int item) {
@@ -262,7 +261,7 @@ public class IntervalXYDelegate implements DatasetChangeListener,
         Number x = this.dataset.getX(series, item);
         if (x != null) {
             startX = new Double(x.doubleValue()
-                     - (getIntervalPositionFactor() * getIntervalWidth()));
+                    - (getIntervalPositionFactor() * getIntervalWidth()));
         }
         return startX;
     }
@@ -270,11 +269,9 @@ public class IntervalXYDelegate implements DatasetChangeListener,
     /**
      * Returns the start value of the x-interval for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The start value of the x-interval.
-     *
      * @see #getStartX(int, int)
      */
     public double getStartXValue(int series, int item) {
@@ -285,11 +282,9 @@ public class IntervalXYDelegate implements DatasetChangeListener,
     /**
      * Returns the end value of the x-interval for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The end value of the x-interval (possibly <code>null</code>).
-     *
      * @see #getEndXValue(int, int)
      */
     public Number getEndX(int series, int item) {
@@ -297,7 +292,7 @@ public class IntervalXYDelegate implements DatasetChangeListener,
         Number x = this.dataset.getX(series, item);
         if (x != null) {
             endX = new Double(x.doubleValue()
-                + ((1.0 - getIntervalPositionFactor()) * getIntervalWidth()));
+                    + ((1.0 - getIntervalPositionFactor()) * getIntervalWidth()));
         }
         return endX;
     }
@@ -305,11 +300,9 @@ public class IntervalXYDelegate implements DatasetChangeListener,
     /**
      * Returns the end value of the x-interval for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The end value of the x-interval.
-     *
      * @see #getEndX(int, int)
      */
     public double getEndXValue(int series, int item) {
@@ -320,9 +313,8 @@ public class IntervalXYDelegate implements DatasetChangeListener,
     /**
      * Returns the minimum x-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The minimum value.
      */
     @Override
@@ -338,9 +330,8 @@ public class IntervalXYDelegate implements DatasetChangeListener,
     /**
      * Returns the maximum x-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The maximum value.
      */
     @Override
@@ -357,9 +348,8 @@ public class IntervalXYDelegate implements DatasetChangeListener,
      * Returns the range of the values in the dataset's domain, including
      * or excluding the interval around each x-value as specified.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval should be taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval should be taken into account.
      * @return The range.
      */
     @Override
@@ -371,7 +361,7 @@ public class IntervalXYDelegate implements DatasetChangeListener,
             double lowerAdj = getIntervalWidth() * getIntervalPositionFactor();
             double upperAdj = getIntervalWidth() - lowerAdj;
             range = new Range(range.getLowerBound() - lowerAdj,
-                range.getUpperBound() + upperAdj);
+                    range.getUpperBound() + upperAdj);
         }
         return range;
     }
@@ -380,7 +370,7 @@ public class IntervalXYDelegate implements DatasetChangeListener,
      * Handles events from the dataset by recalculating the interval if
      * necessary.
      *
-     * @param e  the event.
+     * @param e the event.
      */
     @Override
     public void datasetChanged(DatasetChangeEvent e) {
@@ -411,8 +401,7 @@ public class IntervalXYDelegate implements DatasetChangeListener,
     /**
      * Calculates the interval width for a given series.
      *
-     * @param series  the series index.
-     *
+     * @param series the series index.
      * @return The interval width.
      */
     private double calculateIntervalForSeries(int series) {
@@ -436,8 +425,7 @@ public class IntervalXYDelegate implements DatasetChangeListener,
      * dataset itself is NOT included in the equality test, because it is just
      * a reference back to the current 'owner' of the delegate).
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -463,7 +451,6 @@ public class IntervalXYDelegate implements DatasetChangeListener,
 
     /**
      * @return A clone of this delegate.
-     *
      * @throws CloneNotSupportedException if the object cannot be cloned.
      */
     @Override

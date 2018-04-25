@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -41,20 +41,19 @@
 
 package org.jfree.chart.block;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.Range;
 import org.jfree.ui.Size2D;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link GridArrangement} class.
  */
 public class GridArrangementTest {
+
+    private static final double EPSILON = 0.000000001;
 
     /**
      * Confirm that the equals() method can distinguish all the required fields.
@@ -95,8 +94,6 @@ public class GridArrangementTest {
         GridArrangement f2 = (GridArrangement) TestUtilities.serialised(f1);
         assertEquals(f1, f2);
     }
-
-    private static final double EPSILON = 0.000000001;
 
     /**
      * Test arrangement with no constraints.

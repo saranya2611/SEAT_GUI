@@ -1,7 +1,7 @@
 /* ====================
  * PieChartFXDemo1.java
  * ====================
- * 
+ *
  * Copyright (c) 2014, Object Refinery Limited.
  * All rights reserved.
  *
@@ -18,9 +18,9 @@
  *     names of its contributors may be used to endorse or promote products
  *     derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL OBJECT REFINERY LIMITED BE LIABLE FOR ANY
  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
@@ -28,20 +28,11 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * 
+ *
  */
 
 package org.jfree.chart.fx.demo;
 
-import static javafx.application.Application.launch;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Point;
-import java.awt.RadialGradientPaint;
-import java.awt.geom.Point2D;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -55,6 +46,9 @@ import org.jfree.data.general.PieDataset;
 import org.jfree.ui.HorizontalAlignment;
 import org.jfree.ui.RectangleEdge;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
+
 /**
  * A pie chart demo in JavaFX.
  */
@@ -62,7 +56,7 @@ public class PieChartFXDemo1 extends Application {
 
     /**
      * Creates a sample dataset.
-     * 
+     * <p>
      * Source: http://www.bbc.co.uk/news/business-15489523
      *
      * @return A sample dataset.
@@ -75,26 +69,25 @@ public class PieChartFXDemo1 extends Application {
         dataset.setValue("Apple", new Double(17.1));
         return dataset;
     }
-    
+
     /**
      * Creates a chart.
      *
-     * @param dataset  the dataset.
-     *
+     * @param dataset the dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(PieDataset dataset) {
 
         JFreeChart chart = ChartFactory.createPieChart(
-            "Smart Phones Manufactured / Q3 2011",  // chart title
-            dataset,            // data
-            false,              // no legend
-            true,               // tooltips
-            false               // no URL generation
+                "Smart Phones Manufactured / Q3 2011",  // chart title
+                dataset,            // data
+                false,              // no legend
+                true,               // tooltips
+                false               // no URL generation
         );
 
         // set a custom background for the chart
-        chart.setBackgroundPaint(new GradientPaint(new Point(0, 0), 
+        chart.setBackgroundPaint(new GradientPaint(new Point(0, 0),
                 new Color(20, 20, 20), new Point(400, 200), Color.DARK_GRAY));
 
         // customise the title position and font
@@ -124,9 +117,9 @@ public class PieChartFXDemo1 extends Application {
         plot.setLabelOutlineStroke(null);
         plot.setLabelPaint(Color.WHITE);
         plot.setLabelBackgroundPaint(null);
-        
+
         // add a subtitle giving the data source
-        TextTitle source = new TextTitle("Source: http://www.bbc.co.uk/news/business-15489523", 
+        TextTitle source = new TextTitle("Source: http://www.bbc.co.uk/news/business-15489523",
                 new Font("Courier New", Font.PLAIN, 12));
         source.setPaint(Color.WHITE);
         source.setPosition(RectangleEdge.BOTTOM);
@@ -138,10 +131,9 @@ public class PieChartFXDemo1 extends Application {
 
     /**
      * A utility method for creating gradient paints.
-     * 
-     * @param c1  color 1.
-     * @param c2  color 2.
-     * 
+     *
+     * @param c1 color 1.
+     * @param c2 color 2.
      * @return A radial gradient paint.
      */
     private static RadialGradientPaint createGradientPaint(Color c1, Color c2) {
@@ -149,26 +141,26 @@ public class PieChartFXDemo1 extends Application {
         float radius = 200;
         float[] dist = {0.0f, 1.0f};
         return new RadialGradientPaint(center, radius, dist,
-                new Color[] {c1, c2});
+                new Color[]{c1, c2});
     }
 
-    @Override 
-    public void start(Stage stage) throws Exception {
-        PieDataset dataset = createDataset();
-        JFreeChart chart = createChart(dataset); 
-        ChartViewer viewer = new ChartViewer(chart);  
-        stage.setScene(new Scene(viewer)); 
-        stage.setTitle("JFreeChart: PieChartFXDemo1.java"); 
-        stage.setWidth(700);
-        stage.setHeight(390);
-        stage.show(); 
-    }
-    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
     }
-  
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        PieDataset dataset = createDataset();
+        JFreeChart chart = createChart(dataset);
+        ChartViewer viewer = new ChartViewer(chart);
+        stage.setScene(new Scene(viewer));
+        stage.setTitle("JFreeChart: PieChartFXDemo1.java");
+        stage.setWidth(700);
+        stage.setHeight(390);
+        stage.show();
+    }
+
 }

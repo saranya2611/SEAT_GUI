@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------
@@ -58,8 +58,7 @@ public interface URLTagFragmentGenerator {
      * {@link XYURLGenerator} or {@link XYZURLGenerator}) and that generator is
      * responsible for ensuring that the URL text is correctly escaped.
      *
-     * @param urlText  the URL text (fully escaped).
-     *
+     * @param urlText the URL text (fully escaped).
      * @return The formatted HTML area tag attribute(s).
      */
     public String generateURLFragment(String urlText);

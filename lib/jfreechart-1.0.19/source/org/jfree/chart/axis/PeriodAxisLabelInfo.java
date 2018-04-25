@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -46,11 +46,12 @@
 
 package org.jfree.chart.axis;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Paint;
-import java.awt.Stroke;
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.data.time.RegularTimePeriod;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleInsets;
+
+import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -60,11 +61,6 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-import org.jfree.chart.util.ParamChecks;
-
-import org.jfree.data.time.RegularTimePeriod;
-import org.jfree.io.SerialUtilities;
-import org.jfree.ui.RectangleInsets;
 
 /**
  * A record that contains information for one "band" of date labels in
@@ -72,82 +68,104 @@ import org.jfree.ui.RectangleInsets;
  */
 public class PeriodAxisLabelInfo implements Cloneable, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 5710451740920277357L;
-
-    /** The default insets. */
+    /**
+     * The default insets.
+     */
     public static final RectangleInsets DEFAULT_INSETS
             = new RectangleInsets(2, 2, 2, 2);
-
-    /** The default font. */
+    /**
+     * The default font.
+     */
     public static final Font DEFAULT_FONT
             = new Font("SansSerif", Font.PLAIN, 10);
-
-    /** The default label paint. */
+    /**
+     * The default label paint.
+     */
     public static final Paint DEFAULT_LABEL_PAINT = Color.black;
-
-    /** The default divider stroke. */
+    /**
+     * The default divider stroke.
+     */
     public static final Stroke DEFAULT_DIVIDER_STROKE = new BasicStroke(0.5f);
-
-    /** The default divider paint. */
+    /**
+     * The default divider paint.
+     */
     public static final Paint DEFAULT_DIVIDER_PAINT = Color.gray;
-
-    /** The subclass of {@link RegularTimePeriod} to use for this band. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 5710451740920277357L;
+    /**
+     * The subclass of {@link RegularTimePeriod} to use for this band.
+     */
     private Class periodClass;
 
-    /** Controls the gaps around the band. */
+    /**
+     * Controls the gaps around the band.
+     */
     private RectangleInsets padding;
 
-    /** The date formatter. */
+    /**
+     * The date formatter.
+     */
     private DateFormat dateFormat;
 
-    /** The label font. */
+    /**
+     * The label font.
+     */
     private Font labelFont;
 
-    /** The label paint. */
+    /**
+     * The label paint.
+     */
     private transient Paint labelPaint;
 
-    /** A flag that controls whether or not dividers are visible. */
+    /**
+     * A flag that controls whether or not dividers are visible.
+     */
     private boolean drawDividers;
 
-    /** The stroke used to draw the dividers. */
+    /**
+     * The stroke used to draw the dividers.
+     */
     private transient Stroke dividerStroke;
 
-    /** The paint used to draw the dividers. */
+    /**
+     * The paint used to draw the dividers.
+     */
     private transient Paint dividerPaint;
 
     /**
      * Creates a new instance.
      *
-     * @param periodClass  the subclass of {@link RegularTimePeriod} to use
-     *                     (<code>null</code> not permitted).
+     * @param periodClass the subclass of {@link RegularTimePeriod} to use
+     *                    (<code>null</code> not permitted).
      * @param dateFormat  the date format (<code>null</code> not permitted).
      */
     public PeriodAxisLabelInfo(Class periodClass, DateFormat dateFormat) {
         this(periodClass, dateFormat, DEFAULT_INSETS, DEFAULT_FONT,
-            DEFAULT_LABEL_PAINT, true, DEFAULT_DIVIDER_STROKE,
-            DEFAULT_DIVIDER_PAINT);
+                DEFAULT_LABEL_PAINT, true, DEFAULT_DIVIDER_STROKE,
+                DEFAULT_DIVIDER_PAINT);
     }
 
     /**
      * Creates a new instance.
      *
-     * @param periodClass  the subclass of {@link RegularTimePeriod} to use
-     *                     (<code>null</code> not permitted).
-     * @param dateFormat  the date format (<code>null</code> not permitted).
-     * @param padding  controls the space around the band (<code>null</code>
-     *                 not permitted).
-     * @param labelFont  the label font (<code>null</code> not permitted).
-     * @param labelPaint  the label paint (<code>null</code> not permitted).
+     * @param periodClass   the subclass of {@link RegularTimePeriod} to use
+     *                      (<code>null</code> not permitted).
+     * @param dateFormat    the date format (<code>null</code> not permitted).
+     * @param padding       controls the space around the band (<code>null</code>
+     *                      not permitted).
+     * @param labelFont     the label font (<code>null</code> not permitted).
+     * @param labelPaint    the label paint (<code>null</code> not permitted).
      * @param drawDividers  a flag that controls whether dividers are drawn.
-     * @param dividerStroke  the stroke used to draw the dividers
-     *                       (<code>null</code> not permitted).
+     * @param dividerStroke the stroke used to draw the dividers
+     *                      (<code>null</code> not permitted).
      * @param dividerPaint  the paint used to draw the dividers
      *                      (<code>null</code> not permitted).
      */
     public PeriodAxisLabelInfo(Class periodClass, DateFormat dateFormat,
-            RectangleInsets padding, Font labelFont, Paint labelPaint,
-            boolean drawDividers, Stroke dividerStroke, Paint dividerPaint) {
+                               RectangleInsets padding, Font labelFont, Paint labelPaint,
+                               boolean drawDividers, Stroke dividerStroke, Paint dividerPaint) {
         ParamChecks.nullNotPermitted(periodClass, "periodClass");
         ParamChecks.nullNotPermitted(dateFormat, "dateFormat");
         ParamChecks.nullNotPermitted(padding, "padding");
@@ -242,11 +260,9 @@ public class PeriodAxisLabelInfo implements Cloneable, Serializable {
      * Creates a time period that includes the specified millisecond, assuming
      * the given time zone.
      *
-     * @param millisecond  the time.
-     * @param zone  the time zone.
-     *
+     * @param millisecond the time.
+     * @param zone        the time zone.
      * @return The time period.
-     *
      * @deprecated As of 1.0.13, use the method that specifies the locale also.
      */
     public RegularTimePeriod createInstance(Date millisecond, TimeZone zone) {
@@ -257,24 +273,21 @@ public class PeriodAxisLabelInfo implements Cloneable, Serializable {
      * Creates a time period that includes the specified millisecond, assuming
      * the given time zone.
      *
-     * @param millisecond  the time.
-     * @param zone  the time zone.
-     * @param locale  the locale.
-     *
+     * @param millisecond the time.
+     * @param zone        the time zone.
+     * @param locale      the locale.
      * @return The time period.
-     *
      * @since 1.0.13.
      */
     public RegularTimePeriod createInstance(Date millisecond, TimeZone zone,
-            Locale locale) {
+                                            Locale locale) {
         RegularTimePeriod result = null;
         try {
             Constructor c = this.periodClass.getDeclaredConstructor(
-                    new Class[] {Date.class, TimeZone.class, Locale.class});
-            result = (RegularTimePeriod) c.newInstance(new Object[] {
+                    new Class[]{Date.class, TimeZone.class, Locale.class});
+            result = (RegularTimePeriod) c.newInstance(new Object[]{
                     millisecond, zone, locale});
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // do nothing
         }
         return result;
@@ -283,8 +296,7 @@ public class PeriodAxisLabelInfo implements Cloneable, Serializable {
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the object to test against (<code>null</code> permitted).
-     *
+     * @param obj the object to test against (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -340,7 +352,6 @@ public class PeriodAxisLabelInfo implements Cloneable, Serializable {
      * Returns a clone of the object.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if cloning is not supported.
      */
     @Override
@@ -352,9 +363,8 @@ public class PeriodAxisLabelInfo implements Cloneable, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -366,13 +376,12 @@ public class PeriodAxisLabelInfo implements Cloneable, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.labelPaint = SerialUtilities.readPaint(stream);
         this.dividerStroke = SerialUtilities.readStroke(stream);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -58,20 +58,26 @@ import java.util.Date;
  */
 public class SimpleTimePeriod implements TimePeriod, Comparable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 8684672361131829554L;
 
-    /** The start date/time. */
+    /**
+     * The start date/time.
+     */
     private long start;
 
-    /** The end date/time. */
+    /**
+     * The end date/time.
+     */
     private long end;
 
     /**
      * Creates a new time allocation.
      *
-     * @param start  the start date/time in milliseconds.
-     * @param end  the end date/time in milliseconds.
+     * @param start the start date/time in milliseconds.
+     * @param end   the end date/time in milliseconds.
      */
     public SimpleTimePeriod(long start, long end) {
         if (start > end) {
@@ -84,8 +90,8 @@ public class SimpleTimePeriod implements TimePeriod, Comparable, Serializable {
     /**
      * Creates a new time allocation.
      *
-     * @param start  the start date/time (<code>null</code> not permitted).
-     * @param end  the end date/time (<code>null</code> not permitted).
+     * @param start the start date/time (<code>null</code> not permitted).
+     * @param end   the end date/time (<code>null</code> not permitted).
      */
     public SimpleTimePeriod(Date start, Date end) {
         this(start.getTime(), end.getTime());
@@ -105,7 +111,6 @@ public class SimpleTimePeriod implements TimePeriod, Comparable, Serializable {
      * Returns the start date/time in milliseconds.
      *
      * @return The start.
-     *
      * @since 1.0.10.
      */
     public long getStartMillis() {
@@ -126,7 +131,6 @@ public class SimpleTimePeriod implements TimePeriod, Comparable, Serializable {
      * Returns the end date/time in milliseconds.
      *
      * @return The end.
-     *
      * @since 1.0.10.
      */
     public long getEndMillis() {
@@ -138,8 +142,7 @@ public class SimpleTimePeriod implements TimePeriod, Comparable, Serializable {
      * The object is considered equal if it is an instance of {@link TimePeriod}
      * and it has the same start and end dates.
      *
-     * @param obj  the other object (<code>null</code> permitted).
-     *
+     * @param obj the other object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -164,10 +167,8 @@ public class SimpleTimePeriod implements TimePeriod, Comparable, Serializable {
      * Returns an integer that indicates the relative ordering of two
      * time periods.
      *
-     * @param obj  the object (<code>null</code> not permitted).
-     *
+     * @param obj the object (<code>null</code> not permitted).
      * @return An integer.
-     *
      * @throws ClassCastException if <code>obj</code> is not an instance of
      *                            {@link TimePeriod}.
      */
@@ -182,25 +183,19 @@ public class SimpleTimePeriod implements TimePeriod, Comparable, Serializable {
         long m1 = t2 + (t3 - t2) / 2L;
         if (m0 < m1) {
             return -1;
-        }
-        else if (m0 > m1) {
+        } else if (m0 > m1) {
             return 1;
-        }
-        else {
+        } else {
             if (t0 < t2) {
                 return -1;
-            }
-            else if (t0 > t2) {
+            } else if (t0 > t2) {
                 return 1;
-            }
-            else {
+            } else {
                 if (t1 < t3) {
                     return -1;
-                }
-                else if (t1 > t3) {
+                } else if (t1 > t3) {
                     return 1;
-                }
-                else {
+                } else {
                     return 0;
                 }
             }

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -41,16 +41,16 @@
 
 package org.jfree.chart.entity;
 
-import java.awt.Shape;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.title.Title;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.io.SerialUtilities;
 import org.jfree.util.ObjectUtilities;
+
+import java.awt.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * A class that captures information about a Title of a chart.
@@ -59,18 +59,22 @@ import org.jfree.util.ObjectUtilities;
  */
 public class TitleEntity extends ChartEntity {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -4445994133561919083L;
-            //same as for ChartEntity!
+    //same as for ChartEntity!
 
-    /** The Title for the entity. */
+    /**
+     * The Title for the entity.
+     */
     private Title title;
 
     /**
      * Creates a new chart entity.
      *
      * @param area  the area (<code>null</code> not permitted).
-     * @param title  the title (<code>null</code> not permitted).
+     * @param title the title (<code>null</code> not permitted).
      */
     public TitleEntity(Shape area, Title title) {
         // defer argument checks...
@@ -80,9 +84,9 @@ public class TitleEntity extends ChartEntity {
     /**
      * Creates a new chart entity.
      *
-     * @param area  the area (<code>null</code> not permitted).
-     * @param title  the title (<code>null</code> not permitted).
-     * @param toolTipText  the tool tip text (<code>null</code> permitted).
+     * @param area        the area (<code>null</code> not permitted).
+     * @param title       the title (<code>null</code> not permitted).
+     * @param toolTipText the tool tip text (<code>null</code> permitted).
      */
     public TitleEntity(Shape area, Title title, String toolTipText) {
         // defer argument checks...
@@ -92,14 +96,14 @@ public class TitleEntity extends ChartEntity {
     /**
      * Creates a new entity.
      *
-     * @param area  the area (<code>null</code> not permitted).
-     * @param title  the title (<code>null</code> not permitted).
-     * @param toolTipText  the tool tip text (<code>null</code> permitted).
-     * @param urlText  the URL text for HTML image maps (<code>null</code>
-     *                 permitted).
+     * @param area        the area (<code>null</code> not permitted).
+     * @param title       the title (<code>null</code> not permitted).
+     * @param toolTipText the tool tip text (<code>null</code> permitted).
+     * @param urlText     the URL text for HTML image maps (<code>null</code>
+     *                    permitted).
      */
     public TitleEntity(Shape area, Title title, String toolTipText,
-            String urlText) {
+                       String urlText) {
         super(area, toolTipText, urlText);
         ParamChecks.nullNotPermitted(title, "title");
         this.title = title;
@@ -131,8 +135,7 @@ public class TitleEntity extends ChartEntity {
     /**
      * Tests the entity for equality with an arbitrary object.
      *
-     * @param obj  the object to test against (<code>null</code> permitted).
-     *
+     * @param obj the object to test against (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -176,9 +179,8 @@ public class TitleEntity extends ChartEntity {
      * Returns a clone of the entity.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem cloning the
-     *         entity.
+     *                                    entity.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -188,22 +190,20 @@ public class TitleEntity extends ChartEntity {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
         SerialUtilities.writeShape(getArea(), stream);
-     }
+    }
 
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------
@@ -60,10 +60,9 @@ public interface CategoryToolTipGenerator {
      * current dataset implementation, each row is a series, and each column
      * contains values for a particular category.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param row  the row index (zero-based).
+     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param row     the row index (zero-based).
      * @param column  the column index (zero-based).
-     *
      * @return The tooltip text (possibly <code>null</code>).
      */
     public String generateToolTip(CategoryDataset dataset, int row, int column);

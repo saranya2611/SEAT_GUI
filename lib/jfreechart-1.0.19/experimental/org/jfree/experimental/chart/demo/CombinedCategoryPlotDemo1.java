@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------
@@ -40,10 +40,6 @@
 
 package org.jfree.experimental.chart.demo;
 
-import java.awt.Font;
-
-import javax.swing.JPanel;
-
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
@@ -58,6 +54,9 @@ import org.jfree.experimental.chart.plot.CombinedCategoryPlot;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * A demo for the {@link CombinedCategoryPlot} class.
  */
@@ -66,7 +65,7 @@ public class CombinedCategoryPlotDemo1 extends ApplicationFrame {
     /**
      * Creates a new demo instance.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public CombinedCategoryPlotDemo1(String title) {
         super(title);
@@ -210,7 +209,7 @@ public class CombinedCategoryPlotDemo1 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         String title = "Combined Category Plot Demo 1";

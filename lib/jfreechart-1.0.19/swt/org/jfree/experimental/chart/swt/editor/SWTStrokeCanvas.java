@@ -6,22 +6,22 @@
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
- * This library is free software; you can redistribute it and/or modify it 
- * under the terms of the GNU Lesser General Public License as published by 
- * the Free Software Foundation; either version 2.1 of the License, or 
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public 
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, 
- * USA.  
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -35,13 +35,10 @@
  * Changes
  * -------
  * 01-Aug-2006 : New class (HP);
- * 
+ *
  */
 
 package org.jfree.experimental.chart.swt.editor;
-
-import java.awt.BasicStroke;
-import java.awt.Stroke;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
@@ -52,15 +49,17 @@ import org.eclipse.swt.graphics.Transform;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 
+import java.awt.*;
+
 /**
  * A control for displaying a <code>Stroke</code> sample.
  */
 class SWTStrokeCanvas extends Canvas {
-    
+
     /**
      * Creates a new instance.
-     * 
-     * @param parent  the parent.
+     *
+     * @param parent the parent.
      * @param style  the style.
      * @param image  the image.
      */
@@ -70,8 +69,8 @@ class SWTStrokeCanvas extends Canvas {
 
     /**
      * Creates a new instance.
-     * 
-     * @param parent  the parent.
+     *
+     * @param parent the parent.
      * @param style  the style.
      */
     public SWTStrokeCanvas(Composite parent, int style) {
@@ -84,7 +83,7 @@ class SWTStrokeCanvas extends Canvas {
                     Rectangle rect = getClientArea();
                     x = (rect.width - 100) / 2;
                     y = (rect.height - 16) / 2;
-                    Transform swtTransform = new Transform(e.gc.getDevice()); 
+                    Transform swtTransform = new Transform(e.gc.getDevice());
                     e.gc.getTransform(swtTransform);
                     swtTransform.translate(x, y);
                     e.gc.setTransform(swtTransform);
@@ -97,28 +96,27 @@ class SWTStrokeCanvas extends Canvas {
             }
         });
     }
-    
-    /**
-     * Sets the stroke.
-     * 
-     * @param stroke  the stroke.
-     */
-    public void setStroke(Stroke stroke) {
-        if (stroke instanceof BasicStroke) {
-            setData(stroke);
-        }
-        else { 
-            throw new RuntimeException(
-                "Can only handle 'Basic Stroke' at present.");
-        }
-    }
 
     /**
      * Returns the stroke.
-     * 
+     *
      * @return The stroke.
      */
     public BasicStroke getStroke() {
         return (BasicStroke) this.getData();
+    }
+
+    /**
+     * Sets the stroke.
+     *
+     * @param stroke the stroke.
+     */
+    public void setStroke(Stroke stroke) {
+        if (stroke instanceof BasicStroke) {
+            setData(stroke);
+        } else {
+            throw new RuntimeException(
+                    "Can only handle 'Basic Stroke' at present.");
+        }
     }
 }

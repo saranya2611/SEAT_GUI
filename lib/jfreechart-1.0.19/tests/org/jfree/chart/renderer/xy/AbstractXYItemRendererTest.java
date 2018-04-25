@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -41,24 +41,23 @@
 
 package org.jfree.chart.renderer.xy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
+import org.jfree.chart.labels.StandardXYItemLabelGenerator;
 import org.jfree.chart.labels.StandardXYSeriesLabelGenerator;
 import org.jfree.chart.labels.StandardXYToolTipGenerator;
-import org.jfree.chart.labels.StandardXYItemLabelGenerator;
 import org.jfree.data.Range;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link AbstractXYItemRenderer} class.
  */
 public class AbstractXYItemRendererTest {
+
+    private static final double EPSILON = 0.0000000001;
 
     /**
      * Creates a test dataset.
@@ -74,8 +73,6 @@ public class AbstractXYItemRendererTest {
         dataset.addSeries(series);
         return dataset;
     }
-
-    private static final double EPSILON = 0.0000000001;
 
     /**
      * Some checks for the findDomainBounds() method.
@@ -127,7 +124,7 @@ public class AbstractXYItemRendererTest {
      * Check that the legendItemToolTipGenerator is cloned.
      */
     @Test
-    public void testCloning_LegendItemToolTipGenerator() 
+    public void testCloning_LegendItemToolTipGenerator()
             throws CloneNotSupportedException {
         StandardXYSeriesLabelGenerator generator
                 = new StandardXYSeriesLabelGenerator("Series {0}");
@@ -148,7 +145,7 @@ public class AbstractXYItemRendererTest {
      * Check that the legendItemURLGenerator is cloned.
      */
     @Test
-    public void testCloning_LegendItemURLGenerator() 
+    public void testCloning_LegendItemURLGenerator()
             throws CloneNotSupportedException {
         StandardXYSeriesLabelGenerator generator
                 = new StandardXYSeriesLabelGenerator("Series {0}");
@@ -163,7 +160,7 @@ public class AbstractXYItemRendererTest {
         assertTrue(r1.getLegendItemURLGenerator()
                 != r2.getLegendItemURLGenerator());
     }
-    
+
     @Test
     public void testEquals_ObjectList() {
         XYBarRenderer r1 = new XYBarRenderer();

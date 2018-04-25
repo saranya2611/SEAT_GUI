@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -49,7 +49,9 @@ package org.jfree.chart.event;
  */
 public class RendererChangeEvent extends ChartChangeEvent {
 
-    /** The renderer that generated the event. */
+    /**
+     * The renderer that generated the event.
+     */
     private Object renderer;
 
     /**
@@ -64,7 +66,7 @@ public class RendererChangeEvent extends ChartChangeEvent {
     /**
      * Creates a new event.
      *
-     * @param renderer  the renderer that generated the event.
+     * @param renderer the renderer that generated the event.
      */
     public RendererChangeEvent(Object renderer) {
         this(renderer, false);
@@ -73,12 +75,12 @@ public class RendererChangeEvent extends ChartChangeEvent {
     /**
      * Creates a new event.
      *
-     * @param renderer  the renderer that generated the event.
-     * @param seriesVisibilityChanged  a flag that indicates whether or not
-     *         the event relates to a change in the series visibility flags.
+     * @param renderer                the renderer that generated the event.
+     * @param seriesVisibilityChanged a flag that indicates whether or not
+     *                                the event relates to a change in the series visibility flags.
      */
     public RendererChangeEvent(Object renderer,
-            boolean seriesVisibilityChanged) {
+                               boolean seriesVisibilityChanged) {
         super(renderer);
         this.renderer = renderer;
         this.seriesVisibilityChanged = seriesVisibilityChanged;
@@ -98,7 +100,6 @@ public class RendererChangeEvent extends ChartChangeEvent {
      * a change in series visibility.
      *
      * @return A boolean.
-     *
      * @since 1.0.13
      */
     public boolean getSeriesVisibilityChanged() {

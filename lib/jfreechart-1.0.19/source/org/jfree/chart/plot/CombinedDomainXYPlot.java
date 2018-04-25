@@ -92,18 +92,11 @@
  * 11-Aug-2008 : Don't store totalWeight of subplots, calculate it as
  *               required (DG);
  * 21-Dec-2011 : Apply patch 3447161 by Ulrich Voigt and Martin Hoeller (MH);
- * 21-Jul-2014 : Override isRangePannable() and setRangePannable() - motivated 
+ * 21-Jul-2014 : Override isRangePannable() and setRangePannable() - motivated
  *               by patch #304 by Ulrich Voigt (DG);
  */
 
 package org.jfree.chart.plot;
-
-import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 import org.jfree.chart.LegendItemCollection;
 import org.jfree.chart.axis.AxisSpace;
@@ -120,6 +113,13 @@ import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.RectangleInsets;
 import org.jfree.util.ObjectUtilities;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * An extension of {@link XYPlot} that contains multiple subplots that share a
  * common domain axis.
@@ -127,16 +127,24 @@ import org.jfree.util.ObjectUtilities;
 public class CombinedDomainXYPlot extends XYPlot
         implements PlotChangeListener {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -7765545541261907383L;
 
-    /** Storage for the subplot references. */
+    /**
+     * Storage for the subplot references.
+     */
     private List<XYPlot> subplots;
 
-    /** The gap between subplots. */
+    /**
+     * The gap between subplots.
+     */
     private double gap = 5.0;
 
-    /** Temporary storage for the subplot areas. */
+    /**
+     * Temporary storage for the subplot areas.
+     */
     private transient Rectangle2D[] subplotAreas;
     // TODO:  the subplot areas needs to be moved out of the plot into the plot
     //        state
@@ -152,13 +160,13 @@ public class CombinedDomainXYPlot extends XYPlot
      * Creates a new combined plot that shares a domain axis among multiple
      * subplots.
      *
-     * @param domainAxis  the shared axis.
+     * @param domainAxis the shared axis.
      */
     public CombinedDomainXYPlot(ValueAxis domainAxis) {
         super(null,        // no data in the parent plot
-              domainAxis,
-              null,        // no range axis
-              null);       // no renderer
+                domainAxis,
+                null,        // no range axis
+                null);       // no renderer
         this.subplots = new java.util.ArrayList<XYPlot>();
     }
 
@@ -176,7 +184,6 @@ public class CombinedDomainXYPlot extends XYPlot
      * Returns the gap between subplots, measured in Java2D units.
      *
      * @return The gap (in Java2D units).
-     *
      * @see #setGap(double)
      */
     public double getGap() {
@@ -187,8 +194,7 @@ public class CombinedDomainXYPlot extends XYPlot
      * Sets the amount of space between subplots and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param gap  the gap between subplots (in Java2D units).
-     *
+     * @param gap the gap between subplots (in Java2D units).
      * @see #getGap()
      */
     public void setGap(double gap) {
@@ -199,8 +205,8 @@ public class CombinedDomainXYPlot extends XYPlot
     /**
      * Returns {@code true} if the range is pannable for at least one subplot,
      * and {@code false} otherwise.
-     * 
-     * @return A boolean. 
+     *
+     * @return A boolean.
      */
     @Override
     public boolean isRangePannable() {
@@ -211,25 +217,25 @@ public class CombinedDomainXYPlot extends XYPlot
         }
         return false;
     }
-    
+
     /**
-     * Sets the flag, on each of the subplots, that controls whether or not the 
+     * Sets the flag, on each of the subplots, that controls whether or not the
      * range is pannable.
-     * 
-     * @param pannable  the new flag value. 
+     *
+     * @param pannable the new flag value.
      */
     @Override
     public void setRangePannable(boolean pannable) {
         for (XYPlot subplot : this.subplots) {
             subplot.setRangePannable(pannable);
-        }        
+        }
     }
 
     /**
      * Sets the orientation for the plot (also changes the orientation for all
      * the subplots to match).
      *
-     * @param orientation  the orientation (<code>null</code> not allowed).
+     * @param orientation the orientation (<code>null</code> not allowed).
      */
     @Override
     public void setOrientation(PlotOrientation orientation) {
@@ -244,8 +250,8 @@ public class CombinedDomainXYPlot extends XYPlot
     /**
      * Sets the shadow generator for the plot (and all subplots) and sends
      * a {@link PlotChangeEvent} to all registered listeners.
-     * 
-     * @param generator  the new generator (<code>null</code> permitted).
+     *
+     * @param generator the new generator (<code>null</code> permitted).
      */
     @Override
     public void setShadowGenerator(ShadowGenerator generator) {
@@ -268,8 +274,7 @@ public class CombinedDomainXYPlot extends XYPlot
      * will only call this method for the domain values (although this is not
      * checked/enforced).
      *
-     * @param axis  the axis.
-     *
+     * @param axis the axis.
      * @return The range (possibly <code>null</code>).
      */
     @Override
@@ -288,11 +293,11 @@ public class CombinedDomainXYPlot extends XYPlot
     /**
      * Adds a subplot (with a default 'weight' of 1) and sends a
      * {@link PlotChangeEvent} to all registered listeners.
-     * <P>
+     * <p>
      * The domain axis for the subplot will be set to <code>null</code>.  You
      * must ensure that the subplot has a non-null range axis.
      *
-     * @param subplot  the subplot (<code>null</code> not permitted).
+     * @param subplot the subplot (<code>null</code> not permitted).
      */
     public void add(XYPlot subplot) {
         // defer argument checking
@@ -304,11 +309,11 @@ public class CombinedDomainXYPlot extends XYPlot
      * {@link PlotChangeEvent} to all registered listeners.  The weight
      * determines how much space is allocated to the subplot relative to all
      * the other subplots.
-     * <P>
+     * <p>
      * The domain axis for the subplot will be set to <code>null</code>.  You
      * must ensure that the subplot has a non-null range axis.
      *
-     * @param subplot  the subplot (<code>null</code> not permitted).
+     * @param subplot the subplot (<code>null</code> not permitted).
      * @param weight  the weight (must be &gt;= 1).
      */
     public void add(XYPlot subplot, int weight) {
@@ -336,7 +341,7 @@ public class CombinedDomainXYPlot extends XYPlot
      * Removes a subplot from the combined chart and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param subplot  the subplot (<code>null</code> not permitted).
+     * @param subplot the subplot (<code>null</code> not permitted).
      */
     public void remove(XYPlot subplot) {
         ParamChecks.nullNotPermitted(subplot, "subplot");
@@ -370,8 +375,7 @@ public class CombinedDomainXYPlot extends XYPlot
     public List getSubplots() {
         if (this.subplots != null) {
             return Collections.unmodifiableList(this.subplots);
-        }
-        else {
+        } else {
             return Collections.EMPTY_LIST;
         }
     }
@@ -379,9 +383,8 @@ public class CombinedDomainXYPlot extends XYPlot
     /**
      * Calculates the axis space required.
      *
-     * @param g2  the graphics device.
-     * @param plotArea  the plot area.
-     *
+     * @param g2       the graphics device.
+     * @param plotArea the plot area.
      * @return The space.
      */
     @Override
@@ -397,13 +400,11 @@ public class CombinedDomainXYPlot extends XYPlot
             if (orientation == PlotOrientation.HORIZONTAL) {
                 space.setLeft(fixed.getLeft());
                 space.setRight(fixed.getRight());
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
+            } else if (orientation == PlotOrientation.VERTICAL) {
                 space.setTop(fixed.getTop());
                 space.setBottom(fixed.getBottom());
             }
-        }
-        else {
+        } else {
             ValueAxis xAxis = getDomainAxis();
             RectangleEdge xEdge = Plot.resolveDomainAxisLocation(
                     getDomainAxisLocation(), orientation);
@@ -427,8 +428,7 @@ public class CombinedDomainXYPlot extends XYPlot
         double usableSize = 0.0;
         if (orientation == PlotOrientation.HORIZONTAL) {
             usableSize = adjustedPlotArea.getWidth() - this.gap * (n - 1);
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             usableSize = adjustedPlotArea.getHeight() - this.gap * (n - 1);
         }
 
@@ -441,8 +441,7 @@ public class CombinedDomainXYPlot extends XYPlot
                 this.subplotAreas[i] = new Rectangle2D.Double(x, y, w,
                         adjustedPlotArea.getHeight());
                 x = x + w + this.gap;
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
+            } else if (orientation == PlotOrientation.VERTICAL) {
                 double h = usableSize * plot.getWeight() / totalWeight;
                 this.subplotAreas[i] = new Rectangle2D.Double(x, y,
                         adjustedPlotArea.getWidth(), h);
@@ -461,18 +460,18 @@ public class CombinedDomainXYPlot extends XYPlot
     /**
      * Draws the plot within the specified area on a graphics device.
      *
-     * @param g2  the graphics device.
-     * @param area  the plot area (in Java2D space).
-     * @param anchor  an anchor point in Java2D space (<code>null</code>
-     *                permitted).
-     * @param parentState  the state from the parent plot, if there is one
-     *                     (<code>null</code> permitted).
-     * @param info  collects chart drawing information (<code>null</code>
-     *              permitted).
+     * @param g2          the graphics device.
+     * @param area        the plot area (in Java2D space).
+     * @param anchor      an anchor point in Java2D space (<code>null</code>
+     *                    permitted).
+     * @param parentState the state from the parent plot, if there is one
+     *                    (<code>null</code> permitted).
+     * @param info        collects chart drawing information (<code>null</code>
+     *                    permitted).
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D area, Point2D anchor,
-            PlotState parentState, PlotRenderingInfo info) {
+                     PlotState parentState, PlotRenderingInfo info) {
 
         // set up info collection...
         if (info != null) {
@@ -543,9 +542,9 @@ public class CombinedDomainXYPlot extends XYPlot
     /**
      * Multiplies the range on the range axis/axes by the specified factor.
      *
-     * @param factor  the zoom factor.
-     * @param info  the plot rendering info (<code>null</code> not permitted).
-     * @param source  the source point (<code>null</code> not permitted).
+     * @param factor the zoom factor.
+     * @param info   the plot rendering info (<code>null</code> not permitted).
+     * @param source the source point (<code>null</code> not permitted).
      */
     @Override
     public void zoomRangeAxes(double factor, PlotRenderingInfo info,
@@ -556,10 +555,10 @@ public class CombinedDomainXYPlot extends XYPlot
     /**
      * Multiplies the range on the range axis/axes by the specified factor.
      *
-     * @param factor  the zoom factor.
-     * @param state  the plot state.
-     * @param source  the source point (in Java2D coordinates).
-     * @param useAnchor  use source point as zoom anchor?
+     * @param factor    the zoom factor.
+     * @param state     the plot state.
+     * @param source    the source point (in Java2D coordinates).
+     * @param useAnchor use source point as zoom anchor?
      */
     @Override
     public void zoomRangeAxes(double factor, PlotRenderingInfo state,
@@ -568,8 +567,7 @@ public class CombinedDomainXYPlot extends XYPlot
         XYPlot subplot = findSubplot(state, source);
         if (subplot != null) {
             subplot.zoomRangeAxes(factor, state, source, useAnchor);
-        }
-        else {
+        } else {
             // if the source point doesn't fall within a subplot, we do the
             // zoom on all subplots...
             Iterator iterator = getSubplots().iterator();
@@ -583,10 +581,10 @@ public class CombinedDomainXYPlot extends XYPlot
     /**
      * Zooms in on the range axes.
      *
-     * @param lowerPercent  the lower bound.
-     * @param upperPercent  the upper bound.
-     * @param info  the plot rendering info (<code>null</code> not permitted).
-     * @param source  the source point (<code>null</code> not permitted).
+     * @param lowerPercent the lower bound.
+     * @param upperPercent the upper bound.
+     * @param info         the plot rendering info (<code>null</code> not permitted).
+     * @param source       the source point (<code>null</code> not permitted).
      */
     @Override
     public void zoomRangeAxes(double lowerPercent, double upperPercent,
@@ -595,8 +593,7 @@ public class CombinedDomainXYPlot extends XYPlot
         XYPlot subplot = findSubplot(info, source);
         if (subplot != null) {
             subplot.zoomRangeAxes(lowerPercent, upperPercent, info, source);
-        }
-        else {
+        } else {
             // if the source point doesn't fall within a subplot, we do the
             // zoom on all subplots...
             Iterator iterator = getSubplots().iterator();
@@ -611,14 +608,13 @@ public class CombinedDomainXYPlot extends XYPlot
      * Pans all range axes by the specified percentage.
      *
      * @param panRange the distance to pan (as a percentage of the axis length).
-     * @param info  the plot info ({@code null} not permitted).
-     * @param source the source point where the pan action started.
-     *
+     * @param info     the plot info ({@code null} not permitted).
+     * @param source   the source point where the pan action started.
      * @since 1.0.15
      */
     @Override
     public void panRangeAxes(double panRange, PlotRenderingInfo info,
-            Point2D source) {
+                             Point2D source) {
         XYPlot subplot = findSubplot(info, source);
         if (subplot == null) {
             return;
@@ -643,9 +639,8 @@ public class CombinedDomainXYPlot extends XYPlot
      * Returns the subplot (if any) that contains the (x, y) point (specified
      * in Java2D space).
      *
-     * @param info  the chart rendering info (<code>null</code> not permitted).
-     * @param source  the source point (<code>null</code> not permitted).
-     *
+     * @param info   the chart rendering info (<code>null</code> not permitted).
+     * @param source the source point (<code>null</code> not permitted).
      * @return A subplot (possibly <code>null</code>).
      */
     public XYPlot findSubplot(PlotRenderingInfo info, Point2D source) {
@@ -654,7 +649,7 @@ public class CombinedDomainXYPlot extends XYPlot
         XYPlot result = null;
         int subplotIndex = info.getSubplotIndex(source);
         if (subplotIndex >= 0) {
-            result =  (XYPlot) this.subplots.get(subplotIndex);
+            result = (XYPlot) this.subplots.get(subplotIndex);
         }
         return result;
     }
@@ -662,7 +657,7 @@ public class CombinedDomainXYPlot extends XYPlot
     /**
      * Sets the item renderer FOR ALL SUBPLOTS.  Registered listeners are
      * notified that the plot has been modified.
-     * <P>
+     * <p>
      * Note: usually you will want to set the renderer independently for each
      * subplot, which is NOT what this method does.
      *
@@ -671,8 +666,8 @@ public class CombinedDomainXYPlot extends XYPlot
     @Override
     public void setRenderer(XYItemRenderer renderer) {
         super.setRenderer(renderer);  // not strictly necessary, since the
-                                      // renderer set for the
-                                      // parent plot is not used
+        // renderer set for the
+        // parent plot is not used
         Iterator iterator = this.subplots.iterator();
         while (iterator.hasNext()) {
             XYPlot plot = (XYPlot) iterator.next();
@@ -684,7 +679,7 @@ public class CombinedDomainXYPlot extends XYPlot
      * Sets the fixed range axis space and sends a {@link PlotChangeEvent} to
      * all registered listeners.
      *
-     * @param space  the space (<code>null</code> permitted).
+     * @param space the space (<code>null</code> permitted).
      */
     @Override
     public void setFixedRangeAxisSpace(AxisSpace space) {
@@ -697,7 +692,7 @@ public class CombinedDomainXYPlot extends XYPlot
      * Sets the size (width or height, depending on the orientation of the
      * plot) for the domain axis of each subplot.
      *
-     * @param space  the space.
+     * @param space the space.
      */
     protected void setFixedRangeAxisSpaceForSubplots(AxisSpace space) {
         Iterator iterator = this.subplots.iterator();
@@ -710,9 +705,9 @@ public class CombinedDomainXYPlot extends XYPlot
     /**
      * Handles a 'click' on the plot by updating the anchor values.
      *
-     * @param x  x-coordinate, where the click occured.
-     * @param y  y-coordinate, where the click occured.
-     * @param info  object containing information about the plot dimensions.
+     * @param x    x-coordinate, where the click occured.
+     * @param y    y-coordinate, where the click occured.
+     * @param info object containing information about the plot dimensions.
      */
     @Override
     public void handleClick(int x, int y, PlotRenderingInfo info) {
@@ -730,7 +725,7 @@ public class CombinedDomainXYPlot extends XYPlot
      * Receives a {@link PlotChangeEvent} and responds by notifying all
      * listeners.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void plotChanged(PlotChangeEvent event) {
@@ -740,8 +735,7 @@ public class CombinedDomainXYPlot extends XYPlot
     /**
      * Tests this plot for equality with another object.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return <code>true</code> or <code>false</code>.
      */
     @Override
@@ -766,16 +760,15 @@ public class CombinedDomainXYPlot extends XYPlot
      * Returns a clone of the annotation.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  this class will not throw this
-     *         exception, but subclasses (if any) might.
+     * @throws CloneNotSupportedException this class will not throw this
+     *                                    exception, but subclasses (if any) might.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
 
         CombinedDomainXYPlot result = (CombinedDomainXYPlot) super.clone();
         result.subplots = (List) ObjectUtilities.deepClone(this.subplots);
-        for (Iterator it = result.subplots.iterator(); it.hasNext();) {
+        for (Iterator it = result.subplots.iterator(); it.hasNext(); ) {
             Plot child = (Plot) it.next();
             child.setParent(result);
         }

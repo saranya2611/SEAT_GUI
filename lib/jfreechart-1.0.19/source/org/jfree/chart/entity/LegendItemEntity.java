@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -44,19 +44,21 @@
 
 package org.jfree.chart.entity;
 
-import java.awt.Shape;
-import java.io.Serializable;
-
 import org.jfree.data.general.Dataset;
 import org.jfree.util.ObjectUtilities;
+
+import java.awt.*;
+import java.io.Serializable;
 
 /**
  * An entity that represents an item within a legend.
  */
 public class LegendItemEntity extends ChartEntity
-                              implements Cloneable, Serializable {
+        implements Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -7435683933545666702L;
 
     /**
@@ -73,13 +75,15 @@ public class LegendItemEntity extends ChartEntity
      */
     private Comparable seriesKey;
 
-    /** The series index. */
+    /**
+     * The series index.
+     */
     private int seriesIndex;
 
     /**
      * Creates a legend item entity.
      *
-     * @param area  the area.
+     * @param area the area.
      */
     public LegendItemEntity(Shape area) {
         super(area);
@@ -90,10 +94,8 @@ public class LegendItemEntity extends ChartEntity
      * from.
      *
      * @return The dataset.
-     *
-     * @since 1.0.6
-     *
      * @see #setDataset(Dataset)
+     * @since 1.0.6
      */
     public Dataset getDataset() {
         return this.dataset;
@@ -102,8 +104,7 @@ public class LegendItemEntity extends ChartEntity
     /**
      * Sets a reference to the dataset that this legend item is derived from.
      *
-     * @param dataset  the dataset.
-     *
+     * @param dataset the dataset.
      * @since 1.0.6
      */
     public void setDataset(Dataset dataset) {
@@ -114,10 +115,8 @@ public class LegendItemEntity extends ChartEntity
      * Returns the series key that identifies the legend item.
      *
      * @return The series key.
-     *
-     * @since 1.0.6
-     *
      * @see #setSeriesKey(Comparable)
+     * @since 1.0.6
      */
     public Comparable getSeriesKey() {
         return this.seriesKey;
@@ -126,11 +125,9 @@ public class LegendItemEntity extends ChartEntity
     /**
      * Sets the key for the series.
      *
-     * @param key  the key.
-     *
-     * @since 1.0.6
-     *
+     * @param key the key.
      * @see #getSeriesKey()
+     * @since 1.0.6
      */
     public void setSeriesKey(Comparable key) {
         this.seriesKey = key;
@@ -140,9 +137,7 @@ public class LegendItemEntity extends ChartEntity
      * Returns the series index.
      *
      * @return The series index.
-     *
      * @see #setSeriesIndex(int)
-     *
      * @deprecated As of 1.0.6, use the {@link #getSeriesKey()} method.
      */
     public int getSeriesIndex() {
@@ -152,12 +147,10 @@ public class LegendItemEntity extends ChartEntity
     /**
      * Sets the series index.
      *
-     * @param index  the series index.
-     *
+     * @param index the series index.
      * @see #getSeriesIndex()
-     *
      * @deprecated As of 1.0.6, use the {@link #setSeriesKey(Comparable)}
-     *         method.
+     * method.
      */
     public void setSeriesIndex(int index) {
         this.seriesIndex = index;
@@ -166,8 +159,7 @@ public class LegendItemEntity extends ChartEntity
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -195,9 +187,8 @@ public class LegendItemEntity extends ChartEntity
      * Returns a clone of the entity.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem cloning the
-     *         object.
+     *                                    object.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

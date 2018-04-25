@@ -35,25 +35,31 @@
  * Changes
  * -------
  * 28-Feb-2014 : Version 1 (DG);
- * 
+ *
  */
 
 package org.jfree.chart.plot;
 
 /**
  * The mode for the center text on a {@link RingPlot}.
- * 
+ *
  * @since 1.0.18
  */
 public enum CenterTextMode {
-    
-    /** A fixed text item */
+
+    /**
+     * A fixed text item
+     */
     FIXED,
-    
-    /** A value item (taken from the first item in the dataset). */
+
+    /**
+     * A value item (taken from the first item in the dataset).
+     */
     VALUE,
-    
-    /** No center text. */
+
+    /**
+     * No center text.
+     */
     NONE
-    
+
 }

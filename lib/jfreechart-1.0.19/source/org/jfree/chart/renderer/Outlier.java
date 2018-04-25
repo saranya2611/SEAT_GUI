@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------
@@ -49,7 +49,7 @@ import java.awt.geom.Point2D;
 
 /**
  * Represents one outlier in the box and whisker plot.
- * <P>
+ * <p>
  * All the coordinates in this class are in Java2D space.
  */
 public class Outlier implements Comparable {
@@ -59,16 +59,18 @@ public class Outlier implements Comparable {
      */
     private Point2D point;
 
-    /** The radius of the ellipse */
+    /**
+     * The radius of the ellipse
+     */
     private double radius;
 
     /**
      * Constructs an outlier item consisting of a point and the radius of the
      * outlier ellipse
      *
-     * @param xCoord  the x coordinate of the point.
-     * @param yCoord  the y coordinate of the point.
-     * @param radius  the radius of the ellipse.
+     * @param xCoord the x coordinate of the point.
+     * @param yCoord the y coordinate of the point.
+     * @param radius the radius of the ellipse.
      */
     public Outlier(double xCoord, double yCoord, double radius) {
         this.point = new Point2D.Double(xCoord - radius, yCoord - radius);
@@ -89,7 +91,7 @@ public class Outlier implements Comparable {
      * Sets the xy coordinates of the bounding box containing the outlier
      * ellipse.
      *
-     * @param point  the location.
+     * @param point the location.
      */
     public void setPoint(Point2D point) {
         this.point = point;
@@ -127,7 +129,7 @@ public class Outlier implements Comparable {
     /**
      * Sets the radius of the outlier ellipse.
      *
-     * @param radius  the new radius.
+     * @param radius the new radius.
      */
     public void setRadius(double radius) {
         this.radius = radius;
@@ -137,10 +139,9 @@ public class Outlier implements Comparable {
      * Compares this object with the specified object for order, based on
      * the outlier's point.
      *
-     * @param   o the Object to be compared.
+     * @param o the Object to be compared.
      * @return A negative integer, zero, or a positive integer as this object
-     *      is less than, equal to, or greater than the specified object.
-     *
+     * is less than, equal to, or greater than the specified object.
      */
     @Override
     public int compareTo(Object o) {
@@ -149,11 +150,9 @@ public class Outlier implements Comparable {
         Point2D p2 = outlier.getPoint();
         if (p1.equals(p2)) {
             return 0;
-        }
-        else if ((p1.getX() < p2.getX()) || (p1.getY() < p2.getY())) {
+        } else if ((p1.getX() < p2.getX()) || (p1.getY() < p2.getY())) {
             return -1;
-        }
-        else {
+        } else {
             return 1;
         }
     }
@@ -163,10 +162,9 @@ public class Outlier implements Comparable {
      * Overlapping is determined by the respective bounding boxes plus
      * a small margin.
      *
-     * @param other  the other outlier.
-     *
+     * @param other the other outlier.
      * @return A <code>boolean</code> indicating whether or not an overlap has
-     *         occurred.
+     * occurred.
      */
     public boolean overlaps(Outlier other) {
         return ((other.getX() >= getX() - (this.radius * 1.1))
@@ -178,8 +176,7 @@ public class Outlier implements Comparable {
     /**
      * Tests this outlier for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

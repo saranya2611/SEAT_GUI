@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -40,12 +40,10 @@
 
 package org.jfree.data.time;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link TimeSeriesDataItem} class.
@@ -54,12 +52,12 @@ public class TimeSeriesDataItemTest {
 
     /**
      * Test that an instance is equal to itself.
-     *
+     * <p>
      * SourceForge Bug ID: 558850.
      */
     @Test
     public void testEqualsSelf() {
-        TimeSeriesDataItem item = new TimeSeriesDataItem(new Day(23, 9, 2001), 
+        TimeSeriesDataItem item = new TimeSeriesDataItem(new Day(23, 9, 2001),
                 99.7);
         assertTrue(item.equals(item));
     }
@@ -69,9 +67,9 @@ public class TimeSeriesDataItemTest {
      */
     @Test
     public void testEquals() {
-        TimeSeriesDataItem item1 = new TimeSeriesDataItem(new Day(23, 9, 2001), 
+        TimeSeriesDataItem item1 = new TimeSeriesDataItem(new Day(23, 9, 2001),
                 99.7);
-        TimeSeriesDataItem item2 = new TimeSeriesDataItem(new Day(23, 9, 2001), 
+        TimeSeriesDataItem item2 = new TimeSeriesDataItem(new Day(23, 9, 2001),
                 99.7);
         assertTrue(item1.equals(item2));
         assertTrue(item2.equals(item1));
@@ -87,9 +85,9 @@ public class TimeSeriesDataItemTest {
      */
     @Test
     public void testSerialization() {
-        TimeSeriesDataItem item1 = new TimeSeriesDataItem(new Day(23, 9, 2001), 
+        TimeSeriesDataItem item1 = new TimeSeriesDataItem(new Day(23, 9, 2001),
                 99.7);
-        TimeSeriesDataItem item2 = (TimeSeriesDataItem) 
+        TimeSeriesDataItem item2 = (TimeSeriesDataItem)
                 TestUtilities.serialised(item1);
         assertEquals(item1, item2);
     }

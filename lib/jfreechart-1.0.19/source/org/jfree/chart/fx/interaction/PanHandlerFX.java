@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -40,8 +40,6 @@
 
 package org.jfree.chart.fx.interaction;
 
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import javafx.scene.input.MouseEvent;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.fx.ChartCanvas;
@@ -49,55 +47,60 @@ import org.jfree.chart.plot.Pannable;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
 
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+
 /**
  * Handles panning of charts on a {@link ChartCanvas}.  This handler
  * should be configured with the required modifier keys and installed as a
  * live handler (not an auxiliary handler).
- * 
+ * <p>
  * <p>THE API FOR THIS CLASS IS SUBJECT TO CHANGE IN FUTURE RELEASES.  This is
- * so that we can incorporate feedback on the (new) JavaFX support in 
+ * so that we can incorporate feedback on the (new) JavaFX support in
  * JFreeChart.</p>
- * 
+ *
  * @since 1.0.18
  */
 public class PanHandlerFX extends AbstractMouseHandlerFX {
 
-    /** The last mouse location seen during panning. */
+    /**
+     * The last mouse location seen during panning.
+     */
     private Point2D panLast;
- 
+
     private double panW;
     private double panH;
-    
+
     /**
      * Creates a new instance that requires no modifier keys.
-     * 
-     * @param id  the id (<code>null</code> not permitted).
+     *
+     * @param id the id (<code>null</code> not permitted).
      */
-    public PanHandlerFX(String id) { 
+    public PanHandlerFX(String id) {
         this(id, false, false, false, false);
     }
-    
+
     /**
-     * Creates a new instance that will be activated using the specified 
+     * Creates a new instance that will be activated using the specified
      * combination of modifier keys.
-     * 
-     * @param id  the id (<code>null</code> not permitted).
-     * @param altKey  require ALT key?
+     *
+     * @param id       the id (<code>null</code> not permitted).
+     * @param altKey   require ALT key?
      * @param ctrlKey  require CTRL key?
      * @param metaKey  require META key?
-     * @param shiftKey   require SHIFT key?
+     * @param shiftKey require SHIFT key?
      */
-    public PanHandlerFX(String id, boolean altKey, boolean ctrlKey, 
-            boolean metaKey, boolean shiftKey) {
+    public PanHandlerFX(String id, boolean altKey, boolean ctrlKey,
+                        boolean metaKey, boolean shiftKey) {
         super(id, altKey, ctrlKey, metaKey, shiftKey);
     }
-    
+
     /**
      * Handles a mouse pressed event by recording the initial mouse pointer
      * location.
-     * 
-     * @param canvas  the JavaFX canvas (<code>null</code> not permitted).
-     * @param e  the mouse event (<code>null</code> not permitted).
+     *
+     * @param canvas the JavaFX canvas (<code>null</code> not permitted).
+     * @param e      the mouse event (<code>null</code> not permitted).
      */
     @Override
     public void handleMousePressed(ChartCanvas canvas, MouseEvent e) {
@@ -119,13 +122,13 @@ public class PanHandlerFX extends AbstractMouseHandlerFX {
         }
         // the actual panning occurs later in the mouseDragged() method
     }
-    
+
     /**
      * Handles a mouse dragged event by calculating the distance panned and
      * updating the axes accordingly.
-     * 
-     * @param canvas  the JavaFX canvas (<code>null</code> not permitted).
-     * @param e  the mouse event (<code>null</code> not permitted).
+     *
+     * @param canvas the JavaFX canvas (<code>null</code> not permitted).
+     * @param e      the mouse event (<code>null</code> not permitted).
      */
     public void handleMouseDragged(ChartCanvas canvas, MouseEvent e) {
         if (this.panLast == null) {
@@ -149,8 +152,7 @@ public class PanHandlerFX extends AbstractMouseHandlerFX {
         if (p.getOrientation().isVertical()) {
             p.panDomainAxes(wPercent, info, this.panLast);
             p.panRangeAxes(hPercent, info, this.panLast);
-        }
-        else {
+        } else {
             p.panDomainAxes(hPercent, info, this.panLast);
             p.panRangeAxes(wPercent, info, this.panLast);
         }
@@ -158,7 +160,7 @@ public class PanHandlerFX extends AbstractMouseHandlerFX {
         chart.getPlot().setNotify(old);
     }
 
-    public void handleMouseReleased(ChartCanvas canvas, MouseEvent e) {  
+    public void handleMouseReleased(ChartCanvas canvas, MouseEvent e) {
         //if we have been panning reset the cursor
         //unregister in any case
         if (this.panLast != null) {

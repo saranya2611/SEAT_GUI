@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -52,10 +52,10 @@ public class YIntervalDataItem extends ComparableObjectItem {
     /**
      * Creates a new instance of <code>YIntervalItem</code>.
      *
-     * @param x  the x-value.
-     * @param y  the y-value.
+     * @param x     the x-value.
+     * @param y     the y-value.
      * @param yLow  the lower bound of the y-interval.
-     * @param yHigh  the upper bound of the y-interval.
+     * @param yHigh the upper bound of the y-interval.
      */
     public YIntervalDataItem(double x, double y, double yLow, double yHigh) {
         super(new Double(x), new YInterval(y, yLow, yHigh));
@@ -79,8 +79,7 @@ public class YIntervalDataItem extends ComparableObjectItem {
         YInterval interval = (YInterval) getObject();
         if (interval != null) {
             return interval.getY();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }
@@ -94,8 +93,7 @@ public class YIntervalDataItem extends ComparableObjectItem {
         YInterval interval = (YInterval) getObject();
         if (interval != null) {
             return interval.getYLow();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }
@@ -109,8 +107,7 @@ public class YIntervalDataItem extends ComparableObjectItem {
         YInterval interval = (YInterval) getObject();
         if (interval != null) {
             return interval.getYHigh();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }

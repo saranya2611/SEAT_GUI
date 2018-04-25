@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -51,53 +51,32 @@
 
 package org.jfree.chart.plot;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.junit.Assert.assertNotEquals;
-
-import org.junit.Test;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.Stroke;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.Arrays;
-import java.util.List;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.LegendItem;
-import org.jfree.chart.LegendItemCollection;
-import org.jfree.chart.TestUtilities;
+import org.jfree.chart.*;
 import org.jfree.chart.annotations.XYTextAnnotation;
 import org.jfree.chart.axis.AxisLocation;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.event.MarkerChangeListener;
 import org.jfree.chart.labels.StandardXYToolTipGenerator;
-import org.jfree.chart.renderer.xy.DefaultXYItemRenderer;
-import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
-import org.jfree.chart.renderer.xy.XYBarRenderer;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.renderer.xy.*;
 import org.jfree.chart.util.DefaultShadowGenerator;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
-import org.jfree.data.xy.DefaultXYDataset;
-import org.jfree.data.xy.IntervalXYDataset;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.data.xy.*;
 import org.jfree.date.MonthConstants;
 import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleInsets;
+import org.junit.Test;
+
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link XYPlot} class.
@@ -400,8 +379,8 @@ public class XYPlotTest {
         plot2.setRangeMinorGridlineStroke(new BasicStroke(1.23f));
         assertTrue(plot1.equals(plot2));
 
-        List axisIndices = Arrays.asList(new Integer[] {new Integer(0),
-            new Integer(1)});
+        List axisIndices = Arrays.asList(new Integer[]{new Integer(0),
+                new Integer(1)});
         plot1.mapDatasetToDomainAxes(0, axisIndices);
         assertFalse(plot1.equals(plot2));
         plot2.mapDatasetToDomainAxes(0, axisIndices);
@@ -411,7 +390,7 @@ public class XYPlotTest {
         assertFalse(plot1.equals(plot2));
         plot2.mapDatasetToRangeAxes(0, axisIndices);
         assertTrue(plot1.equals(plot2));
-        
+
         // shadowGenerator
         plot1.setShadowGenerator(new DefaultShadowGenerator(5, Color.gray,
                 0.6f, 4, -Math.PI / 4));
@@ -448,7 +427,7 @@ public class XYPlotTest {
         p2.setDomainAxis(1, new NumberAxis("B"));
         assertNotEquals(p1, p2);
     }
-    
+
     /**
      * This test covers a flaw in the ObjectList equals() method.
      */
@@ -476,7 +455,7 @@ public class XYPlotTest {
         p2.setRangeAxis(1, new NumberAxis("B"));
         assertNotEquals(p1, p2);
     }
-    
+
     /**
      * This test covers a flaw in the ObjectList equals() method.
      */
@@ -525,7 +504,7 @@ public class XYPlotTest {
         XYPlot p1 = new XYPlot(null, new NumberAxis("Domain Axis"),
                 new NumberAxis("Range Axis"), new StandardXYItemRenderer());
         p1.setRangeAxis(1, new NumberAxis("Range Axis 2"));
-        List axisIndices = Arrays.asList(new Integer[] {new Integer(0),
+        List axisIndices = Arrays.asList(new Integer[]{new Integer(0),
                 new Integer(1)});
         p1.mapDatasetToDomainAxes(0, axisIndices);
         p1.mapDatasetToRangeAxes(0, axisIndices);
@@ -707,8 +686,7 @@ public class XYPlotTest {
             XYPlot plot = new XYPlot(null, new NumberAxis("X"),
                     new NumberAxis("Y"), null);
             plot.setRenderer(null);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             failed = true;
         }
         assertTrue(!failed);
@@ -763,8 +741,7 @@ public class XYPlotTest {
         assertEquals(chart, chart2);
         try {
             chart2.createBufferedImage(300, 200);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("No exception should be thrown.");
         }
     }
@@ -788,8 +765,7 @@ public class XYPlotTest {
         assertEquals(chart, chart2);
         try {
             chart2.createBufferedImage(300, 200);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("No exception should be thrown.");
         }
     }
@@ -823,12 +799,12 @@ public class XYPlotTest {
         NumberAxis rangeAxisA = (NumberAxis) p2.getRangeAxis(0);
         XYSeriesCollection datasetA = (XYSeriesCollection) p2.getDataset(0);
         StandardXYItemRenderer rendererA
-            = (StandardXYItemRenderer) p2.getRenderer(0);
+                = (StandardXYItemRenderer) p2.getRenderer(0);
         NumberAxis domainAxisB = (NumberAxis) p2.getDomainAxis(1);
         NumberAxis rangeAxisB = (NumberAxis) p2.getRangeAxis(1);
         XYSeriesCollection datasetB = (XYSeriesCollection) p2.getDataset(1);
         StandardXYItemRenderer rendererB
-            = (StandardXYItemRenderer) p2.getRenderer(1);
+                = (StandardXYItemRenderer) p2.getRenderer(1);
         assertTrue(datasetA.hasListener(p2));
         assertTrue(domainAxisA.hasListener(p2));
         assertTrue(rangeAxisA.hasListener(p2));
@@ -1010,13 +986,12 @@ public class XYPlotTest {
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRenderer(1, new XYLineAndShapeRenderer());
         try {
-            BufferedImage image = new BufferedImage(200 , 100,
+            BufferedImage image = new BufferedImage(200, 100,
                     BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = image.createGraphics();
             chart.draw(g2, new Rectangle2D.Double(0, 0, 200, 100), null, null);
             g2.dispose();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("No exception should be thrown.");
         }
     }
@@ -1033,13 +1008,12 @@ public class XYPlotTest {
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRenderer(null);
         try {
-            BufferedImage image = new BufferedImage(200 , 100,
+            BufferedImage image = new BufferedImage(200, 100,
                     BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = image.createGraphics();
             chart.draw(g2, new Rectangle2D.Double(0, 0, 200, 100), null, null);
             g2.dispose();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("No exception should be thrown.");
         }
     }
@@ -1051,18 +1025,17 @@ public class XYPlotTest {
     @Test
     public void testDrawSeriesWithZeroItems() {
         DefaultXYDataset dataset = new DefaultXYDataset();
-        dataset.addSeries("Series 1", new double[][] {{1.0, 2.0}, {3.0, 4.0}});
-        dataset.addSeries("Series 2", new double[][] {{}, {}});
+        dataset.addSeries("Series 1", new double[][]{{1.0, 2.0}, {3.0, 4.0}});
+        dataset.addSeries("Series 2", new double[][]{{}, {}});
         JFreeChart chart = ChartFactory.createXYLineChart("Title", "X", "Y",
                 dataset, PlotOrientation.VERTICAL, true, false, false);
         try {
-            BufferedImage image = new BufferedImage(200 , 100,
+            BufferedImage image = new BufferedImage(200, 100,
                     BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = image.createGraphics();
             chart.draw(g2, new Rectangle2D.Double(0, 0, 200, 100), null, null);
             g2.dispose();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("No exception should be thrown.");
         }
     }
@@ -1103,8 +1076,7 @@ public class XYPlotTest {
         boolean pass = false;
         try {
             plot.getDomainAxisForDataset(-1);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -1118,12 +1090,12 @@ public class XYPlotTest {
         plot.mapDatasetToDomainAxis(0, 1);
         assertEquals(xAxis2, plot.getDomainAxisForDataset(0));
 
-        List axisIndices = Arrays.asList(new Integer[] {new Integer(0),
+        List axisIndices = Arrays.asList(new Integer[]{new Integer(0),
                 new Integer(1)});
         plot.mapDatasetToDomainAxes(0, axisIndices);
         assertEquals(xAxis, plot.getDomainAxisForDataset(0));
 
-        axisIndices = Arrays.asList(new Integer[] {new Integer(1),
+        axisIndices = Arrays.asList(new Integer[]{new Integer(1),
                 new Integer(2)});
         plot.mapDatasetToDomainAxes(0, axisIndices);
         assertEquals(xAxis2, plot.getDomainAxisForDataset(0));
@@ -1145,8 +1117,7 @@ public class XYPlotTest {
         boolean pass = false;
         try {
             plot.getRangeAxisForDataset(-1);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -1160,17 +1131,17 @@ public class XYPlotTest {
         plot.mapDatasetToRangeAxis(0, 1);
         assertEquals(yAxis2, plot.getRangeAxisForDataset(0));
 
-        List axisIndices = Arrays.asList(new Integer[] {new Integer(0),
+        List axisIndices = Arrays.asList(new Integer[]{new Integer(0),
                 new Integer(1)});
         plot.mapDatasetToRangeAxes(0, axisIndices);
         assertEquals(yAxis, plot.getRangeAxisForDataset(0));
 
-        axisIndices = Arrays.asList(new Integer[] {new Integer(1),
+        axisIndices = Arrays.asList(new Integer[]{new Integer(1),
                 new Integer(2)});
         plot.mapDatasetToRangeAxes(0, axisIndices);
         assertEquals(yAxis2, plot.getRangeAxisForDataset(0));
     }
-    
+
     /**
      * Datasets are now stored in a Map, and it should be possible to assign
      * them an arbitrary key (index).
@@ -1182,21 +1153,21 @@ public class XYPlotTest {
         NumberAxis yAxis = new NumberAxis("Y");
         XYItemRenderer renderer = new DefaultXYItemRenderer();
         XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
-        
+
         assertEquals(dataset, plot.getDataset(0));
-        
+
         XYSeriesCollection dataset2 = new XYSeriesCollection();
         dataset2.addSeries(new XYSeries("Series in dataset 2"));
-        
+
         // we should be able to give a dataset an arbitrary index
         plot.setDataset(99, dataset2);
         assertEquals(2, plot.getDatasetCount());
         assertEquals(dataset2, plot.getDataset(99));
-        
+
         assertEquals(0, plot.indexOf(dataset));
         assertEquals(99, plot.indexOf(dataset2));
     }
-    
+
     @Test
     public void testAxisIndices() {
         XYDataset dataset = new XYSeriesCollection();
@@ -1204,19 +1175,19 @@ public class XYPlotTest {
         NumberAxis yAxis = new NumberAxis("Y");
         XYItemRenderer renderer = new DefaultXYItemRenderer();
         XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
-        assertEquals(xAxis, plot.getDomainAxis(0));        
-        assertEquals(yAxis, plot.getRangeAxis(0)); 
-        
+        assertEquals(xAxis, plot.getDomainAxis(0));
+        assertEquals(yAxis, plot.getRangeAxis(0));
+
         NumberAxis xAxis2 = new NumberAxis("X2");
         plot.setDomainAxis(99, xAxis2);
         assertEquals(xAxis2, plot.getDomainAxis(99));
-        
+
         NumberAxis yAxis2 = new NumberAxis("Y2");
         plot.setRangeAxis(99, yAxis2);
         assertEquals(yAxis2, plot.getRangeAxis(99));
     }
-    
-    @Test 
+
+    @Test
     public void testAxisLocationIndices() {
         XYDataset dataset = new XYSeriesCollection();
         NumberAxis xAxis = new NumberAxis("X");
@@ -1228,35 +1199,35 @@ public class XYPlotTest {
         NumberAxis yAxis2 = new NumberAxis("Y2");
         plot.setDomainAxis(99, xAxis2);
         plot.setRangeAxis(99, yAxis2);
-        
+
         plot.setDomainAxisLocation(99, AxisLocation.BOTTOM_OR_RIGHT);
-        assertEquals(AxisLocation.BOTTOM_OR_RIGHT, 
+        assertEquals(AxisLocation.BOTTOM_OR_RIGHT,
                 plot.getDomainAxisLocation(99));
         plot.setRangeAxisLocation(99, AxisLocation.BOTTOM_OR_LEFT);
-        assertEquals(AxisLocation.BOTTOM_OR_LEFT, 
+        assertEquals(AxisLocation.BOTTOM_OR_LEFT,
                 plot.getRangeAxisLocation(99));
     }
-    
-    @Test 
+
+    @Test
     public void testRendererIndices() {
         XYDataset dataset = new XYSeriesCollection();
         NumberAxis xAxis = new NumberAxis("X");
         NumberAxis yAxis = new NumberAxis("Y");
         XYItemRenderer renderer = new DefaultXYItemRenderer();
         XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
-        
+
         assertEquals(renderer, plot.getRenderer(0));
-        
+
         // we should be able to give a renderer an arbitrary index
         XYLineAndShapeRenderer renderer2 = new XYLineAndShapeRenderer();
         plot.setRenderer(20, renderer2);
         assertEquals(2, plot.getRendererCount());
         assertEquals(renderer2, plot.getRenderer(20));
-        
+
         assertEquals(20, plot.getIndexOf(renderer2));
     }
 
-    @Test 
+    @Test
     public void testGetRendererForDataset2() {
         XYDataset dataset = new XYSeriesCollection();
         NumberAxis xAxis = new NumberAxis("X");
@@ -1268,17 +1239,17 @@ public class XYPlotTest {
         XYSeriesCollection dataset2 = new XYSeriesCollection();
         dataset2.addSeries(new XYSeries("Series in dataset 2"));
         plot.setDataset(99, dataset2);
-       
+
         // by default, the renderer with index 0 is used
         assertEquals(renderer, plot.getRendererForDataset(dataset2));
-        
+
         // add a second renderer with the same index as dataset2, now it will
         // be used
         XYLineAndShapeRenderer renderer2 = new XYLineAndShapeRenderer();
         plot.setRenderer(99, renderer);
         assertEquals(renderer2, plot.getRendererForDataset(dataset2));
     }
-    
+
     @Test
     public void testMapDatasetToDomainAxis() {
         XYDataset dataset = new XYSeriesCollection();
@@ -1289,12 +1260,12 @@ public class XYPlotTest {
 
         NumberAxis xAxis2 = new NumberAxis("X2");
         plot.setDomainAxis(11, xAxis2);
-        
+
         // add a second dataset
         XYSeriesCollection dataset2 = new XYSeriesCollection();
         dataset2.addSeries(new XYSeries("Series in dataset 2"));
-        plot.setDataset(99, dataset);    
-        
+        plot.setDataset(99, dataset);
+
         assertEquals(xAxis, plot.getDomainAxisForDataset(99));
 
         // now map the dataset to the second xAxis
@@ -1312,19 +1283,19 @@ public class XYPlotTest {
 
         NumberAxis yAxis2 = new NumberAxis("Y2");
         plot.setRangeAxis(22, yAxis2);
-        
+
         // add a second dataset
         XYSeriesCollection dataset2 = new XYSeriesCollection();
         dataset2.addSeries(new XYSeries("Series in dataset 2"));
-        plot.setDataset(99, dataset);    
-        
+        plot.setDataset(99, dataset);
+
         assertEquals(yAxis, plot.getRangeAxisForDataset(99));
 
         // now map the dataset to the second xAxis
         plot.mapDatasetToRangeAxis(99, 22);
         assertEquals(yAxis2, plot.getRangeAxisForDataset(99));
     }
-    
+
     @Test
     public void testDomainMarkerIndices() {
         XYDataset dataset = new XYSeriesCollection();
@@ -1332,17 +1303,17 @@ public class XYPlotTest {
         NumberAxis yAxis = new NumberAxis("Y");
         XYItemRenderer renderer = new DefaultXYItemRenderer();
         XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
-        
+
         // add a second dataset, plotted against a second x axis
         XYSeriesCollection dataset2 = new XYSeriesCollection();
         dataset2.addSeries(new XYSeries("Series in dataset 2"));
-        plot.setDataset(99, dataset);    
+        plot.setDataset(99, dataset);
         NumberAxis xAxis2 = new NumberAxis("X2");
         plot.setDomainAxis(1, xAxis2);
         XYLineAndShapeRenderer renderer2 = new XYLineAndShapeRenderer();
         plot.setRenderer(99, renderer2);
         plot.mapDatasetToDomainAxis(99, 1);
-        
+
         ValueMarker xMarker1 = new ValueMarker(123);
         plot.addDomainMarker(99, xMarker1, Layer.FOREGROUND);
         assertTrue(plot.getDomainMarkers(99, Layer.FOREGROUND).contains(
@@ -1356,20 +1327,20 @@ public class XYPlotTest {
         NumberAxis yAxis = new NumberAxis("Y");
         XYItemRenderer renderer = new DefaultXYItemRenderer();
         XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
-        
+
         // add a second dataset, plotted against a second axis
         XYSeriesCollection dataset2 = new XYSeriesCollection();
         dataset2.addSeries(new XYSeries("Series in dataset 2"));
-        plot.setDataset(99, dataset);    
+        plot.setDataset(99, dataset);
         NumberAxis yAxis2 = new NumberAxis("Y2");
         plot.setRangeAxis(1, yAxis2);
         XYLineAndShapeRenderer renderer2 = new XYLineAndShapeRenderer();
         plot.setRenderer(99, renderer2);
         plot.mapDatasetToRangeAxis(99, 1);
-        
+
         ValueMarker yMarker1 = new ValueMarker(123);
         plot.addRangeMarker(99, yMarker1, Layer.FOREGROUND);
         assertTrue(plot.getRangeMarkers(99, Layer.FOREGROUND).contains(yMarker1));
     }
-    
+
 }

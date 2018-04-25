@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -40,34 +40,29 @@
 
 package org.jfree.chart.util;
 
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import org.jfree.ui.Drawable;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import javax.imageio.ImageIO;
-import org.jfree.ui.Drawable;
 
 /**
  * Utility functions for exporting charts to SVG and PDF format.
- * 
+ *
  * @since 1.0.18
  */
 public class ExportUtils {
 
     /**
-     * Returns <code>true</code> if JFreeSVG is on the classpath, and 
+     * Returns <code>true</code> if JFreeSVG is on the classpath, and
      * <code>false</code> otherwise.  The JFreeSVG library can be found at
      * http://www.jfree.org/jfreesvg/
-     * 
+     *
      * @return A boolean.
      */
     public static boolean isJFreeSVGAvailable() {
@@ -81,10 +76,10 @@ public class ExportUtils {
     }
 
     /**
-     * Returns <code>true</code> if OrsonPDF is on the classpath, and 
+     * Returns <code>true</code> if OrsonPDF is on the classpath, and
      * <code>false</code> otherwise.  The OrsonPDF library can be found at
      * http://www.object-refinery.com/pdf/
-     * 
+     *
      * @return A boolean.
      */
     public static boolean isOrsonPDFAvailable() {
@@ -98,18 +93,18 @@ public class ExportUtils {
     }
 
     /**
-     * Writes the current content to the specified file in SVG format.  This 
+     * Writes the current content to the specified file in SVG format.  This
      * will only work when the JFreeSVG library is found on the classpath.
      * Reflection is used to ensure there is no compile-time dependency on
      * JFreeSVG.
-     * 
-     * @param drawable  the drawable (<code>null</code> not permitted).
-     * @param w  the chart width.
-     * @param h  the chart height.
-     * @param file  the output file (<code>null</code> not permitted).
+     *
+     * @param drawable the drawable (<code>null</code> not permitted).
+     * @param w        the chart width.
+     * @param h        the chart height.
+     * @param file     the output file (<code>null</code> not permitted).
      */
-    public static void writeAsSVG(Drawable drawable, int w, int h, 
-            File file) {
+    public static void writeAsSVG(Drawable drawable, int w, int h,
+                                  File file) {
         if (!ExportUtils.isJFreeSVGAvailable()) {
             throw new IllegalStateException(
                     "JFreeSVG is not present on the classpath.");
@@ -127,7 +122,7 @@ public class ExportUtils {
                     "org.jfree.graphics2d.svg.SVGUtils");
             Method m1 = svg2Class.getMethod("getSVGElement", (Class[]) null);
             String element = (String) m1.invoke(svg2, (Object[]) null);
-            Method m2 = svgUtilsClass.getMethod("writeToSVG", File.class, 
+            Method m2 = svgUtilsClass.getMethod("writeToSVG", File.class,
                     String.class);
             m2.invoke(svgUtilsClass, file, element);
         } catch (ClassNotFoundException ex) {
@@ -148,18 +143,18 @@ public class ExportUtils {
     }
 
     /**
-     * Writes a {@link Drawable} to the specified file in PDF format.  This 
+     * Writes a {@link Drawable} to the specified file in PDF format.  This
      * will only work when the OrsonPDF library is found on the classpath.
      * Reflection is used to ensure there is no compile-time dependency on
      * OrsonPDF.
-     * 
-     * @param drawable  the drawable (<code>null</code> not permitted).
-     * @param w  the chart width.
-     * @param h  the chart height.
-     * @param file  the output file (<code>null</code> not permitted).
+     *
+     * @param drawable the drawable (<code>null</code> not permitted).
+     * @param w        the chart width.
+     * @param h        the chart height.
+     * @param file     the output file (<code>null</code> not permitted).
      */
-    public static final void writeAsPDF(Drawable drawable, 
-            int w, int h, File file) {
+    public static final void writeAsPDF(Drawable drawable,
+                                        int w, int h, File file) {
         if (!ExportUtils.isOrsonPDFAvailable()) {
             throw new IllegalStateException(
                     "OrsonPDF is not present on the classpath.");
@@ -194,57 +189,53 @@ public class ExportUtils {
             throw new RuntimeException(ex);
         }
     }
-    
+
     /**
      * Writes the current content to the specified file in PNG format.
-     * 
-     * @param drawable  the drawable (<code>null</code> not permitted).
-     * @param w  the chart width.
-     * @param h  the chart height.
-     * @param file  the output file (<code>null</code> not permitted).
-     * 
+     *
+     * @param drawable the drawable (<code>null</code> not permitted).
+     * @param w        the chart width.
+     * @param h        the chart height.
+     * @param file     the output file (<code>null</code> not permitted).
      * @throws FileNotFoundException if the file is not found.
-     * @throws IOException if there is an I/O problem.
+     * @throws IOException           if there is an I/O problem.
      */
-    public static void writeAsPNG(Drawable drawable, int w, int h, 
-            File file) throws FileNotFoundException, IOException {
-        BufferedImage image = new BufferedImage(w, h, 
+    public static void writeAsPNG(Drawable drawable, int w, int h,
+                                  File file) throws FileNotFoundException, IOException {
+        BufferedImage image = new BufferedImage(w, h,
                 BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = image.createGraphics();
         drawable.draw(g2, new Rectangle(w, h));
         OutputStream out = new BufferedOutputStream(new FileOutputStream(file));
         try {
             ImageIO.write(image, "png", out);
-        }
-        finally {
+        } finally {
             out.close();
         }
     }
 
     /**
      * Writes the current content to the specified file in JPEG format.
-     * 
-     * @param drawable  the drawable (<code>null</code> not permitted).
-     * @param w  the chart width.
-     * @param h  the chart height.
-     * @param file  the output file (<code>null</code> not permitted).
-     * 
+     *
+     * @param drawable the drawable (<code>null</code> not permitted).
+     * @param w        the chart width.
+     * @param h        the chart height.
+     * @param file     the output file (<code>null</code> not permitted).
      * @throws FileNotFoundException if the file is not found.
-     * @throws IOException if there is an I/O problem.
+     * @throws IOException           if there is an I/O problem.
      */
-    public static void writeAsJPEG(Drawable drawable, int w, int h, 
-            File file) throws FileNotFoundException, IOException {
-        BufferedImage image = new BufferedImage(w, h, 
+    public static void writeAsJPEG(Drawable drawable, int w, int h,
+                                   File file) throws FileNotFoundException, IOException {
+        BufferedImage image = new BufferedImage(w, h,
                 BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = image.createGraphics();
         drawable.draw(g2, new Rectangle(w, h));
         OutputStream out = new BufferedOutputStream(new FileOutputStream(file));
         try {
             ImageIO.write(image, "jpg", out);
-        }
-        finally {
+        } finally {
             out.close();
         }
     }
- 
+
 }

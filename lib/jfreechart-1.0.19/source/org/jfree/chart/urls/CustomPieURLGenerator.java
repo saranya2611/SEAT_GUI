@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -42,16 +42,12 @@
 
 package org.jfree.chart.urls;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import org.jfree.chart.plot.MultiplePiePlot;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * A custom URL generator for pie charts.
@@ -59,10 +55,14 @@ import org.jfree.util.PublicCloneable;
 public class CustomPieURLGenerator implements PieURLGenerator,
         Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 7100607670144900503L;
 
-    /** Storage for the URLs. */
+    /**
+     * Storage for the URLs.
+     */
     private ArrayList urls;
 
     /**
@@ -78,11 +78,9 @@ public class CustomPieURLGenerator implements PieURLGenerator,
      * Generates a URL fragment.
      *
      * @param dataset  the dataset (ignored).
-     * @param key  the item key.
-     * @param pieIndex  the pie index.
-     *
+     * @param key      the item key.
+     * @param pieIndex the pie index.
      * @return A string containing the generated URL.
-     *
      * @see #getURL(Comparable, int)
      */
     @Override
@@ -95,7 +93,6 @@ public class CustomPieURLGenerator implements PieURLGenerator,
      * Returns the number of URL maps stored by the renderer.
      *
      * @return The list count.
-     *
      * @see #addURLs(Map)
      */
     public int getListCount() {
@@ -106,10 +103,8 @@ public class CustomPieURLGenerator implements PieURLGenerator,
      * Returns the number of URLs in a given map (specified by its position
      * in the map list).
      *
-     * @param list  the list index (zero based).
-     *
+     * @param list the list index (zero based).
      * @return The URL count.
-     *
      * @see #getListCount()
      */
     public int getURLCount(int list) {
@@ -124,9 +119,8 @@ public class CustomPieURLGenerator implements PieURLGenerator,
     /**
      * Returns the URL for a section in the specified map.
      *
-     * @param key  the key.
-     * @param mapIndex  the map index.
-     *
+     * @param key      the key.
+     * @param mapIndex the map index.
      * @return The URL.
      */
     public String getURL(Comparable key, int mapIndex) {
@@ -149,7 +143,7 @@ public class CustomPieURLGenerator implements PieURLGenerator,
      * The map is appended to an internal list...you can add multiple maps
      * if you are working with, say, a {@link MultiplePiePlot}.
      *
-     * @param urlMap  the URLs (<code>null</code> permitted).
+     * @param urlMap the URLs (<code>null</code> permitted).
      */
     public void addURLs(Map urlMap) {
         this.urls.add(urlMap);
@@ -158,8 +152,7 @@ public class CustomPieURLGenerator implements PieURLGenerator,
     /**
      * Tests if this object is equal to another.
      *
-     * @param o  the other object.
-     *
+     * @param o the other object.
      * @return A boolean.
      */
     @Override
@@ -181,8 +174,8 @@ public class CustomPieURLGenerator implements PieURLGenerator,
                 }
                 keySet = ((HashMap) this.urls.get(pieItem)).keySet();
                 String key;
-                for (Iterator i = keySet.iterator(); i.hasNext();) {
-                key = (String) i.next();
+                for (Iterator i = keySet.iterator(); i.hasNext(); ) {
+                    key = (String) i.next();
                     if (!getURL(key, pieItem).equals(
                             generator.getURL(key, pieItem))) {
                         return false;
@@ -198,7 +191,6 @@ public class CustomPieURLGenerator implements PieURLGenerator,
      * Returns a clone of the generator.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if cloning is not supported.
      */
     @Override
@@ -208,11 +200,11 @@ public class CustomPieURLGenerator implements PieURLGenerator,
         Map newMap;
         String key;
 
-        for (Iterator i = this.urls.iterator(); i.hasNext();) {
+        for (Iterator i = this.urls.iterator(); i.hasNext(); ) {
             map = (Map) i.next();
 
             newMap = new HashMap();
-            for (Iterator j = map.keySet().iterator(); j.hasNext();) {
+            for (Iterator j = map.keySet().iterator(); j.hasNext(); ) {
                 key = (String) j.next();
                 newMap.put(key, map.get(key));
             }

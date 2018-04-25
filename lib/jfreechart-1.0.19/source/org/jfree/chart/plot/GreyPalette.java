@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -43,21 +43,23 @@
 
 package org.jfree.chart.plot;
 
-import java.io.Serializable;
-
 import org.jfree.chart.renderer.xy.XYBlockRenderer;
+
+import java.io.Serializable;
 
 
 /**
  * A grey color palette.
  *
  * @deprecated This class is no longer supported (as of version 1.0.4).  If
- *     you are creating contour plots, please try to use {@link XYPlot} and
- *     {@link XYBlockRenderer}.
+ * you are creating contour plots, please try to use {@link XYPlot} and
+ * {@link XYBlockRenderer}.
  */
 public class GreyPalette extends ColorPalette implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -2120941170159987395L;
 
     /**

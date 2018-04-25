@@ -6,22 +6,22 @@
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
- * This library is free software; you can redistribute it and/or modify it 
- * under the terms of the GNU Lesser General Public License as published by 
- * the Free Software Foundation; either version 2.1 of the License, or 
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public 
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, 
- * USA.  
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -36,7 +36,7 @@
  * -------
  * 04-Aug-2006 : New class (HP);
  * 25-Oct-2007 : Fixed Eclipse warnings (DG);
- * 
+ *
  */
 
 package org.jfree.experimental.swt;
@@ -53,11 +53,11 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class SWTPaintCanvas extends Canvas {
     private Color myColor;
-    
+
     /**
      * Creates a new instance.
-     * 
-     * @param parent  the parent.
+     *
+     * @param parent the parent.
      * @param style  the style.
      * @param color  the color.
      */
@@ -65,11 +65,11 @@ public class SWTPaintCanvas extends Canvas {
         this(parent, style);
         setColor(color);
     }
-    
+
     /**
      * Creates a new instance.
-     * 
-     * @param parent  the parent.
+     *
+     * @param parent the parent.
      * @param style  the style.
      */
     public SWTPaintCanvas(Composite parent, int style) {
@@ -80,16 +80,25 @@ public class SWTPaintCanvas extends Canvas {
                         SWT.COLOR_BLACK));
                 e.gc.setBackground(SWTPaintCanvas.this.myColor);
                 e.gc.fillRectangle(getClientArea());
-                e.gc.drawRectangle(getClientArea().x, getClientArea().y, 
+                e.gc.drawRectangle(getClientArea().x, getClientArea().y,
                         getClientArea().width - 1, getClientArea().height - 1);
             }
         });
     }
-    
+
+    /**
+     * Returns the color.
+     *
+     * @return The color.
+     */
+    public Color getColor() {
+        return this.myColor;
+    }
+
     /**
      * Sets the color.
-     * 
-     * @param color  the color.
+     *
+     * @param color the color.
      */
     public void setColor(Color color) {
         if (this.myColor != null) {
@@ -100,18 +109,9 @@ public class SWTPaintCanvas extends Canvas {
     }
 
     /**
-     * Returns the color.
-     * 
-     * @return The color.
-     */
-    public Color getColor() {
-        return this.myColor;
-    }
-    
-    /**
      * Overridden to do nothing.
-     * 
-     * @param c  the color.
+     *
+     * @param c the color.
      */
     public void setBackground(Color c) {
         return;
@@ -119,13 +119,13 @@ public class SWTPaintCanvas extends Canvas {
 
     /**
      * Overridden to do nothing.
-     * 
-     * @param c  the color.
+     *
+     * @param c the color.
      */
     public void setForeground(Color c) {
         return;
     }
-    
+
     /**
      * Frees resources.
      */

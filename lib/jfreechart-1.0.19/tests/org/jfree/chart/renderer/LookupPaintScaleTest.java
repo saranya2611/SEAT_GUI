@@ -43,20 +43,19 @@
 
 package org.jfree.chart.renderer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.awt.Color;
-import java.awt.GradientPaint;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import java.awt.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link LookupPaintScale} class.
  */
 public class LookupPaintScaleTest {
+
+    private static final double EPSILON = 0.0000000001;
 
     /**
      * A test for the equals() method.
@@ -125,8 +124,6 @@ public class LookupPaintScaleTest {
         g2 = (LookupPaintScale) TestUtilities.serialised(g1);
         assertEquals(g1, g2);
     }
-
-    private static final double EPSILON = 0.0000000001;
 
     /**
      * Some checks for the default constructor.

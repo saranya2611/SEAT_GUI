@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -47,12 +47,7 @@
 
 package org.jfree.chart.util;
 
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.FieldPosition;
-import java.text.NumberFormat;
-import java.text.ParsePosition;
-import java.util.Calendar;
+import java.text.*;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -64,27 +59,34 @@ import java.util.GregorianCalendar;
  */
 public class RelativeDateFormat extends DateFormat {
 
-    /** The base milliseconds for the elapsed time calculation. */
+    /**
+     * A constant for the number of milliseconds in one hour.
+     */
+    private static final long MILLISECONDS_IN_ONE_HOUR = 60 * 60 * 1000L;
+    /**
+     * A constant for the number of milliseconds in one day.
+     */
+    private static final long MILLISECONDS_IN_ONE_DAY
+            = 24 * MILLISECONDS_IN_ONE_HOUR;
+    /**
+     * The base milliseconds for the elapsed time calculation.
+     */
     private long baseMillis;
-
     /**
      * A flag that controls whether or not a zero day count is displayed.
      */
     private boolean showZeroDays;
-
     /**
      * A flag that controls whether or not a zero hour count is displayed.
      *
      * @since 1.0.10
      */
     private boolean showZeroHours;
-
     /**
      * A formatter for the day count (most likely not critical until the
      * day count exceeds 999).
      */
     private NumberFormat dayFormatter;
-
     /**
      * A prefix prepended to the start of the format if the relative date is
      * positive.
@@ -92,56 +94,38 @@ public class RelativeDateFormat extends DateFormat {
      * @since 1.0.10
      */
     private String positivePrefix;
-
     /**
      * A string appended after the day count.
      */
     private String daySuffix;
-
     /**
      * A formatter for the hours.
      *
      * @since 1.0.11
      */
     private NumberFormat hourFormatter;
-
     /**
      * A string appended after the hours.
      */
     private String hourSuffix;
-
     /**
      * A formatter for the minutes.
      *
      * @since 1.0.11
      */
     private NumberFormat minuteFormatter;
-
     /**
      * A string appended after the minutes.
      */
     private String minuteSuffix;
-
     /**
      * A formatter for the seconds (and milliseconds).
      */
     private NumberFormat secondFormatter;
-
     /**
      * A string appended after the seconds.
      */
     private String secondSuffix;
-
-    /**
-     * A constant for the number of milliseconds in one hour.
-     */
-    private static final long MILLISECONDS_IN_ONE_HOUR = 60 * 60 * 1000L;
-
-    /**
-     * A constant for the number of milliseconds in one day.
-     */
-    private static final long MILLISECONDS_IN_ONE_DAY 
-            = 24 * MILLISECONDS_IN_ONE_HOUR;
 
     /**
      * Creates a new instance with base milliseconds set to zero.
@@ -153,7 +137,7 @@ public class RelativeDateFormat extends DateFormat {
     /**
      * Creates a new instance.
      *
-     * @param time  the date/time (<code>null</code> not permitted).
+     * @param time the date/time (<code>null</code> not permitted).
      */
     public RelativeDateFormat(Date time) {
         this(time.getTime());
@@ -162,7 +146,7 @@ public class RelativeDateFormat extends DateFormat {
     /**
      * Creates a new instance.
      *
-     * @param baseMillis  the time zone (<code>null</code> not permitted).
+     * @param baseMillis the time zone (<code>null</code> not permitted).
      */
     public RelativeDateFormat(long baseMillis) {
         super();
@@ -192,7 +176,6 @@ public class RelativeDateFormat extends DateFormat {
      * display.
      *
      * @return The base date/time in milliseconds since 1-Jan-1970.
-     *
      * @see #setBaseMillis(long)
      */
     public long getBaseMillis() {
@@ -204,8 +187,7 @@ public class RelativeDateFormat extends DateFormat {
      * This should be specified in milliseconds using the same encoding as
      * <code>java.util.Date</code>.
      *
-     * @param baseMillis  the base date/time in milliseconds.
-     *
+     * @param baseMillis the base date/time in milliseconds.
      * @see #getBaseMillis()
      */
     public void setBaseMillis(long baseMillis) {
@@ -217,7 +199,6 @@ public class RelativeDateFormat extends DateFormat {
      * shown in the formatted output.
      *
      * @return The flag.
-     *
      * @see #setShowZeroDays(boolean)
      */
     public boolean getShowZeroDays() {
@@ -228,8 +209,7 @@ public class RelativeDateFormat extends DateFormat {
      * Sets the flag that controls whether or not zero day counts are shown
      * in the formatted output.
      *
-     * @param show  the flag.
-     *
+     * @param show the flag.
      * @see #getShowZeroDays()
      */
     public void setShowZeroDays(boolean show) {
@@ -241,9 +221,7 @@ public class RelativeDateFormat extends DateFormat {
      * shown in the formatted output.
      *
      * @return The flag.
-     *
      * @see #setShowZeroHours(boolean)
-     *
      * @since 1.0.10
      */
     public boolean getShowZeroHours() {
@@ -254,10 +232,8 @@ public class RelativeDateFormat extends DateFormat {
      * Sets the flag that controls whether or not zero hour counts are shown
      * in the formatted output.
      *
-     * @param show  the flag.
-     *
+     * @param show the flag.
      * @see #getShowZeroHours()
-     *
      * @since 1.0.10
      */
     public void setShowZeroHours(boolean show) {
@@ -269,9 +245,7 @@ public class RelativeDateFormat extends DateFormat {
      * is positive.
      *
      * @return The string (never <code>null</code>).
-     *
      * @see #setPositivePrefix(String)
-     *
      * @since 1.0.10
      */
     public String getPositivePrefix() {
@@ -282,10 +256,8 @@ public class RelativeDateFormat extends DateFormat {
      * Sets the string that is prepended to the format if the relative time is
      * positive.
      *
-     * @param prefix  the prefix (<code>null</code> not permitted).
-     *
+     * @param prefix the prefix (<code>null</code> not permitted).
      * @see #getPositivePrefix()
-     *
      * @since 1.0.10
      */
     public void setPositivePrefix(String prefix) {
@@ -296,8 +268,7 @@ public class RelativeDateFormat extends DateFormat {
     /**
      * Sets the formatter for the days.
      *
-     * @param formatter  the formatter (<code>null</code> not permitted).
-     *
+     * @param formatter the formatter (<code>null</code> not permitted).
      * @since 1.0.11
      */
     public void setDayFormatter(NumberFormat formatter) {
@@ -309,7 +280,6 @@ public class RelativeDateFormat extends DateFormat {
      * Returns the string that is appended to the day count.
      *
      * @return The string.
-     *
      * @see #setDaySuffix(String)
      */
     public String getDaySuffix() {
@@ -319,8 +289,7 @@ public class RelativeDateFormat extends DateFormat {
     /**
      * Sets the string that is appended to the day count.
      *
-     * @param suffix  the suffix (<code>null</code> not permitted).
-     *
+     * @param suffix the suffix (<code>null</code> not permitted).
      * @see #getDaySuffix()
      */
     public void setDaySuffix(String suffix) {
@@ -331,8 +300,7 @@ public class RelativeDateFormat extends DateFormat {
     /**
      * Sets the formatter for the hours.
      *
-     * @param formatter  the formatter (<code>null</code> not permitted).
-     *
+     * @param formatter the formatter (<code>null</code> not permitted).
      * @since 1.0.11
      */
     public void setHourFormatter(NumberFormat formatter) {
@@ -344,7 +312,6 @@ public class RelativeDateFormat extends DateFormat {
      * Returns the string that is appended to the hour count.
      *
      * @return The string.
-     *
      * @see #setHourSuffix(String)
      */
     public String getHourSuffix() {
@@ -354,8 +321,7 @@ public class RelativeDateFormat extends DateFormat {
     /**
      * Sets the string that is appended to the hour count.
      *
-     * @param suffix  the suffix (<code>null</code> not permitted).
-     *
+     * @param suffix the suffix (<code>null</code> not permitted).
      * @see #getHourSuffix()
      */
     public void setHourSuffix(String suffix) {
@@ -366,8 +332,7 @@ public class RelativeDateFormat extends DateFormat {
     /**
      * Sets the formatter for the minutes.
      *
-     * @param formatter  the formatter (<code>null</code> not permitted).
-     *
+     * @param formatter the formatter (<code>null</code> not permitted).
      * @since 1.0.11
      */
     public void setMinuteFormatter(NumberFormat formatter) {
@@ -379,7 +344,6 @@ public class RelativeDateFormat extends DateFormat {
      * Returns the string that is appended to the minute count.
      *
      * @return The string.
-     *
      * @see #setMinuteSuffix(String)
      */
     public String getMinuteSuffix() {
@@ -389,8 +353,7 @@ public class RelativeDateFormat extends DateFormat {
     /**
      * Sets the string that is appended to the minute count.
      *
-     * @param suffix  the suffix (<code>null</code> not permitted).
-     *
+     * @param suffix the suffix (<code>null</code> not permitted).
      * @see #getMinuteSuffix()
      */
     public void setMinuteSuffix(String suffix) {
@@ -402,7 +365,6 @@ public class RelativeDateFormat extends DateFormat {
      * Returns the string that is appended to the second count.
      *
      * @return The string.
-     *
      * @see #setSecondSuffix(String)
      */
     public String getSecondSuffix() {
@@ -412,8 +374,7 @@ public class RelativeDateFormat extends DateFormat {
     /**
      * Sets the string that is appended to the second count.
      *
-     * @param suffix  the suffix (<code>null</code> not permitted).
-     *
+     * @param suffix the suffix (<code>null</code> not permitted).
      * @see #getSecondSuffix()
      */
     public void setSecondSuffix(String suffix) {
@@ -424,7 +385,7 @@ public class RelativeDateFormat extends DateFormat {
     /**
      * Sets the formatter for the seconds and milliseconds.
      *
-     * @param formatter  the formatter (<code>null</code> not permitted).
+     * @param formatter the formatter (<code>null</code> not permitted).
      */
     public void setSecondFormatter(NumberFormat formatter) {
         ParamChecks.nullNotPermitted(formatter, "formatter");
@@ -435,10 +396,9 @@ public class RelativeDateFormat extends DateFormat {
      * Formats the given date as the amount of elapsed time (relative to the
      * base date specified in the constructor).
      *
-     * @param date  the date.
-     * @param toAppendTo  the string buffer.
-     * @param fieldPosition  the field position.
-     *
+     * @param date          the date.
+     * @param toAppendTo    the string buffer.
+     * @param fieldPosition the field position.
      * @return The formatted date.
      */
     @Override
@@ -450,8 +410,7 @@ public class RelativeDateFormat extends DateFormat {
         if (elapsed < 0) {
             elapsed *= -1L;
             signPrefix = "-";
-        }
-        else {
+        } else {
             signPrefix = this.positivePrefix;
         }
 
@@ -482,9 +441,8 @@ public class RelativeDateFormat extends DateFormat {
     /**
      * Parses the given string (not implemented).
      *
-     * @param source  the date string.
-     * @param pos  the parse position.
-     *
+     * @param source the date string.
+     * @param pos    the parse position.
      * @return <code>null</code>, as this method has not been implemented.
      */
     @Override
@@ -495,8 +453,7 @@ public class RelativeDateFormat extends DateFormat {
     /**
      * Tests this formatter for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

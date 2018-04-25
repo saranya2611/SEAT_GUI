@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -41,9 +41,9 @@
 
 package org.jfree.chart.renderer;
 
-import java.awt.Paint;
-
 import org.jfree.chart.renderer.xy.XYBlockRenderer;
+
+import java.awt.*;
 
 /**
  * A source for <code>Paint</code> instances, used by the
@@ -62,7 +62,6 @@ public interface PaintScale {
      * Returns the lower bound for the scale.
      *
      * @return The lower bound.
-     *
      * @see #getUpperBound()
      */
     public double getLowerBound();
@@ -71,7 +70,6 @@ public interface PaintScale {
      * Returns the upper bound for the scale.
      *
      * @return The upper bound.
-     *
      * @see #getLowerBound()
      */
     public double getUpperBound();
@@ -79,8 +77,7 @@ public interface PaintScale {
     /**
      * Returns a <code>Paint</code> instance for the specified value.
      *
-     * @param value  the value.
-     *
+     * @param value the value.
      * @return A <code>Paint</code> instance (never <code>null</code>).
      */
     public Paint getPaint(double value);

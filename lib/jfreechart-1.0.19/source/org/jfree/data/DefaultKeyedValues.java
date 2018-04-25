@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -60,16 +60,12 @@
 
 package org.jfree.data;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.util.PublicCloneable;
 import org.jfree.util.SortOrder;
+
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * An ordered list of (key, value) items.  This class provides a default
@@ -78,13 +74,19 @@ import org.jfree.util.SortOrder;
 public class DefaultKeyedValues implements KeyedValues, Cloneable,
         PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 8468154364608194797L;
 
-    /** Storage for the keys. */
+    /**
+     * Storage for the keys.
+     */
     private ArrayList keys;
 
-    /** Storage for the values. */
+    /**
+     * Storage for the values.
+     */
     private ArrayList values;
 
     /**
@@ -93,7 +95,7 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
      */
     private HashMap indexMap;
 
-  /**
+    /**
      * Creates a new collection (initially empty).
      */
     public DefaultKeyedValues() {
@@ -115,10 +117,8 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
     /**
      * Returns a value.
      *
-     * @param item  the item of interest (zero-based index).
-     *
+     * @param item the item of interest (zero-based index).
      * @return The value (possibly <code>null</code>).
-     *
      * @throws IndexOutOfBoundsException if <code>item</code> is out of bounds.
      */
     @Override
@@ -129,10 +129,8 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
     /**
      * Returns a key.
      *
-     * @param index  the item index (zero-based).
-     *
+     * @param index the item index (zero-based).
      * @return The row key.
-     *
      * @throws IndexOutOfBoundsException if <code>item</code> is out of bounds.
      */
     @Override
@@ -143,12 +141,10 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
     /**
      * Returns the index for a given key.
      *
-     * @param key  the key (<code>null</code> not permitted).
-     *
+     * @param key the key (<code>null</code> not permitted).
      * @return The index, or <code>-1</code> if the key is not recognised.
-     *
      * @throws IllegalArgumentException if <code>key</code> is
-     *     <code>null</code>.
+     *                                  <code>null</code>.
      */
     @Override
     public int getIndex(Comparable key) {
@@ -173,12 +169,9 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
     /**
      * Returns the value for a given key.
      *
-     * @param key  the key (<code>null</code> not permitted).
-     *
+     * @param key the key (<code>null</code> not permitted).
      * @return The value (possibly <code>null</code>).
-     *
      * @throws UnknownKeyException if the key is not recognised.
-     *
      * @see #getValue(int)
      */
     @Override
@@ -193,9 +186,8 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
     /**
      * Updates an existing value, or adds a new value to the collection.
      *
-     * @param key  the key (<code>null</code> not permitted).
-     * @param value  the value.
-     *
+     * @param key   the key (<code>null</code> not permitted).
+     * @param value the value.
      * @see #addValue(Comparable, Number)
      */
     public void addValue(Comparable key, double value) {
@@ -207,8 +199,8 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
      * This method passes control directly to the
      * {@link #setValue(Comparable, Number)} method.
      *
-     * @param key  the key (<code>null</code> not permitted).
-     * @param value  the value (<code>null</code> permitted).
+     * @param key   the key (<code>null</code> not permitted).
+     * @param value the value (<code>null</code> permitted).
      */
     public void addValue(Comparable key, Number value) {
         setValue(key, value);
@@ -217,8 +209,8 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
     /**
      * Updates an existing value, or adds a new value to the collection.
      *
-     * @param key  the key (<code>null</code> not permitted).
-     * @param value  the value.
+     * @param key   the key (<code>null</code> not permitted).
+     * @param value the value.
      */
     public void setValue(Comparable key, double value) {
         setValue(key, new Double(value));
@@ -227,8 +219,8 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
     /**
      * Updates an existing value, or adds a new value to the collection.
      *
-     * @param key  the key (<code>null</code> not permitted).
-     * @param value  the value (<code>null</code> permitted).
+     * @param key   the key (<code>null</code> not permitted).
+     * @param value the value (<code>null</code> permitted).
      */
     public void setValue(Comparable key, Number value) {
         ParamChecks.nullNotPermitted(key, "key");
@@ -236,8 +228,7 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
         if (keyIndex >= 0) {
             this.keys.set(keyIndex, key);
             this.values.set(keyIndex, value);
-        }
-        else {
+        } else {
             this.keys.add(key);
             this.values.add(value);
             this.indexMap.put(key, new Integer(this.keys.size() - 1));
@@ -249,10 +240,9 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
      * there is an existing item with the specified key, updates the value
      * for that item and moves it to the specified position.
      *
-     * @param position  the position (in the range 0 to getItemCount()).
-     * @param key  the key (<code>null</code> not permitted).
-     * @param value  the value.
-     *
+     * @param position the position (in the range 0 to getItemCount()).
+     * @param key      the key (<code>null</code> not permitted).
+     * @param value    the value.
      * @since 1.0.6
      */
     public void insertValue(int position, Comparable key, double value) {
@@ -264,10 +254,9 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
      * there is an existing item with the specified key, updates the value
      * for that item and moves it to the specified position.
      *
-     * @param position  the position (in the range 0 to getItemCount()).
-     * @param key  the key (<code>null</code> not permitted).
-     * @param value  the value (<code>null</code> permitted).
-     *
+     * @param position the position (in the range 0 to getItemCount()).
+     * @param key      the key (<code>null</code> not permitted).
+     * @param value    the value (<code>null</code> permitted).
      * @since 1.0.6
      */
     public void insertValue(int position, Comparable key, Number value) {
@@ -279,8 +268,7 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
         if (pos == position) {
             this.keys.set(pos, key);
             this.values.set(pos, value);
-        }
-        else {
+        } else {
             if (pos >= 0) {
                 this.keys.remove(pos);
                 this.values.remove(pos);
@@ -296,7 +284,7 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
      * Rebuilds the key to indexed-position mapping after an positioned insert
      * or a remove operation.
      */
-    private void rebuildIndex () {
+    private void rebuildIndex() {
         this.indexMap.clear();
         for (int i = 0; i < this.keys.size(); i++) {
             final Object key = this.keys.get(i);
@@ -307,11 +295,10 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
     /**
      * Removes a value from the collection.
      *
-     * @param index  the index of the item to remove (in the range
-     *     <code>0</code> to <code>getItemCount() - 1</code>).
-     *
+     * @param index the index of the item to remove (in the range
+     *              <code>0</code> to <code>getItemCount() - 1</code>).
      * @throws IndexOutOfBoundsException if <code>index</code> is not within
-     *     the specified range.
+     *                                   the specified range.
      */
     public void removeValue(int index) {
         this.keys.remove(index);
@@ -322,11 +309,10 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
     /**
      * Removes a value from the collection.
      *
-     * @param key  the item key (<code>null</code> not permitted).
-     *
+     * @param key the item key (<code>null</code> not permitted).
      * @throws IllegalArgumentException if <code>key</code> is
-     *     <code>null</code>.
-     * @throws UnknownKeyException if <code>key</code> is not recognised.
+     *                                  <code>null</code>.
+     * @throws UnknownKeyException      if <code>key</code> is not recognised.
      */
     public void removeValue(Comparable key) {
         int index = getIndex(key);
@@ -351,7 +337,7 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
     /**
      * Sorts the items in the list by key.
      *
-     * @param order  the sort order (<code>null</code> not permitted).
+     * @param order the sort order (<code>null</code> not permitted).
      */
     public void sortByKeys(SortOrder order) {
         final int size = this.keys.size();
@@ -378,7 +364,7 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
      * <code>null</code> values, they will sort to the end of the list,
      * irrespective of the sort order.
      *
-     * @param order  the sort order (<code>null</code> not permitted).
+     * @param order the sort order (<code>null</code> not permitted).
      */
     public void sortByValues(SortOrder order) {
         final int size = this.keys.size();
@@ -402,8 +388,7 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
     /**
      * Tests if this object is equal to another.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -434,8 +419,7 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
                 if (v2 != null) {
                     return false;
                 }
-            }
-            else {
+            } else {
                 if (!v1.equals(v2)) {
                     return false;
                 }
@@ -458,9 +442,8 @@ public class DefaultKeyedValues implements KeyedValues, Cloneable,
      * Returns a clone.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  this class will not throw this
-     *         exception, but subclasses might.
+     * @throws CloneNotSupportedException this class will not throw this
+     *                                    exception, but subclasses might.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

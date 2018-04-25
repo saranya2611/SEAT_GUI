@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -44,26 +44,30 @@
 
 package org.jfree.chart.event;
 
-import java.util.EventObject;
-
 import org.jfree.chart.JFreeChart;
+
+import java.util.EventObject;
 
 /**
  * A change event that encapsulates information about a change to a chart.
  */
 public class ChartChangeEvent extends EventObject {
 
-    /** The type of event. */
+    /**
+     * The type of event.
+     */
     private ChartChangeEventType type;
 
-    /** The chart that generated the event. */
+    /**
+     * The chart that generated the event.
+     */
     private JFreeChart chart;
 
     /**
      * Creates a new chart change event.
      *
-     * @param source  the source of the event (could be the chart, a title,
-     *                an axis etc.)
+     * @param source the source of the event (could be the chart, a title,
+     *               an axis etc.)
      */
     public ChartChangeEvent(Object source) {
         this(source, null, ChartChangeEventType.GENERAL);
@@ -72,8 +76,8 @@ public class ChartChangeEvent extends EventObject {
     /**
      * Creates a new chart change event.
      *
-     * @param source  the source of the event (could be the chart, a title, an
-     *                axis etc.)
+     * @param source the source of the event (could be the chart, a title, an
+     *               axis etc.)
      * @param chart  the chart that generated the event.
      */
     public ChartChangeEvent(Object source, JFreeChart chart) {
@@ -83,10 +87,10 @@ public class ChartChangeEvent extends EventObject {
     /**
      * Creates a new chart change event.
      *
-     * @param source  the source of the event (could be the chart, a title, an
-                      axis etc.)
+     * @param source the source of the event (could be the chart, a title, an
+     *               axis etc.)
      * @param chart  the chart that generated the event.
-     * @param type  the type of event.
+     * @param type   the type of event.
      */
     public ChartChangeEvent(Object source, JFreeChart chart,
                             ChartChangeEventType type) {
@@ -107,7 +111,7 @@ public class ChartChangeEvent extends EventObject {
     /**
      * Sets the chart that generated the change event.
      *
-     * @param chart  the chart that generated the event.
+     * @param chart the chart that generated the event.
      */
     public void setChart(JFreeChart chart) {
         this.chart = chart;
@@ -125,7 +129,7 @@ public class ChartChangeEvent extends EventObject {
     /**
      * Sets the event type.
      *
-     * @param type  the event type.
+     * @param type the event type.
      */
     public void setType(ChartChangeEventType type) {
         this.type = type;

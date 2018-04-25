@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -40,7 +40,7 @@
 
 package org.jfree.chart.plot.dial;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.EventListener;
@@ -68,7 +68,7 @@ public interface DialLayer {
      * Registers a listener with this layer, so that it receives notification
      * of changes to this layer.
      *
-     * @param listener  the listener.
+     * @param listener the listener.
      */
     public void addChangeListener(DialLayerChangeListener listener);
 
@@ -76,7 +76,7 @@ public interface DialLayer {
      * Deregisters a listener, so that it no longer receives notification of
      * changes to this layer.
      *
-     * @param listener  the listener.
+     * @param listener the listener.
      */
     public void removeChangeListener(DialLayerChangeListener listener);
 
@@ -84,8 +84,7 @@ public interface DialLayer {
      * Returns <code>true</code> if the specified listener is currently
      * registered with the this layer.
      *
-     * @param listener  the listener.
-     *
+     * @param listener the listener.
      * @return A boolean.
      */
     public boolean hasListener(EventListener listener);
@@ -102,17 +101,17 @@ public interface DialLayer {
     /**
      * Draws the content of this layer.
      *
-     * @param g2  the graphics target (<code>null</code> not permitted).
+     * @param g2    the graphics target (<code>null</code> not permitted).
      * @param plot  the plot (typically this should not be <code>null</code>,
-     *     but for a layer that doesn't need to reference the plot, it may
-     *     be permitted).
-     * @param frame  the reference frame for the dial's geometry
-     *     (<code>null</code> not permitted).  This is typically larger than
-     *     the visible area of the dial (see the next parameter).
+     *              but for a layer that doesn't need to reference the plot, it may
+     *              be permitted).
+     * @param frame the reference frame for the dial's geometry
+     *              (<code>null</code> not permitted).  This is typically larger than
+     *              the visible area of the dial (see the next parameter).
      * @param view  the visible area for the dial (<code>null</code> not
-     *     permitted).
+     *              permitted).
      */
     public void draw(Graphics2D g2, DialPlot plot, Rectangle2D frame,
-            Rectangle2D view);
+                     Rectangle2D view);
 
 }

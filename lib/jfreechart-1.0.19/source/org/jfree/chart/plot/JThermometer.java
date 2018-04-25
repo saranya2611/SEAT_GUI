@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -46,15 +46,6 @@
 
 package org.jfree.chart.plot;
 
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Paint;
-import java.io.Serializable;
-import java.text.DecimalFormat;
-
-import javax.swing.JPanel;
-
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.ValueAxis;
@@ -63,25 +54,40 @@ import org.jfree.chart.title.Title;
 import org.jfree.data.general.DefaultValueDataset;
 import org.jfree.ui.RectangleInsets;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.Serializable;
+import java.text.DecimalFormat;
+
 /**
  * An initial quick and dirty.  The concept behind this class would be to
  * generate a gui bean that could be used within JBuilder, Netbeans etc...
  */
 public class JThermometer extends JPanel implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 1079905665515589820L;
 
-    /** The dataset. */
+    /**
+     * The dataset.
+     */
     private DefaultValueDataset data;
 
-    /** The chart. */
+    /**
+     * The chart.
+     */
     private JFreeChart chart;
 
-    /** The chart panel. */
+    /**
+     * The chart panel.
+     */
     private ChartPanel panel;
 
-    /** The thermometer plot. */
+    /**
+     * The thermometer plot.
+     */
     private ThermometerPlot plot = new ThermometerPlot();
 
     /**
@@ -102,7 +108,7 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Adds a subtitle to the chart.
      *
-     * @param subtitle  the subtitle.
+     * @param subtitle the subtitle.
      */
     public void addSubtitle(Title subtitle) {
         this.chart.addSubtitle(subtitle);
@@ -111,7 +117,7 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Adds a subtitle to the chart.
      *
-     * @param subtitle  the subtitle.
+     * @param subtitle the subtitle.
      */
     public void addSubtitle(String subtitle) {
         this.chart.addSubtitle(new TextTitle(subtitle));
@@ -120,8 +126,8 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Adds a subtitle to the chart.
      *
-     * @param subtitle  the subtitle.
-     * @param font  the subtitle font.
+     * @param subtitle the subtitle.
+     * @param font     the subtitle font.
      */
     public void addSubtitle(String subtitle, Font font) {
         this.chart.addSubtitle(new TextTitle(subtitle, font));
@@ -130,7 +136,7 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Sets the value format for the thermometer.
      *
-     * @param df  the formatter.
+     * @param df the formatter.
      */
     public void setValueFormat(DecimalFormat df) {
         this.plot.setValueFormat(df);
@@ -139,8 +145,8 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Sets the lower and upper bounds for the thermometer.
      *
-     * @param lower  the lower bound.
-     * @param upper  the upper bound.
+     * @param lower the lower bound.
+     * @param upper the upper bound.
      */
     public void setRange(double lower, double upper) {
         this.plot.setRange(lower, upper);
@@ -149,9 +155,9 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Sets the range.
      *
-     * @param range  the range type.
+     * @param range       the range type.
      * @param displayLow  the low value.
-     * @param displayHigh  the high value.
+     * @param displayHigh the high value.
      */
     public void setSubrangeInfo(int range, double displayLow,
                                 double displayHigh) {
@@ -161,15 +167,15 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Sets the range.
      *
-     * @param range  the range type.
-     * @param rangeLow  the low value for the range.
-     * @param rangeHigh  the high value for the range.
+     * @param range       the range type.
+     * @param rangeLow    the low value for the range.
+     * @param rangeHigh   the high value for the range.
      * @param displayLow  the low value for display.
-     * @param displayHigh  the high value for display.
+     * @param displayHigh the high value for display.
      */
     public void setSubrangeInfo(int range,
-                             double rangeLow, double rangeHigh,
-                             double displayLow, double displayHigh) {
+                                double rangeLow, double rangeHigh,
+                                double displayLow, double displayHigh) {
 
         this.plot.setSubrangeInfo(range, rangeLow, rangeHigh, displayLow,
                 displayHigh);
@@ -179,7 +185,7 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Sets the location at which the temperature value is displayed.
      *
-     * @param loc  the location.
+     * @param loc the location.
      */
     public void setValueLocation(int loc) {
         this.plot.setValueLocation(loc);
@@ -189,7 +195,7 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Sets the value paint.
      *
-     * @param paint  the paint.
+     * @param paint the paint.
      */
     public void setValuePaint(Paint paint) {
         this.plot.setValuePaint(paint);
@@ -203,8 +209,7 @@ public class JThermometer extends JPanel implements Serializable {
     public Number getValue() {
         if (this.data != null) {
             return this.data.getValue();
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -212,16 +217,7 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Sets the value of the thermometer.
      *
-     * @param value  the value.
-     */
-    public void setValue(double value) {
-        setValue(new Double(value));
-    }
-
-    /**
-     * Sets the value of the thermometer.
-     *
-     * @param value  the value.
+     * @param value the value.
      */
     public void setValue(Number value) {
         if (this.data != null) {
@@ -230,9 +226,18 @@ public class JThermometer extends JPanel implements Serializable {
     }
 
     /**
+     * Sets the value of the thermometer.
+     *
+     * @param value the value.
+     */
+    public void setValue(double value) {
+        setValue(new Double(value));
+    }
+
+    /**
      * Sets the unit type.
      *
-     * @param i  the unit type.
+     * @param i the unit type.
      */
     public void setUnits(int i) {
         if (this.plot != null) {
@@ -243,7 +248,7 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Sets the outline paint.
      *
-     * @param p  the paint.
+     * @param p the paint.
      */
     public void setOutlinePaint(Paint p) {
         if (this.plot != null) {
@@ -254,7 +259,7 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Sets the foreground color.
      *
-     * @param fg  the foreground color.
+     * @param fg the foreground color.
      */
     @Override
     public void setForeground(Color fg) {
@@ -267,7 +272,7 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Sets the background color.
      *
-     * @param bg  the background color.
+     * @param bg the background color.
      */
     @Override
     public void setBackground(Color bg) {
@@ -286,7 +291,7 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Sets the value font.
      *
-     * @param f  the font.
+     * @param f the font.
      */
     public void setValueFont(Font f) {
         if (this.plot != null) {
@@ -307,7 +312,7 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Sets the tick label font.
      *
-     * @param font  the font.
+     * @param font the font.
      */
     public void setTickLabelFont(Font font) {
         ValueAxis axis = this.plot.getRangeAxis();
@@ -317,7 +322,7 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Increases or decreases the tick font size.
      *
-     * @param delta  the change in size.
+     * @param delta the change in size.
      */
     public void changeTickFontSize(int delta) {
         Font f = getTickLabelFont();
@@ -329,7 +334,7 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Sets the tick font style.
      *
-     * @param style  the style.
+     * @param style the style.
      */
     public void setTickFontStyle(int style) {
         Font f = getTickLabelFont();
@@ -342,7 +347,7 @@ public class JThermometer extends JPanel implements Serializable {
      * Sets the flag that controls whether or not the display range follows the
      * data value.
      *
-     * @param flag  the new value of the flag.
+     * @param flag the new value of the flag.
      */
     public void setFollowDataInSubranges(boolean flag) {
         this.plot.setFollowDataInSubranges(flag);
@@ -351,19 +356,10 @@ public class JThermometer extends JPanel implements Serializable {
     /**
      * Sets the flag that controls whether or not value lines are displayed.
      *
-     * @param b  the new flag value.
+     * @param b the new flag value.
      */
     public void setShowValueLines(boolean b) {
         this.plot.setShowValueLines(b);
-    }
-
-    /**
-     * Sets the location for the axis.
-     *
-     * @param location  the location.
-     */
-    public void setShowAxisLocation(int location) {
-        this.plot.setAxisLocation(location);
     }
 
     /**
@@ -372,7 +368,16 @@ public class JThermometer extends JPanel implements Serializable {
      * @return The location.
      */
     public int getShowAxisLocation() {
-      return this.plot.getAxisLocation();
+        return this.plot.getAxisLocation();
+    }
+
+    /**
+     * Sets the location for the axis.
+     *
+     * @param location the location.
+     */
+    public void setShowAxisLocation(int location) {
+        this.plot.setAxisLocation(location);
     }
 
 }

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -42,29 +42,25 @@
 
 package org.jfree.data.xy;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.general.SeriesChangeEvent;
 import org.jfree.data.general.SeriesChangeListener;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link XYIntervalSeries} class.
  */
 public class XYIntervalSeriesTest implements SeriesChangeListener {
 
+    private static final double EPSILON = 0.0000000001;
     SeriesChangeEvent lastEvent;
 
     /**
      * Records the last event.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     public void seriesChanged(SeriesChangeEvent event) {
         this.lastEvent = event;
@@ -183,8 +179,6 @@ public class XYIntervalSeriesTest implements SeriesChangeListener {
         s1.remove(new Double(1.0));
         assertEquals(new Double(3.0), s1.getX(0));
     }
-
-    private static final double EPSILON = 0.0000000001;
 
     /**
      * When items are added with duplicate x-values, we expect them to remain

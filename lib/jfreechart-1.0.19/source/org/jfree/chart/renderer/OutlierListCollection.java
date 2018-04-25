@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -51,7 +51,7 @@ import java.util.List;
 /**
  * A collection of outlier lists for a box and whisker plot. Each collection is
  * associated with a single box and whisker entity.
- *
+ * <p>
  * Outliers are grouped in lists for each entity. Lists contain
  * one or more outliers, determined by whether overlaps have
  * occurred. Overlapping outliers are grouped in the same list.
@@ -60,7 +60,9 @@ import java.util.List;
  */
 public class OutlierListCollection {
 
-    /** Storage for the outlier lists. */
+    /**
+     * Storage for the outlier lists.
+     */
     private List outlierLists;
 
     /**
@@ -96,7 +98,7 @@ public class OutlierListCollection {
      * Sets the flag that indicates the presence of one or more far out values
      * at the top end of the range.
      *
-     * @param farOut  the flag.
+     * @param farOut the flag.
      */
     public void setHighFarOut(boolean farOut) {
         this.highFarOut = farOut;
@@ -116,31 +118,30 @@ public class OutlierListCollection {
      * Sets the flag that indicates the presence of one or more far out values
      * at the bottom end of the range.
      *
-     * @param farOut  the flag.
+     * @param farOut the flag.
      */
     public void setLowFarOut(boolean farOut) {
         this.lowFarOut = farOut;
     }
+
     /**
      * Appends the specified element as a new <code>OutlierList</code> to the
      * end of this list if it does not overlap an outlier in an existing list.
-     *
+     * <p>
      * If it does overlap, it is appended to the outlier list which it overlaps
      * and that list is updated.
      *
-     * @param outlier  element to be appended to this list.
-     *
+     * @param outlier element to be appended to this list.
      * @return <tt>true</tt> (as per the general contract of Collection.add).
      */
     public boolean add(Outlier outlier) {
 
         if (this.outlierLists.isEmpty()) {
             return this.outlierLists.add(new OutlierList(outlier));
-        }
-        else {
+        } else {
             boolean updated = false;
             for (Iterator iterator = this.outlierLists.iterator();
-                 iterator.hasNext();) {
+                 iterator.hasNext(); ) {
                 OutlierList list = (OutlierList) iterator.next();
                 if (list.isOverlapped(outlier)) {
                     updated = updateOutlierList(list, outlier);
@@ -170,9 +171,8 @@ public class OutlierListCollection {
      * setting the averaged outlier to the average x and y coordinnate values
      * of the outliers in the list.
      *
-     * @param list  the outlier list to be updated.
-     * @param outlier  the outlier to be added
-     *
+     * @param list    the outlier list to be updated.
+     * @param outlier the outlier to be added
      * @return <tt>true</tt> (as per the general contract of Collection.add).
      */
     private boolean updateOutlierList(OutlierList list, Outlier outlier) {

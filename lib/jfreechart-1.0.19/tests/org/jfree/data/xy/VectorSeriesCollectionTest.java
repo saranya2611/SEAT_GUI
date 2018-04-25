@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -42,14 +42,11 @@
 
 package org.jfree.data.xy;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link VectorSeriesCollection} class.
@@ -116,7 +113,7 @@ public class VectorSeriesCollectionTest {
         s1.add(1.0, 1.1, 1.2, 1.3);
         VectorSeriesCollection c1 = new VectorSeriesCollection();
         c1.addSeries(s1);
-        VectorSeriesCollection c2 = (VectorSeriesCollection) 
+        VectorSeriesCollection c2 = (VectorSeriesCollection)
                 TestUtilities.serialised(c1);
         assertEquals(c1, c2);
     }

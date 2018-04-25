@@ -7,14 +7,10 @@ import services.CheckInputFormats;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 
 import static javax.swing.JFileChooser.FILES_ONLY;
 
@@ -44,75 +40,16 @@ public class defaultSetOfFilesWizard3 extends JFrame {
     public JButton analyseAllotmentsButton;
     public JTextArea displayOutputProgressTextArea;
 
-//	private inputToAllotmentsWizard1 wizard1;
+    //	private inputToAllotmentsWizard1 wizard1;
 //	private defaultSetOfFilesWizard2 wizard2;
-
+    public Image redCrossIcon, getGreenTickIcon;
+    public int algorithmIndex;
+    public String algorithmName;
     formValues fV = formValues.getInstance();
-
     JFileChooser chosenDirWizard3 = new JFileChooser();
     String defaultDir, outputDir;
     String chosenTitle;
     String errorMsg;
-    public Image redCrossIcon, getGreenTickIcon;
-    public int algorithmIndex;
-    public String algorithmName;
-
-    public void printMessage(String s) {
-        System.out.println(s);
-        displayOutputProgressTextArea.append(s + "\n");
-    }
-
-    public void printErrorMessage(String s) {
-        System.out.println(s);
-        displayOutputProgressTextArea.append("\n" + s);
-        JOptionPane.showMessageDialog(null, s + "\n " + errorMsg, "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    public void printProgressNotification(String s) {
-        displayOutputProgressTextArea.append(s + "\n");
-    }
-
-    public void enableFileDirectoryExistenceCheckButton(JButton currentCheckButton, File file1, String errorMsg) {
-        if ((file1.exists()) && (errorMsg == null)) {
-            currentCheckButton.setVisible(true);
-            try {
-                Image img = ImageIO.read(getClass().getResource("greenYes.png"));
-                getGreenTickIcon = img;
-                currentCheckButton.setIcon(new ImageIcon(img));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else if ((file1.exists()) && (errorMsg != null)) {
-            currentCheckButton.setVisible(true);
-            try {
-                Image img = ImageIO.read(getClass().getResource("redCross.png"));
-                redCrossIcon = img;
-                currentCheckButton.setIcon(new ImageIcon(img));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            JOptionPane.showMessageDialog(null, errorMsg, "Input Format Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            currentCheckButton.setVisible(true);
-            try {
-                Image img = ImageIO.read(getClass().getResource("redCross.png"));
-                redCrossIcon = img;
-                currentCheckButton.setIcon(new ImageIcon(img));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-//	public static void main (String[] args) throws SQLException, ClassNotFoundException, IOException {
-//		defaultSetOfFilesWizard3 JPanelWizard3 = new defaultSetOfFilesWizard3 ();
-//	}
-
-//	public defaultSetOfFilesWizard3 currentClass;
-//
-//	public void setCurrentClass (defaultSetOfFilesWizard3 currentClass) {
-//		this.currentClass = currentClass;
-//	}
 
     public defaultSetOfFilesWizard3() {
 
@@ -412,6 +349,62 @@ public class defaultSetOfFilesWizard3 extends JFrame {
         });
     }
 
+    public void printMessage(String s) {
+        System.out.println(s);
+        displayOutputProgressTextArea.append(s + "\n");
+    }
+
+    public void printErrorMessage(String s) {
+        System.out.println(s);
+        displayOutputProgressTextArea.append("\n" + s);
+        JOptionPane.showMessageDialog(null, s + "\n " + errorMsg, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void printProgressNotification(String s) {
+        displayOutputProgressTextArea.append(s + "\n");
+    }
+
+//	public static void main (String[] args) throws SQLException, ClassNotFoundException, IOException {
+//		defaultSetOfFilesWizard3 JPanelWizard3 = new defaultSetOfFilesWizard3 ();
+//	}
+
+//	public defaultSetOfFilesWizard3 currentClass;
+//
+//	public void setCurrentClass (defaultSetOfFilesWizard3 currentClass) {
+//		this.currentClass = currentClass;
+//	}
+
+    public void enableFileDirectoryExistenceCheckButton(JButton currentCheckButton, File file1, String errorMsg) {
+        if ((file1.exists()) && (errorMsg == null)) {
+            currentCheckButton.setVisible(true);
+            try {
+                Image img = ImageIO.read(getClass().getResource("greenYes.png"));
+                getGreenTickIcon = img;
+                currentCheckButton.setIcon(new ImageIcon(img));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if ((file1.exists()) && (errorMsg != null)) {
+            currentCheckButton.setVisible(true);
+            try {
+                Image img = ImageIO.read(getClass().getResource("redCross.png"));
+                redCrossIcon = img;
+                currentCheckButton.setIcon(new ImageIcon(img));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            JOptionPane.showMessageDialog(null, errorMsg, "Input Format Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            currentCheckButton.setVisible(true);
+            try {
+                Image img = ImageIO.read(getClass().getResource("redCross.png"));
+                redCrossIcon = img;
+                currentCheckButton.setIcon(new ImageIcon(img));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

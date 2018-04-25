@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------
@@ -53,12 +53,11 @@
 
 package org.jfree.chart.labels;
 
-import java.awt.Font;
-import java.awt.Paint;
+import org.jfree.data.general.PieDataset;
+
+import java.awt.*;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
-
-import org.jfree.data.general.PieDataset;
 
 /**
  * Interface for a label generator for plots that use data from
@@ -69,9 +68,8 @@ public interface PieSectionLabelGenerator {
     /**
      * Generates a label for a pie section.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param key  the section key (<code>null</code> not permitted).
-     *
+     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param key     the section key (<code>null</code> not permitted).
      * @return The label (possibly <code>null</code>).
      */
     public String generateSectionLabel(PieDataset dataset, Comparable key);
@@ -86,21 +84,20 @@ public interface PieSectionLabelGenerator {
      * <ul>
      * <li>{@link TextAttribute#FONT}: will set the font;</li>
      * <li>{@link TextAttribute#POSTURE}: a value of
-     *     {@link TextAttribute#POSTURE_OBLIQUE} will add {@link Font#ITALIC} to
-     *     the current font;</li>
+     * {@link TextAttribute#POSTURE_OBLIQUE} will add {@link Font#ITALIC} to
+     * the current font;</li>
      * <li>{@link TextAttribute#WEIGHT}: a value of
-     *     {@link TextAttribute#WEIGHT_BOLD} will add {@link Font#BOLD} to the
-     *     current font;</li>
+     * {@link TextAttribute#WEIGHT_BOLD} will add {@link Font#BOLD} to the
+     * current font;</li>
      * <li>{@link TextAttribute#FOREGROUND}: this will set the {@link Paint}
-     *     for the current</li>
+     * for the current</li>
      * <li>{@link TextAttribute#SUPERSCRIPT}: the values
-     *     {@link TextAttribute#SUPERSCRIPT_SUB} and
-     *     {@link TextAttribute#SUPERSCRIPT_SUPER} are recognised.</li>
+     * {@link TextAttribute#SUPERSCRIPT_SUB} and
+     * {@link TextAttribute#SUPERSCRIPT_SUPER} are recognised.</li>
      * </ul>
      *
-     * @param dataset  the dataset.
-     * @param key  the key.
-     *
+     * @param dataset the dataset.
+     * @param key     the key.
      * @return An attributed label (possibly <code>null</code>).
      */
     public AttributedString generateAttributedSectionLabel(PieDataset dataset,

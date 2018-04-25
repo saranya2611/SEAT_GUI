@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -45,11 +45,6 @@
 
 package org.jfree.chart.labels;
 
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.MessageFormat;
-import java.text.NumberFormat;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.renderer.xy.XYBubbleRenderer;
 import org.jfree.chart.util.ParamChecks;
@@ -57,6 +52,11 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYZDataset;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.MessageFormat;
+import java.text.NumberFormat;
 
 /**
  * An item label generator defined for use with the {@link XYBubbleRenderer}
@@ -67,12 +67,14 @@ import org.jfree.util.PublicCloneable;
 public class BubbleXYItemLabelGenerator extends AbstractXYItemLabelGenerator
         implements XYItemLabelGenerator, PublicCloneable, Serializable {
 
-    /** For serialization. */
-    static final long serialVersionUID = -8458568928021240922L;
-
-    /** The default item label format. */
+    /**
+     * The default item label format.
+     */
     public static final String DEFAULT_FORMAT_STRING = "{3}";
-
+    /**
+     * For serialization.
+     */
+    static final long serialVersionUID = -8458568928021240922L;
     /**
      * A number formatter for the z value - if this is <code>null</code>, then
      * zDateFormat must be non-null.
@@ -99,16 +101,16 @@ public class BubbleXYItemLabelGenerator extends AbstractXYItemLabelGenerator
      * Constructs a new tool tip generator using the specified number
      * formatters.
      *
-     * @param formatString  the format string.
-     * @param xFormat  the format object for the x values (<code>null</code>
-     *                 not permitted).
-     * @param yFormat  the format object for the y values (<code>null</code>
-     *                 not permitted).
-     * @param zFormat  the format object for the z values (<code>null</code>
-     *                 not permitted).
+     * @param formatString the format string.
+     * @param xFormat      the format object for the x values (<code>null</code>
+     *                     not permitted).
+     * @param yFormat      the format object for the y values (<code>null</code>
+     *                     not permitted).
+     * @param zFormat      the format object for the z values (<code>null</code>
+     *                     not permitted).
      */
     public BubbleXYItemLabelGenerator(String formatString,
-            NumberFormat xFormat, NumberFormat yFormat, NumberFormat zFormat) {
+                                      NumberFormat xFormat, NumberFormat yFormat, NumberFormat zFormat) {
         super(formatString, xFormat, yFormat);
         ParamChecks.nullNotPermitted(zFormat, "zFormat");
         this.zFormat = zFormat;
@@ -118,16 +120,16 @@ public class BubbleXYItemLabelGenerator extends AbstractXYItemLabelGenerator
      * Constructs a new item label generator using the specified date
      * formatters.
      *
-     * @param formatString  the format string.
-     * @param xFormat  the format object for the x values (<code>null</code>
-     *                 not permitted).
-     * @param yFormat  the format object for the y values (<code>null</code>
-     *                 not permitted).
-     * @param zFormat  the format object for the z values (<code>null</code>
-     *                 not permitted).
+     * @param formatString the format string.
+     * @param xFormat      the format object for the x values (<code>null</code>
+     *                     not permitted).
+     * @param yFormat      the format object for the y values (<code>null</code>
+     *                     not permitted).
+     * @param zFormat      the format object for the z values (<code>null</code>
+     *                     not permitted).
      */
     public BubbleXYItemLabelGenerator(String formatString,
-            DateFormat xFormat, DateFormat yFormat, DateFormat zFormat) {
+                                      DateFormat xFormat, DateFormat yFormat, DateFormat zFormat) {
         super(formatString, xFormat, yFormat);
         ParamChecks.nullNotPermitted(zFormat, "zFormat");
         this.zDateFormat = zFormat;
@@ -154,10 +156,9 @@ public class BubbleXYItemLabelGenerator extends AbstractXYItemLabelGenerator
     /**
      * Generates an item label for a particular item within a series.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param item    the item index (zero-based).
      * @return The item label (possibly <code>null</code>).
      */
     @Override
@@ -168,10 +169,9 @@ public class BubbleXYItemLabelGenerator extends AbstractXYItemLabelGenerator
     /**
      * Generates a label string for an item in the dataset.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param item    the item (zero-based index).
      * @return The label (possibly <code>null</code>).
      */
     @Override
@@ -180,8 +180,7 @@ public class BubbleXYItemLabelGenerator extends AbstractXYItemLabelGenerator
         Object[] items;
         if (dataset instanceof XYZDataset) {
             items = createItemArray((XYZDataset) dataset, series, item);
-        }
-        else {
+        } else {
             items = createItemArray(dataset, series, item);
         }
         result = MessageFormat.format(getFormatString(), items);
@@ -192,10 +191,9 @@ public class BubbleXYItemLabelGenerator extends AbstractXYItemLabelGenerator
      * Creates the array of items that can be passed to the
      * {@link MessageFormat} class for creating labels.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param item    the item (zero-based index).
      * @return The items (never <code>null</code>).
      */
     protected Object[] createItemArray(XYZDataset dataset,
@@ -208,8 +206,7 @@ public class BubbleXYItemLabelGenerator extends AbstractXYItemLabelGenerator
         DateFormat xf = getXDateFormat();
         if (xf != null) {
             result[1] = xf.format(x);
-        }
-        else {
+        } else {
             result[1] = getXFormat().format(x);
         }
 
@@ -217,16 +214,14 @@ public class BubbleXYItemLabelGenerator extends AbstractXYItemLabelGenerator
         DateFormat yf = getYDateFormat();
         if (yf != null) {
             result[2] = yf.format(y);
-        }
-        else {
+        } else {
             result[2] = getYFormat().format(y);
         }
 
         Number z = dataset.getZ(series, item);
         if (this.zDateFormat != null) {
             result[3] = this.zDateFormat.format(z);
-        }
-        else {
+        } else {
             result[3] = this.zFormat.format(z);
         }
 
@@ -237,8 +232,7 @@ public class BubbleXYItemLabelGenerator extends AbstractXYItemLabelGenerator
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the other object (<code>null</code> permitted).
-     *
+     * @param obj the other object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

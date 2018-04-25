@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -48,28 +48,34 @@ import java.io.Serializable;
  */
 public final class ChartChangeEventType implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 5481917022435735602L;
-
-    /** GENERAL. */
+    /**
+     * GENERAL.
+     */
     public static final ChartChangeEventType GENERAL
             = new ChartChangeEventType("ChartChangeEventType.GENERAL");
-
-    /** NEW_DATASET. */
+    /**
+     * NEW_DATASET.
+     */
     public static final ChartChangeEventType NEW_DATASET
             = new ChartChangeEventType("ChartChangeEventType.NEW_DATASET");
-
-    /** DATASET_UPDATED. */
+    /**
+     * DATASET_UPDATED.
+     */
     public static final ChartChangeEventType DATASET_UPDATED
             = new ChartChangeEventType("ChartChangeEventType.DATASET_UPDATED");
-
-    /** The name. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 5481917022435735602L;
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private ChartChangeEventType(String name) {
         this.name = name;
@@ -89,8 +95,7 @@ public final class ChartChangeEventType implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -122,17 +127,14 @@ public final class ChartChangeEventType implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         if (this.equals(ChartChangeEventType.GENERAL)) {
             return ChartChangeEventType.GENERAL;
-        }
-        else if (this.equals(ChartChangeEventType.NEW_DATASET)) {
+        } else if (this.equals(ChartChangeEventType.NEW_DATASET)) {
             return ChartChangeEventType.NEW_DATASET;
-        }
-        else if (this.equals(ChartChangeEventType.DATASET_UPDATED)) {
+        } else if (this.equals(ChartChangeEventType.DATASET_UPDATED)) {
             return ChartChangeEventType.DATASET_UPDATED;
         }
         return null;

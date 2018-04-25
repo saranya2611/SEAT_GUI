@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------
@@ -51,29 +51,37 @@
 
 package org.jfree.chart.urls;
 
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.ObjectUtilities;
+
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * A URL generator for pie charts.  Instances of this class are immutable.
  */
 public class StandardPieURLGenerator implements PieURLGenerator, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 1626966402065883419L;
 
-    /** The prefix. */
+    /**
+     * The prefix.
+     */
     private String prefix = "index.html";
 
-    /** The category parameter name. */
+    /**
+     * The category parameter name.
+     */
     private String categoryParamName = "category";
 
-    /** The pie index parameter name. */
+    /**
+     * The pie index parameter name.
+     */
     private String indexParamName = "pieIndex";
 
     /**
@@ -86,7 +94,7 @@ public class StandardPieURLGenerator implements PieURLGenerator, Serializable {
     /**
      * Creates a new generator.
      *
-     * @param prefix  the prefix ({@code null} not permitted).
+     * @param prefix the prefix ({@code null} not permitted).
      */
     public StandardPieURLGenerator(String prefix) {
         this(prefix, "category");
@@ -95,9 +103,9 @@ public class StandardPieURLGenerator implements PieURLGenerator, Serializable {
     /**
      * Creates a new generator.
      *
-     * @param prefix  the prefix ({@code null} not permitted).
-     * @param categoryParamName  the category parameter name ({@code null} not 
-     *         permitted).
+     * @param prefix            the prefix ({@code null} not permitted).
+     * @param categoryParamName the category parameter name ({@code null} not
+     *                          permitted).
      */
     public StandardPieURLGenerator(String prefix, String categoryParamName) {
         this(prefix, categoryParamName, "pieIndex");
@@ -106,13 +114,13 @@ public class StandardPieURLGenerator implements PieURLGenerator, Serializable {
     /**
      * Creates a new generator.
      *
-     * @param prefix  the prefix ({@code null} not permitted).
-     * @param categoryParamName  the category parameter name ({@code null} not 
-     *         permitted).
-     * @param indexParamName  the index parameter name ({@code null} permitted).
+     * @param prefix            the prefix ({@code null} not permitted).
+     * @param categoryParamName the category parameter name ({@code null} not
+     *                          permitted).
+     * @param indexParamName    the index parameter name ({@code null} permitted).
      */
     public StandardPieURLGenerator(String prefix, String categoryParamName,
-            String indexParamName) {
+                                   String indexParamName) {
         ParamChecks.nullNotPermitted(prefix, "prefix");
         ParamChecks.nullNotPermitted(categoryParamName, "categoryParamName");
         this.prefix = prefix;
@@ -124,14 +132,13 @@ public class StandardPieURLGenerator implements PieURLGenerator, Serializable {
      * Generates a URL.
      *
      * @param dataset  the dataset (ignored).
-     * @param key  the item key ({@code null} not permitted).
-     * @param pieIndex  the pie index.
-     *
+     * @param key      the item key ({@code null} not permitted).
+     * @param pieIndex the pie index.
      * @return A string containing the generated URL.
      */
     @Override
     public String generateURL(PieDataset dataset, Comparable key,
-            int pieIndex) {
+                              int pieIndex) {
         String url = this.prefix;
         try {
             if (url.contains("?")) {
@@ -153,8 +160,7 @@ public class StandardPieURLGenerator implements PieURLGenerator, Serializable {
     /**
      * Tests if this object is equal to another.
      *
-     * @param obj  the object ({@code null} permitted).
-     *
+     * @param obj the object ({@code null} permitted).
      * @return A boolean.
      */
     @Override

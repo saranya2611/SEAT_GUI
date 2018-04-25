@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -52,10 +52,10 @@ public class XIntervalDataItem extends ComparableObjectItem {
     /**
      * Creates a new instance of <code>XIntervalDataItem</code>.
      *
-     * @param x  the x-value.
+     * @param x     the x-value.
      * @param xLow  the lower bound of the x-interval.
-     * @param xHigh  the upper bound of the x-interval.
-     * @param y  the y-value.
+     * @param xHigh the upper bound of the x-interval.
+     * @param y     the y-value.
      */
     public XIntervalDataItem(double x, double xLow, double xHigh, double y) {
         super(new Double(x), new YWithXInterval(y, xLow, xHigh));
@@ -79,8 +79,7 @@ public class XIntervalDataItem extends ComparableObjectItem {
         YWithXInterval interval = (YWithXInterval) getObject();
         if (interval != null) {
             return interval.getY();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }
@@ -94,8 +93,7 @@ public class XIntervalDataItem extends ComparableObjectItem {
         YWithXInterval interval = (YWithXInterval) getObject();
         if (interval != null) {
             return interval.getXLow();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }
@@ -109,8 +107,7 @@ public class XIntervalDataItem extends ComparableObjectItem {
         YWithXInterval interval = (YWithXInterval) getObject();
         if (interval != null) {
             return interval.getXHigh();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }

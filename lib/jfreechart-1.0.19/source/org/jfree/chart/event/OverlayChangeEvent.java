@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -40,8 +40,9 @@
 
 package org.jfree.chart.event;
 
-import java.util.EventObject;
 import org.jfree.chart.panel.Overlay;
+
+import java.util.EventObject;
 
 /**
  * A change event for an {@link Overlay}.
@@ -53,10 +54,10 @@ public class OverlayChangeEvent extends EventObject {
     /**
      * Creates a new change event.
      *
-     * @param source  the event source.
+     * @param source the event source.
      */
     public OverlayChangeEvent(Object source) {
         super(source);
     }
-    
+
 }

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -42,17 +42,6 @@
 
 package org.jfree.chart.axis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Stroke;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.JFreeChart;
@@ -65,6 +54,12 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleInsets;
 import org.junit.Test;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link ValueAxis} class.
@@ -217,7 +212,7 @@ public class ValueAxisTest {
         series.add(200.0, 2.2);
         XYSeriesCollection dataset = new XYSeriesCollection(series);
         dataset.setIntervalWidth(0.0);
-        JFreeChart chart = ChartFactory.createScatterPlot("Title", "X", "Y", 
+        JFreeChart chart = ChartFactory.createScatterPlot("Title", "X", "Y",
                 dataset);
         ValueAxis domainAxis = ((XYPlot) chart.getPlot()).getDomainAxis();
         Range r = domainAxis.getRange();
@@ -227,9 +222,9 @@ public class ValueAxisTest {
         r = domainAxis.getRange();
         assertEquals(120.0, r.getLength(), EPSILON);
     }
-    
+
     /**
-     * A test for bug 3555275 (where the fixed axis space is calculated 
+     * A test for bug 3555275 (where the fixed axis space is calculated
      * incorrectly).
      */
     @Test
@@ -242,7 +237,7 @@ public class ValueAxisTest {
         plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
         ValueAxis yAxis = plot.getRangeAxis();
         yAxis.setFixedDimension(100.0);
-        BufferedImage image = new BufferedImage(500, 300, 
+        BufferedImage image = new BufferedImage(500, 300,
                 BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = image.createGraphics();
         ChartRenderingInfo info = new ChartRenderingInfo();

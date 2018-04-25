@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------
@@ -46,18 +46,14 @@
 
 package org.jfree.chart;
 
-import java.awt.BasicStroke;
-import java.awt.Composite;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYBlockRenderer;
 import org.jfree.ui.RectangleEdge;
+
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
 
 /**
  * This class would typically be used with a
@@ -67,37 +63,55 @@ import org.jfree.ui.RectangleEdge;
  * sorted.
  *
  * @deprecated This class is no longer supported (as of version 1.0.4).  If
- *     you are creating contour plots, please try to use {@link XYPlot} and
- *     {@link XYBlockRenderer}.
+ * you are creating contour plots, please try to use {@link XYPlot} and
+ * {@link XYBlockRenderer}.
  */
 public class ClipPath implements Cloneable {
 
-    /** The x values. */
+    /**
+     * The x values.
+     */
     private double[] xValue = null;
 
-    /** The y values. */
+    /**
+     * The y values.
+     */
     private double[] yValue = null;
 
-    /** Controls whether drawing will be clipped (
-     * false would still allow the drawing or filling of path */
+    /**
+     * Controls whether drawing will be clipped (
+     * false would still allow the drawing or filling of path
+     */
     private boolean clip = true;
 
-    /** Controls whether the path is drawn as an outline. */
+    /**
+     * Controls whether the path is drawn as an outline.
+     */
     private boolean drawPath = false;
 
-    /** Controls whether the path is filled. */
+    /**
+     * Controls whether the path is filled.
+     */
     private boolean fillPath = false;
 
-    /** The fill paint. */
+    /**
+     * The fill paint.
+     */
     private Paint fillPaint = null;
 
-    /** The draw paint. */
+    /**
+     * The draw paint.
+     */
     private Paint drawPaint = null;
 
-    /** The draw stroke. */
+    /**
+     * The draw stroke.
+     */
     private Stroke drawStroke = null;
 
-    /** The composite. */
+    /**
+     * The composite.
+     */
     private Composite composite = null;
 
     /**
@@ -114,8 +128,8 @@ public class ClipPath implements Cloneable {
      * drawColor is Color.BLUE, the stroke is BasicStroke(1)
      * and the composite is AlphaComposite.Src.
      *
-     * @param xValue  x coordinates of curved to be created
-     * @param yValue  y coordinates of curved to be created
+     * @param xValue x coordinates of curved to be created
+     * @param yValue y coordinates of curved to be created
      */
     public ClipPath(double[] xValue, double[] yValue) {
         this(xValue, yValue, true, false, true);
@@ -127,11 +141,11 @@ public class ClipPath implements Cloneable {
      * The fillPaint is set to Color.GRAY, the drawColor is Color.BLUE, the
      * stroke is BasicStroke(1) and the composite is AlphaComposite.Src.
      *
-     * @param xValue  x coordinates of curved to be created
-     * @param yValue  y coordinates of curved to be created
-     * @param clip  clip?
-     * @param fillPath  whether the path is to filled
-     * @param drawPath  whether the path is to drawn as an outline
+     * @param xValue   x coordinates of curved to be created
+     * @param yValue   y coordinates of curved to be created
+     * @param clip     clip?
+     * @param fillPath whether the path is to filled
+     * @param drawPath whether the path is to drawn as an outline
      */
     public ClipPath(double[] xValue, double[] yValue,
                     boolean clip, boolean fillPath, boolean drawPath) {
@@ -151,13 +165,13 @@ public class ClipPath implements Cloneable {
     /**
      * Constructor for ClipPath.
      *
-     * @param xValue  x coordinates of curved to be created
-     * @param yValue  y coordinates of curved to be created
-     * @param fillPath  whether the path is to filled
-     * @param drawPath  whether the path is to drawn as an outline
+     * @param xValue     x coordinates of curved to be created
+     * @param yValue     y coordinates of curved to be created
+     * @param fillPath   whether the path is to filled
+     * @param drawPath   whether the path is to drawn as an outline
      * @param fillPaint  the fill paint
      * @param drawPaint  the outline stroke color
-     * @param drawStroke  the stroke style
+     * @param drawStroke the stroke style
      * @param composite  the composite rule
      */
     public ClipPath(double[] xValue, double[] yValue, boolean fillPath,
@@ -180,11 +194,10 @@ public class ClipPath implements Cloneable {
     /**
      * Draws the clip path.
      *
-     * @param g2  current graphics2D.
-     * @param dataArea  the dataArea that the plot is being draw in.
-     * @param horizontalAxis  the horizontal axis.
-     * @param verticalAxis  the vertical axis.
-     *
+     * @param g2             current graphics2D.
+     * @param dataArea       the dataArea that the plot is being draw in.
+     * @param horizontalAxis the horizontal axis.
+     * @param verticalAxis   the vertical axis.
      * @return The GeneralPath defining the outline
      */
     public GeneralPath draw(Graphics2D g2,
@@ -192,7 +205,7 @@ public class ClipPath implements Cloneable {
                             ValueAxis horizontalAxis, ValueAxis verticalAxis) {
 
         GeneralPath generalPath = generateClipPath(
-            dataArea, horizontalAxis, verticalAxis
+                dataArea, horizontalAxis, verticalAxis
         );
         if (this.fillPath || this.drawPath) {
             Composite saveComposite = g2.getComposite();
@@ -226,10 +239,9 @@ public class ClipPath implements Cloneable {
     /**
      * Generates the clip path.
      *
-     * @param dataArea  the dataArea that the plot is being draw in.
-     * @param horizontalAxis  the horizontal axis.
-     * @param verticalAxis  the vertical axis.
-     *
+     * @param dataArea       the dataArea that the plot is being draw in.
+     * @param horizontalAxis the horizontal axis.
+     * @param verticalAxis   the vertical axis.
      * @return The GeneralPath defining the outline
      */
     public GeneralPath generateClipPath(Rectangle2D dataArea,
@@ -238,18 +250,18 @@ public class ClipPath implements Cloneable {
 
         GeneralPath generalPath = new GeneralPath();
         double transX = horizontalAxis.valueToJava2D(
-            this.xValue[0], dataArea, RectangleEdge.BOTTOM
+                this.xValue[0], dataArea, RectangleEdge.BOTTOM
         );
         double transY = verticalAxis.valueToJava2D(
-            this.yValue[0], dataArea, RectangleEdge.LEFT
+                this.yValue[0], dataArea, RectangleEdge.LEFT
         );
         generalPath.moveTo((float) transX, (float) transY);
         for (int k = 0; k < this.yValue.length; k++) {
             transX = horizontalAxis.valueToJava2D(
-                this.xValue[k], dataArea, RectangleEdge.BOTTOM
+                    this.xValue[k], dataArea, RectangleEdge.BOTTOM
             );
             transY = verticalAxis.valueToJava2D(
-                this.yValue[k], dataArea, RectangleEdge.LEFT
+                    this.yValue[k], dataArea, RectangleEdge.LEFT
             );
             generalPath.lineTo((float) transX, (float) transY);
         }
@@ -269,75 +281,21 @@ public class ClipPath implements Cloneable {
     }
 
     /**
-     * Returns the drawPaint.
-     *
-     * @return Paint
-     */
-    public Paint getDrawPaint() {
-        return this.drawPaint;
-    }
-
-    /**
-     * Returns the drawPath.
-     *
-     * @return boolean
-     */
-    public boolean isDrawPath() {
-        return this.drawPath;
-    }
-
-    /**
-     * Returns the drawStroke.
-     *
-     * @return Stroke
-     */
-    public Stroke getDrawStroke() {
-        return this.drawStroke;
-    }
-
-    /**
-     * Returns the fillPaint.
-     *
-     * @return Paint
-     */
-    public Paint getFillPaint() {
-        return this.fillPaint;
-    }
-
-    /**
-     * Returns the fillPath.
-     *
-     * @return boolean
-     */
-    public boolean isFillPath() {
-        return this.fillPath;
-    }
-
-    /**
-     * Returns the xValue.
-     *
-     * @return double[]
-     */
-    public double[] getXValue() {
-        return this.xValue;
-    }
-
-    /**
-     * Returns the yValue.
-     *
-     * @return double[]
-     */
-    public double[] getYValue() {
-        return this.yValue;
-    }
-
-    /**
      * Sets the composite.
      *
      * @param composite The composite to set
      */
     public void setComposite(Composite composite) {
         this.composite = composite;
+    }
+
+    /**
+     * Returns the drawPaint.
+     *
+     * @return Paint
+     */
+    public Paint getDrawPaint() {
+        return this.drawPaint;
     }
 
     /**
@@ -350,12 +308,30 @@ public class ClipPath implements Cloneable {
     }
 
     /**
+     * Returns the drawPath.
+     *
+     * @return boolean
+     */
+    public boolean isDrawPath() {
+        return this.drawPath;
+    }
+
+    /**
      * Sets the drawPath.
      *
      * @param drawPath The drawPath to set
      */
     public void setDrawPath(boolean drawPath) {
         this.drawPath = drawPath;
+    }
+
+    /**
+     * Returns the drawStroke.
+     *
+     * @return Stroke
+     */
+    public Stroke getDrawStroke() {
+        return this.drawStroke;
     }
 
     /**
@@ -368,12 +344,30 @@ public class ClipPath implements Cloneable {
     }
 
     /**
+     * Returns the fillPaint.
+     *
+     * @return Paint
+     */
+    public Paint getFillPaint() {
+        return this.fillPaint;
+    }
+
+    /**
      * Sets the fillPaint.
      *
      * @param fillPaint The fillPaint to set
      */
     public void setFillPaint(Paint fillPaint) {
         this.fillPaint = fillPaint;
+    }
+
+    /**
+     * Returns the fillPath.
+     *
+     * @return boolean
+     */
+    public boolean isFillPath() {
+        return this.fillPath;
     }
 
     /**
@@ -386,12 +380,30 @@ public class ClipPath implements Cloneable {
     }
 
     /**
+     * Returns the xValue.
+     *
+     * @return double[]
+     */
+    public double[] getXValue() {
+        return this.xValue;
+    }
+
+    /**
      * Sets the xValue.
      *
      * @param xValue The xValue to set
      */
     public void setXValue(double[] xValue) {
         this.xValue = xValue;
+    }
+
+    /**
+     * Returns the yValue.
+     *
+     * @return double[]
+     */
+    public double[] getYValue() {
+        return this.yValue;
     }
 
     /**
@@ -426,7 +438,6 @@ public class ClipPath implements Cloneable {
      * when setting values in cloned object).
      *
      * @return The clone.
-     *
      * @throws CloneNotSupportedException if cloning is not supported.
      */
     @Override

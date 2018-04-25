@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -46,14 +46,13 @@
 
 package org.jfree.data;
 
-import java.util.List;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import org.jfree.chart.TestUtilities;
 import org.jfree.util.SortOrder;
 import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link DefaultKeyedValues} class.
@@ -126,17 +125,17 @@ public class DefaultKeyedValuesTest {
     public void testGetValue() {
         DefaultKeyedValues v1 = new DefaultKeyedValues();
         try {
-            /* Number n = */ v1.getValue(-1);
+            /* Number n = */
+            v1.getValue(-1);
             assertTrue(false);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
         try {
-            /* Number n = */ v1.getValue(0);
+            /* Number n = */
+            v1.getValue(0);
             assertTrue(false);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
         DefaultKeyedValues v2 = new DefaultKeyedValues();
@@ -147,9 +146,9 @@ public class DefaultKeyedValuesTest {
 
         boolean pass = false;
         try {
-            /* Number n = */ v2.getValue("KK");
-        }
-        catch (UnknownKeyException e) {
+            /* Number n = */
+            v2.getValue("KK");
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -162,17 +161,17 @@ public class DefaultKeyedValuesTest {
     public void testGetKey() {
         DefaultKeyedValues v1 = new DefaultKeyedValues();
         try {
-            /* Comparable k = */ v1.getKey(-1);
+            /* Comparable k = */
+            v1.getKey(-1);
             assertTrue(false);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
         try {
-            /* Comparable k = */ v1.getKey(0);
+            /* Comparable k = */
+            v1.getKey(0);
             assertTrue(false);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
         DefaultKeyedValues v2 = new DefaultKeyedValues();
@@ -200,8 +199,7 @@ public class DefaultKeyedValuesTest {
         boolean pass = false;
         try {
             v2.getIndex(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -219,6 +217,7 @@ public class DefaultKeyedValuesTest {
         v.removeValue("K1");
         assertEquals(-1, v.getIndex("K1"));
     }
+
     /**
      * Some checks for the addValue() method.
      */
@@ -239,8 +238,7 @@ public class DefaultKeyedValuesTest {
         boolean pass = false;
         try {
             v1.addValue(null, 99.9);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -339,8 +337,7 @@ public class DefaultKeyedValuesTest {
         boolean pass = false;
         try {
             data.removeValue("XXX");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -492,7 +489,7 @@ public class DefaultKeyedValuesTest {
         v1.addValue("Key 2", null);
         v1.addValue("Key 3", new Double(42));
 
-        DefaultKeyedValues v2 = (DefaultKeyedValues) 
+        DefaultKeyedValues v2 = (DefaultKeyedValues)
                 TestUtilities.serialised(v1);
         assertEquals(v1, v2);
     }

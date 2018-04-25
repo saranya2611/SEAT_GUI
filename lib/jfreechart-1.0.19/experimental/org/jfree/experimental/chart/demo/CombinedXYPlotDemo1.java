@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -39,14 +39,6 @@
  */
 
 package org.jfree.experimental.chart.demo;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Paint;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JPanel;
 
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -68,6 +60,11 @@ import org.jfree.experimental.chart.plot.CombinedXYPlot;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
+import javax.swing.*;
+import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+
 /**
  * A demonstration application showing a {@link CombinedXYPlot} with
  * two subplots.
@@ -77,7 +74,7 @@ public class CombinedXYPlotDemo1 extends ApplicationFrame {
     /**
      * Constructs a new demonstration application.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public CombinedXYPlotDemo1(String title) {
         super(title);
@@ -119,8 +116,7 @@ public class CombinedXYPlotDemo1 extends ApplicationFrame {
                 XYDataset dataset = getPlot().getDataset();
                 if (dataset.getYValue(series, item) >= 0.0) {
                     return Color.red;
-                }
-                else {
+                } else {
                     return Color.green;
                 }
             }
@@ -249,7 +245,7 @@ public class CombinedXYPlotDemo1 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         CombinedXYPlotDemo1 demo = new CombinedXYPlotDemo1(

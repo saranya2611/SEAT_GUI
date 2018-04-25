@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------------
@@ -41,18 +41,18 @@
 
 package org.jfree.chart.labels;
 
-import java.io.Serializable;
-import java.text.MessageFormat;
-import java.text.NumberFormat;
-
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.statistics.BoxAndWhiskerCategoryDataset;
 import org.jfree.util.PublicCloneable;
 
+import java.io.Serializable;
+import java.text.MessageFormat;
+import java.text.NumberFormat;
+
 /**
  * An item label generator for plots that use data from a
  * {@link BoxAndWhiskerCategoryDataset}.
- * <P>
+ * <p>
  * The tooltip text and item label text are composed using a
  * {@link java.text.MessageFormat} object, that can aggregate some or all of
  * the following string values into a message.
@@ -70,14 +70,17 @@ import org.jfree.util.PublicCloneable;
 public class BoxAndWhiskerToolTipGenerator
         extends StandardCategoryToolTipGenerator
         implements CategoryToolTipGenerator, Cloneable, PublicCloneable,
-                   Serializable {
+        Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -6076837753823076334L;
-
-    /** The default tooltip format string. */
+    /**
+     * The default tooltip format string.
+     */
     public static final String DEFAULT_TOOL_TIP_FORMAT
             = "X: {1} Mean: {2} Median: {3} Min: {4} Max: {5} Q1: {6} Q3: {7} ";
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -6076837753823076334L;
 
     /**
      * Creates a default tool tip generator.
@@ -89,8 +92,8 @@ public class BoxAndWhiskerToolTipGenerator
     /**
      * Creates a tool tip formatter.
      *
-     * @param format  the tool tip format string.
-     * @param formatter  the formatter.
+     * @param format    the tool tip format string.
+     * @param formatter the formatter.
      */
     public BoxAndWhiskerToolTipGenerator(String format,
                                          NumberFormat formatter) {
@@ -101,10 +104,9 @@ public class BoxAndWhiskerToolTipGenerator
      * Creates the array of items that can be passed to the
      * {@link MessageFormat} class for creating labels.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param item    the item (zero-based index).
      * @return The items (never <code>null</code>).
      */
     @Override
@@ -117,7 +119,7 @@ public class BoxAndWhiskerToolTipGenerator
         result[1] = formatter.format(y);
         if (dataset instanceof BoxAndWhiskerCategoryDataset) {
             BoxAndWhiskerCategoryDataset d
-                = (BoxAndWhiskerCategoryDataset) dataset;
+                    = (BoxAndWhiskerCategoryDataset) dataset;
             result[2] = formatter.format(d.getMeanValue(series, item));
             result[3] = formatter.format(d.getMedianValue(series, item));
             result[4] = formatter.format(d.getMinRegularValue(series, item));
@@ -131,8 +133,7 @@ public class BoxAndWhiskerToolTipGenerator
     /**
      * Tests if this object is equal to another.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return A boolean.
      */
     @Override

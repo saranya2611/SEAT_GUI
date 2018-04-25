@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -43,13 +43,13 @@
 
 package org.jfree.chart.axis;
 
-import java.io.Serializable;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.text.TextBlockAnchor;
 import org.jfree.ui.RectangleAnchor;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
+
+import java.io.Serializable;
 
 /**
  * Records the label positions for a category axis.  Instances of this class
@@ -57,152 +57,95 @@ import org.jfree.ui.TextAnchor;
  */
 public class CategoryLabelPositions implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -8999557901920364580L;
-
-    /** STANDARD category label positions. */
+    /**
+     * STANDARD category label positions.
+     */
     public static final CategoryLabelPositions
-        STANDARD = new CategoryLabelPositions(
+            STANDARD = new CategoryLabelPositions(
             new CategoryLabelPosition(
-                RectangleAnchor.BOTTOM, TextBlockAnchor.BOTTOM_CENTER), // TOP
+                    RectangleAnchor.BOTTOM, TextBlockAnchor.BOTTOM_CENTER), // TOP
             new CategoryLabelPosition(
-                RectangleAnchor.TOP, TextBlockAnchor.TOP_CENTER), // BOTTOM
+                    RectangleAnchor.TOP, TextBlockAnchor.TOP_CENTER), // BOTTOM
             new CategoryLabelPosition(
-                RectangleAnchor.RIGHT, TextBlockAnchor.CENTER_RIGHT,
-                CategoryLabelWidthType.RANGE, 0.30f), // LEFT
+                    RectangleAnchor.RIGHT, TextBlockAnchor.CENTER_RIGHT,
+                    CategoryLabelWidthType.RANGE, 0.30f), // LEFT
             new CategoryLabelPosition(
-                RectangleAnchor.LEFT, TextBlockAnchor.CENTER_LEFT,
-                CategoryLabelWidthType.RANGE, 0.30f) // RIGHT
-        );
-
-    /** UP_90 category label positions. */
+                    RectangleAnchor.LEFT, TextBlockAnchor.CENTER_LEFT,
+                    CategoryLabelWidthType.RANGE, 0.30f) // RIGHT
+    );
+    /**
+     * UP_90 category label positions.
+     */
     public static final CategoryLabelPositions
-        UP_90 = new CategoryLabelPositions(
+            UP_90 = new CategoryLabelPositions(
             new CategoryLabelPosition(
-                RectangleAnchor.BOTTOM, TextBlockAnchor.CENTER_LEFT,
-                TextAnchor.CENTER_LEFT, -Math.PI / 2.0,
-                CategoryLabelWidthType.RANGE, 0.30f), // TOP
+                    RectangleAnchor.BOTTOM, TextBlockAnchor.CENTER_LEFT,
+                    TextAnchor.CENTER_LEFT, -Math.PI / 2.0,
+                    CategoryLabelWidthType.RANGE, 0.30f), // TOP
             new CategoryLabelPosition(
-                RectangleAnchor.TOP, TextBlockAnchor.CENTER_RIGHT,
-                TextAnchor.CENTER_RIGHT, -Math.PI / 2.0,
-                CategoryLabelWidthType.RANGE, 0.30f), // BOTTOM
+                    RectangleAnchor.TOP, TextBlockAnchor.CENTER_RIGHT,
+                    TextAnchor.CENTER_RIGHT, -Math.PI / 2.0,
+                    CategoryLabelWidthType.RANGE, 0.30f), // BOTTOM
             new CategoryLabelPosition(
-                RectangleAnchor.RIGHT, TextBlockAnchor.BOTTOM_CENTER,
-                TextAnchor.BOTTOM_CENTER, -Math.PI / 2.0,
-                CategoryLabelWidthType.CATEGORY, 0.9f), // LEFT
+                    RectangleAnchor.RIGHT, TextBlockAnchor.BOTTOM_CENTER,
+                    TextAnchor.BOTTOM_CENTER, -Math.PI / 2.0,
+                    CategoryLabelWidthType.CATEGORY, 0.9f), // LEFT
             new CategoryLabelPosition(
-                RectangleAnchor.LEFT, TextBlockAnchor.TOP_CENTER,
-                TextAnchor.TOP_CENTER, -Math.PI / 2.0,
-                CategoryLabelWidthType.CATEGORY, 0.90f) // RIGHT
-        );
-
-    /** DOWN_90 category label positions. */
+                    RectangleAnchor.LEFT, TextBlockAnchor.TOP_CENTER,
+                    TextAnchor.TOP_CENTER, -Math.PI / 2.0,
+                    CategoryLabelWidthType.CATEGORY, 0.90f) // RIGHT
+    );
+    /**
+     * DOWN_90 category label positions.
+     */
     public static final CategoryLabelPositions
-        DOWN_90 = new CategoryLabelPositions(
+            DOWN_90 = new CategoryLabelPositions(
             new CategoryLabelPosition(
-                RectangleAnchor.BOTTOM, TextBlockAnchor.CENTER_RIGHT,
-                TextAnchor.CENTER_RIGHT, Math.PI / 2.0,
-                CategoryLabelWidthType.RANGE, 0.30f), // TOP
+                    RectangleAnchor.BOTTOM, TextBlockAnchor.CENTER_RIGHT,
+                    TextAnchor.CENTER_RIGHT, Math.PI / 2.0,
+                    CategoryLabelWidthType.RANGE, 0.30f), // TOP
             new CategoryLabelPosition(
-                RectangleAnchor.TOP, TextBlockAnchor.CENTER_LEFT,
-                TextAnchor.CENTER_LEFT, Math.PI / 2.0,
-                CategoryLabelWidthType.RANGE, 0.30f), // BOTTOM
+                    RectangleAnchor.TOP, TextBlockAnchor.CENTER_LEFT,
+                    TextAnchor.CENTER_LEFT, Math.PI / 2.0,
+                    CategoryLabelWidthType.RANGE, 0.30f), // BOTTOM
             new CategoryLabelPosition(
-                RectangleAnchor.RIGHT, TextBlockAnchor.TOP_CENTER,
-                TextAnchor.TOP_CENTER, Math.PI / 2.0,
-                CategoryLabelWidthType.CATEGORY, 0.90f), // LEFT
+                    RectangleAnchor.RIGHT, TextBlockAnchor.TOP_CENTER,
+                    TextAnchor.TOP_CENTER, Math.PI / 2.0,
+                    CategoryLabelWidthType.CATEGORY, 0.90f), // LEFT
             new CategoryLabelPosition(
-                RectangleAnchor.LEFT, TextBlockAnchor.BOTTOM_CENTER,
-                TextAnchor.BOTTOM_CENTER, Math.PI / 2.0,
-                CategoryLabelWidthType.CATEGORY, 0.90f) // RIGHT
-        );
-
-    /** UP_45 category label positions. */
+                    RectangleAnchor.LEFT, TextBlockAnchor.BOTTOM_CENTER,
+                    TextAnchor.BOTTOM_CENTER, Math.PI / 2.0,
+                    CategoryLabelWidthType.CATEGORY, 0.90f) // RIGHT
+    );
+    /**
+     * UP_45 category label positions.
+     */
     public static final CategoryLabelPositions UP_45
-        = createUpRotationLabelPositions(Math.PI / 4.0);
-
-    /** DOWN_45 category label positions. */
+            = createUpRotationLabelPositions(Math.PI / 4.0);
+    /**
+     * DOWN_45 category label positions.
+     */
     public static final CategoryLabelPositions DOWN_45
-        = createDownRotationLabelPositions(Math.PI / 4.0);
-
+            = createDownRotationLabelPositions(Math.PI / 4.0);
     /**
-     * Creates a new instance where the category labels angled upwards by the
-     * specified amount.
-     *
-     * @param angle  the rotation angle (should be &lt; Math.PI / 2.0).
-     *
-     * @return A category label position specification.
+     * For serialization.
      */
-    public static CategoryLabelPositions createUpRotationLabelPositions(
-            double angle) {
-        return new CategoryLabelPositions(
-            new CategoryLabelPosition(
-                RectangleAnchor.BOTTOM, TextBlockAnchor.BOTTOM_LEFT,
-                TextAnchor.BOTTOM_LEFT, -angle,
-                CategoryLabelWidthType.RANGE, 0.50f), // TOP
-            new CategoryLabelPosition(
-                RectangleAnchor.TOP, TextBlockAnchor.TOP_RIGHT,
-                TextAnchor.TOP_RIGHT, -angle,
-                CategoryLabelWidthType.RANGE, 0.50f), // BOTTOM
-            new CategoryLabelPosition(
-                RectangleAnchor.RIGHT, TextBlockAnchor.BOTTOM_RIGHT,
-                TextAnchor.BOTTOM_RIGHT, -angle,
-                CategoryLabelWidthType.RANGE, 0.50f), // LEFT
-            new CategoryLabelPosition(
-                RectangleAnchor.LEFT, TextBlockAnchor.TOP_LEFT,
-                TextAnchor.TOP_LEFT, -angle,
-                CategoryLabelWidthType.RANGE, 0.50f) // RIGHT
-        );
-    }
-
-    /**
-     * Creates a new instance where the category labels angled downwards by the
-     * specified amount.
-     *
-     * @param angle  the rotation angle (should be &lt; Math.PI / 2.0).
-     *
-     * @return A category label position specification.
-     */
-    public static CategoryLabelPositions createDownRotationLabelPositions(
-            double angle) {
-        return new CategoryLabelPositions(
-            new CategoryLabelPosition(
-                RectangleAnchor.BOTTOM, TextBlockAnchor.BOTTOM_RIGHT,
-                TextAnchor.BOTTOM_RIGHT, angle,
-                CategoryLabelWidthType.RANGE, 0.50f), // TOP
-            new CategoryLabelPosition(
-                RectangleAnchor.TOP, TextBlockAnchor.TOP_LEFT,
-                TextAnchor.TOP_LEFT, angle,
-                CategoryLabelWidthType.RANGE, 0.50f), // BOTTOM
-            new CategoryLabelPosition(
-                RectangleAnchor.RIGHT, TextBlockAnchor.TOP_RIGHT,
-                TextAnchor.TOP_RIGHT, angle,
-                CategoryLabelWidthType.RANGE, 0.50f), // LEFT
-            new CategoryLabelPosition(
-                RectangleAnchor.LEFT, TextBlockAnchor.BOTTOM_LEFT,
-                TextAnchor.BOTTOM_LEFT, angle,
-                CategoryLabelWidthType.RANGE, 0.50f) // RIGHT
-        );
-    }
-
+    private static final long serialVersionUID = -8999557901920364580L;
     /**
      * The label positioning details used when an axis is at the top of a
      * chart.
      */
     private CategoryLabelPosition positionForAxisAtTop;
-
     /**
      * The label positioning details used when an axis is at the bottom of a
      * chart.
      */
     private CategoryLabelPosition positionForAxisAtBottom;
-
     /**
      * The label positioning details used when an axis is at the left of a
      * chart.
      */
     private CategoryLabelPosition positionForAxisAtLeft;
-
     /**
      * The label positioning details used when an axis is at the right of a
      * chart.
@@ -222,18 +165,18 @@ public class CategoryLabelPositions implements Serializable {
     /**
      * Creates a new position specification.
      *
-     * @param top  the label position info used when an axis is at the top
-     *             (<code>null</code> not permitted).
-     * @param bottom  the label position info used when an axis is at the
-     *                bottom (<code>null</code> not permitted).
-     * @param left  the label position info used when an axis is at the left
-     *              (<code>null</code> not permitted).
+     * @param top    the label position info used when an axis is at the top
+     *               (<code>null</code> not permitted).
+     * @param bottom the label position info used when an axis is at the
+     *               bottom (<code>null</code> not permitted).
+     * @param left   the label position info used when an axis is at the left
+     *               (<code>null</code> not permitted).
      * @param right  the label position info used when an axis is at the right
      *               (<code>null</code> not permitted).
      */
     public CategoryLabelPositions(CategoryLabelPosition top,
-            CategoryLabelPosition bottom, CategoryLabelPosition left,
-            CategoryLabelPosition right) {
+                                  CategoryLabelPosition bottom, CategoryLabelPosition left,
+                                  CategoryLabelPosition right) {
 
         ParamChecks.nullNotPermitted(top, "top");
         ParamChecks.nullNotPermitted(bottom, "bottom");
@@ -247,37 +190,69 @@ public class CategoryLabelPositions implements Serializable {
     }
 
     /**
-     * Returns the category label position specification for an axis at the
-     * given location.
+     * Creates a new instance where the category labels angled upwards by the
+     * specified amount.
      *
-     * @param edge  the axis location.
-     *
-     * @return The category label position specification.
+     * @param angle the rotation angle (should be &lt; Math.PI / 2.0).
+     * @return A category label position specification.
      */
-    public CategoryLabelPosition getLabelPosition(RectangleEdge edge) {
-        CategoryLabelPosition result = null;
-        if (edge == RectangleEdge.TOP) {
-            result = this.positionForAxisAtTop;
-        }
-        else if (edge == RectangleEdge.BOTTOM) {
-            result = this.positionForAxisAtBottom;
-        }
-        else if (edge == RectangleEdge.LEFT) {
-            result = this.positionForAxisAtLeft;
-        }
-        else if (edge == RectangleEdge.RIGHT) {
-            result = this.positionForAxisAtRight;
-        }
-        return result;
+    public static CategoryLabelPositions createUpRotationLabelPositions(
+            double angle) {
+        return new CategoryLabelPositions(
+                new CategoryLabelPosition(
+                        RectangleAnchor.BOTTOM, TextBlockAnchor.BOTTOM_LEFT,
+                        TextAnchor.BOTTOM_LEFT, -angle,
+                        CategoryLabelWidthType.RANGE, 0.50f), // TOP
+                new CategoryLabelPosition(
+                        RectangleAnchor.TOP, TextBlockAnchor.TOP_RIGHT,
+                        TextAnchor.TOP_RIGHT, -angle,
+                        CategoryLabelWidthType.RANGE, 0.50f), // BOTTOM
+                new CategoryLabelPosition(
+                        RectangleAnchor.RIGHT, TextBlockAnchor.BOTTOM_RIGHT,
+                        TextAnchor.BOTTOM_RIGHT, -angle,
+                        CategoryLabelWidthType.RANGE, 0.50f), // LEFT
+                new CategoryLabelPosition(
+                        RectangleAnchor.LEFT, TextBlockAnchor.TOP_LEFT,
+                        TextAnchor.TOP_LEFT, -angle,
+                        CategoryLabelWidthType.RANGE, 0.50f) // RIGHT
+        );
+    }
+
+    /**
+     * Creates a new instance where the category labels angled downwards by the
+     * specified amount.
+     *
+     * @param angle the rotation angle (should be &lt; Math.PI / 2.0).
+     * @return A category label position specification.
+     */
+    public static CategoryLabelPositions createDownRotationLabelPositions(
+            double angle) {
+        return new CategoryLabelPositions(
+                new CategoryLabelPosition(
+                        RectangleAnchor.BOTTOM, TextBlockAnchor.BOTTOM_RIGHT,
+                        TextAnchor.BOTTOM_RIGHT, angle,
+                        CategoryLabelWidthType.RANGE, 0.50f), // TOP
+                new CategoryLabelPosition(
+                        RectangleAnchor.TOP, TextBlockAnchor.TOP_LEFT,
+                        TextAnchor.TOP_LEFT, angle,
+                        CategoryLabelWidthType.RANGE, 0.50f), // BOTTOM
+                new CategoryLabelPosition(
+                        RectangleAnchor.RIGHT, TextBlockAnchor.TOP_RIGHT,
+                        TextAnchor.TOP_RIGHT, angle,
+                        CategoryLabelWidthType.RANGE, 0.50f), // LEFT
+                new CategoryLabelPosition(
+                        RectangleAnchor.LEFT, TextBlockAnchor.BOTTOM_LEFT,
+                        TextAnchor.BOTTOM_LEFT, angle,
+                        CategoryLabelWidthType.RANGE, 0.50f) // RIGHT
+        );
     }
 
     /**
      * Returns a new instance based on an existing instance but with the top
      * position changed.
      *
-     * @param base  the base (<code>null</code> not permitted).
+     * @param base the base (<code>null</code> not permitted).
      * @param top  the top position (<code>null</code> not permitted).
-     *
      * @return A new instance (never <code>null</code>).
      */
     public static CategoryLabelPositions replaceTopPosition(
@@ -287,18 +262,17 @@ public class CategoryLabelPositions implements Serializable {
         ParamChecks.nullNotPermitted(top, "top");
 
         return new CategoryLabelPositions(top,
-            base.getLabelPosition(RectangleEdge.BOTTOM),
-            base.getLabelPosition(RectangleEdge.LEFT),
-            base.getLabelPosition(RectangleEdge.RIGHT));
+                base.getLabelPosition(RectangleEdge.BOTTOM),
+                base.getLabelPosition(RectangleEdge.LEFT),
+                base.getLabelPosition(RectangleEdge.RIGHT));
     }
 
     /**
      * Returns a new instance based on an existing instance but with the bottom
      * position changed.
      *
-     * @param base  the base (<code>null</code> not permitted).
-     * @param bottom  the bottom position (<code>null</code> not permitted).
-     *
+     * @param base   the base (<code>null</code> not permitted).
+     * @param bottom the bottom position (<code>null</code> not permitted).
      * @return A new instance (never <code>null</code>).
      */
     public static CategoryLabelPositions replaceBottomPosition(
@@ -308,19 +282,18 @@ public class CategoryLabelPositions implements Serializable {
         ParamChecks.nullNotPermitted(bottom, "bottom");
 
         return new CategoryLabelPositions(
-            base.getLabelPosition(RectangleEdge.TOP),
-            bottom,
-            base.getLabelPosition(RectangleEdge.LEFT),
-            base.getLabelPosition(RectangleEdge.RIGHT));
+                base.getLabelPosition(RectangleEdge.TOP),
+                bottom,
+                base.getLabelPosition(RectangleEdge.LEFT),
+                base.getLabelPosition(RectangleEdge.RIGHT));
     }
 
     /**
      * Returns a new instance based on an existing instance but with the left
      * position changed.
      *
-     * @param base  the base (<code>null</code> not permitted).
-     * @param left  the left position (<code>null</code> not permitted).
-     *
+     * @param base the base (<code>null</code> not permitted).
+     * @param left the left position (<code>null</code> not permitted).
      * @return A new instance (never <code>null</code>).
      */
     public static CategoryLabelPositions replaceLeftPosition(
@@ -330,10 +303,10 @@ public class CategoryLabelPositions implements Serializable {
         ParamChecks.nullNotPermitted(left, "left");
 
         return new CategoryLabelPositions(
-            base.getLabelPosition(RectangleEdge.TOP),
-            base.getLabelPosition(RectangleEdge.BOTTOM),
-            left,
-            base.getLabelPosition(RectangleEdge.RIGHT));
+                base.getLabelPosition(RectangleEdge.TOP),
+                base.getLabelPosition(RectangleEdge.BOTTOM),
+                left,
+                base.getLabelPosition(RectangleEdge.RIGHT));
     }
 
     /**
@@ -341,8 +314,7 @@ public class CategoryLabelPositions implements Serializable {
      * position changed.
      *
      * @param base  the base (<code>null</code> not permitted).
-     * @param right  the right position (<code>null</code> not permitted).
-     *
+     * @param right the right position (<code>null</code> not permitted).
      * @return A new instance (never <code>null</code>).
      */
     public static CategoryLabelPositions replaceRightPosition(
@@ -351,18 +323,38 @@ public class CategoryLabelPositions implements Serializable {
         ParamChecks.nullNotPermitted(base, "base");
         ParamChecks.nullNotPermitted(right, "right");
         return new CategoryLabelPositions(
-            base.getLabelPosition(RectangleEdge.TOP),
-            base.getLabelPosition(RectangleEdge.BOTTOM),
-            base.getLabelPosition(RectangleEdge.LEFT),
-            right);
+                base.getLabelPosition(RectangleEdge.TOP),
+                base.getLabelPosition(RectangleEdge.BOTTOM),
+                base.getLabelPosition(RectangleEdge.LEFT),
+                right);
+    }
+
+    /**
+     * Returns the category label position specification for an axis at the
+     * given location.
+     *
+     * @param edge the axis location.
+     * @return The category label position specification.
+     */
+    public CategoryLabelPosition getLabelPosition(RectangleEdge edge) {
+        CategoryLabelPosition result = null;
+        if (edge == RectangleEdge.TOP) {
+            result = this.positionForAxisAtTop;
+        } else if (edge == RectangleEdge.BOTTOM) {
+            result = this.positionForAxisAtBottom;
+        } else if (edge == RectangleEdge.LEFT) {
+            result = this.positionForAxisAtLeft;
+        } else if (edge == RectangleEdge.RIGHT) {
+            result = this.positionForAxisAtRight;
+        }
+        return result;
     }
 
     /**
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return A boolean.
      */
     @Override

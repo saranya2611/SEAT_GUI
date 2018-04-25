@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -41,10 +41,9 @@
 package org.jfree.data;
 
 import org.jfree.chart.TestUtilities;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link KeyToGroupMap} class.
@@ -69,14 +68,13 @@ public class KeyToGroupMapTest {
         // clear a mapping
         m1.mapKeyToGroup("K2", null);
         assertEquals("G1", m1.getGroup("K2"));  // after clearing, reverts to
-                                                // default group
+        // default group
 
         // check handling of null key
         boolean pass = false;
         try {
             m1.mapKeyToGroup(null, "G1");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -195,8 +193,7 @@ public class KeyToGroupMapTest {
         boolean pass = false;
         try {
             Comparable g = m1.getGroup(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);

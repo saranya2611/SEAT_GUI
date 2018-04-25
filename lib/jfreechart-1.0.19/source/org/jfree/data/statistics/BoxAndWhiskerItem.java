@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -44,11 +44,11 @@
 
 package org.jfree.data.statistics;
 
+import org.jfree.util.ObjectUtilities;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-
-import org.jfree.util.ObjectUtilities;
 
 /**
  * Represents one data item within a box-and-whisker dataset.  Instances of
@@ -56,50 +56,70 @@ import org.jfree.util.ObjectUtilities;
  */
 public class BoxAndWhiskerItem implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 7329649623148167423L;
 
-    /** The mean. */
+    /**
+     * The mean.
+     */
     private Number mean;
 
-    /** The median. */
+    /**
+     * The median.
+     */
     private Number median;
 
-    /** The first quarter. */
+    /**
+     * The first quarter.
+     */
     private Number q1;
 
-    /** The third quarter. */
+    /**
+     * The third quarter.
+     */
     private Number q3;
 
-    /** The minimum regular value. */
+    /**
+     * The minimum regular value.
+     */
     private Number minRegularValue;
 
-    /** The maximum regular value. */
+    /**
+     * The maximum regular value.
+     */
     private Number maxRegularValue;
 
-    /** The minimum outlier. */
+    /**
+     * The minimum outlier.
+     */
     private Number minOutlier;
 
-    /** The maximum outlier. */
+    /**
+     * The maximum outlier.
+     */
     private Number maxOutlier;
 
-    /** The outliers. */
+    /**
+     * The outliers.
+     */
     private List outliers;
 
     /**
      * Creates a new box-and-whisker item.
      *
-     * @param mean  the mean (<code>null</code> permitted).
-     * @param median  the median (<code>null</code> permitted).
-     * @param q1  the first quartile (<code>null</code> permitted).
-     * @param q3  the third quartile (<code>null</code> permitted).
-     * @param minRegularValue  the minimum regular value (<code>null</code>
-     *                         permitted).
-     * @param maxRegularValue  the maximum regular value (<code>null</code>
-     *                         permitted).
-     * @param minOutlier  the minimum outlier (<code>null</code> permitted).
-     * @param maxOutlier  the maximum outlier (<code>null</code> permitted).
-     * @param outliers  the outliers (<code>null</code> permitted).
+     * @param mean            the mean (<code>null</code> permitted).
+     * @param median          the median (<code>null</code> permitted).
+     * @param q1              the first quartile (<code>null</code> permitted).
+     * @param q3              the third quartile (<code>null</code> permitted).
+     * @param minRegularValue the minimum regular value (<code>null</code>
+     *                        permitted).
+     * @param maxRegularValue the maximum regular value (<code>null</code>
+     *                        permitted).
+     * @param minOutlier      the minimum outlier (<code>null</code> permitted).
+     * @param maxOutlier      the maximum outlier (<code>null</code> permitted).
+     * @param outliers        the outliers (<code>null</code> permitted).
      */
     public BoxAndWhiskerItem(Number mean,
                              Number median,
@@ -126,21 +146,20 @@ public class BoxAndWhiskerItem implements Serializable {
     /**
      * Creates a new box-and-whisker item.
      *
-     * @param mean  the mean.
-     * @param median  the median
-     * @param q1  the first quartile.
-     * @param q3  the third quartile.
-     * @param minRegularValue  the minimum regular value.
-     * @param maxRegularValue  the maximum regular value.
-     * @param minOutlier  the minimum outlier value.
-     * @param maxOutlier  the maximum outlier value.
-     * @param outliers  a list of the outliers.
-     *
+     * @param mean            the mean.
+     * @param median          the median
+     * @param q1              the first quartile.
+     * @param q3              the third quartile.
+     * @param minRegularValue the minimum regular value.
+     * @param maxRegularValue the maximum regular value.
+     * @param minOutlier      the minimum outlier value.
+     * @param maxOutlier      the maximum outlier value.
+     * @param outliers        a list of the outliers.
      * @since 1.0.7
      */
     public BoxAndWhiskerItem(double mean, double median, double q1, double q3,
-            double minRegularValue, double maxRegularValue, double minOutlier,
-            double maxOutlier, List outliers) {
+                             double minRegularValue, double maxRegularValue, double minOutlier,
+                             double maxOutlier, List outliers) {
 
         // pass values to other constructor
         this(new Double(mean), new Double(median), new Double(q1),
@@ -249,8 +268,7 @@ public class BoxAndWhiskerItem implements Serializable {
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the object to test against (<code>null</code> permitted).
-     *
+     * @param obj the object to test against (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -70,11 +70,6 @@
 
 package org.jfree.chart.axis;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-import java.util.List;
-
 import org.jfree.chart.Effect3D;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.Plot;
@@ -82,13 +77,20 @@ import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.ui.RectangleEdge;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * A standard linear value axis with a 3D effect corresponding to the
  * offset specified by some renderers.
  */
 public class NumberAxis3D extends NumberAxis implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -1790205852569123512L;
 
     /**
@@ -101,7 +103,7 @@ public class NumberAxis3D extends NumberAxis implements Serializable {
     /**
      * Constructs a new axis.
      *
-     * @param label  the axis label (<code>null</code> permitted).
+     * @param label the axis label (<code>null</code> permitted).
      */
     public NumberAxis3D(String label) {
         super(label);
@@ -111,21 +113,20 @@ public class NumberAxis3D extends NumberAxis implements Serializable {
      * Draws the axis on a Java 2D graphics device (such as the screen or a
      * printer).
      *
-     * @param g2  the graphics device.
-     * @param cursor  the cursor.
+     * @param g2        the graphics device.
+     * @param cursor    the cursor.
      * @param plotArea  the area for drawing the axes and data.
      * @param dataArea  the area for drawing the data (a subset of the
      *                  plotArea).
-     * @param edge  the axis location.
-     * @param plotState  collects information about the plot (<code>null</code>
-     *                   permitted).
-     *
+     * @param edge      the axis location.
+     * @param plotState collects information about the plot (<code>null</code>
+     *                  permitted).
      * @return The updated cursor value.
      */
     @Override
     public AxisState draw(Graphics2D g2, double cursor, Rectangle2D plotArea,
-            Rectangle2D dataArea, RectangleEdge edge,
-            PlotRenderingInfo plotState) {
+                          Rectangle2D dataArea, RectangleEdge edge,
+                          PlotRenderingInfo plotState) {
 
         // if the axis is not visible, don't draw it...
         if (!isVisible()) {
@@ -158,8 +159,7 @@ public class NumberAxis3D extends NumberAxis implements Serializable {
 
         if (edge == RectangleEdge.LEFT || edge == RectangleEdge.BOTTOM) {
             adjustedY += yOffset;
-        }
-        else if (edge == RectangleEdge.RIGHT || edge == RectangleEdge.TOP) {
+        } else if (edge == RectangleEdge.RIGHT || edge == RectangleEdge.TOP) {
             adjustedX += xOffset;
         }
         Rectangle2D adjustedDataArea = new Rectangle2D.Double(adjustedX,
@@ -170,7 +170,7 @@ public class NumberAxis3D extends NumberAxis implements Serializable {
                 adjustedDataArea, edge);
 
         if (getAttributedLabel() != null) {
-            info = drawAttributedLabel(getAttributedLabel(), g2, plotArea, 
+            info = drawAttributedLabel(getAttributedLabel(), g2, plotArea,
                     dataArea, edge, info);
         } else {
             info = drawLabel(getLabel(), g2, plotArea, dataArea, edge, info);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------------
@@ -41,14 +41,6 @@
 
 package org.jfree.chart.plot;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.List;
-
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.TestUtilities;
 import org.jfree.chart.axis.CategoryAxis;
@@ -62,18 +54,28 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.junit.Test;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Tests for the {@link CombinedDomainCategoryPlot} class.
  */
 public class CombinedDomainCategoryPlotTest implements ChartChangeListener {
 
-    /** A list of the events received. */
+    /**
+     * A list of the events received.
+     */
     private List events = new java.util.ArrayList();
 
     /**
      * Receives a chart change event.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void chartChanged(ChartChangeEvent event) {
@@ -113,7 +115,7 @@ public class CombinedDomainCategoryPlotTest implements ChartChangeListener {
     @Test
     public void testCloning() throws CloneNotSupportedException {
         CombinedDomainCategoryPlot plot1 = createPlot();
-        CombinedDomainCategoryPlot plot2 = (CombinedDomainCategoryPlot) 
+        CombinedDomainCategoryPlot plot2 = (CombinedDomainCategoryPlot)
                 plot1.clone();
         assertTrue(plot1 != plot2);
         assertTrue(plot1.getClass() == plot2.getClass());
@@ -126,7 +128,7 @@ public class CombinedDomainCategoryPlotTest implements ChartChangeListener {
     @Test
     public void testSerialization() {
         CombinedDomainCategoryPlot plot1 = createPlot();
-        CombinedDomainCategoryPlot plot2 = (CombinedDomainCategoryPlot) 
+        CombinedDomainCategoryPlot plot2 = (CombinedDomainCategoryPlot)
                 TestUtilities.serialised(plot1);
         assertEquals(plot1, plot2);
     }
@@ -256,10 +258,10 @@ public class CombinedDomainCategoryPlotTest implements ChartChangeListener {
         rangeAxis1.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         LineAndShapeRenderer renderer1 = new LineAndShapeRenderer();
         renderer1.setBaseToolTipGenerator(
-            new StandardCategoryToolTipGenerator()
+                new StandardCategoryToolTipGenerator()
         );
         CategoryPlot subplot1 = new CategoryPlot(
-            dataset1, null, rangeAxis1, renderer1
+                dataset1, null, rangeAxis1, renderer1
         );
         subplot1.setDomainGridlinesVisible(true);
 
@@ -268,16 +270,16 @@ public class CombinedDomainCategoryPlotTest implements ChartChangeListener {
         rangeAxis2.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         BarRenderer renderer2 = new BarRenderer();
         renderer2.setBaseToolTipGenerator(
-            new StandardCategoryToolTipGenerator()
+                new StandardCategoryToolTipGenerator()
         );
         CategoryPlot subplot2 = new CategoryPlot(
-            dataset2, null, rangeAxis2, renderer2
+                dataset2, null, rangeAxis2, renderer2
         );
         subplot2.setDomainGridlinesVisible(true);
 
         CategoryAxis domainAxis = new CategoryAxis("Category");
         CombinedDomainCategoryPlot plot
-            = new CombinedDomainCategoryPlot(domainAxis);
+                = new CombinedDomainCategoryPlot(domainAxis);
         plot.add(subplot1, 2);
         plot.add(subplot2, 1);
         return plot;

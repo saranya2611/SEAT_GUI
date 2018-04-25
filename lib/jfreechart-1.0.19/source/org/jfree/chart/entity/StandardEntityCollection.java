@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------
@@ -50,15 +50,15 @@
 
 package org.jfree.chart.entity;
 
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import org.jfree.chart.util.ParamChecks;
-
-import org.jfree.util.ObjectUtilities;
-import org.jfree.util.PublicCloneable;
 
 /**
  * A standard implementation of the {@link EntityCollection} interface.
@@ -66,10 +66,14 @@ import org.jfree.util.PublicCloneable;
 public class StandardEntityCollection implements EntityCollection,
         Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 5384773031184897047L;
 
-    /** Storage for the entities. */
+    /**
+     * Storage for the entities.
+     */
     private List entities;
 
     /**
@@ -92,10 +96,8 @@ public class StandardEntityCollection implements EntityCollection,
     /**
      * Returns a chart entity from the collection.
      *
-     * @param index  the entity index.
-     *
+     * @param index the entity index.
      * @return The entity.
-     *
      * @see #add(ChartEntity)
      */
     @Override
@@ -114,7 +116,7 @@ public class StandardEntityCollection implements EntityCollection,
     /**
      * Adds an entity to the collection.
      *
-     * @param entity  the entity (<code>null</code> not permitted).
+     * @param entity the entity (<code>null</code> not permitted).
      */
     @Override
     public void add(ChartEntity entity) {
@@ -125,8 +127,8 @@ public class StandardEntityCollection implements EntityCollection,
     /**
      * Adds all the entities from the specified collection.
      *
-     * @param collection  the collection of entities (<code>null</code> not
-     *     permitted).
+     * @param collection the collection of entities (<code>null</code> not
+     *                   permitted).
      */
     @Override
     public void addAll(EntityCollection collection) {
@@ -137,9 +139,8 @@ public class StandardEntityCollection implements EntityCollection,
      * Returns the last entity in the list with an area that encloses the
      * specified coordinates, or <code>null</code> if there is no such entity.
      *
-     * @param x  the x coordinate.
-     * @param y  the y coordinate.
-     *
+     * @param x the x coordinate.
+     * @param y the y coordinate.
      * @return The entity (possibly <code>null</code>).
      */
     @Override
@@ -177,8 +178,7 @@ public class StandardEntityCollection implements EntityCollection,
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the object to test against (<code>null</code> permitted).
-     *
+     * @param obj the object to test against (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -197,7 +197,6 @@ public class StandardEntityCollection implements EntityCollection,
      * Returns a clone of this entity collection.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if the object cannot be cloned.
      */
     @Override

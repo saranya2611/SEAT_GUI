@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -85,20 +85,6 @@
 
 package org.jfree.chart.renderer.xy;
 
-import java.awt.BasicStroke;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.Area;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.axis.ValueAxis;
@@ -119,6 +105,15 @@ import org.jfree.ui.StandardGradientPaintTransformer;
 import org.jfree.util.PublicCloneable;
 import org.jfree.util.ShapeUtilities;
 
+import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 /**
  * Area item renderer for an {@link XYPlot}.  This class can draw (a) shapes at
  * each point, or (b) lines between points, or (c) both shapes and lines,
@@ -132,78 +127,58 @@ import org.jfree.util.ShapeUtilities;
 public class XYAreaRenderer extends AbstractXYItemRenderer
         implements XYItemRenderer, PublicCloneable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -4481971353973876747L;
-
     /**
-     * A state object used by this renderer.
+     * Useful constant for specifying the type of rendering (shapes only).
      */
-    static class XYAreaRendererState extends XYItemRendererState {
-
-        /** Working storage for the area under one series. */
-        public GeneralPath area;
-
-        /** Working line that can be recycled. */
-        public Line2D line;
-
-        /**
-         * Creates a new state.
-         *
-         * @param info  the plot rendering info.
-         */
-        public XYAreaRendererState(PlotRenderingInfo info) {
-            super(info);
-            this.area = new GeneralPath();
-            this.line = new Line2D.Double();
-        }
-
-    }
-
-    /** Useful constant for specifying the type of rendering (shapes only). */
     public static final int SHAPES = 1;
-
-    /** Useful constant for specifying the type of rendering (lines only). */
+    /**
+     * Useful constant for specifying the type of rendering (lines only).
+     */
     public static final int LINES = 2;
-
     /**
      * Useful constant for specifying the type of rendering (shapes and lines).
      */
     public static final int SHAPES_AND_LINES = 3;
-
-    /** Useful constant for specifying the type of rendering (area only). */
+    /**
+     * Useful constant for specifying the type of rendering (area only).
+     */
     public static final int AREA = 4;
-
     /**
      * Useful constant for specifying the type of rendering (area and shapes).
      */
     public static final int AREA_AND_SHAPES = 5;
-
-    /** A flag indicating whether or not shapes are drawn at each XY point. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -4481971353973876747L;
+    /**
+     * A flag indicating whether or not shapes are drawn at each XY point.
+     */
     private boolean plotShapes;
-
-    /** A flag indicating whether or not lines are drawn between XY points. */
+    /**
+     * A flag indicating whether or not lines are drawn between XY points.
+     */
     private boolean plotLines;
-
-    /** A flag indicating whether or not Area are drawn at each XY point. */
+    /**
+     * A flag indicating whether or not Area are drawn at each XY point.
+     */
     private boolean plotArea;
-
-    /** A flag that controls whether or not the outline is shown. */
+    /**
+     * A flag that controls whether or not the outline is shown.
+     */
     private boolean showOutline;
-
     /**
      * The shape used to represent an area in each legend item (this should
      * never be <code>null</code>).
      */
     private transient Shape legendArea;
-
     /**
      * A flag that can be set to specify that the fill paint should be used
      * to fill the area under the renderer.
-     * 
+     *
      * @since 1.0.14
      */
     private boolean useFillPaint;
-
     /**
      * A transformer that is applied to the paint used to fill under the
      * area *if* it is an instance of GradientPaint.
@@ -222,7 +197,7 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
     /**
      * Constructs a new renderer.
      *
-     * @param type  the type of the renderer.
+     * @param type the type of the renderer.
      */
     public XYAreaRenderer(int type) {
         this(type, null, null);
@@ -234,10 +209,10 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
      * <code>SHAPES_AND_LINES</code>, <code>AREA</code> or
      * <code>AREA_AND_SHAPES</code>.
      *
-     * @param type  the type of renderer.
-     * @param toolTipGenerator  the tool tip generator to use
-     *                          (<code>null</code> permitted).
-     * @param urlGenerator  the URL generator (<code>null</code> permitted).
+     * @param type             the type of renderer.
+     * @param toolTipGenerator the tool tip generator to use
+     *                         (<code>null</code> permitted).
+     * @param urlGenerator     the URL generator (<code>null</code> permitted).
      */
     public XYAreaRenderer(int type, XYToolTipGenerator toolTipGenerator,
                           XYURLGenerator urlGenerator) {
@@ -308,7 +283,6 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
      * drawn.
      *
      * @return The flag.
-     *
      * @see #setOutline(boolean)
      */
     public boolean isOutline() {
@@ -319,8 +293,7 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
      * Sets a flag that controls whether or not outlines of the areas are drawn
      * and sends a {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param show  the flag.
-     *
+     * @param show the flag.
      * @see #isOutline()
      */
     public void setOutline(boolean show) {
@@ -341,7 +314,7 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
      * Sets the shape used as an area in each legend item and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param area  the area (<code>null</code> not permitted).
+     * @param area the area (<code>null</code> not permitted).
      */
     public void setLegendArea(Shape area) {
         ParamChecks.nullNotPermitted(area, "area");
@@ -354,7 +327,6 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
      * fill the area under the line.
      *
      * @return A boolean.
-     *
      * @since 1.0.14
      */
     public boolean getUseFillPaint() {
@@ -366,8 +338,7 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
      * used to fill the area under the line and sends a
      * {@link RendererChangeEvent} to all listeners.
      *
-     * @param use  the new flag value.
-     *
+     * @param use the new flag value.
      * @since 1.0.14
      */
     public void setUseFillPaint(boolean use) {
@@ -379,7 +350,6 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
      * Returns the gradient paint transformer.
      *
      * @return The gradient paint transformer (never <code>null</code>).
-     *
      * @since 1.0.14
      */
     public GradientPaintTransformer getGradientTransformer() {
@@ -390,8 +360,7 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
      * Sets the gradient paint transformer and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param transformer  the transformer (<code>null</code> not permitted).
-     *
+     * @param transformer the transformer (<code>null</code> not permitted).
      * @since 1.0.14
      */
     public void setGradientTransformer(GradientPaintTransformer transformer) {
@@ -404,18 +373,17 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
      * Initialises the renderer and returns a state object that should be
      * passed to all subsequent calls to the drawItem() method.
      *
-     * @param g2  the graphics device.
-     * @param dataArea  the area inside the axes.
-     * @param plot  the plot.
-     * @param data  the data.
-     * @param info  an optional info collection object to return data back to
-     *              the caller.
-     *
+     * @param g2       the graphics device.
+     * @param dataArea the area inside the axes.
+     * @param plot     the plot.
+     * @param data     the data.
+     * @param info     an optional info collection object to return data back to
+     *                 the caller.
      * @return A state object for use by the renderer.
      */
     @Override
     public XYItemRendererState initialise(Graphics2D g2, Rectangle2D dataArea,
-            XYPlot plot, XYDataset data, PlotRenderingInfo info) {
+                                          XYPlot plot, XYDataset data, PlotRenderingInfo info) {
         XYAreaRendererState state = new XYAreaRendererState(info);
 
         // in the rendering process, there is special handling for item
@@ -428,9 +396,8 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
      * Returns a default legend item for the specified series.  Subclasses
      * should override this method to generate customised items.
      *
-     * @param datasetIndex  the dataset index (zero-based).
-     * @param series  the series index (zero-based).
-     *
+     * @param datasetIndex the dataset index (zero-based).
+     * @param series       the series index (zero-based).
      * @return A legend item for the series.
      */
     @Override
@@ -473,26 +440,26 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
     /**
      * Draws the visual representation of a single data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the area within which the data is being drawn.
-     * @param info  collects information about the drawing.
-     * @param plot  the plot (can be used to obtain standard color information
-     *              etc).
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     * @param crosshairState  crosshair information for the plot
-     *                        (<code>null</code> permitted).
-     * @param pass  the pass index.
+     * @param g2             the graphics device.
+     * @param state          the renderer state.
+     * @param dataArea       the area within which the data is being drawn.
+     * @param info           collects information about the drawing.
+     * @param plot           the plot (can be used to obtain standard color information
+     *                       etc).
+     * @param domainAxis     the domain axis.
+     * @param rangeAxis      the range axis.
+     * @param dataset        the dataset.
+     * @param series         the series index (zero-based).
+     * @param item           the item index (zero-based).
+     * @param crosshairState crosshair information for the plot
+     *                       (<code>null</code> permitted).
+     * @param pass           the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, XYItemRendererState state,
-            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-            int series, int item, CrosshairState crosshairState, int pass) {
+                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+                         int series, int item, CrosshairState crosshairState, int pass) {
 
         if (!getItemVisible(series, item)) {
             return;
@@ -540,20 +507,19 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
         GeneralPath hotspot = new GeneralPath();
         if (plot.getOrientation() == PlotOrientation.HORIZONTAL) {
             moveTo(hotspot, transZero, ((transX0 + transX1) / 2.0));
-            lineTo(hotspot, ((transY0 + transY1) / 2.0), 
-                            ((transX0 + transX1) / 2.0));
+            lineTo(hotspot, ((transY0 + transY1) / 2.0),
+                    ((transX0 + transX1) / 2.0));
             lineTo(hotspot, transY1, transX1);
-            lineTo(hotspot, ((transY1 + transY2) / 2.0), 
-                            ((transX1 + transX2) / 2.0));
+            lineTo(hotspot, ((transY1 + transY2) / 2.0),
+                    ((transX1 + transX2) / 2.0));
             lineTo(hotspot, transZero, ((transX1 + transX2) / 2.0));
-        }
-        else {  // vertical orientation
+        } else {  // vertical orientation
             moveTo(hotspot, ((transX0 + transX1) / 2.0), transZero);
             lineTo(hotspot, ((transX0 + transX1) / 2.0),
-                            ((transY0 + transY1) / 2.0));
+                    ((transY0 + transY1) / 2.0));
             lineTo(hotspot, transX1, transY1);
             lineTo(hotspot, ((transX1 + transX2) / 2.0),
-                            ((transY1 + transY2) / 2.0));
+                    ((transY1 + transY2) / 2.0));
             lineTo(hotspot, ((transX1 + transX2) / 2.0), transZero);
         }
         hotspot.closePath();
@@ -565,8 +531,7 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
                     plot.getRangeAxisEdge());
             if (plot.getOrientation() == PlotOrientation.VERTICAL) {
                 moveTo(areaState.area, transX1, zero);
-            }
-            else if (plot.getOrientation() == PlotOrientation.HORIZONTAL) {
+            } else if (plot.getOrientation() == PlotOrientation.HORIZONTAL) {
                 moveTo(areaState.area, zero, transX1);
             }
         }
@@ -574,8 +539,7 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
         // Add each point to Area (x, y)
         if (plot.getOrientation() == PlotOrientation.VERTICAL) {
             lineTo(areaState.area, transX1, transY1);
-        }
-        else if (plot.getOrientation() == PlotOrientation.HORIZONTAL) {
+        } else if (plot.getOrientation() == PlotOrientation.HORIZONTAL) {
             lineTo(areaState.area, transY1, transX1);
         }
 
@@ -591,8 +555,7 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
             if (orientation == PlotOrientation.VERTICAL) {
                 shape = ShapeUtilities.createTranslatedShape(shape, transX1,
                         transY1);
-            }
-            else if (orientation == PlotOrientation.HORIZONTAL) {
+            } else if (orientation == PlotOrientation.HORIZONTAL) {
                 shape = ShapeUtilities.createTranslatedShape(shape, transY1,
                         transX1);
             }
@@ -603,8 +566,7 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
             if (item > 0) {
                 if (plot.getOrientation() == PlotOrientation.VERTICAL) {
                     areaState.line.setLine(transX0, transY0, transX1, transY1);
-                }
-                else if (plot.getOrientation() == PlotOrientation.HORIZONTAL) {
+                } else if (plot.getOrientation() == PlotOrientation.HORIZONTAL) {
                     areaState.line.setLine(transY0, transX0, transY1, transX1);
                 }
                 g2.draw(areaState.line);
@@ -619,8 +581,7 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
                 // Add the last point (x,0)
                 lineTo(areaState.area, transX1, transZero);
                 areaState.area.closePath();
-            }
-            else if (orientation == PlotOrientation.HORIZONTAL) {
+            } else if (orientation == PlotOrientation.HORIZONTAL) {
                 // Add the last point (x,0)
                 lineTo(areaState.area, transZero, transX1);
                 areaState.area.closePath();
@@ -686,8 +647,7 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
      * Returns a clone of the renderer.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the renderer cannot be cloned.
+     * @throws CloneNotSupportedException if the renderer cannot be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -699,8 +659,7 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
     /**
      * Tests this renderer for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -754,10 +713,9 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
@@ -768,12 +726,39 @@ public class XYAreaRenderer extends AbstractXYItemRenderer
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
         SerialUtilities.writeShape(this.legendArea, stream);
+    }
+
+    /**
+     * A state object used by this renderer.
+     */
+    static class XYAreaRendererState extends XYItemRendererState {
+
+        /**
+         * Working storage for the area under one series.
+         */
+        public GeneralPath area;
+
+        /**
+         * Working line that can be recycled.
+         */
+        public Line2D line;
+
+        /**
+         * Creates a new state.
+         *
+         * @param info the plot rendering info.
+         */
+        public XYAreaRendererState(PlotRenderingInfo info) {
+            super(info);
+            this.area = new GeneralPath();
+            this.line = new Line2D.Double();
+        }
+
     }
 }

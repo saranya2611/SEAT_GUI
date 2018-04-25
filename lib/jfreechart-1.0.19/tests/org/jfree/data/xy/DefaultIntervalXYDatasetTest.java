@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------------
@@ -42,19 +42,18 @@
 
 package org.jfree.data.xy;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Some tests for the {@link DefaultIntervalXYDataset} class.
  */
 public class DefaultIntervalXYDatasetTest {
+
+    private static final double EPSILON = 0.0000000001;
 
     /**
      * Some checks for the getSeriesCount() method.
@@ -79,18 +78,18 @@ public class DefaultIntervalXYDatasetTest {
         // check for series key out of bounds
         boolean pass = false;
         try {
-            /*Comparable k =*/ d.getSeriesKey(-1);
-        }
-        catch (IllegalArgumentException e) {
+            /*Comparable k =*/
+            d.getSeriesKey(-1);
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
 
         pass = false;
         try {
-            /*Comparable k =*/ d.getSeriesKey(2);
-        }
-        catch (IllegalArgumentException e) {
+            /*Comparable k =*/
+            d.getSeriesKey(2);
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -109,14 +108,11 @@ public class DefaultIntervalXYDatasetTest {
         boolean pass = false;
         try {
             d.getItemCount(2);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
     }
-
-    private static final double EPSILON = 0.0000000001;
 
     /**
      * Some checks for the getXValue() method.
@@ -243,13 +239,13 @@ public class DefaultIntervalXYDatasetTest {
     @Test
     public void testCloning2() throws CloneNotSupportedException {
         DefaultIntervalXYDataset d1 = new DefaultIntervalXYDataset();
-        double[] x1 = new double[] {1.0, 2.0, 3.0};
-        double[] x1Start = new double[] {0.9, 1.9, 2.9};
-        double[] x1End = new double[] {1.1, 2.1, 3.1};
-        double[] y1 = new double[] {4.0, 5.0, 6.0};
-        double[] y1Start = new double[] {1.09, 2.09, 3.09};
-        double[] y1End = new double[] {1.11, 2.11, 3.11};
-        double[][] data1 = new double[][] {x1, x1Start, x1End, y1, y1Start,
+        double[] x1 = new double[]{1.0, 2.0, 3.0};
+        double[] x1Start = new double[]{0.9, 1.9, 2.9};
+        double[] x1End = new double[]{1.1, 2.1, 3.1};
+        double[] y1 = new double[]{4.0, 5.0, 6.0};
+        double[] y1Start = new double[]{1.09, 2.09, 3.09};
+        double[] y1End = new double[]{1.11, 2.11, 3.11};
+        double[][] data1 = new double[][]{x1, x1Start, x1End, y1, y1Start,
                 y1End};
         d1.addSeries("S1", data1);
         DefaultIntervalXYDataset d2 = (DefaultIntervalXYDataset) d1.clone();
@@ -277,7 +273,7 @@ public class DefaultIntervalXYDatasetTest {
     @Test
     public void testSerialization() {
         DefaultIntervalXYDataset d1 = new DefaultIntervalXYDataset();
-        DefaultIntervalXYDataset d2 = (DefaultIntervalXYDataset) 
+        DefaultIntervalXYDataset d2 = (DefaultIntervalXYDataset)
                 TestUtilities.serialised(d1);
         assertEquals(d1, d2);
 
@@ -305,27 +301,24 @@ public class DefaultIntervalXYDatasetTest {
     @Test
     public void testAddSeries() {
         DefaultIntervalXYDataset d = new DefaultIntervalXYDataset();
-        d.addSeries("S1", new double[][] {{1.0}, {0.5}, {1.5}, {2.0}, {2.5},
+        d.addSeries("S1", new double[][]{{1.0}, {0.5}, {1.5}, {2.0}, {2.5},
                 {1.5}});
         assertEquals(1, d.getSeriesCount());
         assertEquals("S1", d.getSeriesKey(0));
 
         // check that adding a series will overwrite the old series
-        d.addSeries("S1", new double[][] {{1.1}, {0.6}, {1.6}, {2.1}, {2.6},
+        d.addSeries("S1", new double[][]{{1.1}, {0.6}, {1.6}, {2.1}, {2.6},
                 {1.6}});
         assertEquals(1, d.getSeriesCount());
         assertEquals(2.1, d.getYValue(0, 0), EPSILON);
 
         // check null key
         boolean pass = false;
-        try
-        {
-          d.addSeries(null, new double[][] {{1.1}, {0.6}, {1.6}, {2.1}, {2.6},
-                  {1.6}});
-        }
-        catch (IllegalArgumentException e)
-        {
-          pass = true;
+        try {
+            d.addSeries(null, new double[][]{{1.1}, {0.6}, {1.6}, {2.1}, {2.6},
+                    {1.6}});
+        } catch (IllegalArgumentException e) {
+            pass = true;
         }
         assertTrue(pass);
     }
@@ -337,23 +330,23 @@ public class DefaultIntervalXYDatasetTest {
      */
     public DefaultIntervalXYDataset createSampleDataset1() {
         DefaultIntervalXYDataset d = new DefaultIntervalXYDataset();
-        double[] x1 = new double[] {1.0, 2.0, 3.0};
-        double[] x1Start = new double[] {0.9, 1.9, 2.9};
-        double[] x1End = new double[] {1.1, 2.1, 3.1};
-        double[] y1 = new double[] {4.0, 5.0, 6.0};
-        double[] y1Start = new double[] {1.09, 2.09, 3.09};
-        double[] y1End = new double[] {1.11, 2.11, 3.11};
-        double[][] data1 = new double[][] {x1, x1Start, x1End, y1, y1Start,
+        double[] x1 = new double[]{1.0, 2.0, 3.0};
+        double[] x1Start = new double[]{0.9, 1.9, 2.9};
+        double[] x1End = new double[]{1.1, 2.1, 3.1};
+        double[] y1 = new double[]{4.0, 5.0, 6.0};
+        double[] y1Start = new double[]{1.09, 2.09, 3.09};
+        double[] y1End = new double[]{1.11, 2.11, 3.11};
+        double[][] data1 = new double[][]{x1, x1Start, x1End, y1, y1Start,
                 y1End};
         d.addSeries("S1", data1);
 
-        double[] x2 = new double[] {11.0, 12.0, 13.0};
-        double[] x2Start = new double[] {10.9, 11.9, 12.9};
-        double[] x2End = new double[] {11.1, 12.1, 13.1};
-        double[] y2 = new double[] {14.0, 15.0, 16.0};
-        double[] y2Start = new double[] {11.09, 12.09, 13.09};
-        double[] y2End = new double[] {11.11, 12.11, 13.11};
-        double[][] data2 = new double[][] {x2, x2Start, x2End, y2, y2Start,
+        double[] x2 = new double[]{11.0, 12.0, 13.0};
+        double[] x2Start = new double[]{10.9, 11.9, 12.9};
+        double[] x2End = new double[]{11.1, 12.1, 13.1};
+        double[] y2 = new double[]{14.0, 15.0, 16.0};
+        double[] y2Start = new double[]{11.09, 12.09, 13.09};
+        double[] y2End = new double[]{11.11, 12.11, 13.11};
+        double[][] data2 = new double[][]{x2, x2Start, x2End, y2, y2Start,
                 y2End};
         d.addSeries("S2", data2);
         return d;

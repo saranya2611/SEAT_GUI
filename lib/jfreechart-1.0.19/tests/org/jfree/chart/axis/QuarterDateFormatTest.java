@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -41,14 +41,12 @@
 
 package org.jfree.chart.axis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.jfree.chart.TestUtilities;
+import org.junit.Test;
 
 import java.util.TimeZone;
 
-import org.jfree.chart.TestUtilities;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link QuarterDateFormat} class.
@@ -61,31 +59,31 @@ public class QuarterDateFormatTest {
     @Test
     public void testEquals() {
         QuarterDateFormat qf1 = new QuarterDateFormat(TimeZone.getTimeZone(
-                "GMT"), new String[] {"1", "2", "3", "4"});
+                "GMT"), new String[]{"1", "2", "3", "4"});
         QuarterDateFormat qf2 = new QuarterDateFormat(TimeZone.getTimeZone(
-                "GMT"), new String[] {"1", "2", "3", "4"});
+                "GMT"), new String[]{"1", "2", "3", "4"});
         assertTrue(qf1.equals(qf2));
         assertTrue(qf2.equals(qf1));
 
         qf1 = new QuarterDateFormat(TimeZone.getTimeZone("PST"),
-                new String[] {"1", "2", "3", "4"});
+                new String[]{"1", "2", "3", "4"});
         assertFalse(qf1.equals(qf2));
         qf2 = new QuarterDateFormat(TimeZone.getTimeZone("PST"),
-                new String[] {"1", "2", "3", "4"});
+                new String[]{"1", "2", "3", "4"});
         assertTrue(qf1.equals(qf2));
 
         qf1 = new QuarterDateFormat(TimeZone.getTimeZone("PST"),
-                new String[] {"A", "2", "3", "4"});
+                new String[]{"A", "2", "3", "4"});
         assertFalse(qf1.equals(qf2));
         qf2 = new QuarterDateFormat(TimeZone.getTimeZone("PST"),
-                new String[] {"A", "2", "3", "4"});
+                new String[]{"A", "2", "3", "4"});
         assertTrue(qf1.equals(qf2));
 
         qf1 = new QuarterDateFormat(TimeZone.getTimeZone("PST"),
-                new String[] {"A", "2", "3", "4"}, true);
+                new String[]{"A", "2", "3", "4"}, true);
         assertFalse(qf1.equals(qf2));
         qf2 = new QuarterDateFormat(TimeZone.getTimeZone("PST"),
-                new String[] {"A", "2", "3", "4"}, true);
+                new String[]{"A", "2", "3", "4"}, true);
         assertTrue(qf1.equals(qf2));
     }
 
@@ -95,9 +93,9 @@ public class QuarterDateFormatTest {
     @Test
     public void testHashCode() {
         QuarterDateFormat qf1 = new QuarterDateFormat(TimeZone.getTimeZone(
-                "GMT"), new String[] {"1", "2", "3", "4"});
+                "GMT"), new String[]{"1", "2", "3", "4"});
         QuarterDateFormat qf2 = new QuarterDateFormat(TimeZone.getTimeZone(
-                "GMT"), new String[] {"1", "2", "3", "4"});
+                "GMT"), new String[]{"1", "2", "3", "4"});
         assertTrue(qf1.equals(qf2));
         int h1 = qf1.hashCode();
         int h2 = qf2.hashCode();
@@ -110,7 +108,7 @@ public class QuarterDateFormatTest {
     @Test
     public void testCloning() {
         QuarterDateFormat qf1 = new QuarterDateFormat(TimeZone.getTimeZone(
-                "GMT"), new String[] {"1", "2", "3", "4"});
+                "GMT"), new String[]{"1", "2", "3", "4"});
         QuarterDateFormat qf2 = null;
         qf2 = (QuarterDateFormat) qf1.clone();
         assertTrue(qf1 != qf2);
@@ -124,7 +122,7 @@ public class QuarterDateFormatTest {
     @Test
     public void testSerialization() {
         QuarterDateFormat qf1 = new QuarterDateFormat(TimeZone.getTimeZone(
-                "GMT"), new String[] {"1", "2", "3", "4"});
+                "GMT"), new String[]{"1", "2", "3", "4"});
         QuarterDateFormat qf2 = (QuarterDateFormat) TestUtilities.serialised(qf1);
         assertEquals(qf1, qf2);
     }

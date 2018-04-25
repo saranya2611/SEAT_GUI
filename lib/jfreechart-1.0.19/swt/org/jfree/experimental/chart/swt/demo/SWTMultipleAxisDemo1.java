@@ -40,10 +40,6 @@
 
 package org.jfree.experimental.chart.swt.demo;
 
-import java.awt.Color;
-
-import javax.swing.JPanel;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
@@ -66,11 +62,13 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
 import org.jfree.ui.RectangleInsets;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * This demo shows a time series chart that has multiple range axes.
  */
-public class SWTMultipleAxisDemo1
-{
+public class SWTMultipleAxisDemo1 {
     /**
      * Creates the demo chart.
      *
@@ -82,13 +80,13 @@ public class SWTMultipleAxisDemo1
                 200);
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Multiple Axis Demo 3",
-            "Time of Day",
-            "Primary Range Axis",
-            dataset1,
-            true,
-            true,
-            false
+                "Multiple Axis Demo 3",
+                "Time of Day",
+                "Primary Range Axis",
+                dataset1,
+                true,
+                true,
+                false
         );
 
         chart.setBackgroundPaint(Color.white);
@@ -159,9 +157,8 @@ public class SWTMultipleAxisDemo1
      *
      * @param name  the dataset name.
      * @param base  the starting value.
-     * @param start  the starting period.
-     * @param count  the number of values to generate.
-     *
+     * @param start the starting period.
+     * @param count the number of values to generate.
      * @return The dataset.
      */
     private static XYDataset createDataset(String name, double base,
@@ -196,10 +193,9 @@ public class SWTMultipleAxisDemo1
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         final JFreeChart chart = createChart();
         final Display display = new Display();
         Shell shell = new Shell(display);

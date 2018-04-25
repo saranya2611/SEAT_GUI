@@ -6,22 +6,22 @@
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
- * This library is free software; you can redistribute it and/or modify it 
- * under the terms of the GNU Lesser General Public License as published by 
- * the Free Software Foundation; either version 2.1 of the License, or 
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public 
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, 
- * USA.  
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -35,12 +35,10 @@
  * Changes
  * -------
  * 23-Aug-2006 : New class (DG);
- * 
+ *
  */
 
 package org.jfree.experimental.chart.swt.demo;
-
-import java.awt.Font;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -53,14 +51,16 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
 
+import java.awt.*;
+
 /**
  * This demo shows a time series chart that has multiple range axes.
  */
 public class SWTPieChartDemo1 {
-    
+
     /**
      * Creates a sample dataset.
-     * 
+     *
      * @return A sample dataset.
      */
     private static PieDataset createDataset() {
@@ -71,24 +71,23 @@ public class SWTPieChartDemo1 {
         dataset.setValue("Four", new Double(17.5));
         dataset.setValue("Five", new Double(11.0));
         dataset.setValue("Six", new Double(19.4));
-        return dataset;        
+        return dataset;
     }
-    
+
     /**
      * Creates a chart.
-     * 
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param dataset the dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(PieDataset dataset) {
-        
+
         JFreeChart chart = ChartFactory.createPieChart(
-            "Pie Chart Demo 1",  // chart title
-            dataset,             // data
-            true,               // include legend
-            true,
-            false
+                "Pie Chart Demo 1",  // chart title
+                dataset,             // data
+                true,               // include legend
+                true,
+                false
         );
 
         PiePlot plot = (PiePlot) chart.getPlot();
@@ -98,16 +97,15 @@ public class SWTPieChartDemo1 {
         plot.setCircular(false);
         plot.setLabelGap(0.02);
         return chart;
-        
+
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
-    public static void main(String[] args) 
-    {
+    public static void main(String[] args) {
         JFreeChart chart = createChart(createDataset());
         Display display = new Display();
         Shell shell = new Shell(display);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -64,19 +64,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
@@ -94,6 +81,14 @@ import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * A renderer that handles the drawing a bar plot where
  * each bar has a mean value and a standard deviation line.  The example shown
@@ -105,12 +100,16 @@ import org.jfree.util.PublicCloneable;
  */
 public class StatisticalBarRenderer extends BarRenderer
         implements CategoryItemRenderer, Cloneable, PublicCloneable,
-                   Serializable {
+        Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -4986038395414039117L;
 
-    /** The paint used to show the error indicator. */
+    /**
+     * The paint used to show the error indicator.
+     */
     private transient Paint errorIndicatorPaint;
 
     /**
@@ -133,8 +132,7 @@ public class StatisticalBarRenderer extends BarRenderer
      * Returns the paint used for the error indicators.
      *
      * @return The paint used for the error indicators (possibly
-     *         <code>null</code>).
-     *
+     * <code>null</code>).
      * @see #setErrorIndicatorPaint(Paint)
      */
     public Paint getErrorIndicatorPaint() {
@@ -146,8 +144,7 @@ public class StatisticalBarRenderer extends BarRenderer
      * the item outline paint is used instead) and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> permitted).
-     *
+     * @param paint the paint (<code>null</code> permitted).
      * @see #getErrorIndicatorPaint()
      */
     public void setErrorIndicatorPaint(Paint paint) {
@@ -160,9 +157,7 @@ public class StatisticalBarRenderer extends BarRenderer
      * <code>null</code>, the renderer will use the item outline stroke).
      *
      * @return The stroke (possibly <code>null</code>).
-     *
      * @see #setErrorIndicatorStroke(Stroke)
-     *
      * @since 1.0.8
      */
     public Stroke getErrorIndicatorStroke() {
@@ -175,10 +170,8 @@ public class StatisticalBarRenderer extends BarRenderer
      * this to <code>null</code>, the renderer will use the item outline
      * stroke.
      *
-     * @param stroke  the stroke (<code>null</code> permitted).
-     *
+     * @param stroke the stroke (<code>null</code> permitted).
      * @see #getErrorIndicatorStroke()
-     *
      * @since 1.0.8
      */
     public void setErrorIndicatorStroke(Stroke stroke) {
@@ -191,36 +184,35 @@ public class StatisticalBarRenderer extends BarRenderer
      * items from the specified dataset. This takes into account the range
      * between the min/max values, possibly ignoring invisible series.
      *
-     * @param dataset  the dataset (<code>null</code> permitted).
-     *
+     * @param dataset the dataset (<code>null</code> permitted).
      * @return The range (or <code>null</code> if the dataset is
-     *         <code>null</code> or empty).
+     * <code>null</code> or empty).
      */
     @Override
     public Range findRangeBounds(CategoryDataset dataset) {
-         return findRangeBounds(dataset, true);
+        return findRangeBounds(dataset, true);
     }
 
     /**
      * Draws the bar with its standard deviation line range for a single
      * (series, category) data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the data area.
-     * @param plot  the plot.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the data area.
+     * @param plot       the plot.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
-     * @param data  the data.
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     * @param pass  the pass index.
+     * @param data       the data.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
+     * @param pass       the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, CategoryItemRendererState state,
-            Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
-            ValueAxis rangeAxis, CategoryDataset data, int row, int column,
-            int pass) {
+                         Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
+                         ValueAxis rangeAxis, CategoryDataset data, int row, int column,
+                         int pass) {
 
         int visibleRow = state.getVisibleSeriesIndex(row);
         if (visibleRow < 0) {
@@ -229,7 +221,7 @@ public class StatisticalBarRenderer extends BarRenderer
         // defensive check
         if (!(data instanceof StatisticalCategoryDataset)) {
             throw new IllegalArgumentException(
-                "Requires StatisticalCategoryDataset.");
+                    "Requires StatisticalCategoryDataset.");
         }
         StatisticalCategoryDataset statData = (StatisticalCategoryDataset) data;
 
@@ -237,8 +229,7 @@ public class StatisticalBarRenderer extends BarRenderer
         if (orientation == PlotOrientation.HORIZONTAL) {
             drawHorizontalItem(g2, state, dataArea, plot, domainAxis,
                     rangeAxis, statData, visibleRow, row, column);
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             drawVerticalItem(g2, state, dataArea, plot, domainAxis, rangeAxis,
                     statData, visibleRow, row, column);
         }
@@ -247,16 +238,16 @@ public class StatisticalBarRenderer extends BarRenderer
     /**
      * Draws an item for a plot with a horizontal orientation.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the data area.
-     * @param plot  the plot.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the data area.
+     * @param plot       the plot.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
-     * @param dataset  the data.
-     * @param visibleRow  the visible row index.
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
+     * @param dataset    the data.
+     * @param visibleRow the visible row index.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
      */
     protected void drawHorizontalItem(Graphics2D g2,
                                       CategoryItemRendererState state,
@@ -270,7 +261,7 @@ public class StatisticalBarRenderer extends BarRenderer
                                       int column) {
 
         // BAR Y
-        double rectY = calculateBarW0(plot, PlotOrientation.HORIZONTAL, 
+        double rectY = calculateBarW0(plot, PlotOrientation.HORIZONTAL,
                 dataArea, domainAxis, state, visibleRow, column);
 
         // BAR X
@@ -291,24 +282,21 @@ public class StatisticalBarRenderer extends BarRenderer
             if (value <= lclip) {
                 value = lclip;
             }
-        }
-        else if (lclip <= 0.0) { // cases 5, 6, 7 and 8
+        } else if (lclip <= 0.0) { // cases 5, 6, 7 and 8
             if (value >= uclip) {
                 value = uclip;
-            }
-            else {
+            } else {
                 if (value <= lclip) {
                     value = lclip;
                 }
             }
-        }
-        else { // cases 9, 10, 11 and 12
+        } else { // cases 9, 10, 11 and 12
             if (value <= lclip) {
                 return; // bar is not visible
             }
             base = getLowerClip();
             if (value >= uclip) {
-               value = uclip;
+                value = uclip;
             }
         }
 
@@ -354,25 +342,23 @@ public class StatisticalBarRenderer extends BarRenderer
 
             if (this.errorIndicatorPaint != null) {
                 g2.setPaint(this.errorIndicatorPaint);
-            }
-            else {
+            } else {
                 g2.setPaint(getItemOutlinePaint(row, column));
             }
             if (this.errorIndicatorStroke != null) {
                 g2.setStroke(this.errorIndicatorStroke);
-            }
-            else {
+            } else {
                 g2.setStroke(getItemOutlineStroke(row, column));
             }
             Line2D line;
             line = new Line2D.Double(lowVal, rectY + rectHeight / 2.0d,
-                                     highVal, rectY + rectHeight / 2.0d);
+                    highVal, rectY + rectHeight / 2.0d);
             g2.draw(line);
             line = new Line2D.Double(highVal, rectY + rectHeight * 0.25,
-                                     highVal, rectY + rectHeight * 0.75);
+                    highVal, rectY + rectHeight * 0.75);
             g2.draw(line);
             line = new Line2D.Double(lowVal, rectY + rectHeight * 0.25,
-                                     lowVal, rectY + rectHeight * 0.75);
+                    lowVal, rectY + rectHeight * 0.75);
             g2.draw(line);
         }
 
@@ -394,16 +380,16 @@ public class StatisticalBarRenderer extends BarRenderer
     /**
      * Draws an item for a plot with a vertical orientation.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the data area.
-     * @param plot  the plot.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the data area.
+     * @param plot       the plot.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
-     * @param dataset  the data.
-     * @param visibleRow  the visible row index.
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
+     * @param dataset    the data.
+     * @param visibleRow the visible row index.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
      */
     protected void drawVerticalItem(Graphics2D g2,
                                     CategoryItemRendererState state,
@@ -439,24 +425,21 @@ public class StatisticalBarRenderer extends BarRenderer
             if (value <= lclip) {
                 value = lclip;
             }
-        }
-        else if (lclip <= 0.0) { // cases 5, 6, 7 and 8
+        } else if (lclip <= 0.0) { // cases 5, 6, 7 and 8
             if (value >= uclip) {
                 value = uclip;
-            }
-            else {
+            } else {
                 if (value <= lclip) {
                     value = lclip;
                 }
             }
-        }
-        else { // cases 9, 10, 11 and 12
+        } else { // cases 9, 10, 11 and 12
             if (value <= lclip) {
                 return; // bar is not visible
             }
             base = getLowerClip();
             if (value >= uclip) {
-               value = uclip;
+                value = uclip;
             }
         }
 
@@ -501,26 +484,24 @@ public class StatisticalBarRenderer extends BarRenderer
 
             if (this.errorIndicatorPaint != null) {
                 g2.setPaint(this.errorIndicatorPaint);
-            }
-            else {
+            } else {
                 g2.setPaint(getItemOutlinePaint(row, column));
             }
             if (this.errorIndicatorStroke != null) {
                 g2.setStroke(this.errorIndicatorStroke);
-            }
-            else {
+            } else {
                 g2.setStroke(getItemOutlineStroke(row, column));
             }
 
             Line2D line;
             line = new Line2D.Double(rectX + rectWidth / 2.0d, lowVal,
-                                     rectX + rectWidth / 2.0d, highVal);
+                    rectX + rectWidth / 2.0d, highVal);
             g2.draw(line);
             line = new Line2D.Double(rectX + rectWidth / 2.0d - 5.0d, highVal,
-                                     rectX + rectWidth / 2.0d + 5.0d, highVal);
+                    rectX + rectWidth / 2.0d + 5.0d, highVal);
             g2.draw(line);
             line = new Line2D.Double(rectX + rectWidth / 2.0d - 5.0d, lowVal,
-                                     rectX + rectWidth / 2.0d + 5.0d, lowVal);
+                    rectX + rectWidth / 2.0d + 5.0d, lowVal);
             g2.draw(line);
         }
 
@@ -541,8 +522,7 @@ public class StatisticalBarRenderer extends BarRenderer
     /**
      * Tests this renderer for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -568,9 +548,8 @@ public class StatisticalBarRenderer extends BarRenderer
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -581,13 +560,12 @@ public class StatisticalBarRenderer extends BarRenderer
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.errorIndicatorPaint = SerialUtilities.readPaint(stream);
         this.errorIndicatorStroke = SerialUtilities.readStroke(stream);

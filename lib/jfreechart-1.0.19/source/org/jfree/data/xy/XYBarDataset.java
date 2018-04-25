@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -60,18 +60,22 @@ import org.jfree.util.PublicCloneable;
 public class XYBarDataset extends AbstractIntervalXYDataset
         implements IntervalXYDataset, DatasetChangeListener, PublicCloneable {
 
-    /** The underlying dataset. */
+    /**
+     * The underlying dataset.
+     */
     private XYDataset underlying;
 
-    /** The bar width. */
+    /**
+     * The bar width.
+     */
     private double barWidth;
 
     /**
      * Creates a new dataset.
      *
-     * @param underlying  the underlying dataset (<code>null</code> not
-     *     permitted).
-     * @param barWidth  the width of the bars.
+     * @param underlying the underlying dataset (<code>null</code> not
+     *                   permitted).
+     * @param barWidth   the width of the bars.
      */
     public XYBarDataset(XYDataset underlying, double barWidth) {
         this.underlying = underlying;
@@ -83,7 +87,6 @@ public class XYBarDataset extends AbstractIntervalXYDataset
      * Returns the underlying dataset that was specified via the constructor.
      *
      * @return The underlying dataset (never <code>null</code>).
-     *
      * @since 1.0.4
      */
     public XYDataset getUnderlyingDataset() {
@@ -94,7 +97,6 @@ public class XYBarDataset extends AbstractIntervalXYDataset
      * Returns the bar width.
      *
      * @return The bar width.
-     *
      * @see #setBarWidth(double)
      * @since 1.0.4
      */
@@ -106,8 +108,7 @@ public class XYBarDataset extends AbstractIntervalXYDataset
      * Sets the bar width and sends a {@link DatasetChangeEvent} to all
      * registered listeners.
      *
-     * @param barWidth  the bar width.
-     *
+     * @param barWidth the bar width.
      * @see #getBarWidth()
      * @since 1.0.4
      */
@@ -129,9 +130,8 @@ public class XYBarDataset extends AbstractIntervalXYDataset
     /**
      * Returns the key for a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
      * @return The series key.
      */
     @Override
@@ -142,8 +142,7 @@ public class XYBarDataset extends AbstractIntervalXYDataset
     /**
      * Returns the number of items in a series.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @return The item count.
      */
     @Override
@@ -154,11 +153,9 @@ public class XYBarDataset extends AbstractIntervalXYDataset
     /**
      * Returns the x-value for an item within a series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The x-value.
-     *
      * @see #getXValue(int, int)
      */
     @Override
@@ -169,11 +166,9 @@ public class XYBarDataset extends AbstractIntervalXYDataset
     /**
      * Returns the x-value (as a double primitive) for an item within a series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
-     *
      * @see #getX(int, int)
      */
     @Override
@@ -184,11 +179,9 @@ public class XYBarDataset extends AbstractIntervalXYDataset
     /**
      * Returns the y-value for an item within a series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The y-value (possibly <code>null</code>).
-     *
      * @see #getYValue(int, int)
      */
     @Override
@@ -199,11 +192,9 @@ public class XYBarDataset extends AbstractIntervalXYDataset
     /**
      * Returns the y-value (as a double primitive) for an item within a series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
-     *
      * @see #getY(int, int)
      */
     @Override
@@ -214,9 +205,8 @@ public class XYBarDataset extends AbstractIntervalXYDataset
     /**
      * Returns the starting X value for the specified series and item.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
      */
     @Override
@@ -224,7 +214,7 @@ public class XYBarDataset extends AbstractIntervalXYDataset
         Number result = null;
         Number xnum = this.underlying.getX(series, item);
         if (xnum != null) {
-             result = new Double(xnum.doubleValue() - this.barWidth / 2.0);
+            result = new Double(xnum.doubleValue() - this.barWidth / 2.0);
         }
         return result;
     }
@@ -233,11 +223,9 @@ public class XYBarDataset extends AbstractIntervalXYDataset
      * Returns the starting x-value (as a double primitive) for an item within
      * a series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
-     *
      * @see #getXValue(int, int)
      */
     @Override
@@ -248,9 +236,8 @@ public class XYBarDataset extends AbstractIntervalXYDataset
     /**
      * Returns the ending X value for the specified series and item.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
      */
     @Override
@@ -258,7 +245,7 @@ public class XYBarDataset extends AbstractIntervalXYDataset
         Number result = null;
         Number xnum = this.underlying.getX(series, item);
         if (xnum != null) {
-             result = new Double(xnum.doubleValue() + this.barWidth / 2.0);
+            result = new Double(xnum.doubleValue() + this.barWidth / 2.0);
         }
         return result;
     }
@@ -267,11 +254,9 @@ public class XYBarDataset extends AbstractIntervalXYDataset
      * Returns the ending x-value (as a double primitive) for an item within
      * a series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
-     *
      * @see #getXValue(int, int)
      */
     @Override
@@ -282,9 +267,8 @@ public class XYBarDataset extends AbstractIntervalXYDataset
     /**
      * Returns the starting Y value for the specified series and item.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
      */
     @Override
@@ -296,11 +280,9 @@ public class XYBarDataset extends AbstractIntervalXYDataset
      * Returns the starting y-value (as a double primitive) for an item within
      * a series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
-     *
      * @see #getYValue(int, int)
      */
     @Override
@@ -311,9 +293,8 @@ public class XYBarDataset extends AbstractIntervalXYDataset
     /**
      * Returns the ending Y value for the specified series and item.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
      */
     @Override
@@ -325,11 +306,9 @@ public class XYBarDataset extends AbstractIntervalXYDataset
      * Returns the ending y-value (as a double primitive) for an item within
      * a series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
-     *
      * @see #getYValue(int, int)
      */
     @Override
@@ -340,7 +319,7 @@ public class XYBarDataset extends AbstractIntervalXYDataset
     /**
      * Receives notification of an dataset change event.
      *
-     * @param event  information about the event.
+     * @param event information about the event.
      */
     @Override
     public void datasetChanged(DatasetChangeEvent event) {
@@ -350,8 +329,7 @@ public class XYBarDataset extends AbstractIntervalXYDataset
     /**
      * Tests this dataset for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -382,9 +360,8 @@ public class XYBarDataset extends AbstractIntervalXYDataset
      * </ul>
      *
      * @return An independent copy of the dataset.
-     *
      * @throws CloneNotSupportedException if the dataset cannot be cloned for
-     *         any reason.
+     *                                    any reason.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

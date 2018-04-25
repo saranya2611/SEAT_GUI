@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -41,14 +41,12 @@
 
 package org.jfree.chart.axis;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-
-import java.awt.Color;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import java.awt.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link SymbolAxis} class.
@@ -60,7 +58,7 @@ public class SymbolAxisTest {
      */
     @Test
     public void testSerialization() {
-        String[] tickLabels = new String[] {"One", "Two", "Three"};
+        String[] tickLabels = new String[]{"One", "Two", "Three"};
         SymbolAxis a1 = new SymbolAxis("Test Axis", tickLabels);
         SymbolAxis a2 = (SymbolAxis) TestUtilities.serialised(a1);
         assertEquals(a1, a2);
@@ -71,7 +69,7 @@ public class SymbolAxisTest {
      */
     @Test
     public void testCloning() throws CloneNotSupportedException {
-        SymbolAxis a1 = new SymbolAxis("Axis", new String[] {"A", "B"});
+        SymbolAxis a1 = new SymbolAxis("Axis", new String[]{"A", "B"});
         SymbolAxis a2 = (SymbolAxis) a1.clone();
         assertTrue(a1 != a2);
         assertTrue(a1.getClass() == a2.getClass());
@@ -83,19 +81,19 @@ public class SymbolAxisTest {
      */
     @Test
     public void testEquals() {
-        SymbolAxis a1 = new SymbolAxis("Axis", new String[] {"A", "B"});
-        SymbolAxis a2 = new SymbolAxis("Axis", new String[] {"A", "B"});
+        SymbolAxis a1 = new SymbolAxis("Axis", new String[]{"A", "B"});
+        SymbolAxis a2 = new SymbolAxis("Axis", new String[]{"A", "B"});
         assertTrue(a1.equals(a2));
         assertTrue(a2.equals(a1));
 
-        a1 = new SymbolAxis("Axis 2", new String[] {"A", "B"});
+        a1 = new SymbolAxis("Axis 2", new String[]{"A", "B"});
         assertFalse(a1.equals(a2));
-        a2 = new SymbolAxis("Axis 2", new String[] {"A", "B"});
+        a2 = new SymbolAxis("Axis 2", new String[]{"A", "B"});
         assertTrue(a1.equals(a2));
 
-        a1 = new SymbolAxis("Axis 2", new String[] {"C", "B"});
+        a1 = new SymbolAxis("Axis 2", new String[]{"C", "B"});
         assertFalse(a1.equals(a2));
-        a2 = new SymbolAxis("Axis 2", new String[] {"C", "B"});
+        a2 = new SymbolAxis("Axis 2", new String[]{"C", "B"});
         assertTrue(a1.equals(a2));
 
         a1.setGridBandsVisible(false);

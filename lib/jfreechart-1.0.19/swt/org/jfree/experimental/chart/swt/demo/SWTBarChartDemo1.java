@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -109,22 +109,21 @@ public class SWTBarChartDemo1 {
     /**
      * Creates a sample chart.
      *
-     * @param dataset  the dataset.
-     *
+     * @param dataset the dataset.
      * @return The chart.
      */
     private static JFreeChart createChart(CategoryDataset dataset) {
 
         // create the chart...
         JFreeChart chart = ChartFactory.createBarChart(
-            "SWTBarChartDemo1",       // chart title
-            "Category",               // domain axis label
-            "Value",                  // range axis label
-            dataset,                  // data
-            PlotOrientation.VERTICAL, // orientation
-            true,                     // include legend
-            true,                     // tooltips?
-            false                     // URLs?
+                "SWTBarChartDemo1",       // chart title
+                "Category",               // domain axis label
+                "Value",                  // range axis label
+                dataset,                  // data
+                PlotOrientation.VERTICAL, // orientation
+                true,                     // include legend
+                true,                     // tooltips?
+                false                     // URLs?
         );
 
         // NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
@@ -158,7 +157,7 @@ public class SWTBarChartDemo1 {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         JFreeChart chart = createChart(createDataset());

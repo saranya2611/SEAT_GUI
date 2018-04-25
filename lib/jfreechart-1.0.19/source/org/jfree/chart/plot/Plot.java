@@ -130,32 +130,10 @@
  * 13-Jul-2009 : Plot background image should be clipped if necessary (DG);
  * 02-Jul-2013 : Use ParamChecks (DG);
  * 29-Jul-2014 : Add hint to normalise stroke for plot border (DG);
- * 
+ *
  */
 
 package org.jfree.chart.plot;
-
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Composite;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Paint;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
-import javax.swing.event.EventListenerList;
 
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.LegendItemCollection;
@@ -164,15 +142,7 @@ import org.jfree.chart.annotations.Annotation;
 import org.jfree.chart.axis.AxisLocation;
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.entity.PlotEntity;
-import org.jfree.chart.event.AnnotationChangeEvent;
-import org.jfree.chart.event.AnnotationChangeListener;
-import org.jfree.chart.event.AxisChangeEvent;
-import org.jfree.chart.event.AxisChangeListener;
-import org.jfree.chart.event.ChartChangeEventType;
-import org.jfree.chart.event.MarkerChangeEvent;
-import org.jfree.chart.event.MarkerChangeListener;
-import org.jfree.chart.event.PlotChangeEvent;
-import org.jfree.chart.event.PlotChangeListener;
+import org.jfree.chart.event.*;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetChangeListener;
@@ -189,6 +159,16 @@ import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
 
+import javax.swing.event.EventListenerList;
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * The base class for all plots in JFreeChart.  The {@link JFreeChart} class
  * delegates the drawing of axes and data to the plot.  This base class
@@ -198,62 +178,86 @@ public abstract class Plot implements AxisChangeListener,
         DatasetChangeListener, AnnotationChangeListener, MarkerChangeListener,
         LegendItemSource, PublicCloneable, Cloneable, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -8831571430103671324L;
-
-    /** Useful constant representing zero. */
+    /**
+     * Useful constant representing zero.
+     */
     public static final Number ZERO = new Integer(0);
-
-    /** The default insets. */
+    /**
+     * The default insets.
+     */
     public static final RectangleInsets DEFAULT_INSETS
             = new RectangleInsets(4.0, 8.0, 4.0, 8.0);
-
-    /** The default outline stroke. */
+    /**
+     * The default outline stroke.
+     */
     public static final Stroke DEFAULT_OUTLINE_STROKE = new BasicStroke(0.5f,
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-
-    /** The default outline color. */
+    /**
+     * The default outline color.
+     */
     public static final Paint DEFAULT_OUTLINE_PAINT = Color.gray;
-
-    /** The default foreground alpha transparency. */
+    /**
+     * The default foreground alpha transparency.
+     */
     public static final float DEFAULT_FOREGROUND_ALPHA = 1.0f;
-
-    /** The default background alpha transparency. */
+    /**
+     * The default background alpha transparency.
+     */
     public static final float DEFAULT_BACKGROUND_ALPHA = 1.0f;
-
-    /** The default background color. */
+    /**
+     * The default background color.
+     */
     public static final Paint DEFAULT_BACKGROUND_PAINT = Color.white;
-
-    /** The minimum width at which the plot should be drawn. */
+    /**
+     * The minimum width at which the plot should be drawn.
+     */
     public static final int MINIMUM_WIDTH_TO_DRAW = 10;
-
-    /** The minimum height at which the plot should be drawn. */
+    /**
+     * The minimum height at which the plot should be drawn.
+     */
     public static final int MINIMUM_HEIGHT_TO_DRAW = 10;
-
-    /** A default box shape for legend items. */
+    /**
+     * A default box shape for legend items.
+     */
     public static final Shape DEFAULT_LEGEND_ITEM_BOX
             = new Rectangle2D.Double(-4.0, -4.0, 8.0, 8.0);
-
-    /** A default circle shape for legend items. */
+    /**
+     * A default circle shape for legend items.
+     */
     public static final Shape DEFAULT_LEGEND_ITEM_CIRCLE
             = new Ellipse2D.Double(-4.0, -4.0, 8.0, 8.0);
-
-    /** The parent plot (<code>null</code> if this is the root plot). */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -8831571430103671324L;
+    /**
+     * The parent plot (<code>null</code> if this is the root plot).
+     */
     private Plot parent;
 
-    /** The dataset group (to be used for thread synchronisation). */
+    /**
+     * The dataset group (to be used for thread synchronisation).
+     */
     private DatasetGroup datasetGroup;
 
-    /** The message to display if no data is available. */
+    /**
+     * The message to display if no data is available.
+     */
     private String noDataMessage;
 
-    /** The font used to display the 'no data' message. */
+    /**
+     * The font used to display the 'no data' message.
+     */
     private Font noDataMessageFont;
 
-    /** The paint used to draw the 'no data' message. */
+    /**
+     * The paint used to draw the 'no data' message.
+     */
     private transient Paint noDataMessagePaint;
 
-    /** Amount of blank space around the plot area. */
+    /**
+     * Amount of blank space around the plot area.
+     */
     private RectangleInsets insets;
 
     /**
@@ -263,34 +267,54 @@ public abstract class Plot implements AxisChangeListener,
      */
     private boolean outlineVisible;
 
-    /** The Stroke used to draw an outline around the plot. */
+    /**
+     * The Stroke used to draw an outline around the plot.
+     */
     private transient Stroke outlineStroke;
 
-    /** The Paint used to draw an outline around the plot. */
+    /**
+     * The Paint used to draw an outline around the plot.
+     */
     private transient Paint outlinePaint;
 
-    /** An optional color used to fill the plot background. */
+    /**
+     * An optional color used to fill the plot background.
+     */
     private transient Paint backgroundPaint;
 
-    /** An optional image for the plot background. */
+    /**
+     * An optional image for the plot background.
+     */
     private transient Image backgroundImage;  // not currently serialized
 
-    /** The alignment for the background image. */
+    /**
+     * The alignment for the background image.
+     */
     private int backgroundImageAlignment = Align.FIT;
 
-    /** The alpha value used to draw the background image. */
+    /**
+     * The alpha value used to draw the background image.
+     */
     private float backgroundImageAlpha = 0.5f;
 
-    /** The alpha-transparency for the plot. */
+    /**
+     * The alpha-transparency for the plot.
+     */
     private float foregroundAlpha;
 
-    /** The alpha transparency for the background paint. */
+    /**
+     * The alpha transparency for the background paint.
+     */
     private float backgroundAlpha;
 
-    /** The drawing supplier. */
+    /**
+     * The drawing supplier.
+     */
     private DrawingSupplier drawingSupplier;
 
-    /** Storage for registered change listeners. */
+    /**
+     * Storage for registered change listeners.
+     */
     private transient EventListenerList listenerList;
 
     /**
@@ -329,10 +353,104 @@ public abstract class Plot implements AxisChangeListener,
     }
 
     /**
+     * Resolves a domain axis location for a given plot orientation.
+     *
+     * @param location    the location (<code>null</code> not permitted).
+     * @param orientation the orientation (<code>null</code> not permitted).
+     * @return The edge (never <code>null</code>).
+     */
+    public static RectangleEdge resolveDomainAxisLocation(
+            AxisLocation location, PlotOrientation orientation) {
+
+        ParamChecks.nullNotPermitted(location, "location");
+        ParamChecks.nullNotPermitted(orientation, "orientation");
+
+        RectangleEdge result = null;
+        if (location == AxisLocation.TOP_OR_RIGHT) {
+            if (orientation == PlotOrientation.HORIZONTAL) {
+                result = RectangleEdge.RIGHT;
+            } else if (orientation == PlotOrientation.VERTICAL) {
+                result = RectangleEdge.TOP;
+            }
+        } else if (location == AxisLocation.TOP_OR_LEFT) {
+            if (orientation == PlotOrientation.HORIZONTAL) {
+                result = RectangleEdge.LEFT;
+            } else if (orientation == PlotOrientation.VERTICAL) {
+                result = RectangleEdge.TOP;
+            }
+        } else if (location == AxisLocation.BOTTOM_OR_RIGHT) {
+            if (orientation == PlotOrientation.HORIZONTAL) {
+                result = RectangleEdge.RIGHT;
+            } else if (orientation == PlotOrientation.VERTICAL) {
+                result = RectangleEdge.BOTTOM;
+            }
+        } else if (location == AxisLocation.BOTTOM_OR_LEFT) {
+            if (orientation == PlotOrientation.HORIZONTAL) {
+                result = RectangleEdge.LEFT;
+            } else if (orientation == PlotOrientation.VERTICAL) {
+                result = RectangleEdge.BOTTOM;
+            }
+        }
+        // the above should cover all the options...
+        if (result == null) {
+            throw new IllegalStateException("resolveDomainAxisLocation()");
+        }
+        return result;
+
+    }
+
+    /**
+     * Resolves a range axis location for a given plot orientation.
+     *
+     * @param location    the location (<code>null</code> not permitted).
+     * @param orientation the orientation (<code>null</code> not permitted).
+     * @return The edge (never <code>null</code>).
+     */
+    public static RectangleEdge resolveRangeAxisLocation(
+            AxisLocation location, PlotOrientation orientation) {
+
+        ParamChecks.nullNotPermitted(location, "location");
+        ParamChecks.nullNotPermitted(orientation, "orientation");
+
+        RectangleEdge result = null;
+        if (location == AxisLocation.TOP_OR_RIGHT) {
+            if (orientation == PlotOrientation.HORIZONTAL) {
+                result = RectangleEdge.TOP;
+            } else if (orientation == PlotOrientation.VERTICAL) {
+                result = RectangleEdge.RIGHT;
+            }
+        } else if (location == AxisLocation.TOP_OR_LEFT) {
+            if (orientation == PlotOrientation.HORIZONTAL) {
+                result = RectangleEdge.TOP;
+            } else if (orientation == PlotOrientation.VERTICAL) {
+                result = RectangleEdge.LEFT;
+            }
+        } else if (location == AxisLocation.BOTTOM_OR_RIGHT) {
+            if (orientation == PlotOrientation.HORIZONTAL) {
+                result = RectangleEdge.BOTTOM;
+            } else if (orientation == PlotOrientation.VERTICAL) {
+                result = RectangleEdge.RIGHT;
+            }
+        } else if (location == AxisLocation.BOTTOM_OR_LEFT) {
+            if (orientation == PlotOrientation.HORIZONTAL) {
+                result = RectangleEdge.BOTTOM;
+            } else if (orientation == PlotOrientation.VERTICAL) {
+                result = RectangleEdge.LEFT;
+            }
+        }
+
+        // the above should cover all the options...
+        if (result == null) {
+            throw new IllegalStateException("resolveRangeAxisLocation()");
+        }
+        return result;
+
+    }
+
+    /**
      * Returns the dataset group for the plot (not currently used).
      *
      * @return The dataset group.
-     *
      * @see #setDatasetGroup(DatasetGroup)
      */
     public DatasetGroup getDatasetGroup() {
@@ -342,8 +460,7 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Sets the dataset group (not currently used).
      *
-     * @param group  the dataset group (<code>null</code> permitted).
-     *
+     * @param group the dataset group (<code>null</code> permitted).
      * @see #getDatasetGroup()
      */
     protected void setDatasetGroup(DatasetGroup group) {
@@ -355,7 +472,6 @@ public abstract class Plot implements AxisChangeListener,
      * <code>null</code>.
      *
      * @return The 'no data' message (<code>null</code> possible).
-     *
      * @see #setNoDataMessage(String)
      * @see #getNoDataMessageFont()
      * @see #getNoDataMessagePaint()
@@ -369,8 +485,7 @@ public abstract class Plot implements AxisChangeListener,
      * <code>null</code>, and sends a {@link PlotChangeEvent} to all registered
      * listeners.
      *
-     * @param message  the message (<code>null</code> permitted).
-     *
+     * @param message the message (<code>null</code> permitted).
      * @see #getNoDataMessage()
      */
     public void setNoDataMessage(String message) {
@@ -382,7 +497,6 @@ public abstract class Plot implements AxisChangeListener,
      * Returns the font used to display the 'no data' message.
      *
      * @return The font (never <code>null</code>).
-     *
      * @see #setNoDataMessageFont(Font)
      * @see #getNoDataMessage()
      */
@@ -394,8 +508,7 @@ public abstract class Plot implements AxisChangeListener,
      * Sets the font used to display the 'no data' message and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param font  the font (<code>null</code> not permitted).
-     *
+     * @param font the font (<code>null</code> not permitted).
      * @see #getNoDataMessageFont()
      */
     public void setNoDataMessageFont(Font font) {
@@ -408,7 +521,6 @@ public abstract class Plot implements AxisChangeListener,
      * Returns the paint used to display the 'no data' message.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @see #setNoDataMessagePaint(Paint)
      * @see #getNoDataMessage()
      */
@@ -420,8 +532,7 @@ public abstract class Plot implements AxisChangeListener,
      * Sets the paint used to display the 'no data' message and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getNoDataMessagePaint()
      */
     public void setNoDataMessagePaint(Paint paint) {
@@ -432,12 +543,12 @@ public abstract class Plot implements AxisChangeListener,
 
     /**
      * Returns a short string describing the plot type.
-     * <P>
+     * <p>
      * Note: this gets used in the chart property editing user interface,
      * but there needs to be a better mechanism for identifying the plot type.
      *
      * @return A short string describing the plot type (never
-     *     <code>null</code>).
+     * <code>null</code>).
      */
     public abstract String getPlotType();
 
@@ -446,7 +557,6 @@ public abstract class Plot implements AxisChangeListener,
      * of a combined plot).
      *
      * @return The parent plot.
-     *
      * @see #setParent(Plot)
      * @see #getRootPlot()
      */
@@ -458,8 +568,7 @@ public abstract class Plot implements AxisChangeListener,
      * Sets the parent plot.  This method is intended for internal use, you
      * shouldn't need to call it directly.
      *
-     * @param parent  the parent plot (<code>null</code> permitted).
-     *
+     * @param parent the parent plot (<code>null</code> permitted).
      * @see #getParent()
      */
     public void setParent(Plot parent) {
@@ -470,7 +579,6 @@ public abstract class Plot implements AxisChangeListener,
      * Returns the root plot.
      *
      * @return The root plot.
-     *
      * @see #getParent()
      */
     public Plot getRootPlot() {
@@ -489,8 +597,7 @@ public abstract class Plot implements AxisChangeListener,
      * value), and <code>false</code> otherwise.
      *
      * @return <code>true</code> if this plot is part of a combined plot
-     *         structure.
-     *
+     * structure.
      * @see #getParent()
      */
     public boolean isSubplot() {
@@ -501,7 +608,6 @@ public abstract class Plot implements AxisChangeListener,
      * Returns the insets for the plot area.
      *
      * @return The insets (never <code>null</code>).
-     *
      * @see #setInsets(RectangleInsets)
      */
     public RectangleInsets getInsets() {
@@ -512,8 +618,7 @@ public abstract class Plot implements AxisChangeListener,
      * Sets the insets for the plot and sends a {@link PlotChangeEvent} to
      * all registered listeners.
      *
-     * @param insets  the new insets (<code>null</code> not permitted).
-     *
+     * @param insets the new insets (<code>null</code> not permitted).
      * @see #getInsets()
      * @see #setInsets(RectangleInsets, boolean)
      */
@@ -525,10 +630,9 @@ public abstract class Plot implements AxisChangeListener,
      * Sets the insets for the plot and, if requested,  and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param insets  the new insets (<code>null</code> not permitted).
-     * @param notify  a flag that controls whether the registered listeners are
-     *                notified.
-     *
+     * @param insets the new insets (<code>null</code> not permitted).
+     * @param notify a flag that controls whether the registered listeners are
+     *               notified.
      * @see #getInsets()
      * @see #setInsets(RectangleInsets)
      */
@@ -547,7 +651,6 @@ public abstract class Plot implements AxisChangeListener,
      * Returns the background color of the plot area.
      *
      * @return The paint (possibly <code>null</code>).
-     *
      * @see #setBackgroundPaint(Paint)
      */
     public Paint getBackgroundPaint() {
@@ -558,8 +661,7 @@ public abstract class Plot implements AxisChangeListener,
      * Sets the background color of the plot area and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> permitted).
-     *
+     * @param paint the paint (<code>null</code> permitted).
      * @see #getBackgroundPaint()
      */
     public void setBackgroundPaint(Paint paint) {
@@ -569,8 +671,7 @@ public abstract class Plot implements AxisChangeListener,
                 this.backgroundPaint = null;
                 fireChangeEvent();
             }
-        }
-        else {
+        } else {
             if (this.backgroundPaint != null) {
                 if (this.backgroundPaint.equals(paint)) {
                     return;  // nothing to do
@@ -586,7 +687,6 @@ public abstract class Plot implements AxisChangeListener,
      * Returns the alpha transparency of the plot area background.
      *
      * @return The alpha transparency.
-     *
      * @see #setBackgroundAlpha(float)
      */
     public float getBackgroundAlpha() {
@@ -598,7 +698,6 @@ public abstract class Plot implements AxisChangeListener,
      * registered listeners that the plot has been modified.
      *
      * @param alpha the new alpha value (in the range 0.0f to 1.0f).
-     *
      * @see #getBackgroundAlpha()
      */
     public void setBackgroundAlpha(float alpha) {
@@ -612,7 +711,6 @@ public abstract class Plot implements AxisChangeListener,
      * Returns the drawing supplier for the plot.
      *
      * @return The drawing supplier (possibly <code>null</code>).
-     *
      * @see #setDrawingSupplier(DrawingSupplier)
      */
     public DrawingSupplier getDrawingSupplier() {
@@ -620,8 +718,7 @@ public abstract class Plot implements AxisChangeListener,
         Plot p = getParent();
         if (p != null) {
             result = p.getDrawingSupplier();
-        }
-        else {
+        } else {
             result = this.drawingSupplier;
         }
         return result;
@@ -635,8 +732,7 @@ public abstract class Plot implements AxisChangeListener,
      * <code>Shape</code> objects that the plot's renderer(s) can use to
      * populate its (their) tables.
      *
-     * @param supplier  the new supplier.
-     *
+     * @param supplier the new supplier.
      * @see #getDrawingSupplier()
      */
     public void setDrawingSupplier(DrawingSupplier supplier) {
@@ -652,11 +748,9 @@ public abstract class Plot implements AxisChangeListener,
      * <code>Shape</code> objects that the plot's renderer(s) can use to
      * populate its (their) tables.
      *
-     * @param supplier  the new supplier.
-     * @param notify  notify listeners?
-     *
+     * @param supplier the new supplier.
+     * @param notify   notify listeners?
      * @see #getDrawingSupplier()
-     *
      * @since 1.0.11
      */
     public void setDrawingSupplier(DrawingSupplier supplier, boolean notify) {
@@ -671,7 +765,6 @@ public abstract class Plot implements AxisChangeListener,
      * area.
      *
      * @return The image (possibly <code>null</code>).
-     *
      * @see #setBackgroundImage(Image)
      */
     public Image getBackgroundImage() {
@@ -682,8 +775,7 @@ public abstract class Plot implements AxisChangeListener,
      * Sets the background image for the plot and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param image  the image (<code>null</code> permitted).
-     *
+     * @param image the image (<code>null</code> permitted).
      * @see #getBackgroundImage()
      */
     public void setBackgroundImage(Image image) {
@@ -697,7 +789,6 @@ public abstract class Plot implements AxisChangeListener,
      * library.
      *
      * @return The alignment.
-     *
      * @see #setBackgroundImageAlignment(int)
      */
     public int getBackgroundImageAlignment() {
@@ -710,8 +801,7 @@ public abstract class Plot implements AxisChangeListener,
      * are defined by the {@link org.jfree.ui.Align} class in the JCommon
      * class library.
      *
-     * @param alignment  the alignment.
-     *
+     * @param alignment the alignment.
      * @see #getBackgroundImageAlignment()
      */
     public void setBackgroundImageAlignment(int alignment) {
@@ -727,7 +817,6 @@ public abstract class Plot implements AxisChangeListener,
      * and 1.0f is fully opaque.
      *
      * @return The alpha transparency.
-     *
      * @see #setBackgroundImageAlpha(float)
      */
     public float getBackgroundImageAlpha() {
@@ -737,12 +826,10 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Sets the alpha transparency used when drawing the background image.
      *
-     * @param alpha  the alpha transparency (in the range 0.0f to 1.0f, where
-     *     0.0f is fully transparent, and 1.0f is fully opaque).
-     *
+     * @param alpha the alpha transparency (in the range 0.0f to 1.0f, where
+     *              0.0f is fully transparent, and 1.0f is fully opaque).
      * @throws IllegalArgumentException if <code>alpha</code> is not within
-     *     the specified range.
-     *
+     *                                  the specified range.
      * @see #getBackgroundImageAlpha()
      */
     public void setBackgroundImageAlpha(float alpha) {
@@ -764,10 +851,8 @@ public abstract class Plot implements AxisChangeListener,
      * even if this flag is set to <code>true</code>.
      *
      * @return The outline visibility flag.
-     *
-     * @since 1.0.6
-     *
      * @see #setOutlineVisible(boolean)
+     * @since 1.0.6
      */
     public boolean isOutlineVisible() {
         return this.outlineVisible;
@@ -777,11 +862,9 @@ public abstract class Plot implements AxisChangeListener,
      * Sets the flag that controls whether or not the plot's outline is
      * drawn, and sends a {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param visible  the new flag value.
-     *
-     * @since 1.0.6
-     *
+     * @param visible the new flag value.
      * @see #isOutlineVisible()
+     * @since 1.0.6
      */
     public void setOutlineVisible(boolean visible) {
         this.outlineVisible = visible;
@@ -792,7 +875,6 @@ public abstract class Plot implements AxisChangeListener,
      * Returns the stroke used to outline the plot area.
      *
      * @return The stroke (possibly <code>null</code>).
-     *
      * @see #setOutlineStroke(Stroke)
      */
     public Stroke getOutlineStroke() {
@@ -804,8 +886,7 @@ public abstract class Plot implements AxisChangeListener,
      * {@link PlotChangeEvent} to all registered listeners. If you set this
      * attribute to <code>null</code>, no outline will be drawn.
      *
-     * @param stroke  the stroke (<code>null</code> permitted).
-     *
+     * @param stroke the stroke (<code>null</code> permitted).
      * @see #getOutlineStroke()
      */
     public void setOutlineStroke(Stroke stroke) {
@@ -814,8 +895,7 @@ public abstract class Plot implements AxisChangeListener,
                 this.outlineStroke = null;
                 fireChangeEvent();
             }
-        }
-        else {
+        } else {
             if (this.outlineStroke != null) {
                 if (this.outlineStroke.equals(stroke)) {
                     return;  // nothing to do
@@ -830,7 +910,6 @@ public abstract class Plot implements AxisChangeListener,
      * Returns the color used to draw the outline of the plot area.
      *
      * @return The color (possibly <code>null</code>).
-     *
      * @see #setOutlinePaint(Paint)
      */
     public Paint getOutlinePaint() {
@@ -842,8 +921,7 @@ public abstract class Plot implements AxisChangeListener,
      * {@link PlotChangeEvent} to all registered listeners.  If you set this
      * attribute to <code>null</code>, no outline will be drawn.
      *
-     * @param paint  the paint (<code>null</code> permitted).
-     *
+     * @param paint the paint (<code>null</code> permitted).
      * @see #getOutlinePaint()
      */
     public void setOutlinePaint(Paint paint) {
@@ -852,8 +930,7 @@ public abstract class Plot implements AxisChangeListener,
                 this.outlinePaint = null;
                 fireChangeEvent();
             }
-        }
-        else {
+        } else {
             if (this.outlinePaint != null) {
                 if (this.outlinePaint.equals(paint)) {
                     return;  // nothing to do
@@ -868,7 +945,6 @@ public abstract class Plot implements AxisChangeListener,
      * Returns the alpha-transparency for the plot foreground.
      *
      * @return The alpha-transparency.
-     *
      * @see #setForegroundAlpha(float)
      */
     public float getForegroundAlpha() {
@@ -879,8 +955,7 @@ public abstract class Plot implements AxisChangeListener,
      * Sets the alpha-transparency for the plot and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param alpha  the new alpha transparency.
-     *
+     * @param alpha the new alpha transparency.
      * @see #getForegroundAlpha()
      */
     public void setForegroundAlpha(float alpha) {
@@ -907,9 +982,7 @@ public abstract class Plot implements AxisChangeListener,
      * registered listeners.
      *
      * @return A boolean.
-     *
      * @see #setNotify(boolean)
-     *
      * @since 1.0.13
      */
     public boolean isNotify() {
@@ -920,10 +993,8 @@ public abstract class Plot implements AxisChangeListener,
      * Sets a flag that controls whether or not listeners receive
      * {@link PlotChangeEvent} notifications.
      *
-     * @param notify  a boolean.
-     *
+     * @param notify a boolean.
      * @see #isNotify()
-     *
      * @since 1.0.13
      */
     public void setNotify(boolean notify) {
@@ -937,8 +1008,7 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Registers an object for notification of changes to the plot.
      *
-     * @param listener  the object to be registered.
-     *
+     * @param listener the object to be registered.
      * @see #removeChangeListener(PlotChangeListener)
      */
     public void addChangeListener(PlotChangeListener listener) {
@@ -948,8 +1018,7 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Unregisters an object for notification of changes to the plot.
      *
-     * @param listener  the object to be unregistered.
-     *
+     * @param listener the object to be unregistered.
      * @see #addChangeListener(PlotChangeListener)
      */
     public void removeChangeListener(PlotChangeListener listener) {
@@ -959,7 +1028,7 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Notifies all registered listeners that the plot has been modified.
      *
-     * @param event  information about the change event.
+     * @param event information about the change event.
      */
     public void notifyListeners(PlotChangeEvent event) {
         // if the 'notify' flag has been switched to false, we don't notify
@@ -992,11 +1061,11 @@ public abstract class Plot implements AxisChangeListener,
      * <br><br>
      * Subclasses need to provide an implementation of this method, obviously.
      *
-     * @param g2  the graphics device.
-     * @param area  the plot area.
-     * @param anchor  the anchor point (<code>null</code> permitted).
-     * @param parentState  the parent state (if any).
-     * @param info  carries back plot rendering info.
+     * @param g2          the graphics device.
+     * @param area        the plot area.
+     * @param anchor      the anchor point (<code>null</code> permitted).
+     * @param parentState the parent state (if any).
+     * @param info        carries back plot rendering info.
      */
     public abstract void draw(Graphics2D g2,
                               Rectangle2D area,
@@ -1006,13 +1075,13 @@ public abstract class Plot implements AxisChangeListener,
 
     /**
      * Draws the plot background (the background color and/or image).
-     * <P>
+     * <p>
      * This method will be called during the chart drawing process and is
      * declared public so that it can be accessed by the renderers used by
      * certain subclasses.  You shouldn't need to call this method directly.
      *
-     * @param g2  the graphics device.
-     * @param area  the area within which the plot should be drawn.
+     * @param g2   the graphics device.
+     * @param area the area within which the plot should be drawn.
      */
     public void drawBackground(Graphics2D g2, Rectangle2D area) {
         // some subclasses override this method completely, so don't put
@@ -1024,9 +1093,8 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Fills the specified area with the background paint.
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
-     *
+     * @param g2   the graphics device.
+     * @param area the area.
      * @see #getBackgroundPaint()
      * @see #getBackgroundAlpha()
      * @see #fillBackground(Graphics2D, Rectangle2D, PlotOrientation)
@@ -1040,15 +1108,14 @@ public abstract class Plot implements AxisChangeListener,
      * paint is an instance of <code>GradientPaint</code>, the gradient will
      * run in the direction suggested by the plot's orientation.
      *
-     * @param g2  the graphics target.
-     * @param area  the plot area.
-     * @param orientation  the plot orientation (<code>null</code> not
-     *         permitted).
-     *
+     * @param g2          the graphics target.
+     * @param area        the plot area.
+     * @param orientation the plot orientation (<code>null</code> not
+     *                    permitted).
      * @since 1.0.6
      */
     protected void fillBackground(Graphics2D g2, Rectangle2D area,
-            PlotOrientation orientation) {
+                                  PlotOrientation orientation) {
         ParamChecks.nullNotPermitted(orientation, "orientation");
         if (this.backgroundPaint == null) {
             return;
@@ -1061,8 +1128,7 @@ public abstract class Plot implements AxisChangeListener,
                         (float) area.getMaxY(), gp.getColor1(),
                         (float) area.getCenterX(), (float) area.getMinY(),
                         gp.getColor2());
-            }
-            else if (orientation == PlotOrientation.HORIZONTAL) {
+            } else if (orientation == PlotOrientation.HORIZONTAL) {
                 p = new GradientPaint((float) area.getMinX(),
                         (float) area.getCenterY(), gp.getColor1(),
                         (float) area.getMaxX(), (float) area.getCenterY(),
@@ -1081,9 +1147,8 @@ public abstract class Plot implements AxisChangeListener,
      * Draws the background image (if there is one) aligned within the
      * specified area.
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
-     *
+     * @param g2   the graphics device.
+     * @param area the area.
      * @see #getBackgroundImage()
      * @see #getBackgroundImageAlignment()
      * @see #getBackgroundImageAlpha()
@@ -1114,8 +1179,8 @@ public abstract class Plot implements AxisChangeListener,
      * renderers used by certain subclasses. You shouldn't need to call this
      * method directly.
      *
-     * @param g2  the graphics device.
-     * @param area  the area within which the plot should be drawn.
+     * @param g2   the graphics device.
+     * @param area the area within which the plot should be drawn.
      */
     public void drawOutline(Graphics2D g2, Rectangle2D area) {
         if (!this.outlineVisible) {
@@ -1134,8 +1199,8 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Draws a message to state that there is no data to plot.
      *
-     * @param g2  the graphics device.
-     * @param area  the area within which the plot should be drawn.
+     * @param g2   the graphics device.
+     * @param area the area within which the plot should be drawn.
      */
     protected void drawNoDataMessage(Graphics2D g2, Rectangle2D area) {
         Shape savedClip = g2.getClip();
@@ -1159,17 +1224,16 @@ public abstract class Plot implements AxisChangeListener,
      * data area as shape.
      *
      * @param dataArea  the data area used as hot spot for the entity.
-     * @param plotState  the plot rendering info containing a reference to the
-     *     EntityCollection.
-     * @param toolTip  the tool tip (defined in the respective Plot
-     *     subclass) (<code>null</code> permitted).
-     * @param urlText  the url (defined in the respective Plot subclass)
-     *     (<code>null</code> permitted).
-     *
-     *  @since 1.0.13
+     * @param plotState the plot rendering info containing a reference to the
+     *                  EntityCollection.
+     * @param toolTip   the tool tip (defined in the respective Plot
+     *                  subclass) (<code>null</code> permitted).
+     * @param urlText   the url (defined in the respective Plot subclass)
+     *                  (<code>null</code> permitted).
+     * @since 1.0.13
      */
     protected void createAndAddEntity(Rectangle2D dataArea,
-            PlotRenderingInfo plotState, String toolTip, String urlText) {
+                                      PlotRenderingInfo plotState, String toolTip, String urlText) {
         if (plotState != null && plotState.getOwner() != null) {
             EntityCollection e = plotState.getOwner().getEntityCollection();
             if (e != null) {
@@ -1183,10 +1247,10 @@ public abstract class Plot implements AxisChangeListener,
      * information about where it has been drawn, the plot rendering info is
      * supplied as an argument so that the plot dimensions can be determined.
      *
-     * @param x  the x coordinate (in Java2D space).
-     * @param y  the y coordinate (in Java2D space).
-     * @param info  an object containing information about the dimensions of
-     *              the plot.
+     * @param x    the x coordinate (in Java2D space).
+     * @param y    the y coordinate (in Java2D space).
+     * @param info an object containing information about the dimensions of
+     *             the plot.
      */
     public void handleClick(int x, int y, PlotRenderingInfo info) {
         // provides a 'no action' default
@@ -1196,7 +1260,7 @@ public abstract class Plot implements AxisChangeListener,
      * Performs a zoom on the plot.  Subclasses should override if zooming is
      * appropriate for the type of plot.
      *
-     * @param percent  the zoom percentage.
+     * @param percent the zoom percentage.
      */
     public void zoom(double percent) {
         // do nothing by default.
@@ -1206,8 +1270,7 @@ public abstract class Plot implements AxisChangeListener,
      * Receives notification of a change to an {@link Annotation} added to
      * this plot.
      *
-     * @param event  information about the event (not used here).
-     *
+     * @param event information about the event (not used here).
      * @since 1.0.14
      */
     @Override
@@ -1218,7 +1281,7 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Receives notification of a change to one of the plot's axes.
      *
-     * @param event  information about the event (not used here).
+     * @param event information about the event (not used here).
      */
     @Override
     public void axisChanged(AxisChangeEvent event) {
@@ -1227,11 +1290,11 @@ public abstract class Plot implements AxisChangeListener,
 
     /**
      * Receives notification of a change to the plot's dataset.
-     * <P>
+     * <p>
      * The plot reacts by passing on a plot change event to all registered
      * listeners.
      *
-     * @param event  information about the event (not used here).
+     * @param event information about the event (not used here).
      */
     @Override
     public void datasetChanged(DatasetChangeEvent event) {
@@ -1244,8 +1307,7 @@ public abstract class Plot implements AxisChangeListener,
      * Receives notification of a change to a marker that is assigned to the
      * plot.
      *
-     * @param event  the event.
-     *
+     * @param event the event.
      * @since 1.0.3
      */
     @Override
@@ -1256,11 +1318,10 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Adjusts the supplied x-value.
      *
-     * @param x  the x-value.
-     * @param w1  width 1.
-     * @param w2  width 2.
-     * @param edge  the edge (left or right).
-     *
+     * @param x    the x-value.
+     * @param w1   width 1.
+     * @param w2   width 2.
+     * @param edge the edge (left or right).
      * @return The adjusted x-value.
      */
     protected double getRectX(double x, double w1, double w2,
@@ -1269,8 +1330,7 @@ public abstract class Plot implements AxisChangeListener,
         double result = x;
         if (edge == RectangleEdge.LEFT) {
             result = result + w1;
-        }
-        else if (edge == RectangleEdge.RIGHT) {
+        } else if (edge == RectangleEdge.RIGHT) {
             result = result + w2;
         }
         return result;
@@ -1280,11 +1340,10 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Adjusts the supplied y-value.
      *
-     * @param y  the x-value.
-     * @param h1  height 1.
-     * @param h2  height 2.
-     * @param edge  the edge (top or bottom).
-     *
+     * @param y    the x-value.
+     * @param h1   height 1.
+     * @param h2   height 2.
+     * @param edge the edge (top or bottom).
      * @return The adjusted y-value.
      */
     protected double getRectY(double y, double h1, double h2,
@@ -1293,8 +1352,7 @@ public abstract class Plot implements AxisChangeListener,
         double result = y;
         if (edge == RectangleEdge.TOP) {
             result = result + h1;
-        }
-        else if (edge == RectangleEdge.BOTTOM) {
+        } else if (edge == RectangleEdge.BOTTOM) {
             result = result + h2;
         }
         return result;
@@ -1304,8 +1362,7 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Tests this plot for equality with another object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return <code>true</code> or <code>false</code>.
      */
     @Override
@@ -1321,7 +1378,7 @@ public abstract class Plot implements AxisChangeListener,
             return false;
         }
         if (!ObjectUtilities.equal(
-            this.noDataMessageFont, that.noDataMessageFont
+                this.noDataMessageFont, that.noDataMessageFont
         )) {
             return false;
         }
@@ -1373,9 +1430,8 @@ public abstract class Plot implements AxisChangeListener,
      * Creates a clone of the plot.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if some component of the plot does not
-     *         support cloning.
+     *                                    support cloning.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -1385,10 +1441,10 @@ public abstract class Plot implements AxisChangeListener,
         // childs in combined plots instead
         if (this.datasetGroup != null) {
             clone.datasetGroup
-                = (DatasetGroup) ObjectUtilities.clone(this.datasetGroup);
+                    = (DatasetGroup) ObjectUtilities.clone(this.datasetGroup);
         }
         clone.drawingSupplier
-            = (DrawingSupplier) ObjectUtilities.clone(this.drawingSupplier);
+                = (DrawingSupplier) ObjectUtilities.clone(this.drawingSupplier);
         clone.listenerList = new EventListenerList();
         return clone;
 
@@ -1397,9 +1453,8 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -1413,13 +1468,12 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.noDataMessagePaint = SerialUtilities.readPaint(stream);
         this.outlineStroke = SerialUtilities.readStroke(stream);
@@ -1428,117 +1482,6 @@ public abstract class Plot implements AxisChangeListener,
         this.backgroundPaint = SerialUtilities.readPaint(stream);
 
         this.listenerList = new EventListenerList();
-
-    }
-
-    /**
-     * Resolves a domain axis location for a given plot orientation.
-     *
-     * @param location  the location (<code>null</code> not permitted).
-     * @param orientation  the orientation (<code>null</code> not permitted).
-     *
-     * @return The edge (never <code>null</code>).
-     */
-    public static RectangleEdge resolveDomainAxisLocation(
-            AxisLocation location, PlotOrientation orientation) {
-
-        ParamChecks.nullNotPermitted(location, "location");
-        ParamChecks.nullNotPermitted(orientation, "orientation");
-
-        RectangleEdge result = null;
-        if (location == AxisLocation.TOP_OR_RIGHT) {
-            if (orientation == PlotOrientation.HORIZONTAL) {
-                result = RectangleEdge.RIGHT;
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
-                result = RectangleEdge.TOP;
-            }
-        }
-        else if (location == AxisLocation.TOP_OR_LEFT) {
-            if (orientation == PlotOrientation.HORIZONTAL) {
-                result = RectangleEdge.LEFT;
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
-                result = RectangleEdge.TOP;
-            }
-        }
-        else if (location == AxisLocation.BOTTOM_OR_RIGHT) {
-            if (orientation == PlotOrientation.HORIZONTAL) {
-                result = RectangleEdge.RIGHT;
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
-                result = RectangleEdge.BOTTOM;
-            }
-        }
-        else if (location == AxisLocation.BOTTOM_OR_LEFT) {
-            if (orientation == PlotOrientation.HORIZONTAL) {
-                result = RectangleEdge.LEFT;
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
-                result = RectangleEdge.BOTTOM;
-            }
-        }
-        // the above should cover all the options...
-        if (result == null) {
-            throw new IllegalStateException("resolveDomainAxisLocation()");
-        }
-        return result;
-
-    }
-
-    /**
-     * Resolves a range axis location for a given plot orientation.
-     *
-     * @param location  the location (<code>null</code> not permitted).
-     * @param orientation  the orientation (<code>null</code> not permitted).
-     *
-     * @return The edge (never <code>null</code>).
-     */
-    public static RectangleEdge resolveRangeAxisLocation(
-            AxisLocation location, PlotOrientation orientation) {
-
-        ParamChecks.nullNotPermitted(location, "location");
-        ParamChecks.nullNotPermitted(orientation, "orientation");
-
-        RectangleEdge result = null;
-        if (location == AxisLocation.TOP_OR_RIGHT) {
-            if (orientation == PlotOrientation.HORIZONTAL) {
-                result = RectangleEdge.TOP;
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
-                result = RectangleEdge.RIGHT;
-            }
-        }
-        else if (location == AxisLocation.TOP_OR_LEFT) {
-            if (orientation == PlotOrientation.HORIZONTAL) {
-                result = RectangleEdge.TOP;
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
-                result = RectangleEdge.LEFT;
-            }
-        }
-        else if (location == AxisLocation.BOTTOM_OR_RIGHT) {
-            if (orientation == PlotOrientation.HORIZONTAL) {
-                result = RectangleEdge.BOTTOM;
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
-                result = RectangleEdge.RIGHT;
-            }
-        }
-        else if (location == AxisLocation.BOTTOM_OR_LEFT) {
-            if (orientation == PlotOrientation.HORIZONTAL) {
-                result = RectangleEdge.BOTTOM;
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
-                result = RectangleEdge.LEFT;
-            }
-        }
-
-        // the above should cover all the options...
-        if (result == null) {
-            throw new IllegalStateException("resolveRangeAxisLocation()");
-        }
-        return result;
 
     }
 

@@ -66,13 +66,6 @@
 
 package org.jfree.chart.plot;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
 import org.jfree.chart.LegendItemCollection;
 import org.jfree.chart.axis.AxisSpace;
 import org.jfree.chart.axis.AxisState;
@@ -87,22 +80,37 @@ import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.RectangleInsets;
 import org.jfree.util.ObjectUtilities;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * A combined category plot where the domain axis is shared.
  */
 public class CombinedDomainCategoryPlot extends CategoryPlot
         implements PlotChangeListener {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 8207194522653701572L;
 
-    /** Storage for the subplot references. */
+    /**
+     * Storage for the subplot references.
+     */
     private List subplots;
 
-    /** The gap between subplots. */
+    /**
+     * The gap between subplots.
+     */
     private double gap;
 
-    /** Temporary storage for the subplot areas. */
+    /**
+     * Temporary storage for the subplot areas.
+     */
     private transient Rectangle2D[] subplotAreas;
     // TODO:  move the above to the plot state
 
@@ -116,8 +124,8 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
     /**
      * Creates a new plot.
      *
-     * @param domainAxis  the shared domain axis (<code>null</code> not
-     *                    permitted).
+     * @param domainAxis the shared domain axis (<code>null</code> not
+     *                   permitted).
      */
     public CombinedDomainCategoryPlot(CategoryAxis domainAxis) {
         super(null, domainAxis, null, null);
@@ -129,7 +137,6 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
      * Returns the space between subplots.  The default value is 5.0.
      *
      * @return The gap (in Java2D units).
-     *
      * @see #setGap(double)
      */
     public double getGap() {
@@ -140,8 +147,7 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
      * Sets the amount of space between subplots and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param gap  the gap between subplots (in Java2D units).
-     *
+     * @param gap the gap between subplots (in Java2D units).
      * @see #getGap()
      */
     public void setGap(double gap) {
@@ -156,7 +162,7 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
      * The domain axis for the subplot will be set to <code>null</code>.  You
      * must ensure that the subplot has a non-null range axis.
      *
-     * @param subplot  the subplot (<code>null</code> not permitted).
+     * @param subplot the subplot (<code>null</code> not permitted).
      */
     public void add(CategoryPlot subplot) {
         add(subplot, 1);
@@ -169,7 +175,7 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
      * The domain axis for the subplot will be set to <code>null</code>.  You
      * must ensure that the subplot has a non-null range axis.
      *
-     * @param subplot  the subplot (<code>null</code> not permitted).
+     * @param subplot the subplot (<code>null</code> not permitted).
      * @param weight  the weight (must be &gt;= 1).
      */
     public void add(CategoryPlot subplot, int weight) {
@@ -197,7 +203,7 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
      * domain axis is reconfigured, then a {@link PlotChangeEvent} is sent to
      * all registered listeners.
      *
-     * @param subplot  the subplot (<code>null</code> not permitted).
+     * @param subplot the subplot (<code>null</code> not permitted).
      */
     public void remove(CategoryPlot subplot) {
         ParamChecks.nullNotPermitted(subplot, "subplot");
@@ -231,8 +237,7 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
     public List getSubplots() {
         if (this.subplots != null) {
             return Collections.unmodifiableList(this.subplots);
-        }
-        else {
+        } else {
             return Collections.EMPTY_LIST;
         }
     }
@@ -241,9 +246,8 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
      * Returns the subplot (if any) that contains the (x, y) point (specified
      * in Java2D space).
      *
-     * @param info  the chart rendering info (<code>null</code> not permitted).
-     * @param source  the source point (<code>null</code> not permitted).
-     *
+     * @param info   the chart rendering info (<code>null</code> not permitted).
+     * @param source the source point (<code>null</code> not permitted).
      * @return A subplot (possibly <code>null</code>).
      */
     public CategoryPlot findSubplot(PlotRenderingInfo info, Point2D source) {
@@ -252,7 +256,7 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
         CategoryPlot result = null;
         int subplotIndex = info.getSubplotIndex(source);
         if (subplotIndex >= 0) {
-            result =  (CategoryPlot) this.subplots.get(subplotIndex);
+            result = (CategoryPlot) this.subplots.get(subplotIndex);
         }
         return result;
     }
@@ -260,9 +264,9 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
     /**
      * Multiplies the range on the range axis/axes by the specified factor.
      *
-     * @param factor  the zoom factor.
-     * @param info  the plot rendering info (<code>null</code> not permitted).
-     * @param source  the source point (<code>null</code> not permitted).
+     * @param factor the zoom factor.
+     * @param info   the plot rendering info (<code>null</code> not permitted).
+     * @param source the source point (<code>null</code> not permitted).
      */
     @Override
     public void zoomRangeAxes(double factor, PlotRenderingInfo info,
@@ -273,10 +277,10 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
     /**
      * Multiplies the range on the range axis/axes by the specified factor.
      *
-     * @param factor  the zoom factor.
-     * @param info  the plot rendering info (<code>null</code> not permitted).
-     * @param source  the source point (<code>null</code> not permitted).
-     * @param useAnchor  zoom about the anchor point?
+     * @param factor    the zoom factor.
+     * @param info      the plot rendering info (<code>null</code> not permitted).
+     * @param source    the source point (<code>null</code> not permitted).
+     * @param useAnchor zoom about the anchor point?
      */
     @Override
     public void zoomRangeAxes(double factor, PlotRenderingInfo info,
@@ -285,8 +289,7 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
         CategoryPlot subplot = findSubplot(info, source);
         if (subplot != null) {
             subplot.zoomRangeAxes(factor, info, source, useAnchor);
-        }
-        else {
+        } else {
             // if the source point doesn't fall within a subplot, we do the
             // zoom on all subplots...
             Iterator iterator = getSubplots().iterator();
@@ -300,10 +303,10 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
     /**
      * Zooms in on the range axes.
      *
-     * @param lowerPercent  the lower bound.
-     * @param upperPercent  the upper bound.
-     * @param info  the plot rendering info (<code>null</code> not permitted).
-     * @param source  the source point (<code>null</code> not permitted).
+     * @param lowerPercent the lower bound.
+     * @param upperPercent the upper bound.
+     * @param info         the plot rendering info (<code>null</code> not permitted).
+     * @param source       the source point (<code>null</code> not permitted).
      */
     @Override
     public void zoomRangeAxes(double lowerPercent, double upperPercent,
@@ -312,8 +315,7 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
         CategoryPlot subplot = findSubplot(info, source);
         if (subplot != null) {
             subplot.zoomRangeAxes(lowerPercent, upperPercent, info, source);
-        }
-        else {
+        } else {
             // if the source point doesn't fall within a subplot, we do the
             // zoom on all subplots...
             Iterator iterator = getSubplots().iterator();
@@ -327,9 +329,8 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
     /**
      * Calculates the space required for the axes.
      *
-     * @param g2  the graphics device.
-     * @param plotArea  the plot area.
-     *
+     * @param g2       the graphics device.
+     * @param plotArea the plot area.
      * @return The space required for the axes.
      */
     @Override
@@ -345,21 +346,18 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
             if (orientation == PlotOrientation.HORIZONTAL) {
                 space.setLeft(fixed.getLeft());
                 space.setRight(fixed.getRight());
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
+            } else if (orientation == PlotOrientation.VERTICAL) {
                 space.setTop(fixed.getTop());
                 space.setBottom(fixed.getBottom());
             }
-        }
-        else {
+        } else {
             CategoryAxis categoryAxis = getDomainAxis();
             RectangleEdge categoryEdge = Plot.resolveDomainAxisLocation(
                     getDomainAxisLocation(), orientation);
             if (categoryAxis != null) {
                 space = categoryAxis.reserveSpace(g2, this, plotArea,
                         categoryEdge, space);
-            }
-            else {
+            } else {
                 if (getDrawSharedDomainAxis()) {
                     space = getDomainAxis().reserveSpace(g2, this, plotArea,
                             categoryEdge, space);
@@ -382,8 +380,7 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
         double usableSize = 0.0;
         if (orientation == PlotOrientation.HORIZONTAL) {
             usableSize = adjustedPlotArea.getWidth() - this.gap * (n - 1);
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             usableSize = adjustedPlotArea.getHeight() - this.gap * (n - 1);
         }
 
@@ -396,8 +393,7 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
                 this.subplotAreas[i] = new Rectangle2D.Double(x, y, w,
                         adjustedPlotArea.getHeight());
                 x = x + w + this.gap;
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
+            } else if (orientation == PlotOrientation.VERTICAL) {
                 double h = usableSize * plot.getWeight() / totalWeight;
                 this.subplotAreas[i] = new Rectangle2D.Double(x, y,
                         adjustedPlotArea.getWidth(), h);
@@ -418,17 +414,17 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
      * printer).  Will perform all the placement calculations for each of the
      * sub-plots and then tell these to draw themselves.
      *
-     * @param g2  the graphics device.
-     * @param area  the area within which the plot (including axis labels)
-     *              should be drawn.
-     * @param anchor  the anchor point (<code>null</code> permitted).
-     * @param parentState  the state from the parent plot, if there is one.
-     * @param info  collects information about the drawing (<code>null</code>
-     *              permitted).
+     * @param g2          the graphics device.
+     * @param area        the area within which the plot (including axis labels)
+     *                    should be drawn.
+     * @param anchor      the anchor point (<code>null</code> permitted).
+     * @param parentState the state from the parent plot, if there is one.
+     * @param info        collects information about the drawing (<code>null</code>
+     *                    permitted).
      */
     @Override
-     public void draw(Graphics2D g2, Rectangle2D area, Point2D anchor,
-            PlotState parentState, PlotRenderingInfo info) {
+    public void draw(Graphics2D g2, Rectangle2D area, Point2D anchor,
+                     PlotState parentState, PlotRenderingInfo info) {
 
         // set up info collection...
         if (info != null) {
@@ -488,7 +484,7 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
      * Sets the size (width or height, depending on the orientation of the
      * plot) for the range axis of each subplot.
      *
-     * @param space  the space (<code>null</code> permitted).
+     * @param space the space (<code>null</code> permitted).
      */
     protected void setFixedRangeAxisSpaceForSubplots(AxisSpace space) {
         Iterator iterator = this.subplots.iterator();
@@ -501,7 +497,7 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
     /**
      * Sets the orientation of the plot (and all subplots).
      *
-     * @param orientation  the orientation (<code>null</code> not permitted).
+     * @param orientation the orientation (<code>null</code> not permitted).
      */
     @Override
     public void setOrientation(PlotOrientation orientation) {
@@ -517,8 +513,8 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
     /**
      * Sets the shadow generator for the plot (and all subplots) and sends
      * a {@link PlotChangeEvent} to all registered listeners.
-     * 
-     * @param generator  the new generator (<code>null</code> permitted).
+     *
+     * @param generator the new generator (<code>null</code> permitted).
      */
     @Override
     public void setShadowGenerator(ShadowGenerator generator) {
@@ -541,18 +537,17 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
      * (not a {@code ValueAxis}) and subplots have independent range axes,
      * the JFreeChart code will never call this method (although this is not
      * checked/enforced).
-      *
-      * @param axis  the axis.
-      *
-      * @return The range.
-      */
+     *
+     * @param axis the axis.
+     * @return The range.
+     */
     @Override
-     public Range getDataRange(ValueAxis axis) {
-         // override is only for documentation purposes
-         return super.getDataRange(axis);
-     }
+    public Range getDataRange(ValueAxis axis) {
+        // override is only for documentation purposes
+        return super.getDataRange(axis);
+    }
 
-     /**
+    /**
      * Returns a collection of legend items for the plot.
      *
      * @return The legend items.
@@ -603,10 +598,8 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
     /**
      * Overridden to return the categories in the subplots.
      *
-     * @param axis  ignored.
-     *
+     * @param axis ignored.
      * @return A list of the categories in the subplots.
-     *
      * @since 1.0.3
      */
     @Override
@@ -619,10 +612,9 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
     /**
      * Handles a 'click' on the plot.
      *
-     * @param x  x-coordinate of the click.
-     * @param y  y-coordinate of the click.
-     * @param info  information about the plot's dimensions.
-     *
+     * @param x    x-coordinate of the click.
+     * @param y    y-coordinate of the click.
+     * @param info information about the plot's dimensions.
      */
     @Override
     public void handleClick(int x, int y, PlotRenderingInfo info) {
@@ -642,7 +634,7 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
      * Receives a {@link PlotChangeEvent} and responds by notifying all
      * listeners.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void plotChanged(PlotChangeEvent event) {
@@ -652,8 +644,7 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
     /**
      * Tests the plot for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -678,17 +669,16 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
      * Returns a clone of the plot.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  this class will not throw this
-     *         exception, but subclasses (if any) might.
+     * @throws CloneNotSupportedException this class will not throw this
+     *                                    exception, but subclasses (if any) might.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
 
         CombinedDomainCategoryPlot result
-            = (CombinedDomainCategoryPlot) super.clone();
+                = (CombinedDomainCategoryPlot) super.clone();
         result.subplots = (List) ObjectUtilities.deepClone(this.subplots);
-        for (Iterator it = result.subplots.iterator(); it.hasNext();) {
+        for (Iterator it = result.subplots.iterator(); it.hasNext(); ) {
             Plot child = (Plot) it.next();
             child.setParent(result);
         }

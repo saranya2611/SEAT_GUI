@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -43,19 +43,16 @@
 
 package org.jfree.chart.renderer.category;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-
-import java.util.Arrays;
-import java.util.List;
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.Range;
 import org.jfree.data.statistics.DefaultMultiValueCategoryDataset;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link ScatterRenderer} class.
@@ -143,13 +140,12 @@ public class ScatterRendererTest {
     /**
      * Checks that the two renderers are equal but independent of one another.
      *
-     * @param r1  renderer 1.
-     * @param r2  renderer 2.
-     *
+     * @param r1 renderer 1.
+     * @param r2 renderer 2.
      * @return A boolean.
      */
     private boolean checkIndependence(ScatterRenderer r1,
-            ScatterRenderer r2) {
+                                      ScatterRenderer r2) {
 
         // should be equal...
         if (!r1.equals(r2)) {
@@ -202,20 +198,20 @@ public class ScatterRendererTest {
                 = new DefaultMultiValueCategoryDataset();
         assertNull(r.findRangeBounds(dataset));
 
-        List values = Arrays.asList(new Double[] {new Double(1.0)});
+        List values = Arrays.asList(new Double[]{new Double(1.0)});
         dataset.add(values, "R1", "C1");
         assertEquals(new Range(1.0, 1.0), r.findRangeBounds(dataset));
 
-        values = Arrays.asList(new Double[] {new Double(2.0), new Double(2.2)});
+        values = Arrays.asList(new Double[]{new Double(2.0), new Double(2.2)});
         dataset.add(values, "R1", "C2");
         assertEquals(new Range(1.0, 2.2), r.findRangeBounds(dataset));
 
-        values = Arrays.asList(new Double[] {new Double(-3.0),
+        values = Arrays.asList(new Double[]{new Double(-3.0),
                 new Double(-3.2)});
         dataset.add(values, "R1", "C3");
         assertEquals(new Range(-3.2, 2.2), r.findRangeBounds(dataset));
 
-        values = Arrays.asList(new Double[] {new Double(6.0)});
+        values = Arrays.asList(new Double[]{new Double(6.0)});
         dataset.add(values, "R2", "C1");
         assertEquals(new Range(-3.2, 6.0), r.findRangeBounds(dataset));
 

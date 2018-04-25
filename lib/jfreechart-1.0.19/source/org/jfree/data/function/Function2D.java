@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -49,8 +49,7 @@ public interface Function2D {
     /**
      * Returns the value of the function ('y') for a given input ('x').
      *
-     * @param x  the x-value.
-     *
+     * @param x the x-value.
      * @return The function value.
      */
     public double getValue(double x);

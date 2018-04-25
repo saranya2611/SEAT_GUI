@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -40,9 +40,10 @@
 
 package org.jfree.data.general;
 
-import java.io.Serializable;
 import org.jfree.data.DataUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
 
 /**
  * A default implementation of the {@link HeatMapDataset} interface.
@@ -52,40 +53,54 @@ import org.jfree.util.PublicCloneable;
 public class DefaultHeatMapDataset extends AbstractDataset
         implements HeatMapDataset, Cloneable, PublicCloneable, Serializable {
 
-    /** The number of samples in this dataset for the x-dimension. */
+    /**
+     * The number of samples in this dataset for the x-dimension.
+     */
     private int xSamples;
 
-    /** The number of samples in this dataset for the y-dimension. */
+    /**
+     * The number of samples in this dataset for the y-dimension.
+     */
     private int ySamples;
 
-    /** The minimum x-value in the dataset. */
+    /**
+     * The minimum x-value in the dataset.
+     */
     private double minX;
 
-    /** The maximum x-value in the dataset. */
+    /**
+     * The maximum x-value in the dataset.
+     */
     private double maxX;
 
-    /** The minimum y-value in the dataset. */
+    /**
+     * The minimum y-value in the dataset.
+     */
     private double minY;
 
-    /** The maximum y-value in the dataset. */
+    /**
+     * The maximum y-value in the dataset.
+     */
     private double maxY;
 
-    /** Storage for the z-values. */
+    /**
+     * Storage for the z-values.
+     */
     private double[][] zValues;
 
     /**
      * Creates a new dataset where all the z-values are initially 0.  This is
      * a fixed size array of z-values.
      *
-     * @param xSamples  the number of x-values.
-     * @param ySamples  the number of y-values
-     * @param minX  the minimum x-value in the dataset.
-     * @param maxX  the maximum x-value in the dataset.
-     * @param minY  the minimum y-value in the dataset.
-     * @param maxY  the maximum y-value in the dataset.
+     * @param xSamples the number of x-values.
+     * @param ySamples the number of y-values
+     * @param minX     the minimum x-value in the dataset.
+     * @param maxX     the maximum x-value in the dataset.
+     * @param minY     the minimum y-value in the dataset.
+     * @param maxY     the maximum y-value in the dataset.
      */
     public DefaultHeatMapDataset(int xSamples, int ySamples, double minX,
-            double maxX, double minY, double maxY) {
+                                 double maxX, double minY, double maxY) {
 
         if (xSamples < 1) {
             throw new IllegalArgumentException("Requires 'xSamples' > 0");
@@ -193,8 +208,7 @@ public class DefaultHeatMapDataset extends AbstractDataset
     /**
      * A convenience method that returns the x-value for the given index.
      *
-     * @param xIndex  the xIndex.
-     *
+     * @param xIndex the xIndex.
      * @return The x-value.
      */
     @Override
@@ -207,8 +221,7 @@ public class DefaultHeatMapDataset extends AbstractDataset
     /**
      * A convenience method that returns the y-value for the given index.
      *
-     * @param yIndex  the yIndex.
-     *
+     * @param yIndex the yIndex.
      * @return The y-value.
      */
     @Override
@@ -222,9 +235,8 @@ public class DefaultHeatMapDataset extends AbstractDataset
      * Returns the z-value at the specified sample position in the dataset.
      * For a missing or unknown value, this method should return Double.NAN.
      *
-     * @param xIndex  the position of the x sample in the dataset.
-     * @param yIndex  the position of the y sample in the dataset.
-     *
+     * @param xIndex the position of the x sample in the dataset.
+     * @param yIndex the position of the y sample in the dataset.
      * @return The z-value.
      */
     @Override
@@ -238,9 +250,8 @@ public class DefaultHeatMapDataset extends AbstractDataset
      * array of double primitives, you should avoid using this method and
      * use {@link #getZValue(int, int)} instead.
      *
-     * @param xIndex  the position of the x sample in the dataset.
-     * @param yIndex  the position of the y sample in the dataset.
-     *
+     * @param xIndex the position of the x sample in the dataset.
+     * @param yIndex the position of the y sample in the dataset.
      * @return The z-value.
      */
     @Override
@@ -252,9 +263,9 @@ public class DefaultHeatMapDataset extends AbstractDataset
      * Updates a z-value in the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param xIndex  the x-index.
-     * @param yIndex  the y-index.
-     * @param z  the new z-value.
+     * @param xIndex the x-index.
+     * @param yIndex the y-index.
+     * @param z      the new z-value.
      */
     public void setZValue(int xIndex, int yIndex, double z) {
         setZValue(xIndex, yIndex, z, true);
@@ -264,10 +275,10 @@ public class DefaultHeatMapDataset extends AbstractDataset
      * Updates a z-value in the dataset and, if requested, sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param xIndex  the x-index.
-     * @param yIndex  the y-index.
-     * @param z  the new z-value.
-     * @param notify  notify listeners?
+     * @param xIndex the x-index.
+     * @param yIndex the y-index.
+     * @param z      the new z-value.
+     * @param notify notify listeners?
      */
     public void setZValue(int xIndex, int yIndex, double z, boolean notify) {
         this.zValues[xIndex][yIndex] = z;
@@ -279,8 +290,7 @@ public class DefaultHeatMapDataset extends AbstractDataset
     /**
      * Tests this dataset for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -321,9 +331,8 @@ public class DefaultHeatMapDataset extends AbstractDataset
      * Returns an independent copy of this dataset.
      *
      * @return A clone.
-     *
-     * @throws java.lang.CloneNotSupportedException if there is a problem 
-     *         cloning.
+     * @throws java.lang.CloneNotSupportedException if there is a problem
+     *                                              cloning.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

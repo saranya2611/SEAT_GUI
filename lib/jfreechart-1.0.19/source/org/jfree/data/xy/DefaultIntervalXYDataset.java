@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------
@@ -45,12 +45,12 @@
 
 package org.jfree.data.xy;
 
+import org.jfree.data.general.DatasetChangeEvent;
+import org.jfree.util.PublicCloneable;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.jfree.data.general.DatasetChangeEvent;
-import org.jfree.util.PublicCloneable;
 
 /**
  * A dataset that defines a range (interval) for both the x-values and the
@@ -100,13 +100,11 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the key for a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
      * @return The key for the series.
-     *
      * @throws IllegalArgumentException if <code>series</code> is not in the
-     *     specified range.
+     *                                  specified range.
      */
     @Override
     public Comparable getSeriesKey(int series) {
@@ -119,13 +117,11 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the number of items in the specified series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
      * @return The item count.
-     *
      * @throws IllegalArgumentException if <code>series</code> is not in the
-     *     specified range.
+     *                                  specified range.
      */
     @Override
     public int getItemCount(int series) {
@@ -139,18 +135,15 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the x-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The x-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getX(int, int)
      */
     @Override
@@ -162,18 +155,15 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the y-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The y-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getY(int, int)
      */
     @Override
@@ -185,18 +175,15 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the starting x-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The starting x-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getStartX(int, int)
      */
     @Override
@@ -208,18 +195,15 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the ending x-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The ending x-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getEndX(int, int)
      */
     @Override
@@ -231,18 +215,15 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the starting y-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The starting y-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getStartY(int, int)
      */
     @Override
@@ -254,18 +235,15 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the ending y-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The ending y-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getEndY(int, int)
      */
     @Override
@@ -277,18 +255,15 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the ending x-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The ending x-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getEndXValue(int, int)
      */
     @Override
@@ -299,18 +274,15 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the ending y-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The ending y-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getEndYValue(int, int)
      */
     @Override
@@ -321,18 +293,15 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the starting x-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The starting x-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getStartXValue(int, int)
      */
     @Override
@@ -343,18 +312,15 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the starting y-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The starting y-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getStartYValue(int, int)
      */
     @Override
@@ -365,18 +331,15 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the x-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The x-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getXValue(int, int)
      */
     @Override
@@ -387,18 +350,15 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the y-value for an item within a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (in the range <code>0</code> to
-     *     <code>getItemCount(series)</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (in the range <code>0</code> to
+     *               <code>getItemCount(series)</code>).
      * @return The y-value.
-     *
      * @throws ArrayIndexOutOfBoundsException if <code>series</code> is not
-     *     within the specified range.
+     *                                        within the specified range.
      * @throws ArrayIndexOutOfBoundsException if <code>item</code> is not
-     *     within the specified range.
-     *
+     *                                        within the specified range.
      * @see #getYValue(int, int)
      */
     @Override
@@ -411,11 +371,11 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
      * the data for that series, then sends a {@link DatasetChangeEvent} to
      * all registered listeners.
      *
-     * @param seriesKey  the series key (<code>null</code> not permitted).
-     * @param data  the data (must be an array with length 6, containing six
-     *     arrays of equal length, the first three containing the x-values
-     *     (x, xLow and xHigh) and the last three containing the y-values
-     *     (y, yLow and yHigh)).
+     * @param seriesKey the series key (<code>null</code> not permitted).
+     * @param data      the data (must be an array with length 6, containing six
+     *                  arrays of equal length, the first three containing the x-values
+     *                  (x, xLow and xHigh) and the last three containing the y-values
+     *                  (y, yLow and yHigh)).
      */
     public void addSeries(Comparable seriesKey, double[][] data) {
         if (seriesKey == null) {
@@ -434,14 +394,13 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
                 || length != data[3].length || length != data[4].length
                 || length != data[5].length) {
             throw new IllegalArgumentException(
-                "The 'data' array must contain six arrays with equal length.");
+                    "The 'data' array must contain six arrays with equal length.");
         }
         int seriesIndex = indexOf(seriesKey);
         if (seriesIndex == -1) {  // add a new series
             this.seriesKeys.add(seriesKey);
             this.seriesList.add(data);
-        }
-        else {  // replace an existing series
+        } else {  // replace an existing series
             this.seriesList.remove(seriesIndex);
             this.seriesList.add(seriesIndex, data);
         }
@@ -455,13 +414,12 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
      * <ul>
      * <li><code>obj</code> is not <code>null</code>;</li>
      * <li><code>obj</code> is an instance of
-     *         <code>DefaultIntervalXYDataset</code>;</li>
+     * <code>DefaultIntervalXYDataset</code>;</li>
      * <li>both datasets have the same number of series, each containing
-     *         exactly the same values.</li>
+     * exactly the same values.</li>
      * </ul>
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -530,9 +488,8 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
      * Returns a clone of this dataset.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if the dataset contains a series with
-     *         a key that cannot be cloned.
+     *                                    a key that cannot be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -560,7 +517,7 @@ public class DefaultIntervalXYDataset extends AbstractIntervalXYDataset
             System.arraycopy(y, 0, yy, 0, y.length);
             System.arraycopy(yStart, 0, yyStart, 0, yStart.length);
             System.arraycopy(yEnd, 0, yyEnd, 0, yEnd.length);
-            clone.seriesList.add(i, new double[][] {xx, xxStart, xxEnd, yy,
+            clone.seriesList.add(i, new double[][]{xx, xxStart, xxEnd, yy,
                     yyStart, yyEnd});
         }
         return clone;

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -48,9 +48,11 @@ import java.io.Serializable;
  * is an alias for the {@link XYLineAndShapeRenderer} class.
  */
 public class DefaultXYItemRenderer extends XYLineAndShapeRenderer
-                                   implements Serializable {
+        implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = 3450423530996888074L;
 
     // no new methods

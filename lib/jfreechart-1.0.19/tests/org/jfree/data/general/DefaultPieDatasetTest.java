@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -44,10 +44,8 @@ package org.jfree.data.general;
 
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link org.jfree.data.general.PieDataset} class.
@@ -59,7 +57,7 @@ public class DefaultPieDatasetTest implements DatasetChangeListener {
     /**
      * Records the last event.
      *
-     * @param event  the last event.
+     * @param event the last event.
      */
     @Override
     public void datasetChanged(DatasetChangeEvent event) {
@@ -97,8 +95,7 @@ public class DefaultPieDatasetTest implements DatasetChangeListener {
         boolean pass = false;
         try {
             d.getKey(-1);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -106,8 +103,7 @@ public class DefaultPieDatasetTest implements DatasetChangeListener {
         pass = false;
         try {
             d.getKey(2);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -127,8 +123,7 @@ public class DefaultPieDatasetTest implements DatasetChangeListener {
         boolean pass = false;
         try {
             d.getIndex(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);

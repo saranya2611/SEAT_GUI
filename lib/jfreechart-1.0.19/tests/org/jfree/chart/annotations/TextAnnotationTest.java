@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -38,30 +38,26 @@
  * 07-Jan-2005 : Added testHashCode() method (DG);
  * 28-Oct-2011 : Added testSetRotationAnchor() method for bug #3428870 (MH);
  * 01-Jul-2013 : Added testChangeEvents() (DG);
- * 
+ *
  */
 
 package org.jfree.chart.annotations;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
-import static org.junit.Assert.assertNotNull;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
 
 import org.jfree.chart.event.AnnotationChangeEvent;
 import org.jfree.chart.event.AnnotationChangeListener;
 import org.jfree.ui.TextAnchor;
 import org.junit.Test;
 
+import java.awt.*;
+
+import static org.junit.Assert.*;
+
 /**
  * Tests for the {@link TextAnnotation} class.
  */
 public class TextAnnotationTest implements AnnotationChangeListener {
+
+    private AnnotationChangeEvent lastEvent;
 
     /**
      * Confirm that the equals method can distinguish all the required fields.
@@ -137,7 +133,7 @@ public class TextAnnotationTest implements AnnotationChangeListener {
             // ok, exception is expected
         }
     }
- 
+
     /**
      * Some tests to ensure that change events are generated as expected.
      */
@@ -148,10 +144,10 @@ public class TextAnnotationTest implements AnnotationChangeListener {
         this.lastEvent = null;
         a.setText("B");
         assertNotNull(this.lastEvent);
-                this.lastEvent = null;
+        this.lastEvent = null;
         a.setText("B");
         assertNotNull(this.lastEvent);
-        
+
         this.lastEvent = null;
         a.setFont(new Font("SansSerif", Font.PLAIN, 12));
         assertNotNull(this.lastEvent);
@@ -159,11 +155,11 @@ public class TextAnnotationTest implements AnnotationChangeListener {
         this.lastEvent = null;
         a.setPaint(Color.BLUE);
         assertNotNull(this.lastEvent);
-        
+
         this.lastEvent = null;
         a.setTextAnchor(TextAnchor.CENTER_LEFT);
         assertNotNull(this.lastEvent);
-        
+
         this.lastEvent = null;
         a.setRotationAnchor(TextAnchor.CENTER_LEFT);
         assertNotNull(this.lastEvent);
@@ -171,18 +167,16 @@ public class TextAnnotationTest implements AnnotationChangeListener {
         this.lastEvent = null;
         a.setRotationAngle(123.4);
         assertNotNull(this.lastEvent);
-   }
+    }
 
-    private AnnotationChangeEvent lastEvent;
-    
     /**
      * Receives notification of a change to an annotation.
-     * 
-     * @param event  the event. 
+     *
+     * @param event the event.
      */
     @Override
     public void annotationChanged(AnnotationChangeEvent event) {
-        this.lastEvent = event;  
+        this.lastEvent = event;
     }
- 
+
 }

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -58,17 +58,12 @@
  * 22-Apr-2008 : Implemented PublicCloneable (DG);
  * 10-Jun-2009 : Simplified getX() and getY() (DG);
  * 02-Jul-2013 : Use ParamChecks (DG);
- * 
+ *
  */
 
 package org.jfree.data.xy;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.data.DomainInfo;
 import org.jfree.data.Range;
 import org.jfree.data.general.DatasetChangeEvent;
@@ -77,13 +72,18 @@ import org.jfree.data.general.SeriesChangeEvent;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * An {@link XYDataset} where every series shares the same x-values (required
  * for generating stacked area charts).
  */
 public class DefaultTableXYDataset extends AbstractIntervalXYDataset
         implements TableXYDataset, IntervalXYDataset, DomainInfo,
-                   PublicCloneable {
+        PublicCloneable {
 
     /**
      * Storage for the data - this list will contain zero, one or many
@@ -91,16 +91,24 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
      */
     private List data = null;
 
-    /** Storage for the x values. */
+    /**
+     * Storage for the x values.
+     */
     private HashSet xPoints = null;
 
-    /** A flag that controls whether or not events are propogated. */
+    /**
+     * A flag that controls whether or not events are propogated.
+     */
     private boolean propagateEvents = true;
 
-    /** A flag that controls auto pruning. */
+    /**
+     * A flag that controls auto pruning.
+     */
     private boolean autoPrune = false;
 
-    /** The delegate used to control the interval width. */
+    /**
+     * The delegate used to control the interval width.
+     */
     private IntervalXYDelegate intervalDelegate;
 
     /**
@@ -113,9 +121,9 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Creates a new empty dataset.
      *
-     * @param autoPrune  a flag that controls whether or not x-values are
-     *                   removed whenever the corresponding y-values are all
-     *                   <code>null</code>.
+     * @param autoPrune a flag that controls whether or not x-values are
+     *                  removed whenever the corresponding y-values are all
+     *                  <code>null</code>.
      */
     public DefaultTableXYDataset(boolean autoPrune) {
         this.autoPrune = autoPrune;
@@ -140,14 +148,14 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
      * to all registered listeners.  The series should be configured to NOT
      * allow duplicate x-values.
      *
-     * @param series  the series (<code>null</code> not permitted).
+     * @param series the series (<code>null</code> not permitted).
      */
     public void addSeries(XYSeries series) {
         ParamChecks.nullNotPermitted(series, "series");
         if (series.getAllowDuplicateXValues()) {
             throw new IllegalArgumentException(
-                "Cannot accept XYSeries that allow duplicate values. "
-                + "Use XYSeries(seriesName, <sort>, false) constructor."
+                    "Cannot accept XYSeries that allow duplicate values. "
+                            + "Use XYSeries(seriesName, <sort>, false) constructor."
             );
         }
         updateXPoints(series);
@@ -160,7 +168,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
      * Adds any unique x-values from 'series' to the dataset, and also adds any
      * x-values that are in the dataset but not in 'series' to the series.
      *
-     * @param series  the series (<code>null</code> not permitted).
+     * @param series the series (<code>null</code> not permitted).
      */
     private void updateXPoints(XYSeries series) {
         ParamChecks.nullNotPermitted(series, "series");
@@ -224,8 +232,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     public int getItemCount() {
         if (this.xPoints == null) {
             return 0;
-        }
-        else {
+        } else {
             return this.xPoints.size();
         }
     }
@@ -233,8 +240,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns a series.
      *
-     * @param series  the series (zero-based index).
-     *
+     * @param series the series (zero-based index).
      * @return The series (never <code>null</code>).
      */
     public XYSeries getSeries(int series) {
@@ -247,8 +253,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the key for a series.
      *
-     * @param series  the series (zero-based index).
-     *
+     * @param series the series (zero-based index).
      * @return The key for a series.
      */
     @Override
@@ -260,8 +265,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the number of items in the specified series.
      *
-     * @param series  the series (zero-based index).
-     *
+     * @param series the series (zero-based index).
      * @return The number of items in the specified series.
      */
     @Override
@@ -273,9 +277,8 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the x-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The x-value for the specified series and item.
      */
     @Override
@@ -288,9 +291,8 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the starting X value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The starting X value.
      */
     @Override
@@ -301,9 +303,8 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the ending X value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The ending X value.
      */
     @Override
@@ -314,11 +315,10 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the y-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
+     * @param series the series (zero-based index).
      * @param index  the index of the item of interest (zero-based).
-     *
      * @return The y-value for the specified series and item (possibly
-     *         <code>null</code>).
+     * <code>null</code>).
      */
     @Override
     public Number getY(int series, int index) {
@@ -329,9 +329,8 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the starting Y value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The starting Y value.
      */
     @Override
@@ -342,9 +341,8 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the ending Y value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The ending Y value.
      */
     @Override
@@ -375,7 +373,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
      * Removes a series from the collection and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param series  the series (<code>null</code> not permitted).
+     * @param series the series (<code>null</code> not permitted).
      */
     public void removeSeries(XYSeries series) {
         ParamChecks.nullNotPermitted(series, "series");
@@ -393,7 +391,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
      * Removes a series from the collection and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param series  the series (zero based index).
+     * @param series the series (zero based index).
      */
     public void removeSeries(int series) {
 
@@ -408,8 +406,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
         this.data.remove(series);
         if (this.data.isEmpty()) {
             this.xPoints.clear();
-        }
-        else if (this.autoPrune) {
+        } else if (this.autoPrune) {
             prune();
         }
         fireDatasetChanged();
@@ -419,7 +416,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Removes the items from all series for a given x value.
      *
-     * @param x  the x-value.
+     * @param x the x-value.
      */
     public void removeAllValuesForX(Number x) {
         ParamChecks.nullNotPermitted(x, "x");
@@ -438,8 +435,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
      * Returns <code>true</code> if all the y-values for the specified x-value
      * are <code>null</code> and <code>false</code> otherwise.
      *
-     * @param x  the x-value.
-     *
+     * @param x the x-value.
      * @return A boolean.
      */
     protected boolean canPrune(Number x) {
@@ -471,7 +467,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
      * changes.  It responds by updating the x-points for the entire dataset
      * and sending a {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param event  information about the change.
+     * @param event information about the change.
      */
     @Override
     public void seriesChanged(SeriesChangeEvent event) {
@@ -484,8 +480,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Tests this collection for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -522,7 +517,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
         int result;
         result = (this.data != null ? this.data.hashCode() : 0);
         result = 29 * result
-                 + (this.xPoints != null ? this.xPoints.hashCode() : 0);
+                + (this.xPoints != null ? this.xPoints.hashCode() : 0);
         result = 29 * result + (this.propagateEvents ? 1 : 0);
         result = 29 * result + (this.autoPrune ? 1 : 0);
         return result;
@@ -532,9 +527,8 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
      * Returns an independent copy of this dataset.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is some reason that cloning
-     *     cannot be performed.
+     *                                    cannot be performed.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -559,9 +553,8 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the minimum x-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The minimum value.
      */
     @Override
@@ -572,9 +565,8 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the maximum x-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The maximum value.
      */
     @Override
@@ -585,17 +577,15 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the range of the values in this dataset's domain.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The range.
      */
     @Override
     public Range getDomainBounds(boolean includeInterval) {
         if (includeInterval) {
             return this.intervalDelegate.getDomainBounds(includeInterval);
-        }
-        else {
+        } else {
             return DatasetUtilities.iterateDomainBounds(this, includeInterval);
         }
     }
@@ -635,7 +625,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
      * Sets the interval width to a fixed value, and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param d  the new interval width (must be &gt; 0).
+     * @param d the new interval width (must be &gt; 0).
      */
     public void setIntervalWidth(double d) {
         this.intervalDelegate.setFixedIntervalWidth(d);
@@ -646,7 +636,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
      * Returns whether the interval width is automatically calculated or not.
      *
      * @return A flag that determines whether or not the interval width is
-     *         automatically calculated.
+     * automatically calculated.
      */
     public boolean isAutoWidth() {
         return this.intervalDelegate.isAutoWidth();
@@ -656,7 +646,7 @@ public class DefaultTableXYDataset extends AbstractIntervalXYDataset
      * Sets the flag that indicates whether the interval width is automatically
      * calculated or not.
      *
-     * @param b  a boolean.
+     * @param b a boolean.
      */
     public void setAutoWidth(boolean b) {
         this.intervalDelegate.setAutoWidth(b);

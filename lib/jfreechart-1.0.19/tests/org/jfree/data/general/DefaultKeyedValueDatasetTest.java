@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------------
@@ -40,13 +40,10 @@
 
 package org.jfree.data.general;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-
 import org.jfree.chart.TestUtilities;
-
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link DefaultKeyedValueDataset} class.
@@ -60,9 +57,9 @@ public class DefaultKeyedValueDatasetTest {
     public void testEquals() {
 
         DefaultKeyedValueDataset d1
-            = new DefaultKeyedValueDataset("Test", new Double(45.5));
+                = new DefaultKeyedValueDataset("Test", new Double(45.5));
         DefaultKeyedValueDataset d2
-            = new DefaultKeyedValueDataset("Test", new Double(45.5));
+                = new DefaultKeyedValueDataset("Test", new Double(45.5));
         assertTrue(d1.equals(d2));
         assertTrue(d2.equals(d1));
 
@@ -82,7 +79,7 @@ public class DefaultKeyedValueDatasetTest {
     @Test
     public void testCloning() throws CloneNotSupportedException {
         DefaultKeyedValueDataset d1
-            = new DefaultKeyedValueDataset("Test", new Double(45.5));
+                = new DefaultKeyedValueDataset("Test", new Double(45.5));
         DefaultKeyedValueDataset d2 = (DefaultKeyedValueDataset) d1.clone();
         assertTrue(d1 != d2);
         assertTrue(d1.getClass() == d2.getClass());
@@ -95,7 +92,7 @@ public class DefaultKeyedValueDatasetTest {
     @Test
     public void testCloneIndependence() throws CloneNotSupportedException {
         DefaultKeyedValueDataset d1
-            = new DefaultKeyedValueDataset("Key", new Double(10.0));
+                = new DefaultKeyedValueDataset("Key", new Double(10.0));
         DefaultKeyedValueDataset d2 = (DefaultKeyedValueDataset) d1.clone();
         assertTrue(d1.equals(d2));
         d2.updateValue(new Double(99.9));
@@ -110,8 +107,8 @@ public class DefaultKeyedValueDatasetTest {
     @Test
     public void testSerialization() {
         DefaultKeyedValueDataset d1
-            = new DefaultKeyedValueDataset("Test", new Double(25.3));
-        DefaultKeyedValueDataset d2 = (DefaultKeyedValueDataset) 
+                = new DefaultKeyedValueDataset("Test", new Double(25.3));
+        DefaultKeyedValueDataset d2 = (DefaultKeyedValueDataset)
                 TestUtilities.serialised(d1);
         assertEquals(d1, d2);
     }

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -44,33 +44,37 @@
 
 package org.jfree.chart.entity;
 
-import java.awt.Shape;
-import java.io.Serializable;
-
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYBlockRenderer;
+
+import java.awt.*;
+import java.io.Serializable;
 
 /**
  * Represents an item on a contour chart.
  *
  * @deprecated This class is no longer supported (as of version 1.0.4).  If
- *     you are creating contour plots, please try to use {@link XYPlot} and
- *     {@link XYBlockRenderer}.
+ * you are creating contour plots, please try to use {@link XYPlot} and
+ * {@link XYBlockRenderer}.
  */
 public class ContourEntity extends ChartEntity
-                           implements Cloneable, Serializable {
+        implements Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 1249570520505992847L;
 
-    /** Holds the index into the dataset for this entity. */
+    /**
+     * Holds the index into the dataset for this entity.
+     */
     private int index = -1;
 
     /**
      * Constructor for ContourEntity.
      *
-     * @param area  the area.
-     * @param toolTipText  the tooltip text.
+     * @param area        the area.
+     * @param toolTipText the tooltip text.
      */
     public ContourEntity(Shape area, String toolTipText) {
         super(area, toolTipText);
@@ -79,9 +83,9 @@ public class ContourEntity extends ChartEntity
     /**
      * Constructor for ContourEntity.
      *
-     * @param area  the area.
-     * @param toolTipText  the tooltip text.
-     * @param urlText  the URL text.
+     * @param area        the area.
+     * @param toolTipText the tooltip text.
+     * @param urlText     the URL text.
      */
     public ContourEntity(Shape area, String toolTipText, String urlText) {
         super(area, toolTipText, urlText);
@@ -99,7 +103,7 @@ public class ContourEntity extends ChartEntity
     /**
      * Sets the index.
      *
-     * @param index  the index.
+     * @param index the index.
      */
     public void setIndex(int index) {
         this.index = index;
@@ -108,8 +112,7 @@ public class ContourEntity extends ChartEntity
     /**
      * Tests the entity for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -131,7 +134,6 @@ public class ContourEntity extends ChartEntity
      * Returns a clone of the entity.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if cloning is not supported.
      */
     @Override

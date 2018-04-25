@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------
@@ -42,17 +42,13 @@
 
 package org.jfree.chart.renderer.category;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.Range;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link StackedAreaRenderer} class.
@@ -142,7 +138,7 @@ public class StackedAreaRendererTest {
     @Test
     public void testSerialization() {
         StackedAreaRenderer r1 = new StackedAreaRenderer();
-        StackedAreaRenderer r2 = (StackedAreaRenderer) 
+        StackedAreaRenderer r2 = (StackedAreaRenderer)
                 TestUtilities.serialised(r1);
         assertEquals(r1, r2);
     }

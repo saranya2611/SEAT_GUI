@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -42,23 +42,23 @@
 
 package org.jfree.chart;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 /**
  * A frame for displaying a chart.
  */
 public class ChartFrame extends JFrame {
 
-    /** The chart panel. */
+    /**
+     * The chart panel.
+     */
     private ChartPanel chartPanel;
 
     /**
      * Constructs a frame for a chart.
      *
-     * @param title  the frame title.
-     * @param chart  the chart.
+     * @param title the frame title.
+     * @param chart the chart.
      */
     public ChartFrame(String title, JFreeChart chart) {
         this(title, chart, false);
@@ -67,10 +67,10 @@ public class ChartFrame extends JFrame {
     /**
      * Constructs a frame for a chart.
      *
-     * @param title  the frame title.
-     * @param chart  the chart.
-     * @param scrollPane  if <code>true</code>, put the Chart(Panel) into a
-     *                    JScrollPane.
+     * @param title      the frame title.
+     * @param chart      the chart.
+     * @param scrollPane if <code>true</code>, put the Chart(Panel) into a
+     *                   JScrollPane.
      */
     public ChartFrame(String title, JFreeChart chart, boolean scrollPane) {
         super(title);
@@ -78,8 +78,7 @@ public class ChartFrame extends JFrame {
         this.chartPanel = new ChartPanel(chart);
         if (scrollPane) {
             setContentPane(new JScrollPane(this.chartPanel));
-        }
-        else {
+        } else {
             setContentPane(this.chartPanel);
         }
     }

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -54,44 +54,54 @@
 
 package org.jfree.chart.entity;
 
-import java.awt.Shape;
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.ObjectUtilities;
+
+import java.awt.*;
+import java.io.Serializable;
 
 /**
  * A chart entity that represents one section within a pie plot.
  */
 public class PieSectionEntity extends ChartEntity
-                              implements Serializable {
+        implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 9199892576531984162L;
 
-    /** The dataset. */
+    /**
+     * The dataset.
+     */
     private PieDataset dataset;
 
-    /** The pie index. */
+    /**
+     * The pie index.
+     */
     private int pieIndex;
 
-    /** The section index. */
+    /**
+     * The section index.
+     */
     private int sectionIndex;
 
-    /** The section key. */
+    /**
+     * The section key.
+     */
     private Comparable sectionKey;
 
     /**
      * Creates a new pie section entity.
      *
-     * @param area  the area.
-     * @param dataset  the pie dataset.
-     * @param pieIndex  the pie index (zero-based).
-     * @param sectionIndex  the section index (zero-based).
-     * @param sectionKey  the section key.
+     * @param area         the area.
+     * @param dataset      the pie dataset.
+     * @param pieIndex     the pie index (zero-based).
+     * @param sectionIndex the section index (zero-based).
+     * @param sectionKey   the section key.
      * @param toolTipText  the tool tip text.
-     * @param urlText  the URL text for HTML image maps.
+     * @param urlText      the URL text for HTML image maps.
      */
     public PieSectionEntity(Shape area,
                             PieDataset dataset,
@@ -111,7 +121,6 @@ public class PieSectionEntity extends ChartEntity
      * Returns the dataset this entity refers to.
      *
      * @return The dataset.
-     *
      * @see #setDataset(PieDataset)
      */
     public PieDataset getDataset() {
@@ -121,8 +130,7 @@ public class PieSectionEntity extends ChartEntity
     /**
      * Sets the dataset this entity refers to.
      *
-     * @param dataset  the dataset.
-     *
+     * @param dataset the dataset.
      * @see #getDataset()
      */
     public void setDataset(PieDataset dataset) {
@@ -135,7 +143,6 @@ public class PieSectionEntity extends ChartEntity
      * or column index from which the pie data is extracted.
      *
      * @return The pie index.
-     *
      * @see #setPieIndex(int)
      */
     public int getPieIndex() {
@@ -145,8 +152,7 @@ public class PieSectionEntity extends ChartEntity
     /**
      * Sets the pie index.
      *
-     * @param index  the new index value.
-     *
+     * @param index the new index value.
      * @see #getPieIndex()
      */
     public void setPieIndex(int index) {
@@ -157,7 +163,6 @@ public class PieSectionEntity extends ChartEntity
      * Returns the section index.
      *
      * @return The section index.
-     *
      * @see #setSectionIndex(int)
      */
     public int getSectionIndex() {
@@ -167,8 +172,7 @@ public class PieSectionEntity extends ChartEntity
     /**
      * Sets the section index.
      *
-     * @param index  the section index.
-     *
+     * @param index the section index.
      * @see #getSectionIndex()
      */
     public void setSectionIndex(int index) {
@@ -179,7 +183,6 @@ public class PieSectionEntity extends ChartEntity
      * Returns the section key.
      *
      * @return The section key.
-     *
      * @see #setSectionKey(Comparable)
      */
     public Comparable getSectionKey() {
@@ -189,8 +192,7 @@ public class PieSectionEntity extends ChartEntity
     /**
      * Sets the section key.
      *
-     * @param key  the section key.
-     *
+     * @param key the section key.
      * @see #getSectionKey()
      */
     public void setSectionKey(Comparable key) {
@@ -200,8 +202,7 @@ public class PieSectionEntity extends ChartEntity
     /**
      * Tests this entity for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -249,7 +250,7 @@ public class PieSectionEntity extends ChartEntity
     @Override
     public String toString() {
         return "PieSection: " + this.pieIndex + ", " + this.sectionIndex + "("
-                              + this.sectionKey.toString() + ")";
+                + this.sectionKey.toString() + ")";
     }
 
 }

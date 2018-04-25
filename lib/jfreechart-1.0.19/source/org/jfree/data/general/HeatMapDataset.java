@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -53,7 +53,7 @@ public interface HeatMapDataset {
      * Returns the number of x values across the width of the dataset.  The
      * values are evenly spaced between {@link #getMinimumXValue()} and
      * {@link #getMaximumXValue()}.
-     * 
+     *
      * @return The number of x-values (always &gt; 0).
      */
     public int getXSampleCount();
@@ -105,18 +105,16 @@ public interface HeatMapDataset {
 
     /**
      * A convenience method that returns the x-value for the given index.
-     * 
-     * @param xIndex  the xIndex.
-     * 
+     *
+     * @param xIndex the xIndex.
      * @return The x-value.
      */
     public double getXValue(int xIndex);
 
     /**
      * A convenience method that returns the y-value for the given index.
-     * 
-     * @param yIndex  the yIndex.
-     * 
+     *
+     * @param yIndex the yIndex.
      * @return The y-value.
      */
     public double getYValue(int yIndex);
@@ -125,9 +123,8 @@ public interface HeatMapDataset {
      * Returns the z-value at the specified sample position in the dataset.
      * For a missing or unknown value, this method should return Double.NAN.
      *
-     * @param xIndex  the position of the x sample in the dataset.
-     * @param yIndex  the position of the y sample in the dataset.
-     *
+     * @param xIndex the position of the x sample in the dataset.
+     * @param yIndex the position of the y sample in the dataset.
      * @return The z-value.
      */
     public double getZValue(int xIndex, int yIndex);
@@ -144,9 +141,8 @@ public interface HeatMapDataset {
      * {@link #getZValue(int, int)} method unless you *know* that the dataset
      * implementation stores the z-values using objects.
      *
-     * @param xIndex  the position of the x sample in the dataset.
-     * @param yIndex  the position of the y sample in the dataset.
-     *
+     * @param xIndex the position of the x sample in the dataset.
+     * @param yIndex the position of the y sample in the dataset.
      * @return The z-value (possibly <code>null</code>).
      */
     public Number getZ(int xIndex, int yIndex);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -55,10 +55,9 @@ public interface XYZURLGenerator extends XYURLGenerator {
      * Generates a URL for a particular item within a series. As a guideline,
      * the URL should be valid within the context of an XHTML 1.0 document.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param item    the item index (zero-based).
      * @return A string containing the generated URL.
      */
     public String generateURL(XYZDataset dataset, int series, int item);

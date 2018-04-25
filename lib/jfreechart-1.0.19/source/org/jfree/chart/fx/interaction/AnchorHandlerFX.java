@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -40,41 +40,44 @@
 
 package org.jfree.chart.fx.interaction;
 
-import java.awt.geom.Point2D;
 import javafx.scene.input.MouseEvent;
 import org.jfree.chart.fx.ChartCanvas;
 
+import java.awt.geom.Point2D;
+
 /**
- * Handles mouse clicks on the {@link ChartCanvas} by updating the anchor and 
+ * Handles mouse clicks on the {@link ChartCanvas} by updating the anchor and
  * redrawing the chart.
- * 
+ * <p>
  * <p>THE API FOR THIS CLASS IS SUBJECT TO CHANGE IN FUTURE RELEASES.  This is
- * so that we can incorporate feedback on the (new) JavaFX support in 
+ * so that we can incorporate feedback on the (new) JavaFX support in
  * JFreeChart.</p>
- * 
+ *
  * @since 1.0.18
  */
 public class AnchorHandlerFX extends AbstractMouseHandlerFX {
-    
-    /** Records the mouse down location. */
+
+    /**
+     * Records the mouse down location.
+     */
     private Point2D mousePressedPoint;
-    
+
     /**
      * Creates a new instance.
-     * 
-     * @param id  the id (<code>null</code> not permitted).
+     *
+     * @param id the id (<code>null</code> not permitted).
      */
     public AnchorHandlerFX(String id) {
         super(id, false, false, false, false);
     }
-    
+
     /**
      * Handles a mouse pressed event by recording the location of the mouse
      * pointer (so that later we can check that the click isn't part of a
      * drag).
-     * 
-     * @param canvas  the chart canvas.
-     * @param e  the mouse event.
+     *
+     * @param canvas the chart canvas.
+     * @param e      the mouse event.
      */
     @Override
     public void handleMousePressed(ChartCanvas canvas, MouseEvent e) {
@@ -85,9 +88,9 @@ public class AnchorHandlerFX extends AbstractMouseHandlerFX {
      * Handles a mouse clicked event by setting the anchor point for the
      * canvas and redrawing the chart (the anchor point is a reference point
      * used by the chart to determine crosshair lines).
-     * 
-     * @param canvas  the chart canvas (<code>null</code> not permitted).
-     * @param e  the mouse event (<code>null</code> not permitted).
+     *
+     * @param canvas the chart canvas (<code>null</code> not permitted).
+     * @param e      the mouse event (<code>null</code> not permitted).
      */
     @Override
     public void handleMouseClicked(ChartCanvas canvas, MouseEvent e) {
@@ -100,5 +103,5 @@ public class AnchorHandlerFX extends AbstractMouseHandlerFX {
         }
         this.mousePressedPoint = null;
     }
-    
+
 }

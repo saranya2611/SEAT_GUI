@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -42,19 +42,21 @@
 
 package org.jfree.chart.block;
 
-import java.awt.Graphics2D;
+import org.jfree.ui.Size2D;
+
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.List;
-
-import org.jfree.ui.Size2D;
 
 /**
  * Arranges a block in the center of its container.  This class is immutable.
  */
 public class CenterArrangement implements Arrangement, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -353308149220382047L;
 
     /**
@@ -68,8 +70,8 @@ public class CenterArrangement implements Arrangement, Serializable {
      * called by the {@link BlockContainer}, you shouldn't need to call it
      * directly.
      *
-     * @param block  the block.
-     * @param key  a key that controls the position of the block.
+     * @param block the block.
+     * @param key   a key that controls the position of the block.
      */
     @Override
     public void add(Block block, Object key) {
@@ -84,9 +86,8 @@ public class CenterArrangement implements Arrangement, Serializable {
      * calculate sizing parameters.
      *
      * @param container  the container whose items are being arranged.
-     * @param g2  the graphics device.
-     * @param constraint  the size constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the size constraint.
      * @return The size of the container after arrangement of the contents.
      */
     @Override
@@ -98,33 +99,25 @@ public class CenterArrangement implements Arrangement, Serializable {
         if (w == LengthConstraintType.NONE) {
             if (h == LengthConstraintType.NONE) {
                 return arrangeNN(container, g2);
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
+                throw new RuntimeException("Not implemented.");
+            } else if (h == LengthConstraintType.RANGE) {
                 throw new RuntimeException("Not implemented.");
             }
-            else if (h == LengthConstraintType.RANGE) {
-                throw new RuntimeException("Not implemented.");
-            }
-        }
-        else if (w == LengthConstraintType.FIXED) {
+        } else if (w == LengthConstraintType.FIXED) {
             if (h == LengthConstraintType.NONE) {
                 return arrangeFN(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
+                throw new RuntimeException("Not implemented.");
+            } else if (h == LengthConstraintType.RANGE) {
                 throw new RuntimeException("Not implemented.");
             }
-            else if (h == LengthConstraintType.RANGE) {
-                throw new RuntimeException("Not implemented.");
-            }
-        }
-        else if (w == LengthConstraintType.RANGE) {
+        } else if (w == LengthConstraintType.RANGE) {
             if (h == LengthConstraintType.NONE) {
                 return arrangeRN(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
                 return arrangeRF(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
                 return arrangeRR(container, g2, constraint);
             }
         }
@@ -137,9 +130,8 @@ public class CenterArrangement implements Arrangement, Serializable {
      * constraint.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size.
      */
     protected Size2D arrangeFN(BlockContainer container, Graphics2D g2,
@@ -160,9 +152,8 @@ public class CenterArrangement implements Arrangement, Serializable {
      * constraint on the height.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size following the arrangement.
      */
     protected Size2D arrangeFR(BlockContainer container, Graphics2D g2,
@@ -171,8 +162,7 @@ public class CenterArrangement implements Arrangement, Serializable {
         Size2D s = arrangeFN(container, g2, constraint);
         if (constraint.getHeightRange().contains(s.height)) {
             return s;
-        }
-        else {
+        } else {
             RectangleConstraint c = constraint.toFixedHeight(
                     constraint.getHeightRange().constrain(s.getHeight()));
             return arrangeFF(container, g2, c);
@@ -184,9 +174,8 @@ public class CenterArrangement implements Arrangement, Serializable {
      * specified as fixed constraints.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size following the arrangement.
      */
     protected Size2D arrangeFF(BlockContainer container, Graphics2D g2,
@@ -201,9 +190,8 @@ public class CenterArrangement implements Arrangement, Serializable {
      * specified ranges.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size after the arrangement.
      */
     protected Size2D arrangeRR(BlockContainer container, Graphics2D g2,
@@ -214,8 +202,7 @@ public class CenterArrangement implements Arrangement, Serializable {
         Size2D s1 = arrangeNN(container, g2);
         if (constraint.getWidthRange().contains(s1.width)) {
             return s1;  // TODO: we didn't check the height yet
-        }
-        else {
+        } else {
             RectangleConstraint c = constraint.toFixedWidth(
                     constraint.getWidthRange().getUpperBound());
             return arrangeFR(container, g2, c);
@@ -227,9 +214,8 @@ public class CenterArrangement implements Arrangement, Serializable {
      * width and a fixed height.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size following the arrangement.
      */
     protected Size2D arrangeRF(BlockContainer container, Graphics2D g2,
@@ -238,8 +224,7 @@ public class CenterArrangement implements Arrangement, Serializable {
         Size2D s = arrangeNF(container, g2, constraint);
         if (constraint.getWidthRange().contains(s.width)) {
             return s;
-        }
-        else {
+        } else {
             RectangleConstraint c = constraint.toFixedWidth(
                     constraint.getWidthRange().constrain(s.getWidth()));
             return arrangeFF(container, g2, c);
@@ -251,9 +236,8 @@ public class CenterArrangement implements Arrangement, Serializable {
      * constraint on the height.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size following the arrangement.
      */
     protected Size2D arrangeRN(BlockContainer container, Graphics2D g2,
@@ -263,8 +247,7 @@ public class CenterArrangement implements Arrangement, Serializable {
         Size2D s1 = arrangeNN(container, g2);
         if (constraint.getWidthRange().contains(s1.width)) {
             return s1;
-        }
-        else {
+        } else {
             RectangleConstraint c = constraint.toFixedWidth(
                     constraint.getWidthRange().getUpperBound());
             return arrangeFN(container, g2, c);
@@ -275,9 +258,8 @@ public class CenterArrangement implements Arrangement, Serializable {
      * Arranges the blocks without any constraints.  This puts all blocks
      * into a single row.
      *
-     * @param container  the container.
-     * @param g2  the graphics device.
-     *
+     * @param container the container.
+     * @param g2        the graphics device.
      * @return The size after the arrangement.
      */
     protected Size2D arrangeNN(BlockContainer container, Graphics2D g2) {
@@ -293,9 +275,8 @@ public class CenterArrangement implements Arrangement, Serializable {
      * constraint.  This puts all blocks into a single row.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size after the arrangement.
      */
     protected Size2D arrangeNF(BlockContainer container, Graphics2D g2,
@@ -315,8 +296,7 @@ public class CenterArrangement implements Arrangement, Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

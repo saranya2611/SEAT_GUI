@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -49,10 +49,10 @@
 
 package org.jfree.data;
 
-import java.io.Serializable;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
 
 /**
  * A (key, value) pair.  This class provides a default implementation
@@ -61,21 +61,27 @@ import org.jfree.util.PublicCloneable;
 public class DefaultKeyedValue implements KeyedValue, Cloneable,
         PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -7388924517460437712L;
 
-    /** The key. */
+    /**
+     * The key.
+     */
     private Comparable key;
 
-    /** The value. */
+    /**
+     * The value.
+     */
     private Number value;
 
     /**
      * Creates a new (key, value) item.
      *
-     * @param key  the key (should be immutable, <code>null</code> not
-     *         permitted).
-     * @param value  the value (<code>null</code> permitted).
+     * @param key   the key (should be immutable, <code>null</code> not
+     *              permitted).
+     * @param value the value (<code>null</code> permitted).
      */
     public DefaultKeyedValue(Comparable key, Number value) {
         ParamChecks.nullNotPermitted(key, "key");
@@ -106,7 +112,7 @@ public class DefaultKeyedValue implements KeyedValue, Cloneable,
     /**
      * Sets the value.
      *
-     * @param value  the value (<code>null</code> permitted).
+     * @param value the value (<code>null</code> permitted).
      */
     public synchronized void setValue(Number value) {
         this.value = value;
@@ -115,8 +121,7 @@ public class DefaultKeyedValue implements KeyedValue, Cloneable,
     /**
      * Tests this key-value pair for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -158,9 +163,8 @@ public class DefaultKeyedValue implements KeyedValue, Cloneable,
      * themselves.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException Not thrown by this class, but
-     *         subclasses (if any) might.
+     *                                    subclasses (if any) might.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

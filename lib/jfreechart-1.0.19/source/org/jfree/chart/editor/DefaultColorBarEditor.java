@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -48,23 +48,16 @@
 
 package org.jfree.chart.editor;
 
-import java.awt.event.ActionEvent;
-import java.util.ResourceBundle;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-
 import org.jfree.chart.axis.ColorBar;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.GreyPalette;
 import org.jfree.chart.plot.RainbowPalette;
 import org.jfree.chart.util.ResourceBundleWrapper;
 import org.jfree.layout.LCBLayout;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.util.ResourceBundle;
 
 /**
  * A DefaultColorBarEditor.  Extends DefaultNumberAxisEditor to allow
@@ -73,35 +66,41 @@ import org.jfree.layout.LCBLayout;
 class DefaultColorBarEditor extends DefaultNumberAxisEditor {
 
     /**
+     * The resourceBundle for the localization.
+     */
+    protected static ResourceBundle localizationResources
+            = ResourceBundleWrapper.getBundle(
+            "org.jfree.chart.editor.LocalizationBundle");
+    /**
      * A checkbox that indicates whether or not the color indices should run
      * high to low.
      */
     private JCheckBox invertPaletteCheckBox;
-
-    /** Flag set by invertPaletteCheckBox. */
+    /**
+     * Flag set by invertPaletteCheckBox.
+     */
     private boolean invertPalette = false;
-
-    /** A checkbox that indicates whether the palette is stepped. */
+    /**
+     * A checkbox that indicates whether the palette is stepped.
+     */
     private JCheckBox stepPaletteCheckBox;
-
-    /** Flag set by stepPaletteCheckBox. */
+    /**
+     * Flag set by stepPaletteCheckBox.
+     */
     private boolean stepPalette = false;
-
-    /** The Palette Sample displaying the current Palette. */
+    /**
+     * The Palette Sample displaying the current Palette.
+     */
     private PaletteSample currentPalette;
-
-    /** An array of availiable sample palettes. */
+    /**
+     * An array of availiable sample palettes.
+     */
     private PaletteSample[] availablePaletteSamples;
-
-    /** The resourceBundle for the localization. */
-   protected  static ResourceBundle localizationResources
-           = ResourceBundleWrapper.getBundle(
-                   "org.jfree.chart.editor.LocalizationBundle");
 
     /**
      * Creates a new edit panel for a color bar.
      *
-     * @param colorBar  the color bar.
+     * @param colorBar the color bar.
      */
     public DefaultColorBarEditor(ColorBar colorBar) {
         super((NumberAxis) colorBar.getAxis());
@@ -110,9 +109,9 @@ class DefaultColorBarEditor extends DefaultNumberAxisEditor {
         this.currentPalette = new PaletteSample(colorBar.getColorPalette());
         this.availablePaletteSamples = new PaletteSample[2];
         this.availablePaletteSamples[0]
-            = new PaletteSample(new RainbowPalette());
+                = new PaletteSample(new RainbowPalette());
         this.availablePaletteSamples[1]
-            = new PaletteSample(new GreyPalette());
+                = new PaletteSample(new GreyPalette());
 
         JTabbedPane other = getOtherTabs();
 
@@ -121,8 +120,8 @@ class DefaultColorBarEditor extends DefaultNumberAxisEditor {
 
         palettePanel.add(new JPanel());
         this.invertPaletteCheckBox = new JCheckBox(
-            localizationResources.getString("Invert_Palette"),
-            this.invertPalette
+                localizationResources.getString("Invert_Palette"),
+                this.invertPalette
         );
         this.invertPaletteCheckBox.setActionCommand("invertPalette");
         this.invertPaletteCheckBox.addActionListener(this);
@@ -131,8 +130,8 @@ class DefaultColorBarEditor extends DefaultNumberAxisEditor {
 
         palettePanel.add(new JPanel());
         this.stepPaletteCheckBox = new JCheckBox(
-            localizationResources.getString("Step_Palette"),
-            this.stepPalette
+                localizationResources.getString("Step_Palette"),
+                this.stepPalette
         );
         this.stepPaletteCheckBox.setActionCommand("stepPalette");
         this.stepPaletteCheckBox.addActionListener(this);
@@ -140,10 +139,10 @@ class DefaultColorBarEditor extends DefaultNumberAxisEditor {
         palettePanel.add(new JPanel());
 
         palettePanel.add(
-            new JLabel(localizationResources.getString("Palette"))
+                new JLabel(localizationResources.getString("Palette"))
         );
         JButton button
-            = new JButton(localizationResources.getString("Set_palette..."));
+                = new JButton(localizationResources.getString("Set_palette..."));
         button.setActionCommand("PaletteChoice");
         button.addActionListener(this);
         palettePanel.add(this.currentPalette);
@@ -154,23 +153,37 @@ class DefaultColorBarEditor extends DefaultNumberAxisEditor {
     }
 
     /**
+     * A static method that returns a panel that is appropriate for the axis
+     * type.
+     *
+     * @param colorBar the color bar.
+     * @return A panel or <code>null</code< if axis is <code>null</code>.
+     */
+    public static DefaultColorBarEditor getInstance(ColorBar colorBar) {
+
+        if (colorBar != null) {
+            return new DefaultColorBarEditor(colorBar);
+        } else {
+            return null;
+        }
+
+    }
+
+    /**
      * Handles actions from within the property panel.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void actionPerformed(ActionEvent event) {
         String command = event.getActionCommand();
         if (command.equals("PaletteChoice")) {
             attemptPaletteSelection();
-        }
-        else if (command.equals("invertPalette")) {
+        } else if (command.equals("invertPalette")) {
             this.invertPalette = this.invertPaletteCheckBox.isSelected();
-        }
-        else if (command.equals("stepPalette")) {
+        } else if (command.equals("stepPalette")) {
             this.stepPalette = this.stepPaletteCheckBox.isSelected();
-        }
-        else {
+        } else {
             super.actionPerformed(event);  // pass to super-class for handling
         }
     }
@@ -180,10 +193,10 @@ class DefaultColorBarEditor extends DefaultNumberAxisEditor {
      */
     private void attemptPaletteSelection() {
         PaletteChooserPanel panel
-            = new PaletteChooserPanel(null, this.availablePaletteSamples);
+                = new PaletteChooserPanel(null, this.availablePaletteSamples);
         int result = JOptionPane.showConfirmDialog(
-            this, panel, localizationResources.getString("Palette_Selection"),
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE
+                this, panel, localizationResources.getString("Palette_Selection"),
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE
         );
 
         if (result == JOptionPane.OK_OPTION) {
@@ -199,32 +212,13 @@ class DefaultColorBarEditor extends DefaultNumberAxisEditor {
      * Sets the properties of the specified axis to match the properties
      * defined on this panel.
      *
-     * @param colorBar  the color bar.
+     * @param colorBar the color bar.
      */
     public void setAxisProperties(ColorBar colorBar) {
         super.setAxisProperties(colorBar.getAxis());
         colorBar.setColorPalette(this.currentPalette.getPalette());
         colorBar.getColorPalette().setInverse(this.invertPalette); //dmo added
         colorBar.getColorPalette().setStepped(this.stepPalette); //dmo added
-    }
-
-    /**
-     * A static method that returns a panel that is appropriate for the axis
-     * type.
-     *
-     * @param colorBar  the color bar.
-     *
-     * @return A panel or <code>null</code< if axis is <code>null</code>.
-     */
-    public static DefaultColorBarEditor getInstance(ColorBar colorBar) {
-
-        if (colorBar != null) {
-            return new DefaultColorBarEditor(colorBar);
-        }
-        else {
-            return null;
-        }
-
     }
 
 }

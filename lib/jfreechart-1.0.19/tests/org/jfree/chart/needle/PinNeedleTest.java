@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -40,10 +40,10 @@
 
 package org.jfree.chart.needle;
 
-import static org.junit.Assert.assertTrue;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the {@link PinNeedle} class.
@@ -55,10 +55,10 @@ public class PinNeedleTest {
      */
     @Test
     public void testEquals() {
-       PinNeedle n1 = new PinNeedle();
-       PinNeedle n2 = new PinNeedle();
-       assertTrue(n1.equals(n2));
-       assertTrue(n2.equals(n1));
+        PinNeedle n1 = new PinNeedle();
+        PinNeedle n2 = new PinNeedle();
+        assertTrue(n1.equals(n2));
+        assertTrue(n2.equals(n1));
     }
 
     /**

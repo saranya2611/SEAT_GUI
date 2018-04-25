@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -64,23 +64,22 @@ public interface EntityCollection {
     /**
      * Adds an entity to the collection.
      *
-     * @param entity  the entity (<code>null</code> not permitted).
+     * @param entity the entity (<code>null</code> not permitted).
      */
     public void add(ChartEntity entity);
 
     /**
      * Adds the entities from another collection to this collection.
      *
-     * @param collection  the other collection.
+     * @param collection the other collection.
      */
     public void addAll(EntityCollection collection);
 
     /**
      * Returns an entity whose area contains the specified point.
      *
-     * @param x  the x coordinate.
-     * @param y  the y coordinate.
-     *
+     * @param x the x coordinate.
+     * @param y the y coordinate.
      * @return The entity.
      */
     public ChartEntity getEntity(double x, double y);
@@ -88,8 +87,7 @@ public interface EntityCollection {
     /**
      * Returns an entity from the collection.
      *
-     * @param index  the index (zero-based).
-     *
+     * @param index the index (zero-based).
      * @return An entity.
      */
     public ChartEntity getEntity(int index);

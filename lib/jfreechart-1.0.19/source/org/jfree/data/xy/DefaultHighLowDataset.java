@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -49,11 +49,11 @@
 
 package org.jfree.data.xy;
 
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.util.PublicCloneable;
+
 import java.util.Arrays;
 import java.util.Date;
-import org.jfree.chart.util.ParamChecks;
-
-import org.jfree.util.PublicCloneable;
 
 /**
  * A simple implementation of the {@link OHLCDataset} interface.  See also
@@ -63,25 +63,39 @@ import org.jfree.util.PublicCloneable;
 public class DefaultHighLowDataset extends AbstractXYDataset
         implements OHLCDataset, PublicCloneable {
 
-    /** The series key. */
+    /**
+     * The series key.
+     */
     private Comparable seriesKey;
 
-    /** Storage for the dates. */
+    /**
+     * Storage for the dates.
+     */
     private Date[] date;
 
-    /** Storage for the high values. */
+    /**
+     * Storage for the high values.
+     */
     private Number[] high;
 
-    /** Storage for the low values. */
+    /**
+     * Storage for the low values.
+     */
     private Number[] low;
 
-    /** Storage for the open values. */
+    /**
+     * Storage for the open values.
+     */
     private Number[] open;
 
-    /** Storage for the close values. */
+    /**
+     * Storage for the close values.
+     */
     private Number[] close;
 
-    /** Storage for the volume values. */
+    /**
+     * Storage for the volume values.
+     */
     private Number[] volume;
 
     /**
@@ -90,18 +104,18 @@ public class DefaultHighLowDataset extends AbstractXYDataset
      * The current implementation allows only one series in the dataset.
      * This may be extended in a future version.
      *
-     * @param seriesKey  the key for the series (<code>null</code> not
-     *     permitted).
-     * @param date  the dates (<code>null</code> not permitted).
-     * @param high  the high values (<code>null</code> not permitted).
-     * @param low  the low values (<code>null</code> not permitted).
-     * @param open  the open values (<code>null</code> not permitted).
-     * @param close  the close values (<code>null</code> not permitted).
-     * @param volume  the volume values (<code>null</code> not permitted).
+     * @param seriesKey the key for the series (<code>null</code> not
+     *                  permitted).
+     * @param date      the dates (<code>null</code> not permitted).
+     * @param high      the high values (<code>null</code> not permitted).
+     * @param low       the low values (<code>null</code> not permitted).
+     * @param open      the open values (<code>null</code> not permitted).
+     * @param close     the close values (<code>null</code> not permitted).
+     * @param volume    the volume values (<code>null</code> not permitted).
      */
     public DefaultHighLowDataset(Comparable seriesKey, Date[] date,
-            double[] high, double[] low, double[] open, double[] close,
-            double[] volume) {
+                                 double[] high, double[] low, double[] open, double[] close,
+                                 double[] volume) {
 
         ParamChecks.nullNotPermitted(seriesKey, "seriesKey");
         ParamChecks.nullNotPermitted(date, "date");
@@ -116,11 +130,25 @@ public class DefaultHighLowDataset extends AbstractXYDataset
     }
 
     /**
+     * Constructs an array of Number objects from an array of doubles.
+     *
+     * @param data the double values to convert (<code>null</code> not
+     *             permitted).
+     * @return The data as an array of Number objects.
+     */
+    public static Number[] createNumberArray(double[] data) {
+        Number[] result = new Number[data.length];
+        for (int i = 0; i < data.length; i++) {
+            result[i] = new Double(data[i]);
+        }
+        return result;
+    }
+
+    /**
      * Returns the key for the series stored in this dataset.
      *
-     * @param series  the index of the series (ignored, this dataset supports
-     *     only one series and this method always returns the key for series 0).
-     *
+     * @param series the index of the series (ignored, this dataset supports
+     *               only one series and this method always returns the key for series 0).
      * @return The series key (never <code>null</code>).
      */
     @Override
@@ -134,11 +162,9 @@ public class DefaultHighLowDataset extends AbstractXYDataset
      * <code>Date</code> object.  To avoid generating a new object instance,
      * you might prefer to call {@link #getXValue(int, int)}.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The x-value.
-     *
      * @see #getXValue(int, int)
      * @see #getXDate(int, int)
      */
@@ -152,11 +178,9 @@ public class DefaultHighLowDataset extends AbstractXYDataset
      * <p>
      * This method is provided for convenience only.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The x-value as a Date.
-     *
      * @see #getX(int, int)
      */
     public Date getXDate(int series, int item) {
@@ -169,11 +193,9 @@ public class DefaultHighLowDataset extends AbstractXYDataset
      * This method (from the {@link XYDataset} interface) is mapped to the
      * {@link #getCloseValue(int, int)} method.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The y-value.
-     *
      * @see #getYValue(int, int)
      */
     @Override
@@ -184,11 +206,9 @@ public class DefaultHighLowDataset extends AbstractXYDataset
     /**
      * Returns the high-value for one item in a series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The high-value.
-     *
      * @see #getHighValue(int, int)
      */
     @Override
@@ -200,11 +220,9 @@ public class DefaultHighLowDataset extends AbstractXYDataset
      * Returns the high-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The high-value.
-     *
      * @see #getHigh(int, int)
      */
     @Override
@@ -220,11 +238,9 @@ public class DefaultHighLowDataset extends AbstractXYDataset
     /**
      * Returns the low-value for one item in a series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The low-value.
-     *
      * @see #getLowValue(int, int)
      */
     @Override
@@ -236,11 +252,9 @@ public class DefaultHighLowDataset extends AbstractXYDataset
      * Returns the low-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The low-value.
-     *
      * @see #getLow(int, int)
      */
     @Override
@@ -256,11 +270,9 @@ public class DefaultHighLowDataset extends AbstractXYDataset
     /**
      * Returns the open-value for one item in a series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The open-value.
-     *
      * @see #getOpenValue(int, int)
      */
     @Override
@@ -272,11 +284,9 @@ public class DefaultHighLowDataset extends AbstractXYDataset
      * Returns the open-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The open-value.
-     *
      * @see #getOpen(int, int)
      */
     @Override
@@ -292,11 +302,9 @@ public class DefaultHighLowDataset extends AbstractXYDataset
     /**
      * Returns the close-value for one item in a series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The close-value.
-     *
      * @see #getCloseValue(int, int)
      */
     @Override
@@ -308,11 +316,9 @@ public class DefaultHighLowDataset extends AbstractXYDataset
      * Returns the close-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The close-value.
-     *
      * @see #getClose(int, int)
      */
     @Override
@@ -328,11 +334,9 @@ public class DefaultHighLowDataset extends AbstractXYDataset
     /**
      * Returns the volume-value for one item in a series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The volume-value.
-     *
      * @see #getVolumeValue(int, int)
      */
     @Override
@@ -344,11 +348,9 @@ public class DefaultHighLowDataset extends AbstractXYDataset
      * Returns the volume-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The volume-value.
-     *
      * @see #getVolume(int, int)
      */
     @Override
@@ -376,8 +378,7 @@ public class DefaultHighLowDataset extends AbstractXYDataset
     /**
      * Returns the number of items in the specified series.
      *
-     * @param series  the index (zero-based) of the series.
-     *
+     * @param series the index (zero-based) of the series.
      * @return The number of items in the specified series.
      */
     @Override
@@ -388,8 +389,7 @@ public class DefaultHighLowDataset extends AbstractXYDataset
     /**
      * Tests this dataset for equality with an arbitrary instance.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -423,22 +423,6 @@ public class DefaultHighLowDataset extends AbstractXYDataset
             return false;
         }
         return true;
-    }
-
-    /**
-     * Constructs an array of Number objects from an array of doubles.
-     *
-     * @param data  the double values to convert (<code>null</code> not
-     *     permitted).
-     *
-     * @return The data as an array of Number objects.
-     */
-    public static Number[] createNumberArray(double[] data) {
-        Number[] result = new Number[data.length];
-        for (int i = 0; i < data.length; i++) {
-            result[i] = new Double(data[i]);
-        }
-        return result;
     }
 
 }

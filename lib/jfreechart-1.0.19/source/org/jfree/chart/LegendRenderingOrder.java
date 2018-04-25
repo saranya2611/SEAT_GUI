@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -48,24 +48,29 @@ import java.io.Serializable;
  */
 public final class LegendRenderingOrder implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -3832486612685808616L;
-
-    /** In order. */
+    /**
+     * In order.
+     */
     public static final LegendRenderingOrder STANDARD
             = new LegendRenderingOrder("LegendRenderingOrder.STANDARD");
-
-    /** In reverse order. */
+    /**
+     * In reverse order.
+     */
     public static final LegendRenderingOrder REVERSE
             = new LegendRenderingOrder("LegendRenderingOrder.REVERSE");
-
-    /** The name. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -3832486612685808616L;
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private LegendRenderingOrder(String name) {
         this.name = name;
@@ -85,8 +90,7 @@ public final class LegendRenderingOrder implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return A boolean.
      */
     @Override
@@ -108,14 +112,12 @@ public final class LegendRenderingOrder implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         if (this.equals(LegendRenderingOrder.STANDARD)) {
             return LegendRenderingOrder.STANDARD;
-        }
-        else if (this.equals(LegendRenderingOrder.REVERSE)) {
+        } else if (this.equals(LegendRenderingOrder.REVERSE)) {
             return LegendRenderingOrder.REVERSE;
         }
         return null;

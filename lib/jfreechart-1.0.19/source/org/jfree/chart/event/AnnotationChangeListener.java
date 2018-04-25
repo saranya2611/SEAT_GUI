@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -40,9 +40,9 @@
 
 package org.jfree.chart.event;
 
-import java.util.EventListener;
-
 import org.jfree.chart.annotations.Annotation;
+
+import java.util.EventListener;
 
 /**
  * The interface that must be supported by classes that wish to receive
@@ -55,8 +55,7 @@ public interface AnnotationChangeListener extends EventListener {
     /**
      * Receives notification of an annotation change event.
      *
-     * @param event  the event.
-     *
+     * @param event the event.
      * @since 1.0.14
      */
     public void annotationChanged(AnnotationChangeEvent event);

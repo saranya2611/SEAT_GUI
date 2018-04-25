@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------
@@ -43,26 +43,21 @@
 
 package org.jfree.chart.editor;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import org.jfree.chart.axis.Axis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.layout.LCBLayout;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+
 /**
  * A panel for editing the properties of a value axis.
  */
 class DefaultNumberAxisEditor extends DefaultValueAxisEditor
-    implements FocusListener {
+        implements FocusListener {
 
     private double manualTickUnitValue;
 
@@ -72,7 +67,7 @@ class DefaultNumberAxisEditor extends DefaultValueAxisEditor
     /**
      * Standard constructor: builds a property panel for the specified axis.
      *
-     * @param axis  the axis, which should be changed.
+     * @param axis the axis, which should be changed.
      */
     public DefaultNumberAxisEditor(NumberAxis axis) {
 
@@ -83,8 +78,7 @@ class DefaultNumberAxisEditor extends DefaultValueAxisEditor
     }
 
     @Override
-    protected JPanel createTickUnitPanel()
-    {
+    protected JPanel createTickUnitPanel() {
         JPanel tickUnitPanel = new JPanel(new LCBLayout(3));
         tickUnitPanel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
 
@@ -114,6 +108,7 @@ class DefaultNumberAxisEditor extends DefaultValueAxisEditor
 
     /**
      * Handles actions from within the property panel.
+     *
      * @param event an event.
      */
     @Override
@@ -121,8 +116,7 @@ class DefaultNumberAxisEditor extends DefaultValueAxisEditor
         String command = event.getActionCommand();
         if (command.equals("TickUnitValue")) {
             validateTickUnit();
-        }
-        else {
+        } else {
             // pass to the super-class for handling
             super.actionPerformed(event);
         }
@@ -142,8 +136,7 @@ class DefaultNumberAxisEditor extends DefaultValueAxisEditor
         if (isAutoTickUnitSelection()) {
             this.manualTickUnit.setText(Double.toString(this.manualTickUnitValue));
             this.manualTickUnit.setEnabled(false);
-        }
-        else {
+        } else {
             this.manualTickUnit.setEnabled(true);
         }
     }
@@ -152,8 +145,7 @@ class DefaultNumberAxisEditor extends DefaultValueAxisEditor
         double newTickUnit;
         try {
             newTickUnit = Double.parseDouble(this.manualTickUnit.getText());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             newTickUnit = this.manualTickUnitValue;
         }
 
@@ -167,7 +159,7 @@ class DefaultNumberAxisEditor extends DefaultValueAxisEditor
      * Sets the properties of the specified axis to match the properties
      * defined on this panel.
      *
-     * @param axis  the axis.
+     * @param axis the axis.
      */
     @Override
     public void setAxisProperties(Axis axis) {

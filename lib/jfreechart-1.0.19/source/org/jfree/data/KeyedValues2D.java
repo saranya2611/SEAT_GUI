@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -52,10 +52,8 @@ public interface KeyedValues2D extends Values2D {
     /**
      * Returns the row key for a given index.
      *
-     * @param row  the row index (zero-based).
-     *
+     * @param row the row index (zero-based).
      * @return The row key.
-     *
      * @throws IndexOutOfBoundsException if <code>row</code> is out of bounds.
      */
     public Comparable getRowKey(int row);
@@ -63,8 +61,7 @@ public interface KeyedValues2D extends Values2D {
     /**
      * Returns the row index for a given key.
      *
-     * @param key  the row key.
-     *
+     * @param key the row key.
      * @return The row index, or <code>-1</code> if the key is unrecognised.
      */
     public int getRowIndex(Comparable key);
@@ -79,10 +76,8 @@ public interface KeyedValues2D extends Values2D {
     /**
      * Returns the column key for a given index.
      *
-     * @param column  the column index (zero-based).
-     *
+     * @param column the column index (zero-based).
      * @return The column key.
-     *
      * @throws IndexOutOfBoundsException if <code>row</code> is out of bounds.
      */
     public Comparable getColumnKey(int column);
@@ -90,8 +85,7 @@ public interface KeyedValues2D extends Values2D {
     /**
      * Returns the column index for a given key.
      *
-     * @param key  the column key.
-     *
+     * @param key the column key.
      * @return The column index, or <code>-1</code> if the key is unrecognised.
      */
     public int getColumnIndex(Comparable key);
@@ -106,11 +100,9 @@ public interface KeyedValues2D extends Values2D {
     /**
      * Returns the value associated with the specified keys.
      *
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @return The value.
-     *
      * @throws UnknownKeyException if either key is not recognised.
      */
     public Number getValue(Comparable rowKey, Comparable columnKey);

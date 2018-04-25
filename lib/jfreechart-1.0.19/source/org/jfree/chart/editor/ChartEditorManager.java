@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -36,7 +36,7 @@
  * -------
  * 24-Nov-2005 : Version 1 (DG);
  * 03-Jul-2013 : Use ParamChecks (DG);
- * 
+ *
  */
 
 package org.jfree.chart.editor;
@@ -52,7 +52,9 @@ import org.jfree.chart.util.ParamChecks;
  */
 public class ChartEditorManager {
 
-    /** This factory creates new {@link ChartEditor} instances as required. */
+    /**
+     * This factory creates new {@link ChartEditor} instances as required.
+     */
     static ChartEditorFactory factory = new DefaultChartEditorFactory();
 
     /**
@@ -74,7 +76,7 @@ public class ChartEditorManager {
     /**
      * Sets the chart editor factory.
      *
-     * @param f  the new factory (<code>null</code> not permitted).
+     * @param f the new factory (<code>null</code> not permitted).
      */
     public static void setChartEditorFactory(ChartEditorFactory f) {
         ParamChecks.nullNotPermitted(f, "f");
@@ -84,8 +86,7 @@ public class ChartEditorManager {
     /**
      * Returns a component that can be used to edit the given chart.
      *
-     * @param chart  the chart.
-     *
+     * @param chart the chart.
      * @return The chart editor.
      */
     public static ChartEditor getChartEditor(JFreeChart chart) {

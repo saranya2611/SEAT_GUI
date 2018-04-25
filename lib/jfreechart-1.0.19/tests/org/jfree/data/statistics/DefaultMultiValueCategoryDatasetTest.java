@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------------------
@@ -40,17 +40,14 @@
 
 package org.jfree.data.statistics;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import org.jfree.chart.TestUtilities;
+import org.jfree.data.UnknownKeyException;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jfree.chart.TestUtilities;
-
-import org.jfree.data.UnknownKeyException;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link DefaultMultiValueCategoryDataset} class.
@@ -72,8 +69,7 @@ public class DefaultMultiValueCategoryDatasetTest {
         boolean pass = false;
         try {
             d.getValue("XX", "C1");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -81,8 +77,7 @@ public class DefaultMultiValueCategoryDatasetTest {
         pass = false;
         try {
             d.getValue("R1", "XX");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -97,9 +92,9 @@ public class DefaultMultiValueCategoryDatasetTest {
                 = new DefaultMultiValueCategoryDataset();
         boolean pass = false;
         try {
-            /* Number n =*/ d.getValue(0, 0);
-        }
-        catch (IndexOutOfBoundsException e) {
+            /* Number n =*/
+            d.getValue(0, 0);
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -199,8 +194,7 @@ public class DefaultMultiValueCategoryDatasetTest {
         boolean pass = false;
         try {
             d1.add(null, "R1", "C1");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -212,8 +206,7 @@ public class DefaultMultiValueCategoryDatasetTest {
         pass = false;
         try {
             d1.add(values, null, "C2");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -226,7 +219,7 @@ public class DefaultMultiValueCategoryDatasetTest {
     public void testCloning() throws CloneNotSupportedException {
         DefaultMultiValueCategoryDataset d1
                 = new DefaultMultiValueCategoryDataset();
-        DefaultMultiValueCategoryDataset d2 
+        DefaultMultiValueCategoryDataset d2
                 = (DefaultMultiValueCategoryDataset) d1.clone();
         assertTrue(d1 != d2);
         assertTrue(d1.getClass() == d2.getClass());

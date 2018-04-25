@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -52,13 +52,15 @@ import org.jfree.chart.plot.Plot;
  */
 public class PlotChangeEvent extends ChartChangeEvent {
 
-    /** The plot that generated the event. */
+    /**
+     * The plot that generated the event.
+     */
     private Plot plot;
 
     /**
      * Creates a new PlotChangeEvent.
      *
-     * @param plot  the plot that generated the event.
+     * @param plot the plot that generated the event.
      */
     public PlotChangeEvent(Plot plot) {
         super(plot);

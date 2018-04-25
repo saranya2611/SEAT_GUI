@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -41,13 +41,14 @@
 
 package org.jfree.chart.axis;
 
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Some tests for the {@link SegmentedTimeline} class.
@@ -121,7 +122,7 @@ public class SegmentedTimelineAdditionalTest {
         assertTrue("test2", value == (900000 * 34 + 900000)
                 && date.getTime() == reverted.getTime());
         TimeZone.setDefault(savedZone);
-     }
+    }
 
     /**
      * Test 3 checks 9.30am Friday 26 March 2004 converts to a timeline value
@@ -388,9 +389,8 @@ public class SegmentedTimelineAdditionalTest {
      * Returns a segmented timeline for 15 minute segments, Monday to Friday
      * only, between 9am and 5pm.  The UK locale is used.
      *
-     * @param start  the start date.
-     * @param end  the end date.
-     *
+     * @param start the start date.
+     * @param end   the end date.
      * @return The timeline.
      */
     private SegmentedTimeline getTimeline(Date start, Date end) {
@@ -418,20 +418,20 @@ public class SegmentedTimelineAdditionalTest {
         SegmentedTimeline result = null;
         // Create a segmented time line (segment size : 15 minutes)
         long quarterHourCount = (close.getTime() - open.getTime())
-            / SegmentedTimeline.FIFTEEN_MINUTE_SEGMENT_SIZE;
+                / SegmentedTimeline.FIFTEEN_MINUTE_SEGMENT_SIZE;
         long totalQuarterHourCount = SegmentedTimeline.DAY_SEGMENT_SIZE
-            / SegmentedTimeline.FIFTEEN_MINUTE_SEGMENT_SIZE;
+                / SegmentedTimeline.FIFTEEN_MINUTE_SEGMENT_SIZE;
         result = new SegmentedTimeline(
-            SegmentedTimeline.FIFTEEN_MINUTE_SEGMENT_SIZE,
-            (int) quarterHourCount,
-            (int) (totalQuarterHourCount - quarterHourCount)
+                SegmentedTimeline.FIFTEEN_MINUTE_SEGMENT_SIZE,
+                (int) quarterHourCount,
+                (int) (totalQuarterHourCount - quarterHourCount)
         );
         result.setAdjustForDaylightSaving(true);
         // Set start time
         result.setStartTime(start.getTime());
         // Saturday and Sundays are non business hours
         result.setBaseTimeline(
-            SegmentedTimeline.newMondayThroughFridayTimeline()
+                SegmentedTimeline.newMondayThroughFridayTimeline()
         );
         /* PUT exclusions in test */
         if (start != null && end != null) {

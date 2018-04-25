@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -46,6 +46,11 @@
 
 package org.jfree.chart.plot;
 
+import org.jfree.chart.ChartRenderingInfo;
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.ObjectUtilities;
+
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
@@ -54,26 +59,29 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
 
-import org.jfree.chart.ChartRenderingInfo;
-import org.jfree.chart.util.ParamChecks;
-import org.jfree.io.SerialUtilities;
-import org.jfree.util.ObjectUtilities;
-
 /**
  * Stores information about the dimensions of a plot and its subplots.
  */
 public class PlotRenderingInfo implements Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 8446720134379617220L;
 
-    /** The owner of this info. */
+    /**
+     * The owner of this info.
+     */
     private ChartRenderingInfo owner;
 
-    /** The plot area. */
+    /**
+     * The plot area.
+     */
     private transient Rectangle2D plotArea;
 
-    /** The data area. */
+    /**
+     * The data area.
+     */
     private transient Rectangle2D dataArea;
 
     /**
@@ -84,7 +92,7 @@ public class PlotRenderingInfo implements Cloneable, Serializable {
     /**
      * Creates a new instance.
      *
-     * @param owner  the owner (<code>null</code> permitted).
+     * @param owner the owner (<code>null</code> permitted).
      */
     public PlotRenderingInfo(ChartRenderingInfo owner) {
         this.owner = owner;
@@ -105,7 +113,6 @@ public class PlotRenderingInfo implements Cloneable, Serializable {
      * Returns the plot area (in Java2D space).
      *
      * @return The plot area (possibly <code>null</code>).
-     *
      * @see #setPlotArea(Rectangle2D)
      */
     public Rectangle2D getPlotArea() {
@@ -115,9 +122,8 @@ public class PlotRenderingInfo implements Cloneable, Serializable {
     /**
      * Sets the plot area.
      *
-     * @param area  the plot area (in Java2D space, <code>null</code>
-     *     permitted but discouraged)
-     *
+     * @param area the plot area (in Java2D space, <code>null</code>
+     *             permitted but discouraged)
      * @see #getPlotArea()
      */
     public void setPlotArea(Rectangle2D area) {
@@ -128,7 +134,6 @@ public class PlotRenderingInfo implements Cloneable, Serializable {
      * Returns the plot's data area (in Java2D space).
      *
      * @return The data area (possibly <code>null</code>).
-     *
      * @see #setDataArea(Rectangle2D)
      */
     public Rectangle2D getDataArea() {
@@ -138,9 +143,8 @@ public class PlotRenderingInfo implements Cloneable, Serializable {
     /**
      * Sets the data area.
      *
-     * @param area  the data area (in Java2D space, <code>null</code> permitted
-     *     but discouraged).
-     *
+     * @param area the data area (in Java2D space, <code>null</code> permitted
+     *             but discouraged).
      * @see #getDataArea()
      */
     public void setDataArea(Rectangle2D area) {
@@ -159,8 +163,7 @@ public class PlotRenderingInfo implements Cloneable, Serializable {
     /**
      * Adds the info for a subplot.
      *
-     * @param info  the subplot info.
-     *
+     * @param info the subplot info.
      * @see #getSubplotInfo(int)
      */
     public void addSubplotInfo(PlotRenderingInfo info) {
@@ -170,10 +173,8 @@ public class PlotRenderingInfo implements Cloneable, Serializable {
     /**
      * Returns the info for a subplot.
      *
-     * @param index  the subplot index.
-     *
+     * @param index the subplot index.
      * @return The info.
-     *
      * @see #addSubplotInfo(PlotRenderingInfo)
      */
     public PlotRenderingInfo getSubplotInfo(int index) {
@@ -187,11 +188,10 @@ public class PlotRenderingInfo implements Cloneable, Serializable {
      * and this method is then used to determine the subplot that
      * contains the source point.
      *
-     * @param source  the source point (in Java2D space, <code>null</code> not
-     * permitted).
-     *
+     * @param source the source point (in Java2D space, <code>null</code> not
+     *               permitted).
      * @return The subplot index (or -1 if no subplot contains
-     *         <code>source</code>).
+     * <code>source</code>).
      */
     public int getSubplotIndex(Point2D source) {
         ParamChecks.nullNotPermitted(source, "source");
@@ -209,8 +209,7 @@ public class PlotRenderingInfo implements Cloneable, Serializable {
     /**
      * Tests this instance for equality against an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -238,7 +237,6 @@ public class PlotRenderingInfo implements Cloneable, Serializable {
      * Returns a clone of this object.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem cloning.
      */
     @Override
@@ -262,9 +260,8 @@ public class PlotRenderingInfo implements Cloneable, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -275,10 +272,9 @@ public class PlotRenderingInfo implements Cloneable, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {

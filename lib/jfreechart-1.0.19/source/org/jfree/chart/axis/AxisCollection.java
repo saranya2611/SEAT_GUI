@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -41,10 +41,10 @@
 
 package org.jfree.chart.axis;
 
-import java.util.List;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.ui.RectangleEdge;
+
+import java.util.List;
 
 /**
  * A collection of axes that have been assigned to the TOP, BOTTOM, LEFT or
@@ -53,16 +53,24 @@ import org.jfree.ui.RectangleEdge;
  */
 public class AxisCollection {
 
-    /** The axes that need to be drawn at the top of the plot area. */
+    /**
+     * The axes that need to be drawn at the top of the plot area.
+     */
     private List axesAtTop;
 
-    /** The axes that need to be drawn at the bottom of the plot area. */
+    /**
+     * The axes that need to be drawn at the bottom of the plot area.
+     */
     private List axesAtBottom;
 
-    /** The axes that need to be drawn at the left of the plot area. */
+    /**
+     * The axes that need to be drawn at the left of the plot area.
+     */
     private List axesAtLeft;
 
-    /** The axes that need to be drawn at the right of the plot area. */
+    /**
+     * The axes that need to be drawn at the right of the plot area.
+     */
     private List axesAtRight;
 
     /**
@@ -85,13 +93,13 @@ public class AxisCollection {
         return this.axesAtTop;
     }
 
-   /**
-    * Returns a list of the axes (if any) that need to be drawn at the bottom
-    * of the plot area.
-    *
-    * @return A list of axes.
-    */
-   public List getAxesAtBottom() {
+    /**
+     * Returns a list of the axes (if any) that need to be drawn at the bottom
+     * of the plot area.
+     *
+     * @return A list of axes.
+     */
+    public List getAxesAtBottom() {
         return this.axesAtBottom;
     }
 
@@ -106,11 +114,11 @@ public class AxisCollection {
     }
 
     /**
-    * Returns a list of the axes (if any) that need to be drawn at the right
-    * of the plot area.
-    *
-    * @return A list of axes.
-    */
+     * Returns a list of the axes (if any) that need to be drawn at the right
+     * of the plot area.
+     *
+     * @return A list of axes.
+     */
     public List getAxesAtRight() {
         return this.axesAtRight;
     }
@@ -118,23 +126,20 @@ public class AxisCollection {
     /**
      * Adds an axis to the collection.
      *
-     * @param axis  the axis (<code>null</code> not permitted).
-     * @param edge  the edge of the plot that the axis should be drawn on
-     *              (<code>null</code> not permitted).
+     * @param axis the axis (<code>null</code> not permitted).
+     * @param edge the edge of the plot that the axis should be drawn on
+     *             (<code>null</code> not permitted).
      */
     public void add(Axis axis, RectangleEdge edge) {
         ParamChecks.nullNotPermitted(axis, "axis");
         ParamChecks.nullNotPermitted(edge, "edge");
         if (edge == RectangleEdge.TOP) {
             this.axesAtTop.add(axis);
-        }
-        else if (edge == RectangleEdge.BOTTOM) {
+        } else if (edge == RectangleEdge.BOTTOM) {
             this.axesAtBottom.add(axis);
-        }
-        else if (edge == RectangleEdge.LEFT) {
+        } else if (edge == RectangleEdge.LEFT) {
             this.axesAtLeft.add(axis);
-        }
-        else if (edge == RectangleEdge.RIGHT) {
+        } else if (edge == RectangleEdge.RIGHT) {
             this.axesAtRight.add(axis);
         }
     }

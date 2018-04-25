@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------
@@ -42,12 +42,8 @@ package org.jfree.data;
 
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.fail;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link ComparableObjectItem} class.
@@ -61,11 +57,11 @@ public class ComparableObjectItemTest {
     public void testConstructor() {
         // check null argument 1
         try {
-            /* ComparableObjectItem item1 = */ new ComparableObjectItem(null,
+            /* ComparableObjectItem item1 = */
+            new ComparableObjectItem(null,
                     "XYZ");
             fail("There should be an exception.");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             // expected
         }
     }
@@ -112,7 +108,7 @@ public class ComparableObjectItemTest {
     public void testSerialization() {
         ComparableObjectItem item1 = new ComparableObjectItem(new Integer(1),
                 "XYZ");
-        ComparableObjectItem item2 = (ComparableObjectItem) 
+        ComparableObjectItem item2 = (ComparableObjectItem)
                 TestUtilities.serialised(item1);
         assertEquals(item1, item2);
     }

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -63,13 +63,6 @@
 
 package org.jfree.chart.renderer.xy;
 
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
@@ -81,6 +74,10 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYZDataset;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  * A renderer that draws a circle at each data point with a diameter that is
@@ -95,7 +92,9 @@ import org.jfree.util.PublicCloneable;
 public class XYBubbleRenderer extends AbstractXYItemRenderer
         implements XYItemRenderer, PublicCloneable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     public static final long serialVersionUID = -5221991598674249125L;
 
     /**
@@ -116,7 +115,9 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
      */
     public static final int SCALE_ON_RANGE_AXIS = 2;
 
-    /** Controls how the width and height of the bubble are scaled. */
+    /**
+     * Controls how the width and height of the bubble are scaled.
+     */
     private int scaleType;
 
     /**
@@ -129,9 +130,9 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
     /**
      * Constructs a new renderer with the specified type of scaling.
      *
-     * @param scaleType  the type of scaling (must be one of:
-     *        {@link #SCALE_ON_BOTH_AXES}, {@link #SCALE_ON_DOMAIN_AXIS},
-     *        {@link #SCALE_ON_RANGE_AXIS}).
+     * @param scaleType the type of scaling (must be one of:
+     *                  {@link #SCALE_ON_BOTH_AXES}, {@link #SCALE_ON_DOMAIN_AXIS},
+     *                  {@link #SCALE_ON_RANGE_AXIS}).
      */
     public XYBubbleRenderer(int scaleType) {
         super();
@@ -146,7 +147,7 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
      * Returns the scale type that was set when the renderer was constructed.
      *
      * @return The scale type (one of: {@link #SCALE_ON_BOTH_AXES},
-     *         {@link #SCALE_ON_DOMAIN_AXIS}, {@link #SCALE_ON_RANGE_AXIS}).
+     * {@link #SCALE_ON_DOMAIN_AXIS}, {@link #SCALE_ON_RANGE_AXIS}).
      */
     public int getScaleType() {
         return this.scaleType;
@@ -155,26 +156,26 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
     /**
      * Draws the visual representation of a single data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the area within which the data is being drawn.
-     * @param info  collects information about the drawing.
-     * @param plot  the plot (can be used to obtain standard color
-     *              information etc).
-     * @param domainAxis  the domain (horizontal) axis.
-     * @param rangeAxis  the range (vertical) axis.
-     * @param dataset  the dataset (an {@link XYZDataset} is expected).
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     * @param crosshairState  crosshair information for the plot
-     *                        (<code>null</code> permitted).
-     * @param pass  the pass index.
+     * @param g2             the graphics device.
+     * @param state          the renderer state.
+     * @param dataArea       the area within which the data is being drawn.
+     * @param info           collects information about the drawing.
+     * @param plot           the plot (can be used to obtain standard color
+     *                       information etc).
+     * @param domainAxis     the domain (horizontal) axis.
+     * @param rangeAxis      the range (vertical) axis.
+     * @param dataset        the dataset (an {@link XYZDataset} is expected).
+     * @param series         the series index (zero-based).
+     * @param item           the item index (zero-based).
+     * @param crosshairState crosshair information for the plot
+     *                       (<code>null</code> permitted).
+     * @param pass           the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, XYItemRendererState state,
-            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-            int series, int item, CrosshairState crosshairState, int pass) {
+                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+                         int series, int item, CrosshairState crosshairState, int pass) {
 
         // return straight away if the item is not visible
         if (!getItemVisible(series, item)) {
@@ -203,7 +204,7 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
             double transRange;
             double zero;
 
-            switch(getScaleType()) {
+            switch (getScaleType()) {
                 case SCALE_ON_DOMAIN_AXIS:
                     zero = domainAxis.valueToJava2D(0.0, dataArea,
                             domainAxisLocation);
@@ -234,8 +235,7 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
             if (orientation == PlotOrientation.VERTICAL) {
                 circle = new Ellipse2D.Double(transX - transDomain / 2.0,
                         transY - transRange / 2.0, transDomain, transRange);
-            }
-            else if (orientation == PlotOrientation.HORIZONTAL) {
+            } else if (orientation == PlotOrientation.HORIZONTAL) {
                 circle = new Ellipse2D.Double(transY - transRange / 2.0,
                         transX - transDomain / 2.0, transRange, transDomain);
             } else {
@@ -251,8 +251,7 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
                 if (orientation == PlotOrientation.VERTICAL) {
                     drawItemLabel(g2, orientation, dataset, series, item,
                             transX, transY, false);
-                }
-                else if (orientation == PlotOrientation.HORIZONTAL) {
+                } else if (orientation == PlotOrientation.HORIZONTAL) {
                     drawItemLabel(g2, orientation, dataset, series, item,
                             transY, transX, false);
                 }
@@ -260,7 +259,7 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
 
             // add an entity if this info is being collected
             if (info != null) {
-                EntityCollection entities 
+                EntityCollection entities
                         = info.getOwner().getEntityCollection();
                 if (entities != null && circle.intersects(dataArea)) {
                     addEntity(entities, circle, dataset, series, item,
@@ -280,9 +279,8 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
      * Returns a legend item for the specified series.  The default method
      * is overridden so that the legend displays circles for all series.
      *
-     * @param datasetIndex  the dataset index (zero-based).
-     * @param series  the series index (zero-based).
-     *
+     * @param datasetIndex the dataset index (zero-based).
+     * @param series       the series index (zero-based).
      * @return A legend item for the series.
      */
     @Override
@@ -332,8 +330,7 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
     /**
      * Tests this renderer for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -355,8 +352,7 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
      * Returns a clone of the renderer.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the renderer cannot be cloned.
+     * @throws CloneNotSupportedException if the renderer cannot be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

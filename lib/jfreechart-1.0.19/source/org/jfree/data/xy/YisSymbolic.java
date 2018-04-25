@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -60,9 +60,8 @@ public interface YisSymbolic {
      * Returns the symbolic value of the data set specified by
      * <CODE>series</CODE> and <CODE>item</CODE> parameters.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The symbolic value.
      */
     public String getYSymbolicValue(int series, int item);
@@ -71,8 +70,7 @@ public interface YisSymbolic {
      * Returns the symbolic value linked with the specified
      * <CODE>Integer</CODE>.
      *
-     * @param val  value of the integer linked with the symbolic value.
-     *
+     * @param val value of the integer linked with the symbolic value.
      * @return The symbolic value.
      */
     public String getYSymbolicValue(Integer val);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -46,27 +46,30 @@
 
 package org.jfree.chart.block;
 
-import java.awt.Graphics2D;
-import java.awt.Paint;
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.Size2D;
+import org.jfree.util.PaintUtilities;
+
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import org.jfree.chart.util.ParamChecks;
-
-import org.jfree.io.SerialUtilities;
-import org.jfree.ui.Size2D;
-import org.jfree.util.PaintUtilities;
 
 /**
  * A block that is filled with a single color.
  */
 public class ColorBlock extends AbstractBlock implements Block {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = 3383866145634010865L;
 
-    /** The paint. */
+    /**
+     * The paint.
+     */
     private transient Paint paint;
 
     /**
@@ -74,7 +77,7 @@ public class ColorBlock extends AbstractBlock implements Block {
      *
      * @param paint  the paint (<code>null</code> not permitted).
      * @param width  the width.
-     * @param height  the height.
+     * @param height the height.
      */
     public ColorBlock(Paint paint, double width, double height) {
         ParamChecks.nullNotPermitted(paint, "paint");
@@ -87,7 +90,6 @@ public class ColorBlock extends AbstractBlock implements Block {
      * Returns the paint.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @since 1.0.5
      */
     public Paint getPaint() {
@@ -98,9 +100,8 @@ public class ColorBlock extends AbstractBlock implements Block {
      * Arranges the contents of the block, within the given constraints, and
      * returns the block size.
      *
-     * @param g2  the graphics device.
-     * @param constraint  the constraint (<code>null</code> not permitted).
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint (<code>null</code> not permitted).
      * @return The block size (in Java2D units, never <code>null</code>).
      */
     @Override
@@ -112,8 +113,8 @@ public class ColorBlock extends AbstractBlock implements Block {
     /**
      * Draws the block.
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
+     * @param g2   the graphics device.
+     * @param area the area.
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D area) {
@@ -128,10 +129,9 @@ public class ColorBlock extends AbstractBlock implements Block {
     /**
      * Draws the block within the specified area.
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
-     * @param params  ignored (<code>null</code> permitted).
-     *
+     * @param g2     the graphics device.
+     * @param area   the area.
+     * @param params ignored (<code>null</code> permitted).
      * @return Always <code>null</code>.
      */
     @Override
@@ -143,8 +143,7 @@ public class ColorBlock extends AbstractBlock implements Block {
     /**
      * Tests this block for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -165,8 +164,7 @@ public class ColorBlock extends AbstractBlock implements Block {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
+     * @param stream the output stream.
      * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
@@ -177,13 +175,12 @@ public class ColorBlock extends AbstractBlock implements Block {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.paint = SerialUtilities.readPaint(stream);
     }

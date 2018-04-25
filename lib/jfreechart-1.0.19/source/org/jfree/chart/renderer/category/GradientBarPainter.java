@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -42,17 +42,13 @@
 
 package org.jfree.chart.renderer.category;
 
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
+import org.jfree.chart.HashUtilities;
+import org.jfree.ui.RectangleEdge;
+
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RectangularShape;
 import java.io.Serializable;
-
-import org.jfree.chart.HashUtilities;
-import org.jfree.ui.RectangleEdge;
 
 /**
  * An implementation of the {@link BarPainter} interface that uses several
@@ -62,13 +58,19 @@ import org.jfree.ui.RectangleEdge;
  */
 public class GradientBarPainter implements BarPainter, Serializable {
 
-    /** The division point between the first and second gradient regions. */
+    /**
+     * The division point between the first and second gradient regions.
+     */
     private double g1;
 
-    /** The division point between the second and third gradient regions. */
+    /**
+     * The division point between the second and third gradient regions.
+     */
     private double g2;
 
-    /** The division point between the third and fourth gradient regions. */
+    /**
+     * The division point between the third and fourth gradient regions.
+     */
     private double g3;
 
     /**
@@ -81,9 +83,9 @@ public class GradientBarPainter implements BarPainter, Serializable {
     /**
      * Creates a new instance.
      *
-     * @param g1  percentage value defining the line between regions 1 and 2.
-     * @param g2  percentage value defining the line between regions 2 and 3.
-     * @param g3  percentage value defining the line between regions 3 and 4.
+     * @param g1 percentage value defining the line between regions 1 and 2.
+     * @param g2 percentage value defining the line between regions 2 and 3.
+     * @param g3 percentage value defining the line between regions 3 and 4.
      */
     public GradientBarPainter(double g1, double g2, double g3) {
         this.g1 = g1;
@@ -94,17 +96,17 @@ public class GradientBarPainter implements BarPainter, Serializable {
     /**
      * Paints a single bar instance.
      *
-     * @param g2  the graphics target.
-     * @param renderer  the renderer.
-     * @param row  the row index.
-     * @param column  the column index.
-     * @param bar  the bar
-     * @param base  indicates which side of the rectangle is the base of the
-     *              bar.
+     * @param g2       the graphics target.
+     * @param renderer the renderer.
+     * @param row      the row index.
+     * @param column   the column index.
+     * @param bar      the bar
+     * @param base     indicates which side of the rectangle is the base of the
+     *                 bar.
      */
     @Override
     public void paintBar(Graphics2D g2, BarRenderer renderer, int row,
-            int column, RectangularShape bar, RectangleEdge base) {
+                         int column, RectangularShape bar, RectangleEdge base) {
 
         Paint itemPaint = renderer.getItemPaint(row, column);
 
@@ -112,13 +114,11 @@ public class GradientBarPainter implements BarPainter, Serializable {
         if (itemPaint instanceof Color) {
             c0 = (Color) itemPaint;
             c1 = c0.brighter();
-        }
-        else if (itemPaint instanceof GradientPaint) {
+        } else if (itemPaint instanceof GradientPaint) {
             GradientPaint gp = (GradientPaint) itemPaint;
             c0 = gp.getColor1();
             c1 = gp.getColor2();
-        }
-        else {
+        } else {
             c0 = Color.BLUE;
             c1 = Color.BLUE.brighter();
         }
@@ -148,11 +148,10 @@ public class GradientBarPainter implements BarPainter, Serializable {
             g2.fill(regions[2]);
 
             gp = new GradientPaint((float) regions[3].getMinX(), 0.0f, c1,
-                     (float) regions[3].getMaxX(), 0.0f, c0);
+                    (float) regions[3].getMaxX(), 0.0f, c0);
             g2.setPaint(gp);
             g2.fill(regions[3]);
-        }
-        else if (base == RectangleEdge.LEFT || base == RectangleEdge.RIGHT) {
+        } else if (base == RectangleEdge.LEFT || base == RectangleEdge.RIGHT) {
             Rectangle2D[] regions = splitHorizontalBar(bar, this.g1, this.g2,
                     this.g3);
             GradientPaint gp = new GradientPaint(0.0f,
@@ -172,7 +171,7 @@ public class GradientBarPainter implements BarPainter, Serializable {
             g2.fill(regions[2]);
 
             gp = new GradientPaint(0.0f, (float) regions[3].getMinY(), c1,
-                     0.0f, (float) regions[3].getMaxY(), c0);
+                    0.0f, (float) regions[3].getMaxY(), c0);
             g2.setPaint(gp);
             g2.fill(regions[3]);
 
@@ -195,19 +194,19 @@ public class GradientBarPainter implements BarPainter, Serializable {
     /**
      * Paints a single bar instance.
      *
-     * @param g2  the graphics target.
+     * @param g2        the graphics target.
      * @param renderer  the renderer.
-     * @param row  the row index.
-     * @param column  the column index.
-     * @param bar  the bar
-     * @param base  indicates which side of the rectangle is the base of the
-     *              bar.
-     * @param pegShadow  peg the shadow to the base of the bar?
+     * @param row       the row index.
+     * @param column    the column index.
+     * @param bar       the bar
+     * @param base      indicates which side of the rectangle is the base of the
+     *                  bar.
+     * @param pegShadow peg the shadow to the base of the bar?
      */
     @Override
     public void paintBarShadow(Graphics2D g2, BarRenderer renderer, int row,
-            int column, RectangularShape bar, RectangleEdge base,
-            boolean pegShadow) {
+                               int column, RectangularShape bar, RectangleEdge base,
+                               boolean pegShadow) {
 
         // handle a special case - if the bar colour has alpha == 0, it is
         // invisible so we shouldn't draw any shadow
@@ -229,16 +228,15 @@ public class GradientBarPainter implements BarPainter, Serializable {
     /**
      * Creates a shadow for the bar.
      *
-     * @param bar  the bar shape.
-     * @param xOffset  the x-offset for the shadow.
-     * @param yOffset  the y-offset for the shadow.
-     * @param base  the edge that is the base of the bar.
-     * @param pegShadow  peg the shadow to the base?
-     *
+     * @param bar       the bar shape.
+     * @param xOffset   the x-offset for the shadow.
+     * @param yOffset   the y-offset for the shadow.
+     * @param base      the edge that is the base of the bar.
+     * @param pegShadow peg the shadow to the base?
      * @return A rectangle for the shadow.
      */
     private Rectangle2D createShadow(RectangularShape bar, double xOffset,
-            double yOffset, RectangleEdge base, boolean pegShadow) {
+                                     double yOffset, RectangleEdge base, boolean pegShadow) {
         double x0 = bar.getMinX();
         double x1 = bar.getMaxX();
         double y0 = bar.getMinY();
@@ -250,24 +248,21 @@ public class GradientBarPainter implements BarPainter, Serializable {
                 y0 += yOffset;
             }
             y1 += yOffset;
-        }
-        else if (base == RectangleEdge.BOTTOM) {
+        } else if (base == RectangleEdge.BOTTOM) {
             x0 += xOffset;
             x1 += xOffset;
             y0 += yOffset;
             if (!pegShadow) {
                 y1 += yOffset;
             }
-        }
-        else if (base == RectangleEdge.LEFT) {
+        } else if (base == RectangleEdge.LEFT) {
             if (!pegShadow) {
                 x0 += xOffset;
             }
             x1 += xOffset;
             y0 += yOffset;
             y1 += yOffset;
-        }
-        else if (base == RectangleEdge.RIGHT) {
+        } else if (base == RectangleEdge.RIGHT) {
             x0 += xOffset;
             if (!pegShadow) {
                 x1 += xOffset;
@@ -282,15 +277,14 @@ public class GradientBarPainter implements BarPainter, Serializable {
      * Splits a bar into subregions (elsewhere, these subregions will have
      * different gradients applied to them).
      *
-     * @param bar  the bar shape.
-     * @param a  the first division.
-     * @param b  the second division.
-     * @param c  the third division.
-     *
+     * @param bar the bar shape.
+     * @param a   the first division.
+     * @param b   the second division.
+     * @param c   the third division.
      * @return An array containing four subregions.
      */
     private Rectangle2D[] splitVerticalBar(RectangularShape bar, double a,
-            double b, double c) {
+                                           double b, double c) {
         Rectangle2D[] result = new Rectangle2D[4];
         double x0 = bar.getMinX();
         double x1 = Math.rint(x0 + (bar.getWidth() * a));
@@ -311,15 +305,14 @@ public class GradientBarPainter implements BarPainter, Serializable {
      * Splits a bar into subregions (elsewhere, these subregions will have
      * different gradients applied to them).
      *
-     * @param bar  the bar shape.
-     * @param a  the first division.
-     * @param b  the second division.
-     * @param c  the third division.
-     *
+     * @param bar the bar shape.
+     * @param a   the first division.
+     * @param b   the second division.
+     * @param c   the third division.
      * @return An array containing four subregions.
      */
     private Rectangle2D[] splitHorizontalBar(RectangularShape bar, double a,
-            double b, double c) {
+                                             double b, double c) {
         Rectangle2D[] result = new Rectangle2D[4];
         double y0 = bar.getMinY();
         double y1 = Math.rint(y0 + (bar.getHeight() * a));
@@ -339,8 +332,7 @@ public class GradientBarPainter implements BarPainter, Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the obj (<code>null</code> permitted).
-     *
+     * @param obj the obj (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

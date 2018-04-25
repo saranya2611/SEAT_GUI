@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -51,13 +51,15 @@ import java.util.Collections;
  */
 public class PieLabelDistributor extends AbstractPieLabelDistributor {
 
-    /** The minimum gap. */
+    /**
+     * The minimum gap.
+     */
     private double minGap = 4.0;
 
     /**
      * Creates a new distributor.
      *
-     * @param labelCount  the number of labels (ignored).
+     * @param labelCount the number of labels (ignored).
      */
     public PieLabelDistributor(int labelCount) {
         super();
@@ -66,8 +68,8 @@ public class PieLabelDistributor extends AbstractPieLabelDistributor {
     /**
      * Distributes the labels.
      *
-     * @param minY  the minimum y-coordinate in Java2D-space.
-     * @param height  the available height (in Java2D units).
+     * @param minY   the minimum y-coordinate in Java2D-space.
+     * @param height the available height (in Java2D units).
      */
     @Override
     public void distributeLabels(double minY, double height) {
@@ -120,7 +122,7 @@ public class PieLabelDistributor extends AbstractPieLabelDistributor {
                 PieLabelRecord r1 = getPieLabelRecord(lower + 1);
                 if (r1.getLowerY() < r0.getUpperY()) {
                     double adjust = r0.getUpperY() - r1.getLowerY()
-                                    + this.minGap;
+                            + this.minGap;
                     r1.setAllocatedY(r1.getAllocatedY() + adjust);
                 }
             }
@@ -139,8 +141,8 @@ public class PieLabelDistributor extends AbstractPieLabelDistributor {
      * Any labels that are overlapping are moved down in an attempt to
      * eliminate the overlaps.
      *
-     * @param minY  the minimum y value (in Java2D coordinate space).
-     * @param height  the height available for all labels.
+     * @param minY   the minimum y value (in Java2D coordinate space).
+     * @param height the height available for all labels.
      */
     protected void adjustDownwards(double minY, double height) {
         for (int i = 0; i < this.labels.size() - 1; i++) {
@@ -148,9 +150,9 @@ public class PieLabelDistributor extends AbstractPieLabelDistributor {
             PieLabelRecord record1 = getPieLabelRecord(i + 1);
             if (record1.getLowerY() < record0.getUpperY()) {
                 record1.setAllocatedY(Math.min(minY + height
-                        - record1.getLabelHeight() / 2.0,
+                                - record1.getLabelHeight() / 2.0,
                         record0.getUpperY() + this.minGap
-                        + record1.getLabelHeight() / 2.0));
+                                + record1.getLabelHeight() / 2.0));
             }
         }
     }
@@ -159,8 +161,8 @@ public class PieLabelDistributor extends AbstractPieLabelDistributor {
      * Any labels that are overlapping are moved up in an attempt to eliminate
      * the overlaps.
      *
-     * @param minY  the minimum y value (in Java2D coordinate space).
-     * @param height  the height available for all labels.
+     * @param minY   the minimum y value (in Java2D coordinate space).
+     * @param height the height available for all labels.
      */
     protected void adjustUpwards(double minY, double height) {
         for (int i = this.labels.size() - 1; i > 0; i--) {
@@ -178,8 +180,8 @@ public class PieLabelDistributor extends AbstractPieLabelDistributor {
      * Labels are spaced evenly in the available space in an attempt to
      * eliminate the overlaps.
      *
-     * @param minY  the minimum y value (in Java2D coordinate space).
-     * @param height  the height available for all labels.
+     * @param minY   the minimum y value (in Java2D coordinate space).
+     * @param height the height available for all labels.
      */
     protected void spreadEvenly(double minY, double height) {
         double y = minY;

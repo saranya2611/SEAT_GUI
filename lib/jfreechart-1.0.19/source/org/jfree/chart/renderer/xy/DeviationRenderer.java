@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -38,19 +38,12 @@
  * 04-May-2007 : Set processVisibleItemsOnly flag to false (DG);
  * 11-Apr-2008 : New override for findRangeBounds() (DG);
  * 27-Mar-2009 : Updated findRangeBounds() to call new inherited method (DG);
- * 01-Jul-2012 : Provide initial size for GeneralPath in drawItem(), as 
+ * 01-Jul-2012 : Provide initial size for GeneralPath in drawItem(), as
  *               suggested by Milan Ramaiya in bug 3521736 (DG);
- * 
+ *
  */
 
 package org.jfree.chart.renderer.xy;
-
-import java.awt.AlphaComposite;
-import java.awt.Composite;
-import java.awt.Graphics2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Rectangle2D;
-import java.util.List;
 
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
@@ -63,6 +56,11 @@ import org.jfree.data.Range;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RectangleEdge;
+
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
+import java.util.List;
 
 /**
  * A specialised subclass of the {@link XYLineAndShapeRenderer} that requires
@@ -80,36 +78,8 @@ import org.jfree.ui.RectangleEdge;
 public class DeviationRenderer extends XYLineAndShapeRenderer {
 
     /**
-     * A state object that is passed to each call to <code>drawItem</code>.
+     * The alpha transparency for the interval shading.
      */
-    public static class State extends XYLineAndShapeRenderer.State {
-
-        /**
-         * A list of coordinates for the upper y-values in the current series
-         * (after translation into Java2D space).
-         */
-        public List upperCoordinates;
-
-        /**
-         * A list of coordinates for the lower y-values in the current series
-         * (after translation into Java2D space).
-         */
-        public List lowerCoordinates;
-
-        /**
-         * Creates a new state instance.
-         *
-         * @param info  the plot rendering info.
-         */
-        public State(PlotRenderingInfo info) {
-            super(info);
-            this.lowerCoordinates = new java.util.ArrayList();
-            this.upperCoordinates = new java.util.ArrayList();
-        }
-
-    }
-
-    /** The alpha transparency for the interval shading. */
     private float alpha;
 
     /**
@@ -124,7 +94,7 @@ public class DeviationRenderer extends XYLineAndShapeRenderer {
      * Creates a new renderer.
      *
      * @param lines  show lines between data items?
-     * @param shapes  show a shape for each data item?
+     * @param shapes show a shape for each data item?
      */
     public DeviationRenderer(boolean lines, boolean shapes) {
         super(lines, shapes);
@@ -136,7 +106,6 @@ public class DeviationRenderer extends XYLineAndShapeRenderer {
      * Returns the alpha transparency for the background shading.
      *
      * @return The alpha transparency.
-     *
      * @see #setAlpha(float)
      */
     public float getAlpha() {
@@ -147,8 +116,7 @@ public class DeviationRenderer extends XYLineAndShapeRenderer {
      * Sets the alpha transparency for the background shading, and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param alpha   the alpha (in the range 0.0f to 1.0f).
-     *
+     * @param alpha the alpha (in the range 0.0f to 1.0f).
      * @see #getAlpha()
      */
     public void setAlpha(float alpha) {
@@ -164,7 +132,7 @@ public class DeviationRenderer extends XYLineAndShapeRenderer {
      * This method is overridden so that this flag cannot be changed---it is
      * set to <code>true</code> for this renderer.
      *
-     * @param flag  ignored.
+     * @param flag ignored.
      */
     @Override
     public void setDrawSeriesLineAsPath(boolean flag) {
@@ -175,10 +143,9 @@ public class DeviationRenderer extends XYLineAndShapeRenderer {
      * Returns the range of values the renderer requires to display all the
      * items from the specified dataset.
      *
-     * @param dataset  the dataset (<code>null</code> permitted).
-     *
+     * @param dataset the dataset (<code>null</code> permitted).
      * @return The range (<code>null</code> if the dataset is <code>null</code>
-     *         or empty).
+     * or empty).
      */
     @Override
     public Range findRangeBounds(XYDataset dataset) {
@@ -189,17 +156,16 @@ public class DeviationRenderer extends XYLineAndShapeRenderer {
      * Initialises and returns a state object that can be passed to each
      * invocation of the {@link #drawItem} method.
      *
-     * @param g2  the graphics target.
-     * @param dataArea  the data area.
-     * @param plot  the plot.
+     * @param g2       the graphics target.
+     * @param dataArea the data area.
+     * @param plot     the plot.
      * @param dataset  the dataset.
-     * @param info  the plot rendering info.
-     *
+     * @param info     the plot rendering info.
      * @return A newly initialised state object.
      */
     @Override
     public XYItemRendererState initialise(Graphics2D g2, Rectangle2D dataArea,
-            XYPlot plot, XYDataset dataset, PlotRenderingInfo info) {
+                                          XYPlot plot, XYDataset dataset, PlotRenderingInfo info) {
         State state = new State(info);
         state.seriesPath = new GeneralPath();
         state.setProcessVisibleItemsOnly(false);
@@ -221,10 +187,8 @@ public class DeviationRenderer extends XYLineAndShapeRenderer {
      * Returns <code>true</code> if this is the pass where the shapes are
      * drawn.
      *
-     * @param pass  the pass index.
-     *
+     * @param pass the pass index.
      * @return A boolean.
-     *
      * @see #isLinePass(int)
      */
     @Override
@@ -236,10 +200,8 @@ public class DeviationRenderer extends XYLineAndShapeRenderer {
      * Returns <code>true</code> if this is the pass where the lines are
      * drawn.
      *
-     * @param pass  the pass index.
-     *
+     * @param pass the pass index.
      * @return A boolean.
-     *
      * @see #isItemPass(int)
      */
     @Override
@@ -250,26 +212,26 @@ public class DeviationRenderer extends XYLineAndShapeRenderer {
     /**
      * Draws the visual representation of a single data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the area within which the data is being drawn.
-     * @param info  collects information about the drawing.
-     * @param plot  the plot (can be used to obtain standard color
-     *              information etc).
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     * @param crosshairState  crosshair information for the plot
-     *                        (<code>null</code> permitted).
-     * @param pass  the pass index.
+     * @param g2             the graphics device.
+     * @param state          the renderer state.
+     * @param dataArea       the area within which the data is being drawn.
+     * @param info           collects information about the drawing.
+     * @param plot           the plot (can be used to obtain standard color
+     *                       information etc).
+     * @param domainAxis     the domain axis.
+     * @param rangeAxis      the range axis.
+     * @param dataset        the dataset.
+     * @param series         the series index (zero-based).
+     * @param item           the item index (zero-based).
+     * @param crosshairState crosshair information for the plot
+     *                       (<code>null</code> permitted).
+     * @param pass           the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, XYItemRendererState state,
-            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-            int series, int item, CrosshairState crosshairState, int pass) {
+                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+                         int series, int item, CrosshairState crosshairState, int pass) {
 
         // do nothing if item is not visible
         if (!getItemVisible(series, item)) {
@@ -283,7 +245,7 @@ public class DeviationRenderer extends XYLineAndShapeRenderer {
 
             double x = intervalDataset.getXValue(series, item);
             double yLow = intervalDataset.getStartYValue(series, item);
-            double yHigh  = intervalDataset.getEndYValue(series, item);
+            double yHigh = intervalDataset.getEndYValue(series, item);
 
             RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
             RectangleEdge yAxisLocation = plot.getRangeAxisEdge();
@@ -296,12 +258,11 @@ public class DeviationRenderer extends XYLineAndShapeRenderer {
 
             PlotOrientation orientation = plot.getOrientation();
             if (orientation == PlotOrientation.HORIZONTAL) {
-                drState.lowerCoordinates.add(new double[] {yyLow, xx});
-                drState.upperCoordinates.add(new double[] {yyHigh, xx});
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
-                drState.lowerCoordinates.add(new double[] {xx, yyLow});
-                drState.upperCoordinates.add(new double[] {xx, yyHigh});
+                drState.lowerCoordinates.add(new double[]{yyLow, xx});
+                drState.upperCoordinates.add(new double[]{yyHigh, xx});
+            } else if (orientation == PlotOrientation.VERTICAL) {
+                drState.lowerCoordinates.add(new double[]{xx, yyLow});
+                drState.upperCoordinates.add(new double[]{xx, yyHigh});
             }
 
             if (item == (dataset.getItemCount(series) - 1)) {
@@ -312,8 +273,8 @@ public class DeviationRenderer extends XYLineAndShapeRenderer {
                         AlphaComposite.SRC_OVER, this.alpha));
                 g2.setPaint(getItemFillPaint(series, item));
                 GeneralPath area = new GeneralPath(GeneralPath.WIND_NON_ZERO,
-                        drState.lowerCoordinates.size() 
-                        + drState.upperCoordinates.size());
+                        drState.lowerCoordinates.size()
+                                + drState.upperCoordinates.size());
                 double[] coords = (double[]) drState.lowerCoordinates.get(0);
                 area.moveTo((float) coords[0], (float) coords[1]);
                 for (int i = 1; i < drState.lowerCoordinates.size(); i++) {
@@ -368,8 +329,7 @@ public class DeviationRenderer extends XYLineAndShapeRenderer {
     /**
      * Tests this renderer for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -385,6 +345,36 @@ public class DeviationRenderer extends XYLineAndShapeRenderer {
             return false;
         }
         return super.equals(obj);
+    }
+
+    /**
+     * A state object that is passed to each call to <code>drawItem</code>.
+     */
+    public static class State extends XYLineAndShapeRenderer.State {
+
+        /**
+         * A list of coordinates for the upper y-values in the current series
+         * (after translation into Java2D space).
+         */
+        public List upperCoordinates;
+
+        /**
+         * A list of coordinates for the lower y-values in the current series
+         * (after translation into Java2D space).
+         */
+        public List lowerCoordinates;
+
+        /**
+         * Creates a new state instance.
+         *
+         * @param info the plot rendering info.
+         */
+        public State(PlotRenderingInfo info) {
+            super(info);
+            this.lowerCoordinates = new java.util.ArrayList();
+            this.upperCoordinates = new java.util.ArrayList();
+        }
+
     }
 
 }

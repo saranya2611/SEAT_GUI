@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -41,13 +41,13 @@
 
 package org.jfree.experimental.chart.plot;
 
-import java.util.Iterator;
-
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CombinedDomainCategoryPlot;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.Range;
+
+import java.util.Iterator;
 
 /**
  * A specialised form of {@link CombinedDomainCategoryPlot} where the
@@ -58,7 +58,7 @@ public class CombinedXYPlot extends CombinedDomainXYPlot {
     /**
      * Creates a new instance with the specified axes.
      *
-     * @param domainAxis  the x-axis.
+     * @param domainAxis the x-axis.
      * @param rangeAxis  the y-axis.
      */
     public CombinedXYPlot(ValueAxis domainAxis, ValueAxis rangeAxis) {
@@ -70,7 +70,7 @@ public class CombinedXYPlot extends CombinedDomainXYPlot {
     /**
      * Adds a new subplot with weight <code>1</code>.
      *
-     * @param subplot  the subplot.
+     * @param subplot the subplot.
      */
     public void add(XYPlot subplot) {
         this.add(subplot, 1);
@@ -79,7 +79,7 @@ public class CombinedXYPlot extends CombinedDomainXYPlot {
     /**
      * Adds a new subplot with the specified weight.
      *
-     * @param subplot  the subplot.
+     * @param subplot the subplot.
      * @param weight  the weight for the subplot.
      */
     public void add(XYPlot subplot, int weight) {
@@ -100,8 +100,7 @@ public class CombinedXYPlot extends CombinedDomainXYPlot {
      * Returns the bounds of the data values that will be plotted against
      * the specified axis.
      *
-     * @param axis  the axis.
-     *
+     * @param axis the axis.
      * @return The bounds.
      */
     public Range getDataRange(ValueAxis axis) {
@@ -118,7 +117,7 @@ public class CombinedXYPlot extends CombinedDomainXYPlot {
     /**
      * Sets the range axis that is shared by all the subplots.
      *
-     * @param axis  the axis.
+     * @param axis the axis.
      */
     public void setRangeAxis(ValueAxis axis) {
         Iterator l_itr = getSubplots().iterator();

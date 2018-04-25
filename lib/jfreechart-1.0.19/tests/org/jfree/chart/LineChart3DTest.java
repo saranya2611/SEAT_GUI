@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -55,21 +55,38 @@ import org.jfree.data.general.DatasetUtilities;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Some tests for a line chart with a 3D effect.
  */
-public class LineChart3DTest  {
+public class LineChart3DTest {
 
-    /** A chart. */
+    /**
+     * A chart.
+     */
     private JFreeChart chart;
+
+    /**
+     * Create a line chart with sample data in the range -3 to +3.
+     *
+     * @return The chart.
+     */
+    private static JFreeChart createLineChart3D() {
+        Number[][] data = new Integer[][]
+                {{new Integer(-3), new Integer(-2)},
+                        {new Integer(-1), new Integer(1)},
+                        {new Integer(2), new Integer(3)}};
+
+        CategoryDataset dataset = DatasetUtilities.createCategoryDataset("S",
+                "C", data);
+        return ChartFactory.createLineChart3D("Line Chart", "Domain", "Range",
+                dataset);
+    }
 
     /**
      * Common test setup.
@@ -86,7 +103,7 @@ public class LineChart3DTest  {
     @Test
     public void testDrawWithNullInfo() {
 
-        BufferedImage image = new BufferedImage(200 , 100,
+        BufferedImage image = new BufferedImage(200, 100,
                 BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = image.createGraphics();
         this.chart.draw(g2, new Rectangle2D.Double(0, 0, 200, 100), null,
@@ -103,9 +120,9 @@ public class LineChart3DTest  {
 
         // create a dataset...
         Number[][] data = new Integer[][]
-            {{new Integer(-30), new Integer(-20)},
-             {new Integer(-10), new Integer(10)},
-             {new Integer(20), new Integer(30)}};
+                {{new Integer(-30), new Integer(-20)},
+                        {new Integer(-10), new Integer(10)},
+                        {new Integer(20), new Integer(30)}};
 
         CategoryDataset newData = DatasetUtilities.createCategoryDataset("S",
                 "C", data);
@@ -118,9 +135,9 @@ public class LineChart3DTest  {
         ValueAxis axis = plot.getRangeAxis();
         Range range = axis.getRange();
         assertTrue("Expecting the lower bound of the range to be around -30: "
-                   + range.getLowerBound(), range.getLowerBound() <= -30);
+                + range.getLowerBound(), range.getLowerBound() <= -30);
         assertTrue("Expecting the upper bound of the range to be around 30: "
-                   + range.getUpperBound(), range.getUpperBound() >= 30);
+                + range.getUpperBound(), range.getUpperBound() >= 30);
 
     }
 
@@ -155,35 +172,19 @@ public class LineChart3DTest  {
     }
 
     /**
-     * Create a line chart with sample data in the range -3 to +3.
-     *
-     * @return The chart.
-     */
-    private static JFreeChart createLineChart3D() {
-        Number[][] data = new Integer[][]
-            {{new Integer(-3), new Integer(-2)},
-             {new Integer(-1), new Integer(1)},
-             {new Integer(2), new Integer(3)}};
-
-        CategoryDataset dataset = DatasetUtilities.createCategoryDataset("S",
-                "C", data);
-        return ChartFactory.createLineChart3D("Line Chart", "Domain", "Range",
-            dataset);
-    }
-
-    /**
      * A chart change listener.
-     *
      */
     static class LocalListener implements ChartChangeListener {
 
-        /** A flag. */
+        /**
+         * A flag.
+         */
         private boolean flag;
 
         /**
          * Event handler.
          *
-         * @param event  the event.
+         * @param event the event.
          */
         @Override
         public void chartChanged(ChartChangeEvent event) {

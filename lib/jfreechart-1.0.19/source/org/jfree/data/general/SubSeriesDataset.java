@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -64,24 +64,28 @@ import org.jfree.data.xy.XYDataset;
  * {@link SeriesDataset}.
  *
  * @deprecated As of version 1.0.13.  This class will be removed from
- *     JFreeChart 1.2.0 onwards.  Anyone needing this facility will need to
- *     maintain it outside of JFreeChart.
+ * JFreeChart 1.2.0 onwards.  Anyone needing this facility will need to
+ * maintain it outside of JFreeChart.
  */
 public class SubSeriesDataset extends AbstractIntervalXYDataset
         implements OHLCDataset, IntervalXYDataset, CombinationDataset {
 
-    /** The parent dataset. */
+    /**
+     * The parent dataset.
+     */
     private SeriesDataset parent = null;
 
-    /** Storage for map. */
+    /**
+     * Storage for map.
+     */
     private int[] map;  // maps our series into our parent's
 
     /**
      * Creates a SubSeriesDataset using one or more series from
      * <code>parent</code>.  The series to use are passed as an array of int.
      *
-     * @param parent  underlying dataset
-     * @param map  int[] of series from parent to include in this Dataset
+     * @param parent underlying dataset
+     * @param map    int[] of series from parent to include in this Dataset
      */
     public SubSeriesDataset(SeriesDataset parent, int[] map) {
         this.parent = parent;
@@ -92,11 +96,11 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
      * Creates a SubSeriesDataset using one series from <code>parent</code>.
      * The series to is passed as an int.
      *
-     * @param parent  underlying dataset
-     * @param series  series from parent to include in this Dataset
+     * @param parent underlying dataset
+     * @param series series from parent to include in this Dataset
      */
     public SubSeriesDataset(SeriesDataset parent, int series) {
-        this(parent, new int[] {series});
+        this(parent, new int[]{series});
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -109,9 +113,8 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
      * Note: throws <code>ClassCastException</code> if the series if not from a
      * {@link OHLCDataset}.
      *
-     * @param series  the index of the series of interest (zero-based).
-     * @param item  the index of the item of interest (zero-based).
-     *
+     * @param series the index of the series of interest (zero-based).
+     * @param item   the index of the item of interest (zero-based).
      * @return The high-value for the specified series and item.
      */
     @Override
@@ -123,9 +126,8 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
      * Returns the high-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The high-value.
      */
     @Override
@@ -144,9 +146,8 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
      * Note: throws <code>ClassCastException</code> if the series if not from a
      * {@link OHLCDataset}.
      *
-     * @param series  the index of the series of interest (zero-based).
-     * @param item  the index of the item of interest (zero-based).
-     *
+     * @param series the index of the series of interest (zero-based).
+     * @param item   the index of the item of interest (zero-based).
      * @return The low-value for the specified series and item.
      */
     @Override
@@ -158,9 +159,8 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
      * Returns the low-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The low-value.
      */
     @Override
@@ -179,9 +179,8 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
      * Note: throws <code>ClassCastException</code> if the series if not from a
      * {@link OHLCDataset}.
      *
-     * @param series  the index of the series of interest (zero-based).
-     * @param item  the index of the item of interest (zero-based).
-     *
+     * @param series the index of the series of interest (zero-based).
+     * @param item   the index of the item of interest (zero-based).
      * @return The open-value for the specified series and item.
      */
     @Override
@@ -193,9 +192,8 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
      * Returns the open-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The open-value.
      */
     @Override
@@ -214,9 +212,8 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
      * Note: throws <code>ClassCastException</code> if the series if not from a
      * {@link OHLCDataset}.
      *
-     * @param series  the index of the series of interest (zero-based).
-     * @param item  the index of the item of interest (zero-based).
-     *
+     * @param series the index of the series of interest (zero-based).
+     * @param item   the index of the item of interest (zero-based).
      * @return The close-value for the specified series and item.
      */
     @Override
@@ -228,9 +225,8 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
      * Returns the close-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The close-value.
      */
     @Override
@@ -249,9 +245,8 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
      * Note: throws <code>ClassCastException</code> if the series if not from a
      * {@link OHLCDataset}.
      *
-     * @param series  the series (zero based index).
-     * @param item  the item (zero based index).
-     *
+     * @param series the series (zero based index).
+     * @param item   the item (zero based index).
      * @return The volume.
      */
     @Override
@@ -263,9 +258,8 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
      * Returns the volume-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The volume-value.
      */
     @Override
@@ -288,9 +282,8 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
      * Note: throws <code>ClassCastException</code> if the series if not from a
      * {@link XYDataset}.
      *
-     * @param series  the index of the series of interest (zero-based);
-     * @param item  the index of the item of interest (zero-based).
-     *
+     * @param series the index of the series of interest (zero-based);
+     * @param item   the index of the item of interest (zero-based).
      * @return The X-value for the specified series and item.
      */
     @Override
@@ -304,9 +297,8 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
      * Note: throws <code>ClassCastException</code> if the series if not from a
      * {@link XYDataset}.
      *
-     * @param series  the index of the series of interest (zero-based).
-     * @param item  the index of the item of interest (zero-based).
-     *
+     * @param series the index of the series of interest (zero-based).
+     * @param item   the index of the item of interest (zero-based).
      * @return The Y-value for the specified series and item.
      */
     @Override
@@ -320,8 +312,7 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
      * Note: throws <code>ClassCastException</code> if the series if not from a
      * {@link XYDataset}.
      *
-     * @param series  the index of the series of interest (zero-based).
-     *
+     * @param series the index of the series of interest (zero-based).
      * @return The number of items in a series.
      */
     @Override
@@ -346,8 +337,7 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
     /**
      * Returns the key for a series.
      *
-     * @param series  the series (zero-based index).
-     *
+     * @param series the series (zero-based index).
      * @return The name of a series.
      */
     @Override
@@ -362,19 +352,17 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
     /**
      * Returns the starting X value for the specified series and item.
      *
-     * @param series  the index of the series of interest (zero-based).
-     * @param item  the index of the item of interest (zero-based).
-     *
+     * @param series the index of the series of interest (zero-based).
+     * @param item   the index of the item of interest (zero-based).
      * @return The starting X value for the specified series and item.
      */
     @Override
     public Number getStartX(int series, int item) {
         if (this.parent instanceof IntervalXYDataset) {
             return ((IntervalXYDataset) this.parent).getStartX(
-                this.map[series], item
+                    this.map[series], item
             );
-        }
-        else {
+        } else {
             return getX(series, item);
         }
     }
@@ -382,19 +370,17 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
     /**
      * Returns the ending X value for the specified series and item.
      *
-     * @param series  the index of the series of interest (zero-based).
-     * @param item  the index of the item of interest (zero-based).
-     *
+     * @param series the index of the series of interest (zero-based).
+     * @param item   the index of the item of interest (zero-based).
      * @return The ending X value for the specified series and item.
      */
     @Override
     public Number getEndX(int series, int item) {
         if (this.parent instanceof IntervalXYDataset) {
             return ((IntervalXYDataset) this.parent).getEndX(
-                this.map[series], item
+                    this.map[series], item
             );
-        }
-        else {
+        } else {
             return getX(series, item);
         }
     }
@@ -402,19 +388,17 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
     /**
      * Returns the starting Y value for the specified series and item.
      *
-     * @param series  the index of the series of interest (zero-based).
-     * @param item  the index of the item of interest (zero-based).
-     *
+     * @param series the index of the series of interest (zero-based).
+     * @param item   the index of the item of interest (zero-based).
      * @return The starting Y value for the specified series and item.
      */
     @Override
     public Number getStartY(int series, int item) {
         if (this.parent instanceof IntervalXYDataset) {
             return ((IntervalXYDataset) this.parent).getStartY(
-                this.map[series], item
+                    this.map[series], item
             );
-        }
-        else {
+        } else {
             return getY(series, item);
         }
     }
@@ -422,19 +406,17 @@ public class SubSeriesDataset extends AbstractIntervalXYDataset
     /**
      * Returns the ending Y value for the specified series and item.
      *
-     * @param series  the index of the series of interest (zero-based).
-     * @param item  the index of the item of interest (zero-based).
-     *
+     * @param series the index of the series of interest (zero-based).
+     * @param item   the index of the item of interest (zero-based).
      * @return The ending Y value for the specified series and item.
      */
     @Override
-    public Number getEndY(int series,  int item) {
+    public Number getEndY(int series, int item) {
         if (this.parent instanceof IntervalXYDataset) {
             return ((IntervalXYDataset) this.parent).getEndY(
-                this.map[series], item
+                    this.map[series], item
             );
-        }
-        else {
+        } else {
             return getY(series, item);
         }
     }

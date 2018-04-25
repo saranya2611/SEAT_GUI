@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------------------------
@@ -50,10 +50,14 @@ package org.jfree.chart.imagemap;
 public class DynamicDriveToolTipTagFragmentGenerator
         implements ToolTipTagFragmentGenerator {
 
-    /** The title, empty string not to display */
+    /**
+     * The title, empty string not to display
+     */
     protected String title = "";
 
-    /** The style number */
+    /**
+     * The style number
+     */
     protected int style = 1;
 
     /**
@@ -66,10 +70,10 @@ public class DynamicDriveToolTipTagFragmentGenerator
     /**
      * Creates a new generator with specific title and style settings.
      *
-     * @param title  title for use in all tooltips, use empty String not to
-     *               display a title.
-     * @param style  style number, see http://www.dynamicdrive.com for more
-     *               information.
+     * @param title title for use in all tooltips, use empty String not to
+     *              display a title.
+     * @param style style number, see http://www.dynamicdrive.com for more
+     *              information.
      */
     public DynamicDriveToolTipTagFragmentGenerator(String title, int style) {
         this.title = title;
@@ -79,16 +83,15 @@ public class DynamicDriveToolTipTagFragmentGenerator
     /**
      * Generates a tooltip string to go in an HTML image map.
      *
-     * @param toolTipText  the tooltip.
-     *
+     * @param toolTipText the tooltip.
      * @return The formatted HTML area tag attribute(s).
      */
     @Override
     public String generateToolTipFragment(String toolTipText) {
         return " onMouseOver=\"return stm(['"
-            + ImageMapUtilities.javascriptEscape(this.title) + "','"
-            + ImageMapUtilities.javascriptEscape(toolTipText) + "'],Style["
-            + this.style + "]);\"" + " onMouseOut=\"return htm();\"";
+                + ImageMapUtilities.javascriptEscape(this.title) + "','"
+                + ImageMapUtilities.javascriptEscape(toolTipText) + "'],Style["
+                + this.style + "]);\"" + " onMouseOut=\"return htm();\"";
     }
 
 }

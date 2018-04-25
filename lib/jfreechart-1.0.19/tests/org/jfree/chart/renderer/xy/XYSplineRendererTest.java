@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -37,23 +37,20 @@
  * 25-Jul-2007 : Version 1 (DG);
  * 22-Apr-2008 : Added testPublicCloneable() (DG);
  * 20-Nov-2013 : Add tests for new fields (DG);
- * 
+ *
  */
 
 package org.jfree.chart.renderer.xy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.chart.TestUtilities;
 import org.jfree.ui.GradientPaintTransformType;
 import org.jfree.ui.StandardGradientPaintTransformer;
-
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import java.awt.geom.Rectangle2D;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link XYSplineRenderer} class.
@@ -74,17 +71,17 @@ public class XYSplineRendererTest {
         assertFalse(r1.equals(r2));
         r2.setPrecision(9);
         assertTrue(r1.equals(r2));
-        
+
         r1.setFillType(XYSplineRenderer.FillType.TO_ZERO);
         assertFalse(r1.equals(r2));
         r2.setFillType(XYSplineRenderer.FillType.TO_ZERO);
         assertTrue(r1.equals(r2));
-        
+
         r1.setGradientPaintTransformer(null);
         assertFalse(r1.equals(r2));
         r2.setGradientPaintTransformer(null);
         assertTrue(r1.equals(r2));
-        
+
         r1.setGradientPaintTransformer(new StandardGradientPaintTransformer(
                 GradientPaintTransformType.HORIZONTAL));
         assertFalse(r1.equals(r2));

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------------------
@@ -56,8 +56,6 @@
 
 package org.jfree.data.statistics;
 
-import java.util.List;
-
 import org.jfree.data.KeyedObjects2D;
 import org.jfree.data.Range;
 import org.jfree.data.RangeInfo;
@@ -66,6 +64,8 @@ import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
 
+import java.util.List;
+
 /**
  * A convenience class that provides a default implementation of the
  * {@link BoxAndWhiskerCategoryDataset} interface.
@@ -73,13 +73,19 @@ import org.jfree.util.PublicCloneable;
 public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
         implements BoxAndWhiskerCategoryDataset, RangeInfo, PublicCloneable {
 
-    /** Storage for the data. */
+    /**
+     * Storage for the data.
+     */
     protected KeyedObjects2D data;
 
-    /** The minimum range value. */
+    /**
+     * The minimum range value.
+     */
     private double minimumRangeValue;
 
-    /** The row index for the cell that the minimum range value comes from. */
+    /**
+     * The row index for the cell that the minimum range value comes from.
+     */
     private int minimumRangeValueRow;
 
     /**
@@ -87,10 +93,14 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
      */
     private int minimumRangeValueColumn;
 
-    /** The maximum range value. */
+    /**
+     * The maximum range value.
+     */
     private double maximumRangeValue;
 
-    /** The row index for the cell that the maximum range value comes from. */
+    /**
+     * The row index for the cell that the maximum range value comes from.
+     */
     private int maximumRangeValueRow;
 
     /**
@@ -115,11 +125,10 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
      * Adds a list of values relating to one box-and-whisker entity to the
      * table.  The various median values are calculated.
      *
-     * @param list  a collection of values from which the various medians will
-     *              be calculated.
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param list      a collection of values from which the various medians will
+     *                  be calculated.
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @see #add(BoxAndWhiskerItem, Comparable, Comparable)
      */
     public void add(List list, Comparable rowKey, Comparable columnKey) {
@@ -132,14 +141,13 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
      * Adds a list of values relating to one Box and Whisker entity to the
      * table.  The various median values are calculated.
      *
-     * @param item  a box and whisker item (<code>null</code> not permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param item      a box and whisker item (<code>null</code> not permitted).
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @see #add(List, Comparable, Comparable)
      */
     public void add(BoxAndWhiskerItem item, Comparable rowKey,
-            Comparable columnKey) {
+                    Comparable columnKey) {
 
         this.data.addObject(item, rowKey, columnKey);
 
@@ -148,10 +156,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
         int c = this.data.getColumnIndex(columnKey);
         if ((this.maximumRangeValueRow == r && this.maximumRangeValueColumn
                 == c) || (this.minimumRangeValueRow == r
-                && this.minimumRangeValueColumn == c))  {
+                && this.minimumRangeValueColumn == c)) {
             updateBounds();
-        }
-        else {
+        } else {
 
             double minval = Double.NaN;
             if (item.getMinOutlier() != null) {
@@ -166,8 +173,7 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
                 this.maximumRangeValue = maxval;
                 this.maximumRangeValueRow = r;
                 this.maximumRangeValueColumn = c;
-            }
-            else if (maxval > this.maximumRangeValue) {
+            } else if (maxval > this.maximumRangeValue) {
                 this.maximumRangeValue = maxval;
                 this.maximumRangeValueRow = r;
                 this.maximumRangeValueColumn = c;
@@ -177,8 +183,7 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
                 this.minimumRangeValue = minval;
                 this.minimumRangeValueRow = r;
                 this.minimumRangeValueColumn = c;
-            }
-            else if (minval < this.minimumRangeValue) {
+            } else if (minval < this.minimumRangeValue) {
                 this.minimumRangeValue = minval;
                 this.minimumRangeValueRow = r;
                 this.minimumRangeValueColumn = c;
@@ -193,11 +198,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
      * Removes an item from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @see #add(BoxAndWhiskerItem, Comparable, Comparable)
-     *
      * @since 1.0.7
      */
     public void remove(Comparable rowKey, Comparable columnKey) {
@@ -210,7 +213,7 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
         // update the cached bounds...
         if ((this.maximumRangeValueRow == r && this.maximumRangeValueColumn
                 == c) || (this.minimumRangeValueRow == r
-                && this.minimumRangeValueColumn == c))  {
+                && this.minimumRangeValueColumn == c)) {
             updateBounds();
         }
 
@@ -221,10 +224,8 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
      * Removes a row from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param rowIndex  the row index.
-     *
+     * @param rowIndex the row index.
      * @see #removeColumn(int)
-     *
      * @since 1.0.7
      */
     public void removeRow(int rowIndex) {
@@ -237,10 +238,8 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
      * Removes a row from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param rowKey  the row key.
-     *
+     * @param rowKey the row key.
      * @see #removeColumn(Comparable)
-     *
      * @since 1.0.7
      */
     public void removeRow(Comparable rowKey) {
@@ -253,10 +252,8 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
      * Removes a column from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param columnIndex  the column index.
-     *
+     * @param columnIndex the column index.
      * @see #removeRow(int)
-     *
      * @since 1.0.7
      */
     public void removeColumn(int columnIndex) {
@@ -269,10 +266,8 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
      * Removes a column from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param columnKey  the column key.
-     *
+     * @param columnKey the column key.
      * @see #removeRow(Comparable)
-     *
      * @since 1.0.7
      */
     public void removeColumn(Comparable columnKey) {
@@ -296,9 +291,8 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Return an item from within the dataset.
      *
-     * @param row  the row index.
-     * @param column  the column index.
-     *
+     * @param row    the row index.
+     * @param column the column index.
      * @return The item.
      */
     public BoxAndWhiskerItem getItem(int row, int column) {
@@ -308,11 +302,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the value for an item.
      *
-     * @param row  the row index.
-     * @param column  the column index.
-     *
+     * @param row    the row index.
+     * @param column the column index.
      * @return The value.
-     *
      * @see #getMedianValue(int, int)
      * @see #getValue(Comparable, Comparable)
      */
@@ -324,11 +316,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the value for an item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the columnKey.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the columnKey.
      * @return The value.
-     *
      * @see #getMedianValue(Comparable, Comparable)
      * @see #getValue(int, int)
      */
@@ -340,11 +330,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the mean value for an item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The mean value.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -363,11 +351,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the mean value for an item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @return The mean value.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -384,11 +370,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the median value for an item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The median value.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -405,11 +389,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the median value for an item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the columnKey.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the columnKey.
      * @return The median value.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -426,11 +408,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the first quartile value.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The first quartile value.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -447,11 +427,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the first quartile value.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @return The first quartile value.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -468,11 +446,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the third quartile value.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The third quartile value.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -489,11 +465,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the third quartile value.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @return The third quartile value.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -510,10 +484,8 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the column index for a given key.
      *
-     * @param key  the column key (<code>null</code> not permitted).
-     *
+     * @param key the column key (<code>null</code> not permitted).
      * @return The column index.
-     *
      * @see #getColumnKey(int)
      */
     @Override
@@ -524,10 +496,8 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns a column key.
      *
-     * @param column  the column index (zero-based).
-     *
+     * @param column the column index (zero-based).
      * @return The column key.
-     *
      * @see #getColumnIndex(Comparable)
      */
     @Override
@@ -539,7 +509,6 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
      * Returns the column keys.
      *
      * @return The keys.
-     *
      * @see #getRowKeys()
      */
     @Override
@@ -550,10 +519,8 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the row index for a given key.
      *
-     * @param key  the row key (<code>null</code> not permitted).
-     *
+     * @param key the row key (<code>null</code> not permitted).
      * @return The row index.
-     *
      * @see #getRowKey(int)
      */
     @Override
@@ -565,10 +532,8 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns a row key.
      *
-     * @param row  the row index (zero-based).
-     *
+     * @param row the row index (zero-based).
      * @return The row key.
-     *
      * @see #getRowIndex(Comparable)
      */
     @Override
@@ -580,7 +545,6 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
      * Returns the row keys.
      *
      * @return The keys.
-     *
      * @see #getColumnKeys()
      */
     @Override
@@ -592,7 +556,6 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
      * Returns the number of rows in the table.
      *
      * @return The row count.
-     *
      * @see #getColumnCount()
      */
     @Override
@@ -604,7 +567,6 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
      * Returns the number of columns in the table.
      *
      * @return The column count.
-     *
      * @see #getRowCount()
      */
     @Override
@@ -615,11 +577,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the minimum y-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         y-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        y-interval is taken into account.
      * @return The minimum value.
-     *
      * @see #getRangeUpperBound(boolean)
      */
     @Override
@@ -630,11 +590,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the maximum y-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         y-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        y-interval is taken into account.
      * @return The maximum value.
-     *
      * @see #getRangeLowerBound(boolean)
      */
     @Override
@@ -645,9 +603,8 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the range of the values in this dataset's range.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         y-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        y-interval is taken into account.
      * @return The range.
      */
     @Override
@@ -658,11 +615,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the minimum regular (non outlier) value for an item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The minimum regular value.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -679,11 +634,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the minimum regular (non outlier) value for an item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @return The minimum regular value.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -700,11 +653,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the maximum regular (non outlier) value for an item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The maximum regular value.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -721,11 +672,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the maximum regular (non outlier) value for an item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @return The maximum regular value.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -742,11 +691,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the minimum outlier (non farout) value for an item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The minimum outlier.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -763,11 +710,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the minimum outlier (non farout) value for an item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @return The minimum outlier.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -784,11 +729,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the maximum outlier (non farout) value for an item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The maximum outlier.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -805,11 +748,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns the maximum outlier (non farout) value for an item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @return The maximum outlier.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -826,11 +767,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns a list of outlier values for an item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return A list of outlier values.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -847,11 +786,9 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Returns a list of outlier values for an item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
      * @return A list of outlier values.
-     *
      * @see #getItem(int, int)
      */
     @Override
@@ -914,8 +851,7 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
     /**
      * Tests this dataset for equality with an arbitrary object.
      *
-     * @param obj  the object to test against (<code>null</code> permitted).
-     *
+     * @param obj the object to test against (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -935,7 +871,6 @@ public class DefaultBoxAndWhiskerCategoryDataset extends AbstractDataset
      * Returns a clone of this dataset.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if cloning is not possible.
      */
     @Override

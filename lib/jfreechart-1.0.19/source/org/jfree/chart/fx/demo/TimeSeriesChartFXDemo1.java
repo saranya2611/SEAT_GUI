@@ -1,7 +1,7 @@
 /* ===========================
  * TimeSeriesChartFXDemo1.java
  * ===========================
- * 
+ *
  * Copyright (c) 2014, Object Refinery Limited.
  * All rights reserved.
  *
@@ -18,9 +18,9 @@
  *     names of its contributors may be used to endorse or promote products
  *     derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL OBJECT REFINERY LIMITED BE LIABLE FOR ANY
  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
@@ -28,16 +28,11 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * 
+ *
  */
 
 package org.jfree.chart.fx.demo;
 
-import static javafx.application.Application.launch;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -55,33 +50,33 @@ import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.HorizontalAlignment;
 
+import java.awt.*;
+
 /**
  * A demo showing the display of JFreeChart within a JavaFX application.
- * 
- * The ChartCanvas code is based on: 
+ * <p>
+ * The ChartCanvas code is based on:
  * http://dlemmermann.wordpress.com/2014/04/10/javafx-tip-1-resizable-canvas/
- * 
  */
 public class TimeSeriesChartFXDemo1 extends Application {
 
     /**
      * Creates a chart.
      *
-     * @param dataset  a dataset.
-     *
+     * @param dataset a dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(XYDataset dataset) {
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "International Coffee Organisation : Coffee Prices",    // title
-            null,             // x-axis label
-            "US cents/lb",      // y-axis label
-            dataset);
+                "International Coffee Organisation : Coffee Prices",    // title
+                null,             // x-axis label
+                "US cents/lb",      // y-axis label
+                dataset);
 
         String fontName = "Palatino";
         chart.getTitle().setFont(new Font(fontName, Font.BOLD, 18));
-        chart.addSubtitle(new TextTitle("Source: http://www.ico.org/historical/2010-19/PDF/HIST-PRICES.pdf", 
+        chart.addSubtitle(new TextTitle("Source: http://www.ico.org/historical/2010-19/PDF/HIST-PRICES.pdf",
                 new Font(fontName, Font.PLAIN, 14)));
 
         XYPlot plot = (XYPlot) chart.getPlot();
@@ -104,7 +99,7 @@ public class TimeSeriesChartFXDemo1 extends Application {
             renderer.setDrawSeriesLineAsPath(true);
             // set the default stroke for all series
             renderer.setAutoPopulateSeriesStroke(false);
-            renderer.setBaseStroke(new BasicStroke(3.0f, BasicStroke.CAP_ROUND, 
+            renderer.setBaseStroke(new BasicStroke(3.0f, BasicStroke.CAP_ROUND,
                     BasicStroke.JOIN_BEVEL), false);
             renderer.setSeriesPaint(0, Color.RED);
             renderer.setSeriesPaint(1, new Color(24, 123, 58));
@@ -207,7 +202,7 @@ public class TimeSeriesChartFXDemo1 extends Application {
         s2.add(new Month(1, 2013), 169.19);
         s2.add(new Month(2, 2013), 161.70);
         s2.add(new Month(3, 2013), 161.53);
-        
+
         TimeSeries s3 = new TimeSeries("Other Milds");
         s3.add(new Month(1, 2010), 158.90);
         s3.add(new Month(2, 2010), 157.86);
@@ -248,7 +243,7 @@ public class TimeSeriesChartFXDemo1 extends Application {
         s3.add(new Month(1, 2013), 157.29);
         s3.add(new Month(2, 2013), 149.46);
         s3.add(new Month(3, 2013), 149.78);
-        
+
         TimeSeries s4 = new TimeSeries("Brazilian Naturals");
         s4.add(new Month(1, 2010), 131.67);
         s4.add(new Month(2, 2010), 124.57);
@@ -289,7 +284,7 @@ public class TimeSeriesChartFXDemo1 extends Application {
         s4.add(new Month(1, 2013), 145.17);
         s4.add(new Month(2, 2013), 136.63);
         s4.add(new Month(3, 2013), 133.61);
-        
+
         TimeSeries s5 = new TimeSeries("Robustas");
         s5.add(new Month(1, 2010), 69.92);
         s5.add(new Month(2, 2010), 67.88);
@@ -330,7 +325,7 @@ public class TimeSeriesChartFXDemo1 extends Application {
         s5.add(new Month(1, 2013), 99.69);
         s5.add(new Month(2, 2013), 104.03);
         s5.add(new Month(3, 2013), 106.26);
-       
+
         TimeSeries s6 = new TimeSeries("Futures (London)");
         s6.add(new Month(1, 2010), 62.66);
         s6.add(new Month(2, 2010), 60.37);
@@ -371,7 +366,7 @@ public class TimeSeriesChartFXDemo1 extends Application {
         s6.add(new Month(1, 2013), 88.85);
         s6.add(new Month(2, 2013), 94.41);
         s6.add(new Month(3, 2013), 97.22);
-        
+
         TimeSeries s7 = new TimeSeries("Futures (New York)");
         s7.add(new Month(1, 2010), 142.76);
         s7.add(new Month(2, 2010), 134.35);
@@ -412,11 +407,11 @@ public class TimeSeriesChartFXDemo1 extends Application {
         s7.add(new Month(1, 2013), 154.28);
         s7.add(new Month(2, 2013), 144.89);
         s7.add(new Month(3, 2013), 141.43);
-       
+
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s1);
         dataset.addSeries(s2);
-        dataset.addSeries(s3);        
+        dataset.addSeries(s3);
         dataset.addSeries(s4);
         dataset.addSeries(s5);
         dataset.addSeries(s6);
@@ -424,24 +419,24 @@ public class TimeSeriesChartFXDemo1 extends Application {
         return dataset;
     }
 
-    @Override 
-    public void start(Stage stage) throws Exception {
-        XYDataset dataset = createDataset();
-        JFreeChart chart = createChart(dataset); 
-        ChartViewer viewer = new ChartViewer(chart);  
-        
-        stage.setScene(new Scene(viewer)); 
-        stage.setTitle("JFreeChart: TimeSeriesFXDemo1.java"); 
-        stage.setWidth(700);
-        stage.setHeight(390);
-        stage.show();
-    }
-    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
     }
-  
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        XYDataset dataset = createDataset();
+        JFreeChart chart = createChart(dataset);
+        ChartViewer viewer = new ChartViewer(chart);
+
+        stage.setScene(new Scene(viewer));
+        stage.setTitle("JFreeChart: TimeSeriesFXDemo1.java");
+        stage.setWidth(700);
+        stage.setHeight(390);
+        stage.show();
+    }
+
 }

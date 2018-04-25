@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -52,15 +52,15 @@ public class XYIntervalDataItem extends ComparableObjectItem {
     /**
      * Creates a new instance of <code>XYIntervalItem</code>.
      *
-     * @param x  the x-value.
+     * @param x     the x-value.
      * @param xLow  the lower bound of the x-interval.
-     * @param xHigh  the upper bound of the x-interval.
-     * @param y  the y-value.
+     * @param xHigh the upper bound of the x-interval.
+     * @param y     the y-value.
      * @param yLow  the lower bound of the y-interval.
-     * @param yHigh  the upper bound of the y-interval.
+     * @param yHigh the upper bound of the y-interval.
      */
     public XYIntervalDataItem(double x, double xLow, double xHigh, double y,
-            double yLow, double yHigh) {
+                              double yLow, double yHigh) {
         super(new Double(x), new XYInterval(xLow, xHigh, y, yLow, yHigh));
     }
 
@@ -82,8 +82,7 @@ public class XYIntervalDataItem extends ComparableObjectItem {
         XYInterval interval = (XYInterval) getObject();
         if (interval != null) {
             return interval.getY();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }
@@ -97,8 +96,7 @@ public class XYIntervalDataItem extends ComparableObjectItem {
         XYInterval interval = (XYInterval) getObject();
         if (interval != null) {
             return interval.getXLow();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }
@@ -112,8 +110,7 @@ public class XYIntervalDataItem extends ComparableObjectItem {
         XYInterval interval = (XYInterval) getObject();
         if (interval != null) {
             return interval.getXHigh();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }
@@ -127,8 +124,7 @@ public class XYIntervalDataItem extends ComparableObjectItem {
         XYInterval interval = (XYInterval) getObject();
         if (interval != null) {
             return interval.getYLow();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }
@@ -142,8 +138,7 @@ public class XYIntervalDataItem extends ComparableObjectItem {
         XYInterval interval = (XYInterval) getObject();
         if (interval != null) {
             return interval.getYHigh();
-        }
-        else {
+        } else {
             return Double.NaN;
         }
     }

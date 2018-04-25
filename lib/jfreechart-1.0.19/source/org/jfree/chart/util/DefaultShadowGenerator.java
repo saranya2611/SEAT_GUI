@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -42,16 +42,16 @@
 
 package org.jfree.chart.util;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+import org.jfree.chart.HashUtilities;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.Serializable;
-import org.jfree.chart.HashUtilities;
 
 /**
  * A default implementation of the {@link ShadowGenerator} interface, based on
- * code in a 
+ * code in a
  * <a href="http://www.jroller.com/gfx/entry/fast_or_good_drop_shadows">blog
  * post by Romain Guy</a>.
  *
@@ -61,19 +61,29 @@ public class DefaultShadowGenerator implements ShadowGenerator, Serializable {
 
     private static final long serialVersionUID = 2732993885591386064L;
 
-    /** The shadow size. */
+    /**
+     * The shadow size.
+     */
     private int shadowSize;
 
-    /** The shadow color. */
+    /**
+     * The shadow color.
+     */
     private Color shadowColor;
 
-    /** The shadow opacity. */
+    /**
+     * The shadow opacity.
+     */
     private float shadowOpacity;
 
-    /** The shadow offset angle (in radians). */
+    /**
+     * The shadow offset angle (in radians).
+     */
     private double angle;
 
-    /** The shadow offset distance (in Java2D units). */
+    /**
+     * The shadow offset distance (in Java2D units).
+     */
     private int distance;
 
     /**
@@ -86,14 +96,14 @@ public class DefaultShadowGenerator implements ShadowGenerator, Serializable {
     /**
      * Creates a new instance with the specified attributes.
      *
-     * @param size  the shadow size.
-     * @param color  the shadow color.
+     * @param size     the shadow size.
+     * @param color    the shadow color.
      * @param opacity  the shadow opacity.
-     * @param distance  the shadow offset distance.
-     * @param angle  the shadow offset angle (in radians).
+     * @param distance the shadow offset distance.
+     * @param angle    the shadow offset angle (in radians).
      */
     public DefaultShadowGenerator(int size, Color color, float opacity,
-            int distance, double angle) {
+                                  int distance, double angle) {
         ParamChecks.nullNotPermitted(color, "color");
         this.shadowSize = size;
         this.shadowColor = color;
@@ -173,8 +183,7 @@ public class DefaultShadowGenerator implements ShadowGenerator, Serializable {
      * Creates and returns an image containing the drop shadow for the
      * specified source image.
      *
-     * @param source  the source image.
-     *
+     * @param source the source image.
      * @return A new image containing the shadow.
      */
     @Override
@@ -194,7 +203,7 @@ public class DefaultShadowGenerator implements ShadowGenerator, Serializable {
     /**
      * Applies a shadow to the image.
      *
-     * @param image  the image.
+     * @param image the image.
      */
     protected void applyShadow(BufferedImage image) {
         int dstWidth = image.getWidth();
@@ -283,9 +292,8 @@ public class DefaultShadowGenerator implements ShadowGenerator, Serializable {
 
     /**
      * Tests this object for equality with an arbitrary object.
-     * 
-     * @param obj  the object (<code>null</code> permitted).
-     * 
+     *
+     * @param obj the object (<code>null</code> permitted).
      * @return The object.
      */
     @Override
@@ -317,7 +325,7 @@ public class DefaultShadowGenerator implements ShadowGenerator, Serializable {
 
     /**
      * Returns a hash code for this instance.
-     * 
+     *
      * @return The hash code.
      */
     @Override

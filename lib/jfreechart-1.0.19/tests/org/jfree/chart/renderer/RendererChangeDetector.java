@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -49,7 +49,9 @@ import org.jfree.chart.event.RendererChangeListener;
  */
 public class RendererChangeDetector implements RendererChangeListener {
 
-    /** A flag that records whether or not a change event has been received. */
+    /**
+     * A flag that records whether or not a change event has been received.
+     */
     private boolean notified;
 
     /**
@@ -73,7 +75,7 @@ public class RendererChangeDetector implements RendererChangeListener {
      * Sets the flag that indicates whether or not a change event has been
      * received.
      *
-     * @param notified  the new value of the flag.
+     * @param notified the new value of the flag.
      */
     public void setNotified(boolean notified) {
         this.notified = notified;
@@ -82,7 +84,7 @@ public class RendererChangeDetector implements RendererChangeListener {
     /**
      * Receives a {@link RendererChangeEvent} from a renderer.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void rendererChanged(RendererChangeEvent event) {

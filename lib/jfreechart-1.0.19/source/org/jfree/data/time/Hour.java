@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------
@@ -66,12 +66,13 @@
 
 package org.jfree.data.time;
 
+import org.jfree.chart.util.ParamChecks;
+
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-import org.jfree.chart.util.ParamChecks;
 
 /**
  * Represents an hour in a specific day.  This class is immutable, which is a
@@ -79,25 +80,36 @@ import org.jfree.chart.util.ParamChecks;
  */
 public class Hour extends RegularTimePeriod implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -835471579831937652L;
-
-    /** Useful constant for the first hour in the day. */
+    /**
+     * Useful constant for the first hour in the day.
+     */
     public static final int FIRST_HOUR_IN_DAY = 0;
-
-    /** Useful constant for the last hour in the day. */
+    /**
+     * Useful constant for the last hour in the day.
+     */
     public static final int LAST_HOUR_IN_DAY = 23;
-
-    /** The day. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -835471579831937652L;
+    /**
+     * The day.
+     */
     private Day day;
 
-    /** The hour. */
+    /**
+     * The hour.
+     */
     private byte hour;
 
-    /** The first millisecond. */
+    /**
+     * The first millisecond.
+     */
     private long firstMillisecond;
 
-    /** The last millisecond. */
+    /**
+     * The last millisecond.
+     */
     private long lastMillisecond;
 
     /**
@@ -110,7 +122,7 @@ public class Hour extends RegularTimePeriod implements Serializable {
     /**
      * Constructs a new Hour.
      *
-     * @param hour  the hour (in the range 0 to 23).
+     * @param hour the hour (in the range 0 to 23).
      * @param day  the day (<code>null</code> not permitted).
      */
     public Hour(int hour, Day day) {
@@ -124,8 +136,8 @@ public class Hour extends RegularTimePeriod implements Serializable {
      * Creates a new hour.
      *
      * @param hour  the hour (0-23).
-     * @param day  the day (1-31).
-     * @param month  the month (1-12).
+     * @param day   the day (1-31).
+     * @param month the month (1-12).
      * @param year  the year (1900-9999).
      */
     public Hour(int hour, int day, int month, int year) {
@@ -136,8 +148,7 @@ public class Hour extends RegularTimePeriod implements Serializable {
      * Constructs a new instance, based on the supplied date/time and
      * the default time zone.
      *
-     * @param time  the date-time (<code>null</code> not permitted).
-     *
+     * @param time the date-time (<code>null</code> not permitted).
      * @see #Hour(Date, TimeZone)
      */
     public Hour(Date time) {
@@ -149,11 +160,10 @@ public class Hour extends RegularTimePeriod implements Serializable {
      * Constructs a new instance, based on the supplied date/time evaluated
      * in the specified time zone.
      *
-     * @param time  the date-time (<code>null</code> not permitted).
-     * @param zone  the time zone (<code>null</code> not permitted).
-     *
+     * @param time the date-time (<code>null</code> not permitted).
+     * @param zone the time zone (<code>null</code> not permitted).
      * @deprecated As of 1.0.13, use the constructor that specifies the locale
-     *     also.
+     * also.
      */
     public Hour(Date time, TimeZone zone) {
         this(time, zone, Locale.getDefault());
@@ -163,10 +173,9 @@ public class Hour extends RegularTimePeriod implements Serializable {
      * Constructs a new instance, based on the supplied date/time evaluated
      * in the specified time zone.
      *
-     * @param time  the date-time (<code>null</code> not permitted).
-     * @param zone  the time zone (<code>null</code> not permitted).
-     * @param locale  the locale (<code>null</code> not permitted).
-     *
+     * @param time   the date-time (<code>null</code> not permitted).
+     * @param zone   the time zone (<code>null</code> not permitted).
+     * @param locale the locale (<code>null</code> not permitted).
      * @since 1.0.13
      */
     public Hour(Date time, TimeZone zone, Locale locale) {
@@ -178,6 +187,36 @@ public class Hour extends RegularTimePeriod implements Serializable {
         this.hour = (byte) calendar.get(Calendar.HOUR_OF_DAY);
         this.day = new Day(time, zone, locale);
         peg(calendar);
+    }
+
+    /**
+     * Creates an Hour instance by parsing a string.  The string is assumed to
+     * be in the format "YYYY-MM-DD HH", perhaps with leading or trailing
+     * whitespace.
+     *
+     * @param s the hour string to parse.
+     * @return <code>null</code> if the string is not parseable, the hour
+     * otherwise.
+     */
+    public static Hour parseHour(String s) {
+        Hour result = null;
+        s = s.trim();
+
+        String daystr = s.substring(0, Math.min(10, s.length()));
+        Day day = Day.parseDay(daystr);
+        if (day != null) {
+            String hourstr = s.substring(
+                    Math.min(daystr.length() + 1, s.length()), s.length()
+            );
+            hourstr = hourstr.trim();
+            int hour = Integer.parseInt(hourstr);
+            // if the hour is 0 - 23 then create an hour
+            if ((hour >= FIRST_HOUR_IN_DAY) && (hour <= LAST_HOUR_IN_DAY)) {
+                result = new Hour(hour, day);
+            }
+        }
+
+        return result;
     }
 
     /**
@@ -232,7 +271,6 @@ public class Hour extends RegularTimePeriod implements Serializable {
      * {@link #peg(Calendar)} method.
      *
      * @return The first millisecond of the hour.
-     *
      * @see #getLastMillisecond()
      */
     @Override
@@ -247,7 +285,6 @@ public class Hour extends RegularTimePeriod implements Serializable {
      * {@link #peg(Calendar)} method.
      *
      * @return The last millisecond of the hour.
-     *
      * @see #getFirstMillisecond()
      */
     @Override
@@ -259,8 +296,7 @@ public class Hour extends RegularTimePeriod implements Serializable {
      * Recalculates the start date/time and end date/time for this time period
      * relative to the supplied calendar (which incorporates a time zone).
      *
-     * @param calendar  the calendar (<code>null</code> not permitted).
-     *
+     * @param calendar the calendar (<code>null</code> not permitted).
      * @since 1.0.3
      */
     @Override
@@ -279,13 +315,11 @@ public class Hour extends RegularTimePeriod implements Serializable {
         Hour result;
         if (this.hour != FIRST_HOUR_IN_DAY) {
             result = new Hour(this.hour - 1, this.day);
-        }
-        else { // we are at the first hour in the day...
+        } else { // we are at the first hour in the day...
             Day prevDay = (Day) this.day.previous();
             if (prevDay != null) {
                 result = new Hour(LAST_HOUR_IN_DAY, prevDay);
-            }
-            else {
+            } else {
                 result = null;
             }
         }
@@ -302,13 +336,11 @@ public class Hour extends RegularTimePeriod implements Serializable {
         Hour result;
         if (this.hour != LAST_HOUR_IN_DAY) {
             result = new Hour(this.hour + 1, this.day);
-        }
-        else { // we are at the last hour in the day...
+        } else { // we are at the last hour in the day...
             Day nextDay = (Day) this.day.next();
             if (nextDay != null) {
                 result = new Hour(FIRST_HOUR_IN_DAY, nextDay);
-            }
-            else {
+            } else {
                 result = null;
             }
         }
@@ -328,12 +360,10 @@ public class Hour extends RegularTimePeriod implements Serializable {
     /**
      * Returns the first millisecond of the hour.
      *
-     * @param calendar  the calendar/timezone (<code>null</code> not permitted).
-     *
+     * @param calendar the calendar/timezone (<code>null</code> not permitted).
      * @return The first millisecond.
-     *
      * @throws NullPointerException if <code>calendar</code> is
-     *     <code>null</code>.
+     *                              <code>null</code>.
      */
     @Override
     public long getFirstMillisecond(Calendar calendar) {
@@ -348,12 +378,10 @@ public class Hour extends RegularTimePeriod implements Serializable {
     /**
      * Returns the last millisecond of the hour.
      *
-     * @param calendar  the calendar/timezone (<code>null</code> not permitted).
-     *
+     * @param calendar the calendar/timezone (<code>null</code> not permitted).
      * @return The last millisecond.
-     *
      * @throws NullPointerException if <code>calendar</code> is
-     *     <code>null</code>.
+     *                              <code>null</code>.
      */
     @Override
     public long getLastMillisecond(Calendar calendar) {
@@ -367,14 +395,13 @@ public class Hour extends RegularTimePeriod implements Serializable {
 
     /**
      * Tests the equality of this object against an arbitrary Object.
-     * <P>
+     * <p>
      * This method will return true ONLY if the object is an Hour object
      * representing the same hour as this instance.
      *
-     * @param obj  the object to compare (<code>null</code> permitted).
-     *
+     * @param obj the object to compare (<code>null</code> permitted).
      * @return <code>true</code> if the hour and day value of the object
-     *      is the same as this.
+     * is the same as this.
      */
     @Override
     public boolean equals(Object obj) {
@@ -405,7 +432,7 @@ public class Hour extends RegularTimePeriod implements Serializable {
         return "[" + this.hour + "," + getDayOfMonth() + "/" + getMonth() + "/"
                 + getYear() + "]";
     }
- 
+
     /**
      * Returns a hash code for this object instance.  The approach described by
      * Joshua Bloch in "Effective Java" has been used here:
@@ -426,11 +453,10 @@ public class Hour extends RegularTimePeriod implements Serializable {
     /**
      * Returns an integer indicating the order of this Hour object relative to
      * the specified object:
-     *
+     * <p>
      * negative == before, zero == same, positive == after.
      *
-     * @param o1  the object to compare.
-     *
+     * @param o1 the object to compare.
      * @return negative == before, zero == same, positive == after.
      */
     @Override
@@ -459,37 +485,6 @@ public class Hour extends RegularTimePeriod implements Serializable {
         else {
             // consider time periods to be ordered after general objects
             result = 1;
-        }
-
-        return result;
-    }
-
-    /**
-     * Creates an Hour instance by parsing a string.  The string is assumed to
-     * be in the format "YYYY-MM-DD HH", perhaps with leading or trailing
-     * whitespace.
-     *
-     * @param s  the hour string to parse.
-     *
-     * @return <code>null</code> if the string is not parseable, the hour
-     *         otherwise.
-     */
-    public static Hour parseHour(String s) {
-        Hour result = null;
-        s = s.trim();
-
-        String daystr = s.substring(0, Math.min(10, s.length()));
-        Day day = Day.parseDay(daystr);
-        if (day != null) {
-            String hourstr = s.substring(
-                Math.min(daystr.length() + 1, s.length()), s.length()
-            );
-            hourstr = hourstr.trim();
-            int hour = Integer.parseInt(hourstr);
-            // if the hour is 0 - 23 then create an hour
-            if ((hour >= FIRST_HOUR_IN_DAY) && (hour <= LAST_HOUR_IN_DAY)) {
-                result = new Hour(hour, day);
-            }
         }
 
         return result;

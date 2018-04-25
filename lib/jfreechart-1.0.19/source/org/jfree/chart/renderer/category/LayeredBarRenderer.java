@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -53,13 +53,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
@@ -70,6 +63,10 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.ui.GradientPaintTransformer;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.ObjectList;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
 /**
  * A {@link CategoryItemRenderer} that represents data using bars which are
@@ -82,10 +79,14 @@ import org.jfree.util.ObjectList;
  */
 public class LayeredBarRenderer extends BarRenderer implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -8716572894780469487L;
 
-    /** A list of the width of each series bar. */
+    /**
+     * A list of the width of each series bar.
+     */
     protected ObjectList seriesBarWidthList;
 
     /**
@@ -100,8 +101,7 @@ public class LayeredBarRenderer extends BarRenderer implements Serializable {
      * Returns the bar width for a series, or <code>Double.NaN</code> if no
      * width has been set.
      *
-     * @param series  the series index (zero based).
-     *
+     * @param series the series index (zero based).
      * @return The width for the series (1.0=100%, it is the maximum).
      */
     public double getSeriesBarWidth(int series) {
@@ -116,7 +116,7 @@ public class LayeredBarRenderer extends BarRenderer implements Serializable {
     /**
      * Sets the width of the bars of a series.
      *
-     * @param series  the series index (zero based).
+     * @param series the series index (zero based).
      * @param width  the width of the series bar in percentage (1.0=100%, it is
      *               the maximum).
      */
@@ -127,14 +127,14 @@ public class LayeredBarRenderer extends BarRenderer implements Serializable {
     /**
      * Calculates the bar width and stores it in the renderer state.
      *
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param rendererIndex  the renderer index.
-     * @param state  the renderer state.
+     * @param plot          the plot.
+     * @param dataArea      the data area.
+     * @param rendererIndex the renderer index.
+     * @param state         the renderer state.
      */
     @Override
     protected void calculateBarWidth(CategoryPlot plot, Rectangle2D dataArea,
-            int rendererIndex, CategoryItemRendererState state) {
+                                     int rendererIndex, CategoryItemRendererState state) {
 
         // calculate the bar width - this calculation differs from the
         // BarRenderer calculation because the bars are layered on top of one
@@ -149,8 +149,7 @@ public class LayeredBarRenderer extends BarRenderer implements Serializable {
             PlotOrientation orientation = plot.getOrientation();
             if (orientation == PlotOrientation.HORIZONTAL) {
                 space = dataArea.getHeight();
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
+            } else if (orientation == PlotOrientation.VERTICAL) {
                 space = dataArea.getWidth();
             }
             double maxWidth = space * getMaximumBarWidth();
@@ -159,12 +158,11 @@ public class LayeredBarRenderer extends BarRenderer implements Serializable {
                 categoryMargin = domainAxis.getCategoryMargin();
             }
             double used = space * (1 - domainAxis.getLowerMargin()
-                - domainAxis.getUpperMargin() - categoryMargin);
+                    - domainAxis.getUpperMargin() - categoryMargin);
             if ((rows * columns) > 0) {
                 state.setBarWidth(Math.min(used / (dataset.getColumnCount()),
                         maxWidth));
-            }
-            else {
+            } else {
                 state.setBarWidth(Math.min(used, maxWidth));
             }
         }
@@ -173,29 +171,28 @@ public class LayeredBarRenderer extends BarRenderer implements Serializable {
     /**
      * Draws the bar for one item in the dataset.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the plot area.
-     * @param plot  the plot.
-     * @param domainAxis  the domain (category) axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the plot area.
+     * @param plot       the plot.
+     * @param domainAxis the domain (category) axis.
      * @param rangeAxis  the range (value) axis.
-     * @param data  the data.
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     * @param pass  the pass index.
+     * @param data       the data.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
+     * @param pass       the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, CategoryItemRendererState state,
-            Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
-            ValueAxis rangeAxis, CategoryDataset data, int row, int column,
-            int pass) {
+                         Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
+                         ValueAxis rangeAxis, CategoryDataset data, int row, int column,
+                         int pass) {
 
         PlotOrientation orientation = plot.getOrientation();
         if (orientation == PlotOrientation.HORIZONTAL) {
             drawHorizontalItem(g2, state, dataArea, plot, domainAxis,
                     rangeAxis, data, row, column);
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             drawVerticalItem(g2, state, dataArea, plot, domainAxis, rangeAxis,
                     data, row, column);
         }
@@ -205,15 +202,15 @@ public class LayeredBarRenderer extends BarRenderer implements Serializable {
     /**
      * Draws the bar for a single (series, category) data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the data area.
-     * @param plot  the plot.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the data area.
+     * @param plot       the plot.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
+     * @param dataset    the dataset.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
      */
     protected void drawHorizontalItem(Graphics2D g2,
                                       CategoryItemRendererState state,
@@ -244,18 +241,15 @@ public class LayeredBarRenderer extends BarRenderer implements Serializable {
             if (value <= lclip) {
                 value = lclip;
             }
-        }
-        else if (lclip <= 0.0) { // cases 5, 6, 7 and 8
+        } else if (lclip <= 0.0) { // cases 5, 6, 7 and 8
             if (value >= uclip) {
                 value = uclip;
-            }
-            else {
+            } else {
                 if (value <= lclip) {
                     value = lclip;
                 }
             }
-        }
-        else { // cases 9, 10, 11 and 12
+        } else { // cases 9, 10, 11 and 12
             if (value <= lclip) {
                 return; // bar is not visible
             }
@@ -316,7 +310,7 @@ public class LayeredBarRenderer extends BarRenderer implements Serializable {
         }
 
         CategoryItemLabelGenerator generator
-            = getItemLabelGenerator(row, column);
+                = getItemLabelGenerator(row, column);
         if (generator != null && isItemLabelVisible(row, column)) {
             drawItemLabel(g2, dataset, row, column, plot, generator, bar,
                     (transX1 > transX2));
@@ -332,15 +326,15 @@ public class LayeredBarRenderer extends BarRenderer implements Serializable {
     /**
      * Draws the bar for a single (series, category) data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the data area.
-     * @param plot  the plot.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the data area.
+     * @param plot       the plot.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
+     * @param dataset    the dataset.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
      */
     protected void drawVerticalItem(Graphics2D g2,
                                     CategoryItemRendererState state,
@@ -378,24 +372,21 @@ public class LayeredBarRenderer extends BarRenderer implements Serializable {
             if (value <= lclip) {
                 value = lclip;
             }
-        }
-        else if (lclip <= 0.0) { // cases 5, 6, 7 and 8
+        } else if (lclip <= 0.0) { // cases 5, 6, 7 and 8
             if (value >= uclip) {
                 value = uclip;
-            }
-            else {
+            } else {
                 if (value <= lclip) {
                     value = lclip;
                 }
             }
-        }
-        else { // cases 9, 10, 11 and 12
+        } else { // cases 9, 10, 11 and 12
             if (value <= lclip) {
                 return; // bar is not visible
             }
             base = getLowerClip();
             if (value >= uclip) {
-               value = uclip;
+                value = uclip;
             }
         }
 
@@ -422,8 +413,8 @@ public class LayeredBarRenderer extends BarRenderer implements Serializable {
         }
 
         Rectangle2D bar = new Rectangle2D.Double(
-            (rectX + ((seriesCount - 1 - row) * shift)), rectY,
-            (rectWidth - (seriesCount - 1 - row) * shift * 2), rectHeight);
+                (rectX + ((seriesCount - 1 - row) * shift)), rectY,
+                (rectWidth - (seriesCount - 1 - row) * shift * 2), rectHeight);
         Paint itemPaint = getItemPaint(row, column);
         GradientPaintTransformer t = getGradientPaintTransformer();
         if (t != null && itemPaint instanceof GradientPaint) {
@@ -449,7 +440,7 @@ public class LayeredBarRenderer extends BarRenderer implements Serializable {
         double transX2 = rangeAxis.valueToJava2D(value, dataArea, edge);
 
         CategoryItemLabelGenerator generator
-            = getItemLabelGenerator(row, column);
+                = getItemLabelGenerator(row, column);
         if (generator != null && isItemLabelVisible(row, column)) {
             drawItemLabel(g2, dataset, row, column, plot, generator, bar,
                     (transX1 > transX2));

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -40,13 +40,7 @@
 
 package org.jfree.chart;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -59,9 +53,8 @@ public class TestUtilities {
      * Returns <code>true</code> if the collections contains any object that
      * is an instance of the specified class, and <code>false</code> otherwise.
      *
-     * @param collection  the collection.
-     * @param c  the class.
-     *
+     * @param collection the collection.
+     * @param c          the class.
      * @return A boolean.
      */
     public static boolean containsInstanceOf(Collection collection, Class c) {
@@ -94,5 +87,5 @@ public class TestUtilities {
         }
         return result;
     }
-    
+
 }

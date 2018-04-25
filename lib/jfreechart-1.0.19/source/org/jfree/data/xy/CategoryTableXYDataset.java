@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -71,14 +71,16 @@ import org.jfree.util.PublicCloneable;
  */
 public class CategoryTableXYDataset extends AbstractIntervalXYDataset
         implements TableXYDataset, IntervalXYDataset, DomainInfo,
-                   PublicCloneable {
+        PublicCloneable {
 
     /**
      * The backing data structure.
      */
     private DefaultKeyedValues2D values;
 
-    /** A delegate for controlling the interval width. */
+    /**
+     * A delegate for controlling the interval width.
+     */
     private IntervalXYDelegate intervalDelegate;
 
     /**
@@ -94,9 +96,9 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
      * Adds a data item to this dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param x  the x value.
-     * @param y  the y value.
-     * @param seriesName  the name of the series to add the data item.
+     * @param x          the x value.
+     * @param y          the y value.
+     * @param seriesName the name of the series to add the data item.
      */
     public void add(double x, double y, String seriesName) {
         add(new Double(x), new Double(y), seriesName, true);
@@ -106,10 +108,10 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
      * Adds a data item to this dataset and, if requested, sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param x  the x value.
-     * @param y  the y value.
-     * @param seriesName  the name of the series to add the data item.
-     * @param notify  notify listeners?
+     * @param x          the x value.
+     * @param y          the y value.
+     * @param seriesName the name of the series to add the data item.
+     * @param notify     notify listeners?
      */
     public void add(Number x, Number y, String seriesName, boolean notify) {
         this.values.addValue(y, (Comparable) x, seriesName);
@@ -121,8 +123,8 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Removes a value from the dataset.
      *
-     * @param x  the x-value.
-     * @param seriesName  the series name.
+     * @param x          the x-value.
+     * @param seriesName the series name.
      */
     public void remove(double x, String seriesName) {
         remove(new Double(x), seriesName, true);
@@ -131,9 +133,9 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Removes an item from the dataset.
      *
-     * @param x  the x-value.
-     * @param seriesName  the series name.
-     * @param notify  notify listeners?
+     * @param x          the x-value.
+     * @param seriesName the series name.
+     * @param notify     notify listeners?
      */
     public void remove(Number x, String seriesName, boolean notify) {
         this.values.removeValue((Comparable) x, seriesName);
@@ -145,7 +147,7 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Clears all data from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
-     * 
+     *
      * @since 1.0.14
      */
     public void clear() {
@@ -166,8 +168,7 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the key for a series.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @return The key for a series.
      */
     @Override
@@ -189,22 +190,20 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
      * Returns the number of items in the specified series.
      * Returns the same as {@link CategoryTableXYDataset#getItemCount()}.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @return The item count.
      */
     @Override
     public int getItemCount(int series) {
         return getItemCount();  // all series have the same number of items in
-                                // this dataset
+        // this dataset
     }
 
     /**
      * Returns the x-value for the specified series and item.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
      */
     @Override
@@ -215,9 +214,8 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the starting X value for the specified series and item.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The starting X value.
      */
     @Override
@@ -228,9 +226,8 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the ending X value for the specified series and item.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The ending X value.
      */
     @Override
@@ -241,9 +238,8 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the y-value for the specified series and item.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The y value (possibly <code>null</code>).
      */
     @Override
@@ -254,9 +250,8 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the starting Y value for the specified series and item.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The starting Y value.
      */
     @Override
@@ -267,9 +262,8 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the ending Y value for the specified series and item.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The ending Y value.
      */
     @Override
@@ -280,9 +274,8 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the minimum x-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The minimum value.
      */
     @Override
@@ -293,9 +286,8 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the maximum x-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The maximum value.
      */
     @Override
@@ -306,17 +298,15 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Returns the range of the values in this dataset's domain.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         x-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        x-interval is taken into account.
      * @return The range.
      */
     @Override
     public Range getDomainBounds(boolean includeInterval) {
         if (includeInterval) {
             return this.intervalDelegate.getDomainBounds(includeInterval);
-        }
-        else {
+        } else {
             return DatasetUtilities.iterateDomainBounds(this, includeInterval);
         }
     }
@@ -336,7 +326,7 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
      * is lesser than 0.5, the gap is farther to the left and if greater than
      * 0.5 it gets farther to the right.
      *
-     * @param d  the new interval position factor.
+     * @param d the new interval position factor.
      */
     public void setIntervalPositionFactor(double d) {
         this.intervalDelegate.setIntervalPositionFactor(d);
@@ -356,7 +346,7 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
      * Sets the interval width to a fixed value, and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param d  the new interval width (must be &gt; 0).
+     * @param d the new interval width (must be &gt; 0).
      */
     public void setIntervalWidth(double d) {
         this.intervalDelegate.setFixedIntervalWidth(d);
@@ -376,7 +366,7 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
      * Sets the flag that indicates whether the interval width is automatically
      * calculated or not.
      *
-     * @param b  the flag.
+     * @param b the flag.
      */
     public void setAutoWidth(boolean b) {
         this.intervalDelegate.setAutoWidth(b);
@@ -386,8 +376,7 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
     /**
      * Tests this dataset for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -409,9 +398,8 @@ public class CategoryTableXYDataset extends AbstractIntervalXYDataset
      * Returns an independent copy of this dataset.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is some reason that cloning
-     *     cannot be performed.
+     *                                    cannot be performed.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

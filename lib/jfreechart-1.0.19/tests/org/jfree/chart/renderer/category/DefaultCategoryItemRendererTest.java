@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------------
@@ -42,13 +42,12 @@
 
 package org.jfree.chart.renderer.category;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the {@link DefaultCategoryItemRenderer} class.
@@ -84,7 +83,7 @@ public class DefaultCategoryItemRendererTest {
     @Test
     public void testCloning() throws CloneNotSupportedException {
         DefaultCategoryItemRenderer r1 = new DefaultCategoryItemRenderer();
-        DefaultCategoryItemRenderer r2 = (DefaultCategoryItemRenderer) 
+        DefaultCategoryItemRenderer r2 = (DefaultCategoryItemRenderer)
                 r1.clone();
         assertTrue(r1 != r2);
         assertTrue(r1.getClass() == r2.getClass());
@@ -106,7 +105,7 @@ public class DefaultCategoryItemRendererTest {
     @Test
     public void testSerialization() {
         DefaultCategoryItemRenderer r1 = new DefaultCategoryItemRenderer();
-        DefaultCategoryItemRenderer r2 = (DefaultCategoryItemRenderer) 
+        DefaultCategoryItemRenderer r2 = (DefaultCategoryItemRenderer)
                 TestUtilities.serialised(r1);
         assertEquals(r1, r2);
     }

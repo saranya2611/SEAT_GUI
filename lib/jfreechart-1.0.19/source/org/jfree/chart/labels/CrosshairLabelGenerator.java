@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------
@@ -51,9 +51,8 @@ public interface CrosshairLabelGenerator {
 
     /**
      * Returns a string that can be used as the label for a crosshair.
-     * 
-     * @param crosshair  the crosshair (<code>null</code> not permitted).
-     * 
+     *
+     * @param crosshair the crosshair (<code>null</code> not permitted).
      * @return The label (possibly <code>null</code>).
      */
     public String generateLabel(Crosshair crosshair);

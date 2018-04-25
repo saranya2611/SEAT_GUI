@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -52,13 +52,15 @@ import org.jfree.chart.title.Title;
  */
 public class TitleChangeEvent extends ChartChangeEvent {
 
-    /** The chart title that generated the event. */
+    /**
+     * The chart title that generated the event.
+     */
     private Title title;
 
     /**
      * Default constructor.
      *
-     * @param title  the chart title that generated the event.
+     * @param title the chart title that generated the event.
      */
     public TitleChangeEvent(Title title) {
         super(title);

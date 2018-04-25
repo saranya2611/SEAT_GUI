@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------------
@@ -37,23 +37,23 @@
  * 08-Oct-2007 : Version 1, see patch 1780779 (DG);
  * 06-Nov-2007 : Return EMPTY_LIST not null from getValues() (DG);
  * 02-JUL-2013 : Use ParamChecks (DG);
- * 
+ *
  */
 
 package org.jfree.data.statistics;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.data.KeyedObjects2D;
 import org.jfree.data.Range;
 import org.jfree.data.RangeInfo;
 import org.jfree.data.general.AbstractDataset;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.util.PublicCloneable;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A category dataset that defines multiple values for each item.
@@ -98,9 +98,9 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
      * items are automatically removed) and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param values  a list of values (<code>null</code> not permitted).
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
+     * @param values    a list of values (<code>null</code> not permitted).
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      */
     public void add(List values, Comparable rowKey, Comparable columnKey) {
 
@@ -135,15 +135,13 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
             // update the cached range values...
             if (this.maximumRangeValue == null) {
                 this.maximumRangeValue = new Double(maxval);
-            }
-            else if (maxval > this.maximumRangeValue.doubleValue()) {
+            } else if (maxval > this.maximumRangeValue.doubleValue()) {
                 this.maximumRangeValue = new Double(maxval);
             }
 
             if (this.minimumRangeValue == null) {
                 this.minimumRangeValue = new Double(minval);
-            }
-            else if (minval < this.minimumRangeValue.doubleValue()) {
+            } else if (minval < this.minimumRangeValue.doubleValue()) {
                 this.minimumRangeValue = new Double(minval);
             }
             this.rangeBounds = new Range(this.minimumRangeValue.doubleValue(),
@@ -157,9 +155,8 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
      * Returns a list (possibly empty) of the values for the specified item.
      * The returned list should be unmodifiable.
      *
-     * @param row  the row index (zero-based).
-     * @param column   the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The list of values.
      */
     @Override
@@ -167,8 +164,7 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
         List values = (List) this.data.getObject(row, column);
         if (values != null) {
             return Collections.unmodifiableList(values);
-        }
-        else {
+        } else {
             return Collections.EMPTY_LIST;
         }
     }
@@ -177,9 +173,8 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
      * Returns a list (possibly empty) of the values for the specified item.
      * The returned list should be unmodifiable.
      *
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @return The list of values.
      */
     @Override
@@ -191,9 +186,8 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
     /**
      * Returns the average value for the specified item.
      *
-     * @param row  the row key.
-     * @param column  the column key.
-     *
+     * @param row    the row key.
+     * @param column the column key.
      * @return The average value.
      */
     @Override
@@ -220,9 +214,8 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
     /**
      * Returns the average value for the specified item.
      *
-     * @param row  the row index.
-     * @param column  the column index.
-     *
+     * @param row    the row index.
+     * @param column the column index.
      * @return The average value.
      */
     @Override
@@ -249,8 +242,7 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
     /**
      * Returns the column index for a given key.
      *
-     * @param key  the column key.
-     *
+     * @param key the column key.
      * @return The column index.
      */
     @Override
@@ -262,7 +254,6 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
      * Returns a column key.
      *
      * @param column the column index (zero-based).
-     *
      * @return The column key.
      */
     @Override
@@ -284,7 +275,6 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
      * Returns the row index for a given key.
      *
      * @param key the row key.
-     *
      * @return The row index.
      */
     @Override
@@ -296,7 +286,6 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
      * Returns a row key.
      *
      * @param row the row index (zero-based).
-     *
      * @return The row key.
      */
     @Override
@@ -339,7 +328,6 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
      *
      * @param includeInterval a flag that determines whether or not the
      *                        y-interval is taken into account.
-     *
      * @return The minimum value.
      */
     @Override
@@ -356,7 +344,6 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
      *
      * @param includeInterval a flag that determines whether or not the
      *                        y-interval is taken into account.
-     *
      * @return The maximum value.
      */
     @Override
@@ -383,8 +370,7 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
     /**
      * Tests this dataset for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -404,7 +390,6 @@ public class DefaultMultiValueCategoryDataset extends AbstractDataset
      * Returns a clone of this instance.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if the dataset cannot be cloned.
      */
     @Override

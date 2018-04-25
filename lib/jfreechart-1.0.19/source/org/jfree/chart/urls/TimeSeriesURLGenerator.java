@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -51,33 +51,43 @@
 
 package org.jfree.chart.urls;
 
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.data.xy.XYDataset;
+
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.Date;
 
-import org.jfree.chart.util.ParamChecks;
-import org.jfree.data.xy.XYDataset;
-
 /**
  * A URL generator for time series charts.
  */
 public class TimeSeriesURLGenerator implements XYURLGenerator, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -9122773175671182445L;
 
-    /** A formatter for the date. */
+    /**
+     * A formatter for the date.
+     */
     private DateFormat dateFormat = DateFormat.getInstance();
 
-    /** Prefix to the URL */
+    /**
+     * Prefix to the URL
+     */
     private String prefix = "index.html";
 
-    /** Name to use to identify the series */
+    /**
+     * Name to use to identify the series
+     */
     private String seriesParameterName = "series";
 
-    /** Name to use to identify the item */
+    /**
+     * Name to use to identify the item
+     */
     private String itemParameterName = "item";
 
     /**
@@ -90,16 +100,16 @@ public class TimeSeriesURLGenerator implements XYURLGenerator, Serializable {
     /**
      * Construct TimeSeriesURLGenerator overriding defaults.
      *
-     * @param dateFormat  a formatter for the date (<code>null</code> not
-     *         permitted).
-     * @param prefix  the prefix of the URL (<code>null</code> not permitted).
-     * @param seriesParameterName  the name of the series parameter in the URL
-     *         (<code>null</code> not permitted).
-     * @param itemParameterName  the name of the item parameter in the URL
-     *         (<code>null</code> not permitted).
+     * @param dateFormat          a formatter for the date (<code>null</code> not
+     *                            permitted).
+     * @param prefix              the prefix of the URL (<code>null</code> not permitted).
+     * @param seriesParameterName the name of the series parameter in the URL
+     *                            (<code>null</code> not permitted).
+     * @param itemParameterName   the name of the item parameter in the URL
+     *                            (<code>null</code> not permitted).
      */
     public TimeSeriesURLGenerator(DateFormat dateFormat, String prefix,
-            String seriesParameterName, String itemParameterName) {
+                                  String seriesParameterName, String itemParameterName) {
 
         ParamChecks.nullNotPermitted(dateFormat, "dateFormat");
         ParamChecks.nullNotPermitted(prefix, "prefix");
@@ -115,7 +125,6 @@ public class TimeSeriesURLGenerator implements XYURLGenerator, Serializable {
      * Returns a clone of the date format assigned to this URL generator.
      *
      * @return The date format (never <code>null</code>).
-     *
      * @since 1.0.6
      */
     public DateFormat getDateFormat() {
@@ -126,7 +135,6 @@ public class TimeSeriesURLGenerator implements XYURLGenerator, Serializable {
      * Returns the prefix string.
      *
      * @return The prefix string (never <code>null</code>).
-     *
      * @since 1.0.6
      */
     public String getPrefix() {
@@ -137,7 +145,6 @@ public class TimeSeriesURLGenerator implements XYURLGenerator, Serializable {
      * Returns the series parameter name.
      *
      * @return The series parameter name (never <code>null</code>).
-     *
      * @since 1.0.6
      */
     public String getSeriesParameterName() {
@@ -148,7 +155,6 @@ public class TimeSeriesURLGenerator implements XYURLGenerator, Serializable {
      * Returns the item parameter name.
      *
      * @return The item parameter name (never <code>null</code>).
-     *
      * @since 1.0.6
      */
     public String getItemParameterName() {
@@ -158,10 +164,9 @@ public class TimeSeriesURLGenerator implements XYURLGenerator, Serializable {
     /**
      * Generates a URL for a particular item within a series.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
+     * @param dataset the dataset (<code>null</code> not permitted).
      * @param series  the series number (zero-based index).
-     * @param item  the item number (zero-based index).
-     *
+     * @param item    the item number (zero-based index).
      * @return The generated URL.
      */
     @Override
@@ -196,8 +201,7 @@ public class TimeSeriesURLGenerator implements XYURLGenerator, Serializable {
     /**
      * Tests this generator for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

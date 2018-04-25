@@ -6,22 +6,22 @@
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
- * This library is free software; you can redistribute it and/or modify it 
- * under the terms of the GNU Lesser General Public License as published by 
- * the Free Software Foundation; either version 2.1 of the License, or 
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public 
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, 
- * USA.  
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------
@@ -43,7 +43,7 @@
  * 17-Nov-2003 : Implemented PublicCloneable (DG);
  * 25-Feb-2004 : Renamed XYToolTipGenerator --> XYItemLabelGenerator (DG);
  * 25-May-2004 : Added number formatter (see patch 890496) (DG);
- * 15-Jul-2004 : Switched getX() with getXValue() and getY() with 
+ * 15-Jul-2004 : Switched getX() with getXValue() and getY() with
  *               getYValue() (DG);
  * 20-Apr-2005 : Renamed XYLabelGenerator --> XYItemLabelGenerator (DG);
  * 31-Mar-2008 : Added hashCode() method to appease FindBugs (DG);
@@ -52,34 +52,40 @@
 
 package org.jfree.chart.labels;
 
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.util.Date;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.data.xy.OHLCDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.util.PublicCloneable;
 
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.util.Date;
+
 /**
- * A standard item label generator for plots that use data from a 
+ * A standard item label generator for plots that use data from a
  * {@link OHLCDataset}.
  */
-public class HighLowItemLabelGenerator implements XYItemLabelGenerator, 
+public class HighLowItemLabelGenerator implements XYItemLabelGenerator,
         XYToolTipGenerator, Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 5617111754832211830L;
-    
-    /** The date formatter. */
+
+    /**
+     * The date formatter.
+     */
     private DateFormat dateFormatter;
 
-    /** The number formatter. */
+    /**
+     * The number formatter.
+     */
     private NumberFormat numberFormatter;
 
     /**
-     * Creates an item label generator using the default date and number 
+     * Creates an item label generator using the default date and number
      * formats.
      */
     public HighLowItemLabelGenerator() {
@@ -89,16 +95,16 @@ public class HighLowItemLabelGenerator implements XYItemLabelGenerator,
     /**
      * Creates a tool tip generator using the supplied date formatter.
      *
-     * @param dateFormatter  the date formatter (<code>null</code> not 
-     *                       permitted).
-     * @param numberFormatter  the number formatter (<code>null</code> not 
-     *                         permitted).
+     * @param dateFormatter   the date formatter (<code>null</code> not
+     *                        permitted).
+     * @param numberFormatter the number formatter (<code>null</code> not
+     *                        permitted).
      */
-    public HighLowItemLabelGenerator(DateFormat dateFormatter, 
+    public HighLowItemLabelGenerator(DateFormat dateFormatter,
                                      NumberFormat numberFormatter) {
         if (dateFormatter == null) {
             throw new IllegalArgumentException(
-                    "Null 'dateFormatter' argument.");   
+                    "Null 'dateFormatter' argument.");
         }
         if (numberFormatter == null) {
             throw new IllegalArgumentException(
@@ -111,10 +117,9 @@ public class HighLowItemLabelGenerator implements XYItemLabelGenerator,
     /**
      * Generates a tooltip text item for a particular item within a series.
      *
-     * @param dataset  the dataset.
+     * @param dataset the dataset.
      * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param item    the item (zero-based index).
      * @return The tooltip text.
      */
     @Override
@@ -154,13 +159,12 @@ public class HighLowItemLabelGenerator implements XYItemLabelGenerator,
     }
 
     /**
-     * Generates a label for the specified item. The label is typically a 
+     * Generates a label for the specified item. The label is typically a
      * formatted version of the data value, but any text can be used.
      *
      * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param series  the series index (zero-based).
-     * @param category  the category index (zero-based).
-     *
+     * @param series   the series index (zero-based).
+     * @param category the category index (zero-based).
      * @return The label (possibly <code>null</code>).
      */
     @Override
@@ -170,14 +174,13 @@ public class HighLowItemLabelGenerator implements XYItemLabelGenerator,
 
     /**
      * Returns an independent copy of the generator.
-     * 
+     *
      * @return A clone.
-     * 
      * @throws CloneNotSupportedException if cloning is not supported.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
-        HighLowItemLabelGenerator clone 
+        HighLowItemLabelGenerator clone
                 = (HighLowItemLabelGenerator) super.clone();
         if (this.dateFormatter != null) {
             clone.dateFormatter = (DateFormat) this.dateFormatter.clone();
@@ -187,12 +190,11 @@ public class HighLowItemLabelGenerator implements XYItemLabelGenerator,
         }
         return clone;
     }
-    
+
     /**
      * Tests if this object is equal to another.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return A boolean.
      */
     @Override
@@ -208,14 +210,14 @@ public class HighLowItemLabelGenerator implements XYItemLabelGenerator,
             return false;
         }
         if (!this.numberFormatter.equals(generator.numberFormatter)) {
-            return false;   
+            return false;
         }
         return true;
     }
-    
+
     /**
      * Returns a hash code for this instance.
-     * 
+     *
      * @return A hash code.
      */
     @Override
@@ -225,5 +227,5 @@ public class HighLowItemLabelGenerator implements XYItemLabelGenerator,
         result = HashUtilities.hashCode(result, this.numberFormatter);
         return result;
     }
-    
+
 }

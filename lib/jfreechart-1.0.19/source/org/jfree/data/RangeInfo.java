@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -57,9 +57,8 @@ public interface RangeInfo {
     /**
      * Returns the minimum y-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         y-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        y-interval is taken into account.
      * @return The minimum value.
      */
     public double getRangeLowerBound(boolean includeInterval);
@@ -67,9 +66,8 @@ public interface RangeInfo {
     /**
      * Returns the maximum y-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         y-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        y-interval is taken into account.
      * @return The maximum value.
      */
     public double getRangeUpperBound(boolean includeInterval);
@@ -77,11 +75,10 @@ public interface RangeInfo {
     /**
      * Returns the range of the values in this dataset's range.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         y-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        y-interval is taken into account.
      * @return The range (or <code>null</code> if the dataset contains no
-     *     values).
+     * values).
      */
     public Range getRangeBounds(boolean includeInterval);
 

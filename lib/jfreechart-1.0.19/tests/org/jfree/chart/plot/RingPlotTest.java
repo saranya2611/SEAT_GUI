@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -37,25 +37,18 @@
  * 09-Nov-2004 : Version 1 (DG);
  * 12-Oct-2006 : Updated testEquals() (DG);
  * 28-Feb-2014 : Add tests for new fields (DG);
- * 
+ *
  */
 
 package org.jfree.chart.plot;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import org.jfree.chart.TestUtilities;
 import org.junit.Test;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Stroke;
+import java.awt.*;
 import java.text.DecimalFormat;
 
-import org.jfree.chart.TestUtilities;
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link RingPlot} class.
@@ -83,12 +76,12 @@ public class RingPlotTest {
         assertFalse(plot1.equals(plot2));
         plot2.setCenterText("ABC");
         assertTrue(plot1.equals(plot2));
-        
+
         plot1.setCenterTextColor(Color.RED);
         assertFalse(plot1.equals(plot2));
         plot2.setCenterTextColor(Color.RED);
         assertTrue(plot1.equals(plot2));
-        
+
         plot1.setCenterTextFont(new Font(Font.SERIF, Font.PLAIN, 7));
         assertFalse(plot1.equals(plot2));
         plot2.setCenterTextFont(new Font(Font.SERIF, Font.PLAIN, 7));
@@ -98,7 +91,7 @@ public class RingPlotTest {
         assertFalse(plot1.equals(plot2));
         plot2.setCenterTextFormatter(new DecimalFormat("0.000"));
         assertTrue(plot1.equals(plot2));
-        
+
         // separatorsVisible
         plot1.setSeparatorsVisible(false);
         assertFalse(plot1.equals(plot2));

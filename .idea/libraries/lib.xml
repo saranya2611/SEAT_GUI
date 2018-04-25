@@ -1,0 +1,49 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib" />
+      <root url="file://$PROJECT_DIR$/lib/forms_rt-7.0.3" />
+      <root url="file://$PROJECT_DIR$/lib/jfreechart-1.0.19" />
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-binding-2.13.0" />
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-common-1.8.1" />
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-forms-1.8.0" />
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-looks-2.5.3" />
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-validation-2.5.1" />
+      <root url="file://$PROJECT_DIR$/lib/jcommon-1.0.22" />
+      <root url="file://$PROJECT_DIR$/lib/jfreechart-1.0.19/lib" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-binding-2.13.0/docs/api" />
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-common-1.8.1/docs/api" />
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-forms-1.8.0/docs/api" />
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-looks-2.5.3/docs/api" />
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-validation-2.5.1/docs/api" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/jfreechart-1.0.19/experimental" />
+      <root url="file://$PROJECT_DIR$/lib/jfreechart-1.0.19/source" />
+      <root url="file://$PROJECT_DIR$/lib/jfreechart-1.0.19/swt" />
+      <root url="file://$PROJECT_DIR$/lib/jfreechart-1.0.19/tests" />
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-binding-2.13.0" />
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-common-1.8.1" />
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-forms-1.8.0" />
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-looks-2.5.3" />
+      <root url="file://$PROJECT_DIR$/lib/jgoodies-validation-2.5.1" />
+      <root url="file://$PROJECT_DIR$/lib/jcommon-1.0.22/source" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jcommon-1.0.22" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jfreechart-1.0.19" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jfreechart-1.0.19/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jgoodies-binding-2.13.0" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jgoodies-common-1.8.1" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jgoodies-forms-1.8.0" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jgoodies-looks-2.5.3" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jgoodies-validation-2.5.1" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jgoodies-binding-2.13.0" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jgoodies-common-1.8.1" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jgoodies-forms-1.8.0" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jgoodies-looks-2.5.3" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jgoodies-validation-2.5.1" recursive="false" type="SOURCES" />
+  </library>
+</component>

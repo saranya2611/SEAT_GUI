@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -67,9 +67,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
@@ -80,6 +77,9 @@ import org.jfree.data.Range;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.IntervalCategoryDataset;
 import org.jfree.ui.RectangleEdge;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * A renderer that handles the drawing of bars for a bar plot where
@@ -93,7 +93,9 @@ import org.jfree.ui.RectangleEdge;
  */
 public class IntervalBarRenderer extends BarRenderer {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -5068857361615528725L;
 
     /**
@@ -108,10 +110,9 @@ public class IntervalBarRenderer extends BarRenderer {
      * renderer, this is equivalent to calling
      * <code>findRangeBounds(dataset, true)</code>.
      *
-     * @param dataset  the dataset (<code>null</code> permitted).
-     *
+     * @param dataset the dataset (<code>null</code> permitted).
      * @return The range (or <code>null</code> if the dataset is
-     *         <code>null</code> or empty).
+     * <code>null</code> or empty).
      */
     @Override
     public Range findRangeBounds(CategoryDataset dataset) {
@@ -121,57 +122,56 @@ public class IntervalBarRenderer extends BarRenderer {
     /**
      * Draws the bar for a single (series, category) data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the data area.
-     * @param plot  the plot.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the data area.
+     * @param plot       the plot.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     * @param pass  the pass index.
+     * @param dataset    the dataset.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
+     * @param pass       the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, CategoryItemRendererState state,
-            Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
-            ValueAxis rangeAxis, CategoryDataset dataset, int row, int column,
-            int pass) {
+                         Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
+                         ValueAxis rangeAxis, CategoryDataset dataset, int row, int column,
+                         int pass) {
 
-         if (dataset instanceof IntervalCategoryDataset) {
-             IntervalCategoryDataset d = (IntervalCategoryDataset) dataset;
-             drawInterval(g2, state, dataArea, plot, domainAxis, rangeAxis,
-                     d, row, column);
-         }
-         else {
-             super.drawItem(g2, state, dataArea, plot, domainAxis, rangeAxis,
-                     dataset, row, column, pass);
-         }
+        if (dataset instanceof IntervalCategoryDataset) {
+            IntervalCategoryDataset d = (IntervalCategoryDataset) dataset;
+            drawInterval(g2, state, dataArea, plot, domainAxis, rangeAxis,
+                    d, row, column);
+        } else {
+            super.drawItem(g2, state, dataArea, plot, domainAxis, rangeAxis,
+                    dataset, row, column, pass);
+        }
 
-     }
+    }
 
-     /**
-      * Draws a single interval.
-      *
-      * @param g2  the graphics device.
-      * @param state  the renderer state.
-      * @param dataArea  the data plot area.
-      * @param plot  the plot.
-      * @param domainAxis  the domain axis.
-      * @param rangeAxis  the range axis.
-      * @param dataset  the data.
-      * @param row  the row index (zero-based).
-      * @param column  the column index (zero-based).
-      */
-     protected void drawInterval(Graphics2D g2,
-                                 CategoryItemRendererState state,
-                                 Rectangle2D dataArea,
-                                 CategoryPlot plot,
-                                 CategoryAxis domainAxis,
-                                 ValueAxis rangeAxis,
-                                 IntervalCategoryDataset dataset,
-                                 int row,
-                                 int column) {
+    /**
+     * Draws a single interval.
+     *
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the data plot area.
+     * @param plot       the plot.
+     * @param domainAxis the domain axis.
+     * @param rangeAxis  the range axis.
+     * @param dataset    the data.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
+     */
+    protected void drawInterval(Graphics2D g2,
+                                CategoryItemRendererState state,
+                                Rectangle2D dataArea,
+                                CategoryPlot plot,
+                                CategoryAxis domainAxis,
+                                ValueAxis rangeAxis,
+                                IntervalCategoryDataset dataset,
+                                int row,
+                                int column) {
 
         int visibleRow = state.getVisibleSeriesIndex(row);
         if (visibleRow < 0) {
@@ -216,15 +216,14 @@ public class IntervalBarRenderer extends BarRenderer {
         if (orientation == PlotOrientation.HORIZONTAL) {
             // BAR Y
             rectX = java2dValue0;
-            rectY = calculateBarW0(getPlot(), orientation, dataArea, 
+            rectY = calculateBarW0(getPlot(), orientation, dataArea,
                     domainAxis, state, visibleRow, column);
             rectHeight = state.getBarWidth();
             rectWidth = Math.abs(java2dValue1 - java2dValue0);
             barBase = RectangleEdge.LEFT;
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             // BAR X
-            rectX = calculateBarW0(getPlot(), orientation, dataArea, 
+            rectX = calculateBarW0(getPlot(), orientation, dataArea,
                     domainAxis, state, visibleRow, column);
             rectY = java2dValue0;
             barBase = RectangleEdge.BOTTOM;
@@ -255,8 +254,7 @@ public class IntervalBarRenderer extends BarRenderer {
     /**
      * Tests this renderer for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

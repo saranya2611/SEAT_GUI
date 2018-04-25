@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -50,32 +50,42 @@ import java.io.Serializable;
  */
 public class XYInterval implements Serializable {
 
-    /** The lower bound of the x-interval. */
+    /**
+     * The lower bound of the x-interval.
+     */
     private double xLow;
 
-    /** The upper bound of the y-interval. */
+    /**
+     * The upper bound of the y-interval.
+     */
     private double xHigh;
 
-    /** The y-value. */
+    /**
+     * The y-value.
+     */
     private double y;
 
-    /** The lower bound of the y-interval. */
+    /**
+     * The lower bound of the y-interval.
+     */
     private double yLow;
 
-    /** The upper bound of the y-interval. */
+    /**
+     * The upper bound of the y-interval.
+     */
     private double yHigh;
 
     /**
      * Creates a new instance of <code>XYInterval</code>.
      *
      * @param xLow  the lower bound of the x-interval.
-     * @param xHigh  the upper bound of the y-interval.
-     * @param y  the y-value.
+     * @param xHigh the upper bound of the y-interval.
+     * @param y     the y-value.
      * @param yLow  the lower bound of the y-interval.
-     * @param yHigh  the upper bound of the y-interval.
+     * @param yHigh the upper bound of the y-interval.
      */
     public XYInterval(double xLow, double xHigh, double y, double yLow,
-            double yHigh) {
+                      double yHigh) {
         this.xLow = xLow;
         this.xHigh = xHigh;
         this.y = y;
@@ -131,8 +141,7 @@ public class XYInterval implements Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

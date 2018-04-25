@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -40,11 +40,11 @@
 
 package org.jfree.chart.block;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.ui.RectangleInsets;
 import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * A block frame is a type of border that can be drawn around the outside of
@@ -65,8 +65,8 @@ public interface BlockFrame {
     /**
      * Draws the border by filling in the reserved space (in black).
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
+     * @param g2   the graphics device.
+     * @param area the area.
      */
     public void draw(Graphics2D g2, Rectangle2D area);
 

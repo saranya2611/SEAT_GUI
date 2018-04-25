@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -47,10 +47,6 @@
 
 package org.jfree.chart.renderer.xy;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.axis.CyclicNumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.labels.XYToolTipGenerator;
@@ -63,20 +59,26 @@ import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.DatasetGroup;
 import org.jfree.data.xy.XYDataset;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
+
 /**
  * The Cyclic XY item renderer is specially designed to handle cyclic axis.
  * While the standard renderer would draw a line across the plot when a cycling
  * occurs, the cyclic renderer splits the line at each cycle end instead. This
  * is done by interpolating new points at cycle boundary. Thus, correct
  * appearance is restored.
- *
+ * <p>
  * The Cyclic XY item renderer works exactly like a standard XY item renderer
  * with non-cyclic axis.
  */
 public class CyclicXYItemRenderer extends StandardXYItemRenderer
-                                  implements Serializable {
+        implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 4035912243303764892L;
 
     /**
@@ -89,7 +91,7 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
     /**
      * Creates a new renderer.
      *
-     * @param type  the renderer type.
+     * @param type the renderer type.
      */
     public CyclicXYItemRenderer(int type) {
         super(type);
@@ -98,8 +100,8 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
     /**
      * Creates a new renderer.
      *
-     * @param type  the renderer type.
-     * @param labelGenerator  the tooltip generator.
+     * @param type           the renderer type.
+     * @param labelGenerator the tooltip generator.
      */
     public CyclicXYItemRenderer(int type, XYToolTipGenerator labelGenerator) {
         super(type, labelGenerator);
@@ -108,9 +110,9 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
     /**
      * Creates a new renderer.
      *
-     * @param type  the renderer type.
-     * @param labelGenerator  the tooltip generator.
-     * @param urlGenerator  the url generator.
+     * @param type           the renderer type.
+     * @param labelGenerator the tooltip generator.
+     * @param urlGenerator   the url generator.
      */
     public CyclicXYItemRenderer(int type,
                                 XYToolTipGenerator labelGenerator,
@@ -126,25 +128,25 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
      * from the previous point to the cycle bound in the last cycle, and a line
      * from the cycle bound to current point in the current cycle.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the data area.
-     * @param info  the plot rendering info.
-     * @param plot  the plot.
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param series  the series index.
-     * @param item  the item index.
-     * @param crosshairState  crosshair information for the plot
-     *                        (<code>null</code> permitted).
-     * @param pass  the current pass index.
+     * @param g2             the graphics device.
+     * @param state          the renderer state.
+     * @param dataArea       the data area.
+     * @param info           the plot rendering info.
+     * @param plot           the plot.
+     * @param domainAxis     the domain axis.
+     * @param rangeAxis      the range axis.
+     * @param dataset        the dataset.
+     * @param series         the series index.
+     * @param item           the item index.
+     * @param crosshairState crosshair information for the plot
+     *                       (<code>null</code> permitted).
+     * @param pass           the current pass index.
      */
     @Override
-    public void drawItem(Graphics2D g2, XYItemRendererState state, 
-            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-            int series, int item, CrosshairState crosshairState, int pass) {
+    public void drawItem(Graphics2D g2, XYItemRendererState state,
+                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+                         int series, int item, CrosshairState crosshairState, int pass) {
 
         if ((!getPlotLines()) || ((!(domainAxis instanceof CyclicNumberAxis))
                 && (!(rangeAxis instanceof CyclicNumberAxis))) || (item <= 0)) {
@@ -197,11 +199,15 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
                     && (xcycleBound <= x[0]))) {
                 double[] nx = new double[3];
                 double[] ny = new double[3];
-                nx[0] = x[0]; nx[2] = x[1]; ny[0] = y[0]; ny[2] = y[1];
+                nx[0] = x[0];
+                nx[2] = x[1];
+                ny[0] = y[0];
+                ny[2] = y[1];
                 nx[1] = xcycleBound;
                 ny[1] = (y[1] - y[0]) * (xcycleBound - x[0])
                         / (x[1] - x[0]) + y[0];
-                x = nx; y = ny;
+                x = nx;
+                y = ny;
             }
         }
 
@@ -216,26 +222,35 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
                     || (ycycleBound >= y[1]) && (ycycleBound <= y[0]))) {
                 double[] nx = new double[x.length + 1];
                 double[] ny = new double[y.length + 1];
-                nx[0] = x[0]; nx[2] = x[1]; ny[0] = y[0]; ny[2] = y[1];
+                nx[0] = x[0];
+                nx[2] = x[1];
+                ny[0] = y[0];
+                ny[2] = y[1];
                 ny[1] = ycycleBound;
                 nx[1] = (x[1] - x[0]) * (ycycleBound - y[0])
                         / (y[1] - y[0]) + x[0];
                 if (x.length == 3) {
-                    nx[3] = x[2]; ny[3] = y[2];
+                    nx[3] = x[2];
+                    ny[3] = y[2];
                 }
-                x = nx; y = ny;
-            }
-            else if ((x.length == 3) && (y[1] != y[2]) && ((ycycleBound >= y[1])
+                x = nx;
+                y = ny;
+            } else if ((x.length == 3) && (y[1] != y[2]) && ((ycycleBound >= y[1])
                     && (ycycleBound <= y[2])
                     || (ycycleBound >= y[2]) && (ycycleBound <= y[1]))) {
                 double[] nx = new double[4];
                 double[] ny = new double[4];
-                nx[0] = x[0]; nx[1] = x[1]; nx[3] = x[2];
-                ny[0] = y[0]; ny[1] = y[1]; ny[3] = y[2];
+                nx[0] = x[0];
+                nx[1] = x[1];
+                nx[3] = x[2];
+                ny[0] = y[0];
+                ny[1] = y[1];
+                ny[3] = y[2];
                 ny[2] = ycycleBound;
                 nx[2] = (x[2] - x[1]) * (ycycleBound - y[1])
                         / (y[2] - y[1]) + x[1];
-                x = nx; y = ny;
+                x = nx;
+                y = ny;
             }
         }
 
@@ -265,8 +280,8 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
             }
         }
         super.drawItem(
-            g2, state, dataArea, info, plot, domainAxis, rangeAxis,
-            newset, series, 1, crosshairState, pass
+                g2, state, dataArea, info, plot, domainAxis, rangeAxis,
+                newset, series, 1, crosshairState, pass
         );
 
         if (cnax != null) {
@@ -322,23 +337,28 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
      */
     protected static class OverwriteDataSet implements XYDataset {
 
-        /** The delegate dataset. */
+        /**
+         * The delegate dataset.
+         */
         protected XYDataset delegateSet;
 
-        /** Storage for the x and y values. */
+        /**
+         * Storage for the x and y values.
+         */
         Double[] x, y;
 
         /**
          * Creates a new dataset.
          *
-         * @param x  the x values.
-         * @param y  the y values.
-         * @param delegateSet  the dataset.
+         * @param x           the x values.
+         * @param y           the y values.
+         * @param delegateSet the dataset.
          */
-        public OverwriteDataSet(double [] x, double[] y,
+        public OverwriteDataSet(double[] x, double[] y,
                                 XYDataset delegateSet) {
             this.delegateSet = delegateSet;
-            this.x = new Double[x.length]; this.y = new Double[y.length];
+            this.x = new Double[x.length];
+            this.y = new Double[y.length];
             for (int i = 0; i < x.length; ++i) {
                 this.x[i] = new Double(x[i]);
                 this.y[i] = new Double(y[i]);
@@ -358,8 +378,7 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
         /**
          * Returns the number of items for the given series.
          *
-         * @param series  the series index (zero-based).
-         *
+         * @param series the series index (zero-based).
          * @return The item count.
          */
         @Override
@@ -370,9 +389,8 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
         /**
          * Returns the x-value.
          *
-         * @param series  the series index (zero-based).
-         * @param item  the item index (zero-based).
-         *
+         * @param series the series index (zero-based).
+         * @param item   the item index (zero-based).
          * @return The x-value.
          */
         @Override
@@ -384,9 +402,8 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
          * Returns the x-value (as a double primitive) for an item within a
          * series.
          *
-         * @param series  the series (zero-based index).
-         * @param item  the item (zero-based index).
-         *
+         * @param series the series (zero-based index).
+         * @param item   the item (zero-based index).
          * @return The x-value.
          */
         @Override
@@ -402,9 +419,8 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
         /**
          * Returns the y-value.
          *
-         * @param series  the series index (zero-based).
-         * @param item  the item index (zero-based).
-         *
+         * @param series the series index (zero-based).
+         * @param item   the item index (zero-based).
          * @return The y-value.
          */
         @Override
@@ -416,9 +432,8 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
          * Returns the y-value (as a double primitive) for an item within a
          * series.
          *
-         * @param series  the series (zero-based index).
-         * @param item  the item (zero-based index).
-         *
+         * @param series the series (zero-based index).
+         * @param item   the item (zero-based index).
          * @return The y-value.
          */
         @Override
@@ -444,8 +459,7 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
         /**
          * Returns the name of the given series.
          *
-         * @param series  the series index (zero-based).
-         *
+         * @param series the series index (zero-based).
          * @return The series name.
          */
         @Override
@@ -456,8 +470,7 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
         /**
          * Returns the index of the named series, or -1.
          *
-         * @param seriesName  the series name.
-         *
+         * @param seriesName the series name.
          * @return The index.
          */
         @Override
@@ -468,7 +481,7 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
         /**
          * Does nothing.
          *
-         * @param listener  ignored.
+         * @param listener ignored.
          */
         @Override
         public void addChangeListener(DatasetChangeListener listener) {
@@ -478,7 +491,7 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
         /**
          * Does nothing.
          *
-         * @param listener  ignored.
+         * @param listener ignored.
          */
         @Override
         public void removeChangeListener(DatasetChangeListener listener) {
@@ -499,7 +512,7 @@ public class CyclicXYItemRenderer extends StandardXYItemRenderer
         /**
          * Does nothing.
          *
-         * @param group  ignored.
+         * @param group ignored.
          */
         @Override
         public void setGroup(DatasetGroup group) {

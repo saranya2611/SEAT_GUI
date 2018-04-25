@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -40,10 +40,6 @@
 
 package org.jfree.chart;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-
 import org.jfree.chart.event.ChartChangeEvent;
 import org.jfree.chart.event.ChartChangeListener;
 import org.jfree.chart.plot.PiePlot;
@@ -51,15 +47,33 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertNull;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 /**
  * Tests for a pie chart with a 3D effect.
  */
-public class PieChart3DTest  {
+public class PieChart3DTest {
 
-    /** A chart. */
+    /**
+     * A chart.
+     */
     private JFreeChart pieChart;
+
+    /**
+     * Creates a pie chart.
+     *
+     * @param dataset the dataset.
+     * @return The pie chart.
+     */
+    private static JFreeChart createPieChart3D(PieDataset dataset) {
+        return ChartFactory.createPieChart3D("Pie Chart", dataset);
+    }
 
     /**
      * Common test setup.
@@ -100,7 +114,7 @@ public class PieChart3DTest  {
         dataset.setValue("Section 2", 11.0);
         dataset.setValue("Section 3", null);
         JFreeChart chart = createPieChart3D(dataset);
-        BufferedImage image = new BufferedImage(200 , 100,
+        BufferedImage image = new BufferedImage(200, 100,
                 BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = image.createGraphics();
         chart.draw(g2, new Rectangle2D.Double(0, 0, 200, 100), null, null);
@@ -109,28 +123,19 @@ public class PieChart3DTest  {
     }
 
     /**
-     * Creates a pie chart.
-     *
-     * @param dataset  the dataset.
-     *
-     * @return The pie chart.
-     */
-    private static JFreeChart createPieChart3D(PieDataset dataset) {
-        return ChartFactory.createPieChart3D("Pie Chart", dataset);
-    }
-
-    /**
      * A chart change listener.
      */
     static class LocalListener implements ChartChangeListener {
 
-        /** A flag. */
+        /**
+         * A flag.
+         */
         private boolean flag;
 
         /**
          * Event handler.
          *
-         * @param event  the event.
+         * @param event the event.
          */
         @Override
         public void chartChanged(ChartChangeEvent event) {

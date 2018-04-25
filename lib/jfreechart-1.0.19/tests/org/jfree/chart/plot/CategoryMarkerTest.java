@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -40,20 +40,14 @@
 
 package org.jfree.chart.plot;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.GradientPaint;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.chart.event.MarkerChangeEvent;
 import org.jfree.chart.event.MarkerChangeListener;
 import org.junit.Test;
+
+import java.awt.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Some tests for the {@link CategoryMarker} class.
@@ -65,7 +59,7 @@ public class CategoryMarkerTest implements MarkerChangeListener {
     /**
      * Records the last event.
      *
-     * @param event  the last event.
+     * @param event the last event.
      */
     @Override
     public void markerChanged(MarkerChangeEvent event) {
@@ -150,7 +144,7 @@ public class CategoryMarkerTest implements MarkerChangeListener {
         assertTrue(m1.equals(m2));
     }
 
-   /**
+    /**
      * Serialize an instance, restore it, and check for equality.
      */
     @Test
@@ -179,8 +173,7 @@ public class CategoryMarkerTest implements MarkerChangeListener {
         try {
             m.setKey(null);
             fail("Expected an IllegalArgumentException for null.");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
     }

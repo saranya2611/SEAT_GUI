@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -46,11 +46,11 @@
 
 package org.jfree.chart.labels;
 
-import java.io.Serializable;
-import java.util.List;
-
 import org.jfree.data.xy.XYDataset;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * A tool tip generator that stores custom tooltips. The dataset passed into
@@ -59,10 +59,14 @@ import org.jfree.util.PublicCloneable;
 public class CustomXYToolTipGenerator implements XYToolTipGenerator,
         Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 8636030004670141362L;
 
-    /** Storage for the tooltip lists. */
+    /**
+     * Storage for the tooltip lists.
+     */
     private List toolTipSeries = new java.util.ArrayList();
 
     /**
@@ -84,8 +88,7 @@ public class CustomXYToolTipGenerator implements XYToolTipGenerator,
     /**
      * Returns the number of tool tips in a given list.
      *
-     * @param list  the list index (zero based).
-     *
+     * @param list the list index (zero based).
      * @return The tooltip count.
      */
     public int getToolTipCount(int list) {
@@ -101,9 +104,8 @@ public class CustomXYToolTipGenerator implements XYToolTipGenerator,
     /**
      * Returns the tool tip text for an item.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The tool tip text.
      */
     public String getToolTipText(int series, int item) {
@@ -125,7 +127,7 @@ public class CustomXYToolTipGenerator implements XYToolTipGenerator,
     /**
      * Adds a list of tooltips for a series.
      *
-     * @param toolTips  the list of tool tips.
+     * @param toolTips the list of tool tips.
      */
     public void addToolTipSeries(List toolTips) {
         this.toolTipSeries.add(toolTips);
@@ -134,10 +136,9 @@ public class CustomXYToolTipGenerator implements XYToolTipGenerator,
     /**
      * Generates a tool tip text item for a particular item within a series.
      *
-     * @param data  the dataset (ignored in this implementation).
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param data   the dataset (ignored in this implementation).
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The tooltip text.
      */
     @Override
@@ -149,13 +150,12 @@ public class CustomXYToolTipGenerator implements XYToolTipGenerator,
      * Returns an independent copy of the generator.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if cloning is not supported.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
         CustomXYToolTipGenerator clone
-            = (CustomXYToolTipGenerator) super.clone();
+                = (CustomXYToolTipGenerator) super.clone();
         if (this.toolTipSeries != null) {
             clone.toolTipSeries = new java.util.ArrayList(this.toolTipSeries);
         }
@@ -165,8 +165,7 @@ public class CustomXYToolTipGenerator implements XYToolTipGenerator,
     /**
      * Tests if this object is equal to another.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return A boolean.
      */
     @Override
@@ -183,8 +182,7 @@ public class CustomXYToolTipGenerator implements XYToolTipGenerator,
                     String t2 = generator.getToolTipText(series, item);
                     if (t1 != null) {
                         result = result && t1.equals(t2);
-                    }
-                    else {
+                    } else {
                         result = result && (t2 == null);
                     }
                 }

@@ -1,34 +1,35 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
         <version>7</version>
     </parent>
-	<groupId>com.jgoodies</groupId>
-	<artifactId>jgoodies-validation</artifactId>
-	<version>2.5.1</version>
-	<packaging>jar</packaging>
-	<name>JGoodies Validation</name>
-	<url>https://validation.java.net/</url>
-	<description>The JGoodies Validation helps you validate user input 
-	    in Swing apps and report validation errors and warnings. 
-	    It has been designed to work with different architectures and 
-	    programming flavors.</description>
-	<dependencies>
-	    <dependency>
-	        <groupId>com.jgoodies</groupId>
-	        <artifactId>jgoodies-common</artifactId>
-	        <version>1.8.1</version>
-	    </dependency>
-	    <dependency>
-	    	<groupId>junit</groupId>
-	    	<artifactId>junit</artifactId>
-	    	<version>4.8</version>
-	    	<scope>test</scope>
-	    </dependency>
-	</dependencies>
+    <groupId>com.jgoodies</groupId>
+    <artifactId>jgoodies-validation</artifactId>
+    <version>2.5.1</version>
+    <packaging>jar</packaging>
+    <name>JGoodies Validation</name>
+    <url>https://validation.java.net/</url>
+    <description>The JGoodies Validation helps you validate user input
+        in Swing apps and report validation errors and warnings.
+        It has been designed to work with different architectures and
+        programming flavors.
+    </description>
+    <dependencies>
+        <dependency>
+            <groupId>com.jgoodies</groupId>
+            <artifactId>jgoodies-common</artifactId>
+            <version>1.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
     <licenses>
         <license>
             <name>The BSD License</name>
@@ -92,8 +93,8 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
-                 </configuration>
-             </plugin>
-         </plugins>
-     </build>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

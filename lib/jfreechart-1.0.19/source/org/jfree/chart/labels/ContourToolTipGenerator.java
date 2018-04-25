@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------
@@ -51,17 +51,16 @@ import org.jfree.data.contour.ContourDataset;
  * {@link ContourDataset}.
  *
  * @deprecated This interface is no longer supported (as of version 1.0.4).
- *     If you are creating contour plots, please try to use {@link XYPlot} and
- *     {@link XYBlockRenderer}.
+ * If you are creating contour plots, please try to use {@link XYPlot} and
+ * {@link XYBlockRenderer}.
  */
 public interface ContourToolTipGenerator {
 
     /**
      * Generates a tooltip text item for a particular item within a series.
      *
-     * @param dataset  the dataset.
-     * @param item  the item index (zero-based).
-     *
+     * @param dataset the dataset.
+     * @param item    the item index (zero-based).
      * @return The tooltip text.
      */
     public String generateToolTip(ContourDataset dataset, int item);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -41,12 +41,12 @@
  */
 package org.jfree.chart.urls;
 
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.util.PublicCloneable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.util.PublicCloneable;
 
 /**
  * A custom URL generator.
@@ -54,7 +54,9 @@ import org.jfree.util.PublicCloneable;
 public class CustomCategoryURLGenerator implements CategoryURLGenerator,
         Cloneable, PublicCloneable, Serializable {
 
-    /** Storage for the URLs. */
+    /**
+     * Storage for the URLs.
+     */
     private ArrayList urlSeries = new ArrayList();
 
     /**
@@ -76,8 +78,7 @@ public class CustomCategoryURLGenerator implements CategoryURLGenerator,
     /**
      * Returns the number of URLs in a given list.
      *
-     * @param list  the list index (zero based).
-     *
+     * @param list the list index (zero based).
      * @return The URL count.
      */
     public int getURLCount(int list) {
@@ -92,9 +93,8 @@ public class CustomCategoryURLGenerator implements CategoryURLGenerator,
     /**
      * Returns the URL for an item.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The URL (possibly <code>null</code>).
      */
     public String getURL(int series, int item) {
@@ -113,10 +113,9 @@ public class CustomCategoryURLGenerator implements CategoryURLGenerator,
     /**
      * Generates a URL.
      *
-     * @param dataset  the dataset (ignored in this implementation).
+     * @param dataset the dataset (ignored in this implementation).
      * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param item    the item (zero-based index).
      * @return A string containing the URL (possibly <code>null</code>).
      */
     @Override
@@ -127,7 +126,7 @@ public class CustomCategoryURLGenerator implements CategoryURLGenerator,
     /**
      * Adds a list of URLs.
      *
-     * @param urls  the list of URLs (<code>null</code> permitted).
+     * @param urls the list of URLs (<code>null</code> permitted).
      */
     public void addURLSeries(List urls) {
         List listToAdd = null;
@@ -140,8 +139,7 @@ public class CustomCategoryURLGenerator implements CategoryURLGenerator,
     /**
      * Tests if this object is equal to another.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return A boolean.
      */
     @Override
@@ -186,7 +184,6 @@ public class CustomCategoryURLGenerator implements CategoryURLGenerator,
      * generator.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem with cloning.
      */
     @Override

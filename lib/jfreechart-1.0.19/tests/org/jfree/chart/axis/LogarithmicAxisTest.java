@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -41,46 +41,25 @@
 
 package org.jfree.chart.axis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.ui.RectangleEdge;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.awt.geom.Rectangle2D;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Tests for the {@link LogarithmicAxis} class.
  */
 public class LogarithmicAxisTest {
 
-    static class MyLogarithmicAxis extends LogarithmicAxis {
-
-        /**
-         * Creates a new instance.
-         *
-         * @param label  the label.
-         */
-        public MyLogarithmicAxis(String label) {
-            super(label);
-        }
-
-        /* (non-Javadoc)
-         * @see org.jfree.chart.axis.LogarithmicAxis#switchedLog10(double)
-         */
-        @Override
-        protected double switchedLog10(double val) {
-            return super.switchedLog10(val);
-        }
-
-    }
-
-    /** Tolerance for floating point comparisons */
+    /**
+     * Tolerance for floating point comparisons
+     */
     public static double EPSILON = 0.000001;
-
     MyLogarithmicAxis axis = null;
 
     /**
@@ -137,52 +116,52 @@ public class LogarithmicAxisTest {
      */
     @Test
     public void testSwitchedLog10() {
-         assertFalse("Axis should not allow negative values",
-                 this.axis.getAllowNegativesFlag());
+        assertFalse("Axis should not allow negative values",
+                this.axis.getAllowNegativesFlag());
 
-         assertEquals(Math.log(0.5) / LogarithmicAxis.LOG10_VALUE,
-                 this.axis.switchedLog10(0.5), EPSILON);
-         checkSwitchedLogPowRoundTrip(20);
-         checkSwitchedLogPowRoundTrip(10);
-         checkSwitchedLogPowRoundTrip(5);
-         checkSwitchedLogPowRoundTrip(2);
-         checkSwitchedLogPowRoundTrip(1);
-         checkSwitchedLogPowRoundTrip(0.5);
-         checkSwitchedLogPowRoundTrip(0.2);
-         checkSwitchedLogPowRoundTrip(0.0001);
-     }
+        assertEquals(Math.log(0.5) / LogarithmicAxis.LOG10_VALUE,
+                this.axis.switchedLog10(0.5), EPSILON);
+        checkSwitchedLogPowRoundTrip(20);
+        checkSwitchedLogPowRoundTrip(10);
+        checkSwitchedLogPowRoundTrip(5);
+        checkSwitchedLogPowRoundTrip(2);
+        checkSwitchedLogPowRoundTrip(1);
+        checkSwitchedLogPowRoundTrip(0.5);
+        checkSwitchedLogPowRoundTrip(0.2);
+        checkSwitchedLogPowRoundTrip(0.0001);
+    }
 
-     private void checkSwitchedLogPowRoundTrip(double value) {
-         assertEquals("log(pow(x)) = x", value, this.axis.switchedLog10(
-                 this.axis.switchedPow10(value)), EPSILON);
-         assertEquals("pow(log(x)) = x", value, this.axis.switchedPow10(
-                 this.axis.switchedLog10(value)), EPSILON);
-     }
+    private void checkSwitchedLogPowRoundTrip(double value) {
+        assertEquals("log(pow(x)) = x", value, this.axis.switchedLog10(
+                this.axis.switchedPow10(value)), EPSILON);
+        assertEquals("pow(log(x)) = x", value, this.axis.switchedPow10(
+                this.axis.switchedLog10(value)), EPSILON);
+    }
 
-     /**
-      * Test of java2DToValue method.
-      */
-     @Test
-     public void testJava2DToValue() {
-         Rectangle2D plotArea = new Rectangle2D.Double(22, 33, 500, 500);
-         RectangleEdge edge = RectangleEdge.BOTTOM;
+    /**
+     * Test of java2DToValue method.
+     */
+    @Test
+    public void testJava2DToValue() {
+        Rectangle2D plotArea = new Rectangle2D.Double(22, 33, 500, 500);
+        RectangleEdge edge = RectangleEdge.BOTTOM;
 
-         // set axis bounds to be both greater than 1
-         this.axis.setRange(10, 20);
-         checkPointsToValue(edge, plotArea);
+        // set axis bounds to be both greater than 1
+        this.axis.setRange(10, 20);
+        checkPointsToValue(edge, plotArea);
 
-         // check for bounds interval that includes 1
-         this.axis.setRange(0.5, 10);
-         checkPointsToValue(edge, plotArea);
+        // check for bounds interval that includes 1
+        this.axis.setRange(0.5, 10);
+        checkPointsToValue(edge, plotArea);
 
-         // check for bounds interval that includes 1
-         this.axis.setRange(0.2, 20);
-         checkPointsToValue(edge, plotArea);
+        // check for bounds interval that includes 1
+        this.axis.setRange(0.2, 20);
+        checkPointsToValue(edge, plotArea);
 
-         // check for both bounds smaller than 1
-         this.axis.setRange(0.2, 0.7);
-         checkPointsToValue(edge, plotArea);
-     }
+        // check for both bounds smaller than 1
+        this.axis.setRange(0.2, 0.7);
+        checkPointsToValue(edge, plotArea);
+    }
 
     /**
      * Test of valueToJava2D method.
@@ -210,42 +189,63 @@ public class LogarithmicAxisTest {
     }
 
     private void checkPointsToJava2D(RectangleEdge edge,
-              Rectangle2D plotArea) {
+                                     Rectangle2D plotArea) {
         assertEquals("Left most point on the axis should be beginning of "
-                 + "range.", plotArea.getX(), this.axis.valueToJava2D(
-                 this.axis.getLowerBound(), plotArea, edge), EPSILON);
+                + "range.", plotArea.getX(), this.axis.valueToJava2D(
+                this.axis.getLowerBound(), plotArea, edge), EPSILON);
         assertEquals("Right most point on the axis should be end of range.",
-                 plotArea.getX() + plotArea.getWidth(),
-                 this.axis.valueToJava2D(this.axis.getUpperBound(),
-                 plotArea, edge), EPSILON);
+                plotArea.getX() + plotArea.getWidth(),
+                this.axis.valueToJava2D(this.axis.getUpperBound(),
+                        plotArea, edge), EPSILON);
         assertEquals("Center point on the axis should geometric mean of the bounds.",
-                 plotArea.getX() + (plotArea.getWidth() / 2),
-                 this.axis.valueToJava2D(Math.sqrt(this.axis.getLowerBound()
-                 * this.axis.getUpperBound()), plotArea, edge), EPSILON);
+                plotArea.getX() + (plotArea.getWidth() / 2),
+                this.axis.valueToJava2D(Math.sqrt(this.axis.getLowerBound()
+                        * this.axis.getUpperBound()), plotArea, edge), EPSILON);
     }
 
     /**
      * Check the translation java2D to value for left, right, and center point.
      *
-     * @param edge  the edge.
-     * @param plotArea  the plot area.
+     * @param edge     the edge.
+     * @param plotArea the plot area.
      */
-     private void checkPointsToValue(RectangleEdge edge, Rectangle2D plotArea) {
-         assertEquals("Right most point on the axis should be end of range.",
-                 this.axis.getUpperBound(), this.axis.java2DToValue(
-                 plotArea.getX() + plotArea.getWidth(), plotArea, edge),
-                 EPSILON);
+    private void checkPointsToValue(RectangleEdge edge, Rectangle2D plotArea) {
+        assertEquals("Right most point on the axis should be end of range.",
+                this.axis.getUpperBound(), this.axis.java2DToValue(
+                        plotArea.getX() + plotArea.getWidth(), plotArea, edge),
+                EPSILON);
 
-         assertEquals("Left most point on the axis should be beginning of "
-                 + "range.", this.axis.getLowerBound(),
-                 this.axis.java2DToValue(plotArea.getX(), plotArea, edge),
-                 EPSILON);
+        assertEquals("Left most point on the axis should be beginning of "
+                        + "range.", this.axis.getLowerBound(),
+                this.axis.java2DToValue(plotArea.getX(), plotArea, edge),
+                EPSILON);
 
-         assertEquals("Center point on the axis should geometric mean of the "
-                 + "bounds.", Math.sqrt(this.axis.getUpperBound()
-                 * this.axis.getLowerBound()), this.axis.java2DToValue(
-                 plotArea.getX() + (plotArea.getWidth() / 2), plotArea, edge),
-                 EPSILON);
+        assertEquals("Center point on the axis should geometric mean of the "
+                        + "bounds.", Math.sqrt(this.axis.getUpperBound()
+                        * this.axis.getLowerBound()), this.axis.java2DToValue(
+                plotArea.getX() + (plotArea.getWidth() / 2), plotArea, edge),
+                EPSILON);
+    }
+
+    static class MyLogarithmicAxis extends LogarithmicAxis {
+
+        /**
+         * Creates a new instance.
+         *
+         * @param label the label.
+         */
+        public MyLogarithmicAxis(String label) {
+            super(label);
+        }
+
+        /* (non-Javadoc)
+         * @see org.jfree.chart.axis.LogarithmicAxis#switchedLog10(double)
+         */
+        @Override
+        protected double switchedLog10(double val) {
+            return super.switchedLog10(val);
+        }
+
     }
 
 }

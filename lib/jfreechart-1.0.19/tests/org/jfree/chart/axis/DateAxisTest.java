@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -49,56 +49,24 @@
 
 package org.jfree.chart.axis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import org.jfree.chart.TestUtilities;
+import org.jfree.data.time.*;
+import org.jfree.ui.RectangleEdge;
 import org.junit.Test;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
-import org.jfree.chart.TestUtilities;
-
-import org.jfree.data.time.DateRange;
-import org.jfree.data.time.Day;
-import org.jfree.data.time.Hour;
-import org.jfree.data.time.Millisecond;
-import org.jfree.data.time.Month;
-import org.jfree.data.time.Second;
-import org.jfree.data.time.Year;
-import org.jfree.ui.RectangleEdge;
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link DateAxis} class.
  */
 public class DateAxisTest {
-
-    static class MyDateAxis extends DateAxis {
-
-        /**
-         * Creates a new instance.
-         *
-         * @param label  the label.
-         */
-        public MyDateAxis(String label) {
-            super(label);
-        }
-
-        @Override
-        public Date previousStandardDate(Date d, DateTickUnit unit) {
-            return super.previousStandardDate(d, unit);
-        }
-    }
 
     /**
      * Confirm that the equals method can distinguish all the required fields.
@@ -116,7 +84,7 @@ public class DateAxisTest {
         assertFalse(a1.equals(a2));
         a2 = new DateAxis("Test", TimeZone.getTimeZone("PST"), Locale.US);
         assertTrue(a1.equals(a2));
-        
+
         a1 = new DateAxis("Test", TimeZone.getTimeZone("PST"), Locale.FRANCE);
         assertFalse(a1.equals(a2));
         a2 = new DateAxis("Test", TimeZone.getTimeZone("PST"), Locale.FRANCE);
@@ -253,10 +221,9 @@ public class DateAxisTest {
     /**
      * Tests two doubles for 'near enough' equality.
      *
-     * @param d1  number 1.
-     * @param d2  number 2.
-     * @param tolerance  maximum tolerance.
-     *
+     * @param d1        number 1.
+     * @param d2        number 2.
+     * @param tolerance maximum tolerance.
      * @return A boolean.
      */
     private boolean same(double d1, double d2, double tolerance) {
@@ -1175,20 +1142,20 @@ public class DateAxisTest {
     public void testBug3484403() {
 
         final long[] dates =
-            { 1304892000000L, 1304632800000L, 1304546400000L, 1304460000000L,
-              1304373600000L, 1304287200000L, 1320015600000L, 1309384800000L,
-              1319752800000L, 1319666400000L, 1319580000000L, 1319493600000L };
+                {1304892000000L, 1304632800000L, 1304546400000L, 1304460000000L,
+                        1304373600000L, 1304287200000L, 1320015600000L, 1309384800000L,
+                        1319752800000L, 1319666400000L, 1319580000000L, 1319493600000L};
         Arrays.sort(dates);
 
         DateAxis axis = new DateAxis("Date");
         // set start and end date
         Date start = new Date(dates[0]);
-        Date end = new Date(dates[dates.length-1]);
+        Date end = new Date(dates[dates.length - 1]);
         axis.setMinimumDate(start);
         axis.setMaximumDate(end);
 
         SegmentedTimeline timeline =
-            SegmentedTimeline.newMondayThroughFridayTimeline();
+                SegmentedTimeline.newMondayThroughFridayTimeline();
         timeline.setStartTime(start.getTime());
         axis.setTimeline(timeline);
 
@@ -1199,5 +1166,22 @@ public class DateAxisTest {
 
         // if the bug is still present, this leads to an endless loop
         axis.refreshTicks(g2, new AxisState(), area, RectangleEdge.BOTTOM);
+    }
+
+    static class MyDateAxis extends DateAxis {
+
+        /**
+         * Creates a new instance.
+         *
+         * @param label the label.
+         */
+        public MyDateAxis(String label) {
+            super(label);
+        }
+
+        @Override
+        public Date previousStandardDate(Date d, DateTickUnit unit) {
+            return super.previousStandardDate(d, unit);
+        }
     }
 }

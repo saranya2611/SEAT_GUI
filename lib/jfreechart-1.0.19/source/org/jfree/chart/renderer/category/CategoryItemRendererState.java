@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------
@@ -55,13 +55,19 @@ import org.jfree.chart.renderer.RendererState;
  */
 public class CategoryItemRendererState extends RendererState {
 
-    /** The bar width. */
+    /**
+     * The bar width.
+     */
     private double barWidth;
 
-    /** The series running total. */
+    /**
+     * The series running total.
+     */
     private double seriesRunningTotal;
 
-    /** The array with the indices of the visible series.*/
+    /**
+     * The array with the indices of the visible series.
+     */
     private int[] visibleSeries;
 
     /**
@@ -76,7 +82,7 @@ public class CategoryItemRendererState extends RendererState {
      * Creates a new object for recording temporary state information for a
      * renderer.
      *
-     * @param info  the plot rendering info (<code>null</code> permitted).
+     * @param info the plot rendering info (<code>null</code> permitted).
      */
     public CategoryItemRendererState(PlotRenderingInfo info) {
         super(info);
@@ -88,7 +94,6 @@ public class CategoryItemRendererState extends RendererState {
      * Returns the bar width.
      *
      * @return The bar width.
-     *
      * @see #setBarWidth(double)
      */
     public double getBarWidth() {
@@ -99,8 +104,7 @@ public class CategoryItemRendererState extends RendererState {
      * Sets the bar width.  The renderer calculates this value and stores it
      * here - it is not intended that users can manually set the bar width.
      *
-     * @param width  the width.
-     *
+     * @param width the width.
      * @see #getBarWidth()
      */
     public void setBarWidth(double width) {
@@ -111,7 +115,6 @@ public class CategoryItemRendererState extends RendererState {
      * Returns the series running total.
      *
      * @return The running total.
-     *
      * @see #setSeriesRunningTotal(double)
      */
     public double getSeriesRunningTotal() {
@@ -122,8 +125,7 @@ public class CategoryItemRendererState extends RendererState {
      * Sets the series running total (this method is intended for the use of
      * the renderer only).
      *
-     * @param total  the new total.
-     *
+     * @param total the new total.
      * @see #getSeriesRunningTotal()
      */
     void setSeriesRunningTotal(double total) {
@@ -134,10 +136,8 @@ public class CategoryItemRendererState extends RendererState {
      * Returns the crosshair state, if any.
      *
      * @return The crosshair state (possibly <code>null</code>).
-     *
-     * @since 1.0.11
-     *
      * @see #setCrosshairState(CategoryCrosshairState)
+     * @since 1.0.11
      */
     public CategoryCrosshairState getCrosshairState() {
         return this.crosshairState;
@@ -146,11 +146,9 @@ public class CategoryItemRendererState extends RendererState {
     /**
      * Sets the crosshair state.
      *
-     * @param state  the new state (<code>null</code> permitted).
-     *
-     * @since 1.0.11
-     *
+     * @param state the new state (<code>null</code> permitted).
      * @see #getCrosshairState()
+     * @since 1.0.11
      */
     public void setCrosshairState(CategoryCrosshairState state) {
         this.crosshairState = state;
@@ -162,10 +160,8 @@ public class CategoryItemRendererState extends RendererState {
      * If the row index is not included in the array of visible rows,
      * -1 is returned.
      *
-     * @param rowIndex  the row index.
-     *
+     * @param rowIndex the row index.
      * @return The new row index or -1.
-     *
      * @since 1.0.13
      */
     public int getVisibleSeriesIndex(int rowIndex) {
@@ -187,7 +183,6 @@ public class CategoryItemRendererState extends RendererState {
      * been specified.
      *
      * @return The number or -1.
-     *
      * @since 1.0.13
      */
     public int getVisibleSeriesCount() {
@@ -199,9 +194,8 @@ public class CategoryItemRendererState extends RendererState {
 
     /**
      * Returns a copy of the visible series array.
-     * 
+     *
      * @return The visible series array (possibly <code>null</code>).
-     * 
      * @since 1.0.13
      */
     public int[] getVisibleSeriesArray() {
@@ -218,7 +212,6 @@ public class CategoryItemRendererState extends RendererState {
      * Sets an array with the indices of the visible rows.
      *
      * @param visibleSeries the array (<code>null</code> permitted).
-     *
      * @since 1.0.13
      */
     public void setVisibleSeriesArray(int[] visibleSeries) {

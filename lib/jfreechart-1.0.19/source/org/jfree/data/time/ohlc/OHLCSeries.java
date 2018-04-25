@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -50,9 +50,8 @@ import org.jfree.data.time.RegularTimePeriod;
 /**
  * A list of ({@link RegularTimePeriod}, open, high, low, close) data items.
  *
- * @since 1.0.4
- *
  * @see OHLCSeriesCollection
+ * @since 1.0.4
  */
 public class OHLCSeries extends ComparableObjectSeries {
 
@@ -61,7 +60,7 @@ public class OHLCSeries extends ComparableObjectSeries {
      * be sorted into ascending order by period, and duplicate periods will
      * not be allowed.
      *
-     * @param key  the series key (<code>null</code> not permitted).
+     * @param key the series key (<code>null</code> not permitted).
      */
     public OHLCSeries(Comparable key) {
         super(key, true, false);
@@ -70,8 +69,7 @@ public class OHLCSeries extends ComparableObjectSeries {
     /**
      * Returns the time period for the specified item.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @return The time period.
      */
     public RegularTimePeriod getPeriod(int index) {
@@ -82,8 +80,7 @@ public class OHLCSeries extends ComparableObjectSeries {
     /**
      * Returns the data item at the specified index.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @return The data item.
      */
     @Override
@@ -94,14 +91,14 @@ public class OHLCSeries extends ComparableObjectSeries {
     /**
      * Adds a data item to the series.
      *
-     * @param period  the period.
-     * @param open  the open-value.
-     * @param high  the high-value.
-     * @param low  the low-value.
+     * @param period the period.
+     * @param open   the open-value.
+     * @param high   the high-value.
+     * @param low    the low-value.
      * @param close  the close-value.
      */
     public void add(RegularTimePeriod period, double open, double high,
-            double low, double close) {
+                    double low, double close) {
         if (getItemCount() > 0) {
             OHLCItem item0 = (OHLCItem) this.getDataItem(0);
             if (!period.getClass().equals(item0.getPeriod().getClass())) {
@@ -111,13 +108,12 @@ public class OHLCSeries extends ComparableObjectSeries {
         }
         super.add(new OHLCItem(period, open, high, low, close), true);
     }
-    
+
     /**
      * Adds a data item to the series.  The values from the item passed to
      * this method will be copied into a new object.
-     * 
-     * @param item  the item (<code>null</code> not permitted).
-     * 
+     *
+     * @param item the item (<code>null</code> not permitted).
      * @since 1.0.17
      */
     public void add(OHLCItem item) {
@@ -129,8 +125,7 @@ public class OHLCSeries extends ComparableObjectSeries {
     /**
      * Removes the item with the specified index.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @since 1.0.14
      */
     @Override

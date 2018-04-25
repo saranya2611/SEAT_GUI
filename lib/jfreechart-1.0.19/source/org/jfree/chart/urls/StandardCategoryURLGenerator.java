@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------------
@@ -55,13 +55,13 @@
 
 package org.jfree.chart.urls;
 
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.util.ObjectUtilities;
+
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import org.jfree.chart.util.ParamChecks;
-
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.util.ObjectUtilities;
 
 /**
  * A URL generator that can be assigned to a
@@ -70,16 +70,24 @@ import org.jfree.util.ObjectUtilities;
 public class StandardCategoryURLGenerator implements CategoryURLGenerator,
         Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 2276668053074881909L;
 
-    /** Prefix to the URL */
+    /**
+     * Prefix to the URL
+     */
     private String prefix = "index.html";
 
-    /** Series parameter name to go in each URL */
+    /**
+     * Series parameter name to go in each URL
+     */
     private String seriesParameterName = "series";
 
-    /** Category parameter name to go in each URL */
+    /**
+     * Category parameter name to go in each URL
+     */
     private String categoryParameterName = "category";
 
     /**
@@ -92,7 +100,7 @@ public class StandardCategoryURLGenerator implements CategoryURLGenerator,
     /**
      * Constructor that overrides default prefix to the URL.
      *
-     * @param prefix  the prefix to the URL (<code>null</code> not permitted).
+     * @param prefix the prefix to the URL (<code>null</code> not permitted).
      */
     public StandardCategoryURLGenerator(String prefix) {
         ParamChecks.nullNotPermitted(prefix, "prefix");
@@ -102,19 +110,19 @@ public class StandardCategoryURLGenerator implements CategoryURLGenerator,
     /**
      * Constructor that overrides all the defaults.
      *
-     * @param prefix  the prefix to the URL (<code>null</code> not permitted).
-     * @param seriesParameterName  the name of the series parameter to go in
-     *                             each URL (<code>null</code> not permitted).
-     * @param categoryParameterName  the name of the category parameter to go in
-     *                               each URL (<code>null</code> not permitted).
+     * @param prefix                the prefix to the URL (<code>null</code> not permitted).
+     * @param seriesParameterName   the name of the series parameter to go in
+     *                              each URL (<code>null</code> not permitted).
+     * @param categoryParameterName the name of the category parameter to go in
+     *                              each URL (<code>null</code> not permitted).
      */
-    public StandardCategoryURLGenerator(String prefix, 
-            String seriesParameterName, String categoryParameterName) {
+    public StandardCategoryURLGenerator(String prefix,
+                                        String seriesParameterName, String categoryParameterName) {
 
         ParamChecks.nullNotPermitted(prefix, "prefix");
-        ParamChecks.nullNotPermitted(seriesParameterName, 
+        ParamChecks.nullNotPermitted(seriesParameterName,
                 "seriesParameterName");
-        ParamChecks.nullNotPermitted(categoryParameterName, 
+        ParamChecks.nullNotPermitted(categoryParameterName,
                 "categoryParameterName");
         this.prefix = prefix;
         this.seriesParameterName = seriesParameterName;
@@ -126,14 +134,13 @@ public class StandardCategoryURLGenerator implements CategoryURLGenerator,
      * Generates a URL for a particular item within a series.
      *
      * @param dataset  the dataset.
-     * @param series  the series index (zero-based).
-     * @param category  the category index (zero-based).
-     *
+     * @param series   the series index (zero-based).
+     * @param category the category index (zero-based).
      * @return The generated URL.
      */
     @Override
-    public String generateURL(CategoryDataset dataset, int series, 
-            int category) {
+    public String generateURL(CategoryDataset dataset, int series,
+                              int category) {
         String url = this.prefix;
         Comparable seriesKey = dataset.getRowKey(series);
         Comparable categoryKey = dataset.getColumnKey(category);
@@ -154,9 +161,8 @@ public class StandardCategoryURLGenerator implements CategoryURLGenerator,
      * Returns an independent copy of the URL generator.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException not thrown by this class, but
-     *         subclasses (if any) might.
+     *                                    subclasses (if any) might.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -169,8 +175,7 @@ public class StandardCategoryURLGenerator implements CategoryURLGenerator,
     /**
      * Tests the generator for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -207,11 +212,11 @@ public class StandardCategoryURLGenerator implements CategoryURLGenerator,
         int result;
         result = (this.prefix != null ? this.prefix.hashCode() : 0);
         result = 29 * result
-            + (this.seriesParameterName != null
-                    ? this.seriesParameterName.hashCode() : 0);
+                + (this.seriesParameterName != null
+                ? this.seriesParameterName.hashCode() : 0);
         result = 29 * result
-            + (this.categoryParameterName != null
-                    ? this.categoryParameterName.hashCode() : 0);
+                + (this.categoryParameterName != null
+                ? this.categoryParameterName.hashCode() : 0);
         return result;
     }
 

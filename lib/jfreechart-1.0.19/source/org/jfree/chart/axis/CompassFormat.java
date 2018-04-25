@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -37,22 +37,25 @@
  * -------
  * 18-Feb-2004 : Version 1 contributed by Sylvain Vieujot (DG);
  * 04-Feb-2014 : Make direction strings user-definable (SL);
- * 
+ *
  */
 
 package org.jfree.chart.axis;
 
+import org.jfree.chart.util.ParamChecks;
+
 import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
-import org.jfree.chart.util.ParamChecks;
 
 /**
  * A formatter that displays numbers as directions.
  */
 public class CompassFormat extends NumberFormat {
 
-    /** The directions. */
+    /**
+     * The directions.
+     */
     public final String[] directions;
 
     /**
@@ -65,27 +68,25 @@ public class CompassFormat extends NumberFormat {
     /**
      * Creates a new formatter using the specified identifiers for
      * the base wind directions.
-     * 
-     * @param n  the code for NORTH.
-     * @param e  the code for EAST.
-     * @param s  the code for SOUTH.
-     * @param w  the code for WEST.
-     * 
+     *
+     * @param n the code for NORTH.
+     * @param e the code for EAST.
+     * @param s the code for SOUTH.
+     * @param w the code for WEST.
      * @since 1.0.18
      */
     public CompassFormat(String n, String e, String s, String w) {
-        this(new String[] {
-            n, n + n + e, n + e, e + n + e, e, e + s + e, s + e, s + s + e, s,
-            s + s + w, s + w, w + s + w, w, w + n + w, n + w, n + n + w
+        this(new String[]{
+                n, n + n + e, n + e, e + n + e, e, e + s + e, s + e, s + s + e, s,
+                s + s + w, s + w, w + s + w, w, w + n + w, n + w, n + n + w
         });
     }
 
     /**
      * Creates a new formatter using the specified identifiers.
-     * 
-     * @param directions  an array containing 16 strings representing
-     *     the directions of a compass.
-     * 
+     *
+     * @param directions an array containing 16 strings representing
+     *                   the directions of a compass.
      * @since 1.0.18
      */
     public CompassFormat(String[] directions) {
@@ -101,8 +102,7 @@ public class CompassFormat extends NumberFormat {
     /**
      * Returns a string representing the direction.
      *
-     * @param direction  the direction.
-     *
+     * @param direction the direction.
      * @return A string.
      */
     public String getDirectionCode(double direction) {
@@ -117,30 +117,28 @@ public class CompassFormat extends NumberFormat {
     /**
      * Formats a number into the specified string buffer.
      *
-     * @param number  the number to format.
-     * @param toAppendTo  the string buffer.
-     * @param pos  the field position (ignored here).
-     *
+     * @param number     the number to format.
+     * @param toAppendTo the string buffer.
+     * @param pos        the field position (ignored here).
      * @return The string buffer.
      */
     @Override
     public StringBuffer format(double number, StringBuffer toAppendTo,
-            FieldPosition pos) {
+                               FieldPosition pos) {
         return toAppendTo.append(getDirectionCode(number));
     }
 
     /**
      * Formats a number into the specified string buffer.
      *
-     * @param number  the number to format.
-     * @param toAppendTo  the string buffer.
-     * @param pos  the field position (ignored here).
-     *
+     * @param number     the number to format.
+     * @param toAppendTo the string buffer.
+     * @param pos        the field position (ignored here).
      * @return The string buffer.
      */
     @Override
     public StringBuffer format(long number, StringBuffer toAppendTo,
-            FieldPosition pos) {
+                               FieldPosition pos) {
         return toAppendTo.append(getDirectionCode(number));
     }
 
@@ -148,9 +146,8 @@ public class CompassFormat extends NumberFormat {
      * This method returns <code>null</code> for all inputs.  This class cannot
      * be used for parsing.
      *
-     * @param source  the source string.
-     * @param parsePosition  the parse position.
-     *
+     * @param source        the source string.
+     * @param parsePosition the parse position.
      * @return <code>null</code>.
      */
     @Override

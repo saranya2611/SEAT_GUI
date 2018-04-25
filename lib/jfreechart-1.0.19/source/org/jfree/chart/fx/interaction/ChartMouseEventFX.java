@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -40,50 +40,58 @@
 
 package org.jfree.chart.fx.interaction;
 
-import java.io.Serializable;
-import java.util.EventObject;
 import javafx.scene.input.MouseEvent;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.entity.ChartEntity;
 import org.jfree.chart.fx.ChartViewer;
 
+import java.io.Serializable;
+import java.util.EventObject;
+
 /**
- * A mouse event for a chart that is displayed in a (JavaFX) 
+ * A mouse event for a chart that is displayed in a (JavaFX)
  * {@link ChartViewer}.
  *
  * @see ChartMouseListenerFX
- * 
+ * <p>
  * <p>THE API FOR THIS CLASS IS SUBJECT TO CHANGE IN FUTURE RELEASES.  This is
- * so that we can incorporate feedback on the (new) JavaFX support in 
+ * so that we can incorporate feedback on the (new) JavaFX support in
  * JFreeChart.</p>
- * 
  * @since 1.0.18
  */
 public class ChartMouseEventFX extends EventObject implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -682393837314562149L;
 
-    /** The chart that the mouse event relates to. */
+    /**
+     * The chart that the mouse event relates to.
+     */
     private JFreeChart chart;
 
-    /** The Java mouse event that triggered this event. */
+    /**
+     * The Java mouse event that triggered this event.
+     */
     private MouseEvent trigger;
 
-    /** The chart entity (if any). */
+    /**
+     * The chart entity (if any).
+     */
     private ChartEntity entity;
 
     /**
      * Constructs a new event.
      *
-     * @param chart  the source chart ({@code null} not permitted).
-     * @param trigger  the mouse event that triggered this event
-     *                 ({@code null} not permitted).
+     * @param chart   the source chart ({@code null} not permitted).
+     * @param trigger the mouse event that triggered this event
+     *                ({@code null} not permitted).
      * @param entity  the chart entity (if any) under the mouse point
      *                ({@code null} permitted).
      */
     public ChartMouseEventFX(JFreeChart chart, MouseEvent trigger,
-                           ChartEntity entity) {
+                             ChartEntity entity) {
         super(chart);
         this.chart = chart;
         this.trigger = trigger;

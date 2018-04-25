@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -47,18 +47,16 @@
 
 package org.jfree.chart.title;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Paint;
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import org.jfree.ui.HorizontalAlignment;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.RectangleInsets;
 import org.jfree.ui.VerticalAlignment;
+
+import java.awt.*;
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * A chart title that displays the date.
@@ -67,21 +65,23 @@ import org.jfree.ui.VerticalAlignment;
  * at the top, left, right or bottom of the chart - a {@code DateTitle}
  * will commonly appear at the bottom of a chart, although you can place it
  * anywhere.
- * <P>
+ * <p>
  * By specifying the locale, dates are formatted to the correct standard for
  * the given locale. For example, a date would appear as "January 17, 2000" in
  * the US, but "17 January 2000" in most European locales.
  */
 public class DateTitle extends TextTitle implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -465434812763159881L;
 
     /**
      * Creates a new chart title that displays the current date in the default
      * (LONG) format for the locale, positioned to the bottom right of the
      * chart.
-     * <P>
+     * <p>
      * The color will be black in 12 point, plain Helvetica font (maps to Arial
      * on Win32 systems without Helvetica).
      */
@@ -92,12 +92,12 @@ public class DateTitle extends TextTitle implements Serializable {
     /**
      * Creates a new chart title that displays the current date with the
      * specified style (for the default locale).
-     * <P>
+     * <p>
      * The date style should be one of:  {@code SHORT},
      * {@code MEDIUM}, {@code LONG} or {@code FULL}
      * (defined in {@code java.util.DateFormat}).
      *
-     * @param style  the date style.
+     * @param style the date style.
      */
     public DateTitle(int style) {
         this(style, Locale.getDefault(), new Font("Dialog", Font.PLAIN, 12),
@@ -110,13 +110,13 @@ public class DateTitle extends TextTitle implements Serializable {
      * The date style should be one of:  {@code SHORT},
      * {@code MEDIUM}, {@code LONG} or {@code FULL} (defined
      * in {@code java.util.DateFormat}).
-     * <P>
+     * <p>
      * For the locale, you can use {@code Locale.getDefault()} for the
      * default locale.
      *
      * @param style  the date style.
-     * @param locale  the locale.
-     * @param font  the font.
+     * @param locale the locale.
+     * @param font   the font.
      * @param paint  the text color.
      */
     public DateTitle(int style, Locale locale, Font font, Paint paint) {
@@ -131,26 +131,26 @@ public class DateTitle extends TextTitle implements Serializable {
      * The date style should be one of:  {@code SHORT},
      * {@code MEDIUM}, {@code LONG} or {@code FULL} (defined
      * in {@code java.util.DateFormat}).
-     * <P>
+     * <p>
      * For the locale, you can use {@code Locale.getDefault()} for the
      * default locale.
      *
-     * @param style  the date style.
-     * @param locale  the locale.
-     * @param font  the font (not null).
-     * @param paint  the text color (not null).
-     * @param position  the relative location of this title (use constants in
-     *                  Title).
-     * @param horizontalAlignment  the horizontal text alignment of this title
-     *                             (use constants in Title).
-     * @param verticalAlignment  the vertical text alignment of this title (use
-     *                           constants in Title).
-     * @param padding  determines the blank space around the outside of the
-     *                 title (not null).
+     * @param style               the date style.
+     * @param locale              the locale.
+     * @param font                the font (not null).
+     * @param paint               the text color (not null).
+     * @param position            the relative location of this title (use constants in
+     *                            Title).
+     * @param horizontalAlignment the horizontal text alignment of this title
+     *                            (use constants in Title).
+     * @param verticalAlignment   the vertical text alignment of this title (use
+     *                            constants in Title).
+     * @param padding             determines the blank space around the outside of the
+     *                            title (not null).
      */
     public DateTitle(int style, Locale locale, Font font, Paint paint,
-            RectangleEdge position, HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment, RectangleInsets padding) {
+                     RectangleEdge position, HorizontalAlignment horizontalAlignment,
+                     VerticalAlignment verticalAlignment, RectangleInsets padding) {
         super(DateFormat.getDateInstance(style, locale).format(new Date()),
                 font, paint, position, horizontalAlignment, verticalAlignment,
                 padding);
@@ -158,16 +158,16 @@ public class DateTitle extends TextTitle implements Serializable {
 
     /**
      * Set the format of the date.
-     * <P>
+     * <p>
      * The date style should be one of:  {@code SHORT},
      * {@code MEDIUM}, {@code LONG} or {@code FULL} (defined
      * in {@code java.util.DateFormat}).
-     * <P>
+     * <p>
      * For the locale, you can use {@code Locale.getDefault()} for the
      * default locale.
      *
      * @param style  the date style.
-     * @param locale  the locale.
+     * @param locale the locale.
      */
     public void setDateFormat(int style, Locale locale) {
         setText(DateFormat.getDateInstance(style, locale).format(new Date()));

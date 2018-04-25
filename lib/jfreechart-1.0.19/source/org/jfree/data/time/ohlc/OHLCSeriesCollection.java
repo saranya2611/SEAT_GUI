@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -44,9 +44,6 @@
 
 package org.jfree.data.time.ohlc;
 
-import java.io.Serializable;
-import java.util.List;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.data.general.DatasetChangeEvent;
@@ -57,17 +54,21 @@ import org.jfree.data.xy.OHLCDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.util.ObjectUtilities;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * A collection of {@link OHLCSeries} objects.
  *
- * @since 1.0.4
- *
  * @see OHLCSeries
+ * @since 1.0.4
  */
 public class OHLCSeriesCollection extends AbstractXYDataset
-                                implements OHLCDataset, Serializable {
+        implements OHLCDataset, Serializable {
 
-    /** Storage for the data series. */
+    /**
+     * Storage for the data series.
+     */
     private List data;
 
     private TimePeriodAnchor xPosition = TimePeriodAnchor.MIDDLE;
@@ -84,7 +85,6 @@ public class OHLCSeriesCollection extends AbstractXYDataset
      * value when the collection is used as an {@link XYDataset}.
      *
      * @return The anchor position (never <code>null</code>).
-     *
      * @since 1.0.11
      */
     public TimePeriodAnchor getXPosition() {
@@ -96,8 +96,7 @@ public class OHLCSeriesCollection extends AbstractXYDataset
      * when the collection is used as an {@link XYDataset}, then sends a
      * {@link DatasetChangeEvent} is sent to all registered listeners.
      *
-     * @param anchor  the anchor position (<code>null</code> not permitted).
-     *
+     * @param anchor the anchor position (<code>null</code> not permitted).
      * @since 1.0.11
      */
     public void setXPosition(TimePeriodAnchor anchor) {
@@ -110,7 +109,7 @@ public class OHLCSeriesCollection extends AbstractXYDataset
      * Adds a series to the collection and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param series  the series (<code>null</code> not permitted).
+     * @param series the series (<code>null</code> not permitted).
      */
     public void addSeries(OHLCSeries series) {
         ParamChecks.nullNotPermitted(series, "series");
@@ -132,12 +131,10 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns a series from the collection.
      *
-     * @param series  the series index (zero-based).
-     *
+     * @param series the series index (zero-based).
      * @return The series.
-     *
      * @throws IllegalArgumentException if <code>series</code> is not in the
-     *     range <code>0</code> to <code>getSeriesCount() - 1</code>.
+     *                                  range <code>0</code> to <code>getSeriesCount() - 1</code>.
      */
     public OHLCSeries getSeries(int series) {
         if ((series < 0) || (series >= getSeriesCount())) {
@@ -149,13 +146,11 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns the key for a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
      * @return The key for a series.
-     *
      * @throws IllegalArgumentException if <code>series</code> is not in the
-     *     specified range.
+     *                                  specified range.
      */
     @Override
     public Comparable getSeriesKey(int series) {
@@ -166,12 +161,10 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns the number of items in the specified series.
      *
-     * @param series  the series (zero-based index).
-     *
+     * @param series the series (zero-based index).
      * @return The item count.
-     *
      * @throws IllegalArgumentException if <code>series</code> is not in the
-     *     range <code>0</code> to <code>getSeriesCount() - 1</code>.
+     *                                  range <code>0</code> to <code>getSeriesCount() - 1</code>.
      */
     @Override
     public int getItemCount(int series) {
@@ -182,19 +175,16 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns the x-value for a time period.
      *
-     * @param period  the time period (<code>null</code> not permitted).
-     *
+     * @param period the time period (<code>null</code> not permitted).
      * @return The x-value.
      */
     protected synchronized long getX(RegularTimePeriod period) {
         long result = 0L;
         if (this.xPosition == TimePeriodAnchor.START) {
             result = period.getFirstMillisecond();
-        }
-        else if (this.xPosition == TimePeriodAnchor.MIDDLE) {
+        } else if (this.xPosition == TimePeriodAnchor.MIDDLE) {
             result = period.getMiddleMillisecond();
-        }
-        else if (this.xPosition == TimePeriodAnchor.END) {
+        } else if (this.xPosition == TimePeriodAnchor.END) {
             result = period.getLastMillisecond();
         }
         return result;
@@ -203,9 +193,8 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns the x-value for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The x-value.
      */
     @Override
@@ -219,9 +208,8 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns the x-value for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The x-value.
      */
     @Override
@@ -232,9 +220,8 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns the y-value for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The y-value.
      */
     @Override
@@ -247,9 +234,8 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns the open-value for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The open-value.
      */
     @Override
@@ -262,9 +248,8 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns the open-value for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The open-value.
      */
     @Override
@@ -275,9 +260,8 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns the close-value for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The close-value.
      */
     @Override
@@ -290,9 +274,8 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns the close-value for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The close-value.
      */
     @Override
@@ -303,9 +286,8 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns the high-value for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The high-value.
      */
     @Override
@@ -318,9 +300,8 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns the high-value for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The high-value.
      */
     @Override
@@ -331,9 +312,8 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns the low-value for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The low-value.
      */
     @Override
@@ -346,9 +326,8 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Returns the low-value for an item within a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The low-value.
      */
     @Override
@@ -360,9 +339,8 @@ public class OHLCSeriesCollection extends AbstractXYDataset
      * Returns <code>null</code> always, because this dataset doesn't record
      * any volume data.
      *
-     * @param series  the series index (ignored).
-     * @param item  the item index (ignored).
-     *
+     * @param series the series index (ignored).
+     * @param item   the item index (ignored).
      * @return <code>null</code>.
      */
     @Override
@@ -374,9 +352,8 @@ public class OHLCSeriesCollection extends AbstractXYDataset
      * Returns <code>Double.NaN</code> always, because this dataset doesn't
      * record any volume data.
      *
-     * @param series  the series index (ignored).
-     * @param item  the item index (ignored).
-     *
+     * @param series the series index (ignored).
+     * @param item   the item index (ignored).
      * @return <code>Double.NaN</code>.
      */
     @Override
@@ -388,8 +365,7 @@ public class OHLCSeriesCollection extends AbstractXYDataset
      * Removes the series with the specified index and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param index  the series index.
-     *
+     * @param index the series index.
      * @since 1.0.14
      */
     public void removeSeries(int index) {
@@ -403,11 +379,9 @@ public class OHLCSeriesCollection extends AbstractXYDataset
      * Removes the specified series from the dataset and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param series  the series (<code>null</code> not permitted).
-     *
+     * @param series the series (<code>null</code> not permitted).
      * @return <code>true</code> if the series was removed, and
-     *     <code>false</code> otherwise.
-     *
+     * <code>false</code> otherwise.
      * @since 1.0.14
      */
     public boolean removeSeries(OHLCSeries series) {
@@ -448,8 +422,7 @@ public class OHLCSeriesCollection extends AbstractXYDataset
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -486,7 +459,6 @@ public class OHLCSeriesCollection extends AbstractXYDataset
      * Returns a clone of this instance.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem.
      */
     @Override

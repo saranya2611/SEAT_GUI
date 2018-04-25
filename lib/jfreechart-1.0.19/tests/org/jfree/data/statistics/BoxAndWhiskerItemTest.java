@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -40,13 +40,13 @@
 
 package org.jfree.data.statistics;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import org.jfree.chart.TestUtilities;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
-import org.jfree.chart.TestUtilities;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the {@link BoxAndWhiskerItem} class.
@@ -59,13 +59,13 @@ public class BoxAndWhiskerItemTest {
     @Test
     public void testEquals() {
 
-        BoxAndWhiskerItem i1 = new BoxAndWhiskerItem(new Double(1.0), 
+        BoxAndWhiskerItem i1 = new BoxAndWhiskerItem(new Double(1.0),
                 new Double(2.0), new Double(3.0), new Double(4.0),
-                new Double(5.0), new Double(6.0), new Double(7.0), 
+                new Double(5.0), new Double(6.0), new Double(7.0),
                 new Double(8.0), new ArrayList());
-        BoxAndWhiskerItem i2 = new BoxAndWhiskerItem(new Double(1.0), 
+        BoxAndWhiskerItem i2 = new BoxAndWhiskerItem(new Double(1.0),
                 new Double(2.0), new Double(3.0), new Double(4.0),
-                new Double(5.0), new Double(6.0), new Double(7.0), 
+                new Double(5.0), new Double(6.0), new Double(7.0),
                 new Double(8.0), new ArrayList());
         assertTrue(i1.equals(i2));
         assertTrue(i2.equals(i1));
@@ -76,9 +76,9 @@ public class BoxAndWhiskerItemTest {
      */
     @Test
     public void testSerialization() {
-        BoxAndWhiskerItem i1 = new BoxAndWhiskerItem(new Double(1.0), 
+        BoxAndWhiskerItem i1 = new BoxAndWhiskerItem(new Double(1.0),
                 new Double(2.0), new Double(3.0), new Double(4.0),
-                new Double(5.0), new Double(6.0), new Double(7.0), 
+                new Double(5.0), new Double(6.0), new Double(7.0),
                 new Double(8.0), new ArrayList());
         BoxAndWhiskerItem i2 = (BoxAndWhiskerItem) TestUtilities.serialised(i1);
         assertEquals(i1, i2);

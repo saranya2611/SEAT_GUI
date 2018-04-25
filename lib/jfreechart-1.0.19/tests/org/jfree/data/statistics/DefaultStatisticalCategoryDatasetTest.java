@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------------------
@@ -43,22 +43,20 @@
  */
 
 package org.jfree.data.statistics;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.Range;
 import org.jfree.data.UnknownKeyException;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link DefaultStatisticalCategoryDataset} class.
  */
 public class DefaultStatisticalCategoryDatasetTest {
+
+    private static final double EPSILON = 0.0000000001;
 
     /**
      * Some checks for the getRangeBounds() method.
@@ -129,8 +127,7 @@ public class DefaultStatisticalCategoryDatasetTest {
         DefaultStatisticalCategoryDataset d2 = null;
         try {
             d2 = (DefaultStatisticalCategoryDataset) d1.clone();
-        }
-        catch (CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException e) {
             fail(e.toString());
         }
         assertTrue(d1 != d2);
@@ -148,12 +145,12 @@ public class DefaultStatisticalCategoryDatasetTest {
     @Test
     public void testSerialization1() {
         DefaultStatisticalCategoryDataset d1
-            = new DefaultStatisticalCategoryDataset();
+                = new DefaultStatisticalCategoryDataset();
         d1.add(1.1, 2.2, "R1", "C1");
         d1.add(3.3, 4.4, "R1", "C2");
         d1.add(null, new Double(5.5), "R1", "C3");
         d1.add(new Double(6.6), null, "R2", "C3");
-        DefaultStatisticalCategoryDataset d2 = 
+        DefaultStatisticalCategoryDataset d2 =
                 (DefaultStatisticalCategoryDataset) TestUtilities.serialised(d1);
         assertEquals(d1, d2);
     }
@@ -164,14 +161,12 @@ public class DefaultStatisticalCategoryDatasetTest {
     @Test
     public void testSerialization2() {
         DefaultStatisticalCategoryDataset d1
-            = new DefaultStatisticalCategoryDataset();
+                = new DefaultStatisticalCategoryDataset();
         d1.add(1.2, 3.4, "Row 1", "Column 1");
-        DefaultStatisticalCategoryDataset d2 = 
+        DefaultStatisticalCategoryDataset d2 =
                 (DefaultStatisticalCategoryDataset) TestUtilities.serialised(d1);
         assertEquals(d1, d2);
     }
-
-    private static final double EPSILON = 0.0000000001;
 
     /**
      * Some checks for the add() method.
@@ -241,8 +236,7 @@ public class DefaultStatisticalCategoryDatasetTest {
         boolean pass = false;
         try {
             data.remove("R1", "R2");
-        }
-        catch (UnknownKeyException e) {
+        } catch (UnknownKeyException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -275,7 +269,7 @@ public class DefaultStatisticalCategoryDatasetTest {
         dataset.add(1.0, Double.NaN, "R1", "C1");
         assertEquals(1.0, dataset.getRangeLowerBound(true), EPSILON);
         assertEquals(1.0, dataset.getRangeUpperBound(true), EPSILON);
-        
+
         Range r = dataset.getRangeBounds(true);
         assertEquals(1.0, r.getLowerBound(), EPSILON);
         assertEquals(1.0, r.getUpperBound(), EPSILON);

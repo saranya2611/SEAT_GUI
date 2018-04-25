@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -48,20 +48,20 @@ import static org.junit.Assert.assertFalse;
 /**
  * Tests for the {@link HashUtilities} class.
  */
-public class HashUtilitiesTest  {
+public class HashUtilitiesTest {
 
     /**
      * Some sanity checks for the hashCodeForDoubleArray() method.
      */
     @Test
     public void testHashCodeForDoubleArray() {
-        double[] a1 = new double[] {1.0};
-        double[] a2 = new double[] {1.0};
+        double[] a1 = new double[]{1.0};
+        double[] a2 = new double[]{1.0};
         int h1 = HashUtilities.hashCodeForDoubleArray(a1);
         int h2 = HashUtilities.hashCodeForDoubleArray(a2);
         assertEquals(h1, h2);
 
-        double[] a3 = new double[] {0.5, 1.0};
+        double[] a3 = new double[]{0.5, 1.0};
         int h3 = HashUtilities.hashCodeForDoubleArray(a3);
         assertFalse(h1 == h3);
     }

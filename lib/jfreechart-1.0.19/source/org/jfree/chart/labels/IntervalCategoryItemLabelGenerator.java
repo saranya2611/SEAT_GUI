@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------------------
@@ -40,29 +40,32 @@
 
 package org.jfree.chart.labels;
 
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.NumberFormat;
-
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.IntervalCategoryDataset;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.NumberFormat;
 
 /**
  * A label generator for plots that use data from an
  * {@link IntervalCategoryDataset}.
  */
 public class IntervalCategoryItemLabelGenerator
-    extends StandardCategoryItemLabelGenerator
-    implements CategoryItemLabelGenerator, PublicCloneable, Cloneable,
-               Serializable {
+        extends StandardCategoryItemLabelGenerator
+        implements CategoryItemLabelGenerator, PublicCloneable, Cloneable,
+        Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 5056909225610630529L;
-
-    /** The default format string. */
+    /**
+     * The default format string.
+     */
     public static final String DEFAULT_LABEL_FORMAT_STRING
-        = "({0}, {1}) = {3} - {4}";
+            = "({0}, {1}) = {3} - {4}";
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 5056909225610630529L;
 
     /**
      * Creates a new generator with a default number formatter.
@@ -74,9 +77,9 @@ public class IntervalCategoryItemLabelGenerator
     /**
      * Creates a new generator with the specified number formatter.
      *
-     * @param labelFormat  the label format string (<code>null</code> not
-     *                     permitted).
-     * @param formatter  the number formatter (<code>null</code> not permitted).
+     * @param labelFormat the label format string (<code>null</code> not
+     *                    permitted).
+     * @param formatter   the number formatter (<code>null</code> not permitted).
      */
     public IntervalCategoryItemLabelGenerator(String labelFormat,
                                               NumberFormat formatter) {
@@ -86,9 +89,9 @@ public class IntervalCategoryItemLabelGenerator
     /**
      * Creates a new generator with the specified date formatter.
      *
-     * @param labelFormat  the label format string (<code>null</code> not
-     *                     permitted).
-     * @param formatter  the date formatter (<code>null</code> not permitted).
+     * @param labelFormat the label format string (<code>null</code> not
+     *                    permitted).
+     * @param formatter   the date formatter (<code>null</code> not permitted).
      */
     public IntervalCategoryItemLabelGenerator(String labelFormat,
                                               DateFormat formatter) {
@@ -99,10 +102,9 @@ public class IntervalCategoryItemLabelGenerator
      * Creates the array of items that can be passed to the
      * <code>MessageFormat</code> class for creating labels.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param row  the row index (zero-based).
+     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param row     the row index (zero-based).
      * @param column  the column index (zero-based).
-     *
      * @return The items (never <code>null</code>).
      */
     @Override
@@ -114,8 +116,7 @@ public class IntervalCategoryItemLabelGenerator
         Number value = dataset.getValue(row, column);
         if (getNumberFormat() != null) {
             result[2] = getNumberFormat().format(value);
-        }
-        else if (getDateFormat() != null) {
+        } else if (getDateFormat() != null) {
             result[2] = getDateFormat().format(value);
         }
 
@@ -126,8 +127,7 @@ public class IntervalCategoryItemLabelGenerator
             if (getNumberFormat() != null) {
                 result[3] = getNumberFormat().format(start);
                 result[4] = getNumberFormat().format(end);
-            }
-            else if (getDateFormat() != null) {
+            } else if (getDateFormat() != null) {
                 result[3] = getDateFormat().format(start);
                 result[4] = getDateFormat().format(end);
             }

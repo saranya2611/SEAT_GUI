@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------------
@@ -42,6 +42,7 @@ package org.jfree.data.function;
 
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
@@ -86,7 +87,7 @@ public class NormalDistributionFunction2DTest {
     public void testSerialization() {
         NormalDistributionFunction2D f1 = new NormalDistributionFunction2D(1.0,
                 2.0);
-        NormalDistributionFunction2D f2 = (NormalDistributionFunction2D) 
+        NormalDistributionFunction2D f2 = (NormalDistributionFunction2D)
                 TestUtilities.serialised(f1);
         assertEquals(f1, f2);
     }

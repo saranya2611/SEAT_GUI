@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -45,10 +45,10 @@
 
 package org.jfree.data.xy;
 
+import org.jfree.util.PublicCloneable;
+
 import java.util.Arrays;
 import java.util.Date;
-
-import org.jfree.util.PublicCloneable;
 
 /**
  * A simple implementation of the {@link OHLCDataset} interface.  This
@@ -57,17 +57,21 @@ import org.jfree.util.PublicCloneable;
 public class DefaultOHLCDataset extends AbstractXYDataset
         implements OHLCDataset, PublicCloneable {
 
-    /** The series key. */
+    /**
+     * The series key.
+     */
     private Comparable key;
 
-    /** Storage for the data items. */
+    /**
+     * Storage for the data items.
+     */
     private OHLCDataItem[] data;
 
     /**
      * Creates a new dataset.
      *
      * @param key  the series key.
-     * @param data  the data items.
+     * @param data the data items.
      */
     public DefaultOHLCDataset(Comparable key, OHLCDataItem[] data) {
         this.key = key;
@@ -77,8 +81,7 @@ public class DefaultOHLCDataset extends AbstractXYDataset
     /**
      * Returns the series key.
      *
-     * @param series  the series index (ignored).
-     *
+     * @param series the series index (ignored).
      * @return The series key.
      */
     @Override
@@ -89,9 +92,8 @@ public class DefaultOHLCDataset extends AbstractXYDataset
     /**
      * Returns the x-value for a data item.
      *
-     * @param series  the series index (ignored).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (ignored).
+     * @param item   the item index (zero-based).
      * @return The x-value.
      */
     @Override
@@ -102,9 +104,8 @@ public class DefaultOHLCDataset extends AbstractXYDataset
     /**
      * Returns the x-value for a data item as a date.
      *
-     * @param series  the series index (ignored).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (ignored).
+     * @param item   the item index (zero-based).
      * @return The x-value as a date.
      */
     public Date getXDate(int series, int item) {
@@ -114,9 +115,8 @@ public class DefaultOHLCDataset extends AbstractXYDataset
     /**
      * Returns the y-value.
      *
-     * @param series  the series index (ignored).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (ignored).
+     * @param item   the item index (zero-based).
      * @return The y value.
      */
     @Override
@@ -127,9 +127,8 @@ public class DefaultOHLCDataset extends AbstractXYDataset
     /**
      * Returns the high value.
      *
-     * @param series  the series index (ignored).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (ignored).
+     * @param item   the item index (zero-based).
      * @return The high value.
      */
     @Override
@@ -141,9 +140,8 @@ public class DefaultOHLCDataset extends AbstractXYDataset
      * Returns the high-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The high-value.
      */
     @Override
@@ -159,9 +157,8 @@ public class DefaultOHLCDataset extends AbstractXYDataset
     /**
      * Returns the low value.
      *
-     * @param series  the series index (ignored).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (ignored).
+     * @param item   the item index (zero-based).
      * @return The low value.
      */
     @Override
@@ -173,9 +170,8 @@ public class DefaultOHLCDataset extends AbstractXYDataset
      * Returns the low-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The low-value.
      */
     @Override
@@ -191,9 +187,8 @@ public class DefaultOHLCDataset extends AbstractXYDataset
     /**
      * Returns the open value.
      *
-     * @param series  the series index (ignored).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (ignored).
+     * @param item   the item index (zero-based).
      * @return The open value.
      */
     @Override
@@ -205,9 +200,8 @@ public class DefaultOHLCDataset extends AbstractXYDataset
      * Returns the open-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The open-value.
      */
     @Override
@@ -223,9 +217,8 @@ public class DefaultOHLCDataset extends AbstractXYDataset
     /**
      * Returns the close value.
      *
-     * @param series  the series index (ignored).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (ignored).
+     * @param item   the item index (zero-based).
      * @return The close value.
      */
     @Override
@@ -237,9 +230,8 @@ public class DefaultOHLCDataset extends AbstractXYDataset
      * Returns the close-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The close-value.
      */
     @Override
@@ -255,9 +247,8 @@ public class DefaultOHLCDataset extends AbstractXYDataset
     /**
      * Returns the trading volume.
      *
-     * @param series  the series index (ignored).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (ignored).
+     * @param item   the item index (zero-based).
      * @return The trading volume.
      */
     @Override
@@ -269,9 +260,8 @@ public class DefaultOHLCDataset extends AbstractXYDataset
      * Returns the volume-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The volume-value.
      */
     @Override
@@ -297,8 +287,7 @@ public class DefaultOHLCDataset extends AbstractXYDataset
     /**
      * Returns the item count for the specified series.
      *
-     * @param series  the series index (ignored).
-     *
+     * @param series the series index (ignored).
      * @return The item count.
      */
     @Override
@@ -316,8 +305,7 @@ public class DefaultOHLCDataset extends AbstractXYDataset
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -342,7 +330,6 @@ public class DefaultOHLCDataset extends AbstractXYDataset
      * Returns an independent copy of this dataset.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a cloning problem.
      */
     @Override

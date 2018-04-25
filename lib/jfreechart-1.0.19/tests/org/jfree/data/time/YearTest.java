@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------
@@ -47,19 +47,12 @@
 
 package org.jfree.data.time;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.TimeZone;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import java.util.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link Year} class.
@@ -68,7 +61,7 @@ public class YearTest {
 
     /**
      * Check that a Year instance is equal to itself.
-     *
+     * <p>
      * SourceForge Bug ID: 558850.
      */
     @Test
@@ -185,8 +178,7 @@ public class YearTest {
         // test 1...
         try {
             year = Year.parseYear("2000");
-        }
-        catch (TimePeriodFormatException e) {
+        } catch (TimePeriodFormatException e) {
             year = new Year(1900);
         }
         assertEquals(2000, year.getYear());
@@ -194,8 +186,7 @@ public class YearTest {
         // test 2...
         try {
             year = Year.parseYear(" 2001 ");
-        }
-        catch (TimePeriodFormatException e) {
+        } catch (TimePeriodFormatException e) {
             year = new Year(1900);
         }
         assertEquals(2001, year.getYear());
@@ -203,8 +194,7 @@ public class YearTest {
         // test 3...
         try {
             year = Year.parseYear("99");
-        }
-        catch (TimePeriodFormatException e) {
+        } catch (TimePeriodFormatException e) {
             year = new Year(1900);
         }
         assertEquals(99, year.getYear());
@@ -272,8 +262,7 @@ public class YearTest {
         boolean pass = false;
         try {
             y.getFirstMillisecond((TimeZone) null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -293,8 +282,7 @@ public class YearTest {
         boolean pass = false;
         try {
             y.getFirstMillisecond((Calendar) null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -329,8 +317,7 @@ public class YearTest {
         boolean pass = false;
         try {
             y.getLastMillisecond((TimeZone) null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -350,8 +337,7 @@ public class YearTest {
         boolean pass = false;
         try {
             y.getLastMillisecond((Calendar) null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);

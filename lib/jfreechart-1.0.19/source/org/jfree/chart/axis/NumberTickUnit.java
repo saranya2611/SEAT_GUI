@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -49,25 +49,30 @@
 
 package org.jfree.chart.axis;
 
+import org.jfree.chart.util.ParamChecks;
+
 import java.io.Serializable;
 import java.text.NumberFormat;
-import org.jfree.chart.util.ParamChecks;
 
 /**
  * A numerical tick unit.
  */
 public class NumberTickUnit extends TickUnit implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 3849459506627654442L;
 
-    /** A formatter for the tick unit. */
+    /**
+     * A formatter for the tick unit.
+     */
     private NumberFormat formatter;
 
     /**
      * Creates a new number tick unit.
      *
-     * @param size  the size of the tick unit.
+     * @param size the size of the tick unit.
      */
     public NumberTickUnit(double size) {
         this(size, NumberFormat.getNumberInstance());
@@ -76,9 +81,9 @@ public class NumberTickUnit extends TickUnit implements Serializable {
     /**
      * Creates a new number tick unit.
      *
-     * @param size  the size of the tick unit.
-     * @param formatter  a number formatter for the tick unit (<code>null</code>
-     *                   not permitted).
+     * @param size      the size of the tick unit.
+     * @param formatter a number formatter for the tick unit (<code>null</code>
+     *                  not permitted).
      */
     public NumberTickUnit(double size, NumberFormat formatter) {
         super(size);
@@ -89,15 +94,14 @@ public class NumberTickUnit extends TickUnit implements Serializable {
     /**
      * Creates a new number tick unit.
      *
-     * @param size  the size of the tick unit.
-     * @param formatter  a number formatter for the tick unit (<code>null</code>
-     *                   not permitted).
-     * @param minorTickCount  the number of minor ticks.
-     *
+     * @param size           the size of the tick unit.
+     * @param formatter      a number formatter for the tick unit (<code>null</code>
+     *                       not permitted).
+     * @param minorTickCount the number of minor ticks.
      * @since 1.0.7
      */
     public NumberTickUnit(double size, NumberFormat formatter,
-            int minorTickCount) {
+                          int minorTickCount) {
         super(size, minorTickCount);
         ParamChecks.nullNotPermitted(formatter, "formatter");
         this.formatter = formatter;
@@ -106,8 +110,7 @@ public class NumberTickUnit extends TickUnit implements Serializable {
     /**
      * Converts a value to a string.
      *
-     * @param value  the value.
-     *
+     * @param value the value.
      * @return The formatted string.
      */
     @Override
@@ -118,8 +121,7 @@ public class NumberTickUnit extends TickUnit implements Serializable {
     /**
      * Tests this formatter for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

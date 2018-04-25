@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------
@@ -40,12 +40,12 @@
 
 package org.jfree.data.function;
 
-import java.util.Arrays;
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link PolynomialFunction2D} class.
@@ -57,15 +57,14 @@ public class PolynomialFunction2DTest {
      */
     @Test
     public void testConstructor() {
-        PolynomialFunction2D f = new PolynomialFunction2D(new double[] {1.0,
+        PolynomialFunction2D f = new PolynomialFunction2D(new double[]{1.0,
                 2.0});
-        assertTrue(Arrays.equals(new double[] {1.0, 2.0}, f.getCoefficients()));
+        assertTrue(Arrays.equals(new double[]{1.0, 2.0}, f.getCoefficients()));
 
         boolean pass = false;
         try {
             f = new PolynomialFunction2D(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -76,15 +75,15 @@ public class PolynomialFunction2DTest {
      */
     @Test
     public void testGetCoefficients() {
-        PolynomialFunction2D f = new PolynomialFunction2D(new double[] {1.0,
+        PolynomialFunction2D f = new PolynomialFunction2D(new double[]{1.0,
                 2.0});
         double[] c = f.getCoefficients();
-        assertTrue(Arrays.equals(new double[] {1.0, 2.0}, c));
+        assertTrue(Arrays.equals(new double[]{1.0, 2.0}, c));
 
         // make sure that modifying the returned array doesn't change the
         // function
         c[0] = 99.9;
-        assertTrue(Arrays.equals(new double[] {1.0, 2.0}, f.getCoefficients()));
+        assertTrue(Arrays.equals(new double[]{1.0, 2.0}, f.getCoefficients()));
     }
 
     /**
@@ -92,7 +91,7 @@ public class PolynomialFunction2DTest {
      */
     @Test
     public void testGetOrder() {
-        PolynomialFunction2D f = new PolynomialFunction2D(new double[] {1.0,
+        PolynomialFunction2D f = new PolynomialFunction2D(new double[]{1.0,
                 2.0});
         assertEquals(1, f.getOrder());
     }
@@ -102,14 +101,14 @@ public class PolynomialFunction2DTest {
      */
     @Test
     public void testEquals() {
-        PolynomialFunction2D f1 = new PolynomialFunction2D(new double[] {1.0,
+        PolynomialFunction2D f1 = new PolynomialFunction2D(new double[]{1.0,
                 2.0});
-        PolynomialFunction2D f2 = new PolynomialFunction2D(new double[] {1.0,
+        PolynomialFunction2D f2 = new PolynomialFunction2D(new double[]{1.0,
                 2.0});
         assertTrue(f1.equals(f2));
-        f1 = new PolynomialFunction2D(new double[] {2.0, 3.0});
+        f1 = new PolynomialFunction2D(new double[]{2.0, 3.0});
         assertFalse(f1.equals(f2));
-        f2 = new PolynomialFunction2D(new double[] {2.0, 3.0});
+        f2 = new PolynomialFunction2D(new double[]{2.0, 3.0});
         assertTrue(f1.equals(f2));
     }
 
@@ -118,9 +117,9 @@ public class PolynomialFunction2DTest {
      */
     @Test
     public void testSerialization() {
-        PolynomialFunction2D f1 = new PolynomialFunction2D(new double[] {1.0,
+        PolynomialFunction2D f1 = new PolynomialFunction2D(new double[]{1.0,
                 2.0});
-        PolynomialFunction2D f2 = (PolynomialFunction2D) 
+        PolynomialFunction2D f2 = (PolynomialFunction2D)
                 TestUtilities.serialised(f1);
         assertEquals(f1, f2);
     }
@@ -131,9 +130,9 @@ public class PolynomialFunction2DTest {
      */
     @Test
     public void testHashCode() {
-        PolynomialFunction2D f1 = new PolynomialFunction2D(new double[] {1.0,
+        PolynomialFunction2D f1 = new PolynomialFunction2D(new double[]{1.0,
                 2.0});
-        PolynomialFunction2D f2 = new PolynomialFunction2D(new double[] {1.0,
+        PolynomialFunction2D f2 = new PolynomialFunction2D(new double[]{1.0,
                 2.0});
         assertEquals(f1.hashCode(), f2.hashCode());
 

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -52,30 +52,31 @@ import java.io.Serializable;
  */
 public final class DatasetRenderingOrder implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -600593412366385072L;
-
     /**
      * Render datasets in the order 0, 1, 2, ..., N-1, where N is the number
      * of datasets.
      */
     public static final DatasetRenderingOrder FORWARD
             = new DatasetRenderingOrder("DatasetRenderingOrder.FORWARD");
-
     /**
      * Render datasets in the order N-1, N-2, ..., 2, 1, 0, where N is the
      * number of datasets.
      */
     public static final DatasetRenderingOrder REVERSE
             = new DatasetRenderingOrder("DatasetRenderingOrder.REVERSE");
-
-    /** The name. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -600593412366385072L;
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private DatasetRenderingOrder(String name) {
         this.name = name;
@@ -95,8 +96,7 @@ public final class DatasetRenderingOrder implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -128,14 +128,12 @@ public final class DatasetRenderingOrder implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         if (this.equals(DatasetRenderingOrder.FORWARD)) {
             return DatasetRenderingOrder.FORWARD;
-        }
-        else if (this.equals(DatasetRenderingOrder.REVERSE)) {
+        } else if (this.equals(DatasetRenderingOrder.REVERSE)) {
             return DatasetRenderingOrder.REVERSE;
         }
         return null;

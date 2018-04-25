@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -51,13 +51,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
@@ -69,6 +62,11 @@ import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.renderer.xy.XYStepRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
 /**
  * A "step" renderer similar to {@link XYStepRenderer} but
@@ -83,35 +81,13 @@ public class CategoryStepRenderer extends AbstractCategoryItemRenderer
         implements Cloneable, PublicCloneable, Serializable {
 
     /**
-     * State information for the renderer.
+     * The stagger width.
      */
-    protected static class State extends CategoryItemRendererState {
-
-        /**
-         * A working line for re-use to avoid creating large numbers of
-         * objects.
-         */
-        public Line2D line;
-
-        /**
-         * Creates a new state instance.
-         *
-         * @param info  collects plot rendering information (<code>null</code>
-         *              permitted).
-         */
-        public State(PlotRenderingInfo info) {
-            super(info);
-            this.line = new Line2D.Double();
-        }
-
-    }
-
-    /** For serialization. */
-    private static final long serialVersionUID = -5121079703118261470L;
-
-    /** The stagger width. */
     public static final int STAGGER_WIDTH = 5; // could make this configurable
-
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -5121079703118261470L;
     /**
      * A flag that controls whether or not the steps for multiple series are
      * staggered.
@@ -128,8 +104,8 @@ public class CategoryStepRenderer extends AbstractCategoryItemRenderer
     /**
      * Creates a new renderer.
      *
-     * @param stagger  should the horizontal part of the step be staggered by
-     *                 series?
+     * @param stagger should the horizontal part of the step be staggered by
+     *                series?
      */
     public CategoryStepRenderer(boolean stagger) {
         this.stagger = stagger;
@@ -150,7 +126,7 @@ public class CategoryStepRenderer extends AbstractCategoryItemRenderer
      * staggered and sends a {@link RendererChangeEvent} to all registered
      * listeners.
      *
-     * @param shouldStagger  a boolean.
+     * @param shouldStagger a boolean.
      */
     public void setStagger(boolean shouldStagger) {
         this.stagger = shouldStagger;
@@ -160,9 +136,8 @@ public class CategoryStepRenderer extends AbstractCategoryItemRenderer
     /**
      * Returns a legend item for a series.
      *
-     * @param datasetIndex  the dataset index (zero-based).
-     * @param series  the series index (zero-based).
-     *
+     * @param datasetIndex the dataset index (zero-based).
+     * @param series       the series index (zero-based).
      * @return The legend item.
      */
     @Override
@@ -215,8 +190,7 @@ public class CategoryStepRenderer extends AbstractCategoryItemRenderer
      * PlotRenderingInfo)}, and we override it to ensure that the state
      * contains a working Line2D instance.
      *
-     * @param info  the plot rendering info (<code>null</code> is permitted).
-     *
+     * @param info the plot rendering info (<code>null</code> is permitted).
      * @return A new state instance.
      */
     @Override
@@ -233,23 +207,22 @@ public class CategoryStepRenderer extends AbstractCategoryItemRenderer
      * subclassed this renderer.  If this *does* cause trouble for you, please
      * report it as a bug.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param orientation  the plot orientation.
-     * @param x0  the x-coordinate for the start of the line.
-     * @param y0  the y-coordinate for the start of the line.
-     * @param x1  the x-coordinate for the end of the line.
-     * @param y1  the y-coordinate for the end of the line.
+     * @param g2          the graphics device.
+     * @param state       the renderer state.
+     * @param orientation the plot orientation.
+     * @param x0          the x-coordinate for the start of the line.
+     * @param y0          the y-coordinate for the start of the line.
+     * @param x1          the x-coordinate for the end of the line.
+     * @param y1          the y-coordinate for the end of the line.
      */
     protected void drawLine(Graphics2D g2, State state,
-            PlotOrientation orientation, double x0, double y0, double x1,
-            double y1) {
+                            PlotOrientation orientation, double x0, double y0, double x1,
+                            double y1) {
 
         if (orientation == PlotOrientation.VERTICAL) {
             state.line.setLine(x0, y0, x1, y1);
             g2.draw(state.line);
-        }
-        else if (orientation == PlotOrientation.HORIZONTAL) {
+        } else if (orientation == PlotOrientation.HORIZONTAL) {
             state.line.setLine(y0, x0, y1, x1); // switch x and y
             g2.draw(state.line);
         }
@@ -259,22 +232,22 @@ public class CategoryStepRenderer extends AbstractCategoryItemRenderer
     /**
      * Draw a single data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the area in which the data is drawn.
-     * @param plot  the plot.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the area in which the data is drawn.
+     * @param plot       the plot.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     * @param pass  the pass index.
+     * @param dataset    the dataset.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
+     * @param pass       the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, CategoryItemRendererState state,
-            Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
-            ValueAxis rangeAxis, CategoryDataset dataset, int row,
-            int column, int pass) {
+                         Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
+                         ValueAxis rangeAxis, CategoryDataset dataset, int row,
+                         int column, int pass) {
 
         // do nothing if item is not visible
         if (!getItemVisible(row, column)) {
@@ -322,37 +295,35 @@ public class CategoryStepRenderer extends AbstractCategoryItemRenderer
 
                 drawLine(g2, (State) state, orientation, x1s, y0, x1s, y1);
                 // upright bar
-           }
-       }
-       drawLine(g2, (State) state, orientation, x1s, y1, x1e, y1);
-       // x1's flat bar
+            }
+        }
+        drawLine(g2, (State) state, orientation, x1s, y1, x1e, y1);
+        // x1's flat bar
 
-       // draw the item labels if there are any...
-       if (isItemLabelVisible(row, column)) {
+        // draw the item labels if there are any...
+        if (isItemLabelVisible(row, column)) {
             drawItemLabel(g2, orientation, dataset, row, column, x1, y1,
                     (value.doubleValue() < 0.0));
-       }
+        }
 
-       // add an item entity, if this information is being collected
-       EntityCollection entities = state.getEntityCollection();
-       if (entities != null) {
-           Rectangle2D hotspot = new Rectangle2D.Double();
-           if (orientation == PlotOrientation.VERTICAL) {
-               hotspot.setRect(x1s, y1, x1e - x1s, 4.0);
-           }
-           else {
-               hotspot.setRect(y1 - 2.0, x1s, 4.0, x1e - x1s);
-           }
-           addItemEntity(entities, dataset, row, column, hotspot);
-       }
+        // add an item entity, if this information is being collected
+        EntityCollection entities = state.getEntityCollection();
+        if (entities != null) {
+            Rectangle2D hotspot = new Rectangle2D.Double();
+            if (orientation == PlotOrientation.VERTICAL) {
+                hotspot.setRect(x1s, y1, x1e - x1s, 4.0);
+            } else {
+                hotspot.setRect(y1 - 2.0, x1s, 4.0, x1e - x1s);
+            }
+            addItemEntity(entities, dataset, row, column, hotspot);
+        }
 
     }
 
     /**
      * Tests this renderer for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -368,6 +339,30 @@ public class CategoryStepRenderer extends AbstractCategoryItemRenderer
             return false;
         }
         return super.equals(obj);
+    }
+
+    /**
+     * State information for the renderer.
+     */
+    protected static class State extends CategoryItemRendererState {
+
+        /**
+         * A working line for re-use to avoid creating large numbers of
+         * objects.
+         */
+        public Line2D line;
+
+        /**
+         * Creates a new state instance.
+         *
+         * @param info collects plot rendering information (<code>null</code>
+         *             permitted).
+         */
+        public State(PlotRenderingInfo info) {
+            super(info);
+            this.line = new Line2D.Double();
+        }
+
     }
 
 }

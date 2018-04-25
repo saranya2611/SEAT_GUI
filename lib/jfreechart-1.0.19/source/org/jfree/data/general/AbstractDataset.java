@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -53,25 +53,20 @@
  * 11-Sep-2003 : Cloning Fixes (NB);
  * 01-Jun-2005 : Added hasListener() method for unit testing (DG);
  * 03-Jul-2013 : Use ParamChecks (DG);
- * 21-Nov-2013 : Added notify flag to allow suppressing change events 
+ * 21-Nov-2013 : Added notify flag to allow suppressing change events
  *               temporarily (DG);
  *
  */
 
 package org.jfree.data.general;
 
-import java.io.IOException;
-import java.io.InvalidObjectException;
-import java.io.ObjectInputStream;
-import java.io.ObjectInputValidation;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import org.jfree.chart.util.ParamChecks;
+
+import javax.swing.event.EventListenerList;
+import java.io.*;
 import java.util.Arrays;
 import java.util.EventListener;
 import java.util.List;
-
-import javax.swing.event.EventListenerList;
-import org.jfree.chart.util.ParamChecks;
 
 /**
  * An abstract implementation of the {@link Dataset} interface, containing a
@@ -80,16 +75,22 @@ import org.jfree.chart.util.ParamChecks;
 public abstract class AbstractDataset implements Dataset, Cloneable,
         Serializable, ObjectInputValidation {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 1918768939869230744L;
 
-    /** The group that the dataset belongs to. */
+    /**
+     * The group that the dataset belongs to.
+     */
     private DatasetGroup group;
 
-    /** Storage for registered change listeners. */
+    /**
+     * Storage for registered change listeners.
+     */
     private transient EventListenerList listenerList;
-    
-    /** 
+
+    /**
      * A flag that can be used to temporarily suppress dataset change event
      * notifications.
      */
@@ -109,7 +110,6 @@ public abstract class AbstractDataset implements Dataset, Cloneable,
      * Returns the dataset group for the dataset.
      *
      * @return The group (never <code>null</code>).
-     *
      * @see #setGroup(DatasetGroup)
      */
     @Override
@@ -120,8 +120,7 @@ public abstract class AbstractDataset implements Dataset, Cloneable,
     /**
      * Sets the dataset group for the dataset.
      *
-     * @param group  the group (<code>null</code> not permitted).
-     *
+     * @param group the group (<code>null</code> not permitted).
      * @see #getGroup()
      */
     @Override
@@ -131,41 +130,38 @@ public abstract class AbstractDataset implements Dataset, Cloneable,
     }
 
     /**
-     * Returns the value of the notify flag.  The default value is 
-     * <code>true</code>.  If this is <code>false</code>, calls to the 
+     * Returns the value of the notify flag.  The default value is
+     * <code>true</code>.  If this is <code>false</code>, calls to the
      * {@link #fireDatasetChanged()} method will NOT trigger a dataset
      * change event.
-     * 
+     *
      * @return A boolean.
-     * 
      * @since 1.0.17
      */
     public boolean getNotify() {
         return this.notify;
     }
-    
+
     /**
      * Sets the notify flag, which controls whether or not the {@link #fireDatasetChanged()}
      * method notifies listeners.  Setting this flag to <code>true</code> will
-     * trigger a <code>DatasetChangeEvent</code> because there may be 
+     * trigger a <code>DatasetChangeEvent</code> because there may be
      * queued up changes.
-     * 
-     * @param notify  the new flag value.
-     * 
+     *
+     * @param notify the new flag value.
      * @since 1.0.17
      */
     public void setNotify(boolean notify) {
         this.notify = notify;
         if (notify) {
             fireDatasetChanged();
-        }    
+        }
     }
-    
+
     /**
      * Registers an object to receive notification of changes to the dataset.
      *
-     * @param listener  the object to register.
-     *
+     * @param listener the object to register.
      * @see #removeChangeListener(DatasetChangeListener)
      */
     @Override
@@ -177,8 +173,7 @@ public abstract class AbstractDataset implements Dataset, Cloneable,
      * Deregisters an object so that it no longer receives notification of
      * changes to the dataset.
      *
-     * @param listener  the object to deregister.
-     *
+     * @param listener the object to deregister.
      * @see #addChangeListener(DatasetChangeListener)
      */
     @Override
@@ -191,10 +186,8 @@ public abstract class AbstractDataset implements Dataset, Cloneable,
      * the dataset as a listener.  Most applications won't need to call this
      * method, it exists mainly for use by unit testing code.
      *
-     * @param listener  the listener.
-     *
+     * @param listener the listener.
      * @return A boolean.
-     *
      * @see #addChangeListener(DatasetChangeListener)
      * @see #removeChangeListener(DatasetChangeListener)
      */
@@ -204,8 +197,8 @@ public abstract class AbstractDataset implements Dataset, Cloneable,
     }
 
     /**
-     * Notifies all registered listeners that the dataset has changed, 
-     * provided that the <code>notify</code> flag has not been set to 
+     * Notifies all registered listeners that the dataset has changed,
+     * provided that the <code>notify</code> flag has not been set to
      * <code>false</code>.
      *
      * @see #addChangeListener(DatasetChangeListener)
@@ -219,9 +212,8 @@ public abstract class AbstractDataset implements Dataset, Cloneable,
     /**
      * Notifies all registered listeners that the dataset has changed.
      *
-     * @param event  contains information about the event that triggered the
-     *               notification.
-     *
+     * @param event contains information about the event that triggered the
+     *              notification.
      * @see #addChangeListener(DatasetChangeListener)
      * @see #removeChangeListener(DatasetChangeListener)
      */
@@ -241,9 +233,8 @@ public abstract class AbstractDataset implements Dataset, Cloneable,
      * this dataset.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the dataset does not support
-     *                                     cloning.
+     * @throws CloneNotSupportedException if the dataset does not support
+     *                                    cloning.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -255,8 +246,7 @@ public abstract class AbstractDataset implements Dataset, Cloneable,
     /**
      * Handles serialization.
      *
-     * @param stream  the output stream.
-     *
+     * @param stream the output stream.
      * @throws IOException if there is an I/O problem.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
@@ -266,17 +256,16 @@ public abstract class AbstractDataset implements Dataset, Cloneable,
     /**
      * Restores a serialized object.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException if there is an I/O problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O problem.
      * @throws ClassNotFoundException if there is a problem loading a class.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.listenerList = new EventListenerList();
         stream.registerValidation(this, 10);  // see comments about priority of
-                                              // 10 in validateObject()
+        // 10 in validateObject()
     }
 
     /**
@@ -284,17 +273,17 @@ public abstract class AbstractDataset implements Dataset, Cloneable,
      * registered during the deserialization process, as listeners are not
      * serialized. This method is called by the serialization system after the
      * entire graph is read.
-     *
+     * <p>
      * This object has registered itself to the system with a priority of 10.
      * Other callbacks may register with a higher priority number to be called
      * before this object, or with a lower priority number to be called after
      * the listeners were notified.
-     *
+     * <p>
      * All listeners are supposed to have register by now, either in their
      * readObject or validateObject methods. Notify them that this dataset has
      * changed.
      *
-     * @exception InvalidObjectException If the object cannot validate itself.
+     * @throws InvalidObjectException If the object cannot validate itself.
      */
     @Override
     public void validateObject() throws InvalidObjectException {

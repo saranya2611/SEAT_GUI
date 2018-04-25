@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -51,7 +51,9 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class PieDatasetHandler extends RootHandler implements DatasetTags {
 
-    /** The pie dataset under construction. */
+    /**
+     * The pie dataset under construction.
+     */
     private DefaultPieDataset dataset;
 
     /**
@@ -73,8 +75,8 @@ public class PieDatasetHandler extends RootHandler implements DatasetTags {
     /**
      * Adds an item to the dataset under construction.
      *
-     * @param key  the key.
-     * @param value  the value.
+     * @param key   the key.
+     * @param value the value.
      */
     public void addItem(Comparable key, Number value) {
         this.dataset.setValue(key, value);
@@ -83,11 +85,10 @@ public class PieDatasetHandler extends RootHandler implements DatasetTags {
     /**
      * Starts an element.
      *
-     * @param namespaceURI  the namespace.
-     * @param localName  the element name.
-     * @param qName  the element name.
-     * @param atts  the element attributes.
-     *
+     * @param namespaceURI the namespace.
+     * @param localName    the element name.
+     * @param qName        the element name.
+     * @param atts         the element attributes.
      * @throws SAXException for errors.
      */
     @Override
@@ -99,11 +100,9 @@ public class PieDatasetHandler extends RootHandler implements DatasetTags {
         DefaultHandler current = getCurrentHandler();
         if (current != this) {
             current.startElement(namespaceURI, localName, qName, atts);
-        }
-        else if (qName.equals(PIEDATASET_TAG)) {
+        } else if (qName.equals(PIEDATASET_TAG)) {
             this.dataset = new DefaultPieDataset();
-        }
-        else if (qName.equals(ITEM_TAG)) {
+        } else if (qName.equals(ITEM_TAG)) {
             ItemHandler subhandler = new ItemHandler(this, this);
             getSubHandlers().push(subhandler);
             subhandler.startElement(namespaceURI, localName, qName, atts);
@@ -114,10 +113,9 @@ public class PieDatasetHandler extends RootHandler implements DatasetTags {
     /**
      * The end of an element.
      *
-     * @param namespaceURI  the namespace.
-     * @param localName  the element name.
-     * @param qName  the element name.
-     *
+     * @param namespaceURI the namespace.
+     * @param localName    the element name.
+     * @param qName        the element name.
      * @throws SAXException for errors.
      */
     @Override

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -40,10 +40,10 @@
 
 package org.jfree.chart.needle;
 
-import static org.junit.Assert.assertTrue;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the {@link ShipNeedle} class.
@@ -55,10 +55,10 @@ public class ShipNeedleTest {
      */
     @Test
     public void testEquals() {
-       ShipNeedle n1 = new ShipNeedle();
-       ShipNeedle n2 = new ShipNeedle();
-       assertTrue(n1.equals(n2));
-       assertTrue(n2.equals(n1));
+        ShipNeedle n1 = new ShipNeedle();
+        ShipNeedle n2 = new ShipNeedle();
+        assertTrue(n1.equals(n2));
+        assertTrue(n2.equals(n1));
     }
 
     /**

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------
@@ -47,11 +47,12 @@
 
 package org.jfree.data.statistics;
 
+import org.jfree.chart.util.ParamChecks;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import org.jfree.chart.util.ParamChecks;
 
 /**
  * A utility class that calculates the mean, median, quartiles Q1 and Q3, plus
@@ -66,13 +67,12 @@ public abstract class BoxAndWhiskerCalculator {
      * that are <code>null</code>, not an instance of <code>Number</code>, or
      * equivalent to <code>Double.NaN</code>, will be ignored.
      *
-     * @param values  a list of numbers (a <code>null</code> list is not
-     *                permitted).
-     *
+     * @param values a list of numbers (a <code>null</code> list is not
+     *               permitted).
      * @return A box-and-whisker item.
      */
     public static BoxAndWhiskerItem calculateBoxAndWhiskerStatistics(
-                                        List values) {
+            List values) {
         return calculateBoxAndWhiskerStatistics(values, true);
     }
 
@@ -82,13 +82,11 @@ public abstract class BoxAndWhiskerCalculator {
      * that are <code>null</code>, not an instance of <code>Number</code>, or
      * equivalent to <code>Double.NaN</code>, will be ignored.
      *
-     * @param values  a list of numbers (a <code>null</code> list is not
-     *                permitted).
-     * @param stripNullAndNaNItems  a flag that controls the handling of null
-     *     and NaN items.
-     *
+     * @param values               a list of numbers (a <code>null</code> list is not
+     *                             permitted).
+     * @param stripNullAndNaNItems a flag that controls the handling of null
+     *                             and NaN items.
      * @return A box-and-whisker item.
-     *
      * @since 1.0.3
      */
     public static BoxAndWhiskerItem calculateBoxAndWhiskerStatistics(
@@ -110,8 +108,7 @@ public abstract class BoxAndWhiskerCalculator {
                     }
                 }
             }
-        }
-        else {
+        } else {
             vlist = values;
         }
         Collections.sort(vlist);
@@ -144,14 +141,12 @@ public abstract class BoxAndWhiskerCalculator {
                 if (value > maxOutlier && value <= upperFaroutThreshold) {
                     maxOutlier = value;
                 }
-            }
-            else if (value < lowerOutlierThreshold) {
+            } else if (value < lowerOutlierThreshold) {
                 outliers.add(number);
                 if (value < minOutlier && value >= lowerFaroutThreshold) {
                     minOutlier = value;
                 }
-            }
-            else {
+            } else {
                 minRegularValue = Math.min(minRegularValue, value);
                 maxRegularValue = Math.max(maxRegularValue, value);
             }
@@ -173,9 +168,8 @@ public abstract class BoxAndWhiskerCalculator {
      * an instance of <code>Number</code>, or equivalent to
      * <code>Double.NaN</code>, the result is unspecified.
      *
-     * @param values  the numbers in ascending order (<code>null</code> not
-     *     permitted).
-     *
+     * @param values the numbers in ascending order (<code>null</code> not
+     *               permitted).
      * @return The first quartile.
      */
     public static double calculateQ1(List values) {
@@ -187,12 +181,10 @@ public abstract class BoxAndWhiskerCalculator {
             if (count % 2 == 1) {
                 if (count > 1) {
                     result = Statistics.calculateMedian(values, 0, count / 2);
-                }
-                else {
+                } else {
                     result = Statistics.calculateMedian(values, 0, 0);
                 }
-            }
-            else {
+            } else {
                 result = Statistics.calculateMedian(values, 0, count / 2 - 1);
             }
 
@@ -207,8 +199,7 @@ public abstract class BoxAndWhiskerCalculator {
      * an instance of <code>Number</code>, or equivalent to
      * <code>Double.NaN</code>, the result is unspecified.
      *
-     * @param values  the list of values (<code>null</code> not permitted).
-     *
+     * @param values the list of values (<code>null</code> not permitted).
      * @return The third quartile.
      */
     public static double calculateQ3(List values) {
@@ -220,12 +211,10 @@ public abstract class BoxAndWhiskerCalculator {
                 if (count > 1) {
                     result = Statistics.calculateMedian(values, count / 2,
                             count - 1);
-                }
-                else {
+                } else {
                     result = Statistics.calculateMedian(values, 0, 0);
                 }
-            }
-            else {
+            } else {
                 result = Statistics.calculateMedian(values, count / 2,
                         count - 1);
             }

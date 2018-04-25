@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------
@@ -87,32 +87,6 @@
 
 package org.jfree.chart.plot;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Composite;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Polygon;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.Arc2D;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.text.NumberFormat;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.LegendItemCollection;
 import org.jfree.chart.event.PlotChangeEvent;
@@ -128,6 +102,18 @@ import org.jfree.ui.TextAnchor;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PaintUtilities;
 
+import java.awt.*;
+import java.awt.geom.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ResourceBundle;
+
 /**
  * A plot that displays a single value in the form of a needle on a dial.
  * Defined ranges (for example, 'normal', 'warning' and 'critical') can be
@@ -135,90 +121,117 @@ import org.jfree.util.PaintUtilities;
  */
 public class MeterPlot extends Plot implements Serializable, Cloneable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = 2987472457734470962L;
-
-    /** The default background paint. */
-    static final Paint DEFAULT_DIAL_BACKGROUND_PAINT = Color.black;
-
-    /** The default needle paint. */
-    static final Paint DEFAULT_NEEDLE_PAINT = Color.green;
-
-    /** The default value font. */
-    static final Font DEFAULT_VALUE_FONT = new Font("SansSerif", Font.BOLD, 12);
-
-    /** The default value paint. */
-    static final Paint DEFAULT_VALUE_PAINT = Color.yellow;
-
-    /** The default meter angle. */
+    /**
+     * The default meter angle.
+     */
     public static final int DEFAULT_METER_ANGLE = 270;
-
-    /** The default border size. */
+    /**
+     * The default border size.
+     */
     public static final float DEFAULT_BORDER_SIZE = 3f;
-
-    /** The default circle size. */
+    /**
+     * The default circle size.
+     */
     public static final float DEFAULT_CIRCLE_SIZE = 10f;
-
-    /** The default label font. */
+    /**
+     * The default label font.
+     */
     public static final Font DEFAULT_LABEL_FONT = new Font("SansSerif",
             Font.BOLD, 10);
-
-    /** The dataset (contains a single value). */
-    private ValueDataset dataset;
-
-    /** The dial shape (background shape). */
-    private DialShape shape;
-
-    /** The dial extent (measured in degrees). */
-    private int meterAngle;
-
-    /** The overall range of data values on the dial. */
-    private Range range;
-
-    /** The tick size. */
-    private double tickSize;
-
-    /** The paint used to draw the ticks. */
-    private transient Paint tickPaint;
-
-    /** The units displayed on the dial. */
-    private String units;
-
-    /** The font for the value displayed in the center of the dial. */
-    private Font valueFont;
-
-    /** The paint for the value displayed in the center of the dial. */
-    private transient Paint valuePaint;
-
-    /** A flag that controls whether or not the border is drawn. */
-    private boolean drawBorder;
-
-    /** The outline paint. */
-    private transient Paint dialOutlinePaint;
-
-    /** The paint for the dial background. */
-    private transient Paint dialBackgroundPaint;
-
-    /** The paint for the needle. */
-    private transient Paint needlePaint;
-
-    /** A flag that controls whether or not the tick labels are visible. */
-    private boolean tickLabelsVisible;
-
-    /** The tick label font. */
-    private Font tickLabelFont;
-
-    /** The tick label paint. */
-    private transient Paint tickLabelPaint;
-
-    /** The tick label format. */
-    private NumberFormat tickLabelFormat;
-
-    /** The resourceBundle for the localization. */
+    /**
+     * The default background paint.
+     */
+    static final Paint DEFAULT_DIAL_BACKGROUND_PAINT = Color.black;
+    /**
+     * The default needle paint.
+     */
+    static final Paint DEFAULT_NEEDLE_PAINT = Color.green;
+    /**
+     * The default value font.
+     */
+    static final Font DEFAULT_VALUE_FONT = new Font("SansSerif", Font.BOLD, 12);
+    /**
+     * The default value paint.
+     */
+    static final Paint DEFAULT_VALUE_PAINT = Color.yellow;
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 2987472457734470962L;
+    /**
+     * The resourceBundle for the localization.
+     */
     protected static ResourceBundle localizationResources
             = ResourceBundleWrapper.getBundle(
-                    "org.jfree.chart.plot.LocalizationBundle");
-
+            "org.jfree.chart.plot.LocalizationBundle");
+    /**
+     * The dataset (contains a single value).
+     */
+    private ValueDataset dataset;
+    /**
+     * The dial shape (background shape).
+     */
+    private DialShape shape;
+    /**
+     * The dial extent (measured in degrees).
+     */
+    private int meterAngle;
+    /**
+     * The overall range of data values on the dial.
+     */
+    private Range range;
+    /**
+     * The tick size.
+     */
+    private double tickSize;
+    /**
+     * The paint used to draw the ticks.
+     */
+    private transient Paint tickPaint;
+    /**
+     * The units displayed on the dial.
+     */
+    private String units;
+    /**
+     * The font for the value displayed in the center of the dial.
+     */
+    private Font valueFont;
+    /**
+     * The paint for the value displayed in the center of the dial.
+     */
+    private transient Paint valuePaint;
+    /**
+     * A flag that controls whether or not the border is drawn.
+     */
+    private boolean drawBorder;
+    /**
+     * The outline paint.
+     */
+    private transient Paint dialOutlinePaint;
+    /**
+     * The paint for the dial background.
+     */
+    private transient Paint dialBackgroundPaint;
+    /**
+     * The paint for the needle.
+     */
+    private transient Paint needlePaint;
+    /**
+     * A flag that controls whether or not the tick labels are visible.
+     */
+    private boolean tickLabelsVisible;
+    /**
+     * The tick label font.
+     */
+    private Font tickLabelFont;
+    /**
+     * The tick label paint.
+     */
+    private transient Paint tickLabelPaint;
+    /**
+     * The tick label format.
+     */
+    private NumberFormat tickLabelFormat;
     /**
      * A (possibly empty) list of the {@link MeterInterval}s to be highlighted
      * on the dial.
@@ -236,7 +249,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
     /**
      * Creates a new plot that displays the value from the supplied dataset.
      *
-     * @param dataset  the dataset (<code>null</code> permitted).
+     * @param dataset the dataset (<code>null</code> permitted).
      */
     public MeterPlot(ValueDataset dataset) {
         super();
@@ -262,7 +275,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns the dial shape.  The default is {@link DialShape#CIRCLE}).
      *
      * @return The dial shape (never <code>null</code>).
-     *
      * @see #setDialShape(DialShape)
      */
     public DialShape getDialShape() {
@@ -273,8 +285,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the dial shape and sends a {@link PlotChangeEvent} to all
      * registered listeners.
      *
-     * @param shape  the shape (<code>null</code> not permitted).
-     *
+     * @param shape the shape (<code>null</code> not permitted).
      * @see #getDialShape()
      */
     public void setDialShape(DialShape shape) {
@@ -288,7 +299,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * of the dial.  The default is 270 degrees.
      *
      * @return The meter angle (in degrees).
-     *
      * @see #setMeterAngle(int)
      */
     public int getMeterAngle() {
@@ -299,8 +309,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the angle (in degrees) for the whole range of the dial and sends
      * a {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param angle  the angle (in degrees, in the range 1-360).
-     *
+     * @param angle the angle (in degrees, in the range 1-360).
      * @see #getMeterAngle()
      */
     public void setMeterAngle(int angle) {
@@ -316,7 +325,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns the overall range for the dial.
      *
      * @return The overall range (never <code>null</code>).
-     *
      * @see #setRange(Range)
      */
     public Range getRange() {
@@ -327,9 +335,8 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the range for the dial and sends a {@link PlotChangeEvent} to all
      * registered listeners.
      *
-     * @param range  the range (<code>null</code> not permitted and zero-length
-     *               ranges not permitted).
-     *
+     * @param range the range (<code>null</code> not permitted and zero-length
+     *              ranges not permitted).
      * @see #getRange()
      */
     public void setRange(Range range) {
@@ -346,7 +353,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns the tick size (the interval between ticks on the dial).
      *
      * @return The tick size.
-     *
      * @see #setTickSize(double)
      */
     public double getTickSize() {
@@ -357,8 +363,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the tick size and sends a {@link PlotChangeEvent} to all
      * registered listeners.
      *
-     * @param size  the tick size (must be &gt; 0).
-     *
+     * @param size the tick size (must be &gt; 0).
      * @see #getTickSize()
      */
     public void setTickSize(double size) {
@@ -373,8 +378,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns the paint used to draw the ticks around the dial.
      *
      * @return The paint used to draw the ticks around the dial (never
-     *         <code>null</code>).
-     *
+     * <code>null</code>).
      * @see #setTickPaint(Paint)
      */
     public Paint getTickPaint() {
@@ -385,8 +389,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the paint used to draw the tick labels around the dial and sends
      * a {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getTickPaint()
      */
     public void setTickPaint(Paint paint) {
@@ -399,7 +402,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns a string describing the units for the dial.
      *
      * @return The units (possibly <code>null</code>).
-     *
      * @see #setUnits(String)
      */
     public String getUnits() {
@@ -410,8 +412,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the units for the dial and sends a {@link PlotChangeEvent} to all
      * registered listeners.
      *
-     * @param units  the units (<code>null</code> permitted).
-     *
+     * @param units the units (<code>null</code> permitted).
      * @see #getUnits()
      */
     public void setUnits(String units) {
@@ -423,7 +424,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns the paint for the needle.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @see #setNeedlePaint(Paint)
      */
     public Paint getNeedlePaint() {
@@ -434,8 +434,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the paint used to display the needle and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getNeedlePaint()
      */
     public void setNeedlePaint(Paint paint) {
@@ -448,7 +447,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns the flag that determines whether or not tick labels are visible.
      *
      * @return The flag.
-     *
      * @see #setTickLabelsVisible(boolean)
      */
     public boolean getTickLabelsVisible() {
@@ -459,8 +457,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the flag that controls whether or not the tick labels are visible
      * and sends a {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param visible  the flag.
-     *
+     * @param visible the flag.
      * @see #getTickLabelsVisible()
      */
     public void setTickLabelsVisible(boolean visible) {
@@ -474,7 +471,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns the tick label font.
      *
      * @return The font (never <code>null</code>).
-     *
      * @see #setTickLabelFont(Font)
      */
     public Font getTickLabelFont() {
@@ -485,8 +481,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the tick label font and sends a {@link PlotChangeEvent} to all
      * registered listeners.
      *
-     * @param font  the font (<code>null</code> not permitted).
-     *
+     * @param font the font (<code>null</code> not permitted).
      * @see #getTickLabelFont()
      */
     public void setTickLabelFont(Font font) {
@@ -501,7 +496,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns the tick label paint.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @see #setTickLabelPaint(Paint)
      */
     public Paint getTickLabelPaint() {
@@ -512,8 +506,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the tick label paint and sends a {@link PlotChangeEvent} to all
      * registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getTickLabelPaint()
      */
     public void setTickLabelPaint(Paint paint) {
@@ -528,7 +521,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns the tick label format.
      *
      * @return The tick label format (never <code>null</code>).
-     *
      * @see #setTickLabelFormat(NumberFormat)
      */
     public NumberFormat getTickLabelFormat() {
@@ -539,8 +531,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the format for the tick labels and sends a {@link PlotChangeEvent}
      * to all registered listeners.
      *
-     * @param format  the format (<code>null</code> not permitted).
-     *
+     * @param format the format (<code>null</code> not permitted).
      * @see #getTickLabelFormat()
      */
     public void setTickLabelFormat(NumberFormat format) {
@@ -553,7 +544,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns the font for the value label.
      *
      * @return The font (never <code>null</code>).
-     *
      * @see #setValueFont(Font)
      */
     public Font getValueFont() {
@@ -564,8 +554,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the font used to display the value label and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param font  the font (<code>null</code> not permitted).
-     *
+     * @param font the font (<code>null</code> not permitted).
      * @see #getValueFont()
      */
     public void setValueFont(Font font) {
@@ -578,7 +567,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns the paint for the value label.
      *
      * @return The paint (never <code>null</code>).
-     *
      * @see #setValuePaint(Paint)
      */
     public Paint getValuePaint() {
@@ -589,8 +577,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the paint used to display the value label and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param paint  the paint (<code>null</code> not permitted).
-     *
+     * @param paint the paint (<code>null</code> not permitted).
      * @see #getValuePaint()
      */
     public void setValuePaint(Paint paint) {
@@ -603,7 +590,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns the paint for the dial background.
      *
      * @return The paint (possibly <code>null</code>).
-     *
      * @see #setDialBackgroundPaint(Paint)
      */
     public Paint getDialBackgroundPaint() {
@@ -614,8 +600,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the paint used to fill the dial background.  Set this to
      * <code>null</code> for no background.
      *
-     * @param paint  the paint (<code>null</code> permitted).
-     *
+     * @param paint the paint (<code>null</code> permitted).
      * @see #getDialBackgroundPaint()
      */
     public void setDialBackgroundPaint(Paint paint) {
@@ -628,7 +613,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * drawn around the plot area.
      *
      * @return A flag.
-     *
      * @see #setDrawBorder(boolean)
      */
     public boolean getDrawBorder() {
@@ -640,8 +624,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * around the plot area and sends a {@link PlotChangeEvent} to all
      * registered listeners.
      *
-     * @param draw  the flag.
-     *
+     * @param draw the flag.
      * @see #getDrawBorder()
      */
     public void setDrawBorder(boolean draw) {
@@ -654,7 +637,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns the dial outline paint.
      *
      * @return The paint.
-     *
      * @see #setDialOutlinePaint(Paint)
      */
     public Paint getDialOutlinePaint() {
@@ -665,8 +647,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the dial outline paint and sends a {@link PlotChangeEvent} to all
      * registered listeners.
      *
-     * @param paint  the paint.
-     *
+     * @param paint the paint.
      * @see #getDialOutlinePaint()
      */
     public void setDialOutlinePaint(Paint paint) {
@@ -678,7 +659,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns the dataset for the plot.
      *
      * @return The dataset (possibly <code>null</code>).
-     *
      * @see #setDataset(ValueDataset)
      */
     public ValueDataset getDataset() {
@@ -689,8 +669,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Sets the dataset for the plot, replacing the existing dataset if there
      * is one, and triggers a {@link PlotChangeEvent}.
      *
-     * @param dataset  the dataset (<code>null</code> permitted).
-     *
+     * @param dataset the dataset (<code>null</code> permitted).
      * @see #getDataset()
      */
     public void setDataset(ValueDataset dataset) {
@@ -719,7 +698,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Returns an unmodifiable list of the intervals for the plot.
      *
      * @return A list.
-     *
      * @see #addInterval(MeterInterval)
      */
     public List getIntervals() {
@@ -730,8 +708,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Adds an interval and sends a {@link PlotChangeEvent} to all registered
      * listeners.
      *
-     * @param interval  the interval (<code>null</code> not permitted).
-     *
+     * @param interval the interval (<code>null</code> not permitted).
      * @see #getIntervals()
      * @see #clearIntervals()
      */
@@ -780,11 +757,11 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Draws the plot on a Java 2D graphics device (such as the screen or a
      * printer).
      *
-     * @param g2  the graphics device.
-     * @param area  the area within which the plot should be drawn.
-     * @param anchor  the anchor point (<code>null</code> permitted).
-     * @param parentState  the state from the parent plot, if there is one.
-     * @param info  collects info about the drawing.
+     * @param g2          the graphics device.
+     * @param area        the area within which the plot should be drawn.
+     * @param anchor      the anchor point (<code>null</code> permitted).
+     * @param parentState the state from the parent plot, if there is one.
+     * @param info        collects info about the drawing.
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D area, Point2D anchor,
@@ -868,7 +845,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
                     g2.setStroke(new BasicStroke(2.0f));
 
                     double radius = (meterArea.getWidth() / 2)
-                                    + DEFAULT_BORDER_SIZE + 15;
+                            + DEFAULT_BORDER_SIZE + 15;
                     double valueAngle = valueToAngle(value);
                     double valueP1 = meterMiddleX
                             + (radius * Math.cos(Math.PI * (valueAngle / 180)));
@@ -877,7 +854,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
 
                     Polygon arrow = new Polygon();
                     if ((valueAngle > 135 && valueAngle < 225)
-                        || (valueAngle < 45 && valueAngle > -45)) {
+                            || (valueAngle < 45 && valueAngle > -45)) {
 
                         double valueP3 = (meterMiddleY
                                 - DEFAULT_CIRCLE_SIZE / 4);
@@ -886,8 +863,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
                         arrow.addPoint((int) meterMiddleX, (int) valueP3);
                         arrow.addPoint((int) meterMiddleX, (int) valueP4);
 
-                    }
-                    else {
+                    } else {
                         arrow.addPoint((int) (meterMiddleX
                                 - DEFAULT_CIRCLE_SIZE / 4), (int) meterMiddleY);
                         arrow.addPoint((int) (meterMiddleX
@@ -917,8 +893,8 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
     /**
      * Draws the arc to represent an interval.
      *
-     * @param g2  the graphics device.
-     * @param meterArea  the drawing area.
+     * @param g2        the graphics device.
+     * @param meterArea the drawing area.
      * @param interval  the interval.
      */
     protected void drawArcForInterval(Graphics2D g2, Rectangle2D meterArea,
@@ -946,12 +922,12 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
     /**
      * Draws an arc.
      *
-     * @param g2  the graphics device.
-     * @param area  the plot area.
-     * @param minValue  the minimum value.
-     * @param maxValue  the maximum value.
-     * @param paint  the paint.
-     * @param stroke  the stroke.
+     * @param g2       the graphics device.
+     * @param area     the plot area.
+     * @param minValue the minimum value.
+     * @param maxValue the maximum value.
+     * @param paint    the paint.
+     * @param stroke   the stroke.
      */
     protected void drawArc(Graphics2D g2, Rectangle2D area, double minValue,
                            double maxValue, Paint paint, Stroke stroke) {
@@ -980,16 +956,16 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
     /**
      * Fills an arc on the dial between the given values.
      *
-     * @param g2  the graphics device.
-     * @param area  the plot area.
-     * @param minValue  the minimum data value.
-     * @param maxValue  the maximum data value.
-     * @param paint  the background paint (<code>null</code> not permitted).
-     * @param dial  a flag that indicates whether the arc represents the whole
-     *              dial.
+     * @param g2       the graphics device.
+     * @param area     the plot area.
+     * @param minValue the minimum data value.
+     * @param maxValue the maximum data value.
+     * @param paint    the background paint (<code>null</code> not permitted).
+     * @param dial     a flag that indicates whether the arc represents the whole
+     *                 dial.
      */
     protected void fillArc(Graphics2D g2, Rectangle2D area,
-            double minValue, double maxValue, Paint paint, boolean dial) {
+                           double minValue, double maxValue, Paint paint, boolean dial) {
 
         ParamChecks.nullNotPermitted(paint, "paint");
         double startAngle = valueToAngle(maxValue);
@@ -1003,22 +979,18 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
         int joinType = Arc2D.OPEN;
         if (this.shape == DialShape.PIE) {
             joinType = Arc2D.PIE;
-        }
-        else if (this.shape == DialShape.CHORD) {
+        } else if (this.shape == DialShape.CHORD) {
             if (dial && this.meterAngle > 180) {
                 joinType = Arc2D.CHORD;
-            }
-            else {
+            } else {
                 joinType = Arc2D.PIE;
             }
-        }
-        else if (this.shape == DialShape.CIRCLE) {
+        } else if (this.shape == DialShape.CIRCLE) {
             joinType = Arc2D.PIE;
             if (dial) {
                 extent = 360;
             }
-        }
-        else {
+        } else {
             throw new IllegalStateException("DialShape not recognised.");
         }
 
@@ -1031,8 +1003,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
     /**
      * Translates a data value to an angle on the dial.
      *
-     * @param value  the value.
-     *
+     * @param value the value.
      * @return The angle on the dial.
      */
     public double valueToAngle(double value) {
@@ -1044,8 +1015,8 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
     /**
      * Draws the ticks that subdivide the overall range.
      *
-     * @param g2  the graphics device.
-     * @param meterArea  the meter area.
+     * @param g2        the graphics device.
+     * @param meterArea the meter area.
      * @param minValue  the minimum value.
      * @param maxValue  the maximum value.
      */
@@ -1059,22 +1030,22 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
     /**
      * Draws a tick.
      *
-     * @param g2  the graphics device.
-     * @param meterArea  the meter area.
-     * @param value  the value.
+     * @param g2        the graphics device.
+     * @param meterArea the meter area.
+     * @param value     the value.
      */
     protected void drawTick(Graphics2D g2, Rectangle2D meterArea,
-            double value) {
+                            double value) {
         drawTick(g2, meterArea, value, false);
     }
 
     /**
      * Draws a tick on the dial.
      *
-     * @param g2  the graphics device.
-     * @param meterArea  the meter area.
-     * @param value  the tick value.
-     * @param label  a flag that controls whether or not a value label is drawn.
+     * @param g2        the graphics device.
+     * @param meterArea the meter area.
+     * @param value     the tick value.
+     * @param label     a flag that controls whether or not a value label is drawn.
      */
     protected void drawTick(Graphics2D g2, Rectangle2D meterArea,
                             double value, boolean label) {
@@ -1109,27 +1080,25 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
 
         if (this.tickLabelsVisible && label) {
 
-            String tickLabel =  this.tickLabelFormat.format(value);
+            String tickLabel = this.tickLabelFormat.format(value);
             g2.setFont(this.tickLabelFont);
             g2.setPaint(this.tickLabelPaint);
 
             FontMetrics fm = g2.getFontMetrics();
             Rectangle2D tickLabelBounds
-                = TextUtilities.getTextBounds(tickLabel, g2, fm);
+                    = TextUtilities.getTextBounds(tickLabel, g2, fm);
 
             double x = valueP2X;
             double y = valueP2Y;
             if (valueAngle == 90 || valueAngle == 270) {
                 x = x - tickLabelBounds.getWidth() / 2;
-            }
-            else if (valueAngle < 90 || valueAngle > 270) {
+            } else if (valueAngle < 90 || valueAngle > 270) {
                 x = x - tickLabelBounds.getWidth();
             }
             if ((valueAngle > 135 && valueAngle < 225)
                     || valueAngle > 315 || valueAngle < 45) {
                 y = y - tickLabelBounds.getHeight() / 2;
-            }
-            else {
+            } else {
                 y = y + tickLabelBounds.getHeight() / 2;
             }
             g2.drawString(tickLabel, (float) x, (float) y);
@@ -1139,8 +1108,8 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
     /**
      * Draws the value label just below the center of the dial.
      *
-     * @param g2  the graphics device.
-     * @param area  the plot area.
+     * @param g2   the graphics device.
+     * @param area the plot area.
      */
     protected void drawValueLabel(Graphics2D g2, Rectangle2D area) {
         g2.setFont(this.valueFont);
@@ -1150,7 +1119,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
             Number n = this.dataset.getValue();
             if (n != null) {
                 valueStr = this.tickLabelFormat.format(n.doubleValue()) + " "
-                         + this.units;
+                        + this.units;
             }
         }
         float x = (float) area.getCenterX();
@@ -1174,7 +1143,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * zoom operation.  In the case of a meter plot, it doesn't make sense to
      * zoom in or out, so the method is empty.
      *
-     * @param percent   The zoom percentage.
+     * @param percent The zoom percentage.
      */
     @Override
     public void zoom(double percent) {
@@ -1185,8 +1154,7 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * Tests the plot for equality with an arbitrary object.  Note that the
      * dataset is ignored for the purposes of testing equality.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -1261,9 +1229,8 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -1278,13 +1245,12 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.dialBackgroundPaint = SerialUtilities.readPaint(stream);
         this.dialOutlinePaint = SerialUtilities.readPaint(stream);
@@ -1303,9 +1269,8 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
      * same dataset.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if some component of the plot cannot
-     *         be cloned.
+     *                                    be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -42,15 +42,14 @@
 
 package org.jfree.chart.plot.dial;
 
+import org.jfree.chart.HashUtilities;
+
+import javax.swing.event.EventListenerList;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Arrays;
 import java.util.EventListener;
 import java.util.List;
-
-import javax.swing.event.EventListenerList;
-
-import org.jfree.chart.HashUtilities;
 
 /**
  * A base class that can be used to implement a {@link DialLayer}.  It includes
@@ -60,10 +59,14 @@ import org.jfree.chart.HashUtilities;
  */
 public abstract class AbstractDialLayer implements DialLayer {
 
-    /** A flag that controls whether or not the layer is visible. */
+    /**
+     * A flag that controls whether or not the layer is visible.
+     */
     private boolean visible;
 
-    /** Storage for registered listeners. */
+    /**
+     * Storage for registered listeners.
+     */
     private transient EventListenerList listenerList;
 
     /**
@@ -79,7 +82,6 @@ public abstract class AbstractDialLayer implements DialLayer {
      * and <code>false</code> otherwise.
      *
      * @return A boolean.
-     *
      * @see #setVisible(boolean)
      */
     @Override
@@ -92,8 +94,7 @@ public abstract class AbstractDialLayer implements DialLayer {
      * the plot, and sends a {@link DialLayerChangeEvent} to all registered
      * listeners.
      *
-     * @param visible  the flag.
-     *
+     * @param visible the flag.
      * @see #isVisible()
      */
     public void setVisible(boolean visible) {
@@ -104,8 +105,7 @@ public abstract class AbstractDialLayer implements DialLayer {
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -136,9 +136,8 @@ public abstract class AbstractDialLayer implements DialLayer {
      * Returns a clone of this instance.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if there is a problem cloning this
-     *     instance.
+     *                                    instance.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -151,8 +150,7 @@ public abstract class AbstractDialLayer implements DialLayer {
     /**
      * Registers an object for notification of changes to the dial layer.
      *
-     * @param listener  the object that is being registered.
-     *
+     * @param listener the object that is being registered.
      * @see #removeChangeListener(DialLayerChangeListener)
      */
     @Override
@@ -163,8 +161,7 @@ public abstract class AbstractDialLayer implements DialLayer {
     /**
      * Deregisters an object for notification of changes to the dial layer.
      *
-     * @param listener  the object to deregister.
-     *
+     * @param listener the object to deregister.
      * @see #addChangeListener(DialLayerChangeListener)
      */
     @Override
@@ -177,8 +174,7 @@ public abstract class AbstractDialLayer implements DialLayer {
      * the dataset as a listener.  Most applications won't need to call this
      * method, it exists mainly for use by unit testing code.
      *
-     * @param listener  the listener.
-     *
+     * @param listener the listener.
      * @return A boolean.
      */
     @Override
@@ -191,7 +187,7 @@ public abstract class AbstractDialLayer implements DialLayer {
      * Notifies all registered listeners that the dial layer has changed.
      * The {@link DialLayerChangeEvent} provides information about the change.
      *
-     * @param event  information about the change to the axis.
+     * @param event information about the change to the axis.
      */
     protected void notifyListeners(DialLayerChangeEvent event) {
         Object[] listeners = this.listenerList.getListenerList();
@@ -206,13 +202,12 @@ public abstract class AbstractDialLayer implements DialLayer {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.listenerList = new EventListenerList();
     }

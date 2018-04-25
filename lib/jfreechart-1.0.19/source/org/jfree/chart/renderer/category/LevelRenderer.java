@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -50,14 +50,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.HashUtilities;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
@@ -70,6 +62,11 @@ import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
 /**
  * A {@link CategoryItemRenderer} that draws individual data items as
@@ -84,16 +81,22 @@ import org.jfree.util.PublicCloneable;
 public class LevelRenderer extends AbstractCategoryItemRenderer
         implements Cloneable, PublicCloneable, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -8204856624355025117L;
-
-    /** The default item margin percentage. */
+    /**
+     * The default item margin percentage.
+     */
     public static final double DEFAULT_ITEM_MARGIN = 0.20;
-
-    /** The margin between items within a category. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -8204856624355025117L;
+    /**
+     * The margin between items within a category.
+     */
     private double itemMargin;
 
-    /** The maximum item width as a percentage of the available space. */
+    /**
+     * The maximum item width as a percentage of the available space.
+     */
     private double maxItemWidth;
 
     /**
@@ -103,7 +106,7 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
         super();
         this.itemMargin = DEFAULT_ITEM_MARGIN;
         this.maxItemWidth = 1.0;  // 100 percent, so it will not apply unless
-                                  // changed
+        // changed
         setBaseLegendShape(new Rectangle2D.Float(-5.0f, -1.0f, 10.0f, 2.0f));
         // set the outline paint to fully transparent, then the legend shape
         // will just have the same colour as the lines drawn by the renderer
@@ -114,7 +117,6 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
      * Returns the item margin.
      *
      * @return The margin.
-     *
      * @see #setItemMargin(double)
      */
     public double getItemMargin() {
@@ -127,8 +129,7 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
      * available width for plotting all the bars, with the resulting amount to
      * be distributed between all the bars evenly.
      *
-     * @param percent  the new margin.
-     *
+     * @param percent the new margin.
      * @see #getItemMargin()
      */
     public void setItemMargin(double percent) {
@@ -141,7 +142,6 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
      * space.
      *
      * @return The maximum width.
-     *
      * @see #setMaximumItemWidth(double)
      */
     public double getMaximumItemWidth() {
@@ -153,8 +153,7 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
      * available space for all items, and sends a {@link RendererChangeEvent}
      * to all registered listeners.
      *
-     * @param percent  the percent.
-     *
+     * @param percent the percent.
      * @see #getMaximumItemWidth()
      */
     public void setMaximumItemWidth(double percent) {
@@ -168,18 +167,17 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
      * This method gets called once at the start of the process of drawing a
      * chart.
      *
-     * @param g2  the graphics device.
-     * @param dataArea  the area in which the data is to be plotted.
-     * @param plot  the plot.
-     * @param rendererIndex  the renderer index.
-     * @param info  collects chart rendering information for return to caller.
-     *
+     * @param g2            the graphics device.
+     * @param dataArea      the area in which the data is to be plotted.
+     * @param plot          the plot.
+     * @param rendererIndex the renderer index.
+     * @param info          collects chart rendering information for return to caller.
      * @return The renderer state.
      */
     @Override
     public CategoryItemRendererState initialise(Graphics2D g2,
-            Rectangle2D dataArea, CategoryPlot plot, int rendererIndex,
-            PlotRenderingInfo info) {
+                                                Rectangle2D dataArea, CategoryPlot plot, int rendererIndex,
+                                                PlotRenderingInfo info) {
 
         CategoryItemRendererState state = super.initialise(g2, dataArea, plot,
                 rendererIndex, info);
@@ -191,14 +189,14 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
     /**
      * Calculates the bar width and stores it in the renderer state.
      *
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param rendererIndex  the renderer index.
-     * @param state  the renderer state.
+     * @param plot          the plot.
+     * @param dataArea      the data area.
+     * @param rendererIndex the renderer index.
+     * @param state         the renderer state.
      */
     protected void calculateItemWidth(CategoryPlot plot,
-            Rectangle2D dataArea, int rendererIndex,
-            CategoryItemRendererState state) {
+                                      Rectangle2D dataArea, int rendererIndex,
+                                      CategoryItemRendererState state) {
 
         CategoryAxis domainAxis = getDomainAxis(plot, rendererIndex);
         CategoryDataset dataset = plot.getDataset(rendererIndex);
@@ -210,8 +208,7 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
             PlotOrientation orientation = plot.getOrientation();
             if (orientation == PlotOrientation.HORIZONTAL) {
                 space = dataArea.getHeight();
-            }
-            else if (orientation == PlotOrientation.VERTICAL) {
+            } else if (orientation == PlotOrientation.VERTICAL) {
                 space = dataArea.getWidth();
             }
             double maxWidth = space * getMaximumItemWidth();
@@ -224,12 +221,11 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
                 currentItemMargin = getItemMargin();
             }
             double used = space * (1 - domainAxis.getLowerMargin()
-                                     - domainAxis.getUpperMargin()
-                                     - categoryMargin - currentItemMargin);
+                    - domainAxis.getUpperMargin()
+                    - categoryMargin - currentItemMargin);
             if ((rows * columns) > 0) {
                 state.setBarWidth(Math.min(used / (rows * columns), maxWidth));
-            }
-            else {
+            } else {
                 state.setBarWidth(Math.min(used, maxWidth));
             }
         }
@@ -240,26 +236,24 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
      * the minimum x-coordinate for a vertical bar, and the minimum
      * y-coordinate for a horizontal bar.
      *
-     * @param plot  the plot.
-     * @param orientation  the plot orientation.
-     * @param dataArea  the data area.
+     * @param plot        the plot.
+     * @param orientation the plot orientation.
+     * @param dataArea    the data area.
      * @param domainAxis  the domain axis.
-     * @param state  the renderer state (has the bar width precalculated).
-     * @param row  the row index.
-     * @param column  the column index.
-     *
+     * @param state       the renderer state (has the bar width precalculated).
+     * @param row         the row index.
+     * @param column      the column index.
      * @return The coordinate.
      */
-    protected double calculateBarW0(CategoryPlot plot, 
-            PlotOrientation orientation, Rectangle2D dataArea,
-            CategoryAxis domainAxis, CategoryItemRendererState state, int row,
-            int column) {
+    protected double calculateBarW0(CategoryPlot plot,
+                                    PlotOrientation orientation, Rectangle2D dataArea,
+                                    CategoryAxis domainAxis, CategoryItemRendererState state, int row,
+                                    int column) {
         // calculate bar width...
         double space;
         if (orientation == PlotOrientation.HORIZONTAL) {
             space = dataArea.getHeight();
-        }
-        else {
+        } else {
             space = dataArea.getWidth();
         }
         double barW0 = domainAxis.getCategoryStart(column, getColumnCount(),
@@ -275,9 +269,8 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
             double seriesW = calculateSeriesWidth(space, domainAxis,
                     categoryCount, seriesCount);
             barW0 = barW0 + row * (seriesW + seriesGap)
-                          + (seriesW / 2.0) - (state.getBarWidth() / 2.0);
-        }
-        else {
+                    + (seriesW / 2.0) - (state.getBarWidth() / 2.0);
+        } else {
             barW0 = domainAxis.getCategoryMiddle(column, getColumnCount(),
                     dataArea, plot.getDomainAxisEdge()) - state.getBarWidth()
                     / 2.0;
@@ -288,22 +281,22 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
     /**
      * Draws the bar for a single (series, category) data item.
      *
-     * @param g2  the graphics device.
-     * @param state  the renderer state.
-     * @param dataArea  the data area.
-     * @param plot  the plot.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param state      the renderer state.
+     * @param dataArea   the data area.
+     * @param plot       the plot.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     * @param pass  the pass index.
+     * @param dataset    the dataset.
+     * @param row        the row index (zero-based).
+     * @param column     the column index (zero-based).
+     * @param pass       the pass index.
      */
     @Override
     public void drawItem(Graphics2D g2, CategoryItemRendererState state,
-            Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
-            ValueAxis rangeAxis, CategoryDataset dataset, int row, int column,
-            int pass) {
+                         Rectangle2D dataArea, CategoryPlot plot, CategoryAxis domainAxis,
+                         ValueAxis rangeAxis, CategoryDataset dataset, int row, int column,
+                         int pass) {
 
         // nothing is drawn if the row index is not included in the list with
         // the indices of the visible rows...
@@ -334,8 +327,7 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
             y = barW0 + state.getBarWidth() / 2.0;
             line = new Line2D.Double(barL, barW0, barL,
                     barW0 + state.getBarWidth());
-        }
-        else {
+        } else {
             x = barW0 + state.getBarWidth() / 2.0;
             y = barL;
             line = new Line2D.Double(barW0, barL, barW0 + state.getBarWidth(),
@@ -371,17 +363,16 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
     /**
      * Calculates the available space for each series.
      *
-     * @param space  the space along the entire axis (in Java2D units).
-     * @param axis  the category axis.
-     * @param categories  the number of categories.
-     * @param series  the number of series.
-     *
+     * @param space      the space along the entire axis (in Java2D units).
+     * @param axis       the category axis.
+     * @param categories the number of categories.
+     * @param series     the number of series.
      * @return The width of one series.
      */
     protected double calculateSeriesWidth(double space, CategoryAxis axis,
                                           int categories, int series) {
         double factor = 1.0 - getItemMargin() - axis.getLowerMargin()
-                        - axis.getUpperMargin();
+                - axis.getUpperMargin();
         if (categories > 1) {
             factor = factor - axis.getCategoryMargin();
         }
@@ -391,21 +382,19 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
     /**
      * Returns the Java2D coordinate for the middle of the specified data item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     * @param dataset  the dataset.
-     * @param axis  the axis.
-     * @param area  the drawing area.
-     * @param edge  the edge along which the axis lies.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
+     * @param dataset   the dataset.
+     * @param axis      the axis.
+     * @param area      the drawing area.
+     * @param edge      the edge along which the axis lies.
      * @return The Java2D coordinate.
-     *
      * @since 1.0.11
      */
     @Override
     public double getItemMiddle(Comparable rowKey, Comparable columnKey,
-            CategoryDataset dataset, CategoryAxis axis, Rectangle2D area,
-            RectangleEdge edge) {
+                                CategoryDataset dataset, CategoryAxis axis, Rectangle2D area,
+                                RectangleEdge edge) {
         return axis.getCategorySeriesMiddle(columnKey, rowKey, dataset,
                 this.itemMargin, area, edge);
     }
@@ -413,8 +402,7 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
     /**
      * Tests an object for equality with this instance.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -453,7 +441,6 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
      * space.
      *
      * @return The maximum width.
-     *
      * @deprecated Use {@link #getMaximumItemWidth()} instead.
      */
     public double getMaxItemWidth() {
@@ -465,8 +452,7 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
      * available space for all items, and sends a {@link RendererChangeEvent}
      * to all registered listeners.
      *
-     * @param percent  the percent.
-     *
+     * @param percent the percent.
      * @deprecated Use {@link #setMaximumItemWidth(double)} instead.
      */
     public void setMaxItemWidth(double percent) {

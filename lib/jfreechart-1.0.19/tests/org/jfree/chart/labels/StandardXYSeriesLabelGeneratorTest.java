@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------------------
@@ -41,16 +41,13 @@
 
 package org.jfree.chart.labels;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link StandardXYSeriesLabelGenerator} class.
@@ -109,7 +106,7 @@ public class StandardXYSeriesLabelGeneratorTest {
     public void testCloning() throws CloneNotSupportedException {
         StandardXYSeriesLabelGenerator g1
                 = new StandardXYSeriesLabelGenerator("Series {0}");
-        StandardXYSeriesLabelGenerator g2 = (StandardXYSeriesLabelGenerator) 
+        StandardXYSeriesLabelGenerator g2 = (StandardXYSeriesLabelGenerator)
                 g1.clone();
         assertTrue(g1 != g2);
         assertTrue(g1.getClass() == g2.getClass());
@@ -133,7 +130,7 @@ public class StandardXYSeriesLabelGeneratorTest {
     public void testSerialization() {
         StandardXYSeriesLabelGenerator g1
                 = new StandardXYSeriesLabelGenerator("Series {0}");
-        StandardXYSeriesLabelGenerator g2 = (StandardXYSeriesLabelGenerator) 
+        StandardXYSeriesLabelGenerator g2 = (StandardXYSeriesLabelGenerator)
                 TestUtilities.serialised(g1);
         assertEquals(g1, g2);
     }

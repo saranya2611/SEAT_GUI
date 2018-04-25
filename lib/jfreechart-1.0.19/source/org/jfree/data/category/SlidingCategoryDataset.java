@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -41,13 +41,13 @@
 
 package org.jfree.data.category;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.jfree.data.UnknownKeyException;
 import org.jfree.data.general.AbstractDataset;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.util.PublicCloneable;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A {@link CategoryDataset} implementation that presents a subset of the
@@ -60,26 +60,32 @@ import org.jfree.util.PublicCloneable;
 public class SlidingCategoryDataset extends AbstractDataset
         implements CategoryDataset {
 
-    /** The underlying dataset. */
+    /**
+     * The underlying dataset.
+     */
     private CategoryDataset underlying;
 
-    /** The index of the first category to present. */
+    /**
+     * The index of the first category to present.
+     */
     private int firstCategoryIndex;
 
-    /** The maximum number of categories to present. */
+    /**
+     * The maximum number of categories to present.
+     */
     private int maximumCategoryCount;
 
     /**
      * Creates a new instance.
      *
      * @param underlying  the underlying dataset (<code>null</code> not
-     *     permitted).
-     * @param firstColumn  the index of the first visible column from the
-     *     underlying dataset.
+     *                    permitted).
+     * @param firstColumn the index of the first visible column from the
+     *                    underlying dataset.
      * @param maxColumns  the maximumColumnCount.
      */
     public SlidingCategoryDataset(CategoryDataset underlying, int firstColumn,
-            int maxColumns) {
+                                  int maxColumns) {
         this.underlying = underlying;
         this.firstCategoryIndex = firstColumn;
         this.maximumCategoryCount = maxColumns;
@@ -98,7 +104,6 @@ public class SlidingCategoryDataset extends AbstractDataset
      * Returns the index of the first visible category.
      *
      * @return The index.
-     *
      * @see #setFirstCategoryIndex(int)
      */
     public int getFirstCategoryIndex() {
@@ -110,8 +115,7 @@ public class SlidingCategoryDataset extends AbstractDataset
      * underlying dataset, and sends a {@link DatasetChangeEvent} to all
      * registered listeners.
      *
-     * @param first  the index.
-     *
+     * @param first the index.
      * @see #getFirstCategoryIndex()
      */
     public void setFirstCategoryIndex(int first) {
@@ -126,7 +130,6 @@ public class SlidingCategoryDataset extends AbstractDataset
      * Returns the maximum category count.
      *
      * @return The maximum category count.
-     *
      * @see #setMaximumCategoryCount(int)
      */
     public int getMaximumCategoryCount() {
@@ -137,8 +140,7 @@ public class SlidingCategoryDataset extends AbstractDataset
      * Sets the maximum category count and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param max  the maximum.
-     *
+     * @param max the maximum.
      * @see #getMaximumCategoryCount()
      */
     public void setMaximumCategoryCount(int max) {
@@ -165,8 +167,7 @@ public class SlidingCategoryDataset extends AbstractDataset
     /**
      * Returns the index for the specified column key.
      *
-     * @param key  the key.
-     *
+     * @param key the key.
      * @return The column index, or -1 if the key is not recognised.
      */
     @Override
@@ -181,10 +182,8 @@ public class SlidingCategoryDataset extends AbstractDataset
     /**
      * Returns the column key for a given index.
      *
-     * @param column  the column index (zero-based).
-     *
+     * @param column the column index (zero-based).
      * @return The column key.
-     *
      * @throws IndexOutOfBoundsException if <code>row</code> is out of bounds.
      */
     @Override
@@ -196,7 +195,6 @@ public class SlidingCategoryDataset extends AbstractDataset
      * Returns the column keys.
      *
      * @return The keys.
-     *
      * @see #getColumnKey(int)
      */
     @Override
@@ -212,8 +210,7 @@ public class SlidingCategoryDataset extends AbstractDataset
     /**
      * Returns the row index for a given key.
      *
-     * @param key  the row key.
-     *
+     * @param key the row key.
      * @return The row index, or <code>-1</code> if the key is unrecognised.
      */
     @Override
@@ -224,10 +221,8 @@ public class SlidingCategoryDataset extends AbstractDataset
     /**
      * Returns the row key for a given index.
      *
-     * @param row  the row index (zero-based).
-     *
+     * @param row the row index (zero-based).
      * @return The row key.
-     *
      * @throws IndexOutOfBoundsException if <code>row</code> is out of bounds.
      */
     @Override
@@ -248,11 +243,9 @@ public class SlidingCategoryDataset extends AbstractDataset
     /**
      * Returns the value for a pair of keys.
      *
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @return The value (possibly <code>null</code>).
-     *
      * @throws UnknownKeyException if either key is not defined in the dataset.
      */
     @Override
@@ -261,8 +254,7 @@ public class SlidingCategoryDataset extends AbstractDataset
         int c = getColumnIndex(columnKey);
         if (c != -1) {
             return this.underlying.getValue(r, c + this.firstCategoryIndex);
-        }
-        else {
+        } else {
             throw new UnknownKeyException("Unknown columnKey: " + columnKey);
         }
     }
@@ -277,8 +269,7 @@ public class SlidingCategoryDataset extends AbstractDataset
         int last = lastCategoryIndex();
         if (last == -1) {
             return 0;
-        }
-        else {
+        } else {
             return Math.max(last - this.firstCategoryIndex + 1, 0);
         }
     }
@@ -296,9 +287,8 @@ public class SlidingCategoryDataset extends AbstractDataset
     /**
      * Returns a value from the table.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The value (possibly <code>null</code>).
      */
     @Override
@@ -310,8 +300,7 @@ public class SlidingCategoryDataset extends AbstractDataset
      * Tests this <code>SlidingCategoryDataset</code> for equality with an
      * arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -345,9 +334,8 @@ public class SlidingCategoryDataset extends AbstractDataset
      * </ul>
      *
      * @return An independent copy of the dataset.
-     *
      * @throws CloneNotSupportedException if the dataset cannot be cloned for
-     *         any reason.
+     *                                    any reason.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

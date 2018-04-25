@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -56,9 +56,8 @@ public interface StatisticalCategoryDataset extends CategoryDataset {
     /**
      * Returns the mean value for an item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The mean value (possibly <code>null</code>).
      */
     public Number getMeanValue(int row, int column);
@@ -66,9 +65,8 @@ public interface StatisticalCategoryDataset extends CategoryDataset {
     /**
      * Returns the mean value for an item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the columnKey.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the columnKey.
      * @return The mean value (possibly <code>null</code>).
      */
     public Number getMeanValue(Comparable rowKey, Comparable columnKey);
@@ -76,9 +74,8 @@ public interface StatisticalCategoryDataset extends CategoryDataset {
     /**
      * Returns the standard deviation value for an item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The standard deviation (possibly <code>null</code>).
      */
     public Number getStdDevValue(int row, int column);
@@ -86,9 +83,8 @@ public interface StatisticalCategoryDataset extends CategoryDataset {
     /**
      * Returns the standard deviation value for an item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the columnKey.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the columnKey.
      * @return The standard deviation (possibly <code>null</code>).
      */
     public Number getStdDevValue(Comparable rowKey, Comparable columnKey);

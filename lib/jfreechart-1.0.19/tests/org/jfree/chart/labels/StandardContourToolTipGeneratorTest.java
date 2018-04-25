@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------------------------
@@ -40,10 +40,10 @@
 
 package org.jfree.chart.labels;
 
-import static org.junit.Assert.assertEquals;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for the <code>StandardContourToolTipGenerator</code> class.
@@ -56,8 +56,8 @@ public class StandardContourToolTipGeneratorTest {
     @Test
     public void testSerialization() {
         StandardContourToolTipGenerator g1
-            = new StandardContourToolTipGenerator();
-        StandardContourToolTipGenerator g2 = (StandardContourToolTipGenerator) 
+                = new StandardContourToolTipGenerator();
+        StandardContourToolTipGenerator g2 = (StandardContourToolTipGenerator)
                 TestUtilities.serialised(g1);
         assertEquals(g1, g2);
     }

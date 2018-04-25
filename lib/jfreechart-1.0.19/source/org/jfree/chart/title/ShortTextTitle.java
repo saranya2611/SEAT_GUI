@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -40,10 +40,6 @@
 
 package org.jfree.chart.title;
 
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.chart.block.LengthConstraintType;
 import org.jfree.chart.block.RectangleConstraint;
 import org.jfree.data.Range;
@@ -51,21 +47,23 @@ import org.jfree.text.TextUtilities;
 import org.jfree.ui.Size2D;
 import org.jfree.ui.TextAnchor;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
 /**
  * A text title that is only displayed if the entire text will be visible
  * without line wrapping.  It is only intended for use with short titles - for
  * general purpose titles, you should use the {@link TextTitle} class.
  *
- * @since 1.0.10
- *
  * @see TextTitle
+ * @since 1.0.10
  */
 public class ShortTextTitle extends TextTitle {
 
     /**
      * Creates a new title.
      *
-     * @param text  the text (<code>null</code> not permitted).
+     * @param text the text (<code>null</code> not permitted).
      */
     public ShortTextTitle(String text) {
         setText(text);
@@ -77,9 +75,8 @@ public class ShortTextTitle extends TextTitle {
      * cannot be displayed in the available space, this method will return
      * zero width and height for the dimensions).
      *
-     * @param g2  the graphics target.
-     * @param constraint  the layout constraints.
-     *
+     * @param g2         the graphics target.
+     * @param constraint the layout constraints.
      * @return The dimensions for the title.
      */
     @Override
@@ -91,42 +88,33 @@ public class ShortTextTitle extends TextTitle {
         if (w == LengthConstraintType.NONE) {
             if (h == LengthConstraintType.NONE) {
                 contentSize = arrangeNN(g2);
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
+                throw new RuntimeException("Not yet implemented.");
+            } else if (h == LengthConstraintType.FIXED) {
                 throw new RuntimeException("Not yet implemented.");
             }
-            else if (h == LengthConstraintType.FIXED) {
-                throw new RuntimeException("Not yet implemented.");
-            }
-        }
-        else if (w == LengthConstraintType.RANGE) {
+        } else if (w == LengthConstraintType.RANGE) {
             if (h == LengthConstraintType.NONE) {
                 contentSize = arrangeRN(g2, cc.getWidthRange());
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
                 contentSize = arrangeRR(g2, cc.getWidthRange(),
                         cc.getHeightRange());
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
                 throw new RuntimeException("Not yet implemented.");
             }
-        }
-        else if (w == LengthConstraintType.FIXED) {
+        } else if (w == LengthConstraintType.FIXED) {
             if (h == LengthConstraintType.NONE) {
                 contentSize = arrangeFN(g2, cc.getWidth());
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
                 throw new RuntimeException("Not yet implemented.");
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
                 throw new RuntimeException("Not yet implemented.");
             }
         }
         assert contentSize != null;
         if (contentSize.width <= 0.0 || contentSize.height <= 0.0) {
             return new Size2D(0.0, 0.0);
-        }
-        else {
+        } else {
             return new Size2D(calculateTotalWidth(contentSize.getWidth()),
                     calculateTotalHeight(contentSize.getHeight()));
         }
@@ -136,8 +124,7 @@ public class ShortTextTitle extends TextTitle {
      * Arranges the content for this title assuming no bounds on the width
      * or the height, and returns the required size.
      *
-     * @param g2  the graphics target.
-     *
+     * @param g2 the graphics target.
      * @return The content size.
      */
     @Override
@@ -150,9 +137,8 @@ public class ShortTextTitle extends TextTitle {
      * Arranges the content for this title assuming a range constraint for the
      * width and no bounds on the height, and returns the required size.
      *
-     * @param g2  the graphics target.
-     * @param widthRange  the range for the width.
-     *
+     * @param g2         the graphics target.
+     * @param widthRange the range for the width.
      * @return The content size.
      */
     @Override
@@ -171,9 +157,8 @@ public class ShortTextTitle extends TextTitle {
      * fact that a text title positioned on the left or right of a chart will
      * be rotated by 90 degrees.
      *
-     * @param g2  the graphics target.
+     * @param g2 the graphics target.
      * @param w  the width.
-     *
      * @return The content size.
      */
     @Override
@@ -183,8 +168,7 @@ public class ShortTextTitle extends TextTitle {
         Rectangle2D bounds = TextUtilities.getTextBounds(getText(), g2, fm);
         if (bounds.getWidth() <= w) {
             return new Size2D(w, bounds.getHeight());
-        }
-        else {
+        } else {
             return new Size2D(0.0, 0.0);
         }
     }
@@ -192,15 +176,14 @@ public class ShortTextTitle extends TextTitle {
     /**
      * Returns the content size for the title.
      *
-     * @param g2  the graphics device.
+     * @param g2          the graphics device.
      * @param widthRange  the width range.
-     * @param heightRange  the height range.
-     *
+     * @param heightRange the height range.
      * @return The content size.
      */
     @Override
     protected Size2D arrangeRR(Graphics2D g2, Range widthRange,
-            Range heightRange) {
+                               Range heightRange) {
 
         g2.setFont(getFont());
         FontMetrics fm = g2.getFontMetrics(getFont());
@@ -208,8 +191,7 @@ public class ShortTextTitle extends TextTitle {
         if (bounds.getWidth() <= widthRange.getUpperBound()
                 && bounds.getHeight() <= heightRange.getUpperBound()) {
             return new Size2D(bounds.getWidth(), bounds.getHeight());
-        }
-        else {
+        } else {
             return new Size2D(0.0, 0.0);
         }
     }
@@ -217,10 +199,9 @@ public class ShortTextTitle extends TextTitle {
     /**
      * Draws the title using the current font and paint.
      *
-     * @param g2  the graphics target.
-     * @param area  the title area.
-     * @param params  optional parameters (ignored here).
-     *
+     * @param g2     the graphics target.
+     * @param area   the title area.
+     * @param params optional parameters (ignored here).
      * @return <code>null</code>.
      */
     @Override

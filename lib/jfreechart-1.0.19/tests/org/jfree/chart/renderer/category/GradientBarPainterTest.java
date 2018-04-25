@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -40,14 +40,11 @@
 
 package org.jfree.chart.renderer.category;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link GradientBarPainter} class.
@@ -82,7 +79,7 @@ public class GradientBarPainterTest {
     /**
      * Two objects that are equal are required to return the same hashCode.
      */
-    @Test 
+    @Test
     public void testHashcode() {
         GradientBarPainter p1 = new GradientBarPainter(0.1, 0.2, 0.3);
         GradientBarPainter p2 = new GradientBarPainter(0.1, 0.2, 0.3);

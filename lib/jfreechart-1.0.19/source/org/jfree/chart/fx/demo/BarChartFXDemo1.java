@@ -1,7 +1,7 @@
 /* ====================
  * BarChartFXDemo1.java
  * ====================
- * 
+ *
  * Copyright (c) 2014, Object Refinery Limited.
  * All rights reserved.
  *
@@ -18,9 +18,9 @@
  *     names of its contributors may be used to endorse or promote products
  *     derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL OBJECT REFINERY LIMITED BE LIABLE FOR ANY
  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
@@ -28,14 +28,11 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * 
+ *
  */
 
 package org.jfree.chart.fx.demo;
 
-import static javafx.application.Application.launch;
-
-import java.awt.Color;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -51,6 +48,8 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+
+import java.awt.*;
 
 /**
  * A demo showing the display of JFreeChart within a JavaFX application.
@@ -72,19 +71,18 @@ public class BarChartFXDemo1 extends Application implements ChartMouseListenerFX
         dataset.addValue(21022, "Batik", "Test");
         return dataset;
     }
-    
+
     /**
      * Creates a sample chart.
      *
-     * @param dataset  the dataset.
-     *
+     * @param dataset the dataset.
      * @return The chart.
      */
     private static JFreeChart createChart(CategoryDataset dataset) {
         JFreeChart chart = ChartFactory.createBarChart(
-            "Performance: JFreeSVG vs Batik", null /* x-axis label*/, 
+                "Performance: JFreeSVG vs Batik", null /* x-axis label*/,
                 "Milliseconds" /* y-axis label */, dataset);
-        chart.addSubtitle(new TextTitle("Time to generate 1000 charts in SVG " 
+        chart.addSubtitle(new TextTitle("Time to generate 1000 charts in SVG "
                 + "format (lower bars = better performance)"));
         chart.setBackgroundPaint(Color.white);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
@@ -98,27 +96,8 @@ public class BarChartFXDemo1 extends Application implements ChartMouseListenerFX
     }
 
     /**
-     * Adds a chart viewer to the stage and displays it.
-     * 
-     * @param stage  the stage.
-     * @throws Exception if something goes wrong.
-     */
-    @Override 
-    public void start(Stage stage) throws Exception {
-        CategoryDataset dataset = createDataset();
-        JFreeChart chart = createChart(dataset); 
-        ChartViewer viewer = new ChartViewer(chart);
-        viewer.addChartMouseListener(this);
-        stage.setScene(new Scene(viewer)); 
-        stage.setTitle("JFreeChart: BarChartFXDemo1.java"); 
-        stage.setWidth(700);
-        stage.setHeight(390);
-        stage.show(); 
-    }
-    
-    /**
      * Entry point.
-     * 
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -126,9 +105,28 @@ public class BarChartFXDemo1 extends Application implements ChartMouseListenerFX
     }
 
     /**
+     * Adds a chart viewer to the stage and displays it.
+     *
+     * @param stage the stage.
+     * @throws Exception if something goes wrong.
+     */
+    @Override
+    public void start(Stage stage) throws Exception {
+        CategoryDataset dataset = createDataset();
+        JFreeChart chart = createChart(dataset);
+        ChartViewer viewer = new ChartViewer(chart);
+        viewer.addChartMouseListener(this);
+        stage.setScene(new Scene(viewer));
+        stage.setTitle("JFreeChart: BarChartFXDemo1.java");
+        stage.setWidth(700);
+        stage.setHeight(390);
+        stage.show();
+    }
+
+    /**
      * Write the event to the console, just to illustrate.
-     * 
-     * @param event  event info. 
+     *
+     * @param event event info.
      */
     @Override
     public void chartMouseClicked(ChartMouseEventFX event) {
@@ -137,12 +135,12 @@ public class BarChartFXDemo1 extends Application implements ChartMouseListenerFX
 
     /**
      * Write the event to the console, just to illustrate.
-     * 
-     * @param event  event info. 
+     *
+     * @param event event info.
      */
     @Override
     public void chartMouseMoved(ChartMouseEventFX event) {
         System.out.println(event);
     }
-  
+
 }

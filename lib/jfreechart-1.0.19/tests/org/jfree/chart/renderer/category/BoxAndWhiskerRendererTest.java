@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------
@@ -48,21 +48,6 @@
 
 package org.jfree.chart.renderer.category;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.LegendItem;
@@ -76,6 +61,14 @@ import org.jfree.data.statistics.BoxAndWhiskerItem;
 import org.jfree.data.statistics.DefaultBoxAndWhiskerCategoryDataset;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link BoxAndWhiskerRenderer} class.
@@ -164,7 +157,7 @@ public class BoxAndWhiskerRendererTest {
     @Test
     public void testSerialization() {
         BoxAndWhiskerRenderer r1 = new BoxAndWhiskerRenderer();
-        BoxAndWhiskerRenderer r2 = (BoxAndWhiskerRenderer) 
+        BoxAndWhiskerRenderer r2 = (BoxAndWhiskerRenderer)
                 TestUtilities.serialised(r1);
         assertEquals(r1, r2);
     }
@@ -177,7 +170,7 @@ public class BoxAndWhiskerRendererTest {
     public void testDrawWithNullInfo() {
         try {
             DefaultBoxAndWhiskerCategoryDataset dataset
-                = new DefaultBoxAndWhiskerCategoryDataset();
+                    = new DefaultBoxAndWhiskerCategoryDataset();
             dataset.add(new BoxAndWhiskerItem(new Double(1.0), new Double(2.0),
                     new Double(0.0), new Double(4.0), new Double(0.5),
                     new Double(4.5), new Double(-0.5), new Double(5.5),
@@ -186,10 +179,10 @@ public class BoxAndWhiskerRendererTest {
                     new CategoryAxis("Category"), new NumberAxis("Value"),
                     new BoxAndWhiskerRenderer());
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             fail("No exception should be thrown.");
         }
     }
@@ -223,15 +216,14 @@ public class BoxAndWhiskerRendererTest {
         boolean success;
 
         try {
-            BufferedImage image = new BufferedImage(200 , 100,
+            BufferedImage image = new BufferedImage(200, 100,
                     BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = image.createGraphics();
             chart.draw(g2, new Rectangle2D.Double(0, 0, 200, 100), null,
                     new ChartRenderingInfo());
             g2.dispose();
             success = true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             success = false;
         }
 
@@ -269,15 +261,14 @@ public class BoxAndWhiskerRendererTest {
         boolean success;
 
         try {
-            BufferedImage image = new BufferedImage(200 , 100,
+            BufferedImage image = new BufferedImage(200, 100,
                     BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = image.createGraphics();
             chart.draw(g2, new Rectangle2D.Double(0, 0, 200, 100), null,
                     new ChartRenderingInfo());
             g2.dispose();
             success = true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             success = false;
         }
 
@@ -301,7 +292,8 @@ public class BoxAndWhiskerRendererTest {
         BoxAndWhiskerRenderer r = new BoxAndWhiskerRenderer();
         CategoryPlot plot = new CategoryPlot(dataset, new CategoryAxis("x"),
                 new NumberAxis("y"), r);
-        /*JFreeChart chart =*/ new JFreeChart(plot);
+        /*JFreeChart chart =*/
+        new JFreeChart(plot);
         LegendItem li = r.getLegendItem(0, 0);
         assertNotNull(li);
         r.setSeriesVisibleInLegend(0, Boolean.FALSE);
@@ -326,7 +318,8 @@ public class BoxAndWhiskerRendererTest {
         CategoryPlot plot = new CategoryPlot(dataset0, new CategoryAxis("x"),
                 new NumberAxis("y"), r);
         plot.setDataset(1, dataset1);
-        /*JFreeChart chart =*/ new JFreeChart(plot);
+        /*JFreeChart chart =*/
+        new JFreeChart(plot);
         LegendItem li = r.getLegendItem(1, 2);
         assertEquals("R5", li.getLabel());
         assertEquals(1, li.getDatasetIndex());
@@ -351,11 +344,11 @@ public class BoxAndWhiskerRendererTest {
                     new BoxAndWhiskerRenderer());
             ChartRenderingInfo info = new ChartRenderingInfo();
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     info);
             success = true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             success = false;
         }
         assertTrue(success);
@@ -379,11 +372,11 @@ public class BoxAndWhiskerRendererTest {
                     new BoxAndWhiskerRenderer());
             ChartRenderingInfo info = new ChartRenderingInfo();
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     info);
             success = true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             success = false;
         }
         assertTrue(success);
@@ -407,11 +400,11 @@ public class BoxAndWhiskerRendererTest {
                     new BoxAndWhiskerRenderer());
             ChartRenderingInfo info = new ChartRenderingInfo();
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     info);
             success = true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             success = false;
         }
         assertTrue(success);
@@ -435,11 +428,11 @@ public class BoxAndWhiskerRendererTest {
                     new BoxAndWhiskerRenderer());
             ChartRenderingInfo info = new ChartRenderingInfo();
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     info);
             success = true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             success = false;
         }
         assertTrue(success);
@@ -463,11 +456,11 @@ public class BoxAndWhiskerRendererTest {
                     new BoxAndWhiskerRenderer());
             ChartRenderingInfo info = new ChartRenderingInfo();
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     info);
             success = true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             success = false;
         }
         assertTrue(success);
@@ -490,10 +483,10 @@ public class BoxAndWhiskerRendererTest {
                     new BoxAndWhiskerRenderer());
             ChartRenderingInfo info = new ChartRenderingInfo();
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     info);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("No exception should be thrown.");
         }
     }
@@ -516,11 +509,11 @@ public class BoxAndWhiskerRendererTest {
                     new BoxAndWhiskerRenderer());
             ChartRenderingInfo info = new ChartRenderingInfo();
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     info);
             success = true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             success = false;
         }
         assertTrue(success);
@@ -544,11 +537,11 @@ public class BoxAndWhiskerRendererTest {
                     new BoxAndWhiskerRenderer());
             ChartRenderingInfo info = new ChartRenderingInfo();
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     info);
             success = true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             success = false;
         }
         assertTrue(success);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -51,7 +51,9 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class CategoryDatasetHandler extends RootHandler implements DatasetTags {
 
-    /** The dataset under construction. */
+    /**
+     * The dataset under construction.
+     */
     private DefaultCategoryDataset dataset;
 
     /**
@@ -73,9 +75,9 @@ public class CategoryDatasetHandler extends RootHandler implements DatasetTags {
     /**
      * Adds an item to the dataset.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     * @param value  the value.
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
+     * @param value     the value.
      */
     public void addItem(Comparable rowKey, Comparable columnKey, Number value) {
         this.dataset.addValue(value, rowKey, columnKey);
@@ -84,11 +86,10 @@ public class CategoryDatasetHandler extends RootHandler implements DatasetTags {
     /**
      * The start of an element.
      *
-     * @param namespaceURI  the namespace.
-     * @param localName  the element name.
-     * @param qName  the element name.
-     * @param atts  the element attributes.
-     *
+     * @param namespaceURI the namespace.
+     * @param localName    the element name.
+     * @param qName        the element name.
+     * @param atts         the element attributes.
      * @throws SAXException for errors.
      */
     @Override
@@ -100,16 +101,13 @@ public class CategoryDatasetHandler extends RootHandler implements DatasetTags {
         DefaultHandler current = getCurrentHandler();
         if (current != this) {
             current.startElement(namespaceURI, localName, qName, atts);
-        }
-        else if (qName.equals(CATEGORYDATASET_TAG)) {
+        } else if (qName.equals(CATEGORYDATASET_TAG)) {
             this.dataset = new DefaultCategoryDataset();
-        }
-        else if (qName.equals(SERIES_TAG)) {
+        } else if (qName.equals(SERIES_TAG)) {
             CategorySeriesHandler subhandler = new CategorySeriesHandler(this);
             getSubHandlers().push(subhandler);
             subhandler.startElement(namespaceURI, localName, qName, atts);
-        }
-        else {
+        } else {
             throw new SAXException("Element not recognised: " + qName);
         }
 
@@ -118,10 +116,9 @@ public class CategoryDatasetHandler extends RootHandler implements DatasetTags {
     /**
      * The end of an element.
      *
-     * @param namespaceURI  the namespace.
-     * @param localName  the element name.
-     * @param qName  the element name.
-     *
+     * @param namespaceURI the namespace.
+     * @param localName    the element name.
+     * @param qName        the element name.
      * @throws SAXException for errors.
      */
     @Override

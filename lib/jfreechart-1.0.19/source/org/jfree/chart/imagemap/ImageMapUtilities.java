@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -51,14 +51,14 @@
 
 package org.jfree.chart.imagemap;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.entity.ChartEntity;
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.util.StringUtils;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Collection of utility methods related to producing image maps.
@@ -69,14 +69,13 @@ public class ImageMapUtilities {
     /**
      * Writes an image map to an output stream.
      *
-     * @param writer  the writer (<code>null</code> not permitted).
-     * @param name  the map name (<code>null</code> not permitted).
-     * @param info  the chart rendering info (<code>null</code> not permitted).
-     *
+     * @param writer the writer (<code>null</code> not permitted).
+     * @param name   the map name (<code>null</code> not permitted).
+     * @param info   the chart rendering info (<code>null</code> not permitted).
      * @throws java.io.IOException if there are any I/O errors.
      */
     public static void writeImageMap(PrintWriter writer, String name,
-            ChartRenderingInfo info) throws IOException {
+                                     ChartRenderingInfo info) throws IOException {
 
         // defer argument checking...
         ImageMapUtilities.writeImageMap(writer, name, info,
@@ -88,24 +87,22 @@ public class ImageMapUtilities {
     /**
      * Writes an image map to an output stream.
      *
-     * @param writer  the writer (<code>null</code> not permitted).
-     * @param name  the map name (<code>null</code> not permitted).
-     * @param info  the chart rendering info (<code>null</code> not permitted).
-     * @param useOverLibForToolTips  whether to use OverLIB for tooltips
-     *                               (http://www.bosrup.com/web/overlib/).
-     *
+     * @param writer                the writer (<code>null</code> not permitted).
+     * @param name                  the map name (<code>null</code> not permitted).
+     * @param info                  the chart rendering info (<code>null</code> not permitted).
+     * @param useOverLibForToolTips whether to use OverLIB for tooltips
+     *                              (http://www.bosrup.com/web/overlib/).
      * @throws java.io.IOException if there are any I/O errors.
      */
     public static void writeImageMap(PrintWriter writer,
-            String name, ChartRenderingInfo info,
-            boolean useOverLibForToolTips) throws IOException {
+                                     String name, ChartRenderingInfo info,
+                                     boolean useOverLibForToolTips) throws IOException {
 
         ToolTipTagFragmentGenerator toolTipTagFragmentGenerator;
         if (useOverLibForToolTips) {
             toolTipTagFragmentGenerator
                     = new OverLIBToolTipTagFragmentGenerator();
-        }
-        else {
+        } else {
             toolTipTagFragmentGenerator
                     = new StandardToolTipTagFragmentGenerator();
         }
@@ -118,23 +115,22 @@ public class ImageMapUtilities {
     /**
      * Writes an image map to an output stream.
      *
-     * @param writer  the writer (<code>null</code> not permitted).
-     * @param name  the map name (<code>null</code> not permitted).
-     * @param info  the chart rendering info (<code>null</code> not permitted).
-     * @param toolTipTagFragmentGenerator  a generator for the HTML fragment
-     *     that will contain the tooltip text (<code>null</code> not permitted
-     *     if <code>info</code> contains tooltip information).
-     * @param urlTagFragmentGenerator  a generator for the HTML fragment that
-     *     will contain the URL reference (<code>null</code> not permitted if
-     *     <code>info</code> contains URLs).
-     *
+     * @param writer                      the writer (<code>null</code> not permitted).
+     * @param name                        the map name (<code>null</code> not permitted).
+     * @param info                        the chart rendering info (<code>null</code> not permitted).
+     * @param toolTipTagFragmentGenerator a generator for the HTML fragment
+     *                                    that will contain the tooltip text (<code>null</code> not permitted
+     *                                    if <code>info</code> contains tooltip information).
+     * @param urlTagFragmentGenerator     a generator for the HTML fragment that
+     *                                    will contain the URL reference (<code>null</code> not permitted if
+     *                                    <code>info</code> contains URLs).
      * @throws java.io.IOException if there are any I/O errors.
      */
     public static void writeImageMap(PrintWriter writer, String name,
-            ChartRenderingInfo info,
-            ToolTipTagFragmentGenerator toolTipTagFragmentGenerator,
-            URLTagFragmentGenerator urlTagFragmentGenerator)
-        throws IOException {
+                                     ChartRenderingInfo info,
+                                     ToolTipTagFragmentGenerator toolTipTagFragmentGenerator,
+                                     URLTagFragmentGenerator urlTagFragmentGenerator)
+            throws IOException {
 
         writer.println(ImageMapUtilities.getImageMap(name, info,
                 toolTipTagFragmentGenerator, urlTagFragmentGenerator));
@@ -144,9 +140,8 @@ public class ImageMapUtilities {
      * Creates an image map element that complies with the XHTML 1.0
      * specification.
      *
-     * @param name  the map name (<code>null</code> not permitted).
-     * @param info  the chart rendering info (<code>null</code> not permitted).
-     *
+     * @param name the map name (<code>null</code> not permitted).
+     * @param info the chart rendering info (<code>null</code> not permitted).
      * @return The map element.
      */
     public static String getImageMap(String name, ChartRenderingInfo info) {
@@ -159,20 +154,19 @@ public class ImageMapUtilities {
      * Creates an image map element that complies with the XHTML 1.0
      * specification.
      *
-     * @param name  the map name (<code>null</code> not permitted).
-     * @param info  the chart rendering info (<code>null</code> not permitted).
-     * @param toolTipTagFragmentGenerator  a generator for the HTML fragment
-     *     that will contain the tooltip text (<code>null</code> not permitted
-     *     if <code>info</code> contains tooltip information).
-     * @param urlTagFragmentGenerator  a generator for the HTML fragment that
-     *     will contain the URL reference (<code>null</code> not permitted if
-     *     <code>info</code> contains URLs).
-     *
+     * @param name                        the map name (<code>null</code> not permitted).
+     * @param info                        the chart rendering info (<code>null</code> not permitted).
+     * @param toolTipTagFragmentGenerator a generator for the HTML fragment
+     *                                    that will contain the tooltip text (<code>null</code> not permitted
+     *                                    if <code>info</code> contains tooltip information).
+     * @param urlTagFragmentGenerator     a generator for the HTML fragment that
+     *                                    will contain the URL reference (<code>null</code> not permitted if
+     *                                    <code>info</code> contains URLs).
      * @return The map tag.
      */
     public static String getImageMap(String name, ChartRenderingInfo info,
-            ToolTipTagFragmentGenerator toolTipTagFragmentGenerator,
-            URLTagFragmentGenerator urlTagFragmentGenerator) {
+                                     ToolTipTagFragmentGenerator toolTipTagFragmentGenerator,
+                                     URLTagFragmentGenerator urlTagFragmentGenerator) {
 
         StringBuilder sb = new StringBuilder();
         sb.append("<map id=\"").append(htmlEscape(name));
@@ -204,10 +198,8 @@ public class ImageMapUtilities {
      * Returns a string that is equivalent to the input string, but with
      * special characters converted to HTML escape sequences.
      *
-     * @param input  the string to escape (<code>null</code> not permitted).
-     *
+     * @param input the string to escape (<code>null</code> not permitted).
      * @return A string with characters escaped.
-     *
      * @since 1.0.9
      */
     public static String htmlEscape(String input) {
@@ -218,23 +210,17 @@ public class ImageMapUtilities {
             char c = input.charAt(i);
             if (c == '&') {
                 result.append("&amp;");
-            }
-            else if (c == '\"') {
+            } else if (c == '\"') {
                 result.append("&quot;");
-            }
-            else if (c == '<') {
+            } else if (c == '<') {
                 result.append("&lt;");
-            }
-            else if (c == '>') {
+            } else if (c == '>') {
                 result.append("&gt;");
-            }
-            else if (c == '\'') {
+            } else if (c == '\'') {
                 result.append("&#39;");
-            }
-            else if (c == '\\') {
+            } else if (c == '\\') {
                 result.append("&#092;");
-            }
-            else {
+            } else {
                 result.append(c);
             }
         }
@@ -245,10 +231,8 @@ public class ImageMapUtilities {
      * Returns a string that is equivalent to the input string, but with
      * special characters converted to JavaScript escape sequences.
      *
-     * @param input  the string to escape (<code>null</code> not permitted).
-     *
+     * @param input the string to escape (<code>null</code> not permitted).
      * @return A string with characters escaped.
-     *
      * @since 1.0.13
      */
     public static String javascriptEscape(String input) {
@@ -259,14 +243,11 @@ public class ImageMapUtilities {
             char c = input.charAt(i);
             if (c == '\"') {
                 result.append("\\\"");
-            }
-            else if (c == '\'') {
+            } else if (c == '\'') {
                 result.append("\\'");
-            }
-            else if (c == '\\') {
+            } else if (c == '\\') {
                 result.append("\\\\");
-            }
-            else {
+            } else {
                 result.append(c);
             }
         }

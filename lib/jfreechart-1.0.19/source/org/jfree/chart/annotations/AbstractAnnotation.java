@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -40,6 +40,10 @@
 
 package org.jfree.chart.annotations;
 
+import org.jfree.chart.event.AnnotationChangeEvent;
+import org.jfree.chart.event.AnnotationChangeListener;
+
+import javax.swing.event.EventListenerList;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -47,11 +51,6 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.EventListener;
 import java.util.List;
-
-import javax.swing.event.EventListenerList;
-
-import org.jfree.chart.event.AnnotationChangeEvent;
-import org.jfree.chart.event.AnnotationChangeListener;
 
 /**
  * An abstract implementation of the {@link Annotation} interface, containing a
@@ -62,7 +61,9 @@ import org.jfree.chart.event.AnnotationChangeListener;
 public abstract class AbstractAnnotation implements Annotation, Cloneable,
         Serializable {
 
-    /** Storage for registered change listeners. */
+    /**
+     * Storage for registered change listeners.
+     */
     private transient EventListenerList listenerList;
 
     /**
@@ -82,8 +83,7 @@ public abstract class AbstractAnnotation implements Annotation, Cloneable,
      * Registers an object to receive notification of changes to the
      * annotation.
      *
-     * @param listener  the object to register.
-     *
+     * @param listener the object to register.
      * @see #removeChangeListener(AnnotationChangeListener)
      */
     @Override
@@ -95,8 +95,7 @@ public abstract class AbstractAnnotation implements Annotation, Cloneable,
      * Deregisters an object so that it no longer receives notification of
      * changes to the annotation.
      *
-     * @param listener  the object to deregister.
-     *
+     * @param listener the object to deregister.
      * @see #addChangeListener(AnnotationChangeListener)
      */
     @Override
@@ -109,10 +108,8 @@ public abstract class AbstractAnnotation implements Annotation, Cloneable,
      * the annotation as a listener.  Most applications won't need to call this
      * method, it exists mainly for use by unit testing code.
      *
-     * @param listener  the listener.
-     *
+     * @param listener the listener.
      * @return A boolean.
-     *
      * @see #addChangeListener(AnnotationChangeListener)
      * @see #removeChangeListener(AnnotationChangeListener)
      */
@@ -135,9 +132,8 @@ public abstract class AbstractAnnotation implements Annotation, Cloneable,
     /**
      * Notifies all registered listeners that the annotation has changed.
      *
-     * @param event  contains information about the event that triggered the
-     *               notification.
-     *
+     * @param event contains information about the event that triggered the
+     *              notification.
      * @see #addChangeListener(AnnotationChangeListener)
      * @see #removeChangeListener(AnnotationChangeListener)
      */
@@ -154,14 +150,13 @@ public abstract class AbstractAnnotation implements Annotation, Cloneable,
     }
 
     /**
-     * Returns a flag that indicates whether listeners should be 
+     * Returns a flag that indicates whether listeners should be
      * notified about changes to the annotation.
      *
-     * @return  the flag.
-     *
+     * @return the flag.
      * @see #setNotify(boolean)
      */
-    public boolean getNotify(){
+    public boolean getNotify() {
         return this.notify;
     }
 
@@ -169,11 +164,10 @@ public abstract class AbstractAnnotation implements Annotation, Cloneable,
      * Sets a flag that indicates whether listeners should be notified about
      * changes of an annotation.
      *
-     * @param flag  the flag
-     *
+     * @param flag the flag
      * @see #getNotify()
      */
-    public void setNotify(boolean flag){
+    public void setNotify(boolean flag) {
         this.notify = flag;
         if (notify) {
             fireAnnotationChanged();
@@ -181,14 +175,13 @@ public abstract class AbstractAnnotation implements Annotation, Cloneable,
     }
 
     /**
-     * Returns a clone of the annotation. The cloned annotation will NOT 
+     * Returns a clone of the annotation. The cloned annotation will NOT
      * include the {@link AnnotationChangeListener} references that have been
      * registered with this annotation.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the annotation does not support
-     *                                     cloning.
+     * @throws CloneNotSupportedException if the annotation does not support
+     *                                    cloning.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -200,8 +193,7 @@ public abstract class AbstractAnnotation implements Annotation, Cloneable,
     /**
      * Handles serialization.
      *
-     * @param stream  the output stream.
-     *
+     * @param stream the output stream.
      * @throws IOException if there is an I/O problem.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
@@ -211,13 +203,12 @@ public abstract class AbstractAnnotation implements Annotation, Cloneable,
     /**
      * Restores a serialized object.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException if there is an I/O problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O problem.
      * @throws ClassNotFoundException if there is a problem loading a class.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.listenerList = new EventListenerList();
     }

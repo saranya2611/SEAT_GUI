@@ -15,6 +15,12 @@ import java.io.File;
 import java.io.IOException;
 
 public class analyzeAllotmentsWizard4 extends JFrame {
+    public String outputDirectory;
+    public JButton checkButton;
+    public String chosenDirectoryName, aggregatedStatisticsFileName, batchwiseAllotmentStatisticsFileName, allotmentsFileName, allotedMandatedElectiveDetailsFileName;
+    public String errorMsg;
+    public int lineNo;
+    File aggregatedStatisticsFile, batchwiseAllotmentStatisticsFile, allotmentsFile, allotedMandatedElectiveDetailsFile;
     private JLabel titleFieldAnalysisWizard4;
     private JLabel jLabelAnalysisWizard4;
     private JLabel outputDirectoryLabelWizard4;
@@ -26,43 +32,6 @@ public class analyzeAllotmentsWizard4 extends JFrame {
     private JButton getStudentStatisticsButtonWizard4;
     private JPanel jPanelAnalyseWizard4;
     private JButton prevButtonWizard4;
-
-    public String outputDirectory;
-    public JButton checkButton;
-
-    public String chosenDirectoryName, aggregatedStatisticsFileName, batchwiseAllotmentStatisticsFileName, allotmentsFileName, allotedMandatedElectiveDetailsFileName;
-    public String errorMsg;
-    public int lineNo;
-
-    File aggregatedStatisticsFile, batchwiseAllotmentStatisticsFile, allotmentsFile, allotedMandatedElectiveDetailsFile;
-
-    public void enableFileDirectoryExistenceCheckButton(JButton currentCheckButton, File file1) {
-        if (file1.exists()) {
-            checkButton = currentCheckButton;
-            checkButton.setVisible(true);
-            try {
-                Image img = ImageIO.read(getClass().getResource("greenYes.png"));
-                checkButton.setIcon(new ImageIcon(img));
-                getAllotmentStatisticsButtonWizard4.setEnabled(true);
-                getStudentStatisticsButtonWizard4.setEnabled(true);
-                getCourseStatisticsButtonWizard4.setEnabled(true);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            checkButton.setVisible(true);
-            try {
-                Image img = ImageIO.read(getClass().getResource("redCross.png"));
-                checkButton.setIcon(new ImageIcon(img));
-                getAllotmentStatisticsButtonWizard4.setEnabled(false);
-                getStudentStatisticsButtonWizard4.setEnabled(false);
-                getCourseStatisticsButtonWizard4.setEnabled(false);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 
     public analyzeAllotmentsWizard4() {
         super();
@@ -168,6 +137,33 @@ public class analyzeAllotmentsWizard4 extends JFrame {
                 dispose();
             }
         });
+    }
+
+    public void enableFileDirectoryExistenceCheckButton(JButton currentCheckButton, File file1) {
+        if (file1.exists()) {
+            checkButton = currentCheckButton;
+            checkButton.setVisible(true);
+            try {
+                Image img = ImageIO.read(getClass().getResource("greenYes.png"));
+                checkButton.setIcon(new ImageIcon(img));
+                getAllotmentStatisticsButtonWizard4.setEnabled(true);
+                getStudentStatisticsButtonWizard4.setEnabled(true);
+                getCourseStatisticsButtonWizard4.setEnabled(true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            checkButton.setVisible(true);
+            try {
+                Image img = ImageIO.read(getClass().getResource("redCross.png"));
+                checkButton.setIcon(new ImageIcon(img));
+                getAllotmentStatisticsButtonWizard4.setEnabled(false);
+                getStudentStatisticsButtonWizard4.setEnabled(false);
+                getCourseStatisticsButtonWizard4.setEnabled(false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

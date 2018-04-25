@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -51,23 +51,29 @@ import org.jfree.util.ObjectUtilities;
  */
 public class CategoryTick extends Tick {
 
-    /** The category. */
+    /**
+     * The category.
+     */
     private Comparable category;
 
-    /** The label. */
+    /**
+     * The label.
+     */
     private TextBlock label;
 
-    /** The label anchor. */
+    /**
+     * The label anchor.
+     */
     private TextBlockAnchor labelAnchor;
 
     /**
      * Creates a new tick.
      *
-     * @param category  the category.
-     * @param label  the label.
-     * @param labelAnchor  the label anchor.
-     * @param rotationAnchor  the rotation anchor.
-     * @param angle  the rotation angle (in radians).
+     * @param category       the category.
+     * @param label          the label.
+     * @param labelAnchor    the label anchor.
+     * @param rotationAnchor the rotation anchor.
+     * @param angle          the rotation angle (in radians).
      */
     public CategoryTick(Comparable category,
                         TextBlock label,
@@ -112,8 +118,7 @@ public class CategoryTick extends Tick {
     /**
      * Tests this category tick for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -131,7 +136,7 @@ public class CategoryTick extends Tick {
             }
             if (!ObjectUtilities.equal(this.labelAnchor, that.labelAnchor)) {
                 return false;
-           }
+            }
             return true;
         }
         return false;

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -62,18 +62,18 @@
 
 package org.jfree.data.statistics;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.xy.AbstractIntervalXYDataset;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A dataset that can be used for creating histograms.
@@ -82,15 +82,21 @@ import org.jfree.util.PublicCloneable;
  */
 public class HistogramDataset extends AbstractIntervalXYDataset
         implements IntervalXYDataset, Cloneable, PublicCloneable,
-                   Serializable {
+        Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -6341668077370231153L;
 
-    /** A list of maps. */
+    /**
+     * A list of maps.
+     */
     private List list;
 
-    /** The histogram type. */
+    /**
+     * The histogram type.
+     */
     private HistogramType type;
 
     /**
@@ -115,7 +121,7 @@ public class HistogramDataset extends AbstractIntervalXYDataset
      * Sets the histogram type and sends a {@link DatasetChangeEvent} to all
      * registered listeners.
      *
-     * @param type  the type (<code>null</code> not permitted).
+     * @param type the type (<code>null</code> not permitted).
      */
     public void setType(HistogramType type) {
         ParamChecks.nullNotPermitted(type, "type");
@@ -127,9 +133,9 @@ public class HistogramDataset extends AbstractIntervalXYDataset
      * Adds a series to the dataset, using the specified number of bins,
      * and sends a {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param key  the series key (<code>null</code> not permitted).
+     * @param key    the series key (<code>null</code> not permitted).
      * @param values the values (<code>null</code> not permitted).
-     * @param bins  the number of bins (must be at least 1).
+     * @param bins   the number of bins (must be at least 1).
      */
     public void addSeries(Comparable key, double[] values, int bins) {
         // defer argument checking...
@@ -144,14 +150,14 @@ public class HistogramDataset extends AbstractIntervalXYDataset
      * be assigned to the last bin.  Values falling on the boundary of
      * adjacent bins will be assigned to the higher indexed bin.
      *
-     * @param key  the series key (<code>null</code> not permitted).
+     * @param key     the series key (<code>null</code> not permitted).
      * @param values  the raw observations.
-     * @param bins  the number of bins (must be at least 1).
-     * @param minimum  the lower bound of the bin range.
-     * @param maximum  the upper bound of the bin range.
+     * @param bins    the number of bins (must be at least 1).
+     * @param minimum the lower bound of the bin range.
+     * @param maximum the upper bound of the bin range.
      */
     public void addSeries(Comparable key, double[] values, int bins,
-            double minimum, double maximum) {
+                          double minimum, double maximum) {
 
         ParamChecks.nullNotPermitted(key, "key");
         ParamChecks.nullNotPermitted(values, "values");
@@ -171,8 +177,7 @@ public class HistogramDataset extends AbstractIntervalXYDataset
             // guaranteed start from min
             if (i == bins - 1) {
                 bin = new HistogramBin(lower, maximum);
-            }
-            else {
+            } else {
                 upper = minimum + (i + 1) * binWidth;
                 bin = new HistogramBin(lower, upper);
                 lower = upper;
@@ -211,9 +216,8 @@ public class HistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the minimum value in an array of values.
      *
-     * @param values  the values (<code>null</code> not permitted and
-     *                zero-length array not permitted).
-     *
+     * @param values the values (<code>null</code> not permitted and
+     *               zero-length array not permitted).
      * @return The minimum value.
      */
     private double getMinimum(double[] values) {
@@ -233,9 +237,8 @@ public class HistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the maximum value in an array of values.
      *
-     * @param values  the values (<code>null</code> not permitted and
-     *                zero-length array not permitted).
-     *
+     * @param values the values (<code>null</code> not permitted and
+     *               zero-length array not permitted).
      * @return The maximum value.
      */
     private double getMaximum(double[] values) {
@@ -255,13 +258,11 @@ public class HistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the bins for a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
      * @return A list of bins.
-     *
      * @throws IndexOutOfBoundsException if <code>series</code> is outside the
-     *     specified range.
+     *                                   specified range.
      */
     List getBins(int series) {
         Map map = (Map) this.list.get(series);
@@ -271,8 +272,7 @@ public class HistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the total number of observations for a series.
      *
-     * @param series  the series index.
-     *
+     * @param series the series index.
      * @return The total.
      */
     private int getTotal(int series) {
@@ -283,8 +283,7 @@ public class HistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the bin width for a series.
      *
-     * @param series  the series index (zero based).
-     *
+     * @param series the series index (zero based).
      * @return The bin width.
      */
     private double getBinWidth(int series) {
@@ -305,13 +304,11 @@ public class HistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the key for a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
      * @return The series key.
-     *
      * @throws IndexOutOfBoundsException if <code>series</code> is outside the
-     *     specified range.
+     *                                   specified range.
      */
     @Override
     public Comparable getSeriesKey(int series) {
@@ -322,13 +319,11 @@ public class HistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the number of data items for a series.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
      * @return The item count.
-     *
      * @throws IndexOutOfBoundsException if <code>series</code> is outside the
-     *     specified range.
+     *                                   specified range.
      */
     @Override
     public int getItemCount(int series) {
@@ -341,14 +336,12 @@ public class HistogramDataset extends AbstractIntervalXYDataset
      * use it (for example, you could use the dataset to create a line
      * chart).
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (zero based).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (zero based).
      * @return The start value.
-     *
      * @throws IndexOutOfBoundsException if <code>series</code> is outside the
-     *     specified range.
+     *                                   specified range.
      */
     @Override
     public Number getX(int series, int item) {
@@ -362,14 +355,12 @@ public class HistogramDataset extends AbstractIntervalXYDataset
      * Returns the y-value for a bin (calculated to take into account the
      * histogram type).
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (zero based).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (zero based).
      * @return The y-value.
-     *
      * @throws IndexOutOfBoundsException if <code>series</code> is outside the
-     *     specified range.
+     *                                   specified range.
      */
     @Override
     public Number getY(int series, int item) {
@@ -380,14 +371,11 @@ public class HistogramDataset extends AbstractIntervalXYDataset
 
         if (this.type == HistogramType.FREQUENCY) {
             return new Double(bin.getCount());
-        }
-        else if (this.type == HistogramType.RELATIVE_FREQUENCY) {
+        } else if (this.type == HistogramType.RELATIVE_FREQUENCY) {
             return new Double(bin.getCount() / total);
-        }
-        else if (this.type == HistogramType.SCALE_AREA_TO_1) {
+        } else if (this.type == HistogramType.SCALE_AREA_TO_1) {
             return new Double(bin.getCount() / (binWidth * total));
-        }
-        else { // pretty sure this shouldn't ever happen
+        } else { // pretty sure this shouldn't ever happen
             throw new IllegalStateException();
         }
     }
@@ -395,14 +383,12 @@ public class HistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the start value for a bin.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (zero based).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (zero based).
      * @return The start value.
-     *
      * @throws IndexOutOfBoundsException if <code>series</code> is outside the
-     *     specified range.
+     *                                   specified range.
      */
     @Override
     public Number getStartX(int series, int item) {
@@ -414,14 +400,12 @@ public class HistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the end value for a bin.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (zero based).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (zero based).
      * @return The end value.
-     *
      * @throws IndexOutOfBoundsException if <code>series</code> is outside the
-     *     specified range.
+     *                                   specified range.
      */
     @Override
     public Number getEndX(int series, int item) {
@@ -435,14 +419,12 @@ public class HistogramDataset extends AbstractIntervalXYDataset
      * this method exists only to support the general form of the
      * {@link IntervalXYDataset} interface).
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (zero based).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (zero based).
      * @return The y-value.
-     *
      * @throws IndexOutOfBoundsException if <code>series</code> is outside the
-     *     specified range.
+     *                                   specified range.
      */
     @Override
     public Number getStartY(int series, int item) {
@@ -454,14 +436,12 @@ public class HistogramDataset extends AbstractIntervalXYDataset
      * this method exists only to support the general form of the
      * {@link IntervalXYDataset} interface).
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     * @param item  the item index (zero based).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
+     * @param item   the item index (zero based).
      * @return The Y value.
-     *
      * @throws IndexOutOfBoundsException if <code>series</code> is outside the
-     *     specified range.
+     *                                   specified range.
      */
     @Override
     public Number getEndY(int series, int item) {
@@ -471,8 +451,7 @@ public class HistogramDataset extends AbstractIntervalXYDataset
     /**
      * Tests this dataset for equality with an arbitrary object.
      *
-     * @param obj  the object to test against (<code>null</code> permitted).
-     *
+     * @param obj the object to test against (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -497,7 +476,6 @@ public class HistogramDataset extends AbstractIntervalXYDataset
      * Returns a clone of the dataset.
      *
      * @return A clone of the dataset.
-     *
      * @throws CloneNotSupportedException if the object cannot be cloned.
      */
     @Override

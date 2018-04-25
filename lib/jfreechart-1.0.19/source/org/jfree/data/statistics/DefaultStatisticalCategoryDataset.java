@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------------------
@@ -57,14 +57,14 @@
 
 package org.jfree.data.statistics;
 
-import java.util.List;
-
 import org.jfree.data.KeyedObjects2D;
 import org.jfree.data.Range;
 import org.jfree.data.RangeInfo;
 import org.jfree.data.general.AbstractDataset;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.util.PublicCloneable;
+
+import java.util.List;
 
 /**
  * A convenience class that provides a default implementation of the
@@ -73,19 +73,29 @@ import org.jfree.util.PublicCloneable;
 public class DefaultStatisticalCategoryDataset extends AbstractDataset
         implements StatisticalCategoryDataset, RangeInfo, PublicCloneable {
 
-    /** Storage for the data. */
+    /**
+     * Storage for the data.
+     */
     private KeyedObjects2D data;
 
-    /** The minimum range value. */
+    /**
+     * The minimum range value.
+     */
     private double minimumRangeValue;
 
-    /** The row index for the minimum range value. */
+    /**
+     * The row index for the minimum range value.
+     */
     private int minimumRangeValueRow;
 
-    /** The column index for the minimum range value. */
+    /**
+     * The column index for the minimum range value.
+     */
     private int minimumRangeValueColumn;
 
-    /** The minimum range value including the standard deviation. */
+    /**
+     * The minimum range value including the standard deviation.
+     */
     private double minimumRangeValueIncStdDev;
 
     /**
@@ -100,16 +110,24 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
      */
     private int minimumRangeValueIncStdDevColumn;
 
-    /** The maximum range value. */
+    /**
+     * The maximum range value.
+     */
     private double maximumRangeValue;
 
-    /** The row index for the maximum range value. */
+    /**
+     * The row index for the maximum range value.
+     */
     private int maximumRangeValueRow;
 
-    /** The column index for the maximum range value. */
+    /**
+     * The column index for the maximum range value.
+     */
     private int maximumRangeValueColumn;
 
-    /** The maximum range value including the standard deviation. */
+    /**
+     * The maximum range value including the standard deviation.
+     */
     private double maximumRangeValueIncStdDev;
 
     /**
@@ -146,9 +164,8 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
     /**
      * Returns the mean value for an item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The mean value (possibly <code>null</code>).
      */
     @Override
@@ -166,9 +183,8 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
      * Returns the value for an item (for this dataset, the mean value is
      * returned).
      *
-     * @param row  the row index.
-     * @param column  the column index.
-     *
+     * @param row    the row index.
+     * @param column the column index.
      * @return The value (possibly <code>null</code>).
      */
     @Override
@@ -180,9 +196,8 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
      * Returns the value for an item (for this dataset, the mean value is
      * returned).
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the columnKey.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the columnKey.
      * @return The value (possibly <code>null</code>).
      */
     @Override
@@ -193,9 +208,8 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
     /**
      * Returns the mean value for an item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the columnKey.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the columnKey.
      * @return The mean value (possibly <code>null</code>).
      */
     @Override
@@ -212,9 +226,8 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
     /**
      * Returns the standard deviation value for an item.
      *
-     * @param row  the row index (zero-based).
-     * @param column  the column index (zero-based).
-     *
+     * @param row    the row index (zero-based).
+     * @param column the column index (zero-based).
      * @return The standard deviation (possibly <code>null</code>).
      */
     @Override
@@ -231,9 +244,8 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
     /**
      * Returns the standard deviation value for an item.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the columnKey.
-     *
+     * @param rowKey    the row key.
+     * @param columnKey the columnKey.
      * @return The standard deviation (possibly <code>null</code>).
      */
     @Override
@@ -250,8 +262,7 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
     /**
      * Returns the column index for a given key.
      *
-     * @param key  the column key (<code>null</code> not permitted).
-     *
+     * @param key the column key (<code>null</code> not permitted).
      * @return The column index.
      */
     @Override
@@ -263,8 +274,7 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
     /**
      * Returns a column key.
      *
-     * @param column  the column index (zero-based).
-     *
+     * @param column the column index (zero-based).
      * @return The column key.
      */
     @Override
@@ -285,8 +295,7 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
     /**
      * Returns the row index for a given key.
      *
-     * @param key  the row key (<code>null</code> not permitted).
-     *
+     * @param key the row key (<code>null</code> not permitted).
      * @return The row index.
      */
     @Override
@@ -298,8 +307,7 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
     /**
      * Returns a row key.
      *
-     * @param row  the row index (zero-based).
-     *
+     * @param row the row index (zero-based).
      * @return The row key.
      */
     @Override
@@ -321,7 +329,6 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
      * Returns the number of rows in the table.
      *
      * @return The row count.
-     *
      * @see #getColumnCount()
      */
     @Override
@@ -333,7 +340,6 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
      * Returns the number of columns in the table.
      *
      * @return The column count.
-     *
      * @see #getRowCount()
      */
     @Override
@@ -344,10 +350,10 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
     /**
      * Adds a mean and standard deviation to the table.
      *
-     * @param mean  the mean.
-     * @param standardDeviation  the standard deviation.
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
+     * @param mean              the mean.
+     * @param standardDeviation the standard deviation.
+     * @param rowKey            the row key.
+     * @param columnKey         the column key.
      */
     public void add(double mean, double standardDeviation,
                     Comparable rowKey, Comparable columnKey) {
@@ -357,10 +363,10 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
     /**
      * Adds a mean and standard deviation to the table.
      *
-     * @param mean  the mean.
-     * @param standardDeviation  the standard deviation.
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
+     * @param mean              the mean.
+     * @param standardDeviation the standard deviation.
+     * @param rowKey            the row key.
+     * @param columnKey         the column key.
      */
     public void add(Number mean, Number standardDeviation,
                     Comparable rowKey, Comparable columnKey) {
@@ -391,8 +397,7 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
 
             // iterate over all data items and update mins and maxes
             updateBounds();
-        }
-        else {
+        } else {
             if (!Double.isNaN(m)) {
                 if (Double.isNaN(this.maximumRangeValue)
                         || m > this.maximumRangeValue) {
@@ -436,11 +441,9 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
      * Removes an item from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param rowKey    the row key (<code>null</code> not permitted).
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @see #add(double, double, Comparable, Comparable)
-     *
      * @since 1.0.7
      */
     public void remove(Comparable rowKey, Comparable columnKey) {
@@ -472,10 +475,8 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
      * Removes a row from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param rowIndex  the row index.
-     *
+     * @param rowIndex the row index.
      * @see #removeColumn(int)
-     *
      * @since 1.0.7
      */
     public void removeRow(int rowIndex) {
@@ -488,10 +489,8 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
      * Removes a row from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param rowKey  the row key (<code>null</code> not permitted).
-     *
+     * @param rowKey the row key (<code>null</code> not permitted).
      * @see #removeColumn(Comparable)
-     *
      * @since 1.0.7
      */
     public void removeRow(Comparable rowKey) {
@@ -504,10 +503,8 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
      * Removes a column from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param columnIndex  the column index.
-     *
+     * @param columnIndex the column index.
      * @see #removeRow(int)
-     *
      * @since 1.0.7
      */
     public void removeColumn(int columnIndex) {
@@ -520,10 +517,8 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
      * Removes a column from the dataset and sends a {@link DatasetChangeEvent}
      * to all registered listeners.
      *
-     * @param columnKey  the column key (<code>null</code> not permitted).
-     *
+     * @param columnKey the column key (<code>null</code> not permitted).
      * @see #removeRow(Comparable)
-     *
      * @since 1.0.7
      */
     public void removeColumn(Comparable columnKey) {
@@ -580,8 +575,7 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
                         this.maximumRangeValue = m;
                         this.maximumRangeValueRow = r;
                         this.maximumRangeValueColumn = c;
-                    }
-                    else {
+                    } else {
                         if (m > this.maximumRangeValue) {
                             this.maximumRangeValue = m;
                             this.maximumRangeValueRow = r;
@@ -594,8 +588,7 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
                         this.minimumRangeValue = m;
                         this.minimumRangeValueRow = r;
                         this.minimumRangeValueColumn = c;
-                    }
-                    else {
+                    } else {
                         if (m < this.minimumRangeValue) {
                             this.minimumRangeValue = m;
                             this.minimumRangeValueRow = r;
@@ -609,8 +602,7 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
                             this.maximumRangeValueIncStdDev = m + sd;
                             this.maximumRangeValueIncStdDevRow = r;
                             this.maximumRangeValueIncStdDevColumn = c;
-                        }
-                        else {
+                        } else {
                             if (m + sd > this.maximumRangeValueIncStdDev) {
                                 this.maximumRangeValueIncStdDev = m + sd;
                                 this.maximumRangeValueIncStdDevRow = r;
@@ -623,8 +615,7 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
                             this.minimumRangeValueIncStdDev = m - sd;
                             this.minimumRangeValueIncStdDevRow = r;
                             this.minimumRangeValueIncStdDevColumn = c;
-                        }
-                        else {
+                        } else {
                             if (m - sd < this.minimumRangeValueIncStdDev) {
                                 this.minimumRangeValueIncStdDev = m - sd;
                                 this.minimumRangeValueIncStdDevRow = r;
@@ -640,19 +631,16 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
     /**
      * Returns the minimum y-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         y-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        y-interval is taken into account.
      * @return The minimum value.
-     *
      * @see #getRangeUpperBound(boolean)
      */
     @Override
     public double getRangeLowerBound(boolean includeInterval) {
         if (includeInterval && !Double.isNaN(this.minimumRangeValueIncStdDev)) {
             return this.minimumRangeValueIncStdDev;
-        }
-        else {
+        } else {
             return this.minimumRangeValue;
         }
     }
@@ -660,19 +648,16 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
     /**
      * Returns the maximum y-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         y-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        y-interval is taken into account.
      * @return The maximum value.
-     *
      * @see #getRangeLowerBound(boolean)
      */
     @Override
     public double getRangeUpperBound(boolean includeInterval) {
         if (includeInterval && !Double.isNaN(this.maximumRangeValueIncStdDev)) {
             return this.maximumRangeValueIncStdDev;
-        }
-        else {
+        } else {
             return this.maximumRangeValue;
         }
     }
@@ -680,9 +665,8 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
     /**
      * Returns the bounds of the values in this dataset's y-values.
      *
-     * @param includeInterval  a flag that determines whether or not the
-     *                         y-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether or not the
+     *                        y-interval is taken into account.
      * @return The range.
      */
     @Override
@@ -698,8 +682,7 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -722,7 +705,6 @@ public class DefaultStatisticalCategoryDataset extends AbstractDataset
      * Returns a clone of this dataset.
      *
      * @return A clone of this dataset.
-     *
      * @throws CloneNotSupportedException if cloning cannot be completed.
      */
     @Override

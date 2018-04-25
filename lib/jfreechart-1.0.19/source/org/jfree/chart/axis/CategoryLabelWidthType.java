@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -41,33 +41,39 @@
 
 package org.jfree.chart.axis;
 
+import org.jfree.chart.util.ParamChecks;
+
 import java.io.ObjectStreamException;
 import java.io.Serializable;
-import org.jfree.chart.util.ParamChecks;
 
 /**
  * Represents the width types for a category label.
  */
 public final class CategoryLabelWidthType implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -6976024792582949656L;
-
-    /** Percentage of category. */
-    public static final CategoryLabelWidthType CATEGORY 
+    /**
+     * Percentage of category.
+     */
+    public static final CategoryLabelWidthType CATEGORY
             = new CategoryLabelWidthType("CategoryLabelWidthType.CATEGORY");
-
-    /** Percentage of range. */
-    public static final CategoryLabelWidthType RANGE 
+    /**
+     * Percentage of range.
+     */
+    public static final CategoryLabelWidthType RANGE
             = new CategoryLabelWidthType("CategoryLabelWidthType.RANGE");
-
-    /** The name. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -6976024792582949656L;
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name (<code>null</code> not permitted).
+     * @param name the name (<code>null</code> not permitted).
      */
     private CategoryLabelWidthType(String name) {
         ParamChecks.nullNotPermitted(name, "name");
@@ -88,8 +94,7 @@ public final class CategoryLabelWidthType implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return A boolean.
      */
     @Override
@@ -111,14 +116,12 @@ public final class CategoryLabelWidthType implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         if (this.equals(CategoryLabelWidthType.CATEGORY)) {
             return CategoryLabelWidthType.CATEGORY;
-        }
-        else if (this.equals(CategoryLabelWidthType.RANGE)) {
+        } else if (this.equals(CategoryLabelWidthType.RANGE)) {
             return CategoryLabelWidthType.RANGE;
         }
         return null;

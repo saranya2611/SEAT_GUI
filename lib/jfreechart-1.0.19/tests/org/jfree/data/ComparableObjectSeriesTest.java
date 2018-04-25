@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------
@@ -43,46 +43,13 @@ package org.jfree.data;
 
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link ComparableObjectSeries} class.
  */
 public class ComparableObjectSeriesTest {
-
-    static class MyComparableObjectSeries extends ComparableObjectSeries {
-        /**
-         * Creates a new instance.
-         *
-         * @param key  the series key.
-         */
-        public MyComparableObjectSeries(Comparable key) {
-            super(key);
-        }
-        /**
-         * Creates a new instance.
-         *
-         * @param key  the series key.
-         * @param autoSort  automatically sort by x-value?
-         * @param allowDuplicateXValues  allow duplicate values?
-         */
-        public MyComparableObjectSeries(Comparable key, boolean autoSort,
-                boolean allowDuplicateXValues) {
-            super(key, autoSort, allowDuplicateXValues);
-        }
-        @Override
-        public void add(Comparable x, Object y) {
-            super.add(x, y);
-        }
-
-        @Override
-        public ComparableObjectItem remove(Comparable x) {
-            return super.remove(x);
-        }
-    }
 
     /**
      * Some checks for the constructor.
@@ -100,9 +67,9 @@ public class ComparableObjectSeriesTest {
         // try null key
         boolean pass = false;
         try {
-            /*s1 = */new ComparableObjectSeries(null);
-        }
-        catch (IllegalArgumentException e) {
+            /*s1 = */
+            new ComparableObjectSeries(null);
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -175,7 +142,7 @@ public class ComparableObjectSeriesTest {
     public void testSerialization() {
         MyComparableObjectSeries s1 = new MyComparableObjectSeries("A");
         s1.add(new Integer(1), "ABC");
-        MyComparableObjectSeries s2 = (MyComparableObjectSeries) 
+        MyComparableObjectSeries s2 = (MyComparableObjectSeries)
                 TestUtilities.serialised(s1);
         assertEquals(s1, s2);
     }
@@ -209,6 +176,39 @@ public class ComparableObjectSeriesTest {
         s2.add("D", "4");
         assertEquals(s1, s2);
         assertEquals(s1.hashCode(), s2.hashCode());
+    }
+
+    static class MyComparableObjectSeries extends ComparableObjectSeries {
+        /**
+         * Creates a new instance.
+         *
+         * @param key the series key.
+         */
+        public MyComparableObjectSeries(Comparable key) {
+            super(key);
+        }
+
+        /**
+         * Creates a new instance.
+         *
+         * @param key                   the series key.
+         * @param autoSort              automatically sort by x-value?
+         * @param allowDuplicateXValues allow duplicate values?
+         */
+        public MyComparableObjectSeries(Comparable key, boolean autoSort,
+                                        boolean allowDuplicateXValues) {
+            super(key, autoSort, allowDuplicateXValues);
+        }
+
+        @Override
+        public void add(Comparable x, Object y) {
+            super.add(x, y);
+        }
+
+        @Override
+        public ComparableObjectItem remove(Comparable x) {
+            return super.remove(x);
+        }
     }
 
 }

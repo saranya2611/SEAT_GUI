@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------------
@@ -43,38 +43,41 @@
 
 package org.jfree.chart.labels;
 
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYBlockRenderer;
+import org.jfree.data.contour.ContourDataset;
+
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYBlockRenderer;
-import org.jfree.data.contour.ContourDataset;
 
 /**
  * A standard tooltip generator for plots that use data from an
  * {@link ContourDataset}.
  *
  * @deprecated This class is no longer supported (as of version 1.0.4).  If
- *     you are creating contour plots, please try to use {@link XYPlot} and
- *     {@link XYBlockRenderer}.
+ * you are creating contour plots, please try to use {@link XYPlot} and
+ * {@link XYBlockRenderer}.
  */
 public class StandardContourToolTipGenerator implements ContourToolTipGenerator,
-                                                        Serializable {
+        Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -1881659351247502711L;
 
-    /** The number formatter. */
+    /**
+     * The number formatter.
+     */
     private DecimalFormat valueForm = new DecimalFormat("##.###");
 
     /**
      * Generates a tooltip text item for a particular item within a series.
      *
-     * @param data  the dataset.
-     * @param item  the item index (zero-based).
-     *
+     * @param data the dataset.
+     * @param item the item index (zero-based).
      * @return The tooltip text.
      */
     @Override
@@ -87,25 +90,23 @@ public class StandardContourToolTipGenerator implements ContourToolTipGenerator,
 
         if (data.isDateAxis(0)) {
             SimpleDateFormat formatter
-                = new java.text.SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+                    = new java.text.SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
             StringBuffer strbuf = new StringBuffer();
             strbuf = formatter.format(
-                new Date((long) x), strbuf, new java.text.FieldPosition(0)
+                    new Date((long) x), strbuf, new java.text.FieldPosition(0)
             );
             xString = strbuf.toString();
-        }
-        else {
+        } else {
             xString = this.valueForm.format(x);
         }
         if (!Double.isNaN(z)) {
             return "X: " + xString
-                   + ", Y: " + this.valueForm.format(y)
-                   + ", Z: " + this.valueForm.format(z);
-        }
-        else {
+                    + ", Y: " + this.valueForm.format(y)
+                    + ", Z: " + this.valueForm.format(z);
+        } else {
             return "X: " + xString
-                 + ", Y: " + this.valueForm.format(y)
-                 + ", Z: no data";
+                    + ", Y: " + this.valueForm.format(y)
+                    + ", Z: no data";
         }
 
     }
@@ -113,8 +114,7 @@ public class StandardContourToolTipGenerator implements ContourToolTipGenerator,
     /**
      * Tests if this object is equal to another.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return A boolean.
      */
     @Override

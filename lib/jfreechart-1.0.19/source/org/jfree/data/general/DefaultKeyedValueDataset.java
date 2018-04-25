@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------
@@ -41,11 +41,11 @@
 
 package org.jfree.data.general;
 
-import java.io.Serializable;
-
 import org.jfree.data.DefaultKeyedValue;
 import org.jfree.data.KeyedValue;
 import org.jfree.util.ObjectUtilities;
+
+import java.io.Serializable;
 
 /**
  * A default implementation of the {@link KeyedValueDataset} interface.
@@ -53,10 +53,14 @@ import org.jfree.util.ObjectUtilities;
 public class DefaultKeyedValueDataset extends AbstractDataset
         implements KeyedValueDataset, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -8149484339560406750L;
 
-    /** Storage for the data. */
+    /**
+     * Storage for the data.
+     */
     private KeyedValue data;
 
     /**
@@ -69,8 +73,8 @@ public class DefaultKeyedValueDataset extends AbstractDataset
     /**
      * Creates a new dataset with the specified initial value.
      *
-     * @param key  the key.
-     * @param value  the value (<code>null</code> permitted).
+     * @param key   the key.
+     * @param value the value (<code>null</code> permitted).
      */
     public DefaultKeyedValueDataset(Comparable key, Number value) {
         this(new DefaultKeyedValue(key, value));
@@ -80,7 +84,7 @@ public class DefaultKeyedValueDataset extends AbstractDataset
      * Creates a new dataset that uses the data from a {@link KeyedValue}
      * instance.
      *
-     * @param data  the data (<code>null</code> permitted).
+     * @param data the data (<code>null</code> permitted).
      */
     public DefaultKeyedValueDataset(KeyedValue data) {
         this.data = data;
@@ -118,7 +122,7 @@ public class DefaultKeyedValueDataset extends AbstractDataset
     /**
      * Updates the value.
      *
-     * @param value  the new value (<code>null</code> permitted).
+     * @param value the new value (<code>null</code> permitted).
      */
     public void updateValue(Number value) {
         if (this.data == null) {
@@ -131,8 +135,8 @@ public class DefaultKeyedValueDataset extends AbstractDataset
      * Sets the value for the dataset and sends a {@link DatasetChangeEvent} to
      * all registered listeners.
      *
-     * @param key  the key.
-     * @param value  the value (<code>null</code> permitted).
+     * @param key   the key.
+     * @param value the value (<code>null</code> permitted).
      */
     public void setValue(Comparable key, Number value) {
         this.data = new DefaultKeyedValue(key, value);
@@ -142,8 +146,7 @@ public class DefaultKeyedValueDataset extends AbstractDataset
     /**
      * Tests this dataset for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -184,9 +187,8 @@ public class DefaultKeyedValueDataset extends AbstractDataset
      * Creates a clone of the dataset.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException This class will not throw this
-     *         exception, but subclasses (if any) might.
+     *                                    exception, but subclasses (if any) might.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

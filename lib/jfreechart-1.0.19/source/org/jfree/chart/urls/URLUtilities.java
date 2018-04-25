@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -51,8 +51,10 @@ import java.net.URLEncoder;
  */
 public class URLUtilities {
 
-    /** Constant used by {@link #encode(String, String)}. */
-    private static final Class[] STRING_ARGS_2 = new Class[] {String.class,
+    /**
+     * Constant used by {@link #encode(String, String)}.
+     */
+    private static final Class[] STRING_ARGS_2 = new Class[]{String.class,
             String.class};
 
     /**
@@ -60,11 +62,9 @@ public class URLUtilities {
      * reflection, if we are running on JRE 1.4 or later, otherwise reverts to
      * the deprecated <code>URLEncoder.encode(String)</code> method.
      *
-     * @param s  the string to encode.
-     * @param encoding  the encoding.
-     *
+     * @param s        the string to encode.
+     * @param encoding the encoding.
      * @return The encoded string.
-     *
      * @since 1.0.6
      */
     public static String encode(String s, String encoding) {
@@ -73,16 +73,13 @@ public class URLUtilities {
         try {
             Method m = c.getDeclaredMethod("encode", STRING_ARGS_2);
             try {
-                result = (String) m.invoke(null, new Object[] {s, encoding});
-            }
-            catch (InvocationTargetException e) {
+                result = (String) m.invoke(null, new Object[]{s, encoding});
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-            catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-        catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             // we're running on JRE 1.3.1 so this is the best we have...
             result = URLEncoder.encode(s);
         }

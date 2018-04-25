@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------
@@ -40,16 +40,12 @@
 
 package org.jfree.chart.axis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
+
+import java.awt.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link ExtendedCategoryAxis} class.
@@ -156,7 +152,7 @@ public class ExtendedCategoryAxisTest {
         ExtendedCategoryAxis a1 = new ExtendedCategoryAxis("Test");
         a1.setSubLabelPaint(new GradientPaint(1.0f, 2.0f, Color.red, 3.0f,
                 4.0f, Color.blue));
-        ExtendedCategoryAxis a2 = (ExtendedCategoryAxis) 
+        ExtendedCategoryAxis a2 = (ExtendedCategoryAxis)
                 TestUtilities.serialised(a1);
         assertEquals(a1, a2);
     }

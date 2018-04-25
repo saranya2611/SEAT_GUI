@@ -5,15 +5,28 @@ import com.jgoodies.forms.layout.FormLayout;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.filechooser.FileSystemView;
+import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class getGeneralStatisticsOfAllotmentsWizard5 extends JFrame {
+    public String chosenDirectoryName, aggregatedStatisticsFileName, batchwiseAllotmentStatisticsFileName, allotmentsFileName, allottedMandatedElectiveDetailsFileName;
+    public int lineNo;
+    public String aggregatedStatisticsFileContent;
+    public String batchwiseAllotmentStatisticsFileContent, allotmentsFileContent, allottedMandatedElectiveDetailsFileContent;
+    public String matchedString = null;
+    String batchNumberPattern = "^[A-Za-z][A-Za-z][0-9][0-9]";
+    String line;
+    JButton checkButton;
+    String[] inputLine;
+    ArrayList<String> arrayOfMatchings;
+    String splitByComma = ",";
+    String splitByNewLine = "\n";
     private JPanel jPanelGeneralAllotmentStatisticsWizard5;
     private JLabel jLabelGeneralAllotmentAnalysisWizard5;
     private JLabel chosenDirectoryLabelWizard5;
@@ -29,21 +42,140 @@ public class getGeneralStatisticsOfAllotmentsWizard5 extends JFrame {
     private JButton batchNumberGetDetailsButtonWizard5;
     private JButton prevWindowButtonWizard5;
 
-    public String chosenDirectoryName, aggregatedStatisticsFileName, batchwiseAllotmentStatisticsFileName, allotmentsFileName, allottedMandatedElectiveDetailsFileName;
-    public int lineNo;
 
-    public String aggregatedStatisticsFileContent;
-    public String batchwiseAllotmentStatisticsFileContent, allotmentsFileContent, allottedMandatedElectiveDetailsFileContent;
-    public String matchedString = null;
-    String batchNumberPattern = "^[A-Za-z][A-Za-z][0-9][0-9]";
+    public getGeneralStatisticsOfAllotmentsWizard5() {
+        super();
+        $$$setupUI$$$();
 
-    String line;
-    JButton checkButton;
-    String[] inputLine;
-    ArrayList<String> arrayOfMatchings;
-    String splitByComma = ",";
-    String splitByNewLine = "\n";
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 4 - this.getSize().width / 2, dim.height / 4 - this.getSize().height / 2);
+        setSize(1100, 900);
 
+        JScrollPane scrPaneWizard5 = new JScrollPane(jPanelGeneralAllotmentStatisticsWizard5);
+        add(scrPaneWizard5);
+
+        jPanelGeneralAllotmentStatisticsWizard5.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+            }
+        });
+
+        // Disable browse Button and display the default directory chosen in the previous step
+        chosenDirectoryBrowseButtonWizard5.setEnabled(true);
+        chosenDirectoryTextFieldWizard5.setEnabled(false);
+        chosenDirectoryTextFieldWizard5.setVisible(true);
+        chosenDirectoryCheckButtonWizard5.setVisible(false);
+        batchNumberCheckButtonWizard5.setVisible(false);
+        batchNumberTextFieldWizard5.setEnabled(true);
+        batchNumberTextFieldWizard5.setEditable(true);
+
+        // Row1: Directory with output files chosen from previous wizard
+        chosenDirectoryTextFieldWizard5.setText(formValues.getAnalyseAllotmentDirPath());
+        chosenDirectoryName = chosenDirectoryTextFieldWizard5.getText();
+        formValues.setAnalyseAllotmentDirPath(chosenDirectoryName);
+        File directoryName = new File(chosenDirectoryName);
+        enableFileDirectoryExistenceCheckButton(chosenDirectoryCheckButtonWizard5, directoryName);
+        chosenDirectoryBrowseButtonWizard5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chosenDirectoryBrowseButtonWizard5.setEnabled(true);
+                chosenDirectoryBrowseButtonWizard5.setEnabled(true);
+                JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+                jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                int outputFilesDir = jfc.showOpenDialog(null);
+                if (outputFilesDir == JFileChooser.APPROVE_OPTION) {
+                    File outputFilesDirName = jfc.getSelectedFile();
+                    chosenDirectoryBrowseButtonWizard5.setText(outputFilesDirName.getAbsolutePath());
+                    chosenDirectoryName = chosenDirectoryTextFieldWizard5.getText();
+                    formValues.setAnalyseAllotmentDirPath(chosenDirectoryName);
+                    File directoryName = new File(chosenDirectoryName);
+                    enableFileDirectoryExistenceCheckButton(chosenDirectoryCheckButtonWizard5, directoryName);
+                }
+            }
+        });
+
+        // Check for the aggregated statisticsFile -This file contains only one column with strings and numbers. Contains many rows
+        // Loading the aggregated statistics file
+        chosenDirectoryName = formValues.getAnalyseAllotmentDirPath();
+        aggregatedStatisticsFileName = formValues.getAggregatedStatisticsFileName();
+        generalStatsTextAreaWizard5.append("\n aggregatedStats:  " + aggregatedStatisticsFileName);
+        generalStatsTextAreaWizard5.append("\n --------------------------------------------------------------------------------------------------------------------------------------------------------------- \n ");
+        aggregatedStatisticsFileContent = readFiles(aggregatedStatisticsFileName, splitByNewLine, aggregatedStatisticsFileContent);
+        generalStatsTextAreaWizard5.append("============================================================== \n ");
+
+        // Check for the total number of allotment in output.csv file - This file contains 2 columns with strings and numbers. Contains many rows
+        // Loading the aggregated statistics file
+        allotmentsFileName = formValues.getAllotmentsFileName();
+        generalStatsTextAreaWizard5.append("\n allotmentsFileStats:  " + allotmentsFileName);
+        generalStatsTextAreaWizard5.append("\n --------------------------------------------------------------------------------------------------------------------------------------------------------------- ");
+        allotmentsFileContent = readFiles(allotmentsFileName, splitByNewLine, allotmentsFileContent);
+        generalStatsTextAreaWizard5.append("\n  ============================================================== \n ");
+
+
+        // Row 2: Enter the batch name to get batch-specific details - Key listener with enter key
+        batchNumberTextFieldWizard5.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    String enteredBatchNumber = batchNumberTextFieldWizard5.getText();
+                    if (enteredBatchNumber.matches(batchNumberPattern)) {
+                        System.out.println("\n Entered batch number is :" + enteredBatchNumber);
+                        // To get the batch-wise general allotment details
+                        batchwiseAllotmentStatisticsFileName = formValues.getBatchwiseAllotmentStatisticsFileName();
+                        batchwiseAllotmentStatisticsFileContent = readFiles(batchwiseAllotmentStatisticsFileName, splitByNewLine, batchwiseAllotmentStatisticsFileContent);
+                        //System.out.println(Arrays.toString(arrayOfMatchings.toArray()));
+                        arrayOfMatchings = getBatchWiseDetails(batchwiseAllotmentStatisticsFileName, splitByNewLine, enteredBatchNumber, arrayOfMatchings);
+                        postProcessBatchSpecificAllotmentDetailsForDisplay(arrayOfMatchings, enteredBatchNumber, batchwiseAllotmentStatisticsFileName);
+
+                        // To get the batch-wise Recommended electives details
+                        allottedMandatedElectiveDetailsFileName = formValues.getAllottedMandatedElectiveDetailsFileName();
+                        allottedMandatedElectiveDetailsFileContent = readFiles(allottedMandatedElectiveDetailsFileName, splitByNewLine, allottedMandatedElectiveDetailsFileContent);
+                        arrayOfMatchings = getBatchWiseDetails(allottedMandatedElectiveDetailsFileName, splitByNewLine, enteredBatchNumber, arrayOfMatchings);
+                        postProcessBatchSpecificAllotmentDetailsForDisplay(arrayOfMatchings, enteredBatchNumber, allottedMandatedElectiveDetailsFileName);
+                        generalStatsTextAreaWizard5.append("\n  ============================================================== \n ");
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "\n Batch-name MUST be of form : [A-Za-z][A-Za-z][0-9][0-9] \n Eg: ME16, me16, CS15, cs15\n ", "Input Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                super.keyPressed(e);
+            }
+        });
+
+        // Row 2: Enter the batch name to get batch-specific details - Action listener with button click
+        batchNumberGetDetailsButtonWizard5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                batchwiseAllotmentStatisticsFileName = formValues.getBatchwiseAllotmentStatisticsFileName();
+                batchwiseAllotmentStatisticsFileContent = readFiles(batchwiseAllotmentStatisticsFileName, splitByNewLine, batchwiseAllotmentStatisticsFileContent);
+                String enteredBatchNumber = batchNumberTextFieldWizard5.getText();
+                if (enteredBatchNumber.matches(batchNumberPattern)) {
+                    generalStatsTextAreaWizard5.append("\n  Batch-wise statistics ");
+                    generalStatsTextAreaWizard5.append("\n  Batch-name: " + enteredBatchNumber);
+
+                    //generalStatsTextAreaWizard5.append("\n General allotment statistics of batch " + enteredBatchNumber + " : " + arrayOfMatchings);
+                    arrayOfMatchings = getBatchWiseDetails(batchwiseAllotmentStatisticsFileName, splitByNewLine, enteredBatchNumber, arrayOfMatchings);
+                    postProcessBatchSpecificAllotmentDetailsForDisplay(arrayOfMatchings, enteredBatchNumber, batchwiseAllotmentStatisticsFileName);
+
+                    //generalStatsTextAreaWizard5.append("\n \n recommended elective(s) allotment statistics of batch " + enteredBatchNumber + " : " + arrayOfMatchings);
+                    arrayOfMatchings = getBatchWiseDetails(allottedMandatedElectiveDetailsFileName, splitByNewLine, enteredBatchNumber, arrayOfMatchings);
+                    postProcessBatchSpecificAllotmentDetailsForDisplay(arrayOfMatchings, enteredBatchNumber, allottedMandatedElectiveDetailsFileName);
+                    generalStatsTextAreaWizard5.append("\n  ============================================================== \n ");
+
+                }
+            }
+        });
+
+        prevWindowButtonWizard5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                analyzeAllotmentsWizard4 wizard4 = new analyzeAllotmentsWizard4();
+                wizard4.setVisible(true);
+                dispose();
+            }
+        });
+    }
 
     // General function to check the existence of file or folder
     public void enableFileDirectoryExistenceCheckButton(JButton currentCheckButton, File file1) {
@@ -183,140 +315,6 @@ public class getGeneralStatisticsOfAllotmentsWizard5 extends JFrame {
                 }
             }
         }
-    }
-
-    public getGeneralStatisticsOfAllotmentsWizard5() {
-        super();
-        $$$setupUI$$$();
-
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 4 - this.getSize().width / 2, dim.height / 4 - this.getSize().height / 2);
-        setSize(1100, 900);
-
-        JScrollPane scrPaneWizard5 = new JScrollPane(jPanelGeneralAllotmentStatisticsWizard5);
-        add(scrPaneWizard5);
-
-        jPanelGeneralAllotmentStatisticsWizard5.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                super.componentResized(e);
-            }
-        });
-
-        // Disable browse Button and display the default directory chosen in the previous step
-        chosenDirectoryBrowseButtonWizard5.setEnabled(true);
-        chosenDirectoryTextFieldWizard5.setEnabled(false);
-        chosenDirectoryTextFieldWizard5.setVisible(true);
-        chosenDirectoryCheckButtonWizard5.setVisible(false);
-        batchNumberCheckButtonWizard5.setVisible(false);
-        batchNumberTextFieldWizard5.setEnabled(true);
-        batchNumberTextFieldWizard5.setEditable(true);
-
-        // Row1: Directory with output files chosen from previous wizard
-        chosenDirectoryTextFieldWizard5.setText(formValues.getAnalyseAllotmentDirPath());
-        chosenDirectoryName = chosenDirectoryTextFieldWizard5.getText();
-        formValues.setAnalyseAllotmentDirPath(chosenDirectoryName);
-        File directoryName = new File(chosenDirectoryName);
-        enableFileDirectoryExistenceCheckButton(chosenDirectoryCheckButtonWizard5, directoryName);
-        chosenDirectoryBrowseButtonWizard5.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                chosenDirectoryBrowseButtonWizard5.setEnabled(true);
-                chosenDirectoryBrowseButtonWizard5.setEnabled(true);
-                JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-                jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                int outputFilesDir = jfc.showOpenDialog(null);
-                if (outputFilesDir == JFileChooser.APPROVE_OPTION) {
-                    File outputFilesDirName = jfc.getSelectedFile();
-                    chosenDirectoryBrowseButtonWizard5.setText(outputFilesDirName.getAbsolutePath());
-                    chosenDirectoryName = chosenDirectoryTextFieldWizard5.getText();
-                    formValues.setAnalyseAllotmentDirPath(chosenDirectoryName);
-                    File directoryName = new File(chosenDirectoryName);
-                    enableFileDirectoryExistenceCheckButton(chosenDirectoryCheckButtonWizard5, directoryName);
-                }
-            }
-        });
-
-        // Check for the aggregated statisticsFile -This file contains only one column with strings and numbers. Contains many rows
-        // Loading the aggregated statistics file
-        chosenDirectoryName = formValues.getAnalyseAllotmentDirPath();
-        aggregatedStatisticsFileName = formValues.getAggregatedStatisticsFileName();
-        generalStatsTextAreaWizard5.append("\n aggregatedStats:  " + aggregatedStatisticsFileName);
-        generalStatsTextAreaWizard5.append("\n --------------------------------------------------------------------------------------------------------------------------------------------------------------- \n ");
-        aggregatedStatisticsFileContent = readFiles(aggregatedStatisticsFileName, splitByNewLine, aggregatedStatisticsFileContent);
-        generalStatsTextAreaWizard5.append("============================================================== \n ");
-
-        // Check for the total number of allotment in output.csv file - This file contains 2 columns with strings and numbers. Contains many rows
-        // Loading the aggregated statistics file
-        allotmentsFileName = formValues.getAllotmentsFileName();
-        generalStatsTextAreaWizard5.append("\n allotmentsFileStats:  " + allotmentsFileName);
-        generalStatsTextAreaWizard5.append("\n --------------------------------------------------------------------------------------------------------------------------------------------------------------- ");
-        allotmentsFileContent = readFiles(allotmentsFileName, splitByNewLine, allotmentsFileContent);
-        generalStatsTextAreaWizard5.append("\n  ============================================================== \n ");
-
-
-        // Row 2: Enter the batch name to get batch-specific details - Key listener with enter key
-        batchNumberTextFieldWizard5.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    String enteredBatchNumber = batchNumberTextFieldWizard5.getText();
-                    if (enteredBatchNumber.matches(batchNumberPattern)) {
-                        System.out.println("\n Entered batch number is :" + enteredBatchNumber);
-                        // To get the batch-wise general allotment details
-                        batchwiseAllotmentStatisticsFileName = formValues.getBatchwiseAllotmentStatisticsFileName();
-                        batchwiseAllotmentStatisticsFileContent = readFiles(batchwiseAllotmentStatisticsFileName, splitByNewLine, batchwiseAllotmentStatisticsFileContent);
-                        //System.out.println(Arrays.toString(arrayOfMatchings.toArray()));
-                        arrayOfMatchings = getBatchWiseDetails(batchwiseAllotmentStatisticsFileName, splitByNewLine, enteredBatchNumber, arrayOfMatchings);
-                        postProcessBatchSpecificAllotmentDetailsForDisplay(arrayOfMatchings, enteredBatchNumber, batchwiseAllotmentStatisticsFileName);
-
-                        // To get the batch-wise Recommended electives details
-                        allottedMandatedElectiveDetailsFileName = formValues.getAllottedMandatedElectiveDetailsFileName();
-                        allottedMandatedElectiveDetailsFileContent = readFiles(allottedMandatedElectiveDetailsFileName, splitByNewLine, allottedMandatedElectiveDetailsFileContent);
-                        arrayOfMatchings = getBatchWiseDetails(allottedMandatedElectiveDetailsFileName, splitByNewLine, enteredBatchNumber, arrayOfMatchings);
-                        postProcessBatchSpecificAllotmentDetailsForDisplay(arrayOfMatchings, enteredBatchNumber, allottedMandatedElectiveDetailsFileName);
-                        generalStatsTextAreaWizard5.append("\n  ============================================================== \n ");
-
-                    } else {
-                        JOptionPane.showMessageDialog(null, "\n Batch-name MUST be of form : [A-Za-z][A-Za-z][0-9][0-9] \n Eg: ME16, me16, CS15, cs15\n ", "Input Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-                super.keyPressed(e);
-            }
-        });
-
-        // Row 2: Enter the batch name to get batch-specific details - Action listener with button click
-        batchNumberGetDetailsButtonWizard5.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                batchwiseAllotmentStatisticsFileName = formValues.getBatchwiseAllotmentStatisticsFileName();
-                batchwiseAllotmentStatisticsFileContent = readFiles(batchwiseAllotmentStatisticsFileName, splitByNewLine, batchwiseAllotmentStatisticsFileContent);
-                String enteredBatchNumber = batchNumberTextFieldWizard5.getText();
-                if (enteredBatchNumber.matches(batchNumberPattern)) {
-                    generalStatsTextAreaWizard5.append("\n  Batch-wise statistics ");
-                    generalStatsTextAreaWizard5.append("\n  Batch-name: " + enteredBatchNumber);
-
-                    //generalStatsTextAreaWizard5.append("\n General allotment statistics of batch " + enteredBatchNumber + " : " + arrayOfMatchings);
-                    arrayOfMatchings = getBatchWiseDetails(batchwiseAllotmentStatisticsFileName, splitByNewLine, enteredBatchNumber, arrayOfMatchings);
-                    postProcessBatchSpecificAllotmentDetailsForDisplay(arrayOfMatchings, enteredBatchNumber, batchwiseAllotmentStatisticsFileName);
-
-                    //generalStatsTextAreaWizard5.append("\n \n recommended elective(s) allotment statistics of batch " + enteredBatchNumber + " : " + arrayOfMatchings);
-                    arrayOfMatchings = getBatchWiseDetails(allottedMandatedElectiveDetailsFileName, splitByNewLine, enteredBatchNumber, arrayOfMatchings);
-                    postProcessBatchSpecificAllotmentDetailsForDisplay(arrayOfMatchings, enteredBatchNumber, allottedMandatedElectiveDetailsFileName);
-                    generalStatsTextAreaWizard5.append("\n  ============================================================== \n ");
-
-                }
-            }
-        });
-
-        prevWindowButtonWizard5.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                analyzeAllotmentsWizard4 wizard4 = new analyzeAllotmentsWizard4();
-                wizard4.setVisible(true);
-                dispose();
-            }
-        });
     }
 
     /**

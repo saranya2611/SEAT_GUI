@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -41,14 +41,14 @@
 
 package org.jfree.data.general;
 
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.image.BufferedImage;
 import org.jfree.chart.renderer.PaintScale;
 import org.jfree.chart.util.ParamChecks;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * A utility class for the {@link HeatMapDataset}.
@@ -61,14 +61,13 @@ public abstract class HeatMapUtilities {
      * Returns a dataset containing one series that holds a copy of the (x, z)
      * data from one row (y-index) of the specified dataset.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param row  the row (y) index.
-     * @param seriesName  the series name/key (<code>null</code> not permitted).
-     *
+     * @param dataset    the dataset (<code>null</code> not permitted).
+     * @param row        the row (y) index.
+     * @param seriesName the series name/key (<code>null</code> not permitted).
      * @return The dataset.
      */
     public static XYDataset extractRowFromHeatMapDataset(HeatMapDataset dataset,
-            int row, Comparable seriesName) {
+                                                         int row, Comparable seriesName) {
         XYSeries series = new XYSeries(seriesName);
         int cols = dataset.getXSampleCount();
         for (int c = 0; c < cols; c++) {
@@ -82,10 +81,9 @@ public abstract class HeatMapUtilities {
      * Returns a dataset containing one series that holds a copy of the (y, z)
      * data from one column (x-index) of the specified dataset.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param column  the column (x) index.
-     * @param seriesName  the series name (<code>null</code> not permitted).
-     *
+     * @param dataset    the dataset (<code>null</code> not permitted).
+     * @param column     the column (x) index.
+     * @param seriesName the series name (<code>null</code> not permitted).
      * @return The dataset.
      */
     public static XYDataset extractColumnFromHeatMapDataset(
@@ -102,14 +100,13 @@ public abstract class HeatMapUtilities {
     /**
      * Creates an image that displays the values from the specified dataset.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param paintScale  the paint scale for the z-values (<code>null</code>
-     *         not permitted).
-     *
+     * @param dataset    the dataset (<code>null</code> not permitted).
+     * @param paintScale the paint scale for the z-values (<code>null</code>
+     *                   not permitted).
      * @return A buffered image.
      */
     public static BufferedImage createHeatMapImage(HeatMapDataset dataset,
-            PaintScale paintScale) {
+                                                   PaintScale paintScale) {
 
         ParamChecks.nullNotPermitted(dataset, "dataset");
         ParamChecks.nullNotPermitted(paintScale, "paintScale");

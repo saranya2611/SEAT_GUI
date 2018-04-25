@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------------
@@ -36,14 +36,15 @@
  * -------
  * 14-Jun-2007 : Version 1 (DG);
  * 03-Jul-2013 : Use ParamChecks (DG);
- * 
+ *
  */
 
 package org.jfree.chart.plot;
 
+import org.jfree.chart.util.ParamChecks;
+
 import java.io.Serializable;
 import java.util.List;
-import org.jfree.chart.util.ParamChecks;
 
 /**
  * A base class for handling the distribution of pie section labels.  Create
@@ -53,7 +54,9 @@ import org.jfree.chart.util.ParamChecks;
  */
 public abstract class AbstractPieLabelDistributor implements Serializable {
 
-    /** The label records. */
+    /**
+     * The label records.
+     */
     protected List labels;
 
     /**
@@ -66,8 +69,7 @@ public abstract class AbstractPieLabelDistributor implements Serializable {
     /**
      * Returns a label record from the list.
      *
-     * @param index  the index.
-     *
+     * @param index the index.
      * @return The label record.
      */
     public PieLabelRecord getPieLabelRecord(int index) {
@@ -77,7 +79,7 @@ public abstract class AbstractPieLabelDistributor implements Serializable {
     /**
      * Adds a label record.
      *
-     * @param record  the label record (<code>null</code> not permitted).
+     * @param record the label record (<code>null</code> not permitted).
      */
     public void addPieLabelRecord(PieLabelRecord record) {
         ParamChecks.nullNotPermitted(record, "record");
@@ -104,8 +106,8 @@ public abstract class AbstractPieLabelDistributor implements Serializable {
      * Called by the {@link PiePlot} class.  Implementations should distribute
      * the labels in this.labels then return.
      *
-     * @param minY  the y-coordinate for the top of the label area.
-     * @param height  the height of the label area.
+     * @param minY   the y-coordinate for the top of the label area.
+     * @param height the height of the label area.
      */
     public abstract void distributeLabels(double minY, double height);
 

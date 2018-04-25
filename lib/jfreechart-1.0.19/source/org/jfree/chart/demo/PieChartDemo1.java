@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -41,16 +41,6 @@
 
 package org.jfree.chart.demo;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Point;
-import java.awt.RadialGradientPaint;
-import java.awt.geom.Point2D;
-import javax.swing.JPanel;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -59,11 +49,11 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.HorizontalAlignment;
-import org.jfree.ui.RectangleEdge;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+import org.jfree.ui.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Point2D;
 
 /**
  * A simple demonstration application showing how to create a pie chart using
@@ -83,7 +73,7 @@ public class PieChartDemo1 extends ApplicationFrame {
     /**
      * Default constructor.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public PieChartDemo1(String title) {
         super(title);
@@ -92,7 +82,7 @@ public class PieChartDemo1 extends ApplicationFrame {
 
     /**
      * Creates a sample dataset.
-     * 
+     * <p>
      * Source: http://www.bbc.co.uk/news/business-15489523
      *
      * @return A sample dataset.
@@ -109,22 +99,21 @@ public class PieChartDemo1 extends ApplicationFrame {
     /**
      * Creates a chart.
      *
-     * @param dataset  the dataset.
-     *
+     * @param dataset the dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(PieDataset dataset) {
 
         JFreeChart chart = ChartFactory.createPieChart(
-            "Smart Phones Manufactured / Q3 2011",  // chart title
-            dataset,            // data
-            false,              // no legend
-            true,               // tooltips
-            false               // no URL generation
+                "Smart Phones Manufactured / Q3 2011",  // chart title
+                dataset,            // data
+                false,              // no legend
+                true,               // tooltips
+                false               // no URL generation
         );
 
         // set a custom background for the chart
-        chart.setBackgroundPaint(new GradientPaint(new Point(0, 0), 
+        chart.setBackgroundPaint(new GradientPaint(new Point(0, 0),
                 new Color(20, 20, 20), new Point(400, 200), Color.DARK_GRAY));
 
         // customise the title position and font
@@ -154,9 +143,9 @@ public class PieChartDemo1 extends ApplicationFrame {
         plot.setLabelOutlineStroke(null);
         plot.setLabelPaint(Color.WHITE);
         plot.setLabelBackgroundPaint(null);
-        
+
         // add a subtitle giving the data source
-        TextTitle source = new TextTitle("Source: http://www.bbc.co.uk/news/business-15489523", 
+        TextTitle source = new TextTitle("Source: http://www.bbc.co.uk/news/business-15489523",
                 new Font("Courier New", Font.PLAIN, 12));
         source.setPaint(Color.WHITE);
         source.setPosition(RectangleEdge.BOTTOM);
@@ -168,10 +157,9 @@ public class PieChartDemo1 extends ApplicationFrame {
 
     /**
      * A utility method for creating gradient paints.
-     * 
-     * @param c1  color 1.
-     * @param c2  color 2.
-     * 
+     *
+     * @param c1 color 1.
+     * @param c2 color 2.
      * @return A radial gradient paint.
      */
     private static RadialGradientPaint createGradientPaint(Color c1, Color c2) {
@@ -179,7 +167,7 @@ public class PieChartDemo1 extends ApplicationFrame {
         float radius = 200;
         float[] dist = {0.0f, 1.0f};
         return new RadialGradientPaint(center, radius, dist,
-                new Color[] {c1, c2});
+                new Color[]{c1, c2});
     }
 
     /**
@@ -199,7 +187,7 @@ public class PieChartDemo1 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 

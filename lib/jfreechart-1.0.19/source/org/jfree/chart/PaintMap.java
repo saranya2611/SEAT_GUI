@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------
@@ -43,7 +43,11 @@
 
 package org.jfree.chart;
 
-import java.awt.Paint;
+import org.jfree.chart.util.ParamChecks;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.PaintUtilities;
+
+import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -52,10 +56,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import org.jfree.chart.util.ParamChecks;
-
-import org.jfree.io.SerialUtilities;
-import org.jfree.util.PaintUtilities;
 
 /**
  * A storage structure that maps <code>Comparable</code> instances with
@@ -69,10 +69,14 @@ import org.jfree.util.PaintUtilities;
  */
 public class PaintMap implements Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = -4639833772123069274L;
 
-    /** Storage for the keys and values. */
+    /**
+     * Storage for the keys and values.
+     */
     private transient Map store;
 
     /**
@@ -86,12 +90,10 @@ public class PaintMap implements Cloneable, Serializable {
      * Returns the paint associated with the specified key, or
      * <code>null</code>.
      *
-     * @param key  the key (<code>null</code> not permitted).
-     *
+     * @param key the key (<code>null</code> not permitted).
      * @return The paint, or <code>null</code>.
-     *
      * @throws IllegalArgumentException if <code>key</code> is
-     *     <code>null</code>.
+     *                                  <code>null</code>.
      */
     public Paint getPaint(Comparable key) {
         ParamChecks.nullNotPermitted(key, "key");
@@ -102,8 +104,7 @@ public class PaintMap implements Cloneable, Serializable {
      * Returns <code>true</code> if the map contains the specified key, and
      * <code>false</code> otherwise.
      *
-     * @param key  the key.
-     *
+     * @param key the key.
      * @return <code>true</code> if the map contains the specified key, and
      * <code>false</code> otherwise.
      */
@@ -115,11 +116,10 @@ public class PaintMap implements Cloneable, Serializable {
      * Adds a mapping between the specified <code>key</code> and
      * <code>paint</code> values.
      *
-     * @param key  the key (<code>null</code> not permitted).
-     * @param paint  the paint.
-     *
+     * @param key   the key (<code>null</code> not permitted).
+     * @param paint the paint.
      * @throws IllegalArgumentException if <code>key</code> is
-     *     <code>null</code>.
+     *                                  <code>null</code>.
      */
     public void put(Comparable key, Paint paint) {
         ParamChecks.nullNotPermitted(key, "key");
@@ -136,8 +136,7 @@ public class PaintMap implements Cloneable, Serializable {
     /**
      * Tests this map for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -169,7 +168,6 @@ public class PaintMap implements Cloneable, Serializable {
      * Returns a clone of this <code>PaintMap</code>.
      *
      * @return A clone of this instance.
-     *
      * @throws CloneNotSupportedException if any key is not cloneable.
      */
     @Override
@@ -185,9 +183,8 @@ public class PaintMap implements Cloneable, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -205,10 +202,9 @@ public class PaintMap implements Cloneable, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {

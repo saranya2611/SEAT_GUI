@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -58,7 +58,7 @@ import org.jfree.data.general.Dataset;
 /**
  * The interface for a dataset with one or more series, and values associated
  * with categories.
- * <P>
+ * <p>
  * The categories are represented by <code>Comparable</code> instance, with the
  * category label being provided by the <code>toString</code> method.
  */

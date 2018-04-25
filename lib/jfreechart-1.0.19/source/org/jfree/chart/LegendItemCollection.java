@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -45,21 +45,25 @@
 
 package org.jfree.chart;
 
+import org.jfree.util.ObjectUtilities;
+
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
-
-import org.jfree.util.ObjectUtilities;
 
 /**
  * A collection of legend items.
  */
 public class LegendItemCollection implements Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 1365215565589815953L;
 
-    /** Storage for the legend items. */
+    /**
+     * Storage for the legend items.
+     */
     private List items;
 
     /**
@@ -72,7 +76,7 @@ public class LegendItemCollection implements Cloneable, Serializable {
     /**
      * Adds a legend item to the collection.
      *
-     * @param item  the item to add.
+     * @param item the item to add.
      */
     public void add(LegendItem item) {
         this.items.add(item);
@@ -81,8 +85,8 @@ public class LegendItemCollection implements Cloneable, Serializable {
     /**
      * Adds the legend items from another collection to this collection.
      *
-     * @param collection  the other collection (<code>null</code> not
-     *     permitted).
+     * @param collection the other collection (<code>null</code> not
+     *                   permitted).
      */
     public void addAll(LegendItemCollection collection) {
         this.items.addAll(collection.items);
@@ -91,8 +95,7 @@ public class LegendItemCollection implements Cloneable, Serializable {
     /**
      * Returns a legend item from the collection.
      *
-     * @param index  the legend item index (zero-based).
-     *
+     * @param index the legend item index (zero-based).
      * @return The legend item.
      */
     public LegendItem get(int index) {
@@ -120,8 +123,7 @@ public class LegendItemCollection implements Cloneable, Serializable {
     /**
      * Tests this collection for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -143,9 +145,8 @@ public class LegendItemCollection implements Cloneable, Serializable {
      * Returns a clone of the collection.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if an item in the collection is not
-     *         cloneable.
+     *                                    cloneable.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

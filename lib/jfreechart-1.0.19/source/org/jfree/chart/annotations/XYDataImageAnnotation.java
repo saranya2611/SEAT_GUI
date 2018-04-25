@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -41,13 +41,6 @@
 
 package org.jfree.chart.annotations;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import org.jfree.chart.axis.AxisLocation;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.Plot;
@@ -60,6 +53,12 @@ import org.jfree.ui.RectangleEdge;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 /**
  * An annotation that allows an image to be placed within a rectangle specified
  * in data coordinates on an {@link XYPlot}.  Note that this annotation
@@ -71,7 +70,9 @@ import org.jfree.util.PublicCloneable;
 public class XYDataImageAnnotation extends AbstractXYAnnotation
         implements Cloneable, PublicCloneable, XYAnnotationBoundsInfo {
 
-    /** The image. */
+    /**
+     * The image.
+     */
     private transient Image image;
 
     /**
@@ -105,32 +106,31 @@ public class XYDataImageAnnotation extends AbstractXYAnnotation
     /**
      * Creates a new annotation to be displayed within the specified rectangle.
      *
-     * @param image  the image (<code>null</code> not permitted).
-     * @param x  the x-coordinate (in data space).
-     * @param y  the y-coordinate (in data space).
-     * @param w  the image display area width.
-     * @param h  the image display area height.
+     * @param image the image (<code>null</code> not permitted).
+     * @param x     the x-coordinate (in data space).
+     * @param y     the y-coordinate (in data space).
+     * @param w     the image display area width.
+     * @param h     the image display area height.
      */
     public XYDataImageAnnotation(Image image, double x, double y, double w,
-            double h) {
+                                 double h) {
         this(image, x, y, w, h, false);
     }
 
     /**
      * Creates a new annotation to be displayed within the specified rectangle.
      *
-     * @param image  the image (<code>null</code> not permitted).
-     * @param x  the x-coordinate (in data space).
-     * @param y  the y-coordinate (in data space).
-     * @param w  the image display area width.
-     * @param h  the image display area height.
-     * @param includeInDataBounds  a flag that controls whether or not the
-     *     annotation is included in the data bounds for the axis autoRange.
-     *
+     * @param image               the image (<code>null</code> not permitted).
+     * @param x                   the x-coordinate (in data space).
+     * @param y                   the y-coordinate (in data space).
+     * @param w                   the image display area width.
+     * @param h                   the image display area height.
+     * @param includeInDataBounds a flag that controls whether or not the
+     *                            annotation is included in the data bounds for the axis autoRange.
      * @since 1.0.13
      */
     public XYDataImageAnnotation(Image image, double x, double y, double w,
-            double h, boolean includeInDataBounds) {
+                                 double h, boolean includeInDataBounds) {
 
         super();
         ParamChecks.nullNotPermitted(image, "image");
@@ -194,7 +194,6 @@ public class XYDataImageAnnotation extends AbstractXYAnnotation
      * contribute to the autoRange for the axis it is plotted against.
      *
      * @return A boolean.
-     *
      * @since 1.0.13
      */
     @Override
@@ -206,7 +205,6 @@ public class XYDataImageAnnotation extends AbstractXYAnnotation
      * Returns the x-range for the annotation.
      *
      * @return The range.
-     *
      * @since 1.0.13
      */
     @Override
@@ -218,7 +216,6 @@ public class XYDataImageAnnotation extends AbstractXYAnnotation
      * Returns the y-range for the annotation.
      *
      * @return The range.
-     *
      * @since 1.0.13
      */
     @Override
@@ -231,14 +228,14 @@ public class XYDataImageAnnotation extends AbstractXYAnnotation
      * {@link XYPlot} class, you don't normally need to call this method
      * directly.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the range axis.
-     * @param rendererIndex  the renderer index.
-     * @param info  if supplied, this info object will be populated with
-     *              entity information.
+     * @param g2            the graphics device.
+     * @param plot          the plot.
+     * @param dataArea      the data area.
+     * @param domainAxis    the domain axis.
+     * @param rangeAxis     the range axis.
+     * @param rendererIndex the renderer index.
+     * @param info          if supplied, this info object will be populated with
+     *                      entity information.
      */
     @Override
     public void draw(Graphics2D g2, XYPlot plot, Rectangle2D dataArea,
@@ -268,8 +265,7 @@ public class XYDataImageAnnotation extends AbstractXYAnnotation
             xx1 = j2DY1;
             yy0 = j2DX0;
             yy1 = j2DX1;
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             xx0 = j2DX0;
             xx1 = j2DX1;
             yy0 = j2DY0;
@@ -289,8 +285,7 @@ public class XYDataImageAnnotation extends AbstractXYAnnotation
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -342,8 +337,7 @@ public class XYDataImageAnnotation extends AbstractXYAnnotation
      * Returns a clone of the annotation.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the annotation can't be cloned.
+     * @throws CloneNotSupportedException if the annotation can't be cloned.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -353,9 +347,8 @@ public class XYDataImageAnnotation extends AbstractXYAnnotation
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -366,13 +359,12 @@ public class XYDataImageAnnotation extends AbstractXYAnnotation
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         // FIXME
         //this.image = SerialUtilities.readImage(stream);

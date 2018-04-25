@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------
@@ -41,17 +41,14 @@
 
 package org.jfree.chart.urls;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import org.jfree.chart.TestUtilities;
+import org.jfree.util.PublicCloneable;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jfree.chart.TestUtilities;
-
-import org.jfree.util.PublicCloneable;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link CustomPieURLGenerator} class.
@@ -114,7 +111,7 @@ public class CustomPieURLGeneratorTest {
         Map m1 = new HashMap();
         m1.put("A", "http://www.jfree.org/");
         g1.addURLs(m1);
-        CustomPieURLGenerator g2 = (CustomPieURLGenerator) 
+        CustomPieURLGenerator g2 = (CustomPieURLGenerator)
                 TestUtilities.serialised(g1);
         assertEquals(g1, g2);
     }

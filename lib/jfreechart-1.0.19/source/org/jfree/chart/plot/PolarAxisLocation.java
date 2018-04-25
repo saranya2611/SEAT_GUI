@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -50,48 +50,59 @@ import java.io.Serializable;
  */
 public final class PolarAxisLocation implements Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -3276922179323563410L;
-
-    /** Axis left of north. */
+    /**
+     * Axis left of north.
+     */
     public static final PolarAxisLocation NORTH_LEFT
             = new PolarAxisLocation("PolarAxisLocation.NORTH_LEFT");
-
-    /** Axis right of north. */
+    /**
+     * Axis right of north.
+     */
     public static final PolarAxisLocation NORTH_RIGHT
             = new PolarAxisLocation("PolarAxisLocation.NORTH_RIGHT");
-
-    /** Axis left of south. */
+    /**
+     * Axis left of south.
+     */
     public static final PolarAxisLocation SOUTH_LEFT
             = new PolarAxisLocation("PolarAxisLocation.SOUTH_LEFT");
-
-    /** Axis right of south. */
+    /**
+     * Axis right of south.
+     */
     public static final PolarAxisLocation SOUTH_RIGHT
             = new PolarAxisLocation("PolarAxisLocation.SOUTH_RIGHT");
-
-    /** Axis above east. */
+    /**
+     * Axis above east.
+     */
     public static final PolarAxisLocation EAST_ABOVE
             = new PolarAxisLocation("PolarAxisLocation.EAST_ABOVE");
-
-    /** Axis below east. */
+    /**
+     * Axis below east.
+     */
     public static final PolarAxisLocation EAST_BELOW
             = new PolarAxisLocation("PolarAxisLocation.EAST_BELOW");
-
-    /** Axis above west. */
+    /**
+     * Axis above west.
+     */
     public static final PolarAxisLocation WEST_ABOVE
             = new PolarAxisLocation("PolarAxisLocation.WEST_ABOVE");
-
-    /** Axis below west. */
+    /**
+     * Axis below west.
+     */
     public static final PolarAxisLocation WEST_BELOW
             = new PolarAxisLocation("PolarAxisLocation.WEST_BELOW");
-
-    /** The name. */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -3276922179323563410L;
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private PolarAxisLocation(String name) {
         this.name = name;
@@ -111,8 +122,7 @@ public final class PolarAxisLocation implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the other object (<code>null</code> permitted).
-     *
+     * @param obj the other object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -134,32 +144,24 @@ public final class PolarAxisLocation implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         if (this.equals(PolarAxisLocation.NORTH_RIGHT)) {
             return PolarAxisLocation.NORTH_RIGHT;
-        }
-        else if (this.equals(PolarAxisLocation.NORTH_LEFT)) {
+        } else if (this.equals(PolarAxisLocation.NORTH_LEFT)) {
             return PolarAxisLocation.NORTH_LEFT;
-        }
-        else if (this.equals(PolarAxisLocation.SOUTH_RIGHT)) {
+        } else if (this.equals(PolarAxisLocation.SOUTH_RIGHT)) {
             return PolarAxisLocation.SOUTH_RIGHT;
-        }
-        else if (this.equals(PolarAxisLocation.SOUTH_LEFT)) {
+        } else if (this.equals(PolarAxisLocation.SOUTH_LEFT)) {
             return PolarAxisLocation.SOUTH_LEFT;
-        }
-        else if (this.equals(PolarAxisLocation.EAST_ABOVE)) {
+        } else if (this.equals(PolarAxisLocation.EAST_ABOVE)) {
             return PolarAxisLocation.EAST_ABOVE;
-        }
-        else if (this.equals(PolarAxisLocation.EAST_BELOW)) {
+        } else if (this.equals(PolarAxisLocation.EAST_BELOW)) {
             return PolarAxisLocation.EAST_BELOW;
-        }
-        else if (this.equals(PolarAxisLocation.WEST_ABOVE)) {
+        } else if (this.equals(PolarAxisLocation.WEST_ABOVE)) {
             return PolarAxisLocation.WEST_ABOVE;
-        }
-        else if (this.equals(PolarAxisLocation.WEST_BELOW)) {
+        } else if (this.equals(PolarAxisLocation.WEST_BELOW)) {
             return PolarAxisLocation.WEST_BELOW;
         }
         return null;

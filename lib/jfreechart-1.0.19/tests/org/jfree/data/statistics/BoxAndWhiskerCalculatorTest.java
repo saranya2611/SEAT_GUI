@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------------
@@ -40,17 +40,20 @@
 
 package org.jfree.data.statistics;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the {@link BoxAndWhiskerCalculator} class.
  */
 public class BoxAndWhiskerCalculatorTest {
+
+    private static final double EPSILON = 0.000000001;
 
     /**
      * Some checks for the calculateBoxAndWhiskerStatistics() method.
@@ -62,8 +65,7 @@ public class BoxAndWhiskerCalculatorTest {
         boolean pass = false;
         try {
             BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -72,14 +74,12 @@ public class BoxAndWhiskerCalculatorTest {
         List values = new ArrayList();
         values.add(new Double(1.1));
         BoxAndWhiskerItem item
-            = BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(values);
+                = BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(values);
         assertEquals(1.1, item.getMean().doubleValue(), EPSILON);
         assertEquals(1.1, item.getMedian().doubleValue(), EPSILON);
         assertEquals(1.1, item.getQ1().doubleValue(), EPSILON);
         assertEquals(1.1, item.getQ3().doubleValue(), EPSILON);
     }
-
-    private static final double EPSILON = 0.000000001;
 
     /**
      * Tests the Q1 calculation.
@@ -91,8 +91,7 @@ public class BoxAndWhiskerCalculatorTest {
         boolean pass = false;
         try {
             BoxAndWhiskerCalculator.calculateQ1(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -123,8 +122,7 @@ public class BoxAndWhiskerCalculatorTest {
         boolean pass = false;
         try {
             BoxAndWhiskerCalculator.calculateQ3(null);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -158,7 +156,7 @@ public class BoxAndWhiskerCalculatorTest {
         theList.add(3, new Double(3.0));
         theList.add(4, new Double(4.0));
         BoxAndWhiskerItem theItem =
-            BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(theList);
+                BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(theList);
         assertEquals(1.0, theItem.getMinRegularValue().doubleValue(), EPSILON);
         assertEquals(4.0, theItem.getMaxRegularValue().doubleValue(), EPSILON);
     }

@@ -41,45 +41,48 @@
 
 package org.jfree.chart.editor;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-
 import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PolarPlot;
 import org.jfree.layout.LCBLayout;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+
 /**
  * A panel for editing the properties of a {@link PolarPlot}.
  */
 public class DefaultPolarPlotEditor extends DefaultPlotEditor
-    implements FocusListener {
+        implements FocusListener {
 
-    /** A text field to enter a manual TickUnit. */
+    /**
+     * A text field to enter a manual TickUnit.
+     */
     private JTextField manualTickUnit;
 
-    /** A text field to enter the angleOffset. */
+    /**
+     * A text field to enter the angleOffset.
+     */
     private JTextField angleOffset;
 
-    /** The size for the manual TickUnit. */
+    /**
+     * The size for the manual TickUnit.
+     */
     private double manualTickUnitValue;
 
-    /** The value for the plot's angle offset. */
+    /**
+     * The value for the plot's angle offset.
+     */
     private double angleOffsetValue;
 
-    
+
     /**
      * Standard constructor - constructs a panel for editing the properties of
      * the specified plot.
      *
-     * @param plot  the plot, which should be changed.
+     * @param plot the plot, which should be changed.
      */
     public DefaultPolarPlotEditor(PolarPlot plot) {
         super(plot);
@@ -91,16 +94,15 @@ public class DefaultPolarPlotEditor extends DefaultPlotEditor
 
     /**
      * Creates a tabbed pane for editing the plot attributes.
-     * 
-     * @param plot  the plot.
-     * 
-     * @return A tabbed pane. 
+     *
+     * @param plot the plot.
+     * @return A tabbed pane.
      */
     @Override
     protected JTabbedPane createPlotTabs(Plot plot) {
         JTabbedPane tabs = super.createPlotTabs(plot);
         // TODO find a better localization key
-        tabs.insertTab(localizationResources.getString("General1"), null, 
+        tabs.insertTab(localizationResources.getString("General1"), null,
                 createPlotPanel(), null, 0);
         tabs.setSelectedIndex(0);
         return tabs;
@@ -136,7 +138,7 @@ public class DefaultPolarPlotEditor extends DefaultPlotEditor
     /**
      * Does nothing.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void focusGained(FocusEvent event) {
@@ -144,22 +146,22 @@ public class DefaultPolarPlotEditor extends DefaultPlotEditor
     }
 
     /**
-     *  Revalidates minimum/maximum range.
+     * Revalidates minimum/maximum range.
      *
-     *  @param event  the event.
+     * @param event the event.
      */
     @Override
     public void focusLost(FocusEvent event) {
         if (event.getSource() == this.angleOffset) {
             validateAngleOffset();
-        }
-        else if (event.getSource() == this.manualTickUnit) {
+        } else if (event.getSource() == this.manualTickUnit) {
             validateTickUnit();
         }
     }
 
     /**
      * Handles actions from within the property panel.
+     *
      * @param event an event.
      */
     @Override
@@ -167,8 +169,7 @@ public class DefaultPolarPlotEditor extends DefaultPlotEditor
         String command = event.getActionCommand();
         if (command.equals("AngleOffsetValue")) {
             validateAngleOffset();
-        }
-        else if (command.equals("TickUnitValue")) {
+        } else if (command.equals("TickUnitValue")) {
             validateTickUnit();
         }
     }
@@ -180,8 +181,7 @@ public class DefaultPolarPlotEditor extends DefaultPlotEditor
         double newOffset;
         try {
             newOffset = Double.parseDouble(this.angleOffset.getText());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             newOffset = this.angleOffsetValue;
         }
         this.angleOffsetValue = newOffset;
@@ -195,8 +195,7 @@ public class DefaultPolarPlotEditor extends DefaultPlotEditor
         double newTickUnit;
         try {
             newTickUnit = Double.parseDouble(this.manualTickUnit.getText());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             newTickUnit = this.manualTickUnitValue;
         }
 

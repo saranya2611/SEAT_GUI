@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -42,43 +42,38 @@
 
 package org.jfree.chart.editor;
 
-import java.awt.BasicStroke;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.RenderingHints;
-import java.awt.geom.Line2D;
-
-import javax.swing.JComponent;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
-
 import org.jfree.chart.plot.ColorPalette;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYBlockRenderer;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Line2D;
 
 
 /**
  * A panel that displays a palette sample.
  *
  * @deprecated This class is no longer supported (as of version 1.0.4).  If
- *     you are creating contour plots, please try to use {@link XYPlot} and
- *     {@link XYBlockRenderer}.
+ * you are creating contour plots, please try to use {@link XYPlot} and
+ * {@link XYBlockRenderer}.
  */
 public class PaletteSample extends JComponent implements ListCellRenderer {
 
-    /** The palette being displayed. */
+    /**
+     * The palette being displayed.
+     */
     private ColorPalette palette;
 
-    /** The preferred size of the component; */
+    /**
+     * The preferred size of the component;
+     */
     private Dimension preferredSize;
 
     /**
      * Creates a new sample.
      *
-     * @param palette  the palette.
+     * @param palette the palette.
      */
     public PaletteSample(ColorPalette palette) {
         this.palette = palette;
@@ -89,19 +84,18 @@ public class PaletteSample extends JComponent implements ListCellRenderer {
      * Returns a list cell renderer for the stroke, so the sample can be
      * displayed in a list or combo.
      *
-     * @param list  the list component.
-     * @param value  the value.
-     * @param index  the index.
-     * @param isSelected  a flag that indicates whether or not the item is
-     *                    selected.
-     * @param cellHasFocus  a flag that indicates whether or not the cell has
-     *                      the focus.
-     *
+     * @param list         the list component.
+     * @param value        the value.
+     * @param index        the index.
+     * @param isSelected   a flag that indicates whether or not the item is
+     *                     selected.
+     * @param cellHasFocus a flag that indicates whether or not the cell has
+     *                     the focus.
      * @return The renderer.
      */
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
-            int index, boolean isSelected, boolean cellHasFocus) {
+                                                  int index, boolean isSelected, boolean cellHasFocus) {
         if (value instanceof PaletteSample) {
             PaletteSample in = (PaletteSample) value;
             setPalette(in.getPalette());
@@ -119,6 +113,16 @@ public class PaletteSample extends JComponent implements ListCellRenderer {
     }
 
     /**
+     * Sets the palette object being displayed.
+     *
+     * @param palette the palette.
+     */
+    public void setPalette(ColorPalette palette) {
+        this.palette = palette;
+        this.repaint();
+    }
+
+    /**
      * Returns the preferred size of the component.
      *
      * @return The preferred size.
@@ -131,13 +135,13 @@ public class PaletteSample extends JComponent implements ListCellRenderer {
     /**
      * Draws the sample.
      *
-     * @param g  the graphics device.
+     * @param g the graphics device.
      */
     @Override
     public void paintComponent(Graphics g) {
 
         Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_OFF);
         Dimension size = getSize();
         Insets insets = getInsets();
@@ -158,16 +162,6 @@ public class PaletteSample extends JComponent implements ListCellRenderer {
             g2.draw(line);
             xx += 1;
         }
-    }
-
-    /**
-     * Sets the palette object being displayed.
-     *
-     * @param palette  the palette.
-     */
-    public void setPalette(ColorPalette palette) {
-        this.palette = palette;
-        this.repaint();
     }
 
 }

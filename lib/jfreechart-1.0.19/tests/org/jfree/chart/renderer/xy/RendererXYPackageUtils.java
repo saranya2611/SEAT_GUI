@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -56,7 +56,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 /**
  * A collection of tests for the org.jfree.chart.renderer.xy package.
- * <P>
+ * <p>
  * These tests can be run using JUnit (http://www.junit.org).
  */
 public class RendererXYPackageUtils {

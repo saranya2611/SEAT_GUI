@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------
@@ -50,10 +50,14 @@ import java.io.Serializable;
  */
 public class XYCoordinate implements Comparable, Serializable {
 
-    /** The x-coordinate. */
+    /**
+     * The x-coordinate.
+     */
     private double x;
 
-    /** The y-coordinate. */
+    /**
+     * The y-coordinate.
+     */
     private double y;
 
     /**
@@ -66,8 +70,8 @@ public class XYCoordinate implements Comparable, Serializable {
     /**
      * Creates a new coordinate for the point (x, y).
      *
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
+     * @param x the x-coordinate.
+     * @param y the y-coordinate.
      */
     public XYCoordinate(double x, double y) {
         this.x = x;
@@ -95,8 +99,7 @@ public class XYCoordinate implements Comparable, Serializable {
     /**
      * Tests this coordinate for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -146,8 +149,7 @@ public class XYCoordinate implements Comparable, Serializable {
     /**
      * Compares this instance against an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> not permitted).
-     *
+     * @param obj the object (<code>null</code> not permitted).
      * @return An integer indicating the relative order of the items.
      */
     @Override
@@ -158,15 +160,12 @@ public class XYCoordinate implements Comparable, Serializable {
         XYCoordinate that = (XYCoordinate) obj;
         if (this.x > that.x) {
             return 1;
-        }
-        else if (this.x < that.x) {
+        } else if (this.x < that.x) {
             return -1;
-        }
-        else {
+        } else {
             if (this.y > that.y) {
                 return 1;
-            }
-            else if (this.y < that.y) {
+            } else if (this.y < that.y) {
                 return -1;
             }
         }

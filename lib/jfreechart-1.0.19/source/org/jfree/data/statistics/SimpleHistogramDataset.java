@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -43,19 +43,19 @@
 
 package org.jfree.data.statistics;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.data.DomainOrder;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.xy.AbstractIntervalXYDataset;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A dataset used for creating simple histograms with custom defined bins.
@@ -64,15 +64,21 @@ import org.jfree.util.PublicCloneable;
  */
 public class SimpleHistogramDataset extends AbstractIntervalXYDataset
         implements IntervalXYDataset, Cloneable, PublicCloneable,
-            Serializable {
+        Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 7997996479768018443L;
 
-    /** The series key. */
+    /**
+     * The series key.
+     */
     private Comparable key;
 
-    /** The bins. */
+    /**
+     * The bins.
+     */
     private List bins;
 
     /**
@@ -85,7 +91,7 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * Creates a new histogram dataset.  Note that the
      * <code>adjustForBinSize</code> flag defaults to <code>true</code>.
      *
-     * @param key  the series key (<code>null</code> not permitted).
+     * @param key the series key (<code>null</code> not permitted).
      */
     public SimpleHistogramDataset(Comparable key) {
         ParamChecks.nullNotPermitted(key, "key");
@@ -99,7 +105,6 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * the bin size in the {@link #getXValue(int, int)} method.
      *
      * @return A boolean.
-     *
      * @see #setAdjustForBinSize(boolean)
      */
     public boolean getAdjustForBinSize() {
@@ -111,8 +116,7 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * the bin size in the {@link #getYValue(int, int)} method, and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param adjust  the flag.
-     *
+     * @param adjust the flag.
      * @see #getAdjustForBinSize()
      */
     public void setAdjustForBinSize(boolean adjust) {
@@ -134,8 +138,7 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * Returns the key for a series.  Since this dataset only stores a single
      * series, the <code>series</code> argument is ignored.
      *
-     * @param series  the series (zero-based index, ignored in this dataset).
-     *
+     * @param series the series (zero-based index, ignored in this dataset).
      * @return The key for the series.
      */
     @Override
@@ -157,8 +160,7 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * Returns the number of items in a series.  Since this dataset only stores
      * a single series, the <code>series</code> argument is ignored.
      *
-     * @param series  the series index (zero-based, ignored in this dataset).
-     *
+     * @param series the series index (zero-based, ignored in this dataset).
      * @return The item count.
      */
     @Override
@@ -170,8 +172,7 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * Adds a bin to the dataset.  An exception is thrown if the bin overlaps
      * with any existing bin in the dataset.
      *
-     * @param bin  the bin (<code>null</code> not permitted).
-     *
+     * @param bin the bin (<code>null</code> not permitted).
      * @see #removeAllBins()
      */
     public void addBin(SimpleHistogramBin bin) {
@@ -193,7 +194,7 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * the appropriate bin).  A runtime exception is thrown if the value does
      * not fit into any bin.
      *
-     * @param value  the value.
+     * @param value the value.
      */
     public void addObservation(double value) {
         addObservation(value, true);
@@ -205,7 +206,7 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * not fit into any bin.
      *
      * @param value  the value.
-     * @param notify  send {@link DatasetChangeEvent} to listeners?
+     * @param notify send {@link DatasetChangeEvent} to listeners?
      */
     public void addObservation(double value, boolean notify) {
         boolean placed = false;
@@ -229,8 +230,7 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * Adds a set of values to the dataset and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @param values  the values (<code>null</code> not permitted).
-     *
+     * @param values the values (<code>null</code> not permitted).
      * @see #clearObservations()
      */
     public void addObservations(double[] values) {
@@ -244,10 +244,9 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * Removes all current observation data and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *
-     * @since 1.0.6
-     *
      * @see #addObservations(double[])
      * @see #removeAllBins()
+     * @since 1.0.6
      */
     public void clearObservations() {
         Iterator iterator = this.bins.iterator();
@@ -262,9 +261,8 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * Removes all bins and sends a {@link DatasetChangeEvent} to all
      * registered listeners.
      *
-     * @since 1.0.6
-     *
      * @see #addBin(SimpleHistogramBin)
+     * @since 1.0.6
      */
     public void removeAllBins() {
         this.bins = new ArrayList();
@@ -276,9 +274,8 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * may not be returned in ascending order, that is up to the class
      * implementing the interface.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The x-value (never <code>null</code>).
      */
     @Override
@@ -289,9 +286,8 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the x-value (as a double primitive) for an item within a series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The x-value.
      */
     @Override
@@ -303,9 +299,8 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the y-value for an item within a series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The y-value (possibly <code>null</code>).
      */
     @Override
@@ -316,11 +311,9 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the y-value (as a double primitive) for an item within a series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The y-value.
-     *
      * @see #getAdjustForBinSize()
      */
     @Override
@@ -328,9 +321,8 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
         SimpleHistogramBin bin = (SimpleHistogramBin) this.bins.get(item);
         if (this.adjustForBinSize) {
             return bin.getItemCount()
-                   / (bin.getUpperBound() - bin.getLowerBound());
-        }
-        else {
+                    / (bin.getUpperBound() - bin.getLowerBound());
+        } else {
             return bin.getItemCount();
         }
     }
@@ -338,9 +330,8 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the starting X value for the specified series and item.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
      */
     @Override
@@ -352,9 +343,8 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * Returns the start x-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The start x-value.
      */
     @Override
@@ -366,9 +356,8 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the ending X value for the specified series and item.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
      */
     @Override
@@ -380,9 +369,8 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * Returns the end x-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The end x-value.
      */
     @Override
@@ -394,9 +382,8 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the starting Y value for the specified series and item.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
      */
     @Override
@@ -408,9 +395,8 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * Returns the start y-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The start y-value.
      */
     @Override
@@ -421,9 +407,8 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
     /**
      * Returns the ending Y value for the specified series and item.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The value.
      */
     @Override
@@ -435,9 +420,8 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * Returns the end y-value (as a double primitive) for an item within a
      * series.
      *
-     * @param series  the series index (zero-based).
-     * @param item  the item index (zero-based).
-     *
+     * @param series the series index (zero-based).
+     * @param item   the item index (zero-based).
      * @return The end y-value.
      */
     @Override
@@ -448,8 +432,7 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
     /**
      * Compares the dataset for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -477,9 +460,8 @@ public class SimpleHistogramDataset extends AbstractIntervalXYDataset
      * Returns a clone of the dataset.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException not thrown by this class, but maybe
-     *         by subclasses (if any).
+     *                                    by subclasses (if any).
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

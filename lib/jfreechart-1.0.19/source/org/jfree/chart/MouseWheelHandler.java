@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -45,15 +45,15 @@
 
 package org.jfree.chart;
 
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import java.awt.geom.Point2D;
-import java.io.Serializable;
-
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.Zoomable;
+
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
+import java.awt.geom.Point2D;
+import java.io.Serializable;
 
 /**
  * A class that handles mouse wheel events for the {@link ChartPanel} class.
@@ -62,16 +62,19 @@ import org.jfree.chart.plot.Zoomable;
  */
 class MouseWheelHandler implements MouseWheelListener, Serializable {
 
-    /** The chart panel. */
-    private ChartPanel chartPanel;
-
-    /** The zoom factor. */
+    /**
+     * The zoom factor.
+     */
     double zoomFactor;
+    /**
+     * The chart panel.
+     */
+    private ChartPanel chartPanel;
 
     /**
      * Creates a new instance for the specified chart panel.
      *
-     * @param chartPanel  the chart panel (<code>null</code> not permitted).
+     * @param chartPanel the chart panel (<code>null</code> not permitted).
      */
     public MouseWheelHandler(ChartPanel chartPanel) {
         this.chartPanel = chartPanel;
@@ -84,7 +87,6 @@ class MouseWheelHandler implements MouseWheelListener, Serializable {
      * percent).
      *
      * @return The zoom factor.
-     *
      * @see #setZoomFactor(double)
      */
     public double getZoomFactor() {
@@ -94,8 +96,7 @@ class MouseWheelHandler implements MouseWheelListener, Serializable {
     /**
      * Sets the zoom factor.
      *
-     * @param zoomFactor  the zoom factor.
-     *
+     * @param zoomFactor the zoom factor.
      * @see #getZoomFactor()
      */
     public void setZoomFactor(double zoomFactor) {
@@ -105,7 +106,7 @@ class MouseWheelHandler implements MouseWheelListener, Serializable {
     /**
      * Handles a mouse wheel event from the underlying chart panel.
      *
-     * @param e  the event.
+     * @param e the event.
      */
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
@@ -117,8 +118,7 @@ class MouseWheelHandler implements MouseWheelListener, Serializable {
         if (plot instanceof Zoomable) {
             Zoomable zoomable = (Zoomable) plot;
             handleZoomable(zoomable, e);
-        }
-        else if (plot instanceof PiePlot) {
+        } else if (plot instanceof PiePlot) {
             PiePlot pp = (PiePlot) plot;
             pp.handleMouseWheelRotation(e.getWheelRotation());
         }
@@ -127,8 +127,8 @@ class MouseWheelHandler implements MouseWheelListener, Serializable {
     /**
      * Handle the case where a plot implements the {@link Zoomable} interface.
      *
-     * @param zoomable  the zoomable plot.
-     * @param e  the mouse wheel event.
+     * @param zoomable the zoomable plot.
+     * @param e        the mouse wheel event.
      */
     private void handleZoomable(Zoomable zoomable, MouseWheelEvent e) {
         // don't zoom unless the mouse pointer is in the plot's data area

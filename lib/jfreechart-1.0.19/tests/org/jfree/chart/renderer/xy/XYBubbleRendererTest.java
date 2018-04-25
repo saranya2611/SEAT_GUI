@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -43,10 +43,6 @@
 
 package org.jfree.chart.renderer.xy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.TestUtilities;
@@ -55,6 +51,8 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.DefaultXYZDataset;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link XYBubbleRenderer} class.
@@ -130,36 +128,37 @@ public class XYBubbleRendererTest {
         double[] x = {2.1, 2.3, 2.3, 2.2, 2.2, 1.8, 1.8, 1.9, 2.3, 3.8};
         double[] y = {14.1, 11.1, 10.0, 8.8, 8.7, 8.4, 5.4, 4.1, 4.1, 25};
         double[] z = {2.4, 2.7, 2.7, 2.2, 2.2, 2.2, 2.1, 2.2, 1.6, 4};
-        double[][] s1 = new double[][] {x, y, z};
+        double[][] s1 = new double[][]{x, y, z};
         d1.addSeries("S1", s1);
-        x = new double[] {2.1};
-        y = new double[] {14.1};
-        z = new double[] {2.4};
-        double[][] s2 = new double[][] {x, y, z};
+        x = new double[]{2.1};
+        y = new double[]{14.1};
+        z = new double[]{2.4};
+        double[][] s2 = new double[][]{x, y, z};
         d1.addSeries("S2", s2);
 
         DefaultXYZDataset d2 = new DefaultXYZDataset();
-        x = new double[] {2.1};
-        y = new double[] {14.1};
-        z = new double[] {2.4};
-        double[][] s3 = new double[][] {x, y, z};
+        x = new double[]{2.1};
+        y = new double[]{14.1};
+        z = new double[]{2.4};
+        double[][] s3 = new double[][]{x, y, z};
         d2.addSeries("S3", s3);
-        x = new double[] {2.1};
-        y = new double[] {14.1};
-        z = new double[] {2.4};
-        double[][] s4 = new double[][] {x, y, z};
+        x = new double[]{2.1};
+        y = new double[]{14.1};
+        z = new double[]{2.4};
+        double[][] s4 = new double[][]{x, y, z};
         d2.addSeries("S4", s4);
-        x = new double[] {2.1};
-        y = new double[] {14.1};
-        z = new double[] {2.4};
-        double[][] s5 = new double[][] {x, y, z};
+        x = new double[]{2.1};
+        y = new double[]{14.1};
+        z = new double[]{2.4};
+        double[][] s5 = new double[][]{x, y, z};
         d2.addSeries("S5", s5);
 
         XYBubbleRenderer r = new XYBubbleRenderer();
         XYPlot plot = new XYPlot(d1, new NumberAxis("x"),
                 new NumberAxis("y"), r);
         plot.setDataset(1, d2);
-        /*JFreeChart chart =*/ new JFreeChart(plot);
+        /*JFreeChart chart =*/
+        new JFreeChart(plot);
         LegendItem li = r.getLegendItem(1, 2);
         assertEquals("S5", li.getLabel());
         assertEquals(1, li.getDatasetIndex());

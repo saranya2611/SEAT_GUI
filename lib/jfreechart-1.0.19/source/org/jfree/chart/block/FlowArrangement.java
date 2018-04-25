@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -42,34 +42,44 @@
 
 package org.jfree.chart.block;
 
-import java.awt.Graphics2D;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.Size2D;
+import org.jfree.ui.VerticalAlignment;
+
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.jfree.ui.HorizontalAlignment;
-import org.jfree.ui.Size2D;
-import org.jfree.ui.VerticalAlignment;
 
 /**
  * Arranges blocks in a flow layout.  This class is immutable.
  */
 public class FlowArrangement implements Arrangement, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 4543632485478613800L;
 
-    /** The horizontal alignment of blocks. */
+    /**
+     * The horizontal alignment of blocks.
+     */
     private HorizontalAlignment horizontalAlignment;
 
-    /** The vertical alignment of blocks within each row. */
+    /**
+     * The vertical alignment of blocks within each row.
+     */
     private VerticalAlignment verticalAlignment;
 
-    /** The horizontal gap between items within rows. */
+    /**
+     * The horizontal gap between items within rows.
+     */
     private double horizontalGap;
 
-    /** The vertical gap between rows. */
+    /**
+     * The vertical gap between rows.
+     */
     private double verticalGap;
 
     /**
@@ -82,10 +92,10 @@ public class FlowArrangement implements Arrangement, Serializable {
     /**
      * Creates a new instance.
      *
-     * @param hAlign  the horizontal alignment (currently ignored).
-     * @param vAlign  the vertical alignment (currently ignored).
-     * @param hGap  the horizontal gap.
-     * @param vGap  the vertical gap.
+     * @param hAlign the horizontal alignment (currently ignored).
+     * @param vAlign the vertical alignment (currently ignored).
+     * @param hGap   the horizontal gap.
+     * @param vGap   the vertical gap.
      */
     public FlowArrangement(HorizontalAlignment hAlign, VerticalAlignment vAlign,
                            double hGap, double vGap) {
@@ -100,8 +110,8 @@ public class FlowArrangement implements Arrangement, Serializable {
      * called by the {@link BlockContainer}, you shouldn't need to call it
      * directly.
      *
-     * @param block  the block.
-     * @param key  a key that controls the position of the block.
+     * @param block the block.
+     * @param key   a key that controls the position of the block.
      */
     @Override
     public void add(Block block, Object key) {
@@ -116,9 +126,8 @@ public class FlowArrangement implements Arrangement, Serializable {
      * calculate sizing parameters.
      *
      * @param container  the container whose items are being arranged.
-     * @param constraint  the size constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the size constraint.
+     * @param g2         the graphics device.
      * @return The size of the container after arrangement of the contents.
      */
     @Override
@@ -130,33 +139,25 @@ public class FlowArrangement implements Arrangement, Serializable {
         if (w == LengthConstraintType.NONE) {
             if (h == LengthConstraintType.NONE) {
                 return arrangeNN(container, g2);
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
                 return arrangeNF(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
                 throw new RuntimeException("Not implemented.");
             }
-        }
-        else if (w == LengthConstraintType.FIXED) {
+        } else if (w == LengthConstraintType.FIXED) {
             if (h == LengthConstraintType.NONE) {
                 return arrangeFN(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
                 return arrangeFF(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
                 return arrangeFR(container, g2, constraint);
             }
-        }
-        else if (w == LengthConstraintType.RANGE) {
+        } else if (w == LengthConstraintType.RANGE) {
             if (h == LengthConstraintType.NONE) {
                 return arrangeRN(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
                 return arrangeRF(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
                 return arrangeRR(container, g2, constraint);
             }
         }
@@ -169,9 +170,8 @@ public class FlowArrangement implements Arrangement, Serializable {
      * constraint.
      *
      * @param container  the container.
-     * @param constraint  the constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the constraint.
+     * @param g2         the graphics device.
      * @return The size.
      */
     protected Size2D arrangeFN(BlockContainer container, Graphics2D g2,
@@ -190,32 +190,30 @@ public class FlowArrangement implements Arrangement, Serializable {
             if (x + size.width <= width) {
                 itemsInRow.add(block);
                 block.setBounds(
-                    new Rectangle2D.Double(x, y, size.width, size.height)
+                        new Rectangle2D.Double(x, y, size.width, size.height)
                 );
                 x = x + size.width + this.horizontalGap;
                 maxHeight = Math.max(maxHeight, size.height);
-            }
-            else {
+            } else {
                 if (itemsInRow.isEmpty()) {
                     // place in this row (truncated) anyway
                     block.setBounds(
-                        new Rectangle2D.Double(
-                            x, y, Math.min(size.width, width - x), size.height
-                        )
+                            new Rectangle2D.Double(
+                                    x, y, Math.min(size.width, width - x), size.height
+                            )
                     );
                     x = 0.0;
                     y = y + size.height + this.verticalGap;
-                }
-                else {
+                } else {
                     // start new row
                     itemsInRow.clear();
                     x = 0.0;
                     y = y + maxHeight + this.verticalGap;
                     maxHeight = size.height;
                     block.setBounds(
-                        new Rectangle2D.Double(
-                            x, y, Math.min(size.width, width), size.height
-                        )
+                            new Rectangle2D.Double(
+                                    x, y, Math.min(size.width, width), size.height
+                            )
                     );
                     x = size.width + this.horizontalGap;
                     itemsInRow.add(block);
@@ -230,9 +228,8 @@ public class FlowArrangement implements Arrangement, Serializable {
      * constraint on the height.
      *
      * @param container  the container.
-     * @param constraint  the constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the constraint.
+     * @param g2         the graphics device.
      * @return The size following the arrangement.
      */
     protected Size2D arrangeFR(BlockContainer container, Graphics2D g2,
@@ -241,10 +238,9 @@ public class FlowArrangement implements Arrangement, Serializable {
         Size2D s = arrangeFN(container, g2, constraint);
         if (constraint.getHeightRange().contains(s.height)) {
             return s;
-        }
-        else {
+        } else {
             RectangleConstraint c = constraint.toFixedHeight(
-                constraint.getHeightRange().constrain(s.getHeight())
+                    constraint.getHeightRange().constrain(s.getHeight())
             );
             return arrangeFF(container, g2, c);
         }
@@ -255,9 +251,8 @@ public class FlowArrangement implements Arrangement, Serializable {
      * specified as fixed constraints.
      *
      * @param container  the container.
-     * @param constraint  the constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the constraint.
+     * @param g2         the graphics device.
      * @return The size following the arrangement.
      */
     protected Size2D arrangeFF(BlockContainer container, Graphics2D g2,
@@ -272,9 +267,8 @@ public class FlowArrangement implements Arrangement, Serializable {
      * specified ranges.
      *
      * @param container  the container.
-     * @param constraint  the constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the constraint.
+     * @param g2         the graphics device.
      * @return The size after the arrangement.
      */
     protected Size2D arrangeRR(BlockContainer container, Graphics2D g2,
@@ -285,10 +279,9 @@ public class FlowArrangement implements Arrangement, Serializable {
         Size2D s1 = arrangeNN(container, g2);
         if (constraint.getWidthRange().contains(s1.width)) {
             return s1;  // TODO: we didn't check the height yet
-        }
-        else {
+        } else {
             RectangleConstraint c = constraint.toFixedWidth(
-                constraint.getWidthRange().getUpperBound()
+                    constraint.getWidthRange().getUpperBound()
             );
             return arrangeFR(container, g2, c);
         }
@@ -299,9 +292,8 @@ public class FlowArrangement implements Arrangement, Serializable {
      * width and a fixed height.
      *
      * @param container  the container.
-     * @param constraint  the constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the constraint.
+     * @param g2         the graphics device.
      * @return The size following the arrangement.
      */
     protected Size2D arrangeRF(BlockContainer container, Graphics2D g2,
@@ -310,10 +302,9 @@ public class FlowArrangement implements Arrangement, Serializable {
         Size2D s = arrangeNF(container, g2, constraint);
         if (constraint.getWidthRange().contains(s.width)) {
             return s;
-        }
-        else {
+        } else {
             RectangleConstraint c = constraint.toFixedWidth(
-                constraint.getWidthRange().constrain(s.getWidth())
+                    constraint.getWidthRange().constrain(s.getWidth())
             );
             return arrangeFF(container, g2, c);
         }
@@ -324,9 +315,8 @@ public class FlowArrangement implements Arrangement, Serializable {
      * constraint on the height.
      *
      * @param container  the container.
-     * @param constraint  the constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the constraint.
+     * @param g2         the graphics device.
      * @return The size following the arrangement.
      */
     protected Size2D arrangeRN(BlockContainer container, Graphics2D g2,
@@ -336,10 +326,9 @@ public class FlowArrangement implements Arrangement, Serializable {
         Size2D s1 = arrangeNN(container, g2);
         if (constraint.getWidthRange().contains(s1.width)) {
             return s1;
-        }
-        else {
+        } else {
             RectangleConstraint c = constraint.toFixedWidth(
-                constraint.getWidthRange().getUpperBound()
+                    constraint.getWidthRange().getUpperBound()
             );
             return arrangeFN(container, g2, c);
         }
@@ -349,9 +338,8 @@ public class FlowArrangement implements Arrangement, Serializable {
      * Arranges the blocks without any constraints.  This puts all blocks
      * into a single row.
      *
-     * @param container  the container.
-     * @param g2  the graphics device.
-     *
+     * @param container the container.
+     * @param g2        the graphics device.
      * @return The size after the arrangement.
      */
     protected Size2D arrangeNN(BlockContainer container, Graphics2D g2) {
@@ -368,9 +356,9 @@ public class FlowArrangement implements Arrangement, Serializable {
                 width = width + sizes[i].getWidth();
                 maxHeight = Math.max(sizes[i].height, maxHeight);
                 block.setBounds(
-                    new Rectangle2D.Double(
-                        x, 0.0, sizes[i].width, sizes[i].height
-                    )
+                        new Rectangle2D.Double(
+                                x, 0.0, sizes[i].width, sizes[i].height
+                        )
                 );
                 x = x + sizes[i].width + this.horizontalGap;
             }
@@ -382,8 +370,7 @@ public class FlowArrangement implements Arrangement, Serializable {
                     //Block b = (Block) blocks.get(i);
                     if (this.verticalAlignment == VerticalAlignment.CENTER) {
                         //TODO: shift block down by half
-                    }
-                    else if (this.verticalAlignment
+                    } else if (this.verticalAlignment
                             == VerticalAlignment.BOTTOM) {
                         //TODO: shift block down to bottom
                     }
@@ -398,9 +385,8 @@ public class FlowArrangement implements Arrangement, Serializable {
      * constraint.  This puts all blocks into a single row.
      *
      * @param container  the container.
-     * @param constraint  the constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the constraint.
+     * @param g2         the graphics device.
      * @return The size after the arrangement.
      */
     protected Size2D arrangeNF(BlockContainer container, Graphics2D g2,
@@ -420,8 +406,7 @@ public class FlowArrangement implements Arrangement, Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

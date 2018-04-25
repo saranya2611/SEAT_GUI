@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------------
@@ -40,13 +40,12 @@
 
 package org.jfree.data.gantt;
 
-import java.util.Date;
-
 import org.jfree.chart.TestUtilities;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+
+import java.util.Date;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link SlidingGanttCategoryDataset} class.
@@ -103,7 +102,7 @@ public class SlidingGanttCategoryDatasetTest {
         u1.add(s1);
         SlidingGanttCategoryDataset d1 = new SlidingGanttCategoryDataset(
                 u1, 0, 5);
-        SlidingGanttCategoryDataset d2 = (SlidingGanttCategoryDataset) 
+        SlidingGanttCategoryDataset d2 = (SlidingGanttCategoryDataset)
                 d1.clone();
         assertTrue(d1 != d2);
         assertTrue(d1.getClass() == d2.getClass());
@@ -130,7 +129,7 @@ public class SlidingGanttCategoryDatasetTest {
         u1.add(s1);
         SlidingGanttCategoryDataset d1 = new SlidingGanttCategoryDataset(
                 u1, 0, 5);
-        SlidingGanttCategoryDataset d2 = (SlidingGanttCategoryDataset) 
+        SlidingGanttCategoryDataset d2 = (SlidingGanttCategoryDataset)
                 TestUtilities.serialised(d1);
         assertEquals(d1, d2);
 

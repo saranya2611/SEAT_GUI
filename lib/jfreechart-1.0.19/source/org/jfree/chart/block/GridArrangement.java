@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------
@@ -42,33 +42,39 @@
 
 package org.jfree.chart.block;
 
-import java.awt.Graphics2D;
+import org.jfree.ui.Size2D;
+
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
-
-import org.jfree.ui.Size2D;
 
 /**
  * Arranges blocks in a grid within their container.
  */
 public class GridArrangement implements Arrangement, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -2563758090144655938L;
 
-    /** The rows. */
+    /**
+     * The rows.
+     */
     private int rows;
 
-    /** The columns. */
+    /**
+     * The columns.
+     */
     private int columns;
 
     /**
      * Creates a new grid arrangement.
      *
-     * @param rows  the row count.
-     * @param columns  the column count.
+     * @param rows    the row count.
+     * @param columns the column count.
      */
     public GridArrangement(int rows, int columns) {
         this.rows = rows;
@@ -81,8 +87,8 @@ public class GridArrangement implements Arrangement, Serializable {
      * (you don't need to call this method directly) and gives the arrangement
      * an opportunity to record the details if they are required.
      *
-     * @param block  the block.
-     * @param key  the key (<code>null</code> permitted).
+     * @param block the block.
+     * @param key   the key (<code>null</code> permitted).
      */
     @Override
     public void add(Block block, Object key) {
@@ -94,9 +100,8 @@ public class GridArrangement implements Arrangement, Serializable {
      * constraint.
      *
      * @param container  the container (<code>null</code> not permitted).
-     * @param constraint  the constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the constraint.
+     * @param g2         the graphics device.
      * @return The size following the arrangement.
      */
     @Override
@@ -107,39 +112,31 @@ public class GridArrangement implements Arrangement, Serializable {
         if (w == LengthConstraintType.NONE) {
             if (h == LengthConstraintType.NONE) {
                 return arrangeNN(container, g2);
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
                 return arrangeNF(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
                 // find optimum height, then map to range
                 return arrangeNR(container, g2, constraint);
             }
-        }
-        else if (w == LengthConstraintType.FIXED) {
+        } else if (w == LengthConstraintType.FIXED) {
             if (h == LengthConstraintType.NONE) {
                 // find optimum height
                 return arrangeFN(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
                 return arrangeFF(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
                 // find optimum height and map to range
                 return arrangeFR(container, g2, constraint);
             }
-        }
-        else if (w == LengthConstraintType.RANGE) {
+        } else if (w == LengthConstraintType.RANGE) {
             // find optimum width and map to range
             if (h == LengthConstraintType.NONE) {
                 // find optimum height
                 return arrangeRN(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
                 // fixed width
                 return arrangeRF(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
                 return arrangeRR(container, g2, constraint);
             }
         }
@@ -149,9 +146,8 @@ public class GridArrangement implements Arrangement, Serializable {
     /**
      * Arranges the container with no constraint on the width or height.
      *
-     * @param container  the container (<code>null</code> not permitted).
-     * @param g2  the graphics device.
-     *
+     * @param container the container (<code>null</code> not permitted).
+     * @param g2        the graphics device.
      * @return The size.
      */
     protected Size2D arrangeNN(BlockContainer container, Graphics2D g2) {
@@ -177,9 +173,8 @@ public class GridArrangement implements Arrangement, Serializable {
      * Arranges the container with a fixed overall width and height.
      *
      * @param container  the container (<code>null</code> not permitted).
-     * @param g2  the graphics device.
-     * @param constraint  the constraint (<code>null</code> not permitted).
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint (<code>null</code> not permitted).
      * @return The size following the arrangement.
      */
     protected Size2D arrangeFF(BlockContainer container, Graphics2D g2,
@@ -207,9 +202,8 @@ public class GridArrangement implements Arrangement, Serializable {
      * Arrange with a fixed width and a height within a given range.
      *
      * @param container  the container.
-     * @param constraint  the constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the constraint.
+     * @param g2         the graphics device.
      * @return The size of the arrangement.
      */
     protected Size2D arrangeFR(BlockContainer container, Graphics2D g2,
@@ -220,8 +214,7 @@ public class GridArrangement implements Arrangement, Serializable {
 
         if (constraint.getHeightRange().contains(size1.getHeight())) {
             return size1;
-        }
-        else {
+        } else {
             double h = constraint.getHeightRange().constrain(size1.getHeight());
             RectangleConstraint c2 = constraint.toFixedHeight(h);
             return arrange(container, g2, c2);
@@ -232,9 +225,8 @@ public class GridArrangement implements Arrangement, Serializable {
      * Arrange with a fixed height and a width within a given range.
      *
      * @param container  the container.
-     * @param constraint  the constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the constraint.
+     * @param g2         the graphics device.
      * @return The size of the arrangement.
      */
     protected Size2D arrangeRF(BlockContainer container, Graphics2D g2,
@@ -245,8 +237,7 @@ public class GridArrangement implements Arrangement, Serializable {
 
         if (constraint.getWidthRange().contains(size1.getWidth())) {
             return size1;
-        }
-        else {
+        } else {
             double w = constraint.getWidthRange().constrain(size1.getWidth());
             RectangleConstraint c2 = constraint.toFixedWidth(w);
             return arrange(container, g2, c2);
@@ -257,9 +248,8 @@ public class GridArrangement implements Arrangement, Serializable {
      * Arrange with a fixed width and no height constraint.
      *
      * @param container  the container.
-     * @param constraint  the constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the constraint.
+     * @param g2         the graphics device.
      * @return The size of the arrangement.
      */
     protected Size2D arrangeRN(BlockContainer container, Graphics2D g2,
@@ -270,8 +260,7 @@ public class GridArrangement implements Arrangement, Serializable {
 
         if (constraint.getWidthRange().contains(size1.getWidth())) {
             return size1;
-        }
-        else {
+        } else {
             double w = constraint.getWidthRange().constrain(size1.getWidth());
             RectangleConstraint c2 = constraint.toFixedWidth(w);
             return arrange(container, g2, c2);
@@ -282,9 +271,8 @@ public class GridArrangement implements Arrangement, Serializable {
      * Arrange with a fixed height and no width constraint.
      *
      * @param container  the container.
-     * @param constraint  the constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the constraint.
+     * @param g2         the graphics device.
      * @return The size of the arrangement.
      */
     protected Size2D arrangeNR(BlockContainer container, Graphics2D g2,
@@ -295,8 +283,7 @@ public class GridArrangement implements Arrangement, Serializable {
 
         if (constraint.getHeightRange().contains(size1.getHeight())) {
             return size1;
-        }
-        else {
+        } else {
             double h = constraint.getHeightRange().constrain(size1.getHeight());
             RectangleConstraint c2 = constraint.toFixedHeight(h);
             return arrange(container, g2, c2);
@@ -307,9 +294,8 @@ public class GridArrangement implements Arrangement, Serializable {
      * Arrange with ranges for both the width and height constraints.
      *
      * @param container  the container.
-     * @param constraint  the constraint.
-     * @param g2  the graphics device.
-     *
+     * @param constraint the constraint.
+     * @param g2         the graphics device.
      * @return The size of the arrangement.
      */
     protected Size2D arrangeRR(BlockContainer container, Graphics2D g2,
@@ -320,8 +306,7 @@ public class GridArrangement implements Arrangement, Serializable {
         if (constraint.getWidthRange().contains(size1.getWidth())) {
             if (constraint.getHeightRange().contains(size1.getHeight())) {
                 return size1;
-            }
-            else {
+            } else {
                 // width is OK, but height must be constrained
                 double h = constraint.getHeightRange().constrain(
                         size1.getHeight());
@@ -329,8 +314,7 @@ public class GridArrangement implements Arrangement, Serializable {
                         size1.getWidth(), h);
                 return arrangeFF(container, g2, cc);
             }
-        }
-        else {
+        } else {
             if (constraint.getHeightRange().contains(size1.getHeight())) {
                 // height is OK, but width must be constrained
                 double w = constraint.getWidthRange().constrain(
@@ -339,8 +323,7 @@ public class GridArrangement implements Arrangement, Serializable {
                         size1.getHeight());
                 return arrangeFF(container, g2, cc);
 
-            }
-            else {
+            } else {
                 double w = constraint.getWidthRange().constrain(
                         size1.getWidth());
                 double h = constraint.getHeightRange().constrain(
@@ -355,9 +338,8 @@ public class GridArrangement implements Arrangement, Serializable {
      * Arrange with a fixed width and a height within a given range.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size of the arrangement.
      */
     protected Size2D arrangeFN(BlockContainer container, Graphics2D g2,
@@ -388,9 +370,8 @@ public class GridArrangement implements Arrangement, Serializable {
      * Arrange with a fixed height and no constraint for the width.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size of the arrangement.
      */
     protected Size2D arrangeNF(BlockContainer container, Graphics2D g2,
@@ -428,8 +409,7 @@ public class GridArrangement implements Arrangement, Serializable {
     /**
      * Compares this layout manager for equality with an arbitrary object.
      *
-     * @param obj  the object.
-     *
+     * @param obj the object.
      * @return A boolean.
      */
     @Override

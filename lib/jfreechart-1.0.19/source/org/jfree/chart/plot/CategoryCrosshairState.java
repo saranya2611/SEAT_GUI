@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -40,9 +40,9 @@
 
 package org.jfree.chart.plot;
 
-import java.awt.geom.Point2D;
-
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
+
+import java.awt.geom.Point2D;
 
 /**
  * Represents state information for the crosshairs in a {@link CategoryPlot}.
@@ -85,7 +85,7 @@ public class CategoryCrosshairState extends CrosshairState {
     /**
      * Sets the row key.
      *
-     * @param key  the row key.
+     * @param key the row key.
      */
     public void setRowKey(Comparable key) {
         this.rowKey = key;
@@ -103,7 +103,7 @@ public class CategoryCrosshairState extends CrosshairState {
     /**
      * Sets the column key.
      *
-     * @param key  the key.
+     * @param key the key.
      */
     public void setColumnKey(Comparable key) {
         this.columnKey = key;
@@ -113,17 +113,17 @@ public class CategoryCrosshairState extends CrosshairState {
      * Evaluates a data point from a {@link CategoryItemRenderer} and if it is
      * the closest to the anchor point it becomes the new crosshair point.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     * @param value  y coordinate (measured against the range axis).
-     * @param datasetIndex  the dataset index for this point.
-     * @param transX  x translated into Java2D space.
-     * @param transY  y translated into Java2D space.
+     * @param rowKey       the row key.
+     * @param columnKey    the column key.
+     * @param value        y coordinate (measured against the range axis).
+     * @param datasetIndex the dataset index for this point.
+     * @param transX       x translated into Java2D space.
+     * @param transY       y translated into Java2D space.
      * @param orientation  the plot orientation.
      */
     public void updateCrosshairPoint(Comparable rowKey, Comparable columnKey,
-            double value, int datasetIndex, double transX, double transY,
-            PlotOrientation orientation) {
+                                     double value, int datasetIndex, double transX, double transY,
+                                     PlotOrientation orientation) {
 
         Point2D anchor = getAnchor();
         if (anchor != null) {
@@ -152,14 +152,14 @@ public class CategoryCrosshairState extends CrosshairState {
      * Updates only the crosshair row and column keys (this is for the case
      * where the range crosshair does NOT lock onto the nearest data value).
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     * @param datasetIndex  the dataset axis index.
-     * @param transX  the translated x-value.
+     * @param rowKey       the row key.
+     * @param columnKey    the column key.
+     * @param datasetIndex the dataset axis index.
+     * @param transX       the translated x-value.
      * @param orientation  the plot orientation.
      */
     public void updateCrosshairX(Comparable rowKey, Comparable columnKey,
-            int datasetIndex, double transX, PlotOrientation orientation) {
+                                 int datasetIndex, double transX, PlotOrientation orientation) {
 
         Point2D anchor = getAnchor();
         if (anchor != null) {

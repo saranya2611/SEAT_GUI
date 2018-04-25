@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------
@@ -41,12 +41,12 @@
 
 package org.jfree.data.statistics;
 
-import static org.junit.Assert.assertEquals;
-
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for the {@link Regression} class.
@@ -187,7 +187,7 @@ public class RegressionTest {
 
     /**
      * Creates and returns a sample dataset.
-     * <P>
+     * <p>
      * The data is taken from Table 11.2, page 313 of "Understanding Statistics"
      * by Ott and Mendenhall (Duxbury Press).
      *

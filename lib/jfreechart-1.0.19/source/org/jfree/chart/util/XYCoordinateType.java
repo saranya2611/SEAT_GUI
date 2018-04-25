@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------
@@ -51,7 +51,9 @@ import java.io.Serializable;
  */
 public final class XYCoordinateType implements Serializable {
 
-    /** The (x, y) coordinates represent a point in the data space. */
+    /**
+     * The (x, y) coordinates represent a point in the data space.
+     */
     public static final XYCoordinateType DATA
             = new XYCoordinateType("XYCoordinateType.DATA");
 
@@ -69,13 +71,15 @@ public final class XYCoordinateType implements Serializable {
     public static final XYCoordinateType INDEX
             = new XYCoordinateType("XYCoordinateType.INDEX");
 
-    /** The name. */
+    /**
+     * The name.
+     */
     private String name;
 
     /**
      * Private constructor.
      *
-     * @param name  the name.
+     * @param name the name.
      */
     private XYCoordinateType(String name) {
         this.name = name;
@@ -95,8 +99,7 @@ public final class XYCoordinateType implements Serializable {
      * Returns <code>true</code> if this object is equal to the specified
      * object, and <code>false</code> otherwise.
      *
-     * @param obj  the other object.
-     *
+     * @param obj the other object.
      * @return A boolean.
      */
     @Override
@@ -118,17 +121,14 @@ public final class XYCoordinateType implements Serializable {
      * Ensures that serialization returns the unique instances.
      *
      * @return The object.
-     *
      * @throws ObjectStreamException if there is a problem.
      */
     private Object readResolve() throws ObjectStreamException {
         if (this.equals(XYCoordinateType.DATA)) {
             return XYCoordinateType.DATA;
-        }
-        else if (this.equals(XYCoordinateType.RELATIVE)) {
+        } else if (this.equals(XYCoordinateType.RELATIVE)) {
             return XYCoordinateType.RELATIVE;
-        }
-        else if (this.equals(XYCoordinateType.INDEX)) {
+        } else if (this.equals(XYCoordinateType.INDEX)) {
             return XYCoordinateType.INDEX;
         }
         return null;

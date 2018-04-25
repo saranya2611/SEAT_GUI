@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -51,13 +51,15 @@ import org.jfree.chart.plot.PlotRenderingInfo;
  */
 public class RendererState {
 
-    /** The plot rendering info. */
+    /**
+     * The plot rendering info.
+     */
     private PlotRenderingInfo info;
 
     /**
      * Creates a new state object.
      *
-     * @param info  the plot rendering info.
+     * @param info the plot rendering info.
      */
     public RendererState(PlotRenderingInfo info) {
         this.info = info;

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------------
@@ -40,14 +40,12 @@
 
 package org.jfree.chart.entity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.jfree.chart.TestUtilities;
+import org.junit.Test;
 
 import java.awt.geom.Rectangle2D;
 
-import org.jfree.chart.TestUtilities;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Tests for the <code>ContourEntity</code> class.
@@ -60,10 +58,10 @@ public class ContourEntityTest {
     @Test
     public void testEquals() {
         ContourEntity e1 = new ContourEntity(
-            new Rectangle2D.Double(1.0, 2.0, 3.0, 4.0), "ToolTip", "URL"
+                new Rectangle2D.Double(1.0, 2.0, 3.0, 4.0), "ToolTip", "URL"
         );
         ContourEntity e2 = new ContourEntity(
-            new Rectangle2D.Double(1.0, 2.0, 3.0, 4.0), "ToolTip", "URL"
+                new Rectangle2D.Double(1.0, 2.0, 3.0, 4.0), "ToolTip", "URL"
         );
         assertTrue(e1.equals(e2));
 
@@ -93,7 +91,7 @@ public class ContourEntityTest {
      */
     @Test
     public void testCloning() throws CloneNotSupportedException {
-        ContourEntity e1 = new ContourEntity(new Rectangle2D.Double(1.0, 2.0, 
+        ContourEntity e1 = new ContourEntity(new Rectangle2D.Double(1.0, 2.0,
                 3.0, 4.0), "ToolTip", "URL");
         ContourEntity e2 = (ContourEntity) e1.clone();
         assertTrue(e1 != e2);
@@ -106,7 +104,7 @@ public class ContourEntityTest {
      */
     @Test
     public void testSerialization() {
-        ContourEntity e1 = new ContourEntity(new Rectangle2D.Double(1.0, 2.0, 
+        ContourEntity e1 = new ContourEntity(new Rectangle2D.Double(1.0, 2.0,
                 3.0, 4.0), "ToolTip", "URL");
         ContourEntity e2 = (ContourEntity) TestUtilities.serialised(e1);
         assertEquals(e1, e2);

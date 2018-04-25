@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------------
@@ -47,8 +47,10 @@
 
 package org.jfree.chart.labels;
 
-import java.awt.Font;
-import java.awt.Paint;
+import org.jfree.data.general.PieDataset;
+import org.jfree.util.PublicCloneable;
+
+import java.awt.*;
 import java.awt.font.TextAttribute;
 import java.io.Serializable;
 import java.text.AttributedString;
@@ -56,9 +58,6 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import org.jfree.data.general.PieDataset;
-import org.jfree.util.PublicCloneable;
 
 /**
  * A standard item label generator for plots that use data from a
@@ -72,16 +71,18 @@ import org.jfree.util.PublicCloneable;
 public class StandardPieSectionLabelGenerator
         extends AbstractPieItemLabelGenerator
         implements PieSectionLabelGenerator, Cloneable, PublicCloneable,
-                   Serializable {
-
-    /** For serialization. */
-    private static final long serialVersionUID = 3064190563760203668L;
-
-    /** The default section label format. */
-    public static final String DEFAULT_SECTION_LABEL_FORMAT = "{0}";
+        Serializable {
 
     /**
-     * An optional map between item indices (Integer) and attributed labels 
+     * The default section label format.
+     */
+    public static final String DEFAULT_SECTION_LABEL_FORMAT = "{0}";
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = 3064190563760203668L;
+    /**
+     * An optional map between item indices (Integer) and attributed labels
      * (instances of AttributedString).
      */
     private Map attributedLabels;
@@ -99,8 +100,7 @@ public class StandardPieSectionLabelGenerator
     /**
      * Creates a new instance for the specified locale.
      *
-     * @param locale  the local (<code>null</code> not permitted).
-     *
+     * @param locale the local (<code>null</code> not permitted).
      * @since 1.0.7
      */
     public StandardPieSectionLabelGenerator(Locale locale) {
@@ -111,7 +111,7 @@ public class StandardPieSectionLabelGenerator
      * Creates a new section label generator using the specified label format
      * string, and platform default number and percentage formatters.
      *
-     * @param labelFormat  the label format (<code>null</code> not permitted).
+     * @param labelFormat the label format (<code>null</code> not permitted).
      */
     public StandardPieSectionLabelGenerator(String labelFormat) {
         this(labelFormat, NumberFormat.getNumberInstance(),
@@ -121,9 +121,8 @@ public class StandardPieSectionLabelGenerator
     /**
      * Creates a new instance for the specified locale.
      *
-     * @param labelFormat  the label format (<code>null</code> not permitted).
-     * @param locale  the local (<code>null</code> not permitted).
-     *
+     * @param labelFormat the label format (<code>null</code> not permitted).
+     * @param locale      the local (<code>null</code> not permitted).
      * @since 1.0.7
      */
     public StandardPieSectionLabelGenerator(String labelFormat, Locale locale) {
@@ -134,15 +133,15 @@ public class StandardPieSectionLabelGenerator
     /**
      * Creates an item label generator using the specified number formatters.
      *
-     * @param labelFormat  the label format string (<code>null</code> not
-     *                     permitted).
+     * @param labelFormat   the label format string (<code>null</code> not
+     *                      permitted).
      * @param numberFormat  the format object for the values (<code>null</code>
      *                      not permitted).
-     * @param percentFormat  the format object for the percentages
-     *                       (<code>null</code> not permitted).
+     * @param percentFormat the format object for the percentages
+     *                      (<code>null</code> not permitted).
      */
     public StandardPieSectionLabelGenerator(String labelFormat,
-            NumberFormat numberFormat, NumberFormat percentFormat) {
+                                            NumberFormat numberFormat, NumberFormat percentFormat) {
         super(labelFormat, numberFormat, percentFormat);
         this.attributedLabels = new HashMap();
     }
@@ -151,8 +150,7 @@ public class StandardPieSectionLabelGenerator
      * Returns the attributed label for a section, or <code>null</code> if none
      * is defined.
      *
-     * @param section  the section index.
-     *
+     * @param section the section index.
      * @return The attributed label.
      */
     public AttributedString getAttributedLabel(int section) {
@@ -162,8 +160,8 @@ public class StandardPieSectionLabelGenerator
     /**
      * Sets the attributed label for a section.
      *
-     * @param section  the section index.
-     * @param label  the label (<code>null</code> permitted).
+     * @param section the section index.
+     * @param label   the label (<code>null</code> permitted).
      */
     public void setAttributedLabel(int section, AttributedString label) {
         this.attributedLabels.put(section, label);
@@ -172,9 +170,8 @@ public class StandardPieSectionLabelGenerator
     /**
      * Generates a label for a pie section.
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param key  the section key (<code>null</code> not permitted).
-     *
+     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param key     the section key (<code>null</code> not permitted).
      * @return The label (possibly <code>null</code>).
      */
     @Override
@@ -192,34 +189,32 @@ public class StandardPieSectionLabelGenerator
      * <ul>
      * <li>{@link TextAttribute#FONT}: will set the font;</li>
      * <li>{@link TextAttribute#POSTURE}: a value of
-     *     {@link TextAttribute#POSTURE_OBLIQUE} will add {@link Font#ITALIC} to
-     *     the current font;</li>
+     * {@link TextAttribute#POSTURE_OBLIQUE} will add {@link Font#ITALIC} to
+     * the current font;</li>
      * <li>{@link TextAttribute#WEIGHT}: a value of
-     *     {@link TextAttribute#WEIGHT_BOLD} will add {@link Font#BOLD} to the
-     *     current font;</li>
+     * {@link TextAttribute#WEIGHT_BOLD} will add {@link Font#BOLD} to the
+     * current font;</li>
      * <li>{@link TextAttribute#FOREGROUND}: this will set the {@link Paint}
-     *     for the current</li>
+     * for the current</li>
      * <li>{@link TextAttribute#SUPERSCRIPT}: the values
-     *     {@link TextAttribute#SUPERSCRIPT_SUB} and
-     *     {@link TextAttribute#SUPERSCRIPT_SUPER} are recognised.</li>
+     * {@link TextAttribute#SUPERSCRIPT_SUB} and
+     * {@link TextAttribute#SUPERSCRIPT_SUPER} are recognised.</li>
      * </ul>
      *
-     * @param dataset  the dataset (<code>null</code> not permitted).
-     * @param key  the key.
-     *
+     * @param dataset the dataset (<code>null</code> not permitted).
+     * @param key     the key.
      * @return An attributed label (possibly <code>null</code>).
      */
     @Override
     public AttributedString generateAttributedSectionLabel(PieDataset dataset,
-            Comparable key) {
+                                                           Comparable key) {
         return getAttributedLabel(dataset.getIndex(key));
     }
 
     /**
      * Tests the generator for equality with an arbitrary object.
      *
-     * @param obj  the object to test against (<code>null</code> permitted).
-     *
+     * @param obj the object to test against (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -242,13 +237,12 @@ public class StandardPieSectionLabelGenerator
      * Returns an independent copy of the generator.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  should not happen.
+     * @throws CloneNotSupportedException should not happen.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
-        StandardPieSectionLabelGenerator clone 
-                = (StandardPieSectionLabelGenerator) super.clone();        
+        StandardPieSectionLabelGenerator clone
+                = (StandardPieSectionLabelGenerator) super.clone();
         clone.attributedLabels = new HashMap();
         clone.attributedLabels.putAll(this.attributedLabels);
         return clone;

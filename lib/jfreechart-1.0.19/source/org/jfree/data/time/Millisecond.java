@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ----------------
@@ -72,28 +72,41 @@ import java.util.TimeZone;
  */
 public class Millisecond extends RegularTimePeriod implements Serializable {
 
-    /** For serialization. */
-    static final long serialVersionUID = -5316836467277638485L;
-
-    /** A constant for the first millisecond in a second. */
+    /**
+     * A constant for the first millisecond in a second.
+     */
     public static final int FIRST_MILLISECOND_IN_SECOND = 0;
-
-    /** A constant for the last millisecond in a second. */
+    /**
+     * A constant for the last millisecond in a second.
+     */
     public static final int LAST_MILLISECOND_IN_SECOND = 999;
-
-    /** The day. */
+    /**
+     * For serialization.
+     */
+    static final long serialVersionUID = -5316836467277638485L;
+    /**
+     * The day.
+     */
     private Day day;
 
-    /** The hour in the day. */
+    /**
+     * The hour in the day.
+     */
     private byte hour;
 
-    /** The minute. */
+    /**
+     * The minute.
+     */
     private byte minute;
 
-    /** The second. */
+    /**
+     * The second.
+     */
     private byte second;
 
-    /** The millisecond. */
+    /**
+     * The millisecond.
+     */
     private int millisecond;
 
     /**
@@ -111,8 +124,8 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
     /**
      * Constructs a millisecond.
      *
-     * @param millisecond  the millisecond (0-999).
-     * @param second  the second.
+     * @param millisecond the millisecond (0-999).
+     * @param second      the second.
      */
     public Millisecond(int millisecond, Second second) {
         this.millisecond = millisecond;
@@ -126,13 +139,13 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
     /**
      * Creates a new millisecond.
      *
-     * @param millisecond  the millisecond (0-999).
-     * @param second  the second (0-59).
-     * @param minute  the minute (0-59).
-     * @param hour  the hour (0-23).
-     * @param day  the day (1-31).
-     * @param month  the month (1-12).
-     * @param year  the year (1900-9999).
+     * @param millisecond the millisecond (0-999).
+     * @param second      the second (0-59).
+     * @param minute      the minute (0-59).
+     * @param hour        the hour (0-23).
+     * @param day         the day (1-31).
+     * @param month       the month (1-12).
+     * @param year        the year (1900-9999).
      */
     public Millisecond(int millisecond, int second, int minute, int hour,
                        int day, int month, int year) {
@@ -144,8 +157,7 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
     /**
      * Constructs a new millisecond using the default time zone.
      *
-     * @param time  the time.
-     *
+     * @param time the time.
      * @see #Millisecond(Date, TimeZone)
      */
     public Millisecond(Date time) {
@@ -155,11 +167,10 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
     /**
      * Creates a millisecond.
      *
-     * @param time  the instant in time.
-     * @param zone  the time zone.
-     *
+     * @param time the instant in time.
+     * @param zone the time zone.
      * @deprecated As of 1.0.13, use the constructor that specifies the locale
-     *     also.
+     * also.
      */
     public Millisecond(Date time, TimeZone zone) {
         this(time, zone, Locale.getDefault());
@@ -168,10 +179,9 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
     /**
      * Creates a millisecond.
      *
-     * @param time  the date-time (<code>null</code> not permitted).
-     * @param zone  the time zone (<code>null</code> not permitted).
-     * @param locale  the locale (<code>null</code> not permitted).
-     *
+     * @param time   the date-time (<code>null</code> not permitted).
+     * @param zone   the time zone (<code>null</code> not permitted).
+     * @param locale the locale (<code>null</code> not permitted).
      * @since 1.0.13
      */
     public Millisecond(Date time, TimeZone zone, Locale locale) {
@@ -212,7 +222,6 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
      * {@link #peg(Calendar)} method.
      *
      * @return The first millisecond of the second.
-     *
      * @see #getLastMillisecond()
      */
     @Override
@@ -227,7 +236,6 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
      * {@link #peg(Calendar)} method.
      *
      * @return The last millisecond of the second.
-     *
      * @see #getFirstMillisecond()
      */
     @Override
@@ -239,8 +247,7 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
      * Recalculates the start date/time and end date/time for this time period
      * relative to the supplied calendar (which incorporates a time zone).
      *
-     * @param calendar  the calendar (<code>null</code> not permitted).
-     *
+     * @param calendar the calendar (<code>null</code> not permitted).
      * @since 1.0.3
      */
     @Override
@@ -258,8 +265,7 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
         RegularTimePeriod result = null;
         if (this.millisecond != FIRST_MILLISECOND_IN_SECOND) {
             result = new Millisecond(this.millisecond - 1, getSecond());
-        }
-        else {
+        } else {
             Second previous = (Second) getSecond().previous();
             if (previous != null) {
                 result = new Millisecond(LAST_MILLISECOND_IN_SECOND, previous);
@@ -278,8 +284,7 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
         RegularTimePeriod result = null;
         if (this.millisecond != LAST_MILLISECOND_IN_SECOND) {
             result = new Millisecond(this.millisecond + 1, getSecond());
-        }
-        else {
+        } else {
             Second next = (Second) getSecond().next();
             if (next != null) {
                 result = new Millisecond(FIRST_MILLISECOND_IN_SECOND, next);
@@ -303,14 +308,13 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
 
     /**
      * Tests the equality of this object against an arbitrary Object.
-     * <P>
+     * <p>
      * This method will return true ONLY if the object is a Millisecond object
      * representing the same millisecond as this instance.
      *
-     * @param obj  the object to compare
-     *
+     * @param obj the object to compare
      * @return <code>true</code> if milliseconds and seconds of this and object
-     *      are the same.
+     * are the same.
      */
     @Override
     public boolean equals(Object obj) {
@@ -359,11 +363,10 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
     /**
      * Returns an integer indicating the order of this Millisecond object
      * relative to the specified object:
-     *
+     * <p>
      * negative == before, zero == same, positive == after.
      *
-     * @param obj  the object to compare
-     *
+     * @param obj the object to compare
      * @return negative == before, zero == same, positive == after.
      */
     @Override
@@ -378,12 +381,10 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
             difference = getFirstMillisecond() - ms.getFirstMillisecond();
             if (difference > 0) {
                 result = 1;
-            }
-            else {
+            } else {
                 if (difference < 0) {
                     result = -1;
-                }
-                else {
+                } else {
                     result = 0;
                 }
             }
@@ -412,12 +413,10 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
     /**
      * Returns the first millisecond of the time period.
      *
-     * @param calendar  the calendar (<code>null</code> not permitted).
-     *
+     * @param calendar the calendar (<code>null</code> not permitted).
      * @return The first millisecond of the time period.
-     *
      * @throws NullPointerException if <code>calendar</code> is
-     *     <code>null</code>.
+     *                              <code>null</code>.
      */
     @Override
     public long getFirstMillisecond(Calendar calendar) {
@@ -433,12 +432,10 @@ public class Millisecond extends RegularTimePeriod implements Serializable {
     /**
      * Returns the last millisecond of the time period.
      *
-     * @param calendar  the calendar (<code>null</code> not permitted).
-     *
+     * @param calendar the calendar (<code>null</code> not permitted).
      * @return The last millisecond of the time period.
-     *
      * @throws NullPointerException if <code>calendar</code> is
-     *     <code>null</code>.
+     *                              <code>null</code>.
      */
     @Override
     public long getLastMillisecond(Calendar calendar) {

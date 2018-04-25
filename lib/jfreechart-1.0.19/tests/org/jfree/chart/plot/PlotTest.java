@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------
@@ -42,22 +42,15 @@
 
 package org.jfree.chart.plot;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Paint;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.Stroke;
-
 import org.jfree.chart.JFreeChart;
 import org.jfree.ui.Align;
 import org.jfree.ui.RectangleInsets;
 import org.junit.Test;
+
+import java.awt.*;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Some tests for the {@link Plot} class.
@@ -162,16 +155,16 @@ public class PlotTest {
 
         // drawingSupplier
         plot1.setDrawingSupplier(new DefaultDrawingSupplier(
-                new Paint[] {Color.blue}, new Paint[] {Color.red},
-                new Stroke[] {new BasicStroke(1.1f)},
-                new Stroke[] {new BasicStroke(9.9f)},
-                new Shape[] {new Rectangle(1, 2, 3, 4)}));
+                new Paint[]{Color.blue}, new Paint[]{Color.red},
+                new Stroke[]{new BasicStroke(1.1f)},
+                new Stroke[]{new BasicStroke(9.9f)},
+                new Shape[]{new Rectangle(1, 2, 3, 4)}));
         assertFalse(plot1.equals(plot2));
         plot2.setDrawingSupplier(new DefaultDrawingSupplier(
-                new Paint[] {Color.blue}, new Paint[] {Color.red},
-                new Stroke[] {new BasicStroke(1.1f)},
-                new Stroke[] {new BasicStroke(9.9f)},
-                new Shape[] {new Rectangle(1, 2, 3, 4)}));
+                new Paint[]{Color.blue}, new Paint[]{Color.red},
+                new Stroke[]{new BasicStroke(1.1f)},
+                new Stroke[]{new BasicStroke(9.9f)},
+                new Shape[]{new Rectangle(1, 2, 3, 4)}));
         assertTrue(plot1.equals(plot2));
     }
 

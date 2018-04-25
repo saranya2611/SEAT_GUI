@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * --------------------------
@@ -53,7 +53,9 @@ import java.io.Serializable;
 public abstract class AbstractSeriesDataset extends AbstractDataset
         implements SeriesDataset, SeriesChangeListener, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -6074996219705033171L;
 
     /**
@@ -78,9 +80,8 @@ public abstract class AbstractSeriesDataset extends AbstractDataset
      * implementing method should throw an {@link IndexOutOfBoundsException}
      * (preferred) or an {@link IllegalArgumentException}.
      *
-     * @param series  the series index (in the range <code>0</code> to
-     *     <code>getSeriesCount() - 1</code>).
-     *
+     * @param series the series index (in the range <code>0</code> to
+     *               <code>getSeriesCount() - 1</code>).
      * @return The series key.
      */
     @Override
@@ -89,17 +90,16 @@ public abstract class AbstractSeriesDataset extends AbstractDataset
     /**
      * Returns the index of the named series, or -1.
      *
-     * @param seriesKey  the series key (<code>null</code> permitted).
-     *
+     * @param seriesKey the series key (<code>null</code> permitted).
      * @return The index.
      */
     @Override
     public int indexOf(Comparable seriesKey) {
         int seriesCount = getSeriesCount();
         for (int s = 0; s < seriesCount; s++) {
-           if (getSeriesKey(s).equals(seriesKey)) {
-               return s;
-           }
+            if (getSeriesKey(s).equals(seriesKey)) {
+                return s;
+            }
         }
         return -1;
     }
@@ -107,7 +107,7 @@ public abstract class AbstractSeriesDataset extends AbstractDataset
     /**
      * Called when a series belonging to the dataset changes.
      *
-     * @param event  information about the change.
+     * @param event information about the change.
      */
     @Override
     public void seriesChanged(SeriesChangeEvent event) {

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -41,33 +41,33 @@
 
 package org.jfree.chart.editor;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-
 import org.jfree.chart.plot.ColorPalette;
 import org.jfree.chart.plot.RainbowPalette;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYBlockRenderer;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * A component for choosing a palette from a list of available palettes.
  *
  * @deprecated This class is no longer supported.  If you are creating
- *     contour plots, please try to use {@link XYPlot} and
- *     {@link XYBlockRenderer}.
+ * contour plots, please try to use {@link XYPlot} and
+ * {@link XYBlockRenderer}.
  */
 class PaletteChooserPanel extends JPanel {
 
-    /** A combo for selecting the stroke. */
+    /**
+     * A combo for selecting the stroke.
+     */
     private JComboBox selector;
 
     /**
      * Constructor.
      *
-     * @param current  the current palette sample.
-     * @param available  an array of 'available' palette samples.
+     * @param current   the current palette sample.
+     * @param available an array of 'available' palette samples.
      */
     public PaletteChooserPanel(PaletteSample current,
                                PaletteSample[] available) {

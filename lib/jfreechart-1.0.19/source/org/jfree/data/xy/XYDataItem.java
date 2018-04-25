@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------
@@ -47,10 +47,10 @@
 
 package org.jfree.data.xy;
 
-import java.io.Serializable;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.util.ObjectUtilities;
+
+import java.io.Serializable;
 
 /**
  * Represents one (x, y) data item for an {@link XYSeries}.  Note that
@@ -58,20 +58,26 @@ import org.jfree.util.ObjectUtilities;
  */
 public class XYDataItem implements Cloneable, Comparable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 2751513470325494890L;
 
-    /** The x-value (<code>null</code> not permitted). */
+    /**
+     * The x-value (<code>null</code> not permitted).
+     */
     private Number x;
 
-    /** The y-value. */
+    /**
+     * The y-value.
+     */
     private Number y;
 
     /**
      * Constructs a new data item.
      *
-     * @param x  the x-value (<code>null</code> NOT permitted).
-     * @param y  the y-value (<code>null</code> permitted).
+     * @param x the x-value (<code>null</code> NOT permitted).
+     * @param y the y-value (<code>null</code> permitted).
      */
     public XYDataItem(Number x, Number y) {
         ParamChecks.nullNotPermitted(x, "x");
@@ -82,8 +88,8 @@ public class XYDataItem implements Cloneable, Comparable, Serializable {
     /**
      * Constructs a new data item.
      *
-     * @param x  the x-value.
-     * @param y  the y-value.
+     * @param x the x-value.
+     * @param y the y-value.
      */
     public XYDataItem(double x, double y) {
         this(new Double(x), new Double(y));
@@ -102,10 +108,8 @@ public class XYDataItem implements Cloneable, Comparable, Serializable {
      * Returns the x-value as a double primitive.
      *
      * @return The x-value.
-     *
      * @see #getX()
      * @see #getYValue()
-     *
      * @since 1.0.9
      */
     public double getXValue() {
@@ -123,13 +127,21 @@ public class XYDataItem implements Cloneable, Comparable, Serializable {
     }
 
     /**
+     * Sets the y-value for this data item.  Note that there is no
+     * corresponding method to change the x-value.
+     *
+     * @param y the new y-value (<code>null</code> permitted).
+     */
+    public void setY(Number y) {
+        this.y = y;
+    }
+
+    /**
      * Returns the y-value as a double primitive.
      *
      * @return The y-value.
-     *
      * @see #getY()
      * @see #getXValue()
-     *
      * @since 1.0.9
      */
     public double getYValue() {
@@ -144,33 +156,22 @@ public class XYDataItem implements Cloneable, Comparable, Serializable {
      * Sets the y-value for this data item.  Note that there is no
      * corresponding method to change the x-value.
      *
-     * @param y  the new y-value.
+     * @param y the new y-value.
      */
     public void setY(double y) {
         setY(new Double(y));
     }
 
     /**
-     * Sets the y-value for this data item.  Note that there is no
-     * corresponding method to change the x-value.
-     *
-     * @param y  the new y-value (<code>null</code> permitted).
-     */
-    public void setY(Number y) {
-        this.y = y;
-    }
-
-    /**
      * Returns an integer indicating the order of this object relative to
      * another object.
-     * <P>
+     * <p>
      * For the order we consider only the x-value:
      * negative == "less-than", zero == "equal", positive == "greater-than".
      *
-     * @param o1  the object being compared to.
-     *
+     * @param o1 the object being compared to.
      * @return An integer indicating the order of this data pair object
-     *      relative to another object.
+     * relative to another object.
      */
     @Override
     public int compareTo(Object o1) {
@@ -182,15 +183,13 @@ public class XYDataItem implements Cloneable, Comparable, Serializable {
         if (o1 instanceof XYDataItem) {
             XYDataItem dataItem = (XYDataItem) o1;
             double compare = this.x.doubleValue()
-                             - dataItem.getX().doubleValue();
+                    - dataItem.getX().doubleValue();
             if (compare > 0.0) {
                 result = 1;
-            }
-            else {
+            } else {
                 if (compare < 0.0) {
                     result = -1;
-                }
-                else {
+                } else {
                     result = 0;
                 }
             }
@@ -217,8 +216,7 @@ public class XYDataItem implements Cloneable, Comparable, Serializable {
         Object clone = null;
         try {
             clone = super.clone();
-        }
-        catch (CloneNotSupportedException e) { // won't get here...
+        } catch (CloneNotSupportedException e) { // won't get here...
             e.printStackTrace();
         }
         return clone;
@@ -227,9 +225,8 @@ public class XYDataItem implements Cloneable, Comparable, Serializable {
     /**
      * Tests if this object is equal to another.
      *
-     * @param obj  the object to test against for equality (<code>null</code>
-     *             permitted).
-     *
+     * @param obj the object to test against for equality (<code>null</code>
+     *            permitted).
      * @return A boolean.
      */
     @Override

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------------------
@@ -42,15 +42,12 @@
 
 package org.jfree.chart.urls;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link StandardCategoryURLGenerator} class.
@@ -119,7 +116,7 @@ public class StandardCategoryURLGeneratorTest {
     public void testSerialization() {
         StandardCategoryURLGenerator g1 = new StandardCategoryURLGenerator(
                 "index.html?");
-        StandardCategoryURLGenerator g2 = (StandardCategoryURLGenerator) 
+        StandardCategoryURLGenerator g2 = (StandardCategoryURLGenerator)
                 TestUtilities.serialised(g1);
         assertEquals(g1, g2);
     }

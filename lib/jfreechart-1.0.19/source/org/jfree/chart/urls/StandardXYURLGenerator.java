@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ---------------------------
@@ -49,36 +49,46 @@
 
 package org.jfree.chart.urls;
 
-import java.io.Serializable;
 import org.jfree.chart.util.ParamChecks;
-
 import org.jfree.data.xy.XYDataset;
 import org.jfree.util.ObjectUtilities;
+
+import java.io.Serializable;
 
 /**
  * A URL generator.
  */
 public class StandardXYURLGenerator implements XYURLGenerator, Serializable {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -1771624523496595382L;
-
-    /** The default prefix. */
+    /**
+     * The default prefix.
+     */
     public static final String DEFAULT_PREFIX = "index.html";
-
-    /** The default series parameter. */
+    /**
+     * The default series parameter.
+     */
     public static final String DEFAULT_SERIES_PARAMETER = "series";
-
-    /** The default item parameter. */
+    /**
+     * The default item parameter.
+     */
     public static final String DEFAULT_ITEM_PARAMETER = "item";
-
-    /** Prefix to the URL */
+    /**
+     * For serialization.
+     */
+    private static final long serialVersionUID = -1771624523496595382L;
+    /**
+     * Prefix to the URL
+     */
     private String prefix;
 
-    /** Series parameter name to go in each URL */
+    /**
+     * Series parameter name to go in each URL
+     */
     private String seriesParameterName;
 
-    /** Item parameter name to go in each URL */
+    /**
+     * Item parameter name to go in each URL
+     */
     private String itemParameterName;
 
     /**
@@ -95,7 +105,7 @@ public class StandardXYURLGenerator implements XYURLGenerator, Serializable {
      * is equivalent to calling
      * <code>StandardXYURLGenerator(prefix, "series", "item");</code>.
      *
-     * @param prefix  the prefix to the URL (<code>null</code> not permitted).
+     * @param prefix the prefix to the URL (<code>null</code> not permitted).
      */
     public StandardXYURLGenerator(String prefix) {
         this(prefix, DEFAULT_SERIES_PARAMETER, DEFAULT_ITEM_PARAMETER);
@@ -104,14 +114,14 @@ public class StandardXYURLGenerator implements XYURLGenerator, Serializable {
     /**
      * Constructor that overrides all the defaults
      *
-     * @param prefix  the prefix to the URL (<code>null</code> not permitted).
-     * @param seriesParameterName  the name of the series parameter to go in
-     *                             each URL (<code>null</code> not permitted).
-     * @param itemParameterName  the name of the item parameter to go in each
-     *                           URL (<code>null</code> not permitted).
+     * @param prefix              the prefix to the URL (<code>null</code> not permitted).
+     * @param seriesParameterName the name of the series parameter to go in
+     *                            each URL (<code>null</code> not permitted).
+     * @param itemParameterName   the name of the item parameter to go in each
+     *                            URL (<code>null</code> not permitted).
      */
     public StandardXYURLGenerator(String prefix, String seriesParameterName,
-            String itemParameterName) {
+                                  String itemParameterName) {
         ParamChecks.nullNotPermitted(prefix, "prefix");
         ParamChecks.nullNotPermitted(seriesParameterName, "seriesParameterName");
         ParamChecks.nullNotPermitted(itemParameterName, "itemParameterName");
@@ -123,10 +133,9 @@ public class StandardXYURLGenerator implements XYURLGenerator, Serializable {
     /**
      * Generates a URL for a particular item within a series.
      *
-     * @param dataset  the dataset.
+     * @param dataset the dataset.
      * @param series  the series number (zero-based index).
-     * @param item  the item number (zero-based index).
-     *
+     * @param item    the item number (zero-based index).
      * @return The generated URL.
      */
     @Override
@@ -143,8 +152,7 @@ public class StandardXYURLGenerator implements XYURLGenerator, Serializable {
     /**
      * Tests this generator for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

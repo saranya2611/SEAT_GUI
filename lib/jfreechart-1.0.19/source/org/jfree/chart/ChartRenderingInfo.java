@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------
@@ -49,12 +49,6 @@
 
 package org.jfree.chart;
 
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.entity.StandardEntityCollection;
 import org.jfree.chart.plot.PlotRenderingInfo;
@@ -62,10 +56,16 @@ import org.jfree.io.SerialUtilities;
 import org.jfree.util.ObjectUtilities;
 import org.jfree.util.PublicCloneable;
 
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * A structure for storing rendering information from one call to the
  * JFreeChart.draw() method.
- * <P>
+ * <p>
  * An instance of the {@link JFreeChart} class can draw itself within an
  * arbitrary rectangle on any <code>Graphics2D</code>.  It is assumed that
  * client code will sometimes render the same chart in more than one view, so
@@ -77,13 +77,19 @@ import org.jfree.util.PublicCloneable;
  */
 public class ChartRenderingInfo implements Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 2751952018173406822L;
 
-    /** The area in which the chart is drawn. */
+    /**
+     * The area in which the chart is drawn.
+     */
     private transient Rectangle2D chartArea;
 
-    /** Rendering info for the chart's plot (and subplots, if any). */
+    /**
+     * Rendering info for the chart's plot (and subplots, if any).
+     */
     private PlotRenderingInfo plotInfo;
 
     /**
@@ -108,7 +114,7 @@ public class ChartRenderingInfo implements Cloneable, Serializable {
      * <code>null</code>, no entity information (including tool tips) will
      * be collected.
      *
-     * @param entities  an entity collection (<code>null</code> permitted).
+     * @param entities an entity collection (<code>null</code> permitted).
      */
     public ChartRenderingInfo(EntityCollection entities) {
         this.chartArea = new Rectangle2D.Double();
@@ -120,7 +126,6 @@ public class ChartRenderingInfo implements Cloneable, Serializable {
      * Returns the area in which the chart was drawn.
      *
      * @return The area in which the chart was drawn.
-     *
      * @see #setChartArea(Rectangle2D)
      */
     public Rectangle2D getChartArea() {
@@ -130,8 +135,7 @@ public class ChartRenderingInfo implements Cloneable, Serializable {
     /**
      * Sets the area in which the chart was drawn.
      *
-     * @param area  the chart area.
-     *
+     * @param area the chart area.
      * @see #getChartArea()
      */
     public void setChartArea(Rectangle2D area) {
@@ -142,7 +146,6 @@ public class ChartRenderingInfo implements Cloneable, Serializable {
      * Returns the collection of entities maintained by this instance.
      *
      * @return The entity collection (possibly <code>null</code>).
-     *
      * @see #setEntityCollection(EntityCollection)
      */
     public EntityCollection getEntityCollection() {
@@ -152,8 +155,7 @@ public class ChartRenderingInfo implements Cloneable, Serializable {
     /**
      * Sets the entity collection.
      *
-     * @param entities  the entity collection (<code>null</code> permitted).
-     *
+     * @param entities the entity collection (<code>null</code> permitted).
      * @see #getEntityCollection()
      */
     public void setEntityCollection(EntityCollection entities) {
@@ -183,8 +185,7 @@ public class ChartRenderingInfo implements Cloneable, Serializable {
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the object to test against (<code>null</code> permitted).
-     *
+     * @param obj the object to test against (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -212,7 +213,6 @@ public class ChartRenderingInfo implements Cloneable, Serializable {
      * Returns a clone of this object.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException if the object cannot be cloned.
      */
     @Override
@@ -231,9 +231,8 @@ public class ChartRenderingInfo implements Cloneable, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -243,13 +242,12 @@ public class ChartRenderingInfo implements Cloneable, Serializable {
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+            throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.chartArea = (Rectangle2D) SerialUtilities.readShape(stream);
     }

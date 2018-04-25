@@ -41,22 +41,6 @@
 
 package org.jfree.chart.editor;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.util.ResourceBundle;
-
-import javax.swing.BorderFactory;
-import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-
 import org.jfree.chart.axis.Axis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.util.ResourceBundleWrapper;
@@ -65,60 +49,77 @@ import org.jfree.ui.PaintSample;
 import org.jfree.ui.StrokeChooserPanel;
 import org.jfree.ui.StrokeSample;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.util.ResourceBundle;
+
 /**
  * A panel for editing properties of a {@link ValueAxis}.
  */
 class DefaultValueAxisEditor extends DefaultAxisEditor
-    implements FocusListener {
+        implements FocusListener {
 
-    /** A flag that indicates whether or not the axis range is determined
-     *  automatically.
+    /**
+     * The resourceBundle for the localization.
      */
-    private boolean autoRange;
-
-    /** Flag if auto-tickunit-selection is enabled. */
-    private boolean autoTickUnitSelection;
-
-    /** The lowest value in the axis range. */
-    private double minimumValue;
-
-    /** The highest value in the axis range. */
-    private double maximumValue;
-
-    /** A checkbox that indicates whether or not the axis range is determined
-     *  automatically.
-     */
-    private JCheckBox autoRangeCheckBox;
-
-    /** A check-box enabling/disabling auto-tickunit-selection. */
-    private JCheckBox autoTickUnitSelectionCheckBox;
-
-    /** A text field for entering the minimum value in the axis range. */
-    private JTextField minimumRangeValue;
-
-    /** A text field for entering the maximum value in the axis range. */
-    private JTextField maximumRangeValue;
-
-    /** The paint selected for drawing the gridlines. */
-    private PaintSample gridPaintSample;
-
-    /** The stroke selected for drawing the gridlines. */
-    private StrokeSample gridStrokeSample;
-
-    /** An array of stroke samples to choose from (since I haven't written a
-     *  decent StrokeChooser component yet).
-     */
-    private StrokeSample[] availableStrokeSamples;
-
-    /** The resourceBundle for the localization. */
     protected static ResourceBundle localizationResources
             = ResourceBundleWrapper.getBundle(
-                "org.jfree.chart.editor.LocalizationBundle");
+            "org.jfree.chart.editor.LocalizationBundle");
+    /**
+     * A flag that indicates whether or not the axis range is determined
+     * automatically.
+     */
+    private boolean autoRange;
+    /**
+     * Flag if auto-tickunit-selection is enabled.
+     */
+    private boolean autoTickUnitSelection;
+    /**
+     * The lowest value in the axis range.
+     */
+    private double minimumValue;
+    /**
+     * The highest value in the axis range.
+     */
+    private double maximumValue;
+    /**
+     * A checkbox that indicates whether or not the axis range is determined
+     * automatically.
+     */
+    private JCheckBox autoRangeCheckBox;
+    /**
+     * A check-box enabling/disabling auto-tickunit-selection.
+     */
+    private JCheckBox autoTickUnitSelectionCheckBox;
+    /**
+     * A text field for entering the minimum value in the axis range.
+     */
+    private JTextField minimumRangeValue;
+    /**
+     * A text field for entering the maximum value in the axis range.
+     */
+    private JTextField maximumRangeValue;
+    /**
+     * The paint selected for drawing the gridlines.
+     */
+    private PaintSample gridPaintSample;
+    /**
+     * The stroke selected for drawing the gridlines.
+     */
+    private StrokeSample gridStrokeSample;
+    /**
+     * An array of stroke samples to choose from (since I haven't written a
+     * decent StrokeChooser component yet).
+     */
+    private StrokeSample[] availableStrokeSamples;
 
     /**
      * Standard constructor: builds a property panel for the specified axis.
      *
-     * @param axis  the axis, which should be changed.
+     * @param axis the axis, which should be changed.
      */
     public DefaultValueAxisEditor(ValueAxis axis) {
 
@@ -199,7 +200,7 @@ class DefaultValueAxisEditor extends DefaultAxisEditor
 
     /**
      * Getter for the {@link #autoTickUnitSelection} flag.
-     * 
+     *
      * @return The value of the flag for enabling auto-tickunit-selection.
      */
     protected boolean isAutoTickUnitSelection() {
@@ -208,6 +209,7 @@ class DefaultValueAxisEditor extends DefaultAxisEditor
 
     /**
      * Setter for the {@link #autoTickUnitSelection} flag.
+     *
      * @param autoTickUnitSelection The new value for auto-tickunit-selection.
      */
     protected void setAutoTickUnitSelection(boolean autoTickUnitSelection) {
@@ -216,7 +218,7 @@ class DefaultValueAxisEditor extends DefaultAxisEditor
 
     /**
      * Get the checkbox that enables/disables auto-tickunit-selection.
-     * 
+     *
      * @return The checkbox.
      */
     protected JCheckBox getAutoTickUnitSelectionCheckBox() {
@@ -262,6 +264,7 @@ class DefaultValueAxisEditor extends DefaultAxisEditor
 
     /**
      * Handles actions from within the property panel.
+     *
      * @param event an event.
      */
     @Override
@@ -269,23 +272,17 @@ class DefaultValueAxisEditor extends DefaultAxisEditor
         String command = event.getActionCommand();
         if (command.equals("GridStroke")) {
             attemptGridStrokeSelection();
-        }
-        else if (command.equals("GridPaint")) {
+        } else if (command.equals("GridPaint")) {
             attemptGridPaintSelection();
-        }
-        else if (command.equals("AutoRangeOnOff")) {
+        } else if (command.equals("AutoRangeOnOff")) {
             toggleAutoRange();
-        }
-        else if (command.equals("MinimumRange")) {
+        } else if (command.equals("MinimumRange")) {
             validateMinimum();
-        }
-        else if (command.equals("MaximumRange")) {
+        } else if (command.equals("MaximumRange")) {
             validateMaximum();
-        }
-        else if (command.equals("AutoTickOnOff")) {
+        } else if (command.equals("AutoTickOnOff")) {
             toggleAutoTick();
-        }
-        else {
+        } else {
             // pass to the super-class for handling
             super.actionPerformed(event);
         }
@@ -321,7 +318,7 @@ class DefaultValueAxisEditor extends DefaultAxisEditor
     /**
      * Does nothing.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     @Override
     public void focusGained(FocusEvent event) {
@@ -329,22 +326,21 @@ class DefaultValueAxisEditor extends DefaultAxisEditor
     }
 
     /**
-     *  Revalidates minimum/maximum range.
+     * Revalidates minimum/maximum range.
      *
-     *  @param event  the event.
+     * @param event the event.
      */
     @Override
     public void focusLost(FocusEvent event) {
         if (event.getSource() == this.minimumRangeValue) {
             validateMinimum();
-        }
-        else if (event.getSource() == this.maximumRangeValue) {
+        } else if (event.getSource() == this.maximumRangeValue) {
             validateMaximum();
         }
     }
 
     /**
-     *  Toggle the auto range setting.
+     * Toggle the auto range setting.
      */
     public void toggleAutoRange() {
         this.autoRange = this.autoRangeCheckBox.isSelected();
@@ -353,8 +349,7 @@ class DefaultValueAxisEditor extends DefaultAxisEditor
             this.minimumRangeValue.setEnabled(false);
             this.maximumRangeValue.setText(Double.toString(this.maximumValue));
             this.maximumRangeValue.setEnabled(false);
-        }
-        else {
+        } else {
             this.minimumRangeValue.setEnabled(true);
             this.maximumRangeValue.setEnabled(true);
         }
@@ -374,8 +369,7 @@ class DefaultValueAxisEditor extends DefaultAxisEditor
             if (newMin >= this.maximumValue) {
                 newMin = this.minimumValue;
             }
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             newMin = this.minimumValue;
         }
 
@@ -393,8 +387,7 @@ class DefaultValueAxisEditor extends DefaultAxisEditor
             if (newMax <= this.minimumValue) {
                 newMax = this.maximumValue;
             }
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             newMax = this.maximumValue;
         }
 
@@ -406,7 +399,7 @@ class DefaultValueAxisEditor extends DefaultAxisEditor
      * Sets the properties of the specified axis to match the properties
      * defined on this panel.
      *
-     * @param axis  the axis.
+     * @param axis the axis.
      */
     @Override
     public void setAxisProperties(Axis axis) {

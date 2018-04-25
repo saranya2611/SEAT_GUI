@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------
@@ -61,28 +61,38 @@ public class RectangleConstraint {
             0.0, null, LengthConstraintType.NONE,
             0.0, null, LengthConstraintType.NONE);
 
-    /** The width. */
+    /**
+     * The width.
+     */
     private double width;
 
-    /** The width range. */
+    /**
+     * The width range.
+     */
     private Range widthRange;
 
-    /** The width constraint type. */
+    /**
+     * The width constraint type.
+     */
     private LengthConstraintType widthConstraintType;
 
-    /** The fixed or maximum height. */
+    /**
+     * The fixed or maximum height.
+     */
     private double height;
 
     private Range heightRange;
 
-    /** The constraint type. */
+    /**
+     * The constraint type.
+     */
     private LengthConstraintType heightConstraintType;
 
     /**
      * Creates a new "fixed width and height" instance.
      *
-     * @param w  the fixed width.
-     * @param h  the fixed height.
+     * @param w the fixed width.
+     * @param h the fixed height.
      */
     public RectangleConstraint(double w, double h) {
         this(w, null, LengthConstraintType.FIXED,
@@ -92,8 +102,8 @@ public class RectangleConstraint {
     /**
      * Creates a new "range width and height" instance.
      *
-     * @param w  the width range.
-     * @param h  the height range.
+     * @param w the width range.
+     * @param h the height range.
      */
     public RectangleConstraint(Range w, Range h) {
         this(0.0, w, LengthConstraintType.RANGE,
@@ -104,8 +114,8 @@ public class RectangleConstraint {
      * Creates a new constraint with a range for the width and a
      * fixed height.
      *
-     * @param w  the width range.
-     * @param h  the fixed height.
+     * @param w the width range.
+     * @param h the fixed height.
      */
     public RectangleConstraint(Range w, double h) {
         this(0.0, w, LengthConstraintType.RANGE,
@@ -116,8 +126,8 @@ public class RectangleConstraint {
      * Creates a new constraint with a fixed width and a range for
      * the height.
      *
-     * @param w  the fixed width.
-     * @param h  the height range.
+     * @param w the fixed width.
+     * @param h the height range.
      */
     public RectangleConstraint(double w, Range h) {
         this(w, null, LengthConstraintType.FIXED,
@@ -127,12 +137,12 @@ public class RectangleConstraint {
     /**
      * Creates a new constraint.
      *
-     * @param w  the fixed or maximum width.
-     * @param widthRange  the width range.
+     * @param w                    the fixed or maximum width.
+     * @param widthRange           the width range.
      * @param widthConstraintType  the width type.
-     * @param h  the fixed or maximum height.
-     * @param heightRange  the height range.
-     * @param heightConstraintType  the height type.
+     * @param h                    the fixed or maximum height.
+     * @param heightRange          the height range.
+     * @param heightConstraintType the height type.
      */
     public RectangleConstraint(double w, Range widthRange,
                                LengthConstraintType widthConstraintType,
@@ -211,8 +221,7 @@ public class RectangleConstraint {
     public RectangleConstraint toUnconstrainedWidth() {
         if (this.widthConstraintType == LengthConstraintType.NONE) {
             return this;
-        }
-        else {
+        } else {
             return new RectangleConstraint(this.width, this.widthRange,
                     LengthConstraintType.NONE, this.height, this.heightRange,
                     this.heightConstraintType);
@@ -228,8 +237,7 @@ public class RectangleConstraint {
     public RectangleConstraint toUnconstrainedHeight() {
         if (this.heightConstraintType == LengthConstraintType.NONE) {
             return this;
-        }
-        else {
+        } else {
             return new RectangleConstraint(this.width, this.widthRange,
                     this.widthConstraintType, 0.0, this.heightRange,
                     LengthConstraintType.NONE);
@@ -240,8 +248,7 @@ public class RectangleConstraint {
      * Returns a constraint that matches this one on the height attributes,
      * but has a fixed width constraint.
      *
-     * @param width  the fixed width.
-     *
+     * @param width the fixed width.
      * @return A new constraint.
      */
     public RectangleConstraint toFixedWidth(double width) {
@@ -254,8 +261,7 @@ public class RectangleConstraint {
      * Returns a constraint that matches this one on the width attributes,
      * but has a fixed height constraint.
      *
-     * @param height  the fixed height.
-     *
+     * @param height the fixed height.
      * @return A new constraint.
      */
     public RectangleConstraint toFixedHeight(double height) {
@@ -268,8 +274,7 @@ public class RectangleConstraint {
      * Returns a constraint that matches this one on the height attributes,
      * but has a range width constraint.
      *
-     * @param range  the width range (<code>null</code> not permitted).
-     *
+     * @param range the width range (<code>null</code> not permitted).
      * @return A new constraint.
      */
     public RectangleConstraint toRangeWidth(Range range) {
@@ -283,8 +288,7 @@ public class RectangleConstraint {
      * Returns a constraint that matches this one on the width attributes,
      * but has a range height constraint.
      *
-     * @param range  the height range (<code>null</code> not permitted).
-     *
+     * @param range the height range (<code>null</code> not permitted).
      * @return A new constraint.
      */
     public RectangleConstraint toRangeHeight(Range range) {
@@ -311,8 +315,7 @@ public class RectangleConstraint {
      * Returns the new size that reflects the constraints defined by this
      * instance.
      *
-     * @param base  the base size.
-     *
+     * @param base the base size.
      * @return The constrained size.
      */
     public Size2D calculateConstrainedSize(Size2D base) {
@@ -320,36 +323,28 @@ public class RectangleConstraint {
         if (this.widthConstraintType == LengthConstraintType.NONE) {
             result.width = base.width;
             if (this.heightConstraintType == LengthConstraintType.NONE) {
-               result.height = base.height;
+                result.height = base.height;
+            } else if (this.heightConstraintType == LengthConstraintType.RANGE) {
+                result.height = this.heightRange.constrain(base.height);
+            } else if (this.heightConstraintType == LengthConstraintType.FIXED) {
+                result.height = this.height;
             }
-            else if (this.heightConstraintType == LengthConstraintType.RANGE) {
-               result.height = this.heightRange.constrain(base.height);
-            }
-            else if (this.heightConstraintType == LengthConstraintType.FIXED) {
-               result.height = this.height;
-            }
-        }
-        else if (this.widthConstraintType == LengthConstraintType.RANGE) {
+        } else if (this.widthConstraintType == LengthConstraintType.RANGE) {
             result.width = this.widthRange.constrain(base.width);
             if (this.heightConstraintType == LengthConstraintType.NONE) {
                 result.height = base.height;
-            }
-            else if (this.heightConstraintType == LengthConstraintType.RANGE) {
+            } else if (this.heightConstraintType == LengthConstraintType.RANGE) {
                 result.height = this.heightRange.constrain(base.height);
-            }
-            else if (this.heightConstraintType == LengthConstraintType.FIXED) {
+            } else if (this.heightConstraintType == LengthConstraintType.FIXED) {
                 result.height = this.height;
             }
-        }
-        else if (this.widthConstraintType == LengthConstraintType.FIXED) {
+        } else if (this.widthConstraintType == LengthConstraintType.FIXED) {
             result.width = this.width;
             if (this.heightConstraintType == LengthConstraintType.NONE) {
                 result.height = base.height;
-            }
-            else if (this.heightConstraintType == LengthConstraintType.RANGE) {
+            } else if (this.heightConstraintType == LengthConstraintType.RANGE) {
                 result.height = this.heightRange.constrain(base.height);
-            }
-            else if (this.heightConstraintType == LengthConstraintType.FIXED) {
+            } else if (this.heightConstraintType == LengthConstraintType.FIXED) {
                 result.height = this.height;
             }
         }

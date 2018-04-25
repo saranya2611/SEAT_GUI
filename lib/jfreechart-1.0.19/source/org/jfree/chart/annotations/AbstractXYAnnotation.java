@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -43,16 +43,15 @@
 
 package org.jfree.chart.annotations;
 
-import java.awt.Graphics2D;
-import java.awt.Shape;
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.entity.XYAnnotationEntity;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.util.ObjectUtilities;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * The interface that must be supported by annotations that are to be added to
@@ -61,10 +60,14 @@ import org.jfree.util.ObjectUtilities;
 public abstract class AbstractXYAnnotation extends AbstractAnnotation
         implements XYAnnotation {
 
-    /** The tool tip text. */
+    /**
+     * The tool tip text.
+     */
     private String toolTipText;
 
-    /** The URL. */
+    /**
+     * The URL.
+     */
     private String url;
 
     /**
@@ -82,7 +85,6 @@ public abstract class AbstractXYAnnotation extends AbstractAnnotation
      * the annotation.
      *
      * @return The tool tip text (possibly <code>null</code>).
-     *
      * @see #setToolTipText(String)
      */
     public String getToolTipText() {
@@ -92,8 +94,7 @@ public abstract class AbstractXYAnnotation extends AbstractAnnotation
     /**
      * Sets the tool tip text for the annotation.
      *
-     * @param text  the tool tip text (<code>null</code> permitted).
-     *
+     * @param text the tool tip text (<code>null</code> permitted).
      * @see #getToolTipText()
      */
     public void setToolTipText(String text) {
@@ -105,7 +106,6 @@ public abstract class AbstractXYAnnotation extends AbstractAnnotation
      * hyperlinks when an HTML image map is created for the chart.
      *
      * @return The URL (possibly <code>null</code>).
-     *
      * @see #setURL(String)
      */
     public String getURL() {
@@ -115,8 +115,7 @@ public abstract class AbstractXYAnnotation extends AbstractAnnotation
     /**
      * Sets the URL for the annotation.
      *
-     * @param url  the URL (<code>null</code> permitted).
-     *
+     * @param url the URL (<code>null</code> permitted).
      * @see #getURL()
      */
     public void setURL(String url) {
@@ -126,14 +125,14 @@ public abstract class AbstractXYAnnotation extends AbstractAnnotation
     /**
      * Draws the annotation.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param domainAxis  the domain axis.
-     * @param rangeAxis  the range axis.
-     * @param rendererIndex  the renderer index.
-     * @param info  if supplied, this info object will be populated with
-     *              entity information.
+     * @param g2            the graphics device.
+     * @param plot          the plot.
+     * @param dataArea      the data area.
+     * @param domainAxis    the domain axis.
+     * @param rangeAxis     the range axis.
+     * @param rendererIndex the renderer index.
+     * @param info          if supplied, this info object will be populated with
+     *                      entity information.
      */
     @Override
     public abstract void draw(Graphics2D g2, XYPlot plot, Rectangle2D dataArea,
@@ -145,11 +144,11 @@ public abstract class AbstractXYAnnotation extends AbstractAnnotation
      * A utility method for adding an {@link XYAnnotationEntity} to
      * a {@link PlotRenderingInfo} instance.
      *
-     * @param info  the plot rendering info (<code>null</code> permitted).
-     * @param hotspot  the hotspot area.
-     * @param rendererIndex  the renderer index.
-     * @param toolTipText  the tool tip text.
-     * @param urlText  the URL text.
+     * @param info          the plot rendering info (<code>null</code> permitted).
+     * @param hotspot       the hotspot area.
+     * @param rendererIndex the renderer index.
+     * @param toolTipText   the tool tip text.
+     * @param urlText       the URL text.
      */
     protected void addEntity(PlotRenderingInfo info,
                              Shape hotspot, int rendererIndex,
@@ -169,8 +168,7 @@ public abstract class AbstractXYAnnotation extends AbstractAnnotation
     /**
      * Tests this annotation for equality with an arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override

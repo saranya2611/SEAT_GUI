@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------------------
@@ -45,16 +45,6 @@
 
 package org.jfree.chart.renderer.xy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Stroke;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.TestUtilities;
@@ -67,6 +57,10 @@ import org.jfree.data.xy.TableXYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import java.awt.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link StackedXYAreaRenderer} class.
@@ -139,7 +133,7 @@ public class StackedXYAreaRendererTest {
         StackedXYAreaRenderer r1 = new StackedXYAreaRenderer();
         r1.setShapePaint(Color.red);
         r1.setShapeStroke(new BasicStroke(1.23f));
-        StackedXYAreaRenderer r2 = (StackedXYAreaRenderer) 
+        StackedXYAreaRenderer r2 = (StackedXYAreaRenderer)
                 TestUtilities.serialised(r1);
         assertEquals(r1, r2);
     }
@@ -187,10 +181,10 @@ public class StackedXYAreaRendererTest {
                     new NumberAxis("X"), new NumberAxis("Y"),
                     new StackedXYAreaRenderer());
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             fail("No exception should be thrown.");
         }
     }
@@ -222,10 +216,10 @@ public class StackedXYAreaRendererTest {
                     new NumberAxis("X"), new NumberAxis("Y"),
                     renderer);
             JFreeChart chart = new JFreeChart(plot);
-            /* BufferedImage image = */ chart.createBufferedImage(300, 200,
+            /* BufferedImage image = */
+            chart.createBufferedImage(300, 200,
                     null);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             fail("No exception should be thrown.");
         }
     }

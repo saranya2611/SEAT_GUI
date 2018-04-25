@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * ------------------
@@ -51,17 +51,6 @@
 
 package org.jfree.chart.title;
 
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import org.jfree.chart.block.AbstractBlock;
 import org.jfree.chart.block.Block;
 import org.jfree.chart.block.LengthConstraintType;
@@ -77,13 +66,22 @@ import org.jfree.util.PaintUtilities;
 import org.jfree.util.PublicCloneable;
 import org.jfree.util.ShapeUtilities;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 /**
  * The graphical item within a legend item.
  */
 public class LegendGraphic extends AbstractBlock
-                           implements Block, PublicCloneable {
+        implements Block, PublicCloneable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     static final long serialVersionUID = -1338791523854985009L;
 
     /**
@@ -109,10 +107,14 @@ public class LegendGraphic extends AbstractBlock
      */
     private RectangleAnchor shapeAnchor;
 
-    /** A flag that controls whether or not the shape is filled. */
+    /**
+     * A flag that controls whether or not the shape is filled.
+     */
     private boolean shapeFilled;
 
-    /** The fill paint for the shape. */
+    /**
+     * The fill paint for the shape.
+     */
     private transient Paint fillPaint;
 
     /**
@@ -123,13 +125,19 @@ public class LegendGraphic extends AbstractBlock
      */
     private GradientPaintTransformer fillPaintTransformer;
 
-    /** A flag that controls whether or not the shape outline is visible. */
+    /**
+     * A flag that controls whether or not the shape outline is visible.
+     */
     private boolean shapeOutlineVisible;
 
-    /** The outline paint for the shape. */
+    /**
+     * The outline paint for the shape.
+     */
     private transient Paint outlinePaint;
 
-    /** The outline stroke for the shape. */
+    /**
+     * The outline stroke for the shape.
+     */
     private transient Stroke outlineStroke;
 
     /**
@@ -138,20 +146,26 @@ public class LegendGraphic extends AbstractBlock
      */
     private boolean lineVisible;
 
-    /** The line. */
+    /**
+     * The line.
+     */
     private transient Shape line;
 
-    /** The line stroke. */
+    /**
+     * The line stroke.
+     */
     private transient Stroke lineStroke;
 
-    /** The line paint. */
+    /**
+     * The line paint.
+     */
     private transient Paint linePaint;
 
     /**
      * Creates a new legend graphic.
      *
-     * @param shape  the shape (<code>null</code> not permitted).
-     * @param fillPaint  the fill paint (<code>null</code> not permitted).
+     * @param shape     the shape (<code>null</code> not permitted).
+     * @param fillPaint the fill paint (<code>null</code> not permitted).
      */
     public LegendGraphic(Shape shape, Paint fillPaint) {
         ParamChecks.nullNotPermitted(shape, "shape");
@@ -171,7 +185,6 @@ public class LegendGraphic extends AbstractBlock
      * is visible.
      *
      * @return A boolean.
-     *
      * @see #setShapeVisible(boolean)
      */
     public boolean isShapeVisible() {
@@ -182,8 +195,7 @@ public class LegendGraphic extends AbstractBlock
      * Sets a flag that controls whether or not the shape is
      * visible.
      *
-     * @param visible  the flag.
-     *
+     * @param visible the flag.
      * @see #isShapeVisible()
      */
     public void setShapeVisible(boolean visible) {
@@ -194,7 +206,6 @@ public class LegendGraphic extends AbstractBlock
      * Returns the shape.
      *
      * @return The shape.
-     *
      * @see #setShape(Shape)
      */
     public Shape getShape() {
@@ -204,8 +215,7 @@ public class LegendGraphic extends AbstractBlock
     /**
      * Sets the shape.
      *
-     * @param shape  the shape.
-     *
+     * @param shape the shape.
      * @see #getShape()
      */
     public void setShape(Shape shape) {
@@ -217,7 +227,6 @@ public class LegendGraphic extends AbstractBlock
      * are filled.
      *
      * @return A boolean.
-     *
      * @see #setShapeFilled(boolean)
      */
     public boolean isShapeFilled() {
@@ -228,8 +237,7 @@ public class LegendGraphic extends AbstractBlock
      * Sets a flag that controls whether or not the shape is
      * filled.
      *
-     * @param filled  the flag.
-     *
+     * @param filled the flag.
      * @see #isShapeFilled()
      */
     public void setShapeFilled(boolean filled) {
@@ -240,7 +248,6 @@ public class LegendGraphic extends AbstractBlock
      * Returns the paint used to fill the shape.
      *
      * @return The fill paint.
-     *
      * @see #setFillPaint(Paint)
      */
     public Paint getFillPaint() {
@@ -250,8 +257,7 @@ public class LegendGraphic extends AbstractBlock
     /**
      * Sets the paint used to fill the shape.
      *
-     * @param paint  the paint.
-     *
+     * @param paint the paint.
      * @see #getFillPaint()
      */
     public void setFillPaint(Paint paint) {
@@ -263,10 +269,8 @@ public class LegendGraphic extends AbstractBlock
      * <code>GradientPaint</code>.
      *
      * @return The transformer (never <code>null</code>).
-     *
-     * @since 1.0.4.
-     *
      * @see #setFillPaintTransformer(GradientPaintTransformer)
+     * @since 1.0.4.
      */
     public GradientPaintTransformer getFillPaintTransformer() {
         return this.fillPaintTransformer;
@@ -276,11 +280,9 @@ public class LegendGraphic extends AbstractBlock
      * Sets the transformer used when the fill paint is an instance of
      * <code>GradientPaint</code>.
      *
-     * @param transformer  the transformer (<code>null</code> not permitted).
-     *
-     * @since 1.0.4
-     *
+     * @param transformer the transformer (<code>null</code> not permitted).
      * @see #getFillPaintTransformer()
+     * @since 1.0.4
      */
     public void setFillPaintTransformer(GradientPaintTransformer transformer) {
         ParamChecks.nullNotPermitted(transformer, "transformer");
@@ -291,7 +293,6 @@ public class LegendGraphic extends AbstractBlock
      * Returns a flag that controls whether the shape outline is visible.
      *
      * @return A boolean.
-     *
      * @see #setShapeOutlineVisible(boolean)
      */
     public boolean isShapeOutlineVisible() {
@@ -302,8 +303,7 @@ public class LegendGraphic extends AbstractBlock
      * Sets a flag that controls whether or not the shape outline
      * is visible.
      *
-     * @param visible  the flag.
-     *
+     * @param visible the flag.
      * @see #isShapeOutlineVisible()
      */
     public void setShapeOutlineVisible(boolean visible) {
@@ -314,7 +314,6 @@ public class LegendGraphic extends AbstractBlock
      * Returns the outline paint.
      *
      * @return The paint.
-     *
      * @see #setOutlinePaint(Paint)
      */
     public Paint getOutlinePaint() {
@@ -324,8 +323,7 @@ public class LegendGraphic extends AbstractBlock
     /**
      * Sets the outline paint.
      *
-     * @param paint  the paint.
-     *
+     * @param paint the paint.
      * @see #getOutlinePaint()
      */
     public void setOutlinePaint(Paint paint) {
@@ -336,7 +334,6 @@ public class LegendGraphic extends AbstractBlock
      * Returns the outline stroke.
      *
      * @return The stroke.
-     *
      * @see #setOutlineStroke(Stroke)
      */
     public Stroke getOutlineStroke() {
@@ -346,8 +343,7 @@ public class LegendGraphic extends AbstractBlock
     /**
      * Sets the outline stroke.
      *
-     * @param stroke  the stroke.
-     *
+     * @param stroke the stroke.
      * @see #getOutlineStroke()
      */
     public void setOutlineStroke(Stroke stroke) {
@@ -358,7 +354,6 @@ public class LegendGraphic extends AbstractBlock
      * Returns the shape anchor.
      *
      * @return The shape anchor.
-     *
      * @see #getShapeAnchor()
      */
     public RectangleAnchor getShapeAnchor() {
@@ -369,8 +364,7 @@ public class LegendGraphic extends AbstractBlock
      * Sets the shape anchor.  This defines a point on the shapes bounding
      * rectangle that will be used to align the shape to a location.
      *
-     * @param anchor  the anchor (<code>null</code> not permitted).
-     *
+     * @param anchor the anchor (<code>null</code> not permitted).
      * @see #setShapeAnchor(RectangleAnchor)
      */
     public void setShapeAnchor(RectangleAnchor anchor) {
@@ -382,7 +376,6 @@ public class LegendGraphic extends AbstractBlock
      * Returns the shape location.
      *
      * @return The shape location.
-     *
      * @see #setShapeLocation(RectangleAnchor)
      */
     public RectangleAnchor getShapeLocation() {
@@ -393,8 +386,7 @@ public class LegendGraphic extends AbstractBlock
      * Sets the shape location.  This defines a point within the drawing
      * area that will be used to align the shape to.
      *
-     * @param location  the location (<code>null</code> not permitted).
-     *
+     * @param location the location (<code>null</code> not permitted).
      * @see #getShapeLocation()
      */
     public void setShapeLocation(RectangleAnchor location) {
@@ -406,7 +398,6 @@ public class LegendGraphic extends AbstractBlock
      * Returns the flag that controls whether or not the line is visible.
      *
      * @return A boolean.
-     *
      * @see #setLineVisible(boolean)
      */
     public boolean isLineVisible() {
@@ -416,8 +407,7 @@ public class LegendGraphic extends AbstractBlock
     /**
      * Sets the flag that controls whether or not the line is visible.
      *
-     * @param visible  the flag.
-     *
+     * @param visible the flag.
      * @see #isLineVisible()
      */
     public void setLineVisible(boolean visible) {
@@ -428,7 +418,6 @@ public class LegendGraphic extends AbstractBlock
      * Returns the line centered about (0, 0).
      *
      * @return The line.
-     *
      * @see #setLine(Shape)
      */
     public Shape getLine() {
@@ -439,8 +428,7 @@ public class LegendGraphic extends AbstractBlock
      * Sets the line.  A Shape is used here, because then you can use Line2D,
      * GeneralPath or any other Shape to represent the line.
      *
-     * @param line  the line.
-     *
+     * @param line the line.
      * @see #getLine()
      */
     public void setLine(Shape line) {
@@ -451,7 +439,6 @@ public class LegendGraphic extends AbstractBlock
      * Returns the line paint.
      *
      * @return The paint.
-     *
      * @see #setLinePaint(Paint)
      */
     public Paint getLinePaint() {
@@ -461,8 +448,7 @@ public class LegendGraphic extends AbstractBlock
     /**
      * Sets the line paint.
      *
-     * @param paint  the paint.
-     *
+     * @param paint the paint.
      * @see #getLinePaint()
      */
     public void setLinePaint(Paint paint) {
@@ -473,7 +459,6 @@ public class LegendGraphic extends AbstractBlock
      * Returns the line stroke.
      *
      * @return The stroke.
-     *
      * @see #setLineStroke(Stroke)
      */
     public Stroke getLineStroke() {
@@ -483,8 +468,7 @@ public class LegendGraphic extends AbstractBlock
     /**
      * Sets the line stroke.
      *
-     * @param stroke  the stroke.
-     *
+     * @param stroke the stroke.
      * @see #getLineStroke()
      */
     public void setLineStroke(Stroke stroke) {
@@ -495,9 +479,8 @@ public class LegendGraphic extends AbstractBlock
      * Arranges the contents of the block, within the given constraints, and
      * returns the block size.
      *
-     * @param g2  the graphics device.
-     * @param constraint  the constraint (<code>null</code> not permitted).
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint (<code>null</code> not permitted).
      * @return The block size (in Java2D units, never <code>null</code>).
      */
     @Override
@@ -509,33 +492,25 @@ public class LegendGraphic extends AbstractBlock
         if (w == LengthConstraintType.NONE) {
             if (h == LengthConstraintType.NONE) {
                 contentSize = arrangeNN(g2);
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
+                throw new RuntimeException("Not yet implemented.");
+            } else if (h == LengthConstraintType.FIXED) {
                 throw new RuntimeException("Not yet implemented.");
             }
-            else if (h == LengthConstraintType.FIXED) {
-                throw new RuntimeException("Not yet implemented.");
-            }
-        }
-        else if (w == LengthConstraintType.RANGE) {
+        } else if (w == LengthConstraintType.RANGE) {
             if (h == LengthConstraintType.NONE) {
                 throw new RuntimeException("Not yet implemented.");
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
+                throw new RuntimeException("Not yet implemented.");
+            } else if (h == LengthConstraintType.FIXED) {
                 throw new RuntimeException("Not yet implemented.");
             }
-            else if (h == LengthConstraintType.FIXED) {
-                throw new RuntimeException("Not yet implemented.");
-            }
-        }
-        else if (w == LengthConstraintType.FIXED) {
+        } else if (w == LengthConstraintType.FIXED) {
             if (h == LengthConstraintType.NONE) {
                 throw new RuntimeException("Not yet implemented.");
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
                 throw new RuntimeException("Not yet implemented.");
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
                 contentSize = new Size2D(contentConstraint.getWidth(),
                         contentConstraint.getHeight());
             }
@@ -550,9 +525,8 @@ public class LegendGraphic extends AbstractBlock
      * determined by the bounds of the shape and/or line drawn to represent
      * the series.
      *
-     * @param g2  the graphics device.
-     *
-     * @return  The content size.
+     * @param g2 the graphics device.
+     * @return The content size.
      */
     protected Size2D arrangeNN(Graphics2D g2) {
         Rectangle2D contentSize = new Rectangle2D.Double();
@@ -568,8 +542,8 @@ public class LegendGraphic extends AbstractBlock
     /**
      * Draws the graphic item within the specified area.
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
+     * @param g2   the graphics device.
+     * @param area the area.
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D area) {
@@ -615,10 +589,9 @@ public class LegendGraphic extends AbstractBlock
     /**
      * Draws the block within the specified area.
      *
-     * @param g2  the graphics device.
-     * @param area  the area.
-     * @param params  ignored (<code>null</code> permitted).
-     *
+     * @param g2     the graphics device.
+     * @param area   the area.
+     * @param params ignored (<code>null</code> permitted).
      * @return Always <code>null</code>.
      */
     @Override
@@ -631,8 +604,7 @@ public class LegendGraphic extends AbstractBlock
      * Tests this <code>LegendGraphic</code> instance for equality with an
      * arbitrary object.
      *
-     * @param obj  the object (<code>null</code> permitted).
-     *
+     * @param obj the object (<code>null</code> permitted).
      * @return A boolean.
      */
     @Override
@@ -704,7 +676,6 @@ public class LegendGraphic extends AbstractBlock
      * Returns a clone of this <code>LegendGraphic</code> instance.
      *
      * @return A clone of this <code>LegendGraphic</code> instance.
-     *
      * @throws CloneNotSupportedException if there is a problem cloning.
      */
     @Override
@@ -718,9 +689,8 @@ public class LegendGraphic extends AbstractBlock
     /**
      * Provides serialization support.
      *
-     * @param stream  the output stream.
-     *
-     * @throws IOException  if there is an I/O error.
+     * @param stream the output stream.
+     * @throws IOException if there is an I/O error.
      */
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
@@ -736,10 +706,9 @@ public class LegendGraphic extends AbstractBlock
     /**
      * Provides serialization support.
      *
-     * @param stream  the input stream.
-     *
-     * @throws IOException  if there is an I/O error.
-     * @throws ClassNotFoundException  if there is a classpath problem.
+     * @param stream the input stream.
+     * @throws IOException            if there is an I/O error.
+     * @throws ClassNotFoundException if there is a classpath problem.
      */
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {

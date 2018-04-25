@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -------------------------
@@ -46,27 +46,6 @@
 
 package org.jfree.chart.renderer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import org.junit.Test;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-
 import org.jfree.chart.TestUtilities;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.NumberAxis;
@@ -80,6 +59,14 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.ui.TextAnchor;
+import org.junit.Test;
+
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link AbstractRenderer} class.
@@ -439,7 +426,7 @@ public class AbstractRendererTest {
         r2.setSeriesItemLabelFont(1, new Font(Font.DIALOG, Font.PLAIN, 5));
         assertNotEquals(r1, r2);
     }
-    
+
     @Test
     public void testEquals_ObjectList2() {
         BarRenderer r1 = new BarRenderer();
@@ -471,13 +458,6 @@ public class AbstractRendererTest {
         assertEquals(r1, r2);
         r2.setSeriesNegativeItemLabelPosition(1, new ItemLabelPosition(ItemLabelAnchor.INSIDE1, TextAnchor.CENTER));
         assertNotEquals(r1, r2);
-    }
-
-    private static class TestRenderer extends XYLineAndShapeRenderer {
-        @Override
-        public void setTreatLegendShapeAsLine(boolean flag) {
-            super.setTreatLegendShapeAsLine(flag);
-        }
     }
 
     /**
@@ -621,26 +601,6 @@ public class AbstractRendererTest {
     }
 
     /**
-     * A utility class for listening to changes to a renderer.
-     */
-    static class MyRendererChangeListener implements RendererChangeListener {
-
-        /** The last event received. */
-        public RendererChangeEvent lastEvent;
-
-        /**
-         * Creates a new instance.
-         */
-        public MyRendererChangeListener() {
-            this.lastEvent = null;
-        }
-        @Override
-        public void rendererChanged(RendererChangeEvent event) {
-            this.lastEvent = event;
-        }
-    }
-
-    /**
      * A check for cloning.
      */
     @Test
@@ -768,7 +728,7 @@ public class AbstractRendererTest {
         r.setPositiveItemLabelPosition(new ItemLabelPosition(
                 ItemLabelAnchor.INSIDE1, TextAnchor.BASELINE_LEFT));
         assertEquals(new ItemLabelPosition(
-                ItemLabelAnchor.INSIDE1, TextAnchor.BASELINE_LEFT),
+                        ItemLabelAnchor.INSIDE1, TextAnchor.BASELINE_LEFT),
                 r.getPositiveItemLabelPosition(0, 0));
     }
 
@@ -782,7 +742,7 @@ public class AbstractRendererTest {
         r.setNegativeItemLabelPosition(new ItemLabelPosition(
                 ItemLabelAnchor.INSIDE1, TextAnchor.BASELINE_LEFT));
         assertEquals(new ItemLabelPosition(
-                ItemLabelAnchor.INSIDE1, TextAnchor.BASELINE_LEFT),
+                        ItemLabelAnchor.INSIDE1, TextAnchor.BASELINE_LEFT),
                 r.getNegativeItemLabelPosition(0, 0));
     }
 
@@ -794,7 +754,7 @@ public class AbstractRendererTest {
 
         RendererChangeDetector detector = new RendererChangeDetector();
         BarRenderer r1 = new BarRenderer();  // have to use a subclass of
-                                             // AbstractRenderer
+        // AbstractRenderer
         r1.addChangeListener(detector);
 
         // PAINT
@@ -920,7 +880,7 @@ public class AbstractRendererTest {
         // NEGATIVE ITEM LABEL ANCHOR
         detector.setNotified(false);
         r1.setNegativeItemLabelPosition(
-            new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER)
+                new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER)
         );
         assertTrue(detector.getNotified());
 
@@ -952,8 +912,7 @@ public class AbstractRendererTest {
         assertEquals(r1, r2);
         try {
             r2.notifyListeners(new RendererChangeEvent(r2));
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             fail("No exception should be thrown.");  // failed
         }
     }
@@ -987,7 +946,8 @@ public class AbstractRendererTest {
 
         // now check autoPopulate==true
         r.setAutoPopulateSeriesPaint(true);
-        /*CategoryPlot plot =*/ new CategoryPlot(null, new CategoryAxis(
+        /*CategoryPlot plot =*/
+        new CategoryPlot(null, new CategoryAxis(
                 "Category"), new NumberAxis("Value"), r);
         assertEquals(DefaultDrawingSupplier.DEFAULT_PAINT_SEQUENCE[0],
                 r.lookupSeriesPaint(0));
@@ -1009,7 +969,8 @@ public class AbstractRendererTest {
 
         // now check autoPopulate==true
         r.setAutoPopulateSeriesFillPaint(true);
-        /*CategoryPlot plot =*/ new CategoryPlot(null, new CategoryAxis(
+        /*CategoryPlot plot =*/
+        new CategoryPlot(null, new CategoryAxis(
                 "Category"), new NumberAxis("Value"), r);
         assertEquals(DefaultDrawingSupplier.DEFAULT_FILL_PAINT_SEQUENCE[0],
                 r.lookupSeriesFillPaint(0));
@@ -1031,11 +992,42 @@ public class AbstractRendererTest {
 
         // now check autoPopulate==true
         r.setAutoPopulateSeriesOutlinePaint(true);
-        /*CategoryPlot plot =*/ new CategoryPlot(null, new CategoryAxis(
+        /*CategoryPlot plot =*/
+        new CategoryPlot(null, new CategoryAxis(
                 "Category"), new NumberAxis("Value"), r);
         assertEquals(DefaultDrawingSupplier.DEFAULT_OUTLINE_PAINT_SEQUENCE[0],
                 r.lookupSeriesOutlinePaint(0));
         assertNotNull(r.getSeriesOutlinePaint(0));
+    }
+
+    private static class TestRenderer extends XYLineAndShapeRenderer {
+        @Override
+        public void setTreatLegendShapeAsLine(boolean flag) {
+            super.setTreatLegendShapeAsLine(flag);
+        }
+    }
+
+    /**
+     * A utility class for listening to changes to a renderer.
+     */
+    static class MyRendererChangeListener implements RendererChangeListener {
+
+        /**
+         * The last event received.
+         */
+        public RendererChangeEvent lastEvent;
+
+        /**
+         * Creates a new instance.
+         */
+        public MyRendererChangeListener() {
+            this.lastEvent = null;
+        }
+
+        @Override
+        public void rendererChanged(RendererChangeEvent event) {
+            this.lastEvent = event;
+        }
     }
 
 }

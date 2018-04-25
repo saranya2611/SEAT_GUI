@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
  * Other names may be trademarks of their respective owners.]
  *
  * -----------------------------
@@ -43,67 +43,21 @@
 
 package org.jfree.chart.annotations;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
-
 import org.jfree.chart.TestUtilities;
-
 import org.jfree.ui.Drawable;
 import org.jfree.util.PublicCloneable;
 import org.junit.Test;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for the {@link XYDrawableAnnotation} class.
  */
 public class XYDrawableAnnotationTest {
-
-    static class TestDrawable implements Drawable, Cloneable, Serializable {
-        /**
-         * Default constructor.
-         */
-        public TestDrawable() {
-        }
-        /**
-         * Draws something.
-         * @param g2  the graphics device.
-         * @param area  the area in which to draw.
-         */
-        @Override
-        public void draw(Graphics2D g2, Rectangle2D area) {
-            // do nothing
-        }
-        /**
-         * Tests this object for equality with an arbitrary object.
-         * @param obj  the object to test against (<code>null</code> permitted).
-         * @return A boolean.
-         */
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            if (!(obj instanceof TestDrawable)) {
-                return false;
-            }
-            return true;
-        }
-        /**
-         * Returns a clone.
-         *
-         * @return A clone.
-         *
-         * @throws CloneNotSupportedException if there is a problem cloning.
-         */
-        @Override
-        public Object clone() throws CloneNotSupportedException {
-            return super.clone();
-        }
-    }
 
     /**
      * Confirm that the equals method can distinguish all the required fields.
@@ -199,6 +153,53 @@ public class XYDrawableAnnotationTest {
                 200.0, new TestDrawable());
         XYDrawableAnnotation a2 = (XYDrawableAnnotation) TestUtilities.serialised(a1);
         assertEquals(a1, a2);
+    }
+
+    static class TestDrawable implements Drawable, Cloneable, Serializable {
+        /**
+         * Default constructor.
+         */
+        public TestDrawable() {
+        }
+
+        /**
+         * Draws something.
+         *
+         * @param g2   the graphics device.
+         * @param area the area in which to draw.
+         */
+        @Override
+        public void draw(Graphics2D g2, Rectangle2D area) {
+            // do nothing
+        }
+
+        /**
+         * Tests this object for equality with an arbitrary object.
+         *
+         * @param obj the object to test against (<code>null</code> permitted).
+         * @return A boolean.
+         */
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof TestDrawable)) {
+                return false;
+            }
+            return true;
+        }
+
+        /**
+         * Returns a clone.
+         *
+         * @return A clone.
+         * @throws CloneNotSupportedException if there is a problem cloning.
+         */
+        @Override
+        public Object clone() throws CloneNotSupportedException {
+            return super.clone();
+        }
     }
 
 }
