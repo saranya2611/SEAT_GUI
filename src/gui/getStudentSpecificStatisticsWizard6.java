@@ -2,6 +2,7 @@ package gui;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import demo.LegendTitleToImageDemo1;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.plot.PiePlot;
@@ -20,14 +21,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import static gui.formValues.studentPreferenceListNameWithPath;
 
 
 public class getStudentSpecificStatisticsWizard6 extends JFrame {
     public String perStudentAllottedCoursesFileName, perStudentStatisticsFileName, rejectionReasoningsFileName;
-    String line, chosenDirectoryName, studentPreferenceListName, errorMsg, enteredRollNumber, matchedString;
-    int lineNo;
+    String line, chosenDirectoryName, studentPreferenceListName, errorMsg, enteredRollNumber, matchedString, matchedString1;
+    int courseCapacityFullFlag;
     String[] inputLine;
     String splitByComma = ",";
     String splitByNewLine = "\n";
@@ -52,6 +54,9 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
     private JButton studentPreferenceCheckButtonWizard6;
     private JButton studentPreferenceBrowseButtonWizard6;
     private JButton goToWizard5FromWizard6;
+    private PieChart coreElectivePiePlotDemo;
+    private PieChart electiveAcceptRejectPiePlotDemo;
+    private int totalNumberOfRejectedCourses;
 
     // Constructor function
     public getStudentSpecificStatisticsWizard6() {
@@ -170,6 +175,7 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
         studentRollNumberGetDetailsButtonWizard6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Get student Roll number
                 enteredRollNumber = studentRollNumberTextFieldWizard6.getText();
                 System.out.println("\n Roll number is :::::: " + enteredRollNumber);
                 // (1) Student preference list
@@ -202,7 +208,7 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
                             studentStatsTextAreaWizard6.append("\n \n \n \n ==================================================== \n");
                             studentStatsTextAreaWizard6.append("\n Allotment statistics of   " + enteredRollNumber.toUpperCase() + " : ");
                             studentStatsTextAreaWizard6.append("\n-----------------------------------------------------");
-                            postProcessPerStudentAllottedCoursesForDisplay(arrayOfMatchingsFromAllottementStatistics, enteredRollNumber, perStudentStatisticsFileName);
+                            postProcessPerStudentAllottedElectivesForDisplay(arrayOfMatchingsFromAllottementStatistics, enteredRollNumber, perStudentStatisticsFileName);
                         }
                     } catch (IOException e1) {
                         e1.printStackTrace();
@@ -226,7 +232,7 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
                     }
 
                     // Display pie chart for core and elective
-                    postProcessPreferenceDetailsForChartDisplay(arrayOfMatchingsFromStudentPreferences, enteredRollNumber);
+                    postProcessPerStudentPreferencesForChartDisplay(arrayOfMatchingsFromStudentPreferences, enteredRollNumber);
 
                     // Get the per student allotted courses details
                     try {
@@ -239,7 +245,7 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
                         } else {
                             studentStatsTextAreaWizard6.append("\n \n Elective preferences allotted for  " + enteredRollNumber.toUpperCase() + " : ");
                             studentStatsTextAreaWizard6.append("\n----------------------------------------------------------------");
-                            postProcessPerStudentAllottedCoursesForDisplay(arrayOfMatchingsFromAllottedCourses, enteredRollNumber, perStudentAllottedCoursesFileName);
+                            postProcessPerStudentAllottedElectivesForDisplay(arrayOfMatchingsFromAllottedCourses, enteredRollNumber, perStudentAllottedCoursesFileName);
                         }
                     } catch (IOException e1) {
                         e1.printStackTrace();
@@ -256,14 +262,14 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
                         } else {
                             studentStatsTextAreaWizard6.append("\n \n Elective preferences rejected for  " + enteredRollNumber.toUpperCase() + " : ");
                             studentStatsTextAreaWizard6.append("\n----------------------------------------------------------------");
-                            postProcessPerStudentAllottedCoursesForDisplay(arrayOfMatchingsFromRejectionReasons, enteredRollNumber, rejectionReasoningsFileName);
+                            postProcessPerStudentAllottedElectivesForDisplay(arrayOfMatchingsFromRejectionReasons, enteredRollNumber, rejectionReasoningsFileName);
                         }
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
 
                     //Display pie chart for elective allocation and rejection - Hari
-                    postProcessPerStudentAllottedCoursesForChartDisplay(arrayOfMatchingsFromAllottedCourses, arrayOfMatchingsFromRejectionReasons, enteredRollNumber);
+                    postProcessPerStudentAllottedElectivesForChartDisplay(arrayOfMatchingsFromAllottedCourses, arrayOfMatchingsFromRejectionReasons, enteredRollNumber);
 
                 } else {
                     JOptionPane.showMessageDialog(null, "\n Roll number MUST be of form : [A-Z][A-Z][0-9][0-9][B][0-9][0-9][0-9] \n Eg: ME16B001, me16b001, Cs15b001, cs15b001\n ", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -324,7 +330,6 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
                 String loadedOutputFileContent = inputLine[0];
                 if (loadedOutputFileContent.toLowerCase().contains(subString.toLowerCase())) {
                     matchedString = loadedOutputFileContent;
-                    //System.out.println("matchedString : " + matchedString);
                     arrayOfMatchings.add(loadedOutputFileContent);
                     //System.out.println("content in index arrayOfMatchings[" + index + "] :" + loadedOutputFileContent);
                     index++;
@@ -365,12 +370,15 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
     }
 
     // Chart display function to post process students elective preferences
-    public void postProcessPreferenceDetailsForChartDisplay(ArrayList<String> arrayOfMatchings, String enteredRollNumber) {
+    public void postProcessPerStudentPreferencesForChartDisplay(ArrayList<String> arrayOfMatchings, String enteredRollNumber) {
+        if (coreElectivePiePlotDemo instanceof PieChart) {
+            coreElectivePiePlotDemo.dispose();
+        }
         int numberOfCore = 0, numberOfElec = 0;
         int iteration = 0;
         int entryCount = arrayOfMatchings.size();
-        // System.out.println("\n Length of array of matched contents: " + entryCount);
-        //System.out.println("\n Array with matched elements:" + arrayOfMatchings);
+        System.out.println("\n Length of array of matched contents: " + entryCount);
+        System.out.println("\n Array with matched elements:" + arrayOfMatchings);
         if (entryCount != 0) {
             while (iteration < entryCount) {
                 String matchedString = arrayOfMatchings.get(iteration);
@@ -381,34 +389,37 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
                 // }
                 iteration++;
             }
-            Slice[] slices = {
+            Slice[] coreElectivePiePlotSlices = {
                     new Slice(numberOfCore, "Core (" + Integer.toString(numberOfCore) + ")"), new Slice(numberOfElec, "Elective (" + Integer.toString(numberOfElec) + ")")
             };
-            PieChart_AWT demo = new PieChart_AWT(enteredRollNumber + ": Core and Elective", slices);
-            PiePlot plot = (PiePlot) demo.chart.getPlot();
-            plot.setSectionPaint(slices[0].name, new Color(20, 10, 50));
-            plot.setSectionPaint(slices[1].name, Color.red);
-            demo.setSize(560, 400);
-            RefineryUtilities.positionFrameOnScreen(demo, 0.1, 0.1);
-            demo.setVisible(true);
+            coreElectivePiePlotDemo = new PieChart(enteredRollNumber.toUpperCase() + ": Core and Elective Preferences", coreElectivePiePlotSlices);
+            PiePlot coreElectivePiePlot = (PiePlot) coreElectivePiePlotDemo.chart.getPlot();
+            coreElectivePiePlot.setSectionPaint(coreElectivePiePlotSlices[0].name, new Color(55, 94, 151)); // Sky blue color
+            coreElectivePiePlot.setSectionPaint(coreElectivePiePlotSlices[1].name, new Color(255, 187, 0)); // sunflower color
+            coreElectivePiePlotDemo.setSize(600, 600);
+            RefineryUtilities.positionFrameOnScreen(coreElectivePiePlotDemo, 0.1, 0.1);
+            coreElectivePiePlotDemo.setVisible(true);
         } else {
             studentStatsTextAreaWizard6.append("\n The student did not register any core courses as well as elective courses");
+            JOptionPane.showMessageDialog(null, "\n The student did not register any core courses as well as elective courses", "No student record found", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
     // General function to post process students elective preferences
-    public void postProcessPerStudentAllottedCoursesForDisplay(ArrayList<String> arrayOfMatchings, String substring, String fileName) {
+    public void postProcessPerStudentAllottedElectivesForDisplay(ArrayList<String> arrayOfMatchings, String substring, String fileName) {
 
         System.out.println("FileName in postProcessing " + fileName);
+        if (electiveAcceptRejectPiePlotDemo instanceof PieChart) {
+            electiveAcceptRejectPiePlotDemo.dispose();
+        }
 
         if (fileName.equals(formValues.perStudentAllottedCoursesFileName)) {
             int iteration = 1;
             //System.out.println("\n Length of array of matched contents: " + entryCount);
-            int courseCount = (arrayOfMatchings.get(0).split(splitByComma).length);
+            int allottedCourseCount = (arrayOfMatchings.get(0).split(splitByComma).length);
             //System.out.println("\n Array with matched elements:" + arrayOfMatchings);
-            if (courseCount > 1) {
-                while (iteration < courseCount) {
+            if (allottedCourseCount > 1) {
+                while (iteration < allottedCourseCount) {
                     String matchedString = arrayOfMatchings.get(0).split(splitByComma)[iteration].split("\\$")[0];
                     //System.out.println("Allotted elective: [" + iteration + "]" + matchedString);
                     studentStatsTextAreaWizard6.append("\n" + matchedString);
@@ -434,7 +445,8 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
 
         if (fileName.equals(formValues.rejectionReasonsFileName)) {
             int iteration = 0;
-            ArrayList<String> courseDict = new ArrayList<String>();
+            ArrayList<String> rejectedCourseDict = new ArrayList<String>();
+            ArrayList<String> allottedCourseDict = new ArrayList<String>();
             int index = 1, dictIndex = 0;
             int rejectionCount = arrayOfMatchings.size();
             if (rejectionCount > 0) {
@@ -442,13 +454,16 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
                     String matchedString = arrayOfMatchings.get(iteration);
                     //System.out.println("Rejected Course [" + iteration + "] :" + matchedString);
                     String rejectedCourseName = matchedString.split(splitByComma)[1].split("\\$")[0];
-                    if (!courseDict.contains(rejectedCourseName)) {
+                    System.out.println("Array of allotted course list : " + arrayOfMatchingsFromAllottedCourses);
+                    String listAsString = String.join(",", arrayOfMatchingsFromAllottedCourses);
+                    if ((!rejectedCourseDict.contains(rejectedCourseName)) && (!listAsString.contains(rejectedCourseName))) {
                         if (!matchedString.contains("Already allotted to inside department version of the course")) {
-                            courseDict.add(rejectedCourseName);
+                            rejectedCourseDict.add(rejectedCourseName);
                             dictIndex++;
                             String rejectedReasons = matchedString.split(splitByComma)[2];
                             studentStatsTextAreaWizard6.append("\n Rejected Elective : [" + index + "] : " + rejectedCourseName + " , Rejection Reason : " + rejectedReasons);
                             index++;
+                            totalNumberOfRejectedCourses = index;
                         }
                     }
                     iteration++;
@@ -460,49 +475,60 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
 
     }
 
-    // Chart display function to post process students elective preferences
-    public void postProcessPerStudentAllottedCoursesForChartDisplay(ArrayList<String> arrayOfMatchingsFromAllottedCourses, ArrayList<String> arrayOfMatchingsFromRejectionReasons, String enteredRollNumber) {
+    // Chart display function to post process students elective preferences 
+    public void postProcessPerStudentAllottedElectivesForChartDisplay(ArrayList<String> arrayOfMatchingsFromAllottedCourses, ArrayList<String> arrayOfMatchingsFromRejectionReasons, String enteredRollNumber) {
 
-        int iteration = 1, numberOfCourseAllocated = 0, numberOfCourseRejected = 0;
+        if (electiveAcceptRejectPiePlotDemo instanceof PieChart) {
+            electiveAcceptRejectPiePlotDemo.dispose();
+        }
+        int numberOfCourseAllocated = 0, numberOfCourseRejected = 0, numberOfCourseRejected_courseCapacityFull = 0;
         StringBuilder electiveAllocatedLegend = new StringBuilder();
         StringBuilder electiveRejectedLegend = new StringBuilder();
-        //System.out.println("\n Length of array of matched contents: " + entryCount);
-        int courseCount = (arrayOfMatchingsFromAllottedCourses.get(0).split(splitByComma).length);
-        //System.out.println("\n Array with matched elements:" + arrayOfMatchings);
-        electiveAllocatedLegend.append("Allocated(" + courseCount + ")\n---------");
-        if (courseCount > 1) {
-            while (iteration < courseCount) {
-                String matchedString = arrayOfMatchingsFromAllottedCourses.get(0).split(splitByComma)[iteration].split("\\$")[0];
+        StringBuilder electiveRejectedLegend_capacityFull = new StringBuilder();
+        int allottedCourseCount = (arrayOfMatchingsFromAllottedCourses.get(0).split(splitByComma).length);
+        int tempAllottedCourseCount = allottedCourseCount - 1;
+        System.out.println("\n Length of array of allotted courses: " + tempAllottedCourseCount);
+        System.out.println("\n Array with matched elements:" + arrayOfMatchings);
+        electiveAllocatedLegend.append("Allocated(" + tempAllottedCourseCount + ")\n---------");
+        int allottedIteration = 1;
+        if (allottedCourseCount > 1) {
+            while (allottedIteration < allottedCourseCount) {
+                String matchedString = arrayOfMatchingsFromAllottedCourses.get(0).split(splitByComma)[allottedIteration].split("\\$")[0];
                 //System.out.println("Allotted elective: [" + iteration + "]" + matchedString);
                 electiveAllocatedLegend.append("\n" + matchedString);
-                iteration++;
+                allottedIteration++;
             }
         } else {
             studentStatsTextAreaWizard6.append("\n All the preferred courses for this student were rejected (OR) the student did not register any elective courses ");
         }
-        numberOfCourseAllocated = iteration - 1;
-        iteration = 0;
-        ArrayList<String> courseDict = new ArrayList<String>();
-        int index = 1, dictIndex = 0;
+        numberOfCourseAllocated = allottedIteration - 1;
+
+        ArrayList<String> rejectionCourseDict = new ArrayList<String>();
+        ArrayList<String> capacityFullRejectionCourseDict = new ArrayList<String>();
+        int rejectionIndex = 1, rejectionDictIndex = 0, capacityFullRejectionIndex = 1, rejectionIteration = 0;
+        int tempRejectionCount = totalNumberOfRejectedCourses - 1; //(arrayOfMatchingsFromRejectionReasons.size());
+        System.out.println("\n Length of array of rejected courses: " + tempRejectionCount);
+        System.out.println("\n Array with matched rejection elements:" + arrayOfMatchingsFromRejectionReasons);
         int rejectionCount = arrayOfMatchingsFromRejectionReasons.size();
-        electiveRejectedLegend.append("Rejected(" + rejectionCount + ")\n--------");
+        electiveRejectedLegend.append("Rejected(" + tempRejectionCount + ")\n--------");
+
         if (rejectionCount > 0) {
-            while (iteration < rejectionCount) {
-                String matchedString = arrayOfMatchingsFromRejectionReasons.get(iteration);
-                //System.out.println("Rejected Course [" + iteration + "] :" + matchedString);
+            while (rejectionIteration < rejectionCount) {
+                String matchedString = arrayOfMatchingsFromRejectionReasons.get(rejectionIteration);
+                System.out.println("Rejected Course [" + rejectionIteration + "] :" + matchedString);
                 String rejectedCourseName = matchedString.split(splitByComma)[1].split("\\$")[0];
-                if (!courseDict.contains(rejectedCourseName)) {
+                String listAsString = String.join(",", arrayOfMatchingsFromAllottedCourses);
+                if ((!rejectionCourseDict.contains(rejectedCourseName)) && (!listAsString.contains(rejectedCourseName))) {
                     if (!matchedString.contains("Already allotted to inside department version of the course")) {
-                        courseDict.add(rejectedCourseName);
-                        dictIndex++;
-                        String rejectedReasons = matchedString.split(splitByComma)[2];
+                        rejectionCourseDict.add(rejectedCourseName);
+                        rejectionDictIndex++;
                         electiveRejectedLegend.append("\n" + rejectedCourseName);
-                        index++;
+                        rejectionIndex++;
                     }
                 }
-                iteration++;
+                rejectionIteration++;
             }
-            numberOfCourseRejected = courseDict.size();
+            numberOfCourseRejected = rejectionCourseDict.size();
         } else {
             studentStatsTextAreaWizard6.append("\n The student got allotted to all his preferences (OR) did not register for any elective courses");
         }
@@ -510,13 +536,34 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
             Slice[] slices = {
                     new Slice(numberOfCourseAllocated, electiveAllocatedLegend.toString()), new Slice(numberOfCourseRejected, electiveRejectedLegend.toString())
             };
-            PieChart_AWT demo = new PieChart_AWT(enteredRollNumber + ": Elective - Allocated and Rejected", slices);
-            PiePlot plot = (PiePlot) demo.chart.getPlot();
-            plot.setSectionPaint(slices[0].name, new Color(200, 100, 150));
-            plot.setSectionPaint(slices[1].name, Color.green);
-            demo.setSize(560, 400);
-            RefineryUtilities.positionFrameOnScreen(demo, 0.9, 0.1);
-            demo.setVisible(true);
+            electiveAcceptRejectPiePlotDemo = new PieChart(enteredRollNumber.toUpperCase() + ": Allotted and Rejected Electives", slices);
+            PiePlot electiveAcceptRejectPiePlot = (PiePlot) electiveAcceptRejectPiePlotDemo.chart.getPlot();
+            electiveAcceptRejectPiePlot.setSectionPaint(slices[0].name, new Color(63, 104, 28)); // grass green
+            electiveAcceptRejectPiePlot.setSectionPaint(slices[1].name, new Color(251, 101, 66)); // sunset color
+            electiveAcceptRejectPiePlotDemo.setSize(600, 600);
+            RefineryUtilities.positionFrameOnScreen(electiveAcceptRejectPiePlotDemo, 0.9, 0.1);
+            electiveAcceptRejectPiePlotDemo.setVisible(true);
+
+        } else if (numberOfCourseAllocated == 0 && numberOfCourseRejected != 0) {
+            Slice[] slices = {
+                    new Slice(numberOfCourseRejected, electiveRejectedLegend.toString())
+            };
+            electiveAcceptRejectPiePlotDemo = new PieChart(enteredRollNumber.toUpperCase() + ": Allotted and Rejected Electives", slices);
+            PiePlot electiveAcceptRejectPiePlot = (PiePlot) electiveAcceptRejectPiePlotDemo.chart.getPlot();
+            electiveAcceptRejectPiePlot.setSectionPaint(slices[0].name, new Color(251, 101, 66)); // sunset color
+            electiveAcceptRejectPiePlotDemo.setSize(600, 600);
+            RefineryUtilities.positionFrameOnScreen(electiveAcceptRejectPiePlotDemo, 0.9, 0.1);
+            electiveAcceptRejectPiePlotDemo.setVisible(true);
+        } else if (numberOfCourseAllocated != 0 && numberOfCourseRejected == 0) {
+            Slice[] slices = {
+                    new Slice(numberOfCourseAllocated, electiveAllocatedLegend.toString())
+            };
+            electiveAcceptRejectPiePlotDemo = new PieChart(enteredRollNumber.toUpperCase() + ": Allotted and Rejected Electives", slices);
+            PiePlot electiveAcceptRejectPiePlot = (PiePlot) electiveAcceptRejectPiePlotDemo.chart.getPlot();
+            electiveAcceptRejectPiePlot.setSectionPaint(slices[0].name, new Color(63, 104, 28)); // grass green
+            electiveAcceptRejectPiePlotDemo.setSize(600, 600);
+            RefineryUtilities.positionFrameOnScreen(electiveAcceptRejectPiePlotDemo, 0.9, 0.1);
+            electiveAcceptRejectPiePlotDemo.setVisible(true);
         }
     }
 
@@ -672,50 +719,13 @@ public class getStudentSpecificStatisticsWizard6 extends JFrame {
 }
 
 
-// Supporting data class for Chart
-class Slice {
-    double value;
-    String name;
-
-    public Slice(double value, String name) {
-        this.value = value;
-        this.name = name;
-    }
-}
-
-
-// Class to generate and display Chart
-class PieChart_AWT extends JFrame {
-
-    Slice[] slices;
-    JFreeChart chart;
-
-    public PieChart_AWT(String title, Slice[] slices) {
-        super(title);
-        this.slices = slices;
-        setContentPane(createDemoPanel());
-    }
-
-    private static JFreeChart createChart(PieDataset dataset) {
-        JFreeChart chart = ChartFactory.createPieChart(
-                "",   // chart title
-                dataset,          // data
-                false,             // include legend
-                true,
-                false);
-
-        return chart;
-    }
-
-    private PieDataset createDataset() {
-        DefaultPieDataset dataset = new DefaultPieDataset();
-        for (int i = 0; i < slices.length; i++)
-            dataset.setValue(slices[i].name, slices[i].value);
-        return dataset;
-    }
-
-    public JPanel createDemoPanel() {
-        chart = createChart(createDataset());
-        return new ChartPanel(chart);
-    }
-}
+//// Supporting data class for Chart
+//class Slice {
+//    double value;
+//    String name;
+//
+//    public Slice(double value, String name) {
+//        this.value = value;
+//        this.name = name;
+//    }
+//}

@@ -2,8 +2,9 @@ package gui;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import org.jfree.ui.RefineryUtilities;
 import services.CheckInputFormats;
-
+import org.jfree.chart.plot.PiePlot;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -37,6 +38,8 @@ public class getCourseSpecificStatisticsWizard7 extends JFrame {
     private JButton courseNumberGetDetailsButtonWizard7;
     private JButton courseListBrowseButtonWizard7;
     private JButton goToWizard5FromWizard7;
+    private PieChart courseCapacityPlotDemo;
+    private PieChart departmentwiseSplitPlotDemo;
 
     String line, chosenDirectoryName, courseListName, errorMsg, enteredCourseNumber, matchedString, courseName, slotsOfMatchedString;
     int lineNo;
@@ -152,6 +155,8 @@ public class getCourseSpecificStatisticsWizard7 extends JFrame {
                 courseStatsTextAreaWizard7.append("\n Capacity of this course given to SEAT : " + totalCapacity);
                 courseStatsTextAreaWizard7.append("\n Total number of  students allotted to this course : " + allottedCapacity);
                 courseStatsTextAreaWizard7.append("\n Allotted Students : " + allottedStudents);
+                //Display pie chart for course capacity allotted and vacant details
+                postProcessPerCourseAllotmentDetailsForChartDisplay(courseName, totalCapacity, allottedCapacity);
             } else {
                 courseStatsTextAreaWizard7.append("\n The courses is not in the courseList.csv");
             }
@@ -180,6 +185,53 @@ public class getCourseSpecificStatisticsWizard7 extends JFrame {
         }
     }
 
+    // Chart display function to display allotted and vacant capacity count
+    public void postProcessPerCourseAllotmentDetailsForChartDisplay(String courseName, int totalCapacity, int allottedCapacity) {
+        if (courseCapacityPlotDemo instanceof PieChart) {
+            courseCapacityPlotDemo.dispose();
+        }
+        StringBuilder allottedCapacityLegend = new StringBuilder();
+        StringBuilder vacantCapacityLegend = new StringBuilder();
+        int vacantCapacity = totalCapacity - allottedCapacity;
+        System.out.println("Total Capacity : " + totalCapacity + " Allotted Seats : " + allottedCapacity + " Vacant Seats : " + vacantCapacity);
+        if ((vacantCapacity > 0) && (allottedCapacity > 0)) {
+            allottedCapacityLegend.append("Allotted Seats (" + allottedCapacity + ")");
+            vacantCapacityLegend.append("Vacant Seats (" + vacantCapacity + ")");
+            Slice[] slices = {
+                    new Slice(allottedCapacity, allottedCapacityLegend.toString()), new Slice(vacantCapacity, vacantCapacityLegend.toString())
+            };
+            courseCapacityPlotDemo = new PieChart("Allotment details of " + courseName.toUpperCase() + " : ", slices);
+            PiePlot courseCapacityPiePlot = (PiePlot) courseCapacityPlotDemo.chart.getPlot();
+            courseCapacityPiePlot.setSectionPaint(slices[0].name, new Color(251, 101, 66)); // sunset color
+            courseCapacityPiePlot.setSectionPaint(slices[1].name, new Color(63, 104, 28)); // grass green
+            courseCapacityPlotDemo.setSize(600, 600);
+            RefineryUtilities.positionFrameOnScreen(courseCapacityPlotDemo, 0.9, 0.1);
+            courseCapacityPlotDemo.setVisible(true);
+        } else if ((vacantCapacity == 0) && (allottedCapacity > 0)) {
+            allottedCapacityLegend.append("Allotted Seats (" + allottedCapacity + ")\n Full capacity reached.");
+            Slice[] slices = {
+                    new Slice(allottedCapacity, allottedCapacityLegend.toString())
+            };
+            courseCapacityPlotDemo = new PieChart("Allotment details of " + courseName.toUpperCase() + " : ", slices);
+            PiePlot courseCapacityPiePlot = (PiePlot) courseCapacityPlotDemo.chart.getPlot();
+            courseCapacityPiePlot.setSectionPaint(slices[0].name, new Color(251, 101, 66)); // sunset color
+            courseCapacityPlotDemo.setSize(600, 600);
+            RefineryUtilities.positionFrameOnScreen(courseCapacityPlotDemo, 0.9, 0.1);
+            courseCapacityPlotDemo.setVisible(true);
+        } else if ((vacantCapacity == totalCapacity) && (allottedCapacity == 0)) {
+            vacantCapacityLegend.append("Vacant Seats (" + vacantCapacity + ")\n No allotments.");
+            Slice[] slices = {
+                    new Slice(vacantCapacity, vacantCapacityLegend.toString())
+            };
+            courseCapacityPlotDemo = new PieChart("Allotment details of " + courseName.toUpperCase() + " : ", slices);
+            PiePlot courseCapacityPiePlot = (PiePlot) courseCapacityPlotDemo.chart.getPlot();
+            courseCapacityPiePlot.setSectionPaint(slices[0].name, new Color(63, 104, 28)); // grass green
+            courseCapacityPlotDemo.setSize(600, 600);
+            RefineryUtilities.positionFrameOnScreen(courseCapacityPlotDemo, 0.9, 0.1);
+            courseCapacityPlotDemo.setVisible(true);
+        }
+
+    }
 
     // Constructor function
     public getCourseSpecificStatisticsWizard7() {
