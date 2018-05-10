@@ -9,8 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class loginPage extends JFrame {
+    database dB;
     public JLabel userNameLabel;
     public JLabel passwordLabel;
     public JPasswordField loginPasswordField;
@@ -18,7 +21,10 @@ public class loginPage extends JFrame {
     public JTextField userNameTextField;
     public JButton loginButton;
     public JPanel firstLoginPanel;
-    database dB;
+
+    public static void main(String[] args) {
+        loginPage frame = new loginPage();
+    }
 
     public loginPage() {
         super("Login Authentication Wizard");
@@ -71,10 +77,6 @@ public class loginPage extends JFrame {
 
         getContentPane().add(firstLoginPanel);
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        loginPage frame = new loginPage();
     }
 
     /**
